@@ -8,6 +8,7 @@ from collections import Counter
 import json
 import os
 from pathlib import Path
+import sys
 import time
 from typing import Any
 
@@ -42,6 +43,11 @@ async def collect_topics(topics: list[str], duration: float) -> dict[str, Any]:
 
 
 def main() -> int:
+    # GitHub's Windows runner can select cp1252 for redirected stdout. Runtime
+    # diagnostics include Chinese safety labels, so force UTF-8 rather than
+    # allowing successful assertions to be reported as an encoding failure.
+    if hasattr(sys.stdout, "reconfigure"):
+        sys.stdout.reconfigure(encoding="utf-8")
     parser = argparse.ArgumentParser()
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--duration", type=float, default=4.0)
