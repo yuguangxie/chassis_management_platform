@@ -5,7 +5,7 @@
 **Phase 05 passed remote Windows CI verification.** The accepted evidence is GitHub Actions run [`29135710440`](https://github.com/yuguangxie/chassis_management_platform/actions/runs/29135710440), workflow `quality-gates`, triggered by `push` on 2026-07-11.
 
 - Verified code commit: `24eefac4969015d68c4a959d0d224627262b3a4b`
-- Evidence archive commit: recorded after the archive commit is created; it is intentionally separate from the verified-code commit.
+- Evidence archive commit: `d028dd52e253336aef165e4c57d053f2f70f9fca` (documentation and downloaded CI evidence only).
 - CI results: `quality` success; `renderer-e2e` success.
 - Electron executed by the Windows runner: `v43.1.0`.
 
