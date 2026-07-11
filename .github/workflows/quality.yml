@@ -61,10 +61,11 @@ jobs:
         run: |
           npm.cmd --prefix desktop audit --audit-level=high *>&1 | Tee-Object docs/verification/phase-05/ci-runtime/quality/npm-audit.txt
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-          cmd /c "backend/.venv/Scripts/python.exe -m pip_audit --skip-editable > docs/verification/phase-05/ci-runtime/quality/pip-audit.txt 2>&1"
-          $auditExitCode = $LASTEXITCODE
-          Get-Content docs/verification/phase-05/ci-runtime/quality/pip-audit.txt
-          if ($auditExitCode -ne 0) { exit $auditExitCode }
+          $auditOut = 'docs/verification/phase-05/ci-runtime/quality/pip-audit.stdout.txt'
+          $auditErr = 'docs/verification/phase-05/ci-runtime/quality/pip-audit.stderr.txt'
+          $auditProcess = Start-Process -FilePath '.\backend\.venv\Scripts\python.exe' -ArgumentList @('-m', 'pip_audit', '--skip-editable') -Wait -PassThru -NoNewWindow -RedirectStandardOutput $auditOut -RedirectStandardError $auditErr
+          Get-Content $auditOut, $auditErr | Tee-Object docs/verification/phase-05/ci-runtime/quality/pip-audit.txt
+          if ($auditProcess.ExitCode -ne 0) { exit $auditProcess.ExitCode }
       - name: Collect frontend coverage
         if: always()
         shell: pwsh
