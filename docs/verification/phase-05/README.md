@@ -1,54 +1,60 @@
 # Phase 05 Verification: Quality Engineering and Reproducible Delivery
 
-Verification date: 2026-07-10 (Asia/Shanghai)
-
 ## Gate Result
 
-**Phase 05 is pending remote Windows CI verification.** The local loopback evidence below establishes the quality baseline only; it is not a Stage 05 closure because it was captured before the locked Electron 43.1.0 binary had been verified. The final gate can be marked passed only after the two `quality-gates` Windows jobs succeed and their artifacts are archived under `ci/<RUN_ID>/`.
+**Phase 05 passed remote Windows CI verification.** The accepted evidence is GitHub Actions run [`29135710440`](https://github.com/yuguangxie/chassis_management_platform/actions/runs/29135710440), workflow `quality-gates`, triggered by `push` on 2026-07-11.
 
-The accepted gate evidence is:
+- Verified code commit: `24eefac4969015d68c4a959d0d224627262b3a4b`
+- Evidence archive commit: recorded after the archive commit is created; it is intentionally separate from the verified-code commit.
+- CI results: `quality` success; `renderer-e2e` success.
+- Electron executed by the Windows runner: `v43.1.0`.
 
-| Gate | Result | Evidence |
+## Remote Windows Evidence
+
+| Gate | Result | Archived evidence |
 | --- | --- | --- |
-| Root isolated backend and simulator suites | PASS: 90 backend, 3 simulator | `tests/root-test.txt`, `tests/python/quality-manifest.json` |
-| Backend coverage gate | PASS: 74.73%, minimum 60% | `tests/python/backend-coverage.json` |
-| Simulator coverage gate | PASS: 43.33%, minimum 40% | `tests/python/simulator-coverage.json` |
-| Frontend lint, typecheck, Vitest and build | PASS: 9 Vitest tests | `tests/frontend/` |
-| Frontend coverage baseline | PASS: 45.31% statements, 47.68% lines | `tests/frontend/vitest.txt` |
-| 11-page Electron E2E | PENDING remote Electron 43.1.0 verification | `ci/<RUN_ID>/artifacts/phase-05-e2e-<RUN_ID>/` |
-| stale-online control rejection | PENDING remote Electron 43.1.0 verification | `ci/<RUN_ID>/artifacts/phase-05-e2e-<RUN_ID>/e2e-summary.json` |
-| WS topic cadence | PASS: signal batches 37 / 4s; statistics 4 / 4s; raw requires opt-in | `e2e/runtime/runtime_websocket_metrics.json` |
-| 1000fps / 10-minute loopback | PASS: 1000fps; 60 samples; no sustained backlog, drops, or unhealthy telemetry | `e2e/stress-10m/stress_1000fps.json` |
-| Dependency audit | PASS: npm high/critical 0; pip-audit no known vulnerabilities | `npm-audit.txt`, `pip-audit.txt` |
-| Bundle budget | PASS: entry 20,962 gzip bytes; ECharts 367,892; total JS 497,676 | `bundle-report.json` |
+| Isolated backend and simulator suites | PASS | `ci/29135710440/artifacts/phase-05-quality-29135710440/python/quality-manifest.json` |
+| Backend coverage | PASS: 74.66% statements | `ci/29135710440/artifacts/phase-05-quality-29135710440/python/backend-coverage.json` |
+| Simulator coverage | PASS: 43.33% statements | `ci/29135710440/artifacts/phase-05-quality-29135710440/python/simulator-coverage.json` |
+| Frontend lint, typecheck, Vitest and build | PASS: 6 files, 9 tests | `ci/29135710440/artifacts/phase-05-quality-29135710440/{lint,typecheck,vitest,build}.txt` |
+| Frontend coverage baseline | PASS: 45.31% statements, 47.68% lines | `ci/29135710440/artifacts/phase-05-quality-29135710440/frontend-coverage/coverage-final.json` |
+| Dependency audits | PASS: npm high/critical 0; pip-audit no known vulnerabilities | `ci/29135710440/artifacts/phase-05-quality-29135710440/{npm-audit,pip-audit}.txt` |
+| Bundle budget | PASS: ECharts 367,892 gzip bytes; total JS 497,643 gzip bytes | `ci/29135710440/artifacts/phase-05-quality-29135710440/bundle.txt` |
+| Electron E2E | PASS: 11 pages x 2 viewports = 22 screenshots | `ci/29135710440/artifacts/phase-05-e2e-29135710440/` |
+| Page-level scroll | PASS: 0 failures | `ci/29135710440/artifacts/phase-05-e2e-29135710440/e2e-summary.json` |
+| Failed-to-fetch banners | PASS: 0 | `ci/29135710440/artifacts/phase-05-e2e-29135710440/e2e-summary.json` |
+| White native controls | PASS: 0 | `ci/29135710440/artifacts/phase-05-e2e-29135710440/e2e-summary.json` |
+| Renderer errors | PASS: 0 console and page errors | `ci/29135710440/artifacts/phase-05-e2e-29135710440/e2e-summary.json` |
+| Simulator offline safety gate | PASS: offline after 2319 ms; engineer control request returned HTTP 409 | `ci/29135710440/artifacts/phase-05-e2e-29135710440/e2e-summary.json` |
+| Loopback boundary | PASS: non-loopback requests 0 | `ci/29135710440/artifacts/phase-05-e2e-29135710440/e2e-summary.json` |
+| WebSocket cadence and raw opt-in | PASS | `ci/29135710440/artifacts/phase-05-e2e-29135710440/runtime/runtime_websocket_metrics.json` |
+
+The final run metadata and full job log are [run.json](ci/29135710440/run.json) and [job-logs.txt](ci/29135710440/job-logs.txt). The E2E artifact contains exactly 22 PNG files under `phase-05-e2e-29135710440/screenshots/`; two additional PNG files in the quality artifact are Istanbul coverage-report assets and are not screenshots.
 
 ## Reproducible Commands
 
 From the repository root:
 
 ```powershell
-npm.cmd run test
-npm.cmd run test:e2e
-npm.cmd run test:integration
-npm.cmd run test:integration:long
+npm.cmd --prefix desktop run lint
+npm.cmd --prefix desktop run test
+npm.cmd --prefix desktop run typecheck
+npm.cmd --prefix desktop run build
+npm.cmd --prefix desktop run test:e2e
+npm.cmd --prefix desktop run test:integration
+npm.cmd --prefix desktop run test:e2e:verify
 ```
 
-The long integration command is the 1000fps, 600-second loopback workload. It may take about 11 minutes including runtime and screenshot checks. All Python test execution selects `backend/.venv` when available and isolates `CHASSIS_DATA_DIR` and UDP ports.
+The long 1000fps/600-second workload remains an explicit `workflow_dispatch` option (`long_runtime`) and is documented in the prior local evidence. It was not claimed as part of this push-triggered CI run.
 
-## What Changed
+## Safety Boundary
 
-- Added root quality wrappers, isolated test profile ports/data paths, test runtime configuration, coverage thresholds, and explicit database/report test fixtures.
-- Added Vitest, ESLint, Pinia/WebSocket/chart/router/theme tests, bundle budgets, and a repeatable Electron loopback E2E runner.
-- Added a GitHub Actions workflow for unit, coverage, lint, build, dependency audits, Electron E2E, runtime cadence and optional long soak evidence.
-- Added `backend/uv.lock` and retained `desktop/package-lock.json` for pinned dependency resolution.
+阶段五门禁已经通过远程 Windows CI 验证。
 
-## Known Limitations and Follow-up
+阶段六可以开始。阶段六仍然只能在封闭的 `127.0.0.1` / Python simulator 环境中执行。真实车辆、真实台架或外部设备接入仍然需要安全负责人书面批准。
 
-1. Earlier local capture evidence predates the Electron 43.1.0 verification requirement and is not accepted as a release gate. The E2E runner now resolves only the installed desktop dependency and rejects any executable override. The current `e2e/` directory is regenerated by a verification run.
-2. Frontend coverage is a baseline gate, not sufficient page-level coverage. `BarChart.vue`, `DonutChart.vue`, and broader dashboard paths remain below the next desired threshold; raise coverage during phase 06 without loosening the current 45% statement/line gate.
-3. ECharts is split into a dedicated 367.9KB gzip vendor chunk but remains above Vite's generic 500KB raw warning. The explicit budget passes; further per-chart imports are an optimization, not a reason to disable the budget.
-4. CI was created but not executed by a remote GitHub runner in this local verification. The workflow itself is reviewed as configuration evidence only.
+The CI workflow rejects `CHASSIS_E2E_ELECTRON`, runs only the installed Electron 43.1.0 binary, and uses test-profile loopback UDP/HTTP/WebSocket endpoints. It does not authorize a real vehicle connection.
 
-## Safety Statement
+## Non-blocking Follow-up
 
-This gate does not authorize real vehicle connection. The project remains restricted to Mock, simulator, and approved closed-loop bench environments until phase 06 packaging/deployment and separate safety approval are complete.
+Frontend coverage is an enforced baseline rather than broad page coverage: `BarChart.vue`, `DonutChart.vue`, and several dashboard paths need additional focused tests. The ECharts split is within the explicit budget, but further per-chart imports remain a performance optimization.

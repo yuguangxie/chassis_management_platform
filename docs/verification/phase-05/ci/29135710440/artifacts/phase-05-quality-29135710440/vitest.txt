@@ -1,0 +1,35 @@
+
+> chassis-eol-desktop@1.0.2 test
+> vitest run --coverage
+
+
+[1m[30m[46m RUN [49m[39m[22m [36mv4.1.10 [39m[90mD:/a/chassis_management_platform/chassis_management_platform/desktop[39m
+      [2mCoverage enabled with [22m[33mv8[39m
+
+ [32m✓[39m src/api/websocket.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 129[2mms[22m[39m
+ [32m✓[39m src/stores/can.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 115[2mms[22m[39m
+ [32m✓[39m src/stores/signals.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 32[2mms[22m[39m
+ [32m✓[39m src/styles/global.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 9[2mms[22m[39m
+ [32m✓[39m src/components/charts/RealtimeLineChart.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 79[2mms[22m[39m
+ [32m✓[39m src/router/index.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 7[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m6 passed[39m[22m[90m (6)[39m
+[2m      Tests [22m [1m[32m9 passed[39m[22m[90m (9)[39m
+[2m   Start at [22m 02:06:15
+[2m   Duration [22m 3.57s[2m (transform 654ms, setup 282ms, import 1.21s, tests 371ms, environment 5.97s)[22m
+
+[34m % [39m[2mCoverage report from [22m[33mv8[39m
+-------------------|---------|----------|---------|---------|-------------------
+File               | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+-------------------|---------|----------|---------|---------|-------------------
+All files          |   45.31 |       50 |   51.35 |   47.68 |                   
+ api               |   77.01 |    68.88 |   76.47 |   81.42 |                   
+  websocket.ts     |   77.01 |    68.88 |   76.47 |   81.42 | ...56-62,83,90-92 
+ components/charts |   31.34 |    25.92 |   31.25 |   29.41 |                   
+  BarChart.vue     |       0 |        0 |       0 |       0 | 1-29              
+  DonutChart.vue   |       0 |        0 |       0 |       0 | 1-19              
+  ...LineChart.vue |   95.45 |    77.77 |     100 |     100 | 15,20             
+ stores            |   37.39 |     48.9 |   48.78 |   38.88 |                   
+  can.ts           |    36.7 |    52.22 |      50 |   38.75 | ...19,246,263-264 
+  signals.ts       |   38.88 |       28 |   46.15 |   39.13 | ...15-116,121,124 
+-------------------|---------|----------|---------|---------|-------------------

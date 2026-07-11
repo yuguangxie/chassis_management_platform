@@ -1,0 +1,9 @@
+{
+  "profile": "test",
+  "data_dir": "D:\\a\\chassis_management_platform\\chassis_management_platform\\docs\\verification\\phase-05\\ci-runtime\\quality\\python\\data",
+  "udp_port_base": "46250",
+  "results": {
+    "backend": 0,
+    "simulator": 0
+  }
+}

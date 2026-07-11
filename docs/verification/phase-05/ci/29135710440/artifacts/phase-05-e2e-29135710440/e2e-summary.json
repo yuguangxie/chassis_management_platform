@@ -1,0 +1,226 @@
+{
+  "electronVersion": "v43.1.0",
+  "pageCount": 11,
+  "viewportCount": 2,
+  "boundary": "127.0.0.1 loopback only",
+  "apiBase": "http://127.0.0.1:18800/api/v1",
+  "webPort": 15173,
+  "udpBase": 36473,
+  "passed": true,
+  "screenshot_assertions": {
+    "captures": 22,
+    "no_page_scroll": true,
+    "no_white_controls": true,
+    "no_failed_fetch_banner": true,
+    "no_renderer_console_errors": true,
+    "no_renderer_page_errors": true
+  },
+  "stale_online": {
+    "channels": [
+      {
+        "channel": "CAN1",
+        "online": false,
+        "transport_connected": true,
+        "receive_age_ms": 7531,
+        "queue_healthy": true,
+        "queue_depth": 0,
+        "queue_capacity": 512,
+        "queue_dropped": 0,
+        "pipeline_queue_depth": 0,
+        "pipeline_queue_capacity": 4096,
+        "pipeline_queue_dropped": 0,
+        "stale_dropped": 0,
+        "malformed_datagrams": 0,
+        "processing_errors": 0,
+        "fps": 359,
+        "rx_count": 12192,
+        "tx_count": 0,
+        "error_count": 0,
+        "last_frame_at": 1783735824.1264796,
+        "last_frame_hex": "01 00 00 00 00 00 00 00",
+        "protocol": "udp",
+        "local_ip": "127.0.0.1",
+        "local_port": 36473,
+        "device_ip": "127.0.0.1",
+        "device_port": 36573,
+        "recent_buffer_depth": 10000,
+        "recent_buffer_capacity": 10000
+      },
+      {
+        "channel": "CAN2",
+        "online": false,
+        "transport_connected": true,
+        "receive_age_ms": 7516,
+        "queue_healthy": true,
+        "queue_depth": 0,
+        "queue_capacity": 512,
+        "queue_dropped": 0,
+        "pipeline_queue_depth": 0,
+        "pipeline_queue_capacity": 4096,
+        "pipeline_queue_dropped": 0,
+        "stale_dropped": 0,
+        "malformed_datagrams": 0,
+        "processing_errors": 0,
+        "fps": 782,
+        "rx_count": 26416,
+        "tx_count": 0,
+        "error_count": 0,
+        "last_frame_at": 1783735824.130517,
+        "last_frame_hex": "00 00 00 00 00 00 00 00",
+        "protocol": "udp",
+        "local_ip": "127.0.0.1",
+        "local_port": 36474,
+        "device_ip": "127.0.0.1",
+        "device_port": 36574,
+        "recent_buffer_depth": 10000,
+        "recent_buffer_capacity": 10000
+      }
+    ],
+    "control_status": 409,
+    "control_body": {
+      "code": "INTERLOCK_BLOCKED",
+      "message": "安全联锁阻止控制",
+      "details": {
+        "allowed": false,
+        "operation": "manual",
+        "level": "danger",
+        "rules": [
+          {
+            "rule": "can2_online",
+            "label": "CAN2 原始接收在线",
+            "status": "FAIL",
+            "current": 7531,
+            "threshold": "< 2000 ms",
+            "blocking": true
+          },
+          {
+            "rule": "can2_queue_healthy",
+            "label": "CAN2 接收队列健康",
+            "status": "PASS",
+            "current": 0,
+            "threshold": "< 512",
+            "blocking": true
+          },
+          {
+            "rule": "single_control_channel",
+            "label": "唯一控制通道为 CAN2",
+            "status": "PASS",
+            "current": [
+              "CAN2"
+            ],
+            "threshold": [
+              "CAN2"
+            ],
+            "blocking": true
+          },
+          {
+            "rule": "dbc_ready",
+            "label": "DBC/覆盖规则可用",
+            "status": "PASS",
+            "current": {
+              "loaded": true,
+              "raw_only": false,
+              "file": "D:\\a\\chassis_management_platform\\chassis_management_platform\\assets\\Yunle_CAN_integrated_candb_jd.dbc",
+              "hash": "387ae48bd84852c8",
+              "version": "Yunle_CAN_Integrated_CANdb Release v1.0.2",
+              "error": null
+            },
+            "threshold": "loaded or explicitly raw-allowed",
+            "blocking": true
+          },
+          {
+            "rule": "no_severe_alarm",
+            "label": "无严重告警",
+            "status": "PASS",
+            "current": 0,
+            "threshold": "< 3",
+            "blocking": true
+          },
+          {
+            "rule": "database_writable",
+            "label": "数据库可写",
+            "status": "PASS",
+            "current": true,
+            "threshold": true,
+            "blocking": true
+          },
+          {
+            "rule": "emergency_released",
+            "label": "急停未锁存",
+            "status": "PASS",
+            "current": false,
+            "threshold": false,
+            "blocking": true
+          },
+          {
+            "rule": "safe_stop_released",
+            "label": "安全停车未锁存",
+            "status": "PASS",
+            "current": false,
+            "threshold": false,
+            "blocking": true
+          },
+          {
+            "rule": "critical_feedback_fresh",
+            "label": "关键速度反馈新鲜",
+            "status": "FAIL",
+            "current": null,
+            "threshold": "age < 2.0s",
+            "blocking": true
+          },
+          {
+            "rule": "speed_limit",
+            "label": "目标速度不超过安全上限",
+            "status": "PASS",
+            "current": 1,
+            "threshold": 3,
+            "blocking": true
+          },
+          {
+            "rule": "steering_limit",
+            "label": "前后转角在安全范围内",
+            "status": "PASS",
+            "current": [
+              0,
+              0
+            ],
+            "threshold": [
+              -120,
+              120
+            ],
+            "blocking": true
+          }
+        ],
+        "reasons": [
+          {
+            "rule": "can2_online",
+            "label": "CAN2 原始接收在线",
+            "status": "FAIL",
+            "current": 7531,
+            "threshold": "< 2000 ms",
+            "blocking": true
+          },
+          {
+            "rule": "critical_feedback_fresh",
+            "label": "关键速度反馈新鲜",
+            "status": "FAIL",
+            "current": null,
+            "threshold": "age < 2.0s",
+            "blocking": true
+          }
+        ]
+      },
+      "trace_id": "8d103f20073248f9b48f87868169847d"
+    }
+  },
+  "stale_online_assertion": true,
+  "screenshotCount": 22,
+  "pageLevelScrollFailures": 0,
+  "failedFetchBanners": 0,
+  "whiteControlFailures": 0,
+  "rendererConsoleErrors": [],
+  "rendererPageErrors": [],
+  "simulatorOfflineDelayMs": 2319,
+  "offlineControlStatus": 409,
+  "nonLoopbackRequests": 0
+}

@@ -1,0 +1,4 @@
+
+> chassis-eol-desktop@1.0.2 lint
+> eslint src electron --max-warnings=0
+
