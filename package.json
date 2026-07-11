@@ -1,0 +1,18 @@
+{
+  "engines": {
+    "node": "22.22.2"
+  },
+  "scripts": {
+    "backend:dev": "python scripts/dev_backend.py",
+    "sim:normal": "python scripts/dev_simulator.py --profile normal_pass",
+    "desktop:dev": "npm --prefix desktop run dev",
+    "desktop:build": "npm --prefix desktop run build",
+    "test:backend": "node scripts/run_quality.mjs --suite backend",
+    "test:simulator": "node scripts/run_quality.mjs --suite simulator",
+    "test:coverage": "node scripts/run_quality.mjs --suite all --coverage",
+    "test": "node scripts/run_quality.mjs --suite all --coverage && npm --prefix desktop run lint && npm --prefix desktop run test && npm --prefix desktop run typecheck && npm --prefix desktop run build && npm --prefix desktop run test:bundle",
+    "test:e2e": "npm --prefix desktop run test:e2e",
+    "test:integration": "npm --prefix desktop run test:integration",
+    "test:integration:long": "npm --prefix desktop run test:integration:long"
+  }
+}

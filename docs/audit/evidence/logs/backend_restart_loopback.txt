@@ -1,0 +1,3 @@
+﻿SUCCESS: The process with PID 45860 (child process of PID 20308) has been terminated.
+SUCCESS: The process with PID 9348 (child process of PID 20308) has been terminated.
+SUCCESS: The process with PID 20308 (child process of PID 41272) has been terminated.

@@ -1,0 +1,25 @@
+{
+  "url": "http://127.0.0.1:8800/api/v1/signals/current",
+  "method": "GET",
+  "status": 200,
+  "headers": {
+    "date": "Fri, 10 Jul 2026 03:01:29 GMT",
+    "server": "uvicorn",
+    "content-length": "127",
+    "content-type": "application/json",
+    "connection": "close"
+  },
+  "body": {
+    "signals": {},
+    "watchlist": [
+      "BMS_SOC",
+      "BMS_Voltage",
+      "Vehicle_Speed",
+      "SAS_Front_Angle",
+      "SAS_Rear_Angle",
+      "VCU_Max_Warning_Level"
+    ]
+  },
+  "started_at": "2026-07-10T11:01:30.050220+08:00",
+  "finished_at": "2026-07-10T11:01:30.051395+08:00"
+}

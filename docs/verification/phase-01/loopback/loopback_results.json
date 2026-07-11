@@ -1,0 +1,638 @@
+{
+  "started_at": "2026-07-10 14:18:54+0800",
+  "checks": {
+    "loopback_online": [
+      {
+        "channel": "CAN1",
+        "online": true,
+        "transport_connected": true,
+        "receive_age_ms": 1.3,
+        "queue_healthy": true,
+        "queue_depth": 0,
+        "queue_capacity": 512,
+        "queue_dropped": 0,
+        "stale_dropped": 0,
+        "malformed_datagrams": 0,
+        "processing_errors": 0,
+        "fps": 6.0,
+        "rx_count": 6,
+        "tx_count": 0,
+        "error_count": 0,
+        "last_frame_at": 1783664335.7506652,
+        "last_frame_hex": "01 00 00 00 00 00 00 00",
+        "protocol": "udp",
+        "local_ip": "127.0.0.1",
+        "local_port": 8234,
+        "device_ip": "127.0.0.1",
+        "device_port": 12341
+      },
+      {
+        "channel": "CAN2",
+        "online": true,
+        "transport_connected": true,
+        "receive_age_ms": 1.3,
+        "queue_healthy": true,
+        "queue_depth": 1,
+        "queue_capacity": 512,
+        "queue_dropped": 0,
+        "stale_dropped": 0,
+        "malformed_datagrams": 0,
+        "processing_errors": 0,
+        "fps": 7.0,
+        "rx_count": 7,
+        "tx_count": 0,
+        "error_count": 0,
+        "last_frame_at": 1783664335.7506378,
+        "last_frame_hex": "02 08 00 0C 56 00 00 00",
+        "protocol": "udp",
+        "local_ip": "127.0.0.1",
+        "local_port": 8235,
+        "device_ip": "127.0.0.1",
+        "device_port": 12342
+      }
+    ],
+    "profile_isolation": {
+      "local_network": {
+        "host_ip": "127.0.0.1",
+        "dev_ip": "127.0.0.1",
+        "nic_name": "Intel(R) I210 Gigabit Network Connection",
+        "subnet_mask": "255.255.255.0",
+        "link_speed": "1000 Mbps（全双工）",
+        "ports": [
+          {
+            "port": 8234,
+            "protocol": "UDP",
+            "status": "free"
+          },
+          {
+            "port": 8235,
+            "protocol": "UDP",
+            "status": "free"
+          }
+        ]
+      },
+      "channels": [
+        {
+          "name": "CAN1",
+          "protocol": "UDP",
+          "local_ip": "127.0.0.1",
+          "local_port": 8234,
+          "device_ip": "127.0.0.1",
+          "device_port": 12341,
+          "tx_enabled": true,
+          "rx_status": "active",
+          "period_ms": 20,
+          "control_enabled": false,
+          "status": "active"
+        },
+        {
+          "name": "CAN2",
+          "protocol": "UDP",
+          "local_ip": "127.0.0.1",
+          "local_port": 8235,
+          "device_ip": "127.0.0.1",
+          "device_port": 12342,
+          "tx_enabled": true,
+          "rx_status": "active",
+          "period_ms": 20,
+          "control_enabled": true,
+          "status": "active"
+        }
+      ],
+      "runtime_profile": "dev"
+    },
+    "control_121_loopback": {
+      "preview_bytes": [
+        129,
+        196,
+        60,
+        20,
+        0,
+        64,
+        1,
+        4
+      ],
+      "transmitted_bytes": [
+        129,
+        196,
+        60,
+        20,
+        0,
+        64,
+        1,
+        4
+      ],
+      "simulator_rx_observed": true
+    },
+    "stop_success": {
+      "safe_stop": {
+        "ok": true,
+        "code": "STOP_CONFIRMED",
+        "message": "已通过零速与制动反馈确认停车",
+        "attempts": 2,
+        "feedback": {
+          "speed_kmh": 0.0,
+          "brake": true,
+          "stopped": true
+        },
+        "latched": true,
+        "emergency_stop": false
+      },
+      "emergency_stop": {
+        "ok": true,
+        "code": "STOP_CONFIRMED",
+        "message": "已通过零速与制动反馈确认停车",
+        "attempts": 2,
+        "feedback": {
+          "speed_kmh": 0.0,
+          "brake": true,
+          "stopped": true
+        },
+        "latched": true,
+        "emergency_stop": true
+      },
+      "release": {
+        "ok": true,
+        "emergency_stop": false,
+        "message": "急停锁存已解除"
+      }
+    },
+    "eol_pause_resume": {
+      "paused_steps": 1,
+      "final_status": "PASSED",
+      "final_steps": 12,
+      "report_files": {
+        "json": "D:\\workspace\\0-yunle\\7_codex\\chassis_eol_management_platform_codex_pack\\chassis_management_platform\\data\\reports\\EOL-db3acdfd_PASS_8564cdb0.json",
+        "docx": "D:\\workspace\\0-yunle\\7_codex\\chassis_eol_management_platform_codex_pack\\chassis_management_platform\\data\\reports\\EOL-db3acdfd_PASS_8564cdb0.docx",
+        "pdf": "D:\\workspace\\0-yunle\\7_codex\\chassis_eol_management_platform_codex_pack\\chassis_management_platform\\data\\reports\\EOL-db3acdfd_PASS_8564cdb0.pdf"
+      }
+    },
+    "eol_abort": {
+      "session_id": "EOL-89bcf320",
+      "status": "ABORTED",
+      "steps": 1
+    },
+    "eol_emergency": {
+      "session_id": "EOL-fb6b47dc",
+      "status": "EMERGENCY_STOPPED",
+      "steps": 1
+    },
+    "rbac": {
+      "unauthenticated_control": {
+        "status_code": 401,
+        "body": {
+          "detail": {
+            "code": "AUTH_REQUIRED",
+            "message": "需要可信身份认证",
+            "details": {}
+          }
+        }
+      },
+      "viewer_control": {
+        "status_code": 403,
+        "body": {
+          "detail": {
+            "code": "INSUFFICIENT_ROLE",
+            "message": "当前身份权限不足",
+            "details": {
+              "required": "engineer",
+              "actual": "viewer"
+            }
+          }
+        }
+      },
+      "body_role_forgery": {
+        "status_code": 403,
+        "body": {
+          "detail": {
+            "code": "INSUFFICIENT_ROLE",
+            "message": "当前身份权限不足",
+            "details": {
+              "required": "admin",
+              "actual": "engineer"
+            }
+          }
+        }
+      },
+      "header_role_forgery": {
+        "status_code": 403,
+        "body": {
+          "detail": {
+            "code": "INSUFFICIENT_ROLE",
+            "message": "当前身份权限不足",
+            "details": {
+              "required": "admin",
+              "actual": "operator"
+            }
+          }
+        }
+      }
+    },
+    "stale_online": {
+      "offline_elapsed_seconds": 2.029,
+      "channel_status": [
+        {
+          "channel": "CAN1",
+          "online": false,
+          "transport_connected": true,
+          "receive_age_ms": 2065.3,
+          "queue_healthy": true,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "stale_dropped": 0,
+          "malformed_datagrams": 0,
+          "processing_errors": 0,
+          "fps": 102.0,
+          "rx_count": 228,
+          "tx_count": 0,
+          "error_count": 0,
+          "last_frame_at": 1783664337.991212,
+          "last_frame_hex": "01 00 00 00 00 00 00 00",
+          "protocol": "udp",
+          "local_ip": "127.0.0.1",
+          "local_port": 8234,
+          "device_ip": "127.0.0.1",
+          "device_port": 12341
+        },
+        {
+          "channel": "CAN2",
+          "online": false,
+          "transport_connected": true,
+          "receive_age_ms": 2051.0,
+          "queue_healthy": true,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "stale_dropped": 0,
+          "malformed_datagrams": 0,
+          "processing_errors": 0,
+          "fps": 221.0,
+          "rx_count": 494,
+          "tx_count": 9,
+          "error_count": 0,
+          "last_frame_at": 1783664338.0055068,
+          "last_frame_hex": "00 00 00 00 00 00 00 00",
+          "protocol": "udp",
+          "local_ip": "127.0.0.1",
+          "local_port": 8235,
+          "device_ip": "127.0.0.1",
+          "device_port": 12342
+        }
+      ],
+      "control_after_5s": {
+        "status_code": 409,
+        "body": {
+          "detail": {
+            "code": "INTERLOCK_BLOCKED",
+            "message": "安全联锁阻止控制",
+            "details": {
+              "allowed": false,
+              "operation": "manual",
+              "level": "danger",
+              "rules": [
+                {
+                  "rule": "can2_online",
+                  "label": "CAN2 原始接收在线",
+                  "status": "FAIL",
+                  "current": 5023.3,
+                  "threshold": "< 2000 ms",
+                  "blocking": true
+                },
+                {
+                  "rule": "can2_queue_healthy",
+                  "label": "CAN2 接收队列健康",
+                  "status": "PASS",
+                  "current": 0,
+                  "threshold": "< 512",
+                  "blocking": true
+                },
+                {
+                  "rule": "single_control_channel",
+                  "label": "唯一控制通道为 CAN2",
+                  "status": "PASS",
+                  "current": [
+                    "CAN2"
+                  ],
+                  "threshold": [
+                    "CAN2"
+                  ],
+                  "blocking": true
+                },
+                {
+                  "rule": "dbc_ready",
+                  "label": "DBC/覆盖规则可用",
+                  "status": "PASS",
+                  "current": {
+                    "loaded": true,
+                    "raw_only": false,
+                    "file": "D:\\workspace\\0-yunle\\7_codex\\chassis_eol_management_platform_codex_pack\\chassis_management_platform\\assets\\Yunle_CAN_integrated_candb_jd.dbc",
+                    "hash": "387ae48bd84852c8",
+                    "version": "Yunle_CAN_Integrated_CANdb Release v1.0.2",
+                    "error": null
+                  },
+                  "threshold": "loaded or explicitly raw-allowed",
+                  "blocking": true
+                },
+                {
+                  "rule": "no_severe_alarm",
+                  "label": "无严重告警",
+                  "status": "PASS",
+                  "current": 0,
+                  "threshold": "< 3",
+                  "blocking": true
+                },
+                {
+                  "rule": "database_writable",
+                  "label": "数据库可写",
+                  "status": "PASS",
+                  "current": true,
+                  "threshold": true,
+                  "blocking": true
+                },
+                {
+                  "rule": "emergency_released",
+                  "label": "急停未锁存",
+                  "status": "PASS",
+                  "current": false,
+                  "threshold": false,
+                  "blocking": true
+                },
+                {
+                  "rule": "safe_stop_released",
+                  "label": "安全停车未锁存",
+                  "status": "PASS",
+                  "current": false,
+                  "threshold": false,
+                  "blocking": true
+                },
+                {
+                  "rule": "critical_feedback_fresh",
+                  "label": "关键速度反馈新鲜",
+                  "status": "FAIL",
+                  "current": null,
+                  "threshold": "age < 2.0s",
+                  "blocking": true
+                },
+                {
+                  "rule": "speed_limit",
+                  "label": "目标速度不超过安全上限",
+                  "status": "PASS",
+                  "current": 2.0,
+                  "threshold": 3.0,
+                  "blocking": true
+                },
+                {
+                  "rule": "steering_limit",
+                  "label": "前后转角在安全范围内",
+                  "status": "PASS",
+                  "current": [
+                    -60,
+                    60
+                  ],
+                  "threshold": [
+                    -120,
+                    120
+                  ],
+                  "blocking": true
+                }
+              ],
+              "reasons": [
+                {
+                  "rule": "can2_online",
+                  "label": "CAN2 原始接收在线",
+                  "status": "FAIL",
+                  "current": 5023.3,
+                  "threshold": "< 2000 ms",
+                  "blocking": true
+                },
+                {
+                  "rule": "critical_feedback_fresh",
+                  "label": "关键速度反馈新鲜",
+                  "status": "FAIL",
+                  "current": null,
+                  "threshold": "age < 2.0s",
+                  "blocking": true
+                }
+              ]
+            }
+          }
+        }
+      },
+      "eol_start_after_5s": {
+        "status_code": 409,
+        "body": {
+          "detail": {
+            "code": "INTERLOCK_BLOCKED",
+            "message": "安全联锁阻止开始检测",
+            "details": {
+              "allowed": false,
+              "operation": "eol",
+              "level": "danger",
+              "rules": [
+                {
+                  "rule": "can1_online",
+                  "label": "CAN1 原始接收在线",
+                  "status": "FAIL",
+                  "current": 5041.5,
+                  "threshold": "< 2000 ms",
+                  "blocking": true
+                },
+                {
+                  "rule": "can1_queue_healthy",
+                  "label": "CAN1 接收队列健康",
+                  "status": "PASS",
+                  "current": 0,
+                  "threshold": "< 512",
+                  "blocking": true
+                },
+                {
+                  "rule": "can2_online",
+                  "label": "CAN2 原始接收在线",
+                  "status": "FAIL",
+                  "current": 5027.2,
+                  "threshold": "< 2000 ms",
+                  "blocking": true
+                },
+                {
+                  "rule": "can2_queue_healthy",
+                  "label": "CAN2 接收队列健康",
+                  "status": "PASS",
+                  "current": 0,
+                  "threshold": "< 512",
+                  "blocking": true
+                },
+                {
+                  "rule": "single_control_channel",
+                  "label": "唯一控制通道为 CAN2",
+                  "status": "PASS",
+                  "current": [
+                    "CAN2"
+                  ],
+                  "threshold": [
+                    "CAN2"
+                  ],
+                  "blocking": true
+                },
+                {
+                  "rule": "dbc_ready",
+                  "label": "DBC/覆盖规则可用",
+                  "status": "PASS",
+                  "current": {
+                    "loaded": true,
+                    "raw_only": false,
+                    "file": "D:\\workspace\\0-yunle\\7_codex\\chassis_eol_management_platform_codex_pack\\chassis_management_platform\\assets\\Yunle_CAN_integrated_candb_jd.dbc",
+                    "hash": "387ae48bd84852c8",
+                    "version": "Yunle_CAN_Integrated_CANdb Release v1.0.2",
+                    "error": null
+                  },
+                  "threshold": "loaded or explicitly raw-allowed",
+                  "blocking": true
+                },
+                {
+                  "rule": "no_severe_alarm",
+                  "label": "无严重告警",
+                  "status": "PASS",
+                  "current": 0,
+                  "threshold": "< 3",
+                  "blocking": true
+                },
+                {
+                  "rule": "database_writable",
+                  "label": "数据库可写",
+                  "status": "PASS",
+                  "current": true,
+                  "threshold": true,
+                  "blocking": true
+                },
+                {
+                  "rule": "emergency_released",
+                  "label": "急停未锁存",
+                  "status": "PASS",
+                  "current": false,
+                  "threshold": false,
+                  "blocking": true
+                },
+                {
+                  "rule": "safe_stop_released",
+                  "label": "安全停车未锁存",
+                  "status": "PASS",
+                  "current": false,
+                  "threshold": false,
+                  "blocking": true
+                },
+                {
+                  "rule": "critical_feedback_fresh",
+                  "label": "关键速度反馈新鲜",
+                  "status": "FAIL",
+                  "current": null,
+                  "threshold": "age < 2.0s",
+                  "blocking": true
+                }
+              ],
+              "reasons": [
+                {
+                  "rule": "can1_online",
+                  "label": "CAN1 原始接收在线",
+                  "status": "FAIL",
+                  "current": 5041.5,
+                  "threshold": "< 2000 ms",
+                  "blocking": true
+                },
+                {
+                  "rule": "can2_online",
+                  "label": "CAN2 原始接收在线",
+                  "status": "FAIL",
+                  "current": 5027.2,
+                  "threshold": "< 2000 ms",
+                  "blocking": true
+                },
+                {
+                  "rule": "critical_feedback_fresh",
+                  "label": "关键速度反馈新鲜",
+                  "status": "FAIL",
+                  "current": null,
+                  "threshold": "age < 2.0s",
+                  "blocking": true
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "stop_timeout": {
+      "status_code": 504,
+      "body": {
+        "detail": {
+          "ok": false,
+          "code": "SAFE_STOP_TIMEOUT",
+          "message": "停车反馈超时，停车锁存保持",
+          "attempts": 9,
+          "latched": true,
+          "emergency_stop": false,
+          "alarm": {
+            "id": "control_safe_stop_timeout",
+            "level": 3,
+            "label": "SAFE_STOP_TIMEOUT",
+            "description": "停车反馈超时，停车锁存保持",
+            "status": "active",
+            "acked": false
+          }
+        }
+      }
+    },
+    "udp_datagram_boundary": {
+      "before": {
+        "channel": "CAN1",
+        "online": false,
+        "transport_connected": true,
+        "receive_age_ms": 2112.7,
+        "queue_healthy": true,
+        "queue_depth": 0,
+        "queue_capacity": 512,
+        "queue_dropped": 0,
+        "stale_dropped": 0,
+        "malformed_datagrams": 0,
+        "processing_errors": 0,
+        "fps": 60.0,
+        "rx_count": 288,
+        "tx_count": 0,
+        "error_count": 0,
+        "last_frame_at": 1783664343.7142985,
+        "last_frame_hex": "01 00 00 00 00 00 00 00",
+        "protocol": "udp",
+        "local_ip": "127.0.0.1",
+        "local_port": 8234,
+        "device_ip": "127.0.0.1",
+        "device_port": 12341
+      },
+      "after": {
+        "channel": "CAN1",
+        "online": true,
+        "transport_connected": true,
+        "receive_age_ms": 200.8,
+        "queue_healthy": true,
+        "queue_depth": 0,
+        "queue_capacity": 512,
+        "queue_dropped": 0,
+        "stale_dropped": 0,
+        "malformed_datagrams": 1,
+        "processing_errors": 0,
+        "fps": 1.0,
+        "rx_count": 289,
+        "tx_count": 0,
+        "error_count": 1,
+        "last_frame_at": 1783664345.8285007,
+        "last_frame_hex": "00 01 02 03 04 05 06 07",
+        "protocol": "udp",
+        "local_ip": "127.0.0.1",
+        "local_port": 8234,
+        "device_ip": "127.0.0.1",
+        "device_port": 12341
+      }
+    }
+  },
+  "all_passed": true,
+  "finished_at": "2026-07-10 14:19:06+0800"
+}

@@ -1,0 +1,86 @@
+{
+  "audit_time": "2026-07-10T11:58:27.798145+08:00",
+  "reports": [
+    {
+      "profile": "normal_pass",
+      "files": {
+        ".docx": {
+          "path": "D:\\workspace\\0-yunle\\7_codex\\chassis_eol_management_platform_codex_pack\\chassis_management_platform\\data\\reports\\EOL-86d928f6_PASS_04e2fcb9.docx",
+          "bytes": 35599
+        },
+        ".json": {
+          "path": "D:\\workspace\\0-yunle\\7_codex\\chassis_eol_management_platform_codex_pack\\chassis_management_platform\\data\\reports\\EOL-86d928f6_PASS_04e2fcb9.json",
+          "bytes": 9948
+        },
+        ".pdf": {
+          "path": "D:\\workspace\\0-yunle\\7_codex\\chassis_eol_management_platform_codex_pack\\chassis_management_platform\\data\\reports\\EOL-86d928f6_PASS_04e2fcb9.pdf",
+          "bytes": 1526
+        }
+      },
+      "json_opened": true,
+      "json_result": "PASS",
+      "json_has_software_version": false,
+      "json_has_dbc_hash": false,
+      "json_has_config_version_or_hash": false,
+      "json_has_operator": true,
+      "docx_opened": true,
+      "docx_paragraph_count": 15,
+      "docx_paragraphs": [
+        "低速无人车线控底盘生产下线检测报告",
+        "会话：EOL-86d928f6",
+        "结论：PASS",
+        "1. 上电自检 - PASS",
+        "2. CAN 通信检测 - PASS",
+        "3. BMS 检测 - PASS",
+        "4. VCU 状态检测 - PASS",
+        "5. 电机心跳检测 - PASS",
+        "6. 档位检测 - PASS",
+        "7. 低速驱动检测 - PASS",
+        "8. 转向检测 - PASS",
+        "9. 灯光检测 - PASS",
+        "10. 制动停止检测 - PASS",
+        "11. 告警复查 - PASS",
+        "12. 报告生成 - PASS"
+      ],
+      "pdf_opened": true,
+      "pdf_page_count": 1,
+      "pdf_extracted_text": "■■■■■■■■■■■■■■■■■\nSession: EOL-86d928f6\nResult: PASS\n",
+      "pdf_rendered_page": "docs/audit/evidence/screenshots/current/generated_normal_pass_report_page1.png"
+    },
+    {
+      "profile": "bms_low_soc",
+      "files": {
+        ".docx": {
+          "path": "D:\\workspace\\0-yunle\\7_codex\\chassis_eol_management_platform_codex_pack\\chassis_management_platform\\data\\reports\\EOL-044f3711_FAIL_f9ed07a4.docx",
+          "bytes": 35439
+        },
+        ".json": {
+          "path": "D:\\workspace\\0-yunle\\7_codex\\chassis_eol_management_platform_codex_pack\\chassis_management_platform\\data\\reports\\EOL-044f3711_FAIL_f9ed07a4.json",
+          "bytes": 1506
+        },
+        ".pdf": {
+          "path": "D:\\workspace\\0-yunle\\7_codex\\chassis_eol_management_platform_codex_pack\\chassis_management_platform\\data\\reports\\EOL-044f3711_FAIL_f9ed07a4.pdf",
+          "bytes": 1524
+        }
+      },
+      "json_opened": true,
+      "json_result": "FAIL",
+      "json_has_software_version": false,
+      "json_has_dbc_hash": false,
+      "json_has_config_version_or_hash": false,
+      "json_has_operator": true,
+      "docx_opened": true,
+      "docx_paragraph_count": 4,
+      "docx_paragraphs": [
+        "低速无人车线控底盘生产下线检测报告",
+        "会话：EOL-044f3711",
+        "结论：FAIL",
+        "1. 上电自检 - FAIL"
+      ],
+      "pdf_opened": true,
+      "pdf_page_count": 1,
+      "pdf_extracted_text": "■■■■■■■■■■■■■■■■■\nSession: EOL-044f3711\nResult: FAIL\n",
+      "pdf_rendered_page": "docs/audit/evidence/screenshots/current/generated_bms_low_soc_report_page1.png"
+    }
+  ]
+}

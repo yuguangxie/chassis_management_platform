@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:8800/api/v1/signals/export-csv",
+  "method": "POST",
+  "status": 200,
+  "headers": {
+    "date": "Fri, 10 Jul 2026 03:01:29 GMT",
+    "server": "uvicorn",
+    "content-length": "118",
+    "content-type": "application/json",
+    "connection": "close"
+  },
+  "body": {
+    "ok": true,
+    "stub": true,
+    "message": "导出 CSV 接口已预留，当前为 Mock 模式",
+    "path": "exports/curve_mock.csv"
+  },
+  "started_at": "2026-07-10T11:01:30.207300+08:00",
+  "finished_at": "2026-07-10T11:01:30.208377+08:00"
+}

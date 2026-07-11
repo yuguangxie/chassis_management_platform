@@ -1,0 +1,337 @@
+{
+  "url": "http://127.0.0.1:8800/api/v1/history/dashboard",
+  "method": "GET",
+  "status": 200,
+  "headers": {
+    "date": "Fri, 10 Jul 2026 03:01:29 GMT",
+    "server": "uvicorn",
+    "content-length": "5433",
+    "content-type": "application/json",
+    "connection": "close"
+  },
+  "body": {
+    "filters": {
+      "start_time": "2026-03-25 00:00",
+      "end_time": "2026-04-01 23:59",
+      "page": 1,
+      "page_size": 20
+    },
+    "summary": {
+      "total_tests": 1248,
+      "pass_rate": 94.4,
+      "fail_count": 68,
+      "alarm_count": 23,
+      "filtered_count": 128
+    },
+    "sessions": [
+      {
+        "session_id": "EOL-20260401-0001",
+        "chassis_no": "YL-JD-001",
+        "vin": "L0000000000000001",
+        "serial_no": "SN-20260401-001",
+        "started_at": "2026-04-01 10:15:22",
+        "ended_at": "2026-04-01 10:26:47",
+        "result": "PASS",
+        "failed_step": "-",
+        "operator": "op01",
+        "station_id": "EOL-STATION-01",
+        "report_id": "RPT-20260401-0001"
+      },
+      {
+        "session_id": "EOL-20260401-0000",
+        "chassis_no": "YL-JD-000",
+        "vin": "L0000000000000000",
+        "serial_no": "SN-20260401-000",
+        "started_at": "2026-04-01 09:58:13",
+        "ended_at": "2026-04-01 10:12:47",
+        "result": "PASS",
+        "failed_step": "-",
+        "operator": "op01",
+        "station_id": "EOL-STATION-01",
+        "report_id": "RPT-20260401-0000"
+      },
+      {
+        "session_id": "EOL-20260401-000-1",
+        "chassis_no": "YL-JD-099",
+        "vin": "L0000000000000099",
+        "serial_no": "SN-20260401-099",
+        "started_at": "2026-04-01 09:40:35",
+        "ended_at": "2026-04-01 09:55:03",
+        "result": "PASS",
+        "failed_step": "-",
+        "operator": "op01",
+        "station_id": "EOL-STATION-01",
+        "report_id": "RPT-20260401-0099"
+      },
+      {
+        "session_id": "EOL-20260401-000-2",
+        "chassis_no": "YL-JD-098",
+        "vin": "L0000000000000098",
+        "serial_no": "SN-20260401-098",
+        "started_at": "2026-04-01 09:22:11",
+        "ended_at": "2026-04-01 09:36:58",
+        "result": "FAIL",
+        "failed_step": "低速驱动检测",
+        "operator": "op01",
+        "station_id": "EOL-STATION-01",
+        "report_id": "RPT-20260401-0098"
+      },
+      {
+        "session_id": "EOL-20260401-000-3",
+        "chassis_no": "YL-JD-097",
+        "vin": "L0000000000000097",
+        "serial_no": "SN-20260401-097",
+        "started_at": "2026-04-01 09:04:03",
+        "ended_at": "2026-04-01 09:18:20",
+        "result": "PASS",
+        "failed_step": "-",
+        "operator": "op02",
+        "station_id": "EOL-STATION-01",
+        "report_id": "RPT-20260401-0097"
+      },
+      {
+        "session_id": "EOL-20260401-000-4",
+        "chassis_no": "YL-JD-096",
+        "vin": "L0000000000000096",
+        "serial_no": "SN-20260401-096",
+        "started_at": "2026-04-01 08:44:51",
+        "ended_at": "2026-04-01 08:59:27",
+        "result": "PASS",
+        "failed_step": "-",
+        "operator": "op02",
+        "station_id": "EOL-STATION-01",
+        "report_id": "RPT-20260401-0096"
+      },
+      {
+        "session_id": "EOL-20260401-000-5",
+        "chassis_no": "YL-JD-095",
+        "vin": "L0000000000000095",
+        "serial_no": "SN-20260401-095",
+        "started_at": "2026-04-01 08:24:12",
+        "ended_at": "2026-04-01 08:38:49",
+        "result": "PASS",
+        "failed_step": "-",
+        "operator": "op01",
+        "station_id": "EOL-STATION-01",
+        "report_id": "RPT-20260401-0095"
+      }
+    ],
+    "selected_session": {
+      "session_id": "EOL-20260401-0001",
+      "duration": "11分25秒",
+      "result": "PASS",
+      "timeline": [
+        {
+          "time": "10:15:22.123",
+          "title": "创建会话",
+          "description": "系统上电、电源、电压、温度自检",
+          "status": "PASS",
+          "icon": "power"
+        },
+        {
+          "time": "10:15:45.367",
+          "title": "CAN通信检测",
+          "description": "CAN1 / CAN2 连接与心跳检测",
+          "status": "PASS",
+          "icon": "network"
+        },
+        {
+          "time": "10:16:10.882",
+          "title": "BMS检测",
+          "description": "电池状态、SOC、绝缘、继电器",
+          "status": "PASS",
+          "icon": "battery"
+        },
+        {
+          "time": "10:17:02.394",
+          "title": "档位检测",
+          "description": "档位状态与切换一致性",
+          "status": "PASS",
+          "icon": "settings"
+        },
+        {
+          "time": "10:18:15.561",
+          "title": "低速驱动检测",
+          "description": "电机响应、转速、相电流、限流",
+          "status": "PASS",
+          "icon": "gauge"
+        },
+        {
+          "time": "10:20:34.729",
+          "title": "转向检测",
+          "description": "转向角、角速度、助力状态",
+          "status": "PASS",
+          "icon": "steering"
+        },
+        {
+          "time": "10:22:18.441",
+          "title": "人工操作 - 制动踏板踩下（保持3s）",
+          "description": "操作员 op01",
+          "status": "PASS",
+          "icon": "user"
+        },
+        {
+          "time": "10:23:05.672",
+          "title": "告警记录",
+          "description": "记录 0 条告警，无活动告警",
+          "status": "INFO",
+          "icon": "alarm"
+        },
+        {
+          "time": "10:24:51.203",
+          "title": "报告生成",
+          "description": "生成检测报告与数据包",
+          "status": "PASS",
+          "icon": "report"
+        }
+      ],
+      "operator_logs": [
+        {
+          "time": "10:15:20.983",
+          "user": "op01",
+          "action": "开始检测会话",
+          "target": "EOL-20260401-0001",
+          "params": "工位：EOL-STATION-01",
+          "result": "成功"
+        },
+        {
+          "time": "10:16:05.114",
+          "user": "op01",
+          "action": "配置加载",
+          "target": "DBC / 测试配置",
+          "params": "Yunle_CAN_Integrated_CANdb",
+          "result": "成功"
+        },
+        {
+          "time": "10:18:12.447",
+          "user": "op01",
+          "action": "手动操作",
+          "target": "制动踏板",
+          "params": "动作：踩下，保持：3s",
+          "result": "成功"
+        },
+        {
+          "time": "10:22:00.331",
+          "user": "op01",
+          "action": "阈值调整",
+          "target": "低速驱动检测",
+          "params": "相电流上限：120 → 130 A",
+          "result": "成功"
+        },
+        {
+          "time": "10:24:51.210",
+          "user": "op01",
+          "action": "报告保存",
+          "target": "检测报告",
+          "params": "路径：reports/EOL-20260401-0001",
+          "result": "成功"
+        }
+      ],
+      "downloads": [
+        {
+          "key": "raw_can",
+          "name": "原始 CAN 数据",
+          "extension": ".asc / .blf",
+          "size": "256.3 MB",
+          "available": true
+        },
+        {
+          "key": "decoded_signals",
+          "name": "解析后信号数据",
+          "extension": ".csv",
+          "size": "48.7 MB",
+          "available": true
+        },
+        {
+          "key": "report_bundle",
+          "name": "报告与数据包",
+          "extension": ".zip",
+          "size": "12.4 MB",
+          "available": true
+        },
+        {
+          "key": "audit_log",
+          "name": "审计日志",
+          "extension": ".json",
+          "size": "1.2 MB",
+          "available": true
+        },
+        {
+          "key": "curve_replay",
+          "name": "曲线回放包",
+          "extension": ".zip",
+          "size": "31.8 MB",
+          "available": true
+        }
+      ]
+    },
+    "charts": {
+      "vehicle_result_trend": {
+        "vin": "L0000000000000001",
+        "x_axis": [
+          "03-25",
+          "03-26",
+          "03-27",
+          "03-28",
+          "03-29",
+          "03-30",
+          "03-31",
+          "04-01"
+        ],
+        "pass": [
+          12,
+          14,
+          13,
+          16,
+          15,
+          17,
+          13,
+          18
+        ],
+        "fail": [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0
+        ]
+      },
+      "failure_pareto": {
+        "categories": [
+          "低速驱动检测",
+          "转向检测",
+          "档位检测",
+          "BMS检测",
+          "其他"
+        ],
+        "counts": [
+          9,
+          5,
+          3,
+          2,
+          1
+        ],
+        "cumulative_percent": [
+          45.0,
+          70.0,
+          85.0,
+          95.0,
+          100.0
+        ]
+      }
+    },
+    "pagination": {
+      "page": 1,
+      "page_size": 20,
+      "total": 128,
+      "total_pages": 7
+    },
+    "mock": true,
+    "updated_at": "2026-07-10T03:01:30.132234+00:00"
+  },
+  "started_at": "2026-07-10T11:01:30.131173+08:00",
+  "finished_at": "2026-07-10T11:01:30.132957+08:00"
+}

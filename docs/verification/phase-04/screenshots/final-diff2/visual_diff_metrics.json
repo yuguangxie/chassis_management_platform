@@ -1,0 +1,156 @@
+{
+  "method": "Pillow RGB absolute difference. The metric includes text, live data, and anti-aliasing differences; it is evidence, not a pass/fail score.",
+  "pages": [
+    {
+      "page": "alarm-diagnosis",
+      "status": "compared",
+      "reference_size": [
+        1672,
+        941
+      ],
+      "current_size": [
+        1920,
+        1040
+      ],
+      "mean_absolute_difference_0_255": 21.373,
+      "rms_difference_0_255": 42.875,
+      "composite": "docs\\verification\\phase-04\\screenshots\\final-diff2\\alarm-diagnosis_reference_current_diff.png"
+    },
+    {
+      "page": "auto-test",
+      "status": "compared",
+      "reference_size": [
+        1672,
+        941
+      ],
+      "current_size": [
+        1920,
+        1040
+      ],
+      "mean_absolute_difference_0_255": 22.633,
+      "rms_difference_0_255": 46.409,
+      "composite": "docs\\verification\\phase-04\\screenshots\\final-diff2\\auto-test_reference_current_diff.png"
+    },
+    {
+      "page": "can-monitor",
+      "status": "compared",
+      "reference_size": [
+        1672,
+        941
+      ],
+      "current_size": [
+        1920,
+        1040
+      ],
+      "mean_absolute_difference_0_255": 19.843,
+      "rms_difference_0_255": 39.758,
+      "composite": "docs\\verification\\phase-04\\screenshots\\final-diff2\\can-monitor_reference_current_diff.png"
+    },
+    {
+      "page": "history",
+      "status": "compared",
+      "reference_size": [
+        1672,
+        941
+      ],
+      "current_size": [
+        1920,
+        1040
+      ],
+      "mean_absolute_difference_0_255": 20.974,
+      "rms_difference_0_255": 41.212,
+      "composite": "docs\\verification\\phase-04\\screenshots\\final-diff2\\history_reference_current_diff.png"
+    },
+    {
+      "page": "manual-control",
+      "status": "compared",
+      "reference_size": [
+        1672,
+        941
+      ],
+      "current_size": [
+        1920,
+        1040
+      ],
+      "mean_absolute_difference_0_255": 21.203,
+      "rms_difference_0_255": 42.165,
+      "composite": "docs\\verification\\phase-04\\screenshots\\final-diff2\\manual-control_reference_current_diff.png"
+    },
+    {
+      "page": "network-config",
+      "status": "compared",
+      "reference_size": [
+        1672,
+        941
+      ],
+      "current_size": [
+        1920,
+        1040
+      ],
+      "mean_absolute_difference_0_255": 19.428,
+      "rms_difference_0_255": 41.295,
+      "composite": "docs\\verification\\phase-04\\screenshots\\final-diff2\\network-config_reference_current_diff.png"
+    },
+    {
+      "page": "overview",
+      "status": "compared",
+      "reference_size": [
+        1672,
+        941
+      ],
+      "current_size": [
+        1920,
+        1040
+      ],
+      "mean_absolute_difference_0_255": 22.385,
+      "rms_difference_0_255": 46.471,
+      "composite": "docs\\verification\\phase-04\\screenshots\\final-diff2\\overview_reference_current_diff.png"
+    },
+    {
+      "page": "realtime-curve",
+      "status": "compared",
+      "reference_size": [
+        1672,
+        941
+      ],
+      "current_size": [
+        1920,
+        1040
+      ],
+      "mean_absolute_difference_0_255": 20.223,
+      "rms_difference_0_255": 40.745,
+      "composite": "docs\\verification\\phase-04\\screenshots\\final-diff2\\realtime-curve_reference_current_diff.png"
+    },
+    {
+      "page": "report-management",
+      "status": "compared",
+      "reference_size": [
+        1672,
+        941
+      ],
+      "current_size": [
+        1920,
+        1040
+      ],
+      "mean_absolute_difference_0_255": 26.595,
+      "rms_difference_0_255": 52.92,
+      "composite": "docs\\verification\\phase-04\\screenshots\\final-diff2\\report-management_reference_current_diff.png"
+    },
+    {
+      "page": "signal-dashboard",
+      "status": "compared",
+      "reference_size": [
+        1672,
+        941
+      ],
+      "current_size": [
+        1920,
+        1040
+      ],
+      "mean_absolute_difference_0_255": 17.991,
+      "rms_difference_0_255": 40.25,
+      "composite": "docs\\verification\\phase-04\\screenshots\\final-diff2\\signal-dashboard_reference_current_diff.png"
+    }
+  ],
+  "system_settings": "No reliable reference image was supplied; evaluated against the shared UI style guide and page specification."
+}

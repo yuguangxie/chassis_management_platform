@@ -1,0 +1,98 @@
+{
+  "usr_can115": {
+    "frame_length": 13,
+    "packet_hex": "08 00 00 01 21 40 C4 3C 14 02 00 00 00",
+    "frame_info": "0x08",
+    "can_id_bytes_big_endian": "00 00 01 21",
+    "decoded_can_id": "0x121",
+    "decoded_data_hex": "40 C4 3C 14 02 00 00 00",
+    "illegal_dlc_status": "dlc_error",
+    "reserved_bits_status": "reserved_bits_error",
+    "sticky_frame_ids": [
+      "0x121",
+      "0x77"
+    ],
+    "sticky_remainder_bytes": 5,
+    "cross_datagram_first_frame_count": 0,
+    "cross_datagram_second_frame_ids": [
+      "0x121"
+    ],
+    "cross_datagram_second_parse_status": [
+      "ok"
+    ],
+    "cross_datagram_remainder_bytes": 5,
+    "cross_datagram_expected_valid_id": "0x77",
+    "cross_datagram_observed_id": "0x121",
+    "codec_stats": {
+      "total_packets": 6,
+      "decoded_frames": 6,
+      "dlc_errors": 1,
+      "reserved_bit_errors": 1,
+      "short_packets": 3,
+      "invalid_length_errors": 0
+    }
+  },
+  "control_0x121": {
+    "-120": {
+      "encoded_i8": "0x88",
+      "payload": "40 88 88 00 00 00 00 00"
+    },
+    "-60": {
+      "encoded_i8": "0xC4",
+      "payload": "40 C4 C4 00 00 00 00 00"
+    },
+    "0": {
+      "encoded_i8": "0x00",
+      "payload": "40 00 00 00 00 00 00 00"
+    },
+    "60": {
+      "encoded_i8": "0x3C",
+      "payload": "40 3C 3C 00 00 00 00 00"
+    },
+    "120": {
+      "encoded_i8": "0x78",
+      "payload": "40 78 78 00 00 00 00 00"
+    }
+  },
+  "dbc": {
+    "status": {
+      "loaded": true,
+      "raw_only": false,
+      "file": "D:\\workspace\\0-yunle\\7_codex\\chassis_eol_management_platform_codex_pack\\chassis_management_platform\\assets\\Yunle_CAN_integrated_candb_jd.dbc",
+      "hash": "387ae48bd84852c8",
+      "version": "Yunle_CAN_Integrated_CANdb Release v1.0.2",
+      "error": null
+    },
+    "message_count": 39,
+    "signal_count": 170,
+    "charge_states": {
+      "0": {
+        "value": 0,
+        "label": "idle"
+      },
+      "1": {
+        "value": 1,
+        "label": "charging"
+      },
+      "2": {
+        "value": 2,
+        "label": "discharging"
+      },
+      "3": {
+        "value": 3,
+        "label": "reserved"
+      }
+    },
+    "protect_bitmap_0x8001": {
+      "value": 32769,
+      "unit": "bitmap"
+    },
+    "note": "Known-message overrides are merged after cantools decode; individual 0x102 protection booleans are not materialized by _decode_known."
+  },
+  "implementation_limits": {
+    "gateway_recent_frame_capacity": 2000,
+    "signal_timeseries_capacity_per_signal": 3000,
+    "stream_resynchronization": false,
+    "udp_datagram_boundary_preserved": false
+  }
+}

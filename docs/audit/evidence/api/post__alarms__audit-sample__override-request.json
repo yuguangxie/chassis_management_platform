@@ -1,0 +1,21 @@
+{
+  "url": "http://127.0.0.1:8800/api/v1/alarms/audit-sample/override-request",
+  "method": "POST",
+  "status": 200,
+  "headers": {
+    "date": "Fri, 10 Jul 2026 03:01:29 GMT",
+    "server": "uvicorn",
+    "content-length": "136",
+    "content-type": "application/json",
+    "connection": "close"
+  },
+  "body": {
+    "ok": true,
+    "stub": true,
+    "requested": "audit-sample",
+    "requires_engineer": true,
+    "message": "人工放行申请已提交，需工程师复核"
+  },
+  "started_at": "2026-07-10T11:01:30.222650+08:00",
+  "finished_at": "2026-07-10T11:01:30.224799+08:00"
+}

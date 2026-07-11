@@ -1,0 +1,155 @@
+﻿{
+    "overall":  "allow",
+    "items":  [
+                  {
+                      "key":  "can2_online",
+                      "label":  "CAN2 åå§æ¥æ¶å¨çº¿",
+                      "status":  "pass",
+                      "value":  "17.6"
+                  },
+                  {
+                      "key":  "can2_queue_healthy",
+                      "label":  "CAN2 æ¥æ¶éåå¥åº·",
+                      "status":  "pass",
+                      "value":  "0"
+                  },
+                  {
+                      "key":  "single_control_channel",
+                      "label":  "å¯ä¸æ§å¶ééä¸º CAN2",
+                      "status":  "pass",
+                      "value":  "[\u0027CAN2\u0027]"
+                  },
+                  {
+                      "key":  "dbc_ready",
+                      "label":  "DBC/è¦çè§åå¯ç¨",
+                      "status":  "pass",
+                      "value":  "{\u0027loaded\u0027: True, \u0027raw_only\u0027: False, \u0027file\u0027: \u0027D:\\\\workspace\\\\0-yunle\\\\7_codex\\\\chassis_eol_management_platform_codex_pack\\\\chassis_management_platform\\\\assets\\\\Yunle_CAN_integrated_candb_jd.dbc\u0027, \u0027hash\u0027: \u0027387ae48bd84852c8\u0027, \u0027version\u0027: \u0027Yunle_CAN_Integrated_CANdb Release v1.0.2\u0027, \u0027error\u0027: None}"
+                  },
+                  {
+                      "key":  "no_severe_alarm",
+                      "label":  "æ ä¸¥éåè­¦",
+                      "status":  "pass",
+                      "value":  "0"
+                  },
+                  {
+                      "key":  "database_writable",
+                      "label":  "æ°æ®åºå¯å",
+                      "status":  "pass",
+                      "value":  "True"
+                  },
+                  {
+                      "key":  "emergency_released",
+                      "label":  "æ¥åæªéå­",
+                      "status":  "pass",
+                      "value":  "False"
+                  },
+                  {
+                      "key":  "safe_stop_released",
+                      "label":  "å®å\u0085¨åè½¦æªéå­",
+                      "status":  "pass",
+                      "value":  "False"
+                  },
+                  {
+                      "key":  "critical_feedback_fresh",
+                      "label":  "å\u0085³é®éåº¦åé¦æ°é²",
+                      "status":  "pass",
+                      "value":  "0.0"
+                  }
+              ],
+    "reasons":  [
+
+                ],
+    "evaluation":  {
+                       "allowed":  true,
+                       "operation":  "manual",
+                       "level":  "normal",
+                       "rules":  [
+                                     {
+                                         "rule":  "can2_online",
+                                         "label":  "CAN2 åå§æ¥æ¶å¨çº¿",
+                                         "status":  "PASS",
+                                         "current":  17.6,
+                                         "threshold":  "\u003c 2000 ms",
+                                         "blocking":  true
+                                     },
+                                     {
+                                         "rule":  "can2_queue_healthy",
+                                         "label":  "CAN2 æ¥æ¶éåå¥åº·",
+                                         "status":  "PASS",
+                                         "current":  0,
+                                         "threshold":  "\u003c 512",
+                                         "blocking":  true
+                                     },
+                                     {
+                                         "rule":  "single_control_channel",
+                                         "label":  "å¯ä¸æ§å¶ééä¸º CAN2",
+                                         "status":  "PASS",
+                                         "current":  [
+                                                         "CAN2"
+                                                     ],
+                                         "threshold":  [
+                                                           "CAN2"
+                                                       ],
+                                         "blocking":  true
+                                     },
+                                     {
+                                         "rule":  "dbc_ready",
+                                         "label":  "DBC/è¦çè§åå¯ç¨",
+                                         "status":  "PASS",
+                                         "current":  {
+                                                         "loaded":  true,
+                                                         "raw_only":  false,
+                                                         "file":  "D:\\workspace\\0-yunle\\7_codex\\chassis_eol_management_platform_codex_pack\\chassis_management_platform\\assets\\Yunle_CAN_integrated_candb_jd.dbc",
+                                                         "hash":  "387ae48bd84852c8",
+                                                         "version":  "Yunle_CAN_Integrated_CANdb Release v1.0.2",
+                                                         "error":  null
+                                                     },
+                                         "threshold":  "loaded or explicitly raw-allowed",
+                                         "blocking":  true
+                                     },
+                                     {
+                                         "rule":  "no_severe_alarm",
+                                         "label":  "æ ä¸¥éåè­¦",
+                                         "status":  "PASS",
+                                         "current":  0,
+                                         "threshold":  "\u003c 3",
+                                         "blocking":  true
+                                     },
+                                     {
+                                         "rule":  "database_writable",
+                                         "label":  "æ°æ®åºå¯å",
+                                         "status":  "PASS",
+                                         "current":  true,
+                                         "threshold":  true,
+                                         "blocking":  true
+                                     },
+                                     {
+                                         "rule":  "emergency_released",
+                                         "label":  "æ¥åæªéå­",
+                                         "status":  "PASS",
+                                         "current":  false,
+                                         "threshold":  false,
+                                         "blocking":  true
+                                     },
+                                     {
+                                         "rule":  "safe_stop_released",
+                                         "label":  "å®å\u0085¨åè½¦æªéå­",
+                                         "status":  "PASS",
+                                         "current":  false,
+                                         "threshold":  false,
+                                         "blocking":  true
+                                     },
+                                     {
+                                         "rule":  "critical_feedback_fresh",
+                                         "label":  "å\u0085³é®éåº¦åé¦æ°é²",
+                                         "status":  "PASS",
+                                         "current":  0.0,
+                                         "threshold":  "age \u003c 2.0s",
+                                         "blocking":  true
+                                     }
+                                 ],
+                       "reasons":  [
+
+                                   ]
+                   }
+}

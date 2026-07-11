@@ -1,0 +1,260 @@
+plan:
+  id: default_chassis_eol_v1
+  name: 低速无人车线控底盘默认下线检测方案
+  version: 2.0.0
+  default_vehicle_series: JD
+  control_message: '0x121'
+  extension_messages_enabled: false
+  on_severe_error: safe_stop_and_fail
+  generate_report_on_failure: true
+
+steps:
+  - id: power_on_self_check
+    order: 1
+    name: 上电自检
+    description: 检查数据库、DBC、急停和运行配置是否满足检测条件。
+    preconditions: []
+    control_actions: []
+    system_actions: []
+    sample_window_ms: 100
+    assertions:
+      - {id: db_writable, description: 数据库可写, type: system, expected: true}
+      - {id: dbc_loaded, description: DBC 已加载, type: system, expected: true}
+      - {id: emergency_released, description: 急停已释放, type: system, expected: true}
+    timeout_ms: 3000
+    failure_policy: safe_stop_and_fail
+    cleanup_actions: []
+    safe_stop_on_fail: true
+    requires_motion: false
+
+  - id: can_communication_check
+    order: 2
+    name: CAN 通信检测
+    description: 检查 CAN1/CAN2 原始报文在线状态与关键报文时效。
+    preconditions: []
+    control_actions: []
+    system_actions: []
+    sample_window_ms: 200
+    assertions:
+      - {id: can1_online, description: CAN1 原始接收在线, type: system, expected: true}
+      - {id: can2_online, description: CAN2 原始接收在线, type: system, expected: true}
+      - id: key_frames_present
+        description: 关键报文完整
+        signals: ['0x51', '0x77', '0x168', '0xE1']
+        operator: all_present
+        timeout_ms: 3000
+        max_age_ms: 1500
+    timeout_ms: 5000
+    failure_policy: safe_stop_and_fail
+    cleanup_actions: []
+    safe_stop_on_fail: true
+    requires_motion: false
+
+  - id: bms_check
+    order: 3
+    name: BMS 检测
+    description: 校验总压、SOC、NTC 温度和 0x102 unsigned 保护位。
+    preconditions: []
+    control_actions: []
+    system_actions: []
+    sample_window_ms: 250
+    assertions:
+      - {id: bms_voltage_range, description: BMS 总压在范围内, signal: BMS_Voltage, channel: CAN2, operator: between, threshold_ref: bms.total_voltage_v}
+      - {id: bms_soc_min, description: BMS SOC 不低于阈值, signal: BMS_SOC, channel: CAN2, operator: '>=', threshold_ref: bms.soc_percent_min}
+      - id: bms_temperature_range
+        description: NTC 温度均在范围内
+        signals: [NTC1, NTC2, NTC3]
+        channel: CAN2
+        operator: all_between
+        threshold_ref: bms.ntc_temperature_c
+      - {id: bms_no_protect, description: 0x102 保护位均未触发, message: '0x102', channel: CAN2, operator: all_bool_zero, threshold_ref: bms.protect_status_required_zero}
+    timeout_ms: 5000
+    failure_policy: safe_stop_and_fail
+    cleanup_actions: []
+    safe_stop_on_fail: true
+    requires_motion: false
+
+  - id: vcu_status_check
+    order: 4
+    name: VCU 状态检测
+    description: 校验点火、静止车速与制动请求状态。
+    preconditions: []
+    control_actions: []
+    system_actions: []
+    sample_window_ms: 250
+    assertions:
+      - {id: ignition_ok, description: 点火状态有效, signal: CCU_Ignition_Status, channel: CAN1, operator: in, values: [1, 2]}
+      - {id: vehicle_speed_zero, description: 初始车速接近零, signal: CCU_Vehicle_Speed, channel: CAN1, operator: '<=', value: 0.2}
+      - id: no_brake_conflict
+        description: 无非预期制动冲突
+        signals: [Remote_Brake_Request_Status, Touch_Brake_Request_Status]
+        channel: CAN1
+        operator: no_unexpected_active
+    timeout_ms: 4000
+    failure_policy: safe_stop_and_fail
+    cleanup_actions: []
+    safe_stop_on_fail: true
+    requires_motion: false
+
+  - id: motor_heartbeat_check
+    order: 5
+    name: 电机心跳检测
+    description: 校验 0x703 和 0x704 心跳均新鲜。
+    preconditions: []
+    control_actions: []
+    system_actions: []
+    sample_window_ms: 200
+    assertions:
+      - {id: motor_heartbeat_online, description: 双电机心跳在线, signals: ['0x703', '0x704'], operator: all_present, timeout_ms: 1000, max_age_ms: 500}
+    timeout_ms: 3000
+    failure_policy: safe_stop_and_fail
+    cleanup_actions: []
+    safe_stop_on_fail: true
+    requires_motion: false
+
+  - id: shift_check
+    order: 6
+    name: 档位检测
+    description: 依次下发 N/D/R/N 并校验实际档位反馈。
+    preconditions: []
+    control_actions:
+      - {type: control_121, shift: N, target_speed_kmh: 0, brake_enable: true, duration_ms: 300}
+      - {type: control_121, shift: D, target_speed_kmh: 0, brake_enable: true, duration_ms: 300}
+      - {type: control_121, shift: R, target_speed_kmh: 0, brake_enable: true, duration_ms: 300}
+      - {type: control_121, shift: N, target_speed_kmh: 0, brake_enable: true, duration_ms: 300}
+    system_actions: []
+    sample_window_ms: 100
+    assertions:
+      - {id: shift_feedback_matches, description: 档位反馈跟随命令, signal: CCU_Shift_Level_Status, channel: CAN1, operator: follows_commands, timeout_ms: 1000}
+    timeout_ms: 5000
+    failure_policy: safe_stop_and_fail
+    cleanup_actions:
+      - {type: control_121, shift: N, target_speed_kmh: 0, brake_enable: true, duration_ms: 250}
+    safe_stop_on_fail: true
+    requires_motion: true
+
+  - id: low_speed_drive_check
+    order: 7
+    name: 低速驱动检测
+    description: 在封闭 Mock 环境下下发低速命令并校验车速与四轮一致性。
+    preconditions: []
+    control_actions:
+      - {type: control_121, shift: D, target_speed_kmh: 1.5, brake_enable: false, duration_ms: 1200}
+      - {type: control_121, shift: N, target_speed_kmh: 0, brake_enable: true, duration_ms: 800}
+    system_actions: []
+    sample_window_ms: 150
+    assertions:
+      - {id: speed_response, description: 车速达到目标附近, signal: CCU_Vehicle_Speed, channel: CAN1, operator: reaches_near, target: 1.5, tolerance_ref: vehicle.vehicle_speed_error_kmh}
+      - id: wheel_speed_consistent
+        description: 四轮轮速一致
+        signals: [Wheel_Speed_Front_Left_RPM, Wheel_Speed_Front_Right_RPM, Wheel_Speed_Rear_Left_RPM, Wheel_Speed_Rear_Right_RPM]
+        channel: CAN1
+        operator: consistent
+        tolerance_ref: vehicle.wheel_speed_error_rpm
+    timeout_ms: 7000
+    failure_policy: safe_stop_and_fail
+    cleanup_actions:
+      - {type: control_121, shift: N, target_speed_kmh: 0, brake_enable: true, duration_ms: 300}
+    safe_stop_on_fail: true
+    requires_motion: true
+
+  - id: steering_check
+    order: 8
+    name: 转向检测
+    description: 下发正向、负向与回中命令并校验前后转向跟随。
+    preconditions: []
+    control_actions:
+      - {type: control_121, front_steering_cmd: 30, rear_steering_cmd: 30, target_speed_kmh: 0, brake_enable: true, duration_ms: 1200}
+      - {type: control_121, front_steering_cmd: -30, rear_steering_cmd: -30, target_speed_kmh: 0, brake_enable: true, duration_ms: 1200}
+      - {type: control_121, front_steering_cmd: 0, rear_steering_cmd: 0, target_speed_kmh: 0, brake_enable: true, duration_ms: 1200}
+    system_actions: []
+    sample_window_ms: 100
+    assertions:
+      - {id: front_steering_follow, description: 前转向反馈跟随命令, signal: SAS_Front_Angle, channel: CAN1, operator: follows_command, tolerance_ref: steering.feedback_error_cmd_units}
+      - {id: rear_steering_follow, description: 后转向反馈跟随命令, signal: SAS_Rear_Angle, channel: CAN1, operator: follows_command, tolerance_ref: steering.feedback_error_cmd_units}
+    timeout_ms: 7000
+    failure_policy: safe_stop_and_fail
+    cleanup_actions:
+      - {type: control_121, front_steering_cmd: 0, rear_steering_cmd: 0, target_speed_kmh: 0, brake_enable: true, duration_ms: 300}
+    safe_stop_on_fail: true
+    requires_motion: true
+
+  - id: light_check
+    order: 9
+    name: 灯光检测
+    description: 依次下发转向灯、位置灯、近光灯并校验反馈。
+    preconditions: []
+    control_actions:
+      - {type: control_121, left_light: true, duration_ms: 1000}
+      - {type: control_121, right_light: true, duration_ms: 1000}
+      - {type: control_121, position_light: true, low_beam: true, duration_ms: 1000}
+      - {type: control_121, all_lights_off: true, duration_ms: 1000}
+    system_actions: []
+    sample_window_ms: 100
+    assertions:
+      - id: light_feedback
+        description: 灯光反馈跟随命令
+        signals: [Left_Turn_Light_Status, Right_Turn_Light_Status, Position_Light_Status, Low_Beam_Status]
+        channel: CAN1
+        operator: follows_commands_or_manual_review
+    timeout_ms: 5000
+    failure_policy: safe_stop_and_fail
+    cleanup_actions:
+      - {type: control_121, all_lights_off: true, duration_ms: 250}
+    safe_stop_on_fail: true
+    requires_motion: true
+
+  - id: brake_stop_check
+    order: 10
+    name: 制动停止检测
+    description: 建立低速后下发零速制动，校验制动反馈与停车结果。
+    preconditions: []
+    control_actions:
+      - {type: control_121, shift: D, target_speed_kmh: 1.0, brake_enable: false, duration_ms: 900}
+      - {type: control_121, shift: N, target_speed_kmh: 0, brake_enable: true, duration_ms: 1200}
+    system_actions: []
+    sample_window_ms: 150
+    assertions:
+      - {id: speed_to_zero, description: 制动后车速归零, signal: CCU_Vehicle_Speed, channel: CAN1, operator: '<=', threshold_ref: control.safe_stop_speed_threshold_kmh, timeout_ref: control.brake_stop_timeout_ms}
+      - {id: brake_feedback_active, description: 制动反馈已激活, signal: Brake_Status, channel: CAN1, operator: brake_confirmed, timeout_ref: control.brake_stop_timeout_ms}
+    timeout_ms: 9000
+    failure_policy: safe_stop_and_fail
+    cleanup_actions:
+      - {type: control_121, shift: N, target_speed_kmh: 0, brake_enable: true, duration_ms: 300}
+    safe_stop_on_fail: true
+    requires_motion: true
+
+  - id: alarm_recheck
+    order: 11
+    name: 告警复查
+    description: 校验 0x77 告警等级与 CAN 通道统计。
+    preconditions: []
+    control_actions: []
+    system_actions: []
+    sample_window_ms: 200
+    assertions:
+      - {id: warning_level_zero, description: 最高告警等级为零, message: '0x77', channel: CAN1, operator: max_level_equals, value: 0}
+      - {id: no_timeout_critical, description: 无关键通道超时, type: can_statistics, operator: no_critical_timeout}
+    timeout_ms: 4000
+    failure_policy: safe_stop_and_fail
+    cleanup_actions: []
+    safe_stop_on_fail: true
+    requires_motion: false
+
+  - id: report_generation
+    order: 12
+    name: 报告生成
+    description: 写入会话结果并生成 JSON、DOCX、PDF 和 CSV 报告。
+    preconditions: []
+    control_actions: []
+    system_actions:
+      - {type: generate_report, duration_ms: 0}
+    sample_window_ms: 0
+    assertions:
+      - {id: result_saved, description: 会话数据已写入数据库, type: database, expected: true}
+      - {id: report_generated, description: 报告文件已生成, type: report, formats: [docx, json, csv]}
+    timeout_ms: 10000
+    failure_policy: fail
+    cleanup_actions: []
+    safe_stop_on_fail: false
+    requires_motion: false

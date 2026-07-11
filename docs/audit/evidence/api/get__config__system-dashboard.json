@@ -1,0 +1,566 @@
+{
+  "url": "http://127.0.0.1:8800/api/v1/config/system-dashboard",
+  "method": "GET",
+  "status": 200,
+  "headers": {
+    "date": "Fri, 10 Jul 2026 03:01:29 GMT",
+    "server": "uvicorn",
+    "content-length": "9252",
+    "content-type": "application/json",
+    "connection": "close"
+  },
+  "body": {
+    "save_state": {
+      "dirty": false,
+      "last_saved_at": "2026-07-10 03:01:30",
+      "status": "saved"
+    },
+    "auth": {
+      "current_user": "op01",
+      "current_role": "admin"
+    },
+    "basic": {
+      "station_id": "EOL-STATION-01",
+      "host_ip": "[REDACTED_STATION_HOST]",
+      "control_channel": "CAN2",
+      "report_directory": "D:\\TestLogs\\Reports",
+      "database_path": "D:\\TestLogs\\Database\\chassis_eol.sqlite3",
+      "log_directory": "D:\\TestLogs\\AppLogs",
+      "timezone": "UTC+08:00",
+      "language": "zh-CN",
+      "auto_save": true
+    },
+    "dbc": {
+      "filename": "Yunle_CAN_integrated_candb_jd.dbc",
+      "version": "Yunle_CAN_Integrated_CANdb Release v1.0.2",
+      "hash": "387ae48bd848",
+      "status": "loaded",
+      "error": "",
+      "message_count": 39,
+      "signal_count": 170,
+      "loaded_at": "2026-07-10 03:01:30",
+      "overrides": [
+        {
+          "key": "0x121_steering",
+          "label": "0x121 前/后转角",
+          "value": "int8 有符号补码",
+          "status": "active"
+        },
+        {
+          "key": "0x102_bool",
+          "label": "0x102 保护状态",
+          "value": "unsigned bool",
+          "status": "active"
+        },
+        {
+          "key": "0x101_state",
+          "label": "0x101 充放电状态",
+          "value": "0 idle / 1 charging / 2 discharging / 3 reserved",
+          "status": "active"
+        },
+        {
+          "key": "motor_current",
+          "label": "Torque_req / Torque_feed",
+          "value": "电机相电流 raw × 0.1 A，不是 Nm",
+          "status": "active"
+        },
+        {
+          "key": "bms_cell_segments",
+          "label": "0x104~0x109",
+          "value": "BMS cell 分段兼容，非固定 24 串",
+          "status": "active"
+        }
+      ]
+    },
+    "storage": {
+      "report_directory": "D:\\TestLogs\\Reports",
+      "raw_can_directory": "D:\\TestLogs\\RawCan",
+      "decoded_signal_directory": "D:\\TestLogs\\DecodedSignals",
+      "database_path": "D:\\TestLogs\\Database\\chassis_eol.sqlite3",
+      "retention_days": 180,
+      "max_log_gb": 50,
+      "auto_cleanup": true,
+      "word_enabled": true,
+      "pdf_enabled": true,
+      "csv_enabled": true,
+      "parquet_enabled": false,
+      "disk_total_gb": 465.8,
+      "disk_used_gb": 309.0,
+      "disk_free_gb": 156.7,
+      "disk_used_percent": 66.3
+    },
+    "thresholds": [
+      {
+        "key": "control_period_ms",
+        "label": "0x121 发送周期",
+        "value": 20,
+        "min": 10,
+        "max": 100,
+        "unit": "ms",
+        "scope": "CAN/控制",
+        "description": "默认主控制发送周期",
+        "dangerous": false
+      },
+      {
+        "key": "can_period_tolerance",
+        "label": "CAN 周期容差",
+        "value": 20,
+        "min": 5,
+        "max": 50,
+        "unit": "%",
+        "scope": "CAN/诊断",
+        "description": "周期抖动允许比例",
+        "dangerous": false
+      },
+      {
+        "key": "frame_timeout_multiplier",
+        "label": "报文超时倍数",
+        "value": 3,
+        "min": 1,
+        "max": 10,
+        "unit": "倍",
+        "scope": "CAN/诊断",
+        "description": "期望周期的超时倍数",
+        "dangerous": false
+      },
+      {
+        "key": "motor_heartbeat_timeout_ms",
+        "label": "电机心跳超时",
+        "value": 500,
+        "min": 100,
+        "max": 2000,
+        "unit": "ms",
+        "scope": "电机",
+        "description": "0x703 / 0x704 离线阈值",
+        "dangerous": false
+      },
+      {
+        "key": "control_response_timeout_ms",
+        "label": "控制响应时间",
+        "value": 1000,
+        "min": 100,
+        "max": 2000,
+        "unit": "ms",
+        "scope": "控制",
+        "description": "指令反馈最大响应时间",
+        "dangerous": true
+      },
+      {
+        "key": "safe_stop_timeout_ms",
+        "label": "安全停车超时",
+        "value": 5000,
+        "min": 500,
+        "max": 5000,
+        "unit": "ms",
+        "scope": "安全",
+        "description": "安全停车完成等待时间",
+        "dangerous": true
+      },
+      {
+        "key": "bms_voltage_min",
+        "label": "BMS 总压最小值",
+        "value": 36.0,
+        "min": 0,
+        "max": 1000,
+        "unit": "V",
+        "scope": "BMS",
+        "description": "总压有效下限",
+        "dangerous": false
+      },
+      {
+        "key": "bms_voltage_max",
+        "label": "BMS 总压最大值",
+        "value": 72.0,
+        "min": 1,
+        "max": 1000,
+        "unit": "V",
+        "scope": "BMS",
+        "description": "总压有效上限",
+        "dangerous": false
+      },
+      {
+        "key": "bms_soc_min",
+        "label": "SOC 最低值",
+        "value": 30,
+        "min": 0,
+        "max": 100,
+        "unit": "%",
+        "scope": "BMS",
+        "description": "允许检测的最低 SOC",
+        "dangerous": true
+      },
+      {
+        "key": "bms_temp_min",
+        "label": "电池温度最小值",
+        "value": -20,
+        "min": -50,
+        "max": 20,
+        "unit": "°C",
+        "scope": "BMS",
+        "description": "NTC 有效下限",
+        "dangerous": false
+      },
+      {
+        "key": "bms_temp_max",
+        "label": "电池温度最大值",
+        "value": 60,
+        "min": 20,
+        "max": 100,
+        "unit": "°C",
+        "scope": "BMS",
+        "description": "NTC 有效上限",
+        "dangerous": true
+      },
+      {
+        "key": "cell_voltage_min",
+        "label": "单体电压最小值",
+        "value": 2.8,
+        "min": 0,
+        "max": 5,
+        "unit": "V",
+        "scope": "BMS",
+        "description": "单体电压有效下限",
+        "dangerous": false
+      },
+      {
+        "key": "cell_voltage_max",
+        "label": "单体电压最大值",
+        "value": 4.25,
+        "min": 0,
+        "max": 5,
+        "unit": "V",
+        "scope": "BMS",
+        "description": "单体电压有效上限",
+        "dangerous": true
+      },
+      {
+        "key": "cell_delta_max_mv",
+        "label": "单体压差最大值",
+        "value": 80,
+        "min": 0,
+        "max": 200,
+        "unit": "mV",
+        "scope": "BMS",
+        "description": "单体最大允许压差",
+        "dangerous": false
+      },
+      {
+        "key": "manual_speed_limit",
+        "label": "手动控制速度上限",
+        "value": 3.0,
+        "min": 0,
+        "max": 8,
+        "unit": "km/h",
+        "scope": "安全",
+        "description": "手动控制保守限速",
+        "dangerous": true
+      },
+      {
+        "key": "auto_speed_limit",
+        "label": "自动检测速度上限",
+        "value": 1.5,
+        "min": 0,
+        "max": 5,
+        "unit": "km/h",
+        "scope": "安全",
+        "description": "一键检测低速限速",
+        "dangerous": true
+      },
+      {
+        "key": "front_steer_limit",
+        "label": "前转角限幅",
+        "value": 60,
+        "min": -120,
+        "max": 120,
+        "unit": "raw",
+        "scope": "转向",
+        "description": "int8 补码控制值",
+        "dangerous": true
+      },
+      {
+        "key": "rear_steer_limit",
+        "label": "后转角限幅",
+        "value": 60,
+        "min": -120,
+        "max": 120,
+        "unit": "raw",
+        "scope": "转向",
+        "description": "int8 补码控制值",
+        "dangerous": true
+      },
+      {
+        "key": "vehicle_speed_error",
+        "label": "车速允许误差",
+        "value": 0.5,
+        "min": 0,
+        "max": 3,
+        "unit": "km/h",
+        "scope": "检测",
+        "description": "目标与反馈允许误差",
+        "dangerous": false
+      },
+      {
+        "key": "steering_error",
+        "label": "转角允许误差",
+        "value": 8,
+        "min": 0,
+        "max": 20,
+        "unit": "raw",
+        "scope": "检测",
+        "description": "命令与反馈允许偏差",
+        "dangerous": false
+      },
+      {
+        "key": "wheel_speed_error",
+        "label": "四轮轮速允许误差",
+        "value": 30,
+        "min": 0,
+        "max": 100,
+        "unit": "rpm",
+        "scope": "检测",
+        "description": "四轮反馈一致性阈值",
+        "dangerous": false
+      },
+      {
+        "key": "max_alarm_level",
+        "label": "允许最大告警等级",
+        "value": 0,
+        "min": 0,
+        "max": 0,
+        "unit": "level",
+        "scope": "安全",
+        "description": "检测与控制必须保持 Normal",
+        "dangerous": true
+      },
+      {
+        "key": "allow_warning_release",
+        "label": "人工放行轻微告警",
+        "value": false,
+        "min": null,
+        "max": null,
+        "unit": "开关",
+        "scope": "安全",
+        "description": "默认关闭，启用需管理员",
+        "dangerous": true
+      }
+    ],
+    "roles": [
+      {
+        "role": "viewer",
+        "view": "全部查看",
+        "test": "无",
+        "manual_control": "无",
+        "config": "无",
+        "maintenance": "无",
+        "delete_report": false,
+        "admin_confirmation": false
+      },
+      {
+        "role": "operator",
+        "view": "业务页面",
+        "test": "执行检测",
+        "manual_control": "无",
+        "config": "无",
+        "maintenance": "无",
+        "delete_report": false,
+        "admin_confirmation": false
+      },
+      {
+        "role": "engineer",
+        "view": "全部业务页",
+        "test": "执行检测",
+        "manual_control": "0x121",
+        "config": "非危险配置",
+        "maintenance": "无",
+        "delete_report": false,
+        "admin_confirmation": false
+      },
+      {
+        "role": "admin",
+        "view": "全部",
+        "test": "全部",
+        "manual_control": "全部审批",
+        "config": "全部",
+        "maintenance": "管理员确认",
+        "delete_report": true,
+        "admin_confirmation": true
+      }
+    ],
+    "maintenance": {
+      "maintenance_mode": false,
+      "mock_can_gateway": false,
+      "enable_0x123": false,
+      "enable_0x126": false,
+      "allow_canopen_nmt": false,
+      "enable_pid_debug": false,
+      "dual_control_channel_allowed": false,
+      "requires_admin": true
+    },
+    "safe_defaults": [
+      {
+        "label": "UI 不直接发送 CAN",
+        "enabled": true
+      },
+      {
+        "label": "所有运动控制必须经过安全联锁",
+        "enabled": true
+      },
+      {
+        "label": "数据库不可写时禁止开始检测",
+        "enabled": true
+      },
+      {
+        "label": "CAN 控制通道默认仅 CAN2",
+        "enabled": true
+      },
+      {
+        "label": "0x123 默认禁用",
+        "enabled": true
+      },
+      {
+        "label": "0x126 默认禁用",
+        "enabled": true
+      },
+      {
+        "label": "CANopen NMT 默认禁用",
+        "enabled": true
+      },
+      {
+        "label": "Mock 不伪装真实硬件",
+        "enabled": true
+      },
+      {
+        "label": "异常时执行安全停车",
+        "enabled": true
+      }
+    ],
+    "version": {
+      "software": "v1.0.2",
+      "config": "cfg-20260401",
+      "test_plan": "eol-plan-1.0.2",
+      "python": "3.14.3",
+      "node": "20.x",
+      "electron": "^31.0.0",
+      "platform": "Windows 10 AMD64",
+      "build_time": "2026-07-10 03:01:30"
+    },
+    "storage_trend": [
+      {
+        "date": "04-01",
+        "used_gb": 21
+      },
+      {
+        "date": "04-02",
+        "used_gb": 24
+      },
+      {
+        "date": "04-03",
+        "used_gb": 28
+      },
+      {
+        "date": "04-04",
+        "used_gb": 31
+      },
+      {
+        "date": "04-05",
+        "used_gb": 34
+      },
+      {
+        "date": "04-06",
+        "used_gb": 38
+      },
+      {
+        "date": "04-07",
+        "used_gb": 42
+      }
+    ],
+    "storage_summary": {
+      "current_log_gb": 0.062,
+      "database_gb": 0.0002,
+      "reports_gb": 0.0,
+      "raw_can_gb": 0.0,
+      "last_cleanup": "2026-03-31 02:00:00",
+      "next_cleanup": "2026-04-02 02:00:00",
+      "cleanup_status": "策略正常",
+      "disk_alarm": "正常"
+    },
+    "config_history": [
+      {
+        "time": "2026-07-10 02:58:32",
+        "user": "op01",
+        "key": "maintenance.dangerous_features",
+        "old_value": "custom",
+        "new_value": "全部关闭",
+        "reason": "恢复安全默认",
+        "result": "成功"
+      },
+      {
+        "time": "2026-07-10 02:58:32",
+        "user": "op01",
+        "key": "control_period_ms",
+        "old_value": "custom",
+        "new_value": "20",
+        "reason": "恢复安全默认",
+        "result": "成功"
+      },
+      {
+        "time": "2026-07-10 02:58:32",
+        "user": "op01",
+        "key": "allow_warning_release",
+        "old_value": "custom",
+        "new_value": "False",
+        "reason": "恢复安全默认",
+        "result": "成功"
+      },
+      {
+        "time": "2026-07-10 02:58:32",
+        "user": "op01",
+        "key": "max_alarm_level",
+        "old_value": "custom",
+        "new_value": "0",
+        "reason": "恢复安全默认",
+        "result": "成功"
+      },
+      {
+        "time": "2026-07-10 02:58:32",
+        "user": "op01",
+        "key": "rear_steer_limit",
+        "old_value": "custom",
+        "new_value": "60",
+        "reason": "恢复安全默认",
+        "result": "成功"
+      },
+      {
+        "time": "2026-07-10 02:58:32",
+        "user": "op01",
+        "key": "front_steer_limit",
+        "old_value": "custom",
+        "new_value": "60",
+        "reason": "恢复安全默认",
+        "result": "成功"
+      },
+      {
+        "time": "2026-07-10 02:58:32",
+        "user": "op01",
+        "key": "auto_speed_limit",
+        "old_value": "custom",
+        "new_value": "1.5",
+        "reason": "恢复安全默认",
+        "result": "成功"
+      },
+      {
+        "time": "2026-07-10 02:58:32",
+        "user": "op01",
+        "key": "manual_speed_limit",
+        "old_value": "custom",
+        "new_value": "3.0",
+        "reason": "恢复安全默认",
+        "result": "成功"
+      }
+    ],
+    "mock": false,
+    "updated_at": "2026-07-10T03:01:30.007615+00:00"
+  },
+  "started_at": "2026-07-10T11:01:29.996217+08:00",
+  "finished_at": "2026-07-10T11:01:30.008854+08:00"
+}

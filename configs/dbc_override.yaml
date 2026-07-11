@@ -1,0 +1,86 @@
+metadata:
+  description: DBC 语义覆盖规则，优先级高于原始 DBC，用于修正实际底盘协议语义。
+  source_dbc_version: Yunle_CAN_Integrated_CANdb Release v1.0.2
+messages:
+  '0x121':
+    name: SCU_Control_Command
+    role: primary_control
+    default_enabled: true
+    default_period_ms: 20
+    bus_default: CAN2
+    signals:
+      SCU_Steering_Angle_Front:
+        override_type: int8_twos_complement
+        physical_range: [-120, 120]
+        sensor_target_scale: 1.4
+        examples: {'-120': '0x88', '-60': '0xC4', '0': '0x00', '60': '0x3C', '120': '0x78'}
+        warning: 不能直接按 DBC unsigned 处理负转角。
+      SCU_Steering_Angle_Rear:
+        override_type: int8_twos_complement
+        physical_range: [-120, 120]
+        sensor_target_scale: 1.4
+      SCU_Drive_Mode_Request:
+        enum_override:
+          0: reserved_or_manual_configurable
+          1: auto_drive_request
+          2: reserved
+          3: remote_request
+        note: DBC 与厂家说明书枚举不完全一致，默认按说明书示例 1=自动驾驶请求。
+      Steering_Angle_Speed_Valid:
+        default: 0
+        reason: 0x126 默认禁用。
+      Brake_Force_Command_Valid:
+        default: 0
+        reason: 0x126 默认禁用。
+  '0x123':
+    name: SCU_Torque_Command
+    default_enabled: false
+    hidden_in_ui: true
+    reason: 额外功能，默认不在一键检测主动下发。
+  '0x126':
+    name: SCU_Chassis_Command
+    default_enabled: false
+    hidden_in_ui: true
+    maintenance_only: true
+    signals:
+      VCU_Target_Steering_Angle_Speed:
+        valid_range_deg_s: [126, 525]
+        note: 角速度幅值，仅后续扩展使用。
+  '0x101':
+    name: BMS_Capacity
+    signals:
+      Charge_or_Discharge_State:
+        enum_override:
+          0: idle
+          1: charging
+          2: discharging
+          3: reserved
+  '0x102':
+    name: BMS_Protect_Status
+    force_unsigned_bool_for_1bit: true
+    bitmap_signals:
+      Balance_symbol_cell16: unsigned_bitmap
+      Balance_symbol_cell33: unsigned_bitmap
+    bool_semantics:
+      0: not_triggered
+      1: triggered
+  '0x104-0x109':
+    name: BMS_Cell_Parts
+    cell_message_policy: compatible_variable_cell_count
+    note: 这些报文兼容不同 cell 数量，不代表当前底盘一定是 24 串；低串数可能不发送后续报文。
+canopen_motor:
+  torque_signal_semantics:
+    signal_name_patterns: ['Torque_req', 'Torque_feed']
+    physical_name: motor_phase_current
+    unit: A
+    factor: 0.1
+    note: 不是机械扭矩 Nm，不允许 UI 和报告显示为 Nm。
+warning_levels:
+  '0': Normal
+  '1': Warning
+  '2': Derating
+  '3': Fault
+  '4': Severe
+  '5': Reserved
+  '6': Reserved
+  '7': Reserved

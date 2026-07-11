@@ -1,0 +1,27 @@
+storage:
+  root_dir: D:\TestLogs
+  database_path: D:\TestLogs\Database\chassis_eol.sqlite3
+  raw_can_dir: D:\TestLogs\RawCan
+  decoded_signal_dir: D:\TestLogs\DecodedSignals
+  reports_dir: D:\TestLogs\Reports
+  snapshots_dir: D:\TestLogs\Snapshots
+  app_logs_dir: D:\TestLogs\AppLogs
+raw_can_logging:
+  enabled: true
+  format: csv
+  rotate_by: session_and_date
+  flush_interval_ms: 1000
+  compress_after_days: 7
+decoded_signal_logging:
+  enabled: true
+  format: csv
+  sample_mode: change_or_periodic
+  periodic_sample_ms: 100
+retention:
+  raw_can_days: 180
+  decoded_signal_days: 180
+  reports_days: 3650
+  app_logs_days: 90
+integrity:
+  write_file_hash: true
+  report_records_log_hash: true

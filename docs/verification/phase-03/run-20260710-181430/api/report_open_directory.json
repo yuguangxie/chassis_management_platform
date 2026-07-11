@@ -1,0 +1,20 @@
+{
+  "request": {
+    "method": "POST",
+    "path": "/reports/open-directory",
+    "body": {}
+  },
+  "status_code": 200,
+  "trace_id": "79a7dd796192474e8b68fd5275316833",
+  "body": {
+    "ok": true,
+    "message": "报告目录已通过安全校验，可由桌面端打开",
+    "trace_id": "79a7dd796192474e8b68fd5275316833",
+    "data_source": "sqlite+filesystem",
+    "mock": false,
+    "details": {
+      "path": "D:\\workspace\\0-yunle\\7_codex\\chassis_eol_management_platform_codex_pack\\chassis_management_platform\\data\\reports",
+      "desktop_action": "openPath"
+    }
+  }
+}

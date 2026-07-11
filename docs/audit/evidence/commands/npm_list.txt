@@ -1,0 +1,12 @@
+﻿chassis-eol-desktop@1.0.2 D:\workspace\0-yunle\7_codex\chassis_eol_management_platform_codex_pack\chassis_management_platform\desktop
+├── @vitejs/plugin-vue@5.2.4
+├── echarts@5.6.0
+├── electron@31.7.7
+├── lucide-vue-next@0.468.0
+├── pinia@2.3.1
+├── typescript@5.9.3
+├── vite@5.4.21
+├── vue-router@4.6.4
+├── vue-tsc@2.2.12
+└── vue@3.5.39
+

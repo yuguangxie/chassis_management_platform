@@ -1,0 +1,8 @@
+{
+    "simulator_rate_hz":  60,
+    "backend_pid":  63788,
+    "started_at":  "2026-07-10T19:12:34.2656352+08:00",
+    "simulator_pid":  23548,
+    "simulator_ui_pid":  44636,
+    "vite_pid":  63580
+}

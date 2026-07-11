@@ -1,0 +1,14 @@
+﻿{
+    "duration_seconds":  600.0,
+    "sent_frames":  600000,
+    "achieved_send_fps":  1000.0,
+    "passed":  true,
+    "can1_fps":  500.0,
+    "can2_fps":  500.0,
+    "pipeline_depth":  0,
+    "pipeline_dropped":  0,
+    "telemetry_depth":  0,
+    "telemetry_dropped":  0,
+    "rotations":  3,
+    "compressed":  3
+}

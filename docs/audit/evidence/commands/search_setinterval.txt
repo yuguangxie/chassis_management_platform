@@ -1,0 +1,14 @@
+﻿PATTERN: setInterval
+MATCHES: 11
+
+desktop/src\components\layout\TopStatusBar.vue:64:  timer = window.setInterval(tick, 1000)
+desktop/src\components\layout\AppShell.vue:19:onMounted(() => { void store.refresh(); store.connectWs(); refreshTimer = window.setInterval(() => void store.refresh(), 3000) })
+desktop/src\pages\AlarmDiagnosisPage.vue:216:  pollTimer = window.setInterval(() => void alarms.loadDashboard(), 2500)
+desktop/src\pages\HistoryPage.vue:132:function scheduleRefresh(){ if(refreshTimer) window.clearInterval(refreshTimer); refreshTimer=undefined; const seconds=Number(refreshSeconds.value); if(autoRefresh.value&&seconds>0) refreshTimer=window.setInterval(()=>void historyStore.loadDashboard(currentQuery(),true),seconds*1000) }
+desktop/src\pages\AutoTestPage.vue:315:  pollTimer = window.setInterval(() => {
+desktop/src\pages\ManualControlPage.vue:297:  pollTimer = window.setInterval(() => {
+desktop/src\pages\OverviewPage.vue:378:  refreshTimer = window.setInterval(() => void loadSummary(), 2500)
+desktop/src\pages\RealtimeCurvePage.vue:271:  pollTimer = window.setInterval(() => {
+desktop/src\pages\ReportManagementPage.vue:208:  pollTimer = window.setInterval(() => void reportsStore.loadDashboard(), 5000)
+desktop/src\pages\SignalDashboardPage.vue:297:  refreshTimer = window.setInterval(() => {
+desktop/src\pages\SystemSettingsPage.vue:197:onMounted(async()=>{await settingsStore.loadDashboard();settingsStore.bindWebSocket();pollTimer=window.setInterval(()=>void settingsStore.loadDashboard(true),8000);window.addEventListener('beforeunload',beforeUnload)})

@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:8800/api/v1/config/import",
+  "method": "POST",
+  "status": 200,
+  "headers": {
+    "date": "Fri, 10 Jul 2026 03:01:29 GMT",
+    "server": "uvicorn",
+    "content-length": "126",
+    "content-type": "application/json",
+    "connection": "close"
+  },
+  "body": {
+    "ok": true,
+    "stub": true,
+    "imported": false,
+    "message": "配置导入接口已预留，当前支持 YAML / JSON 文件选择流程"
+  },
+  "started_at": "2026-07-10T11:01:30.141116+08:00",
+  "finished_at": "2026-07-10T11:01:30.143546+08:00"
+}

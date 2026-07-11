@@ -1,0 +1,298 @@
+{
+  "url": "http://127.0.0.1:8800/api/v1/eol/dashboard",
+  "method": "GET",
+  "status": 200,
+  "headers": {
+    "date": "Fri, 10 Jul 2026 03:01:29 GMT",
+    "server": "uvicorn",
+    "content-length": "3587",
+    "content-type": "application/json",
+    "connection": "close"
+  },
+  "body": {
+    "session": {
+      "session_id": "EOL-20260401-0001",
+      "chassis_no": "YL-JD-001",
+      "vin": "L0000000000000001",
+      "serial_no": "SN-20260401-001",
+      "operator": "op01",
+      "station_id": "EOL-STATION-01",
+      "test_plan": "标准下线方案 V1",
+      "remark": "",
+      "overall_status": "RUNNING",
+      "elapsed": "00:05:32",
+      "remaining": "00:17:48",
+      "completed": 2,
+      "passed": 2,
+      "failed": 0,
+      "waiting": 10,
+      "total": 12,
+      "current_step_index": 3,
+      "current_step_key": "BMS_CHECK",
+      "current_step_name": "BMS检测"
+    },
+    "steps": [
+      {
+        "index": 1,
+        "name": "上电自检",
+        "status": "PASS"
+      },
+      {
+        "index": 2,
+        "name": "CAN通信检测",
+        "status": "PASS"
+      },
+      {
+        "index": 3,
+        "name": "BMS检测",
+        "status": "RUNNING"
+      },
+      {
+        "index": 4,
+        "name": "VCU状态检测",
+        "status": "WAIT"
+      },
+      {
+        "index": 5,
+        "name": "电机心跳检测",
+        "status": "WAIT"
+      },
+      {
+        "index": 6,
+        "name": "档位检测",
+        "status": "WAIT"
+      },
+      {
+        "index": 7,
+        "name": "低速驱动检测",
+        "status": "WAIT"
+      },
+      {
+        "index": 8,
+        "name": "转向检测",
+        "status": "WAIT"
+      },
+      {
+        "index": 9,
+        "name": "灯光检测",
+        "status": "WAIT"
+      },
+      {
+        "index": 10,
+        "name": "制动停止检测",
+        "status": "WAIT"
+      },
+      {
+        "index": 11,
+        "name": "告警复查",
+        "status": "WAIT"
+      },
+      {
+        "index": 12,
+        "name": "报告生成",
+        "status": "WAIT"
+      }
+    ],
+    "current_step": {
+      "title": "BMS检测",
+      "description": "读取BMS关键状态，校验电池总压、SOC、温度等参数，并确认无保护告警。",
+      "command": "0x7DF → 0x102：22 01 00",
+      "period_ms": 500,
+      "timeout_ms": 2000
+    },
+    "measurements": [
+      {
+        "name": "BMS总压",
+        "value": 329.6,
+        "unit": "V"
+      },
+      {
+        "name": "SOC",
+        "value": 56.8,
+        "unit": "%"
+      },
+      {
+        "name": "电池温度(均值)",
+        "value": 28.6,
+        "unit": "°C"
+      },
+      {
+        "name": "电池电流",
+        "value": -1.2,
+        "unit": "A"
+      },
+      {
+        "name": "单体最高温",
+        "value": 31.2,
+        "unit": "°C"
+      },
+      {
+        "name": "单体最低温",
+        "value": 26.1,
+        "unit": "°C"
+      },
+      {
+        "name": "保护状态(0x102)",
+        "value": "未触发",
+        "unit": ""
+      }
+    ],
+    "assertions": [
+      {
+        "description": "BMS总压 在范围内",
+        "signal": "BMS_TotVolt",
+        "threshold": "280 ~ 360 V",
+        "value": "329.6 V",
+        "result": "PASS",
+        "fail_reason": "-"
+      },
+      {
+        "description": "SOC >= 30%",
+        "signal": "BMS_SOC",
+        "threshold": ">= 30%",
+        "value": "56.8%",
+        "result": "PASS",
+        "fail_reason": "-"
+      },
+      {
+        "description": "电池温度 在范围内",
+        "signal": "BMS_Temp_Avg",
+        "threshold": "-10 ~ 60°C",
+        "value": "28.6°C",
+        "result": "PASS",
+        "fail_reason": "-"
+      },
+      {
+        "description": "0x102 保护未触发",
+        "signal": "BMS_ProtState",
+        "threshold": "未触发",
+        "value": "未触发",
+        "result": "PASS",
+        "fail_reason": "-"
+      }
+    ],
+    "step_logs": [
+      {
+        "time": "10:20:58",
+        "step": "1 上电自检",
+        "action": "发送上电检测请求",
+        "can_command": "0x7DF 22 01 00",
+        "feedback": "0x7E8 62 01 00",
+        "status": "PASS"
+      },
+      {
+        "time": "10:21:15",
+        "step": "1 上电自检",
+        "action": "读取VCU版本",
+        "can_command": "0x7DF 22 F1 90",
+        "feedback": "0x7E8 62 F1 90",
+        "status": "PASS"
+      },
+      {
+        "time": "10:21:33",
+        "step": "1 上电自检",
+        "action": "读取BMS版本",
+        "can_command": "0x7DF 22 F1 91",
+        "feedback": "0x7E8 62 F1 91",
+        "status": "PASS"
+      },
+      {
+        "time": "10:22:05",
+        "step": "2 CAN通信检测",
+        "action": "周期连通性检测",
+        "can_command": "0x7DF 3E 00",
+        "feedback": "0x7E8 7E 00",
+        "status": "PASS"
+      },
+      {
+        "time": "10:22:47",
+        "step": "2 CAN通信检测",
+        "action": "多节点心跳检测",
+        "can_command": "---",
+        "feedback": "---",
+        "status": "PASS"
+      },
+      {
+        "time": "10:23:03",
+        "step": "3 BMS检测",
+        "action": "读取BMS关键状态",
+        "can_command": "0x7DF 22 01 00",
+        "feedback": "0x7E8 62 01 00",
+        "status": "RUNNING"
+      }
+    ],
+    "charts": {
+      "realtime": {
+        "x_axis": [
+          "09:56",
+          "10:01",
+          "10:06",
+          "10:11",
+          "10:16",
+          "10:21",
+          "10:26"
+        ],
+        "series": [
+          {
+            "name": "车速(km/h)",
+            "data": [
+              0,
+              0.5,
+              1.2,
+              1.8,
+              2.0,
+              2.1,
+              2.0
+            ]
+          },
+          {
+            "name": "转向角(°)",
+            "data": [
+              0,
+              5,
+              12,
+              16,
+              14,
+              10,
+              8
+            ]
+          },
+          {
+            "name": "BMS总压(V)",
+            "data": [
+              329,
+              329.2,
+              329.4,
+              329.6,
+              329.5,
+              329.6,
+              329.6
+            ]
+          },
+          {
+            "name": "告警级别",
+            "data": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        ]
+      }
+    },
+    "stats": {
+      "pass_rate": 100,
+      "passed": 2,
+      "failed": 0,
+      "waiting": 10,
+      "total_elapsed": "00:05:32",
+      "avg_step_duration": "00:02:46"
+    }
+  },
+  "started_at": "2026-07-10T11:01:30.116227+08:00",
+  "finished_at": "2026-07-10T11:01:30.117653+08:00"
+}

@@ -1,0 +1,28 @@
+﻿COMMAND: audit_database.py
+EXIT_CODE: 0
+
+{
+  "journal_mode": "wal",
+  "integrity_check": "ok",
+  "tables_present": "11/11",
+  "row_counts": {
+    "test_sessions": 0,
+    "test_steps": 0,
+    "test_assertions": 0,
+    "raw_can_frames": 0,
+    "decoded_signals": 0,
+    "signal_statistics": 0,
+    "alarms": 0,
+    "reports": 0,
+    "operator_actions": 206,
+    "config_history": 53,
+    "software_versions": 0
+  },
+  "raw_can_csv_mb": 119.08,
+  "report_file_counts": {
+    ".json": 15,
+    ".docx": 15,
+    ".pdf": 15,
+    ".csv": 0
+  }
+}

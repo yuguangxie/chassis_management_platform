@@ -1,0 +1,19 @@
+{
+  "url": "http://127.0.0.1:8800/api/v1/alarms/audit-sample/ack",
+  "method": "POST",
+  "status": 200,
+  "headers": {
+    "date": "Fri, 10 Jul 2026 03:01:29 GMT",
+    "server": "uvicorn",
+    "content-length": "74",
+    "content-type": "application/json",
+    "connection": "close"
+  },
+  "body": {
+    "ok": true,
+    "acked": "audit-sample",
+    "message": "当前告警状态已确认"
+  },
+  "started_at": "2026-07-10T11:01:30.219651+08:00",
+  "finished_at": "2026-07-10T11:01:30.222225+08:00"
+}

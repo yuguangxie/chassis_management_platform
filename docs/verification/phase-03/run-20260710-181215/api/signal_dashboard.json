@@ -1,0 +1,238 @@
+{
+  "request": {
+    "method": "GET",
+    "path": "/signals/dashboard",
+    "body": null
+  },
+  "status_code": 200,
+  "trace_id": "63e012a2a915450db8d72553d1691210",
+  "body": {
+    "data_source": "runtime",
+    "mock": false,
+    "quality": "good",
+    "updated_at": "2026-07-10T10:08:36.619673+00:00",
+    "trace_id": "63e012a2a915450db8d72553d1691210",
+    "status": {
+      "overall": "normal",
+      "updated_at": "2026-07-10T10:08:36.619673+00:00",
+      "mock": false,
+      "quality": "good"
+    },
+    "bms": {
+      "status": "正常",
+      "total_voltage": 52.0,
+      "current": 1.2,
+      "soc": 86.0,
+      "ntc_temperature": 25.0,
+      "cell_max_voltage": 0.0,
+      "cell_min_voltage": 0.0,
+      "cell_delta_mv": 0.0,
+      "charge_discharge_state": "放电",
+      "trend": {
+        "voltage": [
+          52.0
+        ],
+        "current": [
+          1.2
+        ],
+        "soc": [
+          86.0
+        ],
+        "ntc": [
+          25.0
+        ]
+      }
+    },
+    "vehicle": {
+      "status": "正常",
+      "gear": "N",
+      "drive_mode": "Auto",
+      "ignition": "ON",
+      "parking": "RELEASED",
+      "speed": 0.0
+    },
+    "wheel_speed": {
+      "status": "正常",
+      "unit": "km/h",
+      "front_left": 4.0,
+      "front_right": 4.0,
+      "rear_left": 4.0,
+      "rear_right": 4.0
+    },
+    "steering": {
+      "status": "正常",
+      "front_cmd": 0.0,
+      "front_feedback": 0.0,
+      "rear_cmd": 0.0,
+      "rear_feedback": 0.0,
+      "front_trend": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rear_trend": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "motor": {
+      "status": "正常",
+      "speed_rpm": 0.0,
+      "phase_current_a": 0.0,
+      "heartbeat": "0x703 / 0x704",
+      "heartbeat_status": "正常",
+      "speed_trend": [],
+      "current_trend": []
+    },
+    "lights_brake": {
+      "left_turn": "OFF",
+      "right_turn": "OFF",
+      "position_light": "OFF",
+      "low_beam": "OFF",
+      "brake_request": "OFF"
+    },
+    "alarm": {
+      "status": "正常",
+      "level": 0,
+      "label": "Normal",
+      "thresholds": [
+        {
+          "name": "SOC阈值",
+          "status": "正常"
+        },
+        {
+          "name": "告警等级",
+          "status": "正常"
+        },
+        {
+          "name": "保护位",
+          "status": "正常"
+        }
+      ]
+    },
+    "watchlist": [
+      {
+        "signal_name": "BMS_总压",
+        "signal_key": "BMS_Voltage",
+        "can_id": "0x100",
+        "channel": "CAN2",
+        "value": 52.0,
+        "unit": "V",
+        "threshold": "[60.0 ~ 840.0]",
+        "quality": "100%",
+        "updated_at": "2026-07-10T10:08:36.374852+00:00",
+        "trend": [
+          52.0
+        ]
+      },
+      {
+        "signal_name": "BMS_电流",
+        "signal_key": "BMS_Current",
+        "can_id": "0x100",
+        "channel": "CAN2",
+        "value": 1.2,
+        "unit": "A",
+        "threshold": "[-500.0 ~ 500.0]",
+        "quality": "100%",
+        "updated_at": "2026-07-10T10:08:36.374859+00:00",
+        "trend": [
+          1.2
+        ]
+      },
+      {
+        "signal_name": "BMS_SOC",
+        "signal_key": "BMS_SOC",
+        "can_id": "0x100",
+        "channel": "CAN2",
+        "value": 86,
+        "unit": "%",
+        "threshold": "[10 ~ 100]",
+        "quality": "100%",
+        "updated_at": "2026-07-10T10:08:36.374863+00:00",
+        "trend": [
+          86.0
+        ]
+      },
+      {
+        "signal_name": "VCU_车速",
+        "signal_key": "CCU_Vehicle_Speed",
+        "can_id": "0x51",
+        "channel": "CAN1",
+        "value": 0.0,
+        "unit": "km/h",
+        "threshold": "[0 ~ 40]",
+        "quality": "100%",
+        "updated_at": "2026-07-10T10:08:36.615093+00:00",
+        "trend": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "signal_name": "WHL_FL_轮速",
+        "signal_key": "Wheel_Speed_Front_Left_RPM",
+        "can_id": "0x168",
+        "channel": "CAN1",
+        "value": 200,
+        "unit": "rpm",
+        "threshold": "[0 ~ 80]",
+        "quality": "100%",
+        "updated_at": "2026-07-10T10:08:36.617363+00:00",
+        "trend": [
+          200.0,
+          200.0,
+          200.0,
+          200.0
+        ]
+      },
+      {
+        "signal_name": "STEER_前转角反馈",
+        "signal_key": "SAS_Front_Angle",
+        "can_id": "0xE1",
+        "channel": "CAN1",
+        "value": 0.0,
+        "unit": "cmd",
+        "threshold": "[-120 ~ 120]",
+        "quality": "100%",
+        "updated_at": "2026-07-10T10:08:36.617802+00:00",
+        "trend": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "signal_name": "MCU_相电流",
+        "signal_key": "Torque_feed_left",
+        "can_id": "-",
+        "channel": "-",
+        "value": 0,
+        "unit": "",
+        "threshold": "[-200 ~ 200]",
+        "quality": "0%",
+        "updated_at": "-",
+        "trend": []
+      },
+      {
+        "signal_name": "BMS_保护位",
+        "signal_key": "BMS_Protect_Bitmap",
+        "can_id": "0x102",
+        "channel": "CAN2",
+        "value": 0,
+        "unit": "bitmap",
+        "threshold": "[0]",
+        "quality": "100%",
+        "updated_at": "2026-07-10T10:08:36.375569+00:00",
+        "trend": [
+          0.0
+        ]
+      }
+    ]
+  }
+}

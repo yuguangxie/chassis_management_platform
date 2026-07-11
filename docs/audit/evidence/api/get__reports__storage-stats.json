@@ -1,0 +1,103 @@
+{
+  "url": "http://127.0.0.1:8800/api/v1/reports/storage-stats",
+  "method": "GET",
+  "status": 200,
+  "headers": {
+    "date": "Fri, 10 Jul 2026 03:01:29 GMT",
+    "server": "uvicorn",
+    "content-length": "840",
+    "content-type": "application/json",
+    "connection": "close"
+  },
+  "body": {
+    "directory": {
+      "path": "D:\\TestLogs\\Reports",
+      "total_gb": 931.5,
+      "used_gb": 286.7,
+      "free_gb": 644.8,
+      "used_percent": 30.8,
+      "last_scan_time": "2026-04-01 10:25:12",
+      "scan_status": "扫描完成",
+      "file_type_stats": [
+        {
+          "type": ".docx",
+          "count": 1256,
+          "percent": 28.6
+        },
+        {
+          "type": ".pdf",
+          "count": 1842,
+          "percent": 41.9
+        },
+        {
+          "type": ".json",
+          "count": 684,
+          "percent": 15.6
+        },
+        {
+          "type": ".csv",
+          "count": 327,
+          "percent": 7.4
+        },
+        {
+          "type": ".log / .bin",
+          "count": 289,
+          "percent": 6.5
+        }
+      ]
+    },
+    "charts": {
+      "storage_trend": [
+        {
+          "date": "03-26",
+          "used": 260,
+          "free": 110
+        },
+        {
+          "date": "03-27",
+          "used": 258,
+          "free": 112
+        },
+        {
+          "date": "03-28",
+          "used": 270,
+          "free": 118
+        },
+        {
+          "date": "03-29",
+          "used": 275,
+          "free": 120
+        },
+        {
+          "date": "03-30",
+          "used": 282,
+          "free": 126
+        },
+        {
+          "date": "03-31",
+          "used": 295,
+          "free": 132
+        },
+        {
+          "date": "04-01",
+          "used": 315,
+          "free": 140
+        }
+      ],
+      "result_distribution": [
+        {
+          "name": "PASS",
+          "value": 3478,
+          "percent": 79.1
+        },
+        {
+          "name": "FAIL",
+          "value": 920,
+          "percent": 20.9
+        }
+      ]
+    }
+  },
+  "started_at": "2026-07-10T11:01:30.129327+08:00",
+  "finished_at": "2026-07-10T11:01:30.130852+08:00"
+}

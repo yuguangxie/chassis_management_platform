@@ -1,0 +1,1272 @@
+[
+  {
+    "body": {
+      "clientHeight": 1080,
+      "scrollHeight": 1080
+    },
+    "canvasCount": 3,
+    "canvases": [
+      {
+        "height": 164,
+        "pixels": 49528,
+        "width": 302
+      },
+      {
+        "height": 220,
+        "pixels": 111540,
+        "width": 507
+      },
+      {
+        "height": 220,
+        "pixels": 131780,
+        "width": 599
+      }
+    ],
+    "document": {
+      "clientHeight": 1080,
+      "clientWidth": 1920,
+      "scrollHeight": 1080,
+      "scrollWidth": 1920
+    },
+    "failedFetch": false,
+    "key": "01_overview",
+    "layout": {
+      "chrome": {
+        "height": 32,
+        "width": 1640,
+        "x": 280,
+        "y": 0
+      },
+      "main": null,
+      "sidebar": null,
+      "topbar": null
+    },
+    "offlineText": false,
+    "path": "/overview",
+    "root": {
+      "className": "overview-page",
+      "clientHeight": 922,
+      "clientWidth": 1600,
+      "overflowY": "hidden",
+      "scrollHeight": 922,
+      "scrollWidth": 1600
+    },
+    "viewport": {
+      "height": 1080,
+      "width": 1920
+    },
+    "visibleText": "低速无人车线控底盘\n生产下线管理平台\n总览\n网络配置\nCAN监控\n信号仪表盘\n实时曲线\n手动控制\n一键检测\n告警诊断\n报告管理\n历史记录\n系统设置\n收起侧栏\n低速无人车线控底盘生产下线管理平台\n-\n□\n×\n工位\nEOL-STATION-01\n用户\nop01\n软件版本\nv1.0.2\nDBC版本\nYunle_CAN_Integrated_CANdb\n数据库\nSQLite 正常\n控制通道\nCAN2\nCAN1\nonline\nCAN2\nonline\n急停\n未触发\n最高告警\n0 Normal\n当前时间\n20",
+    "whiteControls": 0,
+    "zeroCanvasCount": 0,
+    "resolution": "1920x1080"
+  },
+  {
+    "body": {
+      "clientHeight": 1080,
+      "scrollHeight": 1080
+    },
+    "canvasCount": 2,
+    "canvases": [
+      {
+        "height": 220,
+        "pixels": 88440,
+        "width": 402
+      },
+      {
+        "height": 220,
+        "pixels": 88440,
+        "width": 402
+      }
+    ],
+    "document": {
+      "clientHeight": 1080,
+      "clientWidth": 1920,
+      "scrollHeight": 1080,
+      "scrollWidth": 1920
+    },
+    "failedFetch": false,
+    "key": "02_network_config",
+    "layout": {
+      "chrome": {
+        "height": 32,
+        "width": 1640,
+        "x": 280,
+        "y": 0
+      },
+      "main": null,
+      "sidebar": null,
+      "topbar": null
+    },
+    "offlineText": false,
+    "path": "/network-config",
+    "root": {
+      "className": "network-page",
+      "clientHeight": 922,
+      "clientWidth": 1600,
+      "overflowY": "hidden",
+      "scrollHeight": 922,
+      "scrollWidth": 1600
+    },
+    "viewport": {
+      "height": 1080,
+      "width": 1920
+    },
+    "visibleText": "低速无人车线控底盘\n生产下线管理平台\n总览\n网络配置\nCAN监控\n信号仪表盘\n实时曲线\n手动控制\n一键检测\n告警诊断\n报告管理\n历史记录\n系统设置\n收起侧栏\n低速无人车线控底盘生产下线管理平台\n-\n□\n×\n工位\nEOL-STATION-01\n用户\nop01\n软件版本\nv1.0.2\nDBC版本\nYunle_CAN_Integrated_CANdb\n数据库\nSQLite 正常\n控制通道\nCAN2\nCAN1\nonline\nCAN2\nonline\n急停\n未触发\n最高告警\n0 Normal\n当前时间\n20",
+    "whiteControls": 0,
+    "zeroCanvasCount": 0,
+    "resolution": "1920x1080"
+  },
+  {
+    "body": {
+      "clientHeight": 1080,
+      "scrollHeight": 1080
+    },
+    "canvasCount": 3,
+    "canvases": [
+      {
+        "height": 215,
+        "pixels": 79980,
+        "width": 372
+      },
+      {
+        "height": 215,
+        "pixels": 62780,
+        "width": 292
+      },
+      {
+        "height": 215,
+        "pixels": 62780,
+        "width": 292
+      }
+    ],
+    "document": {
+      "clientHeight": 1080,
+      "clientWidth": 1920,
+      "scrollHeight": 1080,
+      "scrollWidth": 1920
+    },
+    "failedFetch": false,
+    "key": "03_can_monitor",
+    "layout": {
+      "chrome": {
+        "height": 32,
+        "width": 1640,
+        "x": 280,
+        "y": 0
+      },
+      "main": null,
+      "sidebar": null,
+      "topbar": null
+    },
+    "offlineText": false,
+    "path": "/can-monitor",
+    "root": {
+      "className": "can-monitor-page",
+      "clientHeight": 922,
+      "clientWidth": 1600,
+      "overflowY": "hidden",
+      "scrollHeight": 922,
+      "scrollWidth": 1600
+    },
+    "viewport": {
+      "height": 1080,
+      "width": 1920
+    },
+    "visibleText": "低速无人车线控底盘\n生产下线管理平台\n总览\n网络配置\nCAN监控\n信号仪表盘\n实时曲线\n手动控制\n一键检测\n告警诊断\n报告管理\n历史记录\n系统设置\n收起侧栏\n低速无人车线控底盘生产下线管理平台\n-\n□\n×\n工位\nEOL-STATION-01\n用户\nop01\n软件版本\nv1.0.2\nDBC版本\nYunle_CAN_Integrated_CANdb\n数据库\nSQLite 正常\n控制通道\nCAN2\nCAN1\nonline\nCAN2\nonline\n急停\n未触发\n最高告警\n0 Normal\n当前时间\n20",
+    "whiteControls": 0,
+    "zeroCanvasCount": 0,
+    "resolution": "1920x1080"
+  },
+  {
+    "body": {
+      "clientHeight": 1080,
+      "scrollHeight": 1080
+    },
+    "canvasCount": 0,
+    "canvases": [],
+    "document": {
+      "clientHeight": 1080,
+      "clientWidth": 1920,
+      "scrollHeight": 1080,
+      "scrollWidth": 1920
+    },
+    "failedFetch": false,
+    "key": "04_signal_dashboard",
+    "layout": {
+      "chrome": {
+        "height": 32,
+        "width": 1640,
+        "x": 280,
+        "y": 0
+      },
+      "main": null,
+      "sidebar": null,
+      "topbar": null
+    },
+    "offlineText": false,
+    "path": "/signal-dashboard",
+    "root": {
+      "className": "signal-dashboard-page",
+      "clientHeight": 922,
+      "clientWidth": 1600,
+      "overflowY": "hidden",
+      "scrollHeight": 922,
+      "scrollWidth": 1600
+    },
+    "viewport": {
+      "height": 1080,
+      "width": 1920
+    },
+    "visibleText": "低速无人车线控底盘\n生产下线管理平台\n总览\n网络配置\nCAN监控\n信号仪表盘\n实时曲线\n手动控制\n一键检测\n告警诊断\n报告管理\n历史记录\n系统设置\n收起侧栏\n低速无人车线控底盘生产下线管理平台\n-\n□\n×\n工位\nEOL-STATION-01\n用户\nop01\n软件版本\nv1.0.2\nDBC版本\nYunle_CAN_Integrated_CANdb\n数据库\nSQLite 正常\n控制通道\nCAN2\nCAN1\nonline\nCAN2\nonline\n急停\n未触发\n最高告警\n0 Normal\n当前时间\n20",
+    "whiteControls": 0,
+    "zeroCanvasCount": 0,
+    "resolution": "1920x1080"
+  },
+  {
+    "body": {
+      "clientHeight": 1080,
+      "scrollHeight": 1080
+    },
+    "canvasCount": 7,
+    "canvases": [
+      {
+        "height": 154,
+        "pixels": 94248,
+        "width": 612
+      },
+      {
+        "height": 154,
+        "pixels": 94248,
+        "width": 612
+      },
+      {
+        "height": 154,
+        "pixels": 46662,
+        "width": 303
+      },
+      {
+        "height": 154,
+        "pixels": 46662,
+        "width": 303
+      },
+      {
+        "height": 154,
+        "pixels": 94248,
+        "width": 612
+      },
+      {
+        "height": 154,
+        "pixels": 94248,
+        "width": 612
+      },
+      {
+        "height": 154,
+        "pixels": 94248,
+        "width": 612
+      }
+    ],
+    "document": {
+      "clientHeight": 1080,
+      "clientWidth": 1920,
+      "scrollHeight": 1080,
+      "scrollWidth": 1920
+    },
+    "failedFetch": false,
+    "key": "05_realtime_curve",
+    "layout": {
+      "chrome": {
+        "height": 32,
+        "width": 1640,
+        "x": 280,
+        "y": 0
+      },
+      "main": null,
+      "sidebar": null,
+      "topbar": null
+    },
+    "offlineText": false,
+    "path": "/realtime-curve",
+    "root": {
+      "className": "curve-page",
+      "clientHeight": 922,
+      "clientWidth": 1600,
+      "overflowY": "hidden",
+      "scrollHeight": 922,
+      "scrollWidth": 1600
+    },
+    "viewport": {
+      "height": 1080,
+      "width": 1920
+    },
+    "visibleText": "低速无人车线控底盘\n生产下线管理平台\n总览\n网络配置\nCAN监控\n信号仪表盘\n实时曲线\n手动控制\n一键检测\n告警诊断\n报告管理\n历史记录\n系统设置\n收起侧栏\n低速无人车线控底盘生产下线管理平台\n-\n□\n×\n工位\nEOL-STATION-01\n用户\nop01\n软件版本\nv1.0.2\nDBC版本\nYunle_CAN_Integrated_CANdb\n数据库\nSQLite 正常\n控制通道\nCAN2\nCAN1\nonline\nCAN2\nonline\n急停\n未触发\n最高告警\n0 Normal\n当前时间\n20",
+    "whiteControls": 0,
+    "zeroCanvasCount": 0,
+    "resolution": "1920x1080"
+  },
+  {
+    "body": {
+      "clientHeight": 1080,
+      "scrollHeight": 1080
+    },
+    "canvasCount": 2,
+    "canvases": [
+      {
+        "height": 144,
+        "pixels": 111312,
+        "width": 773
+      },
+      {
+        "height": 144,
+        "pixels": 111312,
+        "width": 773
+      }
+    ],
+    "document": {
+      "clientHeight": 1080,
+      "clientWidth": 1920,
+      "scrollHeight": 1080,
+      "scrollWidth": 1920
+    },
+    "failedFetch": false,
+    "key": "06_manual_control",
+    "layout": {
+      "chrome": {
+        "height": 32,
+        "width": 1640,
+        "x": 280,
+        "y": 0
+      },
+      "main": null,
+      "sidebar": null,
+      "topbar": null
+    },
+    "offlineText": false,
+    "path": "/manual-control",
+    "root": {
+      "className": "manual-page",
+      "clientHeight": 922,
+      "clientWidth": 1600,
+      "overflowY": "hidden",
+      "scrollHeight": 922,
+      "scrollWidth": 1600
+    },
+    "viewport": {
+      "height": 1080,
+      "width": 1920
+    },
+    "visibleText": "低速无人车线控底盘\n生产下线管理平台\n总览\n网络配置\nCAN监控\n信号仪表盘\n实时曲线\n手动控制\n一键检测\n告警诊断\n报告管理\n历史记录\n系统设置\n收起侧栏\n低速无人车线控底盘生产下线管理平台\n-\n□\n×\n工位\nEOL-STATION-01\n用户\nop01\n软件版本\nv1.0.2\nDBC版本\nYunle_CAN_Integrated_CANdb\n数据库\nSQLite 正常\n控制通道\nCAN2\nCAN1\nonline\nCAN2\nonline\n急停\n未触发\n最高告警\n0 Normal\n当前时间\n20",
+    "whiteControls": 4,
+    "zeroCanvasCount": 0,
+    "resolution": "1920x1080"
+  },
+  {
+    "body": {
+      "clientHeight": 1080,
+      "scrollHeight": 1080
+    },
+    "canvasCount": 1,
+    "canvases": [
+      {
+        "height": 184,
+        "pixels": 87032,
+        "width": 473
+      }
+    ],
+    "document": {
+      "clientHeight": 1080,
+      "clientWidth": 1920,
+      "scrollHeight": 1080,
+      "scrollWidth": 1920
+    },
+    "failedFetch": false,
+    "key": "07_auto_test",
+    "layout": {
+      "chrome": {
+        "height": 32,
+        "width": 1640,
+        "x": 280,
+        "y": 0
+      },
+      "main": null,
+      "sidebar": null,
+      "topbar": null
+    },
+    "offlineText": false,
+    "path": "/auto-test",
+    "root": {
+      "className": "auto-test-page",
+      "clientHeight": 922,
+      "clientWidth": 1600,
+      "overflowY": "hidden",
+      "scrollHeight": 922,
+      "scrollWidth": 1600
+    },
+    "viewport": {
+      "height": 1080,
+      "width": 1920
+    },
+    "visibleText": "低速无人车线控底盘\n生产下线管理平台\n总览\n网络配置\nCAN监控\n信号仪表盘\n实时曲线\n手动控制\n一键检测\n告警诊断\n报告管理\n历史记录\n系统设置\n收起侧栏\n低速无人车线控底盘生产下线管理平台\n-\n□\n×\n工位\nEOL-STATION-01\n用户\nop01\n软件版本\nv1.0.2\nDBC版本\nYunle_CAN_Integrated_CANdb\n数据库\nSQLite 正常\n控制通道\nCAN2\nCAN1\nonline\nCAN2\nonline\n急停\n未触发\n最高告警\n0 Normal\n当前时间\n20",
+    "whiteControls": 0,
+    "zeroCanvasCount": 0,
+    "resolution": "1920x1080"
+  },
+  {
+    "body": {
+      "clientHeight": 1080,
+      "scrollHeight": 1080
+    },
+    "canvasCount": 2,
+    "canvases": [
+      {
+        "height": 118,
+        "pixels": 66198,
+        "width": 561
+      },
+      {
+        "height": 118,
+        "pixels": 46256,
+        "width": 392
+      }
+    ],
+    "document": {
+      "clientHeight": 1080,
+      "clientWidth": 1920,
+      "scrollHeight": 1080,
+      "scrollWidth": 1920
+    },
+    "failedFetch": false,
+    "key": "08_alarm_diagnosis",
+    "layout": {
+      "chrome": {
+        "height": 32,
+        "width": 1640,
+        "x": 280,
+        "y": 0
+      },
+      "main": null,
+      "sidebar": null,
+      "topbar": null
+    },
+    "offlineText": true,
+    "path": "/alarm-diagnosis",
+    "root": {
+      "className": "alarm-page",
+      "clientHeight": 922,
+      "clientWidth": 1600,
+      "overflowY": "hidden",
+      "scrollHeight": 922,
+      "scrollWidth": 1600
+    },
+    "viewport": {
+      "height": 1080,
+      "width": 1920
+    },
+    "visibleText": "低速无人车线控底盘\n生产下线管理平台\n总览\n网络配置\nCAN监控\n信号仪表盘\n实时曲线\n手动控制\n一键检测\n告警诊断\n报告管理\n历史记录\n系统设置\n收起侧栏\n低速无人车线控底盘生产下线管理平台\n-\n□\n×\n工位\nEOL-STATION-01\n用户\nop01\n软件版本\nv1.0.2\nDBC版本\nYunle_CAN_Integrated_CANdb\n数据库\nSQLite 正常\n控制通道\nCAN2\nCAN1\nonline\nCAN2\nonline\n急停\n未触发\n最高告警\n0 Normal\n当前时间\n20",
+    "whiteControls": 0,
+    "zeroCanvasCount": 0,
+    "resolution": "1920x1080"
+  },
+  {
+    "body": {
+      "clientHeight": 1080,
+      "scrollHeight": 1080
+    },
+    "canvasCount": 3,
+    "canvases": [
+      {
+        "height": 79,
+        "pixels": 6952,
+        "width": 88
+      },
+      {
+        "height": 258,
+        "pixels": 86172,
+        "width": 334
+      },
+      {
+        "height": 258,
+        "pixels": 74046,
+        "width": 287
+      }
+    ],
+    "document": {
+      "clientHeight": 1080,
+      "clientWidth": 1920,
+      "scrollHeight": 1080,
+      "scrollWidth": 1920
+    },
+    "failedFetch": false,
+    "key": "09_report_management",
+    "layout": {
+      "chrome": {
+        "height": 32,
+        "width": 1640,
+        "x": 280,
+        "y": 0
+      },
+      "main": null,
+      "sidebar": null,
+      "topbar": null
+    },
+    "offlineText": false,
+    "path": "/report-management",
+    "root": {
+      "className": "report-page",
+      "clientHeight": 922,
+      "clientWidth": 1600,
+      "overflowY": "hidden",
+      "scrollHeight": 922,
+      "scrollWidth": 1600
+    },
+    "viewport": {
+      "height": 1080,
+      "width": 1920
+    },
+    "visibleText": "低速无人车线控底盘\n生产下线管理平台\n总览\n网络配置\nCAN监控\n信号仪表盘\n实时曲线\n手动控制\n一键检测\n告警诊断\n报告管理\n历史记录\n系统设置\n收起侧栏\n低速无人车线控底盘生产下线管理平台\n-\n□\n×\n工位\nEOL-STATION-01\n用户\nop01\n软件版本\nv1.0.2\nDBC版本\nYunle_CAN_Integrated_CANdb\n数据库\nSQLite 正常\n控制通道\nCAN2\nCAN1\nonline\nCAN2\nonline\n急停\n未触发\n最高告警\n0 Normal\n当前时间\n20",
+    "whiteControls": 0,
+    "zeroCanvasCount": 0,
+    "resolution": "1920x1080"
+  },
+  {
+    "body": {
+      "clientHeight": 1080,
+      "scrollHeight": 1080
+    },
+    "canvasCount": 2,
+    "canvases": [
+      {
+        "height": 142,
+        "pixels": 74834,
+        "width": 527
+      },
+      {
+        "height": 142,
+        "pixels": 74834,
+        "width": 527
+      }
+    ],
+    "document": {
+      "clientHeight": 1080,
+      "clientWidth": 1920,
+      "scrollHeight": 1080,
+      "scrollWidth": 1920
+    },
+    "failedFetch": false,
+    "key": "10_history",
+    "layout": {
+      "chrome": {
+        "height": 32,
+        "width": 1640,
+        "x": 280,
+        "y": 0
+      },
+      "main": null,
+      "sidebar": null,
+      "topbar": null
+    },
+    "offlineText": false,
+    "path": "/history",
+    "root": {
+      "className": "history-page",
+      "clientHeight": 922,
+      "clientWidth": 1600,
+      "overflowY": "hidden",
+      "scrollHeight": 922,
+      "scrollWidth": 1600
+    },
+    "viewport": {
+      "height": 1080,
+      "width": 1920
+    },
+    "visibleText": "低速无人车线控底盘\n生产下线管理平台\n总览\n网络配置\nCAN监控\n信号仪表盘\n实时曲线\n手动控制\n一键检测\n告警诊断\n报告管理\n历史记录\n系统设置\n收起侧栏\n低速无人车线控底盘生产下线管理平台\n-\n□\n×\n工位\nEOL-STATION-01\n用户\nop01\n软件版本\nv1.0.2\nDBC版本\nYunle_CAN_Integrated_CANdb\n数据库\nSQLite 正常\n控制通道\nCAN2\nCAN1\nonline\nCAN2\nonline\n急停\n未触发\n最高告警\n0 Normal\n当前时间\n20",
+    "whiteControls": 0,
+    "zeroCanvasCount": 0,
+    "resolution": "1920x1080"
+  },
+  {
+    "body": {
+      "clientHeight": 1080,
+      "scrollHeight": 1080
+    },
+    "canvasCount": 1,
+    "canvases": [
+      {
+        "height": 132,
+        "pixels": 68904,
+        "width": 522
+      }
+    ],
+    "document": {
+      "clientHeight": 1080,
+      "clientWidth": 1920,
+      "scrollHeight": 1080,
+      "scrollWidth": 1920
+    },
+    "failedFetch": false,
+    "key": "11_system_settings",
+    "layout": {
+      "chrome": {
+        "height": 32,
+        "width": 1640,
+        "x": 280,
+        "y": 0
+      },
+      "main": null,
+      "sidebar": null,
+      "topbar": null
+    },
+    "offlineText": false,
+    "path": "/system-settings",
+    "root": {
+      "className": "system-settings-page",
+      "clientHeight": 922,
+      "clientWidth": 1600,
+      "overflowY": "hidden",
+      "scrollHeight": 922,
+      "scrollWidth": 1600
+    },
+    "viewport": {
+      "height": 1080,
+      "width": 1920
+    },
+    "visibleText": "低速无人车线控底盘\n生产下线管理平台\n总览\n网络配置\nCAN监控\n信号仪表盘\n实时曲线\n手动控制\n一键检测\n告警诊断\n报告管理\n历史记录\n系统设置\n收起侧栏\n低速无人车线控底盘生产下线管理平台\n-\n□\n×\n工位\nEOL-STATION-01\n用户\nop01\n软件版本\nv1.0.2\nDBC版本\nYunle_CAN_Integrated_CANdb\n数据库\nSQLite 正常\n控制通道\nCAN2\nCAN1\nonline\nCAN2\nonline\n急停\n未触发\n最高告警\n0 Normal\n当前时间\n20",
+    "whiteControls": 0,
+    "zeroCanvasCount": 0,
+    "resolution": "1920x1080"
+  },
+  {
+    "body": {
+      "clientHeight": 768,
+      "scrollHeight": 768
+    },
+    "canvasCount": 3,
+    "canvases": [
+      {
+        "height": 150,
+        "pixels": 24300,
+        "width": 162
+      },
+      {
+        "height": 220,
+        "pixels": 78100,
+        "width": 355
+      },
+      {
+        "height": 220,
+        "pixels": 92180,
+        "width": 419
+      }
+    ],
+    "document": {
+      "clientHeight": 768,
+      "clientWidth": 1366,
+      "scrollHeight": 768,
+      "scrollWidth": 1366
+    },
+    "failedFetch": false,
+    "key": "01_overview",
+    "layout": {
+      "chrome": {
+        "height": 32,
+        "width": 1178,
+        "x": 188,
+        "y": 0
+      },
+      "main": null,
+      "sidebar": null,
+      "topbar": null
+    },
+    "offlineText": false,
+    "path": "/overview",
+    "root": {
+      "className": "overview-page",
+      "clientHeight": 814,
+      "clientWidth": 1128,
+      "overflowY": "visible",
+      "scrollHeight": 814,
+      "scrollWidth": 1128
+    },
+    "viewport": {
+      "height": 768,
+      "width": 1366
+    },
+    "visibleText": "低速无人车线控底盘\n生产下线管理平台\n总览\n网络配置\nCAN监控\n信号仪表盘\n实时曲线\n手动控制\n一键检测\n告警诊断\n报告管理\n历史记录\n系统设置\n收起侧栏\n低速无人车线控底盘生产下线管理平台\n-\n□\n×\n工位\nEOL-STATION-01\n用户\nop01\n软件版本\nv1.0.2\nDBC版本\nYunle_CAN_Integrated_CANdb\n数据库\nSQLite 正常\n控制通道\nCAN2\nCAN1\nonline\nCAN2\nonline\n急停\n未触发\n最高告警\n0 Normal\n当前时间\n20",
+    "whiteControls": 0,
+    "zeroCanvasCount": 0,
+    "resolution": "1366x768"
+  },
+  {
+    "body": {
+      "clientHeight": 768,
+      "scrollHeight": 768
+    },
+    "canvasCount": 2,
+    "canvases": [
+      {
+        "height": 220,
+        "pixels": 247720,
+        "width": 1126
+      },
+      {
+        "height": 220,
+        "pixels": 247720,
+        "width": 1126
+      }
+    ],
+    "document": {
+      "clientHeight": 768,
+      "clientWidth": 1366,
+      "scrollHeight": 768,
+      "scrollWidth": 1366
+    },
+    "failedFetch": false,
+    "key": "02_network_config",
+    "layout": {
+      "chrome": {
+        "height": 32,
+        "width": 1178,
+        "x": 188,
+        "y": 0
+      },
+      "main": null,
+      "sidebar": null,
+      "topbar": null
+    },
+    "offlineText": false,
+    "path": "/network-config",
+    "root": {
+      "className": "network-page",
+      "clientHeight": 822,
+      "clientWidth": 1128,
+      "overflowY": "visible",
+      "scrollHeight": 852,
+      "scrollWidth": 1128
+    },
+    "viewport": {
+      "height": 768,
+      "width": 1366
+    },
+    "visibleText": "低速无人车线控底盘\n生产下线管理平台\n总览\n网络配置\nCAN监控\n信号仪表盘\n实时曲线\n手动控制\n一键检测\n告警诊断\n报告管理\n历史记录\n系统设置\n收起侧栏\n低速无人车线控底盘生产下线管理平台\n-\n□\n×\n工位\nEOL-STATION-01\n用户\nop01\n软件版本\nv1.0.2\nDBC版本\nYunle_CAN_Integrated_CANdb\n数据库\nSQLite 正常\n控制通道\nCAN2\nCAN1\nonline\nCAN2\nonline\n急停\n未触发\n最高告警\n0 Normal\n当前时间\n20",
+    "whiteControls": 0,
+    "zeroCanvasCount": 0,
+    "resolution": "1366x768"
+  },
+  {
+    "body": {
+      "clientHeight": 768,
+      "scrollHeight": 768
+    },
+    "canvasCount": 3,
+    "canvases": [
+      {
+        "height": 97,
+        "pixels": 24638,
+        "width": 254
+      },
+      {
+        "height": 97,
+        "pixels": 19982,
+        "width": 206
+      },
+      {
+        "height": 97,
+        "pixels": 19982,
+        "width": 206
+      }
+    ],
+    "document": {
+      "clientHeight": 768,
+      "clientWidth": 1366,
+      "scrollHeight": 768,
+      "scrollWidth": 1366
+    },
+    "failedFetch": false,
+    "key": "03_can_monitor",
+    "layout": {
+      "chrome": {
+        "height": 32,
+        "width": 1178,
+        "x": 188,
+        "y": 0
+      },
+      "main": null,
+      "sidebar": null,
+      "topbar": null
+    },
+    "offlineText": false,
+    "path": "/can-monitor",
+    "root": {
+      "className": "can-monitor-page",
+      "clientHeight": 610,
+      "clientWidth": 1138,
+      "overflowY": "hidden",
+      "scrollHeight": 610,
+      "scrollWidth": 1138
+    },
+    "viewport": {
+      "height": 768,
+      "width": 1366
+    },
+    "visibleText": "低速无人车线控底盘\n生产下线管理平台\n总览\n网络配置\nCAN监控\n信号仪表盘\n实时曲线\n手动控制\n一键检测\n告警诊断\n报告管理\n历史记录\n系统设置\n收起侧栏\n低速无人车线控底盘生产下线管理平台\n-\n□\n×\n工位\nEOL-STATION-01\n用户\nop01\n软件版本\nv1.0.2\nDBC版本\nYunle_CAN_Integrated_CANdb\n数据库\nSQLite 正常\n控制通道\nCAN2\nCAN1\nonline\nCAN2\nonline\n急停\n未触发\n最高告警\n0 Normal\n当前时间\n20",
+    "whiteControls": 0,
+    "zeroCanvasCount": 0,
+    "resolution": "1366x768"
+  },
+  {
+    "body": {
+      "clientHeight": 768,
+      "scrollHeight": 768
+    },
+    "canvasCount": 0,
+    "canvases": [],
+    "document": {
+      "clientHeight": 768,
+      "clientWidth": 1366,
+      "scrollHeight": 768,
+      "scrollWidth": 1366
+    },
+    "failedFetch": false,
+    "key": "04_signal_dashboard",
+    "layout": {
+      "chrome": {
+        "height": 32,
+        "width": 1178,
+        "x": 188,
+        "y": 0
+      },
+      "main": null,
+      "sidebar": null,
+      "topbar": null
+    },
+    "offlineText": false,
+    "path": "/signal-dashboard",
+    "root": {
+      "className": "signal-dashboard-page",
+      "clientHeight": 610,
+      "clientWidth": 1138,
+      "overflowY": "hidden",
+      "scrollHeight": 610,
+      "scrollWidth": 1138
+    },
+    "viewport": {
+      "height": 768,
+      "width": 1366
+    },
+    "visibleText": "低速无人车线控底盘\n生产下线管理平台\n总览\n网络配置\nCAN监控\n信号仪表盘\n实时曲线\n手动控制\n一键检测\n告警诊断\n报告管理\n历史记录\n系统设置\n收起侧栏\n低速无人车线控底盘生产下线管理平台\n-\n□\n×\n工位\nEOL-STATION-01\n用户\nop01\n软件版本\nv1.0.2\nDBC版本\nYunle_CAN_Integrated_CANdb\n数据库\nSQLite 正常\n控制通道\nCAN2\nCAN1\nonline\nCAN2\nonline\n急停\n未触发\n最高告警\n0 Normal\n当前时间\n20",
+    "whiteControls": 0,
+    "zeroCanvasCount": 0,
+    "resolution": "1366x768"
+  },
+  {
+    "body": {
+      "clientHeight": 768,
+      "scrollHeight": 768
+    },
+    "canvasCount": 7,
+    "canvases": [
+      {
+        "height": 39,
+        "pixels": 14859,
+        "width": 381
+      },
+      {
+        "height": 39,
+        "pixels": 14859,
+        "width": 381
+      },
+      {
+        "height": 39,
+        "pixels": 7332,
+        "width": 188
+      },
+      {
+        "height": 39,
+        "pixels": 7293,
+        "width": 187
+      },
+      {
+        "height": 39,
+        "pixels": 14859,
+        "width": 381
+      },
+      {
+        "height": 39,
+        "pixels": 14859,
+        "width": 381
+      },
+      {
+        "height": 39,
+        "pixels": 14859,
+        "width": 381
+      }
+    ],
+    "document": {
+      "clientHeight": 768,
+      "clientWidth": 1366,
+      "scrollHeight": 768,
+      "scrollWidth": 1366
+    },
+    "failedFetch": false,
+    "key": "05_realtime_curve",
+    "layout": {
+      "chrome": {
+        "height": 32,
+        "width": 1178,
+        "x": 188,
+        "y": 0
+      },
+      "main": null,
+      "sidebar": null,
+      "topbar": null
+    },
+    "offlineText": true,
+    "path": "/realtime-curve",
+    "root": {
+      "className": "curve-page",
+      "clientHeight": 610,
+      "clientWidth": 1138,
+      "overflowY": "hidden",
+      "scrollHeight": 764,
+      "scrollWidth": 1138
+    },
+    "viewport": {
+      "height": 768,
+      "width": 1366
+    },
+    "visibleText": "低速无人车线控底盘\n生产下线管理平台\n总览\n网络配置\nCAN监控\n信号仪表盘\n实时曲线\n手动控制\n一键检测\n告警诊断\n报告管理\n历史记录\n系统设置\n收起侧栏\n低速无人车线控底盘生产下线管理平台\n-\n□\n×\n工位\nEOL-STATION-01\n用户\nop01\n软件版本\nv1.0.2\nDBC版本\nYunle_CAN_Integrated_CANdb\n数据库\nSQLite 正常\n控制通道\nCAN2\nCAN1\nonline\nCAN2\nonline\n急停\n未触发\n最高告警\n0 Normal\n当前时间\n20",
+    "whiteControls": 0,
+    "zeroCanvasCount": 0,
+    "resolution": "1366x768"
+  },
+  {
+    "body": {
+      "clientHeight": 768,
+      "scrollHeight": 768
+    },
+    "canvasCount": 2,
+    "canvases": [
+      {
+        "height": 144,
+        "pixels": 78048,
+        "width": 542
+      },
+      {
+        "height": 144,
+        "pixels": 78048,
+        "width": 542
+      }
+    ],
+    "document": {
+      "clientHeight": 768,
+      "clientWidth": 1366,
+      "scrollHeight": 768,
+      "scrollWidth": 1366
+    },
+    "failedFetch": false,
+    "key": "06_manual_control",
+    "layout": {
+      "chrome": {
+        "height": 32,
+        "width": 1178,
+        "x": 188,
+        "y": 0
+      },
+      "main": null,
+      "sidebar": null,
+      "topbar": null
+    },
+    "offlineText": false,
+    "path": "/manual-control",
+    "root": {
+      "className": "manual-page",
+      "clientHeight": 610,
+      "clientWidth": 1138,
+      "overflowY": "hidden",
+      "scrollHeight": 906,
+      "scrollWidth": 1138
+    },
+    "viewport": {
+      "height": 768,
+      "width": 1366
+    },
+    "visibleText": "低速无人车线控底盘\n生产下线管理平台\n总览\n网络配置\nCAN监控\n信号仪表盘\n实时曲线\n手动控制\n一键检测\n告警诊断\n报告管理\n历史记录\n系统设置\n收起侧栏\n低速无人车线控底盘生产下线管理平台\n-\n□\n×\n工位\nEOL-STATION-01\n用户\nop01\n软件版本\nv1.0.2\nDBC版本\nYunle_CAN_Integrated_CANdb\n数据库\nSQLite 正常\n控制通道\nCAN2\nCAN1\nonline\nCAN2\nonline\n急停\n未触发\n最高告警\n0 Normal\n当前时间\n20",
+    "whiteControls": 4,
+    "zeroCanvasCount": 0,
+    "resolution": "1366x768"
+  },
+  {
+    "body": {
+      "clientHeight": 768,
+      "scrollHeight": 768
+    },
+    "canvasCount": 1,
+    "canvases": [
+      {
+        "height": 184,
+        "pixels": 59984,
+        "width": 326
+      }
+    ],
+    "document": {
+      "clientHeight": 768,
+      "clientWidth": 1366,
+      "scrollHeight": 768,
+      "scrollWidth": 1366
+    },
+    "failedFetch": false,
+    "key": "07_auto_test",
+    "layout": {
+      "chrome": {
+        "height": 32,
+        "width": 1178,
+        "x": 188,
+        "y": 0
+      },
+      "main": null,
+      "sidebar": null,
+      "topbar": null
+    },
+    "offlineText": true,
+    "path": "/auto-test",
+    "root": {
+      "className": "auto-test-page",
+      "clientHeight": 610,
+      "clientWidth": 1138,
+      "overflowY": "hidden",
+      "scrollHeight": 893,
+      "scrollWidth": 1138
+    },
+    "viewport": {
+      "height": 768,
+      "width": 1366
+    },
+    "visibleText": "低速无人车线控底盘\n生产下线管理平台\n总览\n网络配置\nCAN监控\n信号仪表盘\n实时曲线\n手动控制\n一键检测\n告警诊断\n报告管理\n历史记录\n系统设置\n收起侧栏\n低速无人车线控底盘生产下线管理平台\n-\n□\n×\n工位\nEOL-STATION-01\n用户\nop01\n软件版本\nv1.0.2\nDBC版本\nYunle_CAN_Integrated_CANdb\n数据库\nSQLite 正常\n控制通道\nCAN2\nCAN1\nonline\nCAN2\nonline\n急停\n未触发\n最高告警\n0 Normal\n当前时间\n20",
+    "whiteControls": 0,
+    "zeroCanvasCount": 0,
+    "resolution": "1366x768"
+  },
+  {
+    "body": {
+      "clientHeight": 768,
+      "scrollHeight": 768
+    },
+    "canvasCount": 2,
+    "canvases": [
+      {
+        "height": 100,
+        "pixels": 39100,
+        "width": 391
+      },
+      {
+        "height": 100,
+        "pixels": 27100,
+        "width": 271
+      }
+    ],
+    "document": {
+      "clientHeight": 768,
+      "clientWidth": 1366,
+      "scrollHeight": 768,
+      "scrollWidth": 1366
+    },
+    "failedFetch": false,
+    "key": "08_alarm_diagnosis",
+    "layout": {
+      "chrome": {
+        "height": 32,
+        "width": 1178,
+        "x": 188,
+        "y": 0
+      },
+      "main": null,
+      "sidebar": null,
+      "topbar": null
+    },
+    "offlineText": true,
+    "path": "/alarm-diagnosis",
+    "root": {
+      "className": "alarm-page",
+      "clientHeight": 610,
+      "clientWidth": 1138,
+      "overflowY": "hidden",
+      "scrollHeight": 762,
+      "scrollWidth": 1138
+    },
+    "viewport": {
+      "height": 768,
+      "width": 1366
+    },
+    "visibleText": "低速无人车线控底盘\n生产下线管理平台\n总览\n网络配置\nCAN监控\n信号仪表盘\n实时曲线\n手动控制\n一键检测\n告警诊断\n报告管理\n历史记录\n系统设置\n收起侧栏\n低速无人车线控底盘生产下线管理平台\n-\n□\n×\n工位\nEOL-STATION-01\n用户\nop01\n软件版本\nv1.0.2\nDBC版本\nYunle_CAN_Integrated_CANdb\n数据库\nSQLite 正常\n控制通道\nCAN2\nCAN1\nonline\nCAN2\nonline\n急停\n未触发\n最高告警\n0 Normal\n当前时间\n20",
+    "whiteControls": 0,
+    "zeroCanvasCount": 0,
+    "resolution": "1366x768"
+  },
+  {
+    "body": {
+      "clientHeight": 768,
+      "scrollHeight": 768
+    },
+    "canvasCount": 3,
+    "canvases": [
+      {
+        "height": 79,
+        "pixels": 6952,
+        "width": 88
+      },
+      {
+        "height": 228,
+        "pixels": 52668,
+        "width": 231
+      },
+      {
+        "height": 228,
+        "pixels": 46740,
+        "width": 205
+      }
+    ],
+    "document": {
+      "clientHeight": 768,
+      "clientWidth": 1366,
+      "scrollHeight": 768,
+      "scrollWidth": 1366
+    },
+    "failedFetch": false,
+    "key": "09_report_management",
+    "layout": {
+      "chrome": {
+        "height": 32,
+        "width": 1178,
+        "x": 188,
+        "y": 0
+      },
+      "main": null,
+      "sidebar": null,
+      "topbar": null
+    },
+    "offlineText": true,
+    "path": "/report-management",
+    "root": {
+      "className": "report-page",
+      "clientHeight": 610,
+      "clientWidth": 1123,
+      "overflowY": "auto",
+      "scrollHeight": 862,
+      "scrollWidth": 1123
+    },
+    "viewport": {
+      "height": 768,
+      "width": 1366
+    },
+    "visibleText": "低速无人车线控底盘\n生产下线管理平台\n总览\n网络配置\nCAN监控\n信号仪表盘\n实时曲线\n手动控制\n一键检测\n告警诊断\n报告管理\n历史记录\n系统设置\n收起侧栏\n低速无人车线控底盘生产下线管理平台\n-\n□\n×\n工位\nEOL-STATION-01\n用户\nop01\n软件版本\nv1.0.2\nDBC版本\nYunle_CAN_Integrated_CANdb\n数据库\nSQLite 正常\n控制通道\nCAN2\nCAN1\nonline\nCAN2\nonline\n急停\n未触发\n最高告警\n0 Normal\n当前时间\n20",
+    "whiteControls": 0,
+    "zeroCanvasCount": 0,
+    "resolution": "1366x768"
+  },
+  {
+    "body": {
+      "clientHeight": 768,
+      "scrollHeight": 768
+    },
+    "canvasCount": 2,
+    "canvases": [
+      {
+        "height": 144,
+        "pixels": 52128,
+        "width": 362
+      },
+      {
+        "height": 144,
+        "pixels": 52128,
+        "width": 362
+      }
+    ],
+    "document": {
+      "clientHeight": 768,
+      "clientWidth": 1366,
+      "scrollHeight": 768,
+      "scrollWidth": 1366
+    },
+    "failedFetch": false,
+    "key": "10_history",
+    "layout": {
+      "chrome": {
+        "height": 32,
+        "width": 1178,
+        "x": 188,
+        "y": 0
+      },
+      "main": null,
+      "sidebar": null,
+      "topbar": null
+    },
+    "offlineText": false,
+    "path": "/history",
+    "root": {
+      "className": "history-page",
+      "clientHeight": 610,
+      "clientWidth": 1123,
+      "overflowY": "auto",
+      "scrollHeight": 914,
+      "scrollWidth": 1123
+    },
+    "viewport": {
+      "height": 768,
+      "width": 1366
+    },
+    "visibleText": "低速无人车线控底盘\n生产下线管理平台\n总览\n网络配置\nCAN监控\n信号仪表盘\n实时曲线\n手动控制\n一键检测\n告警诊断\n报告管理\n历史记录\n系统设置\n收起侧栏\n低速无人车线控底盘生产下线管理平台\n-\n□\n×\n工位\nEOL-STATION-01\n用户\nop01\n软件版本\nv1.0.2\nDBC版本\nYunle_CAN_Integrated_CANdb\n数据库\nSQLite 正常\n控制通道\nCAN2\nCAN1\nonline\nCAN2\nonline\n急停\n未触发\n最高告警\n0 Normal\n当前时间\n20",
+    "whiteControls": 0,
+    "zeroCanvasCount": 0,
+    "resolution": "1366x768"
+  },
+  {
+    "body": {
+      "clientHeight": 768,
+      "scrollHeight": 768
+    },
+    "canvasCount": 1,
+    "canvases": [
+      {
+        "height": 132,
+        "pixels": 47256,
+        "width": 358
+      }
+    ],
+    "document": {
+      "clientHeight": 768,
+      "clientWidth": 1366,
+      "scrollHeight": 768,
+      "scrollWidth": 1366
+    },
+    "failedFetch": false,
+    "key": "11_system_settings",
+    "layout": {
+      "chrome": {
+        "height": 32,
+        "width": 1178,
+        "x": 188,
+        "y": 0
+      },
+      "main": null,
+      "sidebar": null,
+      "topbar": null
+    },
+    "offlineText": false,
+    "path": "/system-settings",
+    "root": {
+      "className": "system-settings-page",
+      "clientHeight": 610,
+      "clientWidth": 1123,
+      "overflowY": "auto",
+      "scrollHeight": 902,
+      "scrollWidth": 1123
+    },
+    "viewport": {
+      "height": 768,
+      "width": 1366
+    },
+    "visibleText": "低速无人车线控底盘\n生产下线管理平台\n总览\n网络配置\nCAN监控\n信号仪表盘\n实时曲线\n手动控制\n一键检测\n告警诊断\n报告管理\n历史记录\n系统设置\n收起侧栏\n低速无人车线控底盘生产下线管理平台\n-\n□\n×\n工位\nEOL-STATION-01\n用户\nop01\n软件版本\nv1.0.2\nDBC版本\nYunle_CAN_Integrated_CANdb\n数据库\nSQLite 正常\n控制通道\nCAN2\nCAN1\nonline\nCAN2\nonline\n急停\n未触发\n最高告警\n0 Normal\n当前时间\n20",
+    "whiteControls": 0,
+    "zeroCanvasCount": 0,
+    "resolution": "1366x768"
+  }
+]

@@ -1,0 +1,9 @@
+﻿{
+    "websocket":  {
+                      "clients":  1,
+                      "subscribed_clients":  1,
+                      "queue_depth":  0,
+                      "queue_capacity":  256,
+                      "dropped_messages":  0
+                  }
+}

@@ -1,0 +1,45 @@
+{
+  "phase": "01",
+  "name": "安全控制与可信边界",
+  "verified_at": "2026-07-10T14:19:06+08:00",
+  "gate": "passed",
+  "real_vehicle_connected": false,
+  "loopback_only": true,
+  "target_issues": {
+    "closed": [
+      "SAFE-001",
+      "SAFE-002",
+      "SAFE-003",
+      "SAFE-004",
+      "SAFE-005",
+      "SAFE-006",
+      "SAFE-007",
+      "SAFE-008",
+      "SIM-001",
+      "DBC-001"
+    ],
+    "open": []
+  },
+  "tests": {
+    "backend": {"passed": 62, "failed": 0},
+    "simulator": {"passed": 3, "failed": 0},
+    "desktop_typecheck": "passed",
+    "desktop_build": "passed",
+    "loopback": "passed"
+  },
+  "dynamic": {
+    "offline_elapsed_seconds": 2.029,
+    "control_after_5_seconds": 409,
+    "eol_start_after_5_seconds": 409,
+    "safe_stop": "STOP_CONFIRMED",
+    "safe_stop_timeout": "SAFE_STOP_TIMEOUT",
+    "timeout_latched": true,
+    "timeout_alarm_level": 3,
+    "eol_abort": "ABORTED",
+    "eol_emergency": "EMERGENCY_STOPPED",
+    "udp_truncated_datagram_discarded": true,
+    "rbac_forgery_rejected": true
+  },
+  "next_phase_allowed": true,
+  "production_or_vehicle_use_allowed": false
+}

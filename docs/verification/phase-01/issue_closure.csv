@@ -1,0 +1,11 @@
+issue_id,severity,phase01_status,evidence,remaining_note
+SAFE-001,P0,CLOSED,loopback/loopback_results.json#eol_pause_resume/eol_abort/eol_emergency,阶段二仍需真实步骤语义
+SAFE-002,P0,CLOSED,loopback/loopback_results.json#stale_online.eol_start_after_5s,断链启动返回409
+SAFE-003,P0,CLOSED,loopback/loopback_results.json#stale_online,2.029秒离线且5秒后控制409
+SAFE-004,P0,CLOSED,loopback/loopback_results.json#rbac,生产token供应与轮换属于阶段五
+SAFE-005,P0,CLOSED,loopback/loopback_results.json#stop_success,真实车辆验证仍禁止
+SAFE-006,P1,CLOSED,loopback/loopback_results.json#control_121_loopback,preview/tx/simulator一致
+SAFE-007,P1,CLOSED,tests/backend_pytest.txt,状态接口来自实时evaluate
+SAFE-008,P1,CLOSED,loopback/loopback_results.json#stop_success/stop_timeout,成功超时缺反馈均覆盖
+SIM-001,P1,CLOSED,loopback/loopback_results.json#profile_isolation,dev/mock仅loopback
+DBC-001,P2,CLOSED,loopback/loopback_results.json#udp_datagram_boundary,UDP不跨datagram拼包

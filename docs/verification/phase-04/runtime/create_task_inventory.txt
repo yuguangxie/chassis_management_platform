@@ -1,0 +1,9 @@
+﻿backend/app\eol\engine.py:146:        runtime.task = asyncio.create_task(
+backend/app\control\tx_scheduler.py:80:        self.task = asyncio.create_task(self._loop(), name="control-121-periodic")
+backend/app\websocket\manager.py:40:        client.sender = asyncio.create_task(self._sender(client), name="websocket-client-sender")
+backend/app\storage\telemetry.py:51:            self.task = asyncio.create_task(self._worker(), name="telemetry-persistence")
+backend/app\services\lifecycle.py:46:        self.task = asyncio.create_task(self._run(), name="realtime-publisher")
+backend/app\can_gateway\manager.py:45:            self._pipeline_task = asyncio.create_task(
+backend/app\can_gateway\manager.py:74:            self._pipeline_task = asyncio.create_task(
+backend/app\can_gateway\udp_gateway.py:59:        self.worker_task = asyncio.create_task(
+backend/app\can_gateway\tcp_gateway.py:48:        self.reader_task = asyncio.create_task(

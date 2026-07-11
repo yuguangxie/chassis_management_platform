@@ -1,0 +1,28 @@
+{
+  "url": "http://127.0.0.1:8800/api/v1/dbc/reload",
+  "method": "POST",
+  "status": 200,
+  "headers": {
+    "date": "Fri, 10 Jul 2026 03:01:29 GMT",
+    "server": "uvicorn",
+    "content-length": "419",
+    "content-type": "application/json",
+    "connection": "close"
+  },
+  "body": {
+    "ok": true,
+    "loaded": true,
+    "raw_only": false,
+    "file": "D:\\workspace\\0-yunle\\7_codex\\chassis_eol_management_platform_codex_pack\\chassis_management_platform\\assets\\Yunle_CAN_integrated_candb_jd.dbc",
+    "hash": "387ae48bd848",
+    "version": "Yunle_CAN_Integrated_CANdb Release v1.0.2",
+    "error": null,
+    "status": "loaded",
+    "message_count": 39,
+    "signal_count": 170,
+    "loaded_at": "2026-07-10 03:01:30",
+    "message": "DBC 已重新扫描并加载"
+  },
+  "started_at": "2026-07-10T11:01:30.146187+08:00",
+  "finished_at": "2026-07-10T11:01:30.182560+08:00"
+}

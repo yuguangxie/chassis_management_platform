@@ -1,0 +1,11 @@
+﻿COMMAND: npm.cmd test
+WORKDIR: D:\workspace\0-yunle\7_codex\chassis_eol_management_platform_codex_pack\chassis_management_platform
+EXIT_CODE: 1
+TIME: 2026-07-10 10:59:04 +08:00
+
+
+> test
+> pytest backend/tests simulator/tests -q && npm --prefix desktop run typecheck && npm --prefix desktop run build
+
+'pytest' is not recognized as an internal or external command,
+operable program or batch file.

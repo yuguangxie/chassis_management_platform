@@ -1,0 +1,1748 @@
+{
+  "started_at": "2026-07-10T15:14:23+0800",
+  "real_vehicle_connected": false,
+  "network_boundary": "127.0.0.1 only",
+  "profiles": {
+    "normal_pass": {
+      "profile": "normal_pass",
+      "session_id": "EOL-23FBDB9089E2",
+      "expected": {
+        "status": "PASSED",
+        "failure_step": null,
+        "step_count": 12
+      },
+      "actual": {
+        "status": "PASSED",
+        "result": "PASS",
+        "failure_step": null,
+        "step_count": 12,
+        "step_results": [
+          {
+            "id": "power_on_self_check",
+            "result": "PASS"
+          },
+          {
+            "id": "can_communication_check",
+            "result": "PASS"
+          },
+          {
+            "id": "bms_check",
+            "result": "PASS"
+          },
+          {
+            "id": "vcu_status_check",
+            "result": "PASS"
+          },
+          {
+            "id": "motor_heartbeat_check",
+            "result": "PASS"
+          },
+          {
+            "id": "shift_check",
+            "result": "PASS"
+          },
+          {
+            "id": "low_speed_drive_check",
+            "result": "PASS"
+          },
+          {
+            "id": "steering_check",
+            "result": "PASS"
+          },
+          {
+            "id": "light_check",
+            "result": "PASS"
+          },
+          {
+            "id": "brake_stop_check",
+            "result": "PASS"
+          },
+          {
+            "id": "alarm_recheck",
+            "result": "PASS"
+          },
+          {
+            "id": "report_generation",
+            "result": "PASS"
+          }
+        ],
+        "failure_reason": "",
+        "safe_stop": null,
+        "report_id": "c38e926b"
+      },
+      "channels_at_start": [
+        {
+          "channel": "CAN1",
+          "online": true,
+          "transport_connected": true,
+          "receive_age_ms": 37.2,
+          "queue_healthy": true,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "stale_dropped": 0,
+          "malformed_datagrams": 0,
+          "processing_errors": 0,
+          "fps": 12.0,
+          "rx_count": 12,
+          "tx_count": 0,
+          "error_count": 0,
+          "last_frame_at": 1783667664.9867897,
+          "last_frame_hex": "01 00 00 00 00 00 00 00",
+          "protocol": "udp",
+          "local_ip": "127.0.0.1",
+          "local_port": 8234,
+          "device_ip": "127.0.0.1",
+          "device_port": 12341
+        },
+        {
+          "channel": "CAN2",
+          "online": true,
+          "transport_connected": true,
+          "receive_age_ms": 35.1,
+          "queue_healthy": true,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "stale_dropped": 0,
+          "malformed_datagrams": 0,
+          "processing_errors": 0,
+          "fps": 26.0,
+          "rx_count": 26,
+          "tx_count": 0,
+          "error_count": 0,
+          "last_frame_at": 1783667664.9889138,
+          "last_frame_hex": "00 00 00 00 00 00 00 00",
+          "protocol": "udp",
+          "local_ip": "127.0.0.1",
+          "local_port": 8235,
+          "device_ip": "127.0.0.1",
+          "device_port": 12342
+        }
+      ],
+      "database_counts": {
+        "test_sessions": 1,
+        "test_steps": 12,
+        "test_assertions": 26,
+        "raw_can_frames": 5944,
+        "decoded_signals": 48971,
+        "signal_statistics": 19,
+        "alarms": 0,
+        "reports": 4,
+        "operator_actions": 5,
+        "software_versions": 49
+      },
+      "persistence_ok": true,
+      "pause_resume": {
+        "status": "PAUSED",
+        "steps_before": 2,
+        "steps_after": 2,
+        "stable": true
+      },
+      "concurrency": {
+        "session_id": "EOL-58FD79EC566E",
+        "status_code": 409,
+        "body": {
+          "detail": {
+            "code": "STATION_BUSY",
+            "message": "station EOL-STATION-01 already has active session EOL-23FBDB9089E2"
+          }
+        },
+        "rejected": true
+      },
+      "passed": true
+    },
+    "bms_low_soc": {
+      "profile": "bms_low_soc",
+      "session_id": "EOL-008F8EB13084",
+      "expected": {
+        "status": "FAILED",
+        "failure_step": "bms_check",
+        "step_count": 3
+      },
+      "actual": {
+        "status": "FAILED",
+        "result": "FAIL",
+        "failure_step": "bms_check",
+        "step_count": 3,
+        "step_results": [
+          {
+            "id": "power_on_self_check",
+            "result": "PASS"
+          },
+          {
+            "id": "can_communication_check",
+            "result": "PASS"
+          },
+          {
+            "id": "bms_check",
+            "result": "FAIL"
+          }
+        ],
+        "failure_reason": "assertion bms_soc_min failed: measured=18, expected=30, quality=good",
+        "safe_stop": {
+          "ok": true,
+          "code": "STOP_CONFIRMED",
+          "message": "已通过零速与制动反馈确认停车",
+          "attempts": 2,
+          "feedback": {
+            "speed_kmh": 0.0,
+            "brake": true,
+            "stopped": true
+          },
+          "latched": true,
+          "emergency_stop": false
+        },
+        "report_id": "9086d150"
+      },
+      "channels_at_start": [
+        {
+          "channel": "CAN1",
+          "online": true,
+          "transport_connected": true,
+          "receive_age_ms": 27.0,
+          "queue_healthy": true,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "stale_dropped": 0,
+          "malformed_datagrams": 0,
+          "processing_errors": 0,
+          "fps": 12.0,
+          "rx_count": 12,
+          "tx_count": 0,
+          "error_count": 0,
+          "last_frame_at": 1783667684.494702,
+          "last_frame_hex": "01 00 00 00 00 00 00 00",
+          "protocol": "udp",
+          "local_ip": "127.0.0.1",
+          "local_port": 8234,
+          "device_ip": "127.0.0.1",
+          "device_port": 12341
+        },
+        {
+          "channel": "CAN2",
+          "online": true,
+          "transport_connected": true,
+          "receive_age_ms": 25.0,
+          "queue_healthy": true,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "stale_dropped": 0,
+          "malformed_datagrams": 0,
+          "processing_errors": 0,
+          "fps": 26.0,
+          "rx_count": 26,
+          "tx_count": 0,
+          "error_count": 0,
+          "last_frame_at": 1783667684.4967103,
+          "last_frame_hex": "00 00 00 00 00 00 00 00",
+          "protocol": "udp",
+          "local_ip": "127.0.0.1",
+          "local_port": 8235,
+          "device_ip": "127.0.0.1",
+          "device_port": 12342
+        }
+      ],
+      "database_counts": {
+        "test_sessions": 1,
+        "test_steps": 3,
+        "test_assertions": 10,
+        "raw_can_frames": 202,
+        "decoded_signals": 1582,
+        "signal_statistics": 19,
+        "alarms": 1,
+        "reports": 4,
+        "operator_actions": 3,
+        "software_versions": 49
+      },
+      "persistence_ok": true,
+      "pause_resume": null,
+      "concurrency": null,
+      "passed": true
+    },
+    "warning_fault": {
+      "profile": "warning_fault",
+      "session_id": "EOL-33098B12489E",
+      "expected": {
+        "status": "FAILED",
+        "failure_step": "alarm_recheck",
+        "step_count": 11
+      },
+      "actual": {
+        "status": "FAILED",
+        "result": "FAIL",
+        "failure_step": "alarm_recheck",
+        "step_count": 11,
+        "step_results": [
+          {
+            "id": "power_on_self_check",
+            "result": "PASS"
+          },
+          {
+            "id": "can_communication_check",
+            "result": "PASS"
+          },
+          {
+            "id": "bms_check",
+            "result": "PASS"
+          },
+          {
+            "id": "vcu_status_check",
+            "result": "PASS"
+          },
+          {
+            "id": "motor_heartbeat_check",
+            "result": "PASS"
+          },
+          {
+            "id": "shift_check",
+            "result": "SKIPPED"
+          },
+          {
+            "id": "low_speed_drive_check",
+            "result": "SKIPPED"
+          },
+          {
+            "id": "steering_check",
+            "result": "SKIPPED"
+          },
+          {
+            "id": "light_check",
+            "result": "SKIPPED"
+          },
+          {
+            "id": "brake_stop_check",
+            "result": "SKIPPED"
+          },
+          {
+            "id": "alarm_recheck",
+            "result": "FAIL"
+          }
+        ],
+        "failure_reason": "assertion warning_level_zero failed: measured=3, expected=0, quality=good",
+        "safe_stop": {
+          "ok": true,
+          "code": "STOP_CONFIRMED",
+          "message": "已通过零速与制动反馈确认停车",
+          "attempts": 2,
+          "feedback": {
+            "speed_kmh": 0.0,
+            "brake": true,
+            "stopped": true
+          },
+          "latched": true,
+          "emergency_stop": false
+        },
+        "report_id": "0bc0216e"
+      },
+      "channels_at_start": [
+        {
+          "channel": "CAN1",
+          "online": true,
+          "transport_connected": true,
+          "receive_age_ms": 39.8,
+          "queue_healthy": true,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "stale_dropped": 0,
+          "malformed_datagrams": 0,
+          "processing_errors": 0,
+          "fps": 12.0,
+          "rx_count": 12,
+          "tx_count": 0,
+          "error_count": 0,
+          "last_frame_at": 1783667687.4194481,
+          "last_frame_hex": "01 00 00 00 00 00 00 00",
+          "protocol": "udp",
+          "local_ip": "127.0.0.1",
+          "local_port": 8234,
+          "device_ip": "127.0.0.1",
+          "device_port": 12341
+        },
+        {
+          "channel": "CAN2",
+          "online": true,
+          "transport_connected": true,
+          "receive_age_ms": 37.9,
+          "queue_healthy": true,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "stale_dropped": 0,
+          "malformed_datagrams": 0,
+          "processing_errors": 0,
+          "fps": 26.0,
+          "rx_count": 26,
+          "tx_count": 0,
+          "error_count": 0,
+          "last_frame_at": 1783667687.4214115,
+          "last_frame_hex": "00 00 00 00 00 00 00 00",
+          "protocol": "udp",
+          "local_ip": "127.0.0.1",
+          "local_port": 8235,
+          "device_ip": "127.0.0.1",
+          "device_port": 12342
+        }
+      ],
+      "database_counts": {
+        "test_sessions": 1,
+        "test_steps": 11,
+        "test_assertions": 16,
+        "raw_can_frames": 420,
+        "decoded_signals": 3282,
+        "signal_statistics": 19,
+        "alarms": 2,
+        "reports": 4,
+        "operator_actions": 3,
+        "software_versions": 49
+      },
+      "persistence_ok": true,
+      "pause_resume": null,
+      "concurrency": null,
+      "passed": true
+    },
+    "steering_no_response": {
+      "profile": "steering_no_response",
+      "session_id": "EOL-6C32A08A9584",
+      "expected": {
+        "status": "FAILED",
+        "failure_step": "steering_check",
+        "step_count": 8
+      },
+      "actual": {
+        "status": "FAILED",
+        "result": "FAIL",
+        "failure_step": "steering_check",
+        "step_count": 8,
+        "step_results": [
+          {
+            "id": "power_on_self_check",
+            "result": "PASS"
+          },
+          {
+            "id": "can_communication_check",
+            "result": "PASS"
+          },
+          {
+            "id": "bms_check",
+            "result": "PASS"
+          },
+          {
+            "id": "vcu_status_check",
+            "result": "PASS"
+          },
+          {
+            "id": "motor_heartbeat_check",
+            "result": "PASS"
+          },
+          {
+            "id": "shift_check",
+            "result": "PASS"
+          },
+          {
+            "id": "low_speed_drive_check",
+            "result": "PASS"
+          },
+          {
+            "id": "steering_check",
+            "result": "FAIL"
+          }
+        ],
+        "failure_reason": "assertion front_steering_follow failed: measured=[{'expected': 30.0, 'actual': 0.0, 'error': 30.0, 'sample_count': 20}, {'expected': -30.0, 'actual': 0.0, 'error': 30.0, 'sample_count': 20}, {'expected': 0.0, 'actual': 0.0, 'error': 0.0, 'sample_count': 20}], expected={'max_error': 8.0}, quality=good; assertion rear_steering_follow failed: measured=[{'expected': 30.0, 'actual': 0.0, 'error': 30.0, 'sample_count': 20}, {'expected': -30.0, 'actual': 0.0, 'error': 30.0, 'sample_count': 20}, {'expected': 0.0, 'actual': 0.0, 'error': 0.0, 'sample_count': 20}], expected={'max_error': 8.0}, quality=good",
+        "safe_stop": {
+          "ok": true,
+          "code": "STOP_CONFIRMED",
+          "message": "已通过零速与制动反馈确认停车",
+          "attempts": 2,
+          "feedback": {
+            "speed_kmh": 0.0,
+            "brake": true,
+            "stopped": true
+          },
+          "latched": true,
+          "emergency_stop": false
+        },
+        "report_id": "7cf97888"
+      },
+      "channels_at_start": [
+        {
+          "channel": "CAN1",
+          "online": true,
+          "transport_connected": true,
+          "receive_age_ms": 39.9,
+          "queue_healthy": true,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "stale_dropped": 0,
+          "malformed_datagrams": 0,
+          "processing_errors": 0,
+          "fps": 12.0,
+          "rx_count": 12,
+          "tx_count": 0,
+          "error_count": 0,
+          "last_frame_at": 1783667690.976771,
+          "last_frame_hex": "01 00 00 00 00 00 00 00",
+          "protocol": "udp",
+          "local_ip": "127.0.0.1",
+          "local_port": 8234,
+          "device_ip": "127.0.0.1",
+          "device_port": 12341
+        },
+        {
+          "channel": "CAN2",
+          "online": true,
+          "transport_connected": true,
+          "receive_age_ms": 37.8,
+          "queue_healthy": true,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "stale_dropped": 0,
+          "malformed_datagrams": 0,
+          "processing_errors": 0,
+          "fps": 26.0,
+          "rx_count": 26,
+          "tx_count": 0,
+          "error_count": 0,
+          "last_frame_at": 1783667690.9788957,
+          "last_frame_hex": "00 00 00 00 00 00 00 00",
+          "protocol": "udp",
+          "local_ip": "127.0.0.1",
+          "local_port": 8235,
+          "device_ip": "127.0.0.1",
+          "device_port": 12342
+        }
+      ],
+      "database_counts": {
+        "test_sessions": 1,
+        "test_steps": 8,
+        "test_assertions": 19,
+        "raw_can_frames": 3182,
+        "decoded_signals": 26238,
+        "signal_statistics": 19,
+        "alarms": 0,
+        "reports": 4,
+        "operator_actions": 3,
+        "software_versions": 49
+      },
+      "persistence_ok": true,
+      "pause_resume": null,
+      "concurrency": null,
+      "passed": true
+    },
+    "brake_fail": {
+      "profile": "brake_fail",
+      "session_id": "EOL-6D1ADDA4B3F6",
+      "expected": {
+        "status": "FAILED",
+        "failure_step": "brake_stop_check",
+        "step_count": 10
+      },
+      "actual": {
+        "status": "FAILED",
+        "result": "FAIL",
+        "failure_step": "brake_stop_check",
+        "step_count": 10,
+        "step_results": [
+          {
+            "id": "power_on_self_check",
+            "result": "PASS"
+          },
+          {
+            "id": "can_communication_check",
+            "result": "PASS"
+          },
+          {
+            "id": "bms_check",
+            "result": "PASS"
+          },
+          {
+            "id": "vcu_status_check",
+            "result": "PASS"
+          },
+          {
+            "id": "motor_heartbeat_check",
+            "result": "PASS"
+          },
+          {
+            "id": "shift_check",
+            "result": "PASS"
+          },
+          {
+            "id": "low_speed_drive_check",
+            "result": "PASS"
+          },
+          {
+            "id": "steering_check",
+            "result": "PASS"
+          },
+          {
+            "id": "light_check",
+            "result": "PASS"
+          },
+          {
+            "id": "brake_stop_check",
+            "result": "FAIL"
+          }
+        ],
+        "failure_reason": "assertion brake_feedback_active failed: measured=[False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False], expected=True, quality=good",
+        "safe_stop": {
+          "ok": false,
+          "code": "SAFE_STOP_TIMEOUT",
+          "message": "停车反馈超时，停车锁存保持",
+          "attempts": 84,
+          "latched": true,
+          "emergency_stop": false,
+          "alarm": {
+            "id": "control_safe_stop_timeout",
+            "level": 3,
+            "label": "SAFE_STOP_TIMEOUT",
+            "description": "停车反馈超时，停车锁存保持",
+            "status": "active",
+            "acked": false
+          }
+        },
+        "report_id": "6e69592e"
+      },
+      "channels_at_start": [
+        {
+          "channel": "CAN1",
+          "online": true,
+          "transport_connected": true,
+          "receive_age_ms": 28.7,
+          "queue_healthy": true,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "stale_dropped": 0,
+          "malformed_datagrams": 0,
+          "processing_errors": 0,
+          "fps": 12.0,
+          "rx_count": 12,
+          "tx_count": 0,
+          "error_count": 0,
+          "last_frame_at": 1783667702.4801219,
+          "last_frame_hex": "01 00 00 00 00 00 00 00",
+          "protocol": "udp",
+          "local_ip": "127.0.0.1",
+          "local_port": 8234,
+          "device_ip": "127.0.0.1",
+          "device_port": 12341
+        },
+        {
+          "channel": "CAN2",
+          "online": true,
+          "transport_connected": true,
+          "receive_age_ms": 26.8,
+          "queue_healthy": true,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "stale_dropped": 0,
+          "malformed_datagrams": 0,
+          "processing_errors": 0,
+          "fps": 26.0,
+          "rx_count": 26,
+          "tx_count": 0,
+          "error_count": 0,
+          "last_frame_at": 1783667702.4820774,
+          "last_frame_hex": "00 00 00 00 00 00 00 00",
+          "protocol": "udp",
+          "local_ip": "127.0.0.1",
+          "local_port": 8235,
+          "device_ip": "127.0.0.1",
+          "device_port": 12342
+        }
+      ],
+      "database_counts": {
+        "test_sessions": 1,
+        "test_steps": 10,
+        "test_assertions": 22,
+        "raw_can_frames": 7286,
+        "decoded_signals": 59870,
+        "signal_statistics": 19,
+        "alarms": 1,
+        "reports": 4,
+        "operator_actions": 3,
+        "software_versions": 49
+      },
+      "persistence_ok": true,
+      "pause_resume": null,
+      "concurrency": null,
+      "passed": true
+    }
+  },
+  "guards": {
+    "can_disconnected_start": {
+      "name": "can_disconnected_start",
+      "session_id": "EOL-205A54B7FD17",
+      "start_status_code": 409,
+      "start_body": {
+        "detail": {
+          "code": "INTERLOCK_BLOCKED",
+          "message": "安全联锁阻止开始检测",
+          "details": {
+            "allowed": false,
+            "operation": "eol",
+            "level": "danger",
+            "rules": [
+              {
+                "rule": "can1_online",
+                "label": "CAN1 原始接收在线",
+                "status": "FAIL",
+                "current": null,
+                "threshold": "< 2000 ms",
+                "blocking": true
+              },
+              {
+                "rule": "can1_queue_healthy",
+                "label": "CAN1 接收队列健康",
+                "status": "PASS",
+                "current": 0,
+                "threshold": "< 512",
+                "blocking": true
+              },
+              {
+                "rule": "can2_online",
+                "label": "CAN2 原始接收在线",
+                "status": "FAIL",
+                "current": null,
+                "threshold": "< 2000 ms",
+                "blocking": true
+              },
+              {
+                "rule": "can2_queue_healthy",
+                "label": "CAN2 接收队列健康",
+                "status": "PASS",
+                "current": 0,
+                "threshold": "< 512",
+                "blocking": true
+              },
+              {
+                "rule": "single_control_channel",
+                "label": "唯一控制通道为 CAN2",
+                "status": "PASS",
+                "current": [
+                  "CAN2"
+                ],
+                "threshold": [
+                  "CAN2"
+                ],
+                "blocking": true
+              },
+              {
+                "rule": "dbc_ready",
+                "label": "DBC/覆盖规则可用",
+                "status": "PASS",
+                "current": {
+                  "loaded": true,
+                  "raw_only": false,
+                  "file": "D:\\workspace\\0-yunle\\7_codex\\chassis_eol_management_platform_codex_pack\\chassis_management_platform\\assets\\Yunle_CAN_integrated_candb_jd.dbc",
+                  "hash": "387ae48bd84852c8",
+                  "version": "Yunle_CAN_Integrated_CANdb Release v1.0.2",
+                  "error": null
+                },
+                "threshold": "loaded or explicitly raw-allowed",
+                "blocking": true
+              },
+              {
+                "rule": "no_severe_alarm",
+                "label": "无严重告警",
+                "status": "PASS",
+                "current": 0,
+                "threshold": "< 3",
+                "blocking": false
+              },
+              {
+                "rule": "database_writable",
+                "label": "数据库可写",
+                "status": "PASS",
+                "current": true,
+                "threshold": true,
+                "blocking": true
+              },
+              {
+                "rule": "emergency_released",
+                "label": "急停未锁存",
+                "status": "PASS",
+                "current": false,
+                "threshold": false,
+                "blocking": true
+              },
+              {
+                "rule": "safe_stop_released",
+                "label": "安全停车未锁存",
+                "status": "PASS",
+                "current": false,
+                "threshold": false,
+                "blocking": true
+              },
+              {
+                "rule": "critical_feedback_fresh",
+                "label": "关键速度反馈新鲜",
+                "status": "FAIL",
+                "current": null,
+                "threshold": "age < 2.0s",
+                "blocking": true
+              }
+            ],
+            "reasons": [
+              {
+                "rule": "can1_online",
+                "label": "CAN1 原始接收在线",
+                "status": "FAIL",
+                "current": null,
+                "threshold": "< 2000 ms",
+                "blocking": true
+              },
+              {
+                "rule": "can2_online",
+                "label": "CAN2 原始接收在线",
+                "status": "FAIL",
+                "current": null,
+                "threshold": "< 2000 ms",
+                "blocking": true
+              },
+              {
+                "rule": "critical_feedback_fresh",
+                "label": "关键速度反馈新鲜",
+                "status": "FAIL",
+                "current": null,
+                "threshold": "age < 2.0s",
+                "blocking": true
+              }
+            ]
+          }
+        }
+      },
+      "passed": true
+    },
+    "dbc_unloaded": {
+      "name": "dbc_unloaded",
+      "session_id": "EOL-DB7E9808EE11",
+      "start_status_code": 200,
+      "start_body": {
+        "chassis_no": "PH2-DBC_UNLOADED",
+        "vin": "PH2DBCUNLOADED00",
+        "serial_no": "PH2-1783667729239",
+        "operator": "dev-operator",
+        "station_id": "EOL-STATION-01",
+        "plan_id": "default_chassis_eol_v1",
+        "remarks": "",
+        "id": "EOL-DB7E9808EE11",
+        "status": "RUNNING",
+        "overall_result": null,
+        "steps": [],
+        "logs": [],
+        "measurements": [],
+        "created_at": "2026-07-10T07:15:29.255630+00:00",
+        "plan_name": "低速无人车线控底盘默认下线检测方案",
+        "plan_version": "2.0.0",
+        "dbc_hash": "387ae48bd84852c8",
+        "config_hash": "profile:dev",
+        "software_version": "v1.0.2",
+        "started_at": "2026-07-10T07:15:29.257302+00:00"
+      },
+      "terminal": {
+        "chassis_no": "PH2-DBC_UNLOADED",
+        "vin": "PH2DBCUNLOADED00",
+        "serial_no": "PH2-1783667729239",
+        "operator": "dev-operator",
+        "station_id": "EOL-STATION-01",
+        "plan_id": "default_chassis_eol_v1",
+        "remarks": "",
+        "id": "EOL-DB7E9808EE11",
+        "status": "FAILED",
+        "overall_result": "FAIL",
+        "steps": [
+          {
+            "id": "power_on_self_check",
+            "order": 1,
+            "name": "上电自检",
+            "description": "检查数据库、DBC、急停和运行配置是否满足检测条件。",
+            "status": "DONE",
+            "result": "FAIL",
+            "started_at": "2026-07-10T07:15:29.257630+00:00",
+            "assertions": [
+              {
+                "assertion_id": "db_writable",
+                "description": "数据库可写",
+                "signal_name": "system",
+                "operator": "==",
+                "threshold": true,
+                "measured_value": true,
+                "unit": "",
+                "result": "PASS",
+                "severity": "failure",
+                "failure_reason": "",
+                "sample_started_at": "2026-07-10T07:15:29.359931+00:00",
+                "sample_ended_at": "2026-07-10T07:15:29.359952+00:00",
+                "quality": "good",
+                "source_can_id": "",
+                "source_channel": "",
+                "source_timestamp": ""
+              },
+              {
+                "assertion_id": "dbc_loaded",
+                "description": "DBC 已加载",
+                "signal_name": "system",
+                "operator": "==",
+                "threshold": true,
+                "measured_value": false,
+                "unit": "",
+                "result": "FAIL",
+                "severity": "failure",
+                "failure_reason": "assertion dbc_loaded failed: measured=False, expected=True, quality=good",
+                "sample_started_at": "2026-07-10T07:15:29.359967+00:00",
+                "sample_ended_at": "2026-07-10T07:15:29.359982+00:00",
+                "quality": "good",
+                "source_can_id": "",
+                "source_channel": "",
+                "source_timestamp": ""
+              },
+              {
+                "assertion_id": "emergency_released",
+                "description": "急停已释放",
+                "signal_name": "system",
+                "operator": "==",
+                "threshold": true,
+                "measured_value": true,
+                "unit": "",
+                "result": "PASS",
+                "severity": "failure",
+                "failure_reason": "",
+                "sample_started_at": "2026-07-10T07:15:29.359989+00:00",
+                "sample_ended_at": "2026-07-10T07:15:29.359999+00:00",
+                "quality": "good",
+                "source_can_id": "",
+                "source_channel": "",
+                "source_timestamp": ""
+              }
+            ],
+            "commands": [],
+            "measurements": [
+              {
+                "name": "数据库可写",
+                "value": true,
+                "unit": "",
+                "quality": "good",
+                "source_can_id": "",
+                "source_timestamp": ""
+              },
+              {
+                "name": "DBC 已加载",
+                "value": false,
+                "unit": "",
+                "quality": "good",
+                "source_can_id": "",
+                "source_timestamp": ""
+              },
+              {
+                "name": "急停已释放",
+                "value": true,
+                "unit": "",
+                "quality": "good",
+                "source_can_id": "",
+                "source_timestamp": ""
+              }
+            ],
+            "db_id": 102,
+            "ended_at": "2026-07-10T07:15:29.360012+00:00",
+            "duration_ms": 102,
+            "failure_reason": "assertion dbc_loaded failed: measured=False, expected=True, quality=good"
+          }
+        ],
+        "logs": [
+          {
+            "time": "2026-07-10T07:15:29.257717+00:00",
+            "step": "1 上电自检",
+            "action": "步骤开始",
+            "can_command": "",
+            "feedback": "",
+            "status": "RUNNING"
+          },
+          {
+            "time": "2026-07-10T07:15:29.360270+00:00",
+            "step": "1 上电自检",
+            "action": "步骤完成",
+            "can_command": "[]",
+            "feedback": "[{\"name\": \"数据库可写\", \"value\": true, \"unit\": \"\", \"quality\": \"good\", \"source_can_id\": \"\", \"source_timestamp\": \"\"}, {\"name\": \"DBC 已加载\", \"value\": false, \"unit\": \"\", \"quality\": \"good\", \"source_can_id\": \"\", \"source_timestamp\": \"\"}, {\"name\": \"急停已释放\", \"value\": true, \"unit\": \"\", \"quality\": \"good\", \"source_can_id\": \"\", \"source_timestamp\": \"\"}]",
+            "status": "FAIL"
+          }
+        ],
+        "measurements": [
+          {
+            "name": "数据库可写",
+            "value": true,
+            "unit": "",
+            "quality": "good",
+            "source_can_id": "",
+            "source_timestamp": ""
+          },
+          {
+            "name": "DBC 已加载",
+            "value": false,
+            "unit": "",
+            "quality": "good",
+            "source_can_id": "",
+            "source_timestamp": ""
+          },
+          {
+            "name": "急停已释放",
+            "value": true,
+            "unit": "",
+            "quality": "good",
+            "source_can_id": "",
+            "source_timestamp": ""
+          }
+        ],
+        "created_at": "2026-07-10T07:15:29.255630+00:00",
+        "plan_name": "低速无人车线控底盘默认下线检测方案",
+        "plan_version": "2.0.0",
+        "dbc_hash": "387ae48bd84852c8",
+        "config_hash": "profile:dev",
+        "software_version": "v1.0.2",
+        "started_at": "2026-07-10T07:15:29.257302+00:00",
+        "current_step_id": "power_on_self_check",
+        "current_step_name": "上电自检",
+        "safe_stop_result": {
+          "ok": true,
+          "code": "STOP_CONFIRMED",
+          "message": "已通过零速与制动反馈确认停车",
+          "attempts": 3,
+          "feedback": {
+            "speed_kmh": 0.0,
+            "brake": true,
+            "stopped": true
+          },
+          "latched": true,
+          "emergency_stop": false
+        },
+        "failure_reason": "assertion dbc_loaded failed: measured=False, expected=True, quality=good",
+        "ended_at": "2026-07-10T07:15:29.476143+00:00",
+        "report": {
+          "id": "09dd6df8",
+          "session_id": "EOL-DB7E9808EE11",
+          "result": "FAIL",
+          "generated_at": "2026-07-10T07:15:29.476309+00:00",
+          "files": {
+            "json": "D:\\workspace\\0-yunle\\7_codex\\chassis_eol_management_platform_codex_pack\\chassis_management_platform\\data\\reports\\EOL-DB7E9808EE11_FAIL_09dd6df8.json",
+            "docx": "D:\\workspace\\0-yunle\\7_codex\\chassis_eol_management_platform_codex_pack\\chassis_management_platform\\data\\reports\\EOL-DB7E9808EE11_FAIL_09dd6df8.docx",
+            "pdf": "D:\\workspace\\0-yunle\\7_codex\\chassis_eol_management_platform_codex_pack\\chassis_management_platform\\data\\reports\\EOL-DB7E9808EE11_FAIL_09dd6df8.pdf",
+            "csv": "D:\\workspace\\0-yunle\\7_codex\\chassis_eol_management_platform_codex_pack\\chassis_management_platform\\data\\reports\\EOL-DB7E9808EE11_FAIL_09dd6df8.csv"
+          },
+          "hashes": {
+            "json": "4d7abd0fd30aa99786b16a03d24c25411637339ced70f13e479f1323f55285dd",
+            "docx": "58d80417fff7621372ae5e565e1ef104863a1b1ad6f2297be0444a23378f045a",
+            "pdf": "51746d1b93313e515ef8a3b09470ae27671866be1104b5fdc524fec2ec3528a8",
+            "csv": "5a9128c6a7f3f7c87c696a5892f06dd4b76e198dd80db82b6a1c63b311c0cb80"
+          },
+          "database_ids": [
+            "09dd6df8-json",
+            "09dd6df8-docx",
+            "09dd6df8-pdf",
+            "09dd6df8-csv"
+          ]
+        }
+      },
+      "passed": true
+    },
+    "database_unwritable": {
+      "name": "database_unwritable",
+      "session_id": "EOL-54DC4F0F4067",
+      "start_status_code": 409,
+      "start_body": {
+        "detail": {
+          "code": "INTERLOCK_BLOCKED",
+          "message": "安全联锁阻止开始检测",
+          "details": {
+            "allowed": false,
+            "operation": "eol",
+            "level": "danger",
+            "rules": [
+              {
+                "rule": "can1_online",
+                "label": "CAN1 原始接收在线",
+                "status": "PASS",
+                "current": 27.6,
+                "threshold": "< 2000 ms",
+                "blocking": true
+              },
+              {
+                "rule": "can1_queue_healthy",
+                "label": "CAN1 接收队列健康",
+                "status": "PASS",
+                "current": 0,
+                "threshold": "< 512",
+                "blocking": true
+              },
+              {
+                "rule": "can2_online",
+                "label": "CAN2 原始接收在线",
+                "status": "PASS",
+                "current": 25.4,
+                "threshold": "< 2000 ms",
+                "blocking": true
+              },
+              {
+                "rule": "can2_queue_healthy",
+                "label": "CAN2 接收队列健康",
+                "status": "PASS",
+                "current": 0,
+                "threshold": "< 512",
+                "blocking": true
+              },
+              {
+                "rule": "single_control_channel",
+                "label": "唯一控制通道为 CAN2",
+                "status": "PASS",
+                "current": [
+                  "CAN2"
+                ],
+                "threshold": [
+                  "CAN2"
+                ],
+                "blocking": true
+              },
+              {
+                "rule": "dbc_ready",
+                "label": "DBC/覆盖规则可用",
+                "status": "PASS",
+                "current": {
+                  "loaded": true,
+                  "raw_only": false,
+                  "file": "D:\\workspace\\0-yunle\\7_codex\\chassis_eol_management_platform_codex_pack\\chassis_management_platform\\assets\\Yunle_CAN_integrated_candb_jd.dbc",
+                  "hash": "387ae48bd84852c8",
+                  "version": "Yunle_CAN_Integrated_CANdb Release v1.0.2",
+                  "error": null
+                },
+                "threshold": "loaded or explicitly raw-allowed",
+                "blocking": true
+              },
+              {
+                "rule": "no_severe_alarm",
+                "label": "无严重告警",
+                "status": "PASS",
+                "current": 0,
+                "threshold": "< 3",
+                "blocking": false
+              },
+              {
+                "rule": "database_writable",
+                "label": "数据库可写",
+                "status": "FAIL",
+                "current": false,
+                "threshold": true,
+                "blocking": true
+              },
+              {
+                "rule": "emergency_released",
+                "label": "急停未锁存",
+                "status": "PASS",
+                "current": false,
+                "threshold": false,
+                "blocking": true
+              },
+              {
+                "rule": "safe_stop_released",
+                "label": "安全停车未锁存",
+                "status": "PASS",
+                "current": false,
+                "threshold": false,
+                "blocking": true
+              },
+              {
+                "rule": "critical_feedback_fresh",
+                "label": "关键速度反馈新鲜",
+                "status": "PASS",
+                "current": 0.0,
+                "threshold": "age < 2.0s",
+                "blocking": true
+              }
+            ],
+            "reasons": [
+              {
+                "rule": "database_writable",
+                "label": "数据库可写",
+                "status": "FAIL",
+                "current": false,
+                "threshold": true,
+                "blocking": true
+              }
+            ]
+          }
+        }
+      },
+      "passed": true
+    },
+    "abort": {
+      "name": "lifecycle_abort",
+      "session_id": "EOL-788D26CA1DD6",
+      "action_status_code": 200,
+      "action_body": {
+        "chassis_no": "PH2-LIFECYCLE_ABORT",
+        "vin": "PH2LIFECYCLEABOR",
+        "serial_no": "PH2-1783667732152",
+        "operator": "dev-operator",
+        "station_id": "EOL-STATION-01",
+        "plan_id": "default_chassis_eol_v1",
+        "remarks": "",
+        "id": "EOL-788D26CA1DD6",
+        "status": "ABORTED",
+        "overall_result": "ABORTED",
+        "steps": [
+          {
+            "id": "power_on_self_check",
+            "order": 1,
+            "name": "上电自检",
+            "description": "检查数据库、DBC、急停和运行配置是否满足检测条件。",
+            "status": "DONE",
+            "result": "PASS",
+            "started_at": "2026-07-10T07:15:32.171820+00:00",
+            "assertions": [
+              {
+                "assertion_id": "db_writable",
+                "description": "数据库可写",
+                "signal_name": "system",
+                "operator": "==",
+                "threshold": true,
+                "measured_value": true,
+                "unit": "",
+                "result": "PASS",
+                "severity": "failure",
+                "failure_reason": "",
+                "sample_started_at": "2026-07-10T07:15:32.274814+00:00",
+                "sample_ended_at": "2026-07-10T07:15:32.274837+00:00",
+                "quality": "good",
+                "source_can_id": "",
+                "source_channel": "",
+                "source_timestamp": ""
+              },
+              {
+                "assertion_id": "dbc_loaded",
+                "description": "DBC 已加载",
+                "signal_name": "system",
+                "operator": "==",
+                "threshold": true,
+                "measured_value": true,
+                "unit": "",
+                "result": "PASS",
+                "severity": "failure",
+                "failure_reason": "",
+                "sample_started_at": "2026-07-10T07:15:32.274852+00:00",
+                "sample_ended_at": "2026-07-10T07:15:32.274865+00:00",
+                "quality": "good",
+                "source_can_id": "",
+                "source_channel": "",
+                "source_timestamp": ""
+              },
+              {
+                "assertion_id": "emergency_released",
+                "description": "急停已释放",
+                "signal_name": "system",
+                "operator": "==",
+                "threshold": true,
+                "measured_value": true,
+                "unit": "",
+                "result": "PASS",
+                "severity": "failure",
+                "failure_reason": "",
+                "sample_started_at": "2026-07-10T07:15:32.274871+00:00",
+                "sample_ended_at": "2026-07-10T07:15:32.274880+00:00",
+                "quality": "good",
+                "source_can_id": "",
+                "source_channel": "",
+                "source_timestamp": ""
+              }
+            ],
+            "commands": [],
+            "measurements": [
+              {
+                "name": "数据库可写",
+                "value": true,
+                "unit": "",
+                "quality": "good",
+                "source_can_id": "",
+                "source_timestamp": ""
+              },
+              {
+                "name": "DBC 已加载",
+                "value": true,
+                "unit": "",
+                "quality": "good",
+                "source_can_id": "",
+                "source_timestamp": ""
+              },
+              {
+                "name": "急停已释放",
+                "value": true,
+                "unit": "",
+                "quality": "good",
+                "source_can_id": "",
+                "source_timestamp": ""
+              }
+            ],
+            "db_id": 103,
+            "ended_at": "2026-07-10T07:15:32.274893+00:00",
+            "duration_ms": 103,
+            "failure_reason": ""
+          },
+          {
+            "id": "can_communication_check",
+            "order": 2,
+            "name": "CAN 通信检测",
+            "description": "检查 CAN1/CAN2 原始报文在线状态与关键报文时效。",
+            "status": "ABORTED",
+            "result": "ABORTED",
+            "started_at": "2026-07-10T07:15:32.275172+00:00",
+            "assertions": [],
+            "commands": [],
+            "measurements": [],
+            "db_id": 104,
+            "ended_at": "2026-07-10T07:15:32.281141+00:00"
+          }
+        ],
+        "logs": [
+          {
+            "time": "2026-07-10T07:15:32.171905+00:00",
+            "step": "1 上电自检",
+            "action": "步骤开始",
+            "can_command": "",
+            "feedback": "",
+            "status": "RUNNING"
+          },
+          {
+            "time": "2026-07-10T07:15:32.275093+00:00",
+            "step": "1 上电自检",
+            "action": "步骤完成",
+            "can_command": "[]",
+            "feedback": "[{\"name\": \"数据库可写\", \"value\": true, \"unit\": \"\", \"quality\": \"good\", \"source_can_id\": \"\", \"source_timestamp\": \"\"}, {\"name\": \"DBC 已加载\", \"value\": true, \"unit\": \"\", \"quality\": \"good\", \"source_can_id\": \"\", \"source_timestamp\": \"\"}, {\"name\": \"急停已释放\", \"value\": true, \"unit\": \"\", \"quality\": \"good\", \"source_can_id\": \"\", \"source_timestamp\": \"\"}]",
+            "status": "PASS"
+          },
+          {
+            "time": "2026-07-10T07:15:32.275206+00:00",
+            "step": "2 CAN 通信检测",
+            "action": "步骤开始",
+            "can_command": "",
+            "feedback": "",
+            "status": "RUNNING"
+          }
+        ],
+        "measurements": [
+          {
+            "name": "数据库可写",
+            "value": true,
+            "unit": "",
+            "quality": "good",
+            "source_can_id": "",
+            "source_timestamp": ""
+          },
+          {
+            "name": "DBC 已加载",
+            "value": true,
+            "unit": "",
+            "quality": "good",
+            "source_can_id": "",
+            "source_timestamp": ""
+          },
+          {
+            "name": "急停已释放",
+            "value": true,
+            "unit": "",
+            "quality": "good",
+            "source_can_id": "",
+            "source_timestamp": ""
+          }
+        ],
+        "created_at": "2026-07-10T07:15:32.169174+00:00",
+        "plan_name": "低速无人车线控底盘默认下线检测方案",
+        "plan_version": "2.0.0",
+        "dbc_hash": "387ae48bd84852c8",
+        "config_hash": "profile:dev",
+        "software_version": "v1.0.2",
+        "started_at": "2026-07-10T07:15:32.171431+00:00",
+        "current_step_id": "can_communication_check",
+        "current_step_name": "CAN 通信检测",
+        "failure_reason": "operator abort",
+        "ended_at": "2026-07-10T07:15:32.281137+00:00",
+        "safe_stop_result": {
+          "ok": true,
+          "code": "STOP_CONFIRMED",
+          "message": "已通过零速与制动反馈确认停车",
+          "attempts": 2,
+          "feedback": {
+            "speed_kmh": 0.0,
+            "brake": true,
+            "stopped": true
+          },
+          "latched": true,
+          "emergency_stop": false
+        },
+        "safe_stop": {
+          "ok": true,
+          "code": "STOP_CONFIRMED",
+          "message": "已通过零速与制动反馈确认停车",
+          "attempts": 2,
+          "feedback": {
+            "speed_kmh": 0.0,
+            "brake": true,
+            "stopped": true
+          },
+          "latched": true,
+          "emergency_stop": false
+        }
+      },
+      "terminal_status": "ABORTED",
+      "step_count": 2,
+      "safe_stop": {
+        "ok": true,
+        "code": "STOP_CONFIRMED",
+        "message": "已通过零速与制动反馈确认停车",
+        "attempts": 2,
+        "feedback": {
+          "speed_kmh": 0.0,
+          "brake": true,
+          "stopped": true
+        },
+        "latched": true,
+        "emergency_stop": false
+      },
+      "passed": true
+    },
+    "emergency_stop": {
+      "name": "lifecycle_emergency_stop",
+      "session_id": "EOL-632767AC7806",
+      "action_status_code": 200,
+      "action_body": {
+        "ok": true,
+        "session": {
+          "chassis_no": "PH2-LIFECYCLE_EMERGENCY_",
+          "vin": "PH2LIFECYCLEEMER",
+          "serial_no": "PH2-1783667733618",
+          "operator": "dev-operator",
+          "station_id": "EOL-STATION-01",
+          "plan_id": "default_chassis_eol_v1",
+          "remarks": "",
+          "id": "EOL-632767AC7806",
+          "status": "EMERGENCY_STOPPED",
+          "overall_result": "ABORTED",
+          "steps": [
+            {
+              "id": "power_on_self_check",
+              "order": 1,
+              "name": "上电自检",
+              "description": "检查数据库、DBC、急停和运行配置是否满足检测条件。",
+              "status": "DONE",
+              "result": "PASS",
+              "started_at": "2026-07-10T07:15:33.637410+00:00",
+              "assertions": [
+                {
+                  "assertion_id": "db_writable",
+                  "description": "数据库可写",
+                  "signal_name": "system",
+                  "operator": "==",
+                  "threshold": true,
+                  "measured_value": true,
+                  "unit": "",
+                  "result": "PASS",
+                  "severity": "failure",
+                  "failure_reason": "",
+                  "sample_started_at": "2026-07-10T07:15:33.739820+00:00",
+                  "sample_ended_at": "2026-07-10T07:15:33.739874+00:00",
+                  "quality": "good",
+                  "source_can_id": "",
+                  "source_channel": "",
+                  "source_timestamp": ""
+                },
+                {
+                  "assertion_id": "dbc_loaded",
+                  "description": "DBC 已加载",
+                  "signal_name": "system",
+                  "operator": "==",
+                  "threshold": true,
+                  "measured_value": true,
+                  "unit": "",
+                  "result": "PASS",
+                  "severity": "failure",
+                  "failure_reason": "",
+                  "sample_started_at": "2026-07-10T07:15:33.739914+00:00",
+                  "sample_ended_at": "2026-07-10T07:15:33.739931+00:00",
+                  "quality": "good",
+                  "source_can_id": "",
+                  "source_channel": "",
+                  "source_timestamp": ""
+                },
+                {
+                  "assertion_id": "emergency_released",
+                  "description": "急停已释放",
+                  "signal_name": "system",
+                  "operator": "==",
+                  "threshold": true,
+                  "measured_value": true,
+                  "unit": "",
+                  "result": "PASS",
+                  "severity": "failure",
+                  "failure_reason": "",
+                  "sample_started_at": "2026-07-10T07:15:33.739940+00:00",
+                  "sample_ended_at": "2026-07-10T07:15:33.739950+00:00",
+                  "quality": "good",
+                  "source_can_id": "",
+                  "source_channel": "",
+                  "source_timestamp": ""
+                }
+              ],
+              "commands": [],
+              "measurements": [
+                {
+                  "name": "数据库可写",
+                  "value": true,
+                  "unit": "",
+                  "quality": "good",
+                  "source_can_id": "",
+                  "source_timestamp": ""
+                },
+                {
+                  "name": "DBC 已加载",
+                  "value": true,
+                  "unit": "",
+                  "quality": "good",
+                  "source_can_id": "",
+                  "source_timestamp": ""
+                },
+                {
+                  "name": "急停已释放",
+                  "value": true,
+                  "unit": "",
+                  "quality": "good",
+                  "source_can_id": "",
+                  "source_timestamp": ""
+                }
+              ],
+              "db_id": 105,
+              "ended_at": "2026-07-10T07:15:33.739968+00:00",
+              "duration_ms": 103,
+              "failure_reason": ""
+            },
+            {
+              "id": "can_communication_check",
+              "order": 2,
+              "name": "CAN 通信检测",
+              "description": "检查 CAN1/CAN2 原始报文在线状态与关键报文时效。",
+              "status": "EMERGENCY_STOPPED",
+              "result": "ABORTED",
+              "started_at": "2026-07-10T07:15:33.740404+00:00",
+              "assertions": [],
+              "commands": [],
+              "measurements": [],
+              "db_id": 106,
+              "ended_at": "2026-07-10T07:15:33.742691+00:00"
+            }
+          ],
+          "logs": [
+            {
+              "time": "2026-07-10T07:15:33.637505+00:00",
+              "step": "1 上电自检",
+              "action": "步骤开始",
+              "can_command": "",
+              "feedback": "",
+              "status": "RUNNING"
+            },
+            {
+              "time": "2026-07-10T07:15:33.740283+00:00",
+              "step": "1 上电自检",
+              "action": "步骤完成",
+              "can_command": "[]",
+              "feedback": "[{\"name\": \"数据库可写\", \"value\": true, \"unit\": \"\", \"quality\": \"good\", \"source_can_id\": \"\", \"source_timestamp\": \"\"}, {\"name\": \"DBC 已加载\", \"value\": true, \"unit\": \"\", \"quality\": \"good\", \"source_can_id\": \"\", \"source_timestamp\": \"\"}, {\"name\": \"急停已释放\", \"value\": true, \"unit\": \"\", \"quality\": \"good\", \"source_can_id\": \"\", \"source_timestamp\": \"\"}]",
+              "status": "PASS"
+            },
+            {
+              "time": "2026-07-10T07:15:33.740448+00:00",
+              "step": "2 CAN 通信检测",
+              "action": "步骤开始",
+              "can_command": "",
+              "feedback": "",
+              "status": "RUNNING"
+            }
+          ],
+          "measurements": [
+            {
+              "name": "数据库可写",
+              "value": true,
+              "unit": "",
+              "quality": "good",
+              "source_can_id": "",
+              "source_timestamp": ""
+            },
+            {
+              "name": "DBC 已加载",
+              "value": true,
+              "unit": "",
+              "quality": "good",
+              "source_can_id": "",
+              "source_timestamp": ""
+            },
+            {
+              "name": "急停已释放",
+              "value": true,
+              "unit": "",
+              "quality": "good",
+              "source_can_id": "",
+              "source_timestamp": ""
+            }
+          ],
+          "created_at": "2026-07-10T07:15:33.634996+00:00",
+          "plan_name": "低速无人车线控底盘默认下线检测方案",
+          "plan_version": "2.0.0",
+          "dbc_hash": "387ae48bd84852c8",
+          "config_hash": "profile:dev",
+          "software_version": "v1.0.2",
+          "started_at": "2026-07-10T07:15:33.636870+00:00",
+          "current_step_id": "can_communication_check",
+          "current_step_name": "CAN 通信检测",
+          "failure_reason": "EOL emergency stop",
+          "ended_at": "2026-07-10T07:15:33.742684+00:00",
+          "safe_stop_result": {
+            "ok": true,
+            "code": "STOP_CONFIRMED",
+            "message": "已通过零速与制动反馈确认停车",
+            "attempts": 2,
+            "feedback": {
+              "speed_kmh": 0.0,
+              "brake": true,
+              "stopped": true
+            },
+            "latched": true,
+            "emergency_stop": true
+          }
+        },
+        "stop": {
+          "ok": true,
+          "code": "STOP_CONFIRMED",
+          "message": "已通过零速与制动反馈确认停车",
+          "attempts": 2,
+          "feedback": {
+            "speed_kmh": 0.0,
+            "brake": true,
+            "stopped": true
+          },
+          "latched": true,
+          "emergency_stop": true
+        }
+      },
+      "terminal_status": "EMERGENCY_STOPPED",
+      "step_count": 2,
+      "safe_stop": {
+        "ok": true,
+        "code": "STOP_CONFIRMED",
+        "message": "已通过零速与制动反馈确认停车",
+        "attempts": 2,
+        "feedback": {
+          "speed_kmh": 0.0,
+          "brake": true,
+          "stopped": true
+        },
+        "latched": true,
+        "emergency_stop": true
+      },
+      "passed": true
+    },
+    "mid_session_disconnect": {
+      "name": "can_disconnect_mid_session",
+      "session_id": "EOL-52042CCF0D18",
+      "terminal_status": "FAILED",
+      "failure_step": "low_speed_drive_check",
+      "failure_reason": "assertion speed_response failed: measured=[0.0], expected={'target': 1.5, 'tolerance': 0.5}, quality=good; 安全联锁阻止步骤: CAN1 原始接收在线, CAN2 原始接收在线, 关键速度反馈新鲜",
+      "safe_stop": {
+        "ok": false,
+        "code": "INTERLOCK_BLOCKED",
+        "message": "停车通道不可用，停车锁存保持",
+        "details": {
+          "allowed": false,
+          "operation": "safe_stop",
+          "level": "danger",
+          "rules": [
+            {
+              "rule": "can2_online",
+              "label": "CAN2 原始接收在线",
+              "status": "FAIL",
+              "current": 2186.8,
+              "threshold": "< 2000 ms",
+              "blocking": true
+            },
+            {
+              "rule": "can2_queue_healthy",
+              "label": "CAN2 接收队列健康",
+              "status": "PASS",
+              "current": 0,
+              "threshold": "< 512",
+              "blocking": true
+            },
+            {
+              "rule": "single_control_channel",
+              "label": "唯一控制通道为 CAN2",
+              "status": "PASS",
+              "current": [
+                "CAN2"
+              ],
+              "threshold": [
+                "CAN2"
+              ],
+              "blocking": true
+            },
+            {
+              "rule": "stop_command_shape",
+              "label": "停车命令为零速、N挡并制动",
+              "status": "PASS",
+              "current": {
+                "shift": "N",
+                "drive_mode": "Remote",
+                "target_speed_kmh": 0.0,
+                "front_steering_cmd": 0,
+                "rear_steering_cmd": 0,
+                "brake_enable": true,
+                "left_light": false,
+                "right_light": false,
+                "position_light": false,
+                "low_beam": false,
+                "speed_mode": true
+              },
+              "threshold": {
+                "shift": "N",
+                "target_speed_kmh": 0,
+                "brake_enable": true
+              },
+              "blocking": true
+            }
+          ],
+          "reasons": [
+            {
+              "rule": "can2_online",
+              "label": "CAN2 原始接收在线",
+              "status": "FAIL",
+              "current": 2186.8,
+              "threshold": "< 2000 ms",
+              "blocking": true
+            }
+          ]
+        },
+        "attempts": 0,
+        "latched": true,
+        "alarm": {
+          "id": "control_interlock_blocked",
+          "level": 3,
+          "label": "INTERLOCK_BLOCKED",
+          "description": "停车通道不可用，停车锁存保持",
+          "status": "active",
+          "acked": false
+        }
+      },
+      "passed": true
+    }
+  },
+  "gate_passed": true,
+  "finished_at": "2026-07-10T15:15:40+0800"
+}

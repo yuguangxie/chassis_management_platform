@@ -1,0 +1,6 @@
+profiles:
+  normal_pass: {warning_level: 0, soc: 86, steering_response: true, brake_response: true}
+  bms_low_soc: {warning_level: 0, soc: 18, steering_response: true, brake_response: true}
+  warning_fault: {warning_level: 3, soc: 86, steering_response: true, brake_response: true}
+  steering_no_response: {warning_level: 0, soc: 86, steering_response: false, brake_response: true}
+  brake_fail: {warning_level: 0, soc: 86, steering_response: true, brake_response: false}

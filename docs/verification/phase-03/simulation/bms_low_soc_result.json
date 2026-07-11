@@ -1,0 +1,110 @@
+{
+  "profile": "bms_low_soc",
+  "session_id": "EOL-952B4331D81E",
+  "expected": {
+    "status": "FAILED",
+    "failure_step": "bms_check",
+    "step_count": 3
+  },
+  "actual": {
+    "status": "FAILED",
+    "result": "FAIL",
+    "failure_step": "bms_check",
+    "step_count": 3,
+    "step_results": [
+      {
+        "id": "power_on_self_check",
+        "result": "PASS"
+      },
+      {
+        "id": "can_communication_check",
+        "result": "PASS"
+      },
+      {
+        "id": "bms_check",
+        "result": "FAIL"
+      }
+    ],
+    "failure_reason": "assertion bms_soc_min failed: measured=18, expected=30, quality=good",
+    "safe_stop": {
+      "ok": true,
+      "code": "STOP_CONFIRMED",
+      "message": "已通过零速与制动反馈确认停车",
+      "attempts": 2,
+      "feedback": {
+        "speed_kmh": 0.0,
+        "brake": true,
+        "stopped": true
+      },
+      "latched": true,
+      "emergency_stop": false
+    },
+    "report_id": "51de0914"
+  },
+  "channels_at_start": [
+    {
+      "channel": "CAN1",
+      "online": true,
+      "transport_connected": true,
+      "receive_age_ms": 1.7,
+      "queue_healthy": true,
+      "queue_depth": 0,
+      "queue_capacity": 512,
+      "queue_dropped": 0,
+      "stale_dropped": 0,
+      "malformed_datagrams": 0,
+      "processing_errors": 0,
+      "fps": 6.0,
+      "rx_count": 6,
+      "tx_count": 0,
+      "error_count": 0,
+      "last_frame_at": 1783677338.463181,
+      "last_frame_hex": "01 00 00 00 00 00 00 00",
+      "protocol": "udp",
+      "local_ip": "127.0.0.1",
+      "local_port": 8234,
+      "device_ip": "127.0.0.1",
+      "device_port": 12341
+    },
+    {
+      "channel": "CAN2",
+      "online": true,
+      "transport_connected": true,
+      "receive_age_ms": 0.3,
+      "queue_healthy": true,
+      "queue_depth": 1,
+      "queue_capacity": 512,
+      "queue_dropped": 0,
+      "stale_dropped": 0,
+      "malformed_datagrams": 0,
+      "processing_errors": 0,
+      "fps": 9.0,
+      "rx_count": 9,
+      "tx_count": 0,
+      "error_count": 0,
+      "last_frame_at": 1783677338.4646873,
+      "last_frame_hex": "00 00 00 00 00 00 00 00",
+      "protocol": "udp",
+      "local_ip": "127.0.0.1",
+      "local_port": 8235,
+      "device_ip": "127.0.0.1",
+      "device_port": 12342
+    }
+  ],
+  "database_counts": {
+    "test_sessions": 1,
+    "test_steps": 3,
+    "test_assertions": 10,
+    "raw_can_frames": 204,
+    "decoded_signals": 1586,
+    "signal_statistics": 19,
+    "alarms": 1,
+    "reports": 4,
+    "operator_actions": 3,
+    "software_versions": 49
+  },
+  "persistence_ok": true,
+  "pause_resume": null,
+  "concurrency": null,
+  "passed": true
+}

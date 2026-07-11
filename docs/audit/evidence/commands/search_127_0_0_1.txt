@@ -1,0 +1,22 @@
+﻿PATTERN: 127\.0\.0\.1
+MATCHES: 19
+
+desktop/electron\main.ts:22:  win.loadURL(process.env.VITE_DEV_SERVER_URL || 'http://127.0.0.1:5173')
+desktop/electron\main.cjs:21:  win.loadURL(process.env.VITE_DEV_SERVER_URL || "http://127.0.0.1:5173")
+configs\station.yaml:22:  backend_host: 127.0.0.1
+scripts\smoke_test.py:2:print(urllib.request.urlopen("http://127.0.0.1:8800/api/v1/health", timeout=3).read().decode())
+scripts\dev_backend.py:2:uvicorn.run("app.main:app", host="127.0.0.1", port=8800, reload=False, app_dir="backend")
+simulator\can_frame_simulator.py:135:    parser.add_argument("--can1-target", default="127.0.0.1:8234")
+simulator\can_frame_simulator.py:136:    parser.add_argument("--can2-target", default="127.0.0.1:8235")
+simulator\can_frame_simulator.py:137:    parser.add_argument("--can1-listen", default="127.0.0.1:12341")
+simulator\can_frame_simulator.py:138:    parser.add_argument("--can2-listen", default="127.0.0.1:12342")
+backend/app\core\config.py:11:    local_ip: str = "127.0.0.1"
+backend/app\core\config.py:13:    device_ip: str = "127.0.0.1"
+backend/app\core\config.py:20:    host: str = "127.0.0.1"
+backend/app\core\config.py:62:        host=software.get("backend_host", "127.0.0.1"),
+desktop/src\api\http.ts:1:const BASE = import.meta.env.VITE_API_BASE || 'http://127.0.0.1:8800/api/v1'
+desktop/src\api\websocket.ts:6:    this.ws = new WebSocket(import.meta.env.VITE_WS_URL || 'ws://127.0.0.1:8800/ws')
+backend/app\api\config.py:124:        "dev_ip": "127.0.0.1",
+backend/app\can_gateway\udp_gateway.py:36:            LOGGER.warning("bind %s:%s failed, fallback to 127.0.0.1", bind_ip, self.config.local_receive_port)
+backend/app\can_gateway\udp_gateway.py:37:            transport, _ = await loop.create_datagram_endpoint(lambda: _Protocol(self), local_addr=("127.0.0.1", self.config.local_receive_port))
+desktop/src\mocks\fallbackData.ts:134:    dev_ip: '127.0.0.1',

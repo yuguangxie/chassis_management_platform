@@ -1,0 +1,11 @@
+﻿COMMAND: audit_eol_state_machine.py
+EXIT_CODE: 0
+
+{
+  "pause_execution_continued": true,
+  "abort_was_respected": false,
+  "emergency_stopped_test": false,
+  "concurrent_both_executed": true,
+  "can_disconnected_incorrectly_passed": true,
+  "sessions_persisted": false
+}

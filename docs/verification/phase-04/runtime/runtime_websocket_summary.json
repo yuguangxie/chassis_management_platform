@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "duration_seconds": 4,
+  "signals_dashboard_messages": 35,
+  "signals_timeseries_messages": 35,
+  "can_statistics_messages": 4,
+  "implicit_raw_messages": 0,
+  "explicit_raw_batch_messages": 18,
+  "signal_topic_assertion": true,
+  "statistics_topic_assertion": true,
+  "raw_opt_in_assertion": true
+}

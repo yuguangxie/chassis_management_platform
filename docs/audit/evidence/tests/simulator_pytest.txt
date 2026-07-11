@@ -1,0 +1,20 @@
+﻿COMMAND: .\backend\.venv\Scripts\python.exe -m pytest simulator\tests -q
+EXIT_CODE: 2
+TIME: 2026-07-10 10:58:30 +08:00
+
+
+=================================== ERRORS ====================================
+_____________ ERROR collecting simulator/tests/test_simulator.py ______________
+ImportError while importing test module 'D:\workspace\0-yunle\7_codex\chassis_eol_management_platform_codex_pack\chassis_management_platform\simulator\tests\test_simulator.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+C:\Users\xie\AppData\Roaming\uv\python\cpython-3.14-windows-x86_64-none\Lib\importlib\__init__.py:88: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+simulator\tests\test_simulator.py:1: in <module>
+    from can_frame_simulator import build_usr_can115_frame, parse_121
+E   ModuleNotFoundError: No module named 'can_frame_simulator'
+=========================== short test summary info ===========================
+ERROR simulator/tests/test_simulator.py
+!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!
+1 error in 0.20s

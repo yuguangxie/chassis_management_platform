@@ -1,0 +1,19 @@
+{
+  "url": "http://127.0.0.1:8800/api/v1/can/frames/clear-display",
+  "method": "POST",
+  "status": 200,
+  "headers": {
+    "date": "Fri, 10 Jul 2026 03:01:29 GMT",
+    "server": "uvicorn",
+    "content-length": "75",
+    "content-type": "application/json",
+    "connection": "close"
+  },
+  "body": {
+    "ok": true,
+    "stub": true,
+    "message": "接口已预留，当前为 Mock 模式"
+  },
+  "started_at": "2026-07-10T11:01:30.200281+08:00",
+  "finished_at": "2026-07-10T11:01:30.201569+08:00"
+}

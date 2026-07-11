@@ -1,0 +1,6 @@
+﻿COMMAND:  .\desktop\node_modules\.bin\electron.cmd --version 
+TIME: 2026-07-10 10:57:20 +08:00
+
+
+v31.7.7
+

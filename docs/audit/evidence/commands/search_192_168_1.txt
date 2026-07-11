@@ -1,0 +1,29 @@
+PATTERN: 192\.168\.1\.
+MATCHES: 26
+
+configs\channels.yaml:2:  ip: [REDACTED_STATION_HOST]
+configs\channels.yaml:3:  bind_interface: [REDACTED_STATION_HOST]
+configs\channels.yaml:18:    local_ip: [REDACTED_STATION_HOST]
+configs\channels.yaml:20:    device_ip: [REDACTED_CAN1_GATEWAY]
+configs\channels.yaml:30:    local_ip: [REDACTED_STATION_HOST]
+configs\channels.yaml:32:    device_ip: [REDACTED_CAN2_GATEWAY]
+backend/app\api\config.py:123:        "host_ip": "[REDACTED_STATION_HOST]",
+backend/app\api\config.py:134:        {"name": "CAN1", "protocol": "UDP", "local_ip": "[REDACTED_STATION_HOST]", "local_port": 8234, "device_ip": "[REDACTED_CAN1_GATEWAY]", "device_port": 1234, "tx_enabled": True, "rx_status": "active", "period_ms": 20, "control_enabled": False, "status": "active"},
+backend/app\api\config.py:135:        {"name": "CAN2", "protocol": "UDP", "local_ip": "[REDACTED_STATION_HOST]", "local_port": 8235, "device_ip": "[REDACTED_CAN2_GATEWAY]", "device_port": 1234, "tx_enabled": True, "rx_status": "active", "period_ms": 20, "control_enabled": True, "status": "active"},
+backend/app\api\config.py:427:        "host_ip": ipc.get("ip", "[REDACTED_STATION_HOST]"),
+backend/app\api\overview.py:119:            "local": "[REDACTED_STATION_HOST]:8234",
+backend/app\api\overview.py:120:            "device": "[REDACTED_CAN1_GATEWAY]:1234",
+backend/app\api\overview.py:128:            "local": "[REDACTED_STATION_HOST]:8235",
+backend/app\api\overview.py:129:            "device": "[REDACTED_CAN2_GATEWAY]:1234",
+desktop/src\mocks\systemSettings.ts:32:  basic:{station_id:'EOL-STATION-01',host_ip:'[REDACTED_STATION_HOST]',control_channel:'CAN2',report_directory:'D:\\TestLogs\\Reports',database_path:'D:\\TestLogs\\Database\\chassis_eol.sqlite3',log_directory:'D:\\TestLogs\\AppLogs',timezone:'UTC+08:00',language:'zh-CN',auto_save:true},
+desktop/src\mocks\fallbackData.ts:45:      local: '[REDACTED_STATION_HOST]:8234',
+desktop/src\mocks\fallbackData.ts:46:      device: '[REDACTED_CAN1_GATEWAY]:1234',
+desktop/src\mocks\fallbackData.ts:55:      local: '[REDACTED_STATION_HOST]:8235',
+desktop/src\mocks\fallbackData.ts:56:      device: '[REDACTED_CAN2_GATEWAY]:1234',
+desktop/src\mocks\fallbackData.ts:133:    host_ip: '[REDACTED_STATION_HOST]',
+desktop/src\mocks\fallbackData.ts:147:      local_ip: '[REDACTED_STATION_HOST]',
+desktop/src\mocks\fallbackData.ts:149:      device_ip: '[REDACTED_CAN1_GATEWAY]',
+desktop/src\mocks\fallbackData.ts:160:      local_ip: '[REDACTED_STATION_HOST]',
+desktop/src\mocks\fallbackData.ts:162:      device_ip: '[REDACTED_CAN2_GATEWAY]',
+desktop/src\mocks\fallbackData.ts:830:      { channel: 'CAN1', protocol: 'UDP', local: '[REDACTED_STATION_HOST]:8234', device: '[REDACTED_CAN1_GATEWAY]:1234', tx: '禁用', period: '-', status: 'online / monitor' },
+desktop/src\mocks\fallbackData.ts:831:      { channel: 'CAN2', protocol: 'UDP', local: '[REDACTED_STATION_HOST]:8235', device: '[REDACTED_CAN2_GATEWAY]:1234', tx: '0x121', period: '20 ms', status: 'online / control' },

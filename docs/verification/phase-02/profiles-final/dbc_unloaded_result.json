@@ -1,0 +1,230 @@
+{
+  "name": "dbc_unloaded",
+  "session_id": "EOL-A625FD0AF1AF",
+  "start_status_code": 200,
+  "start_body": {
+    "chassis_no": "PH2-DBC_UNLOADED",
+    "vin": "PH2DBCUNLOADED00",
+    "serial_no": "PH2-1783668112050",
+    "operator": "dev-operator",
+    "station_id": "EOL-STATION-01",
+    "plan_id": "default_chassis_eol_v1",
+    "remarks": "",
+    "id": "EOL-A625FD0AF1AF",
+    "status": "RUNNING",
+    "overall_result": null,
+    "steps": [],
+    "logs": [],
+    "measurements": [],
+    "created_at": "2026-07-10T07:21:52.064837+00:00",
+    "plan_name": "低速无人车线控底盘默认下线检测方案",
+    "plan_version": "2.0.0",
+    "dbc_hash": "387ae48bd84852c8",
+    "config_hash": "profile:dev",
+    "software_version": "v1.0.2",
+    "started_at": "2026-07-10T07:21:52.066484+00:00"
+  },
+  "terminal": {
+    "chassis_no": "PH2-DBC_UNLOADED",
+    "vin": "PH2DBCUNLOADED00",
+    "serial_no": "PH2-1783668112050",
+    "operator": "dev-operator",
+    "station_id": "EOL-STATION-01",
+    "plan_id": "default_chassis_eol_v1",
+    "remarks": "",
+    "id": "EOL-A625FD0AF1AF",
+    "status": "FAILED",
+    "overall_result": "FAIL",
+    "steps": [
+      {
+        "id": "power_on_self_check",
+        "order": 1,
+        "name": "上电自检",
+        "description": "检查数据库、DBC、急停和运行配置是否满足检测条件。",
+        "status": "DONE",
+        "result": "FAIL",
+        "started_at": "2026-07-10T07:21:52.066815+00:00",
+        "assertions": [
+          {
+            "assertion_id": "db_writable",
+            "description": "数据库可写",
+            "signal_name": "system",
+            "operator": "==",
+            "threshold": true,
+            "measured_value": true,
+            "unit": "",
+            "result": "PASS",
+            "severity": "failure",
+            "failure_reason": "",
+            "sample_started_at": "2026-07-10T07:21:52.168235+00:00",
+            "sample_ended_at": "2026-07-10T07:21:52.168358+00:00",
+            "quality": "good",
+            "source_can_id": "",
+            "source_channel": "",
+            "source_timestamp": ""
+          },
+          {
+            "assertion_id": "dbc_loaded",
+            "description": "DBC 已加载",
+            "signal_name": "system",
+            "operator": "==",
+            "threshold": true,
+            "measured_value": false,
+            "unit": "",
+            "result": "FAIL",
+            "severity": "failure",
+            "failure_reason": "assertion dbc_loaded failed: measured=False, expected=True, quality=good",
+            "sample_started_at": "2026-07-10T07:21:52.168402+00:00",
+            "sample_ended_at": "2026-07-10T07:21:52.168433+00:00",
+            "quality": "good",
+            "source_can_id": "",
+            "source_channel": "",
+            "source_timestamp": ""
+          },
+          {
+            "assertion_id": "emergency_released",
+            "description": "急停已释放",
+            "signal_name": "system",
+            "operator": "==",
+            "threshold": true,
+            "measured_value": true,
+            "unit": "",
+            "result": "PASS",
+            "severity": "failure",
+            "failure_reason": "",
+            "sample_started_at": "2026-07-10T07:21:52.168442+00:00",
+            "sample_ended_at": "2026-07-10T07:21:52.168464+00:00",
+            "quality": "good",
+            "source_can_id": "",
+            "source_channel": "",
+            "source_timestamp": ""
+          }
+        ],
+        "commands": [],
+        "measurements": [
+          {
+            "name": "数据库可写",
+            "value": true,
+            "unit": "",
+            "quality": "good",
+            "source_can_id": "",
+            "source_timestamp": ""
+          },
+          {
+            "name": "DBC 已加载",
+            "value": false,
+            "unit": "",
+            "quality": "good",
+            "source_can_id": "",
+            "source_timestamp": ""
+          },
+          {
+            "name": "急停已释放",
+            "value": true,
+            "unit": "",
+            "quality": "good",
+            "source_can_id": "",
+            "source_timestamp": ""
+          }
+        ],
+        "db_id": 160,
+        "ended_at": "2026-07-10T07:21:52.168482+00:00",
+        "duration_ms": 102,
+        "failure_reason": "assertion dbc_loaded failed: measured=False, expected=True, quality=good"
+      }
+    ],
+    "logs": [
+      {
+        "time": "2026-07-10T07:21:52.066902+00:00",
+        "step": "1 上电自检",
+        "action": "步骤开始",
+        "can_command": "",
+        "feedback": "",
+        "status": "RUNNING"
+      },
+      {
+        "time": "2026-07-10T07:21:52.168721+00:00",
+        "step": "1 上电自检",
+        "action": "步骤完成",
+        "can_command": "[]",
+        "feedback": "[{\"name\": \"数据库可写\", \"value\": true, \"unit\": \"\", \"quality\": \"good\", \"source_can_id\": \"\", \"source_timestamp\": \"\"}, {\"name\": \"DBC 已加载\", \"value\": false, \"unit\": \"\", \"quality\": \"good\", \"source_can_id\": \"\", \"source_timestamp\": \"\"}, {\"name\": \"急停已释放\", \"value\": true, \"unit\": \"\", \"quality\": \"good\", \"source_can_id\": \"\", \"source_timestamp\": \"\"}]",
+        "status": "FAIL"
+      }
+    ],
+    "measurements": [
+      {
+        "name": "数据库可写",
+        "value": true,
+        "unit": "",
+        "quality": "good",
+        "source_can_id": "",
+        "source_timestamp": ""
+      },
+      {
+        "name": "DBC 已加载",
+        "value": false,
+        "unit": "",
+        "quality": "good",
+        "source_can_id": "",
+        "source_timestamp": ""
+      },
+      {
+        "name": "急停已释放",
+        "value": true,
+        "unit": "",
+        "quality": "good",
+        "source_can_id": "",
+        "source_timestamp": ""
+      }
+    ],
+    "created_at": "2026-07-10T07:21:52.064837+00:00",
+    "plan_name": "低速无人车线控底盘默认下线检测方案",
+    "plan_version": "2.0.0",
+    "dbc_hash": "387ae48bd84852c8",
+    "config_hash": "profile:dev",
+    "software_version": "v1.0.2",
+    "started_at": "2026-07-10T07:21:52.066484+00:00",
+    "current_step_id": "power_on_self_check",
+    "current_step_name": "上电自检",
+    "safe_stop_result": {
+      "ok": true,
+      "code": "STOP_CONFIRMED",
+      "message": "已通过零速与制动反馈确认停车",
+      "attempts": 2,
+      "feedback": {
+        "speed_kmh": 0.0,
+        "brake": true,
+        "stopped": true
+      },
+      "latched": true,
+      "emergency_stop": false
+    },
+    "failure_reason": "assertion dbc_loaded failed: measured=False, expected=True, quality=good",
+    "ended_at": "2026-07-10T07:21:52.221428+00:00",
+    "report": {
+      "id": "5cdce3fc",
+      "session_id": "EOL-A625FD0AF1AF",
+      "result": "FAIL",
+      "generated_at": "2026-07-10T07:21:52.221560+00:00",
+      "files": {
+        "json": "D:\\workspace\\0-yunle\\7_codex\\chassis_eol_management_platform_codex_pack\\chassis_management_platform\\data\\reports\\EOL-A625FD0AF1AF_FAIL_5cdce3fc.json",
+        "docx": "D:\\workspace\\0-yunle\\7_codex\\chassis_eol_management_platform_codex_pack\\chassis_management_platform\\data\\reports\\EOL-A625FD0AF1AF_FAIL_5cdce3fc.docx",
+        "pdf": "D:\\workspace\\0-yunle\\7_codex\\chassis_eol_management_platform_codex_pack\\chassis_management_platform\\data\\reports\\EOL-A625FD0AF1AF_FAIL_5cdce3fc.pdf",
+        "csv": "D:\\workspace\\0-yunle\\7_codex\\chassis_eol_management_platform_codex_pack\\chassis_management_platform\\data\\reports\\EOL-A625FD0AF1AF_FAIL_5cdce3fc.csv"
+      },
+      "hashes": {
+        "json": "e923e8ad5b52d5a45b47538dd374fa04be3cecfc192b9677e38b041cd83c1ca5",
+        "docx": "965a2b7d907b195ca1e9defd7ac54437dce34ad29997eaafb5e437840da60f68",
+        "pdf": "d1839c16c208e97dd8c5f51352db0120df623286b869792198b2b92a3c893759",
+        "csv": "a83bb47c203ce61396139082b1b58e818b9a0c704825baaf018c43b40ffcb3dc"
+      },
+      "database_ids": [
+        "5cdce3fc-json",
+        "5cdce3fc-docx",
+        "5cdce3fc-pdf",
+        "5cdce3fc-csv"
+      ]
+    }
+  },
+  "passed": true
+}

@@ -1,0 +1,17 @@
+﻿
+Name                     Length
+----                     ------
+AlarmDiagnosisPage.vue    23438
+AutoTestPage.vue          26454
+CanMonitorPage.vue        27412
+HistoryPage.vue           27175
+ManualControlPage.vue     28761
+NetworkConfigPage.vue     26299
+OverviewPage.vue          26600
+RealtimeCurvePage.vue     28472
+ReportManagementPage.vue  30077
+SignalDashboardPage.vue   26908
+SystemSettingsPage.vue    44443
+
+
+

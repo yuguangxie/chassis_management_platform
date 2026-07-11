@@ -1,0 +1,22 @@
+﻿{
+    "8800":  {
+                 "tcp_listeners":  0,
+                 "udp_endpoints":  0
+             },
+    "8234":  {
+                 "tcp_listeners":  0,
+                 "udp_endpoints":  0
+             },
+    "12342":  {
+                  "tcp_listeners":  0,
+                  "udp_endpoints":  0
+              },
+    "8235":  {
+                 "tcp_listeners":  0,
+                 "udp_endpoints":  0
+             },
+    "12341":  {
+                  "tcp_listeners":  0,
+                  "udp_endpoints":  0
+              }
+}

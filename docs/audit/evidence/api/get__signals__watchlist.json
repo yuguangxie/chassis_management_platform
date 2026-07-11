@@ -1,0 +1,144 @@
+{
+  "url": "http://127.0.0.1:8800/api/v1/signals/watchlist",
+  "method": "GET",
+  "status": 200,
+  "headers": {
+    "date": "Fri, 10 Jul 2026 03:01:29 GMT",
+    "server": "uvicorn",
+    "content-length": "1596",
+    "content-type": "application/json",
+    "connection": "close"
+  },
+  "body": [
+    {
+      "signal_name": "BMS_总压",
+      "can_id": "0x180",
+      "channel": "CAN1",
+      "value": 76.8,
+      "unit": "V",
+      "threshold": "[60.0 ~ 84.0]",
+      "quality": "100%",
+      "updated_at": "2026-04-01 10:26:35.123",
+      "trend": [
+        76.2,
+        76.3,
+        76.5,
+        76.8
+      ]
+    },
+    {
+      "signal_name": "BMS_电流",
+      "can_id": "0x180",
+      "channel": "CAN1",
+      "value": -12.5,
+      "unit": "A",
+      "threshold": "[-120.0 ~ 120.0]",
+      "quality": "100%",
+      "updated_at": "2026-04-01 10:26:35.123",
+      "trend": [
+        -10.2,
+        -11.5,
+        -12.1,
+        -12.5
+      ]
+    },
+    {
+      "signal_name": "BMS_SOC",
+      "can_id": "0x181",
+      "channel": "CAN1",
+      "value": 86.0,
+      "unit": "%",
+      "threshold": "[10 ~ 100]",
+      "quality": "100%",
+      "updated_at": "2026-04-01 10:26:35.123",
+      "trend": [
+        85,
+        85,
+        86,
+        86
+      ]
+    },
+    {
+      "signal_name": "VCU_车速",
+      "can_id": "0x200",
+      "channel": "CAN2",
+      "value": 2.4,
+      "unit": "km/h",
+      "threshold": "[0 ~ 40]",
+      "quality": "100%",
+      "updated_at": "2026-04-01 10:26:35.123",
+      "trend": [
+        2.0,
+        2.2,
+        2.3,
+        2.4
+      ]
+    },
+    {
+      "signal_name": "WHL_FL_轮速",
+      "can_id": "0x280",
+      "channel": "CAN2",
+      "value": 2.5,
+      "unit": "km/h",
+      "threshold": "[0 ~ 80]",
+      "quality": "100%",
+      "updated_at": "2026-04-01 10:26:35.123",
+      "trend": [
+        2.2,
+        2.5,
+        2.4,
+        2.5
+      ]
+    },
+    {
+      "signal_name": "STEER_前转角反馈",
+      "can_id": "0x300",
+      "channel": "CAN1",
+      "value": 16.8,
+      "unit": "°",
+      "threshold": "[-45.0 ~ 45.0]",
+      "quality": "100%",
+      "updated_at": "2026-04-01 10:26:35.123",
+      "trend": [
+        15.8,
+        16.2,
+        16.8,
+        16.7
+      ]
+    },
+    {
+      "signal_name": "MCU_相电流",
+      "can_id": "0x400",
+      "channel": "CAN2",
+      "value": 14.2,
+      "unit": "A",
+      "threshold": "[0 ~ 200]",
+      "quality": "100%",
+      "updated_at": "2026-04-01 10:26:35.123",
+      "trend": [
+        13.8,
+        14.0,
+        14.1,
+        14.2
+      ]
+    },
+    {
+      "signal_name": "BMS_单体压差",
+      "can_id": "0x182",
+      "channel": "CAN1",
+      "value": 18,
+      "unit": "mV",
+      "threshold": "[0 ~ 50]",
+      "quality": "100%",
+      "updated_at": "2026-04-01 10:26:35.123",
+      "trend": [
+        14,
+        16,
+        18,
+        18
+      ]
+    }
+  ],
+  "started_at": "2026-07-10T11:01:30.066345+08:00",
+  "finished_at": "2026-07-10T11:01:30.068314+08:00"
+}

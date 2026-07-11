@@ -1,0 +1,7 @@
+﻿{
+    "renderer_pid":  50564,
+    "stopped_at":  "2026-07-10T19:36:21.7121321+08:00",
+    "backend_restart_launcher_pid":  30648,
+    "port_offline_during_restart":  true,
+    "port_online_after_restart":  true
+}

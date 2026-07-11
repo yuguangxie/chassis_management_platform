@@ -1,0 +1,55 @@
+ipc:
+  ip: 127.0.0.1
+  bind_interface: 127.0.0.1
+communication:
+  default_protocol: udp
+  ui_protocol_options: [udp, tcp]
+  socket_recv_buffer_bytes: 1048576
+  socket_send_buffer_bytes: 1048576
+  reconnect:
+    enabled: true
+    initial_delay_ms: 500
+    max_delay_ms: 5000
+channels:
+  CAN1:
+    enabled: true
+    protocol: udp
+    bitrate: 500000
+    local_ip: 127.0.0.1
+    local_receive_port: 8234
+    device_ip: 127.0.0.1
+    device_port: 12341
+    role: receive_and_optional_send
+    allow_tx: true
+    control_allowed: false
+    usr_can115_standard_frame: true
+  CAN2:
+    enabled: true
+    protocol: udp
+    bitrate: 500000
+    local_ip: 127.0.0.1
+    local_receive_port: 8235
+    device_ip: 127.0.0.1
+    device_port: 12342
+    role: receive_and_control
+    allow_tx: true
+    control_allowed: true
+    usr_can115_standard_frame: true
+control:
+  default_control_channel: CAN2
+  allow_multiple_control_channels: false
+  primary_control_can_id: 0x121
+  default_send_period_ms: 20
+  configurable_send_period_ms: [10, 20, 50, 100]
+  periodic_jitter_warn_ms: 5
+  periodic_jitter_fault_ms: 20
+  tx_queue_size: 1000
+protocol_frame:
+  fixed_packet_bytes: 13
+  id_byte_order: big
+  data_bytes: 8
+  validate_reserved_bits: true
+  validate_dlc_range: true
+
+# Public repository template: deployed production endpoints must be supplied
+# locally by an administrator and are never committed here.

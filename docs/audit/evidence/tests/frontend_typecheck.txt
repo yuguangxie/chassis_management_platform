@@ -1,0 +1,8 @@
+﻿COMMAND: npm.cmd run typecheck
+EXIT_CODE: 0
+TIME: 2026-07-10 10:58:34 +08:00
+
+
+> chassis-eol-desktop@1.0.2 typecheck
+> vue-tsc --noEmit
+

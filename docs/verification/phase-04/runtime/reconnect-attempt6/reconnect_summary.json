@@ -1,0 +1,16 @@
+{
+  "before": {
+    "hash": "#/overview",
+    "failed_to_fetch": false,
+    "page_scrollable": false,
+    "can_labels_present": true,
+    "online_present": true
+  },
+  "after": {
+    "hash": "#/overview",
+    "failed_to_fetch": false,
+    "page_scrollable": false,
+    "can_labels_present": true,
+    "online_present": true
+  }
+}

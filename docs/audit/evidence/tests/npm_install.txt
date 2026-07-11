@@ -1,0 +1,16 @@
+﻿COMMAND: npm.cmd install
+EXIT_CODE: 0
+TIME: 2026-07-10 10:58:32 +08:00
+
+
+up to date, audited 126 packages in 2s
+
+25 packages are looking for funding
+  run `npm fund` for details
+
+4 vulnerabilities (2 moderate, 2 high)
+
+To address all issues (including breaking changes), run:
+  npm audit fix --force
+
+Run `npm audit` for details.

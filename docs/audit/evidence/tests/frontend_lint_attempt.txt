@@ -1,0 +1,13 @@
+﻿COMMAND: npm.cmd run lint
+WORKDIR: D:\workspace\0-yunle\7_codex\chassis_eol_management_platform_codex_pack\chassis_management_platform\desktop
+EXIT_CODE: 1
+TIME: 2026-07-10 10:59:04 +08:00
+
+npm error Missing script: "lint"
+npm error
+npm error Did you mean this?
+npm error   npm link # Symlink a package folder
+npm error
+npm error To see a list of scripts, run:
+npm error   npm run
+npm error A complete log of this run can be found in: C:\Users\xie\AppData\Local\npm-cache\_logs\2026-07-10T02_59_04_271Z-debug-0.log

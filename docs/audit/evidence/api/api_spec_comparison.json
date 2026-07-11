@@ -1,0 +1,2412 @@
+{
+  "audit_time": "2026-07-10T12:11:12.531903+08:00",
+  "spec_source": "D:\\workspace\\0-yunle\\7_codex\\chassis_eol_management_platform_codex_pack\\docs\\07_api_spec.md",
+  "spec_endpoint_count": 31,
+  "openapi_endpoint_count": 112,
+  "implemented_spec_endpoints": 31,
+  "spec_coverage_percent": 100.0,
+  "missing": [],
+  "extra_not_in_core_spec": [
+    {
+      "method": "GET",
+      "path": "/api/v1/health",
+      "normalized_path": "/api/v1/health",
+      "operation_id": "health_api_v1_health_get",
+      "has_request_body": false,
+      "response_codes": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/overview/summary",
+      "normalized_path": "/api/v1/overview/summary",
+      "operation_id": "overview_api_v1_overview_summary_get",
+      "has_request_body": false,
+      "response_codes": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/config/system-dashboard",
+      "normalized_path": "/api/v1/config/system-dashboard",
+      "operation_id": "system_dashboard_api_v1_config_system_dashboard_get",
+      "has_request_body": false,
+      "response_codes": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/config",
+      "normalized_path": "/api/v1/config",
+      "operation_id": "get_config_api_v1_config_get",
+      "has_request_body": false,
+      "response_codes": [
+        "200"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/api/v1/config",
+      "normalized_path": "/api/v1/config",
+      "operation_id": "put_config_api_v1_config_put",
+      "has_request_body": true,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/config/import",
+      "normalized_path": "/api/v1/config/import",
+      "operation_id": "import_config_api_v1_config_import_post",
+      "has_request_body": true,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/config/export",
+      "normalized_path": "/api/v1/config/export",
+      "operation_id": "export_config_api_v1_config_export_get",
+      "has_request_body": false,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/config/history",
+      "normalized_path": "/api/v1/config/history",
+      "operation_id": "config_history_api_v1_config_history_get",
+      "has_request_body": false,
+      "response_codes": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/config/restore-safe-defaults",
+      "normalized_path": "/api/v1/config/restore-safe-defaults",
+      "operation_id": "restore_safe_defaults_api_v1_config_restore_safe_defaults_post",
+      "has_request_body": true,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/config/channels/restore-defaults",
+      "normalized_path": "/api/v1/config/channels/restore-defaults",
+      "operation_id": "restore_channels_defaults_api_v1_config_channels_restore_defaults_post",
+      "has_request_body": false,
+      "response_codes": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/storage/stats",
+      "normalized_path": "/api/v1/storage/stats",
+      "operation_id": "storage_stats_api_v1_storage_stats_get",
+      "has_request_body": false,
+      "response_codes": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/storage/trend",
+      "normalized_path": "/api/v1/storage/trend",
+      "operation_id": "storage_trend_api_v1_storage_trend_get",
+      "has_request_body": false,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/storage/cleanup",
+      "normalized_path": "/api/v1/storage/cleanup",
+      "operation_id": "storage_cleanup_api_v1_storage_cleanup_post",
+      "has_request_body": true,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/system/version",
+      "normalized_path": "/api/v1/system/version",
+      "operation_id": "system_version_api_v1_system_version_get",
+      "has_request_body": false,
+      "response_codes": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/auth/roles",
+      "normalized_path": "/api/v1/auth/roles",
+      "operation_id": "auth_roles_api_v1_auth_roles_get",
+      "has_request_body": false,
+      "response_codes": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/maintenance/enter",
+      "normalized_path": "/api/v1/maintenance/enter",
+      "operation_id": "enter_maintenance_api_v1_maintenance_enter_post",
+      "has_request_body": true,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/maintenance/exit",
+      "normalized_path": "/api/v1/maintenance/exit",
+      "operation_id": "exit_maintenance_api_v1_maintenance_exit_post",
+      "has_request_body": true,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/api/v1/maintenance/features",
+      "normalized_path": "/api/v1/maintenance/features",
+      "operation_id": "maintenance_features_api_v1_maintenance_features_put",
+      "has_request_body": true,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/can/channels/stop-all",
+      "normalized_path": "/api/v1/can/channels/stop-all",
+      "operation_id": "stop_all_api_v1_can_channels_stop_all_post",
+      "has_request_body": false,
+      "response_codes": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/can/frames/latest",
+      "normalized_path": "/api/v1/can/frames/latest",
+      "operation_id": "latest_frames_api_v1_can_frames_latest_get",
+      "has_request_body": false,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/can/frames/latest/{can_id}/decoded",
+      "normalized_path": "/api/v1/can/frames/latest/{}/decoded",
+      "operation_id": "latest_decoded_api_v1_can_frames_latest__can_id__decoded_get",
+      "has_request_body": false,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/can/statistics",
+      "normalized_path": "/api/v1/can/statistics",
+      "operation_id": "statistics_api_v1_can_statistics_get",
+      "has_request_body": false,
+      "response_codes": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/can/statistics/monitor",
+      "normalized_path": "/api/v1/can/statistics/monitor",
+      "operation_id": "monitor_statistics_api_v1_can_statistics_monitor_get",
+      "has_request_body": false,
+      "response_codes": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/can/frames/clear-display",
+      "normalized_path": "/api/v1/can/frames/clear-display",
+      "operation_id": "clear_display_api_v1_can_frames_clear_display_post",
+      "has_request_body": false,
+      "response_codes": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/logs/export/raw-can",
+      "normalized_path": "/api/v1/logs/export/raw-can",
+      "operation_id": "export_raw_can_api_v1_logs_export_raw_can_post",
+      "has_request_body": false,
+      "response_codes": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/logs/export/csv",
+      "normalized_path": "/api/v1/logs/export/csv",
+      "operation_id": "export_csv_api_v1_logs_export_csv_post",
+      "has_request_body": false,
+      "response_codes": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/logs/raw-can-files",
+      "normalized_path": "/api/v1/logs/raw-can-files",
+      "operation_id": "raw_can_files_api_v1_logs_raw_can_files_get",
+      "has_request_body": false,
+      "response_codes": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/logs/load-history",
+      "normalized_path": "/api/v1/logs/load-history",
+      "operation_id": "load_history_api_v1_logs_load_history_post",
+      "has_request_body": false,
+      "response_codes": [
+        "200"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/v1/logs/raw-can-files/{file_id}",
+      "normalized_path": "/api/v1/logs/raw-can-files/{}",
+      "operation_id": "delete_raw_can_file_api_v1_logs_raw_can_files__file_id__delete",
+      "has_request_body": false,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/dbc/status",
+      "normalized_path": "/api/v1/dbc/status",
+      "operation_id": "status_api_v1_dbc_status_get",
+      "has_request_body": false,
+      "response_codes": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/dbc/reload",
+      "normalized_path": "/api/v1/dbc/reload",
+      "operation_id": "reload_api_v1_dbc_reload_post",
+      "has_request_body": false,
+      "response_codes": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/dbc/messages",
+      "normalized_path": "/api/v1/dbc/messages",
+      "operation_id": "messages_api_v1_dbc_messages_get",
+      "has_request_body": false,
+      "response_codes": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/dbc/messages/{can_id}",
+      "normalized_path": "/api/v1/dbc/messages/{}",
+      "operation_id": "message_api_v1_dbc_messages__can_id__get",
+      "has_request_body": false,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/signals/dashboard",
+      "normalized_path": "/api/v1/signals/dashboard",
+      "operation_id": "dashboard_api_v1_signals_dashboard_get",
+      "has_request_body": false,
+      "response_codes": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/signals/watchlist",
+      "normalized_path": "/api/v1/signals/watchlist",
+      "operation_id": "watchlist_api_v1_signals_watchlist_get",
+      "has_request_body": false,
+      "response_codes": [
+        "200"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/api/v1/signals/watchlist",
+      "normalized_path": "/api/v1/signals/watchlist",
+      "operation_id": "put_watchlist_api_v1_signals_watchlist_put",
+      "has_request_body": true,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/signals/watchlist",
+      "normalized_path": "/api/v1/signals/watchlist",
+      "operation_id": "post_watchlist_api_v1_signals_watchlist_post",
+      "has_request_body": true,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/signals/curve-config",
+      "normalized_path": "/api/v1/signals/curve-config",
+      "operation_id": "curve_config_api_v1_signals_curve_config_get",
+      "has_request_body": false,
+      "response_codes": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/signals/export-csv",
+      "normalized_path": "/api/v1/signals/export-csv",
+      "operation_id": "export_csv_api_v1_signals_export_csv_post",
+      "has_request_body": true,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/api/v1/signals/curve-selection",
+      "normalized_path": "/api/v1/signals/curve-selection",
+      "operation_id": "curve_selection_api_v1_signals_curve_selection_put",
+      "has_request_body": true,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/signals/threshold-status",
+      "normalized_path": "/api/v1/signals/threshold-status",
+      "operation_id": "thresholds_api_v1_signals_threshold_status_get",
+      "has_request_body": false,
+      "response_codes": [
+        "200"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/api/v1/signals/dashboard-layout",
+      "normalized_path": "/api/v1/signals/dashboard-layout",
+      "operation_id": "save_dashboard_layout_api_v1_signals_dashboard_layout_put",
+      "has_request_body": true,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/signals/dashboard-layout/reset",
+      "normalized_path": "/api/v1/signals/dashboard-layout/reset",
+      "operation_id": "reset_dashboard_layout_api_v1_signals_dashboard_layout_reset_post",
+      "has_request_body": false,
+      "response_codes": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/control/status",
+      "normalized_path": "/api/v1/control/status",
+      "operation_id": "status_api_v1_control_status_get",
+      "has_request_body": false,
+      "response_codes": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/control/interlock-status",
+      "normalized_path": "/api/v1/control/interlock-status",
+      "operation_id": "interlock_status_api_v1_control_interlock_status_get",
+      "has_request_body": false,
+      "response_codes": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/control/emergency-stop/release",
+      "normalized_path": "/api/v1/control/emergency-stop/release",
+      "operation_id": "release_api_v1_control_emergency_stop_release_post",
+      "has_request_body": false,
+      "response_codes": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/control/reset-defaults",
+      "normalized_path": "/api/v1/control/reset-defaults",
+      "operation_id": "reset_defaults_api_v1_control_reset_defaults_post",
+      "has_request_body": false,
+      "response_codes": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/control/manual-feedback",
+      "normalized_path": "/api/v1/control/manual-feedback",
+      "operation_id": "manual_feedback_api_v1_control_manual_feedback_get",
+      "has_request_body": false,
+      "response_codes": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/control/manual-curves",
+      "normalized_path": "/api/v1/control/manual-curves",
+      "operation_id": "manual_curves_api_v1_control_manual_curves_get",
+      "has_request_body": false,
+      "response_codes": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/eol/dashboard",
+      "normalized_path": "/api/v1/eol/dashboard",
+      "operation_id": "dashboard_api_v1_eol_dashboard_get",
+      "has_request_body": false,
+      "response_codes": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/eol/sessions/{sid}/emergency-stop",
+      "normalized_path": "/api/v1/eol/sessions/{}/emergency-stop",
+      "operation_id": "emergency_stop_api_v1_eol_sessions__sid__emergency_stop_post",
+      "has_request_body": false,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/eol/sessions/{sid}/logs",
+      "normalized_path": "/api/v1/eol/sessions/{}/logs",
+      "operation_id": "logs_api_v1_eol_sessions__sid__logs_get",
+      "has_request_body": false,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/eol/sessions/{sid}/assertions",
+      "normalized_path": "/api/v1/eol/sessions/{}/assertions",
+      "operation_id": "assertions_api_v1_eol_sessions__sid__assertions_get",
+      "has_request_body": false,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/eol/sessions/{sid}/charts",
+      "normalized_path": "/api/v1/eol/sessions/{}/charts",
+      "operation_id": "charts_api_v1_eol_sessions__sid__charts_get",
+      "has_request_body": false,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/alarms/dashboard",
+      "normalized_path": "/api/v1/alarms/dashboard",
+      "operation_id": "dashboard_api_v1_alarms_dashboard_get",
+      "has_request_body": false,
+      "response_codes": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/alarms/current",
+      "normalized_path": "/api/v1/alarms/current",
+      "operation_id": "current_api_v1_alarms_current_get",
+      "has_request_body": false,
+      "response_codes": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/alarms/history",
+      "normalized_path": "/api/v1/alarms/history",
+      "operation_id": "history_api_v1_alarms_history_get",
+      "has_request_body": false,
+      "response_codes": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/alarms/export-diagnosis",
+      "normalized_path": "/api/v1/alarms/export-diagnosis",
+      "operation_id": "export_diagnosis_api_v1_alarms_export_diagnosis_post",
+      "has_request_body": true,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/alarms/jump-can-frame",
+      "normalized_path": "/api/v1/alarms/jump-can-frame",
+      "operation_id": "jump_can_frame_api_v1_alarms_jump_can_frame_post",
+      "has_request_body": true,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/alarms/{alarm_id}/ack",
+      "normalized_path": "/api/v1/alarms/{}/ack",
+      "operation_id": "ack_api_v1_alarms__alarm_id__ack_post",
+      "has_request_body": true,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/alarms/{alarm_id}/override-request",
+      "normalized_path": "/api/v1/alarms/{}/override-request",
+      "operation_id": "override_api_v1_alarms__alarm_id__override_request_post",
+      "has_request_body": true,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/reports/dashboard",
+      "normalized_path": "/api/v1/reports/dashboard",
+      "operation_id": "dashboard_api_v1_reports_dashboard_get",
+      "has_request_body": false,
+      "response_codes": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/reports/open-directory",
+      "normalized_path": "/api/v1/reports/open-directory",
+      "operation_id": "open_directory_api_v1_reports_open_directory_post",
+      "has_request_body": false,
+      "response_codes": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/reports/change-directory",
+      "normalized_path": "/api/v1/reports/change-directory",
+      "operation_id": "change_directory_api_v1_reports_change_directory_post",
+      "has_request_body": true,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/reports/storage-stats",
+      "normalized_path": "/api/v1/reports/storage-stats",
+      "operation_id": "storage_stats_api_v1_reports_storage_stats_get",
+      "has_request_body": false,
+      "response_codes": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/reports/{rid}/related-data",
+      "normalized_path": "/api/v1/reports/{}/related-data",
+      "operation_id": "related_data_api_v1_reports__rid__related_data_get",
+      "has_request_body": false,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/reports/{rid}/export-word",
+      "normalized_path": "/api/v1/reports/{}/export-word",
+      "operation_id": "export_word_api_v1_reports__rid__export_word_post",
+      "has_request_body": false,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/reports/{rid}/export-pdf",
+      "normalized_path": "/api/v1/reports/{}/export-pdf",
+      "operation_id": "export_pdf_api_v1_reports__rid__export_pdf_post",
+      "has_request_body": false,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/reports/{rid}/print",
+      "normalized_path": "/api/v1/reports/{}/print",
+      "operation_id": "print_report_api_v1_reports__rid__print_post",
+      "has_request_body": false,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/history/dashboard",
+      "normalized_path": "/api/v1/history/dashboard",
+      "operation_id": "dashboard_api_v1_history_dashboard_get",
+      "has_request_body": false,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/history/statistics",
+      "normalized_path": "/api/v1/history/statistics",
+      "operation_id": "statistics_api_v1_history_statistics_get",
+      "has_request_body": false,
+      "response_codes": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/history/export",
+      "normalized_path": "/api/v1/history/export",
+      "operation_id": "export_history_api_v1_history_export_post",
+      "has_request_body": true,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/test-sessions/{sid}",
+      "normalized_path": "/api/v1/test-sessions/{}",
+      "operation_id": "session_api_v1_test_sessions__sid__get",
+      "has_request_body": false,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/test-sessions/{sid}/operator-actions",
+      "normalized_path": "/api/v1/test-sessions/{}/operator-actions",
+      "operation_id": "session_operator_actions_api_v1_test_sessions__sid__operator_actions_get",
+      "has_request_body": false,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/test-sessions/{sid}/downloads",
+      "normalized_path": "/api/v1/test-sessions/{}/downloads",
+      "operation_id": "session_downloads_api_v1_test_sessions__sid__downloads_get",
+      "has_request_body": false,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/test-sessions/{sid}/download/{file_type}",
+      "normalized_path": "/api/v1/test-sessions/{}/download/{}",
+      "operation_id": "session_download_api_v1_test_sessions__sid__download__file_type__get",
+      "has_request_body": false,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/test-sessions/{sid}/open-detail",
+      "normalized_path": "/api/v1/test-sessions/{}/open-detail",
+      "operation_id": "open_detail_api_v1_test_sessions__sid__open_detail_post",
+      "has_request_body": false,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/test-sessions/{sid}/replay",
+      "normalized_path": "/api/v1/test-sessions/{}/replay",
+      "operation_id": "replay_api_v1_test_sessions__sid__replay_get",
+      "has_request_body": false,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/test-sessions/{sid}/replay/seek",
+      "normalized_path": "/api/v1/test-sessions/{}/replay/seek",
+      "operation_id": "replay_seek_api_v1_test_sessions__sid__replay_seek_post",
+      "has_request_body": true,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/test-sessions/{sid}/fault-events",
+      "normalized_path": "/api/v1/test-sessions/{}/fault-events",
+      "operation_id": "fault_events_api_v1_test_sessions__sid__fault_events_get",
+      "has_request_body": false,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/audit/operator-actions",
+      "normalized_path": "/api/v1/audit/operator-actions",
+      "operation_id": "actions_api_v1_audit_operator_actions_get",
+      "has_request_body": false,
+      "response_codes": [
+        "200"
+      ]
+    }
+  ],
+  "path_parameter_name_mismatches": [
+    {
+      "spec": {
+        "method": "POST",
+        "path": "/eol/sessions/{id}/start",
+        "normalized_path": "/api/v1/eol/sessions/{}/start"
+      },
+      "implemented": [
+        {
+          "method": "POST",
+          "path": "/api/v1/eol/sessions/{sid}/start",
+          "normalized_path": "/api/v1/eol/sessions/{}/start",
+          "operation_id": "start_api_v1_eol_sessions__sid__start_post",
+          "has_request_body": false,
+          "response_codes": [
+            "200",
+            "422"
+          ]
+        }
+      ]
+    },
+    {
+      "spec": {
+        "method": "POST",
+        "path": "/eol/sessions/{id}/pause",
+        "normalized_path": "/api/v1/eol/sessions/{}/pause"
+      },
+      "implemented": [
+        {
+          "method": "POST",
+          "path": "/api/v1/eol/sessions/{sid}/pause",
+          "normalized_path": "/api/v1/eol/sessions/{}/pause",
+          "operation_id": "pause_api_v1_eol_sessions__sid__pause_post",
+          "has_request_body": false,
+          "response_codes": [
+            "200",
+            "422"
+          ]
+        }
+      ]
+    },
+    {
+      "spec": {
+        "method": "POST",
+        "path": "/eol/sessions/{id}/resume",
+        "normalized_path": "/api/v1/eol/sessions/{}/resume"
+      },
+      "implemented": [
+        {
+          "method": "POST",
+          "path": "/api/v1/eol/sessions/{sid}/resume",
+          "normalized_path": "/api/v1/eol/sessions/{}/resume",
+          "operation_id": "resume_api_v1_eol_sessions__sid__resume_post",
+          "has_request_body": false,
+          "response_codes": [
+            "200",
+            "422"
+          ]
+        }
+      ]
+    },
+    {
+      "spec": {
+        "method": "POST",
+        "path": "/eol/sessions/{id}/abort",
+        "normalized_path": "/api/v1/eol/sessions/{}/abort"
+      },
+      "implemented": [
+        {
+          "method": "POST",
+          "path": "/api/v1/eol/sessions/{sid}/abort",
+          "normalized_path": "/api/v1/eol/sessions/{}/abort",
+          "operation_id": "abort_api_v1_eol_sessions__sid__abort_post",
+          "has_request_body": false,
+          "response_codes": [
+            "200",
+            "422"
+          ]
+        }
+      ]
+    },
+    {
+      "spec": {
+        "method": "GET",
+        "path": "/eol/sessions/{id}",
+        "normalized_path": "/api/v1/eol/sessions/{}"
+      },
+      "implemented": [
+        {
+          "method": "GET",
+          "path": "/api/v1/eol/sessions/{sid}",
+          "normalized_path": "/api/v1/eol/sessions/{}",
+          "operation_id": "get_api_v1_eol_sessions__sid__get",
+          "has_request_body": false,
+          "response_codes": [
+            "200",
+            "422"
+          ]
+        }
+      ]
+    },
+    {
+      "spec": {
+        "method": "POST",
+        "path": "/eol/sessions/{id}/report",
+        "normalized_path": "/api/v1/eol/sessions/{}/report"
+      },
+      "implemented": [
+        {
+          "method": "POST",
+          "path": "/api/v1/eol/sessions/{sid}/report",
+          "normalized_path": "/api/v1/eol/sessions/{}/report",
+          "operation_id": "report_api_v1_eol_sessions__sid__report_post",
+          "has_request_body": false,
+          "response_codes": [
+            "200",
+            "422"
+          ]
+        }
+      ]
+    },
+    {
+      "spec": {
+        "method": "GET",
+        "path": "/reports/{id}/preview",
+        "normalized_path": "/api/v1/reports/{}/preview"
+      },
+      "implemented": [
+        {
+          "method": "GET",
+          "path": "/api/v1/reports/{rid}/preview",
+          "normalized_path": "/api/v1/reports/{}/preview",
+          "operation_id": "preview_api_v1_reports__rid__preview_get",
+          "has_request_body": false,
+          "response_codes": [
+            "200",
+            "422"
+          ]
+        }
+      ]
+    },
+    {
+      "spec": {
+        "method": "POST",
+        "path": "/reports/{id}/regenerate",
+        "normalized_path": "/api/v1/reports/{}/regenerate"
+      },
+      "implemented": [
+        {
+          "method": "POST",
+          "path": "/api/v1/reports/{rid}/regenerate",
+          "normalized_path": "/api/v1/reports/{}/regenerate",
+          "operation_id": "regenerate_api_v1_reports__rid__regenerate_post",
+          "has_request_body": false,
+          "response_codes": [
+            "200",
+            "422"
+          ]
+        }
+      ]
+    },
+    {
+      "spec": {
+        "method": "DELETE",
+        "path": "/reports/{id}",
+        "normalized_path": "/api/v1/reports/{}"
+      },
+      "implemented": [
+        {
+          "method": "DELETE",
+          "path": "/api/v1/reports/{rid}",
+          "normalized_path": "/api/v1/reports/{}",
+          "operation_id": "delete_api_v1_reports__rid__delete",
+          "has_request_body": false,
+          "response_codes": [
+            "200",
+            "422"
+          ]
+        }
+      ]
+    },
+    {
+      "spec": {
+        "method": "GET",
+        "path": "/test-sessions/{id}/timeline",
+        "normalized_path": "/api/v1/test-sessions/{}/timeline"
+      },
+      "implemented": [
+        {
+          "method": "GET",
+          "path": "/api/v1/test-sessions/{sid}/timeline",
+          "normalized_path": "/api/v1/test-sessions/{}/timeline",
+          "operation_id": "timeline_api_v1_test_sessions__sid__timeline_get",
+          "has_request_body": false,
+          "response_codes": [
+            "200",
+            "422"
+          ]
+        }
+      ]
+    }
+  ],
+  "requirements": [
+    {
+      "method": "GET",
+      "path": "/config/channels",
+      "normalized_path": "/api/v1/config/channels"
+    },
+    {
+      "method": "PUT",
+      "path": "/config/channels",
+      "normalized_path": "/api/v1/config/channels"
+    },
+    {
+      "method": "POST",
+      "path": "/can/channels/{channel}/connect",
+      "normalized_path": "/api/v1/can/channels/{}/connect"
+    },
+    {
+      "method": "POST",
+      "path": "/can/channels/{channel}/disconnect",
+      "normalized_path": "/api/v1/can/channels/{}/disconnect"
+    },
+    {
+      "method": "GET",
+      "path": "/can/channels/status",
+      "normalized_path": "/api/v1/can/channels/status"
+    },
+    {
+      "method": "POST",
+      "path": "/can/channels/self-test",
+      "normalized_path": "/api/v1/can/channels/self-test"
+    },
+    {
+      "method": "GET",
+      "path": "/can/frames",
+      "normalized_path": "/api/v1/can/frames"
+    },
+    {
+      "method": "GET",
+      "path": "/can/frames/{frame_id}/decoded",
+      "normalized_path": "/api/v1/can/frames/{}/decoded"
+    },
+    {
+      "method": "GET",
+      "path": "/signals/current",
+      "normalized_path": "/api/v1/signals/current"
+    },
+    {
+      "method": "GET",
+      "path": "/signals/timeseries",
+      "normalized_path": "/api/v1/signals/timeseries"
+    },
+    {
+      "method": "POST",
+      "path": "/signals/snapshot",
+      "normalized_path": "/api/v1/signals/snapshot"
+    },
+    {
+      "method": "POST",
+      "path": "/control/121/preview",
+      "normalized_path": "/api/v1/control/121/preview"
+    },
+    {
+      "method": "POST",
+      "path": "/control/121/send-once",
+      "normalized_path": "/api/v1/control/121/send-once"
+    },
+    {
+      "method": "POST",
+      "path": "/control/121/start-periodic",
+      "normalized_path": "/api/v1/control/121/start-periodic"
+    },
+    {
+      "method": "POST",
+      "path": "/control/121/stop",
+      "normalized_path": "/api/v1/control/121/stop"
+    },
+    {
+      "method": "POST",
+      "path": "/control/safe-stop",
+      "normalized_path": "/api/v1/control/safe-stop"
+    },
+    {
+      "method": "POST",
+      "path": "/control/emergency-stop",
+      "normalized_path": "/api/v1/control/emergency-stop"
+    },
+    {
+      "method": "POST",
+      "path": "/eol/sessions",
+      "normalized_path": "/api/v1/eol/sessions"
+    },
+    {
+      "method": "POST",
+      "path": "/eol/sessions/{id}/start",
+      "normalized_path": "/api/v1/eol/sessions/{}/start"
+    },
+    {
+      "method": "POST",
+      "path": "/eol/sessions/{id}/pause",
+      "normalized_path": "/api/v1/eol/sessions/{}/pause"
+    },
+    {
+      "method": "POST",
+      "path": "/eol/sessions/{id}/resume",
+      "normalized_path": "/api/v1/eol/sessions/{}/resume"
+    },
+    {
+      "method": "POST",
+      "path": "/eol/sessions/{id}/abort",
+      "normalized_path": "/api/v1/eol/sessions/{}/abort"
+    },
+    {
+      "method": "GET",
+      "path": "/eol/sessions/{id}",
+      "normalized_path": "/api/v1/eol/sessions/{}"
+    },
+    {
+      "method": "POST",
+      "path": "/eol/sessions/{id}/report",
+      "normalized_path": "/api/v1/eol/sessions/{}/report"
+    },
+    {
+      "method": "GET",
+      "path": "/reports",
+      "normalized_path": "/api/v1/reports"
+    },
+    {
+      "method": "POST",
+      "path": "/reports/scan",
+      "normalized_path": "/api/v1/reports/scan"
+    },
+    {
+      "method": "GET",
+      "path": "/reports/{id}/preview",
+      "normalized_path": "/api/v1/reports/{}/preview"
+    },
+    {
+      "method": "POST",
+      "path": "/reports/{id}/regenerate",
+      "normalized_path": "/api/v1/reports/{}/regenerate"
+    },
+    {
+      "method": "DELETE",
+      "path": "/reports/{id}",
+      "normalized_path": "/api/v1/reports/{}"
+    },
+    {
+      "method": "GET",
+      "path": "/test-sessions",
+      "normalized_path": "/api/v1/test-sessions"
+    },
+    {
+      "method": "GET",
+      "path": "/test-sessions/{id}/timeline",
+      "normalized_path": "/api/v1/test-sessions/{}/timeline"
+    }
+  ],
+  "implemented": [
+    {
+      "method": "GET",
+      "path": "/api/v1/health",
+      "normalized_path": "/api/v1/health",
+      "operation_id": "health_api_v1_health_get",
+      "has_request_body": false,
+      "response_codes": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/overview/summary",
+      "normalized_path": "/api/v1/overview/summary",
+      "operation_id": "overview_api_v1_overview_summary_get",
+      "has_request_body": false,
+      "response_codes": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/config/system-dashboard",
+      "normalized_path": "/api/v1/config/system-dashboard",
+      "operation_id": "system_dashboard_api_v1_config_system_dashboard_get",
+      "has_request_body": false,
+      "response_codes": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/config",
+      "normalized_path": "/api/v1/config",
+      "operation_id": "get_config_api_v1_config_get",
+      "has_request_body": false,
+      "response_codes": [
+        "200"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/api/v1/config",
+      "normalized_path": "/api/v1/config",
+      "operation_id": "put_config_api_v1_config_put",
+      "has_request_body": true,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/config/import",
+      "normalized_path": "/api/v1/config/import",
+      "operation_id": "import_config_api_v1_config_import_post",
+      "has_request_body": true,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/config/export",
+      "normalized_path": "/api/v1/config/export",
+      "operation_id": "export_config_api_v1_config_export_get",
+      "has_request_body": false,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/config/history",
+      "normalized_path": "/api/v1/config/history",
+      "operation_id": "config_history_api_v1_config_history_get",
+      "has_request_body": false,
+      "response_codes": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/config/restore-safe-defaults",
+      "normalized_path": "/api/v1/config/restore-safe-defaults",
+      "operation_id": "restore_safe_defaults_api_v1_config_restore_safe_defaults_post",
+      "has_request_body": true,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/config/channels",
+      "normalized_path": "/api/v1/config/channels",
+      "operation_id": "channels_config_api_v1_config_channels_get",
+      "has_request_body": false,
+      "response_codes": [
+        "200"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/api/v1/config/channels",
+      "normalized_path": "/api/v1/config/channels",
+      "operation_id": "update_channels_api_v1_config_channels_put",
+      "has_request_body": true,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/config/channels/restore-defaults",
+      "normalized_path": "/api/v1/config/channels/restore-defaults",
+      "operation_id": "restore_channels_defaults_api_v1_config_channels_restore_defaults_post",
+      "has_request_body": false,
+      "response_codes": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/storage/stats",
+      "normalized_path": "/api/v1/storage/stats",
+      "operation_id": "storage_stats_api_v1_storage_stats_get",
+      "has_request_body": false,
+      "response_codes": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/storage/trend",
+      "normalized_path": "/api/v1/storage/trend",
+      "operation_id": "storage_trend_api_v1_storage_trend_get",
+      "has_request_body": false,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/storage/cleanup",
+      "normalized_path": "/api/v1/storage/cleanup",
+      "operation_id": "storage_cleanup_api_v1_storage_cleanup_post",
+      "has_request_body": true,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/system/version",
+      "normalized_path": "/api/v1/system/version",
+      "operation_id": "system_version_api_v1_system_version_get",
+      "has_request_body": false,
+      "response_codes": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/auth/roles",
+      "normalized_path": "/api/v1/auth/roles",
+      "operation_id": "auth_roles_api_v1_auth_roles_get",
+      "has_request_body": false,
+      "response_codes": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/maintenance/enter",
+      "normalized_path": "/api/v1/maintenance/enter",
+      "operation_id": "enter_maintenance_api_v1_maintenance_enter_post",
+      "has_request_body": true,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/maintenance/exit",
+      "normalized_path": "/api/v1/maintenance/exit",
+      "operation_id": "exit_maintenance_api_v1_maintenance_exit_post",
+      "has_request_body": true,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/api/v1/maintenance/features",
+      "normalized_path": "/api/v1/maintenance/features",
+      "operation_id": "maintenance_features_api_v1_maintenance_features_put",
+      "has_request_body": true,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/can/channels/status",
+      "normalized_path": "/api/v1/can/channels/status",
+      "operation_id": "channel_status_api_v1_can_channels_status_get",
+      "has_request_body": false,
+      "response_codes": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/can/channels/{channel}/connect",
+      "normalized_path": "/api/v1/can/channels/{}/connect",
+      "operation_id": "connect_api_v1_can_channels__channel__connect_post",
+      "has_request_body": false,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/can/channels/{channel}/disconnect",
+      "normalized_path": "/api/v1/can/channels/{}/disconnect",
+      "operation_id": "disconnect_api_v1_can_channels__channel__disconnect_post",
+      "has_request_body": false,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/can/channels/self-test",
+      "normalized_path": "/api/v1/can/channels/self-test",
+      "operation_id": "self_test_api_v1_can_channels_self_test_post",
+      "has_request_body": false,
+      "response_codes": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/can/channels/stop-all",
+      "normalized_path": "/api/v1/can/channels/stop-all",
+      "operation_id": "stop_all_api_v1_can_channels_stop_all_post",
+      "has_request_body": false,
+      "response_codes": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/can/frames/latest",
+      "normalized_path": "/api/v1/can/frames/latest",
+      "operation_id": "latest_frames_api_v1_can_frames_latest_get",
+      "has_request_body": false,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/can/frames/latest/{can_id}/decoded",
+      "normalized_path": "/api/v1/can/frames/latest/{}/decoded",
+      "operation_id": "latest_decoded_api_v1_can_frames_latest__can_id__decoded_get",
+      "has_request_body": false,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/can/frames",
+      "normalized_path": "/api/v1/can/frames",
+      "operation_id": "frames_api_v1_can_frames_get",
+      "has_request_body": false,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/can/frames/{frame_id}/decoded",
+      "normalized_path": "/api/v1/can/frames/{}/decoded",
+      "operation_id": "decoded_api_v1_can_frames__frame_id__decoded_get",
+      "has_request_body": false,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/can/statistics",
+      "normalized_path": "/api/v1/can/statistics",
+      "operation_id": "statistics_api_v1_can_statistics_get",
+      "has_request_body": false,
+      "response_codes": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/can/statistics/monitor",
+      "normalized_path": "/api/v1/can/statistics/monitor",
+      "operation_id": "monitor_statistics_api_v1_can_statistics_monitor_get",
+      "has_request_body": false,
+      "response_codes": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/can/frames/clear-display",
+      "normalized_path": "/api/v1/can/frames/clear-display",
+      "operation_id": "clear_display_api_v1_can_frames_clear_display_post",
+      "has_request_body": false,
+      "response_codes": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/logs/export/raw-can",
+      "normalized_path": "/api/v1/logs/export/raw-can",
+      "operation_id": "export_raw_can_api_v1_logs_export_raw_can_post",
+      "has_request_body": false,
+      "response_codes": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/logs/export/csv",
+      "normalized_path": "/api/v1/logs/export/csv",
+      "operation_id": "export_csv_api_v1_logs_export_csv_post",
+      "has_request_body": false,
+      "response_codes": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/logs/raw-can-files",
+      "normalized_path": "/api/v1/logs/raw-can-files",
+      "operation_id": "raw_can_files_api_v1_logs_raw_can_files_get",
+      "has_request_body": false,
+      "response_codes": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/logs/load-history",
+      "normalized_path": "/api/v1/logs/load-history",
+      "operation_id": "load_history_api_v1_logs_load_history_post",
+      "has_request_body": false,
+      "response_codes": [
+        "200"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/v1/logs/raw-can-files/{file_id}",
+      "normalized_path": "/api/v1/logs/raw-can-files/{}",
+      "operation_id": "delete_raw_can_file_api_v1_logs_raw_can_files__file_id__delete",
+      "has_request_body": false,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/dbc/status",
+      "normalized_path": "/api/v1/dbc/status",
+      "operation_id": "status_api_v1_dbc_status_get",
+      "has_request_body": false,
+      "response_codes": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/dbc/reload",
+      "normalized_path": "/api/v1/dbc/reload",
+      "operation_id": "reload_api_v1_dbc_reload_post",
+      "has_request_body": false,
+      "response_codes": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/dbc/messages",
+      "normalized_path": "/api/v1/dbc/messages",
+      "operation_id": "messages_api_v1_dbc_messages_get",
+      "has_request_body": false,
+      "response_codes": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/dbc/messages/{can_id}",
+      "normalized_path": "/api/v1/dbc/messages/{}",
+      "operation_id": "message_api_v1_dbc_messages__can_id__get",
+      "has_request_body": false,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/signals/current",
+      "normalized_path": "/api/v1/signals/current",
+      "operation_id": "current_api_v1_signals_current_get",
+      "has_request_body": false,
+      "response_codes": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/signals/dashboard",
+      "normalized_path": "/api/v1/signals/dashboard",
+      "operation_id": "dashboard_api_v1_signals_dashboard_get",
+      "has_request_body": false,
+      "response_codes": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/signals/watchlist",
+      "normalized_path": "/api/v1/signals/watchlist",
+      "operation_id": "watchlist_api_v1_signals_watchlist_get",
+      "has_request_body": false,
+      "response_codes": [
+        "200"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/api/v1/signals/watchlist",
+      "normalized_path": "/api/v1/signals/watchlist",
+      "operation_id": "put_watchlist_api_v1_signals_watchlist_put",
+      "has_request_body": true,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/signals/watchlist",
+      "normalized_path": "/api/v1/signals/watchlist",
+      "operation_id": "post_watchlist_api_v1_signals_watchlist_post",
+      "has_request_body": true,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/signals/curve-config",
+      "normalized_path": "/api/v1/signals/curve-config",
+      "operation_id": "curve_config_api_v1_signals_curve_config_get",
+      "has_request_body": false,
+      "response_codes": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/signals/timeseries",
+      "normalized_path": "/api/v1/signals/timeseries",
+      "operation_id": "timeseries_api_v1_signals_timeseries_get",
+      "has_request_body": false,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/signals/snapshot",
+      "normalized_path": "/api/v1/signals/snapshot",
+      "operation_id": "snapshot_api_v1_signals_snapshot_post",
+      "has_request_body": false,
+      "response_codes": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/signals/export-csv",
+      "normalized_path": "/api/v1/signals/export-csv",
+      "operation_id": "export_csv_api_v1_signals_export_csv_post",
+      "has_request_body": true,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/api/v1/signals/curve-selection",
+      "normalized_path": "/api/v1/signals/curve-selection",
+      "operation_id": "curve_selection_api_v1_signals_curve_selection_put",
+      "has_request_body": true,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/signals/threshold-status",
+      "normalized_path": "/api/v1/signals/threshold-status",
+      "operation_id": "thresholds_api_v1_signals_threshold_status_get",
+      "has_request_body": false,
+      "response_codes": [
+        "200"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/api/v1/signals/dashboard-layout",
+      "normalized_path": "/api/v1/signals/dashboard-layout",
+      "operation_id": "save_dashboard_layout_api_v1_signals_dashboard_layout_put",
+      "has_request_body": true,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/signals/dashboard-layout/reset",
+      "normalized_path": "/api/v1/signals/dashboard-layout/reset",
+      "operation_id": "reset_dashboard_layout_api_v1_signals_dashboard_layout_reset_post",
+      "has_request_body": false,
+      "response_codes": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/control/status",
+      "normalized_path": "/api/v1/control/status",
+      "operation_id": "status_api_v1_control_status_get",
+      "has_request_body": false,
+      "response_codes": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/control/interlock-status",
+      "normalized_path": "/api/v1/control/interlock-status",
+      "operation_id": "interlock_status_api_v1_control_interlock_status_get",
+      "has_request_body": false,
+      "response_codes": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/control/121/preview",
+      "normalized_path": "/api/v1/control/121/preview",
+      "operation_id": "control_preview_api_v1_control_121_preview_post",
+      "has_request_body": true,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/control/121/send-once",
+      "normalized_path": "/api/v1/control/121/send-once",
+      "operation_id": "send_once_api_v1_control_121_send_once_post",
+      "has_request_body": true,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/control/121/start-periodic",
+      "normalized_path": "/api/v1/control/121/start-periodic",
+      "operation_id": "start_periodic_api_v1_control_121_start_periodic_post",
+      "has_request_body": true,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/control/121/stop",
+      "normalized_path": "/api/v1/control/121/stop",
+      "operation_id": "stop_api_v1_control_121_stop_post",
+      "has_request_body": false,
+      "response_codes": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/control/safe-stop",
+      "normalized_path": "/api/v1/control/safe-stop",
+      "operation_id": "safe_stop_api_v1_control_safe_stop_post",
+      "has_request_body": false,
+      "response_codes": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/control/emergency-stop",
+      "normalized_path": "/api/v1/control/emergency-stop",
+      "operation_id": "emergency_stop_api_v1_control_emergency_stop_post",
+      "has_request_body": false,
+      "response_codes": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/control/emergency-stop/release",
+      "normalized_path": "/api/v1/control/emergency-stop/release",
+      "operation_id": "release_api_v1_control_emergency_stop_release_post",
+      "has_request_body": false,
+      "response_codes": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/control/reset-defaults",
+      "normalized_path": "/api/v1/control/reset-defaults",
+      "operation_id": "reset_defaults_api_v1_control_reset_defaults_post",
+      "has_request_body": false,
+      "response_codes": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/control/manual-feedback",
+      "normalized_path": "/api/v1/control/manual-feedback",
+      "operation_id": "manual_feedback_api_v1_control_manual_feedback_get",
+      "has_request_body": false,
+      "response_codes": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/control/manual-curves",
+      "normalized_path": "/api/v1/control/manual-curves",
+      "operation_id": "manual_curves_api_v1_control_manual_curves_get",
+      "has_request_body": false,
+      "response_codes": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/eol/dashboard",
+      "normalized_path": "/api/v1/eol/dashboard",
+      "operation_id": "dashboard_api_v1_eol_dashboard_get",
+      "has_request_body": false,
+      "response_codes": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/eol/sessions",
+      "normalized_path": "/api/v1/eol/sessions",
+      "operation_id": "create_api_v1_eol_sessions_post",
+      "has_request_body": true,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/eol/sessions/{sid}/start",
+      "normalized_path": "/api/v1/eol/sessions/{}/start",
+      "operation_id": "start_api_v1_eol_sessions__sid__start_post",
+      "has_request_body": false,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/eol/sessions/{sid}/pause",
+      "normalized_path": "/api/v1/eol/sessions/{}/pause",
+      "operation_id": "pause_api_v1_eol_sessions__sid__pause_post",
+      "has_request_body": false,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/eol/sessions/{sid}/resume",
+      "normalized_path": "/api/v1/eol/sessions/{}/resume",
+      "operation_id": "resume_api_v1_eol_sessions__sid__resume_post",
+      "has_request_body": false,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/eol/sessions/{sid}/abort",
+      "normalized_path": "/api/v1/eol/sessions/{}/abort",
+      "operation_id": "abort_api_v1_eol_sessions__sid__abort_post",
+      "has_request_body": false,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/eol/sessions/{sid}/emergency-stop",
+      "normalized_path": "/api/v1/eol/sessions/{}/emergency-stop",
+      "operation_id": "emergency_stop_api_v1_eol_sessions__sid__emergency_stop_post",
+      "has_request_body": false,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/eol/sessions/{sid}/report",
+      "normalized_path": "/api/v1/eol/sessions/{}/report",
+      "operation_id": "report_api_v1_eol_sessions__sid__report_post",
+      "has_request_body": false,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/eol/sessions/{sid}",
+      "normalized_path": "/api/v1/eol/sessions/{}",
+      "operation_id": "get_api_v1_eol_sessions__sid__get",
+      "has_request_body": false,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/eol/sessions/{sid}/logs",
+      "normalized_path": "/api/v1/eol/sessions/{}/logs",
+      "operation_id": "logs_api_v1_eol_sessions__sid__logs_get",
+      "has_request_body": false,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/eol/sessions/{sid}/assertions",
+      "normalized_path": "/api/v1/eol/sessions/{}/assertions",
+      "operation_id": "assertions_api_v1_eol_sessions__sid__assertions_get",
+      "has_request_body": false,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/eol/sessions/{sid}/charts",
+      "normalized_path": "/api/v1/eol/sessions/{}/charts",
+      "operation_id": "charts_api_v1_eol_sessions__sid__charts_get",
+      "has_request_body": false,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/alarms/dashboard",
+      "normalized_path": "/api/v1/alarms/dashboard",
+      "operation_id": "dashboard_api_v1_alarms_dashboard_get",
+      "has_request_body": false,
+      "response_codes": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/alarms/current",
+      "normalized_path": "/api/v1/alarms/current",
+      "operation_id": "current_api_v1_alarms_current_get",
+      "has_request_body": false,
+      "response_codes": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/alarms/history",
+      "normalized_path": "/api/v1/alarms/history",
+      "operation_id": "history_api_v1_alarms_history_get",
+      "has_request_body": false,
+      "response_codes": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/alarms/export-diagnosis",
+      "normalized_path": "/api/v1/alarms/export-diagnosis",
+      "operation_id": "export_diagnosis_api_v1_alarms_export_diagnosis_post",
+      "has_request_body": true,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/alarms/jump-can-frame",
+      "normalized_path": "/api/v1/alarms/jump-can-frame",
+      "operation_id": "jump_can_frame_api_v1_alarms_jump_can_frame_post",
+      "has_request_body": true,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/alarms/{alarm_id}/ack",
+      "normalized_path": "/api/v1/alarms/{}/ack",
+      "operation_id": "ack_api_v1_alarms__alarm_id__ack_post",
+      "has_request_body": true,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/alarms/{alarm_id}/override-request",
+      "normalized_path": "/api/v1/alarms/{}/override-request",
+      "operation_id": "override_api_v1_alarms__alarm_id__override_request_post",
+      "has_request_body": true,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/reports/dashboard",
+      "normalized_path": "/api/v1/reports/dashboard",
+      "operation_id": "dashboard_api_v1_reports_dashboard_get",
+      "has_request_body": false,
+      "response_codes": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/reports",
+      "normalized_path": "/api/v1/reports",
+      "operation_id": "reports_api_v1_reports_get",
+      "has_request_body": false,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/reports/scan",
+      "normalized_path": "/api/v1/reports/scan",
+      "operation_id": "scan_api_v1_reports_scan_post",
+      "has_request_body": false,
+      "response_codes": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/reports/open-directory",
+      "normalized_path": "/api/v1/reports/open-directory",
+      "operation_id": "open_directory_api_v1_reports_open_directory_post",
+      "has_request_body": false,
+      "response_codes": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/reports/change-directory",
+      "normalized_path": "/api/v1/reports/change-directory",
+      "operation_id": "change_directory_api_v1_reports_change_directory_post",
+      "has_request_body": true,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/reports/storage-stats",
+      "normalized_path": "/api/v1/reports/storage-stats",
+      "operation_id": "storage_stats_api_v1_reports_storage_stats_get",
+      "has_request_body": false,
+      "response_codes": [
+        "200"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/reports/{rid}/preview",
+      "normalized_path": "/api/v1/reports/{}/preview",
+      "operation_id": "preview_api_v1_reports__rid__preview_get",
+      "has_request_body": false,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/reports/{rid}/related-data",
+      "normalized_path": "/api/v1/reports/{}/related-data",
+      "operation_id": "related_data_api_v1_reports__rid__related_data_get",
+      "has_request_body": false,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/reports/{rid}/export-word",
+      "normalized_path": "/api/v1/reports/{}/export-word",
+      "operation_id": "export_word_api_v1_reports__rid__export_word_post",
+      "has_request_body": false,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/reports/{rid}/export-pdf",
+      "normalized_path": "/api/v1/reports/{}/export-pdf",
+      "operation_id": "export_pdf_api_v1_reports__rid__export_pdf_post",
+      "has_request_body": false,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/reports/{rid}/regenerate",
+      "normalized_path": "/api/v1/reports/{}/regenerate",
+      "operation_id": "regenerate_api_v1_reports__rid__regenerate_post",
+      "has_request_body": false,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/reports/{rid}/print",
+      "normalized_path": "/api/v1/reports/{}/print",
+      "operation_id": "print_report_api_v1_reports__rid__print_post",
+      "has_request_body": false,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/v1/reports/{rid}",
+      "normalized_path": "/api/v1/reports/{}",
+      "operation_id": "delete_api_v1_reports__rid__delete",
+      "has_request_body": false,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/history/dashboard",
+      "normalized_path": "/api/v1/history/dashboard",
+      "operation_id": "dashboard_api_v1_history_dashboard_get",
+      "has_request_body": false,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/history/statistics",
+      "normalized_path": "/api/v1/history/statistics",
+      "operation_id": "statistics_api_v1_history_statistics_get",
+      "has_request_body": false,
+      "response_codes": [
+        "200"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/history/export",
+      "normalized_path": "/api/v1/history/export",
+      "operation_id": "export_history_api_v1_history_export_post",
+      "has_request_body": true,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/test-sessions",
+      "normalized_path": "/api/v1/test-sessions",
+      "operation_id": "sessions_api_v1_test_sessions_get",
+      "has_request_body": false,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/test-sessions/{sid}",
+      "normalized_path": "/api/v1/test-sessions/{}",
+      "operation_id": "session_api_v1_test_sessions__sid__get",
+      "has_request_body": false,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/test-sessions/{sid}/timeline",
+      "normalized_path": "/api/v1/test-sessions/{}/timeline",
+      "operation_id": "timeline_api_v1_test_sessions__sid__timeline_get",
+      "has_request_body": false,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/test-sessions/{sid}/operator-actions",
+      "normalized_path": "/api/v1/test-sessions/{}/operator-actions",
+      "operation_id": "session_operator_actions_api_v1_test_sessions__sid__operator_actions_get",
+      "has_request_body": false,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/test-sessions/{sid}/downloads",
+      "normalized_path": "/api/v1/test-sessions/{}/downloads",
+      "operation_id": "session_downloads_api_v1_test_sessions__sid__downloads_get",
+      "has_request_body": false,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/test-sessions/{sid}/download/{file_type}",
+      "normalized_path": "/api/v1/test-sessions/{}/download/{}",
+      "operation_id": "session_download_api_v1_test_sessions__sid__download__file_type__get",
+      "has_request_body": false,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/test-sessions/{sid}/open-detail",
+      "normalized_path": "/api/v1/test-sessions/{}/open-detail",
+      "operation_id": "open_detail_api_v1_test_sessions__sid__open_detail_post",
+      "has_request_body": false,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/test-sessions/{sid}/replay",
+      "normalized_path": "/api/v1/test-sessions/{}/replay",
+      "operation_id": "replay_api_v1_test_sessions__sid__replay_get",
+      "has_request_body": false,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/test-sessions/{sid}/replay/seek",
+      "normalized_path": "/api/v1/test-sessions/{}/replay/seek",
+      "operation_id": "replay_seek_api_v1_test_sessions__sid__replay_seek_post",
+      "has_request_body": true,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/test-sessions/{sid}/fault-events",
+      "normalized_path": "/api/v1/test-sessions/{}/fault-events",
+      "operation_id": "fault_events_api_v1_test_sessions__sid__fault_events_get",
+      "has_request_body": false,
+      "response_codes": [
+        "200",
+        "422"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/audit/operator-actions",
+      "normalized_path": "/api/v1/audit/operator-actions",
+      "operation_id": "actions_api_v1_audit_operator_actions_get",
+      "has_request_body": false,
+      "response_codes": [
+        "200"
+      ]
+    }
+  ],
+  "manual_contract_findings": [
+    "The specification requires trace_id in every response; most successful responses omit it.",
+    "The specification wraps errors under error; runtime endpoints use a mix of detail, flat dictionaries, and the global flat error format.",
+    "The 0x121 preview request example uses drive_mode=auto_drive_request and nested lights; the Pydantic model accepts Manual/Remote/Auto and flat light fields.",
+    "The 0x121 preview specification returns allowed/interlocks and one bytes_hex string; runtime returns data plus a second, inconsistent bytes_hex display array without interlocks."
+  ]
+}

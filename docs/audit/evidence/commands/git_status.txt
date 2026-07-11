@@ -1,0 +1,11 @@
+﻿COMMAND:  git status 
+TIME: 2026-07-10 10:57:19 +08:00
+
+git : fatal: not a git repository (or any of the parent directories): .git
+At line:9 char:33
++ Save-Command 'git_status.txt' { git status }
++                                 ~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (fatal: not a gi...ectories): .git:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+

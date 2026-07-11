@@ -1,0 +1,15 @@
+﻿COMMAND:  Get-ComputerInfo | Select-Object WindowsProductName,WindowsVersion,OsName,OsVersion,OsArchitecture,CsSystemType 
+TIME: 2026-07-10 10:57:20 +08:00
+
+
+
+WindowsProductName : Windows 10 Pro
+WindowsVersion     : 2009
+OsName             : Microsoft Windows 10 专业版
+OsVersion          : 10.0.19045
+OsArchitecture     : 64 位
+CsSystemType       : x64-based PC
+
+
+
+

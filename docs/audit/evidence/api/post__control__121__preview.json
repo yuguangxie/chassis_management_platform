@@ -1,0 +1,55 @@
+{
+  "url": "http://127.0.0.1:8800/api/v1/control/121/preview",
+  "method": "POST",
+  "status": 200,
+  "headers": {
+    "date": "Fri, 10 Jul 2026 03:01:29 GMT",
+    "server": "uvicorn",
+    "content-length": "495",
+    "content-type": "application/json",
+    "connection": "close"
+  },
+  "body": {
+    "can_id": "0x121",
+    "data": [
+      129,
+      12,
+      0,
+      20,
+      2,
+      64,
+      0,
+      4
+    ],
+    "data_hex": "81 0C 00 14 02 40 00 04",
+    "note": "前/后转角按 int8 补码编码",
+    "bytes_hex": [
+      "01",
+      "08",
+      "00",
+      "0C",
+      "00",
+      "00",
+      "00",
+      "00"
+    ],
+    "bytes_dec": [
+      1,
+      8,
+      0,
+      12,
+      0,
+      0,
+      0,
+      0
+    ],
+    "field_notes": [
+      "Byte0 (Gear)：档位请求，0x01 = D",
+      "Byte1 (TargetSpeed)：目标速度，0x08 = 8 × 0.25 = 2.0 km/h",
+      "Byte2 (FrontSteer)：前转角，0x0C = 12（int8，有符号补码）= +12°",
+      "Byte3 (RearSteer)：后转角，0x00 = 0（int8，有符号补码）= +0°"
+    ]
+  },
+  "started_at": "2026-07-10T11:01:30.210062+08:00",
+  "finished_at": "2026-07-10T11:01:30.211264+08:00"
+}

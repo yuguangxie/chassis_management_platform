@@ -1,0 +1,560 @@
+﻿{
+  "health": {
+    "status": "ok",
+    "version": "v1.0.2",
+    "database_writable": true,
+    "dbc": {
+      "loaded": true,
+      "raw_only": false,
+      "file": "D:\\workspace\\0-yunle\\7_codex\\chassis_eol_management_platform_codex_pack\\chassis_management_platform\\assets\\Yunle_CAN_integrated_candb_jd.dbc",
+      "hash": "387ae48bd84852c8",
+      "version": "Yunle_CAN_Integrated_CANdb Release v1.0.2",
+      "error": null
+    },
+    "trace_id": "e3be681c98f84e60a44ab24f9b559120"
+  },
+  "channels": [
+    {
+      "channel": "CAN1",
+      "online": true,
+      "transport_connected": true,
+      "receive_age_ms": 26.5,
+      "queue_healthy": true,
+      "queue_depth": 0,
+      "queue_capacity": 512,
+      "queue_dropped": 0,
+      "pipeline_queue_depth": 0,
+      "pipeline_queue_capacity": 4096,
+      "pipeline_queue_dropped": 0,
+      "stale_dropped": 0,
+      "malformed_datagrams": 0,
+      "processing_errors": 0,
+      "fps": 204.0,
+      "rx_count": 1974,
+      "tx_count": 0,
+      "error_count": 0,
+      "last_frame_at": 1783681868.2884016,
+      "last_frame_hex": "01 00 00 00 00 00 00 00",
+      "protocol": "udp",
+      "local_ip": "127.0.0.1",
+      "local_port": 8234,
+      "device_ip": "127.0.0.1",
+      "device_port": 12341
+    },
+    {
+      "channel": "CAN2",
+      "online": true,
+      "transport_connected": true,
+      "receive_age_ms": 18.7,
+      "queue_healthy": true,
+      "queue_depth": 0,
+      "queue_capacity": 512,
+      "queue_dropped": 0,
+      "pipeline_queue_depth": 0,
+      "pipeline_queue_capacity": 4096,
+      "pipeline_queue_dropped": 0,
+      "stale_dropped": 0,
+      "malformed_datagrams": 0,
+      "processing_errors": 0,
+      "fps": 438.0,
+      "rx_count": 4277,
+      "tx_count": 0,
+      "error_count": 0,
+      "last_frame_at": 1783681868.2961934,
+      "last_frame_hex": "00 00 00 00 00 00 00 00",
+      "protocol": "udp",
+      "local_ip": "127.0.0.1",
+      "local_port": 8235,
+      "device_ip": "127.0.0.1",
+      "device_port": 12342
+    }
+  ],
+  "metrics": {
+    "data_source": "runtime+sqlite",
+    "mock": false,
+    "quality": "good",
+    "updated_at": "2026-07-10T11:11:08.318329+00:00",
+    "trace_id": "9cdad2c43df540df8eebd22ae689c232",
+    "can_id_distribution": [
+      {
+        "can_id_hex": "0x51",
+        "count": 660,
+        "percent": 10.5
+      },
+      {
+        "can_id_hex": "0x77",
+        "count": 660,
+        "percent": 10.5
+      },
+      {
+        "can_id_hex": "0x168",
+        "count": 660,
+        "percent": 10.5
+      },
+      {
+        "can_id_hex": "0xE1",
+        "count": 660,
+        "percent": 10.5
+      },
+      {
+        "can_id_hex": "0x703",
+        "count": 658,
+        "percent": 10.5
+      },
+      {
+        "can_id_hex": "0x704",
+        "count": 658,
+        "percent": 10.5
+      },
+      {
+        "can_id_hex": "0x100",
+        "count": 329,
+        "percent": 5.3
+      },
+      {
+        "can_id_hex": "0x101",
+        "count": 329,
+        "percent": 5.3
+      },
+      {
+        "can_id_hex": "0x102",
+        "count": 329,
+        "percent": 5.3
+      },
+      {
+        "can_id_hex": "0x103",
+        "count": 329,
+        "percent": 5.3
+      }
+    ],
+    "fps_trend": [
+      {
+        "time": "19:11:08",
+        "can1": 204.0,
+        "can2": 435.0
+      }
+    ],
+    "period_jitter": [
+      {
+        "time": "19:11:08",
+        "id_121": 0.0,
+        "id_51": 7.411,
+        "id_100": 7.637
+      }
+    ],
+    "error_summary": {
+      "timeout_count": 0,
+      "error_frame_count": 0,
+      "protocol_error_count": 0
+    },
+    "history_files": [
+      {
+        "file_id": "raw_can_unassigned_20260710_001.csv",
+        "file_name": "raw_can_unassigned_20260710_001.csv",
+        "session_id": "unassigned",
+        "started_at": "2026-07-10T19:11:08",
+        "size": "926.19 KB",
+        "size_bytes": 948417,
+        "sha256": "ae8675dd05004f900a0800079860401ca9017483465fb1e1203cfe9d8db4dc7d",
+        "download_url": "/logs/raw-can-files/raw_can_unassigned_20260710_001.csv/download"
+      },
+      {
+        "file_id": "raw_can_unassigned.csv",
+        "file_name": "raw_can_unassigned.csv",
+        "session_id": "unassigned.csv",
+        "started_at": "2026-07-10T18:09:51",
+        "size": "38.98 MB",
+        "size_bytes": 40872055,
+        "sha256": "e5df7528aaa858ed7ddc2ed3ba3f6b242110563957e47d8afcbcb6fb0c7406e3",
+        "download_url": "/logs/raw-can-files/raw_can_unassigned.csv/download"
+      },
+      {
+        "file_id": "raw_can_EOL-1E0EDEEC82C1.csv",
+        "file_name": "raw_can_EOL-1E0EDEEC82C1.csv",
+        "session_id": "EOL-1E0EDEEC82C1.csv",
+        "started_at": "2026-07-10T18:09:49",
+        "size": "936.17 KB",
+        "size_bytes": 958634,
+        "sha256": "8a4f20d8c966b4150a66e57055733a94e828312288d97c5b4f83a9618540824c",
+        "download_url": "/logs/raw-can-files/raw_can_EOL-1E0EDEEC82C1.csv/download"
+      },
+      {
+        "file_id": "raw_can_EOL-0B96CC1113B6.csv",
+        "file_name": "raw_can_EOL-0B96CC1113B6.csv",
+        "session_id": "EOL-0B96CC1113B6.csv",
+        "started_at": "2026-07-10T18:09:12",
+        "size": "939.95 KB",
+        "size_bytes": 962504,
+        "sha256": "18bcbc908cdd6322f65eb47362c1ecd801f442ad092f85ca6b7ff226569e25f4",
+        "download_url": "/logs/raw-can-files/raw_can_EOL-0B96CC1113B6.csv/download"
+      },
+      {
+        "file_id": "raw_can_EOL-3247BCB8C95E.csv",
+        "file_name": "raw_can_EOL-3247BCB8C95E.csv",
+        "session_id": "EOL-3247BCB8C95E.csv",
+        "started_at": "2026-07-10T17:56:35",
+        "size": "164.31 KB",
+        "size_bytes": 168254,
+        "sha256": "ec58e15627d70018eb431734226e349947afc1a80933d16e8176023641cf9b9d",
+        "download_url": "/logs/raw-can-files/raw_can_EOL-3247BCB8C95E.csv/download"
+      },
+      {
+        "file_id": "raw_can_EOL-6969FC2A51E9.csv",
+        "file_name": "raw_can_EOL-6969FC2A51E9.csv",
+        "session_id": "EOL-6969FC2A51E9.csv",
+        "started_at": "2026-07-10T17:56:25",
+        "size": "9.86 KB",
+        "size_bytes": 10094,
+        "sha256": "b581e96439cdfaf56d3ca2ca6914741bfa34125d45a241369a9a6c3962e7ed44",
+        "download_url": "/logs/raw-can-files/raw_can_EOL-6969FC2A51E9.csv/download"
+      },
+      {
+        "file_id": "raw_can_EOL-762F872CF701.csv",
+        "file_name": "raw_can_EOL-762F872CF701.csv",
+        "session_id": "EOL-762F872CF701.csv",
+        "started_at": "2026-07-10T17:56:19",
+        "size": "1.15 MB",
+        "size_bytes": 1202853,
+        "sha256": "4f2d1a73823eaee855c8e2436dec218ad48895d84bb6cd1fa14bbaac3ef9c666",
+        "download_url": "/logs/raw-can-files/raw_can_EOL-762F872CF701.csv/download"
+      },
+      {
+        "file_id": "raw_can_EOL-6289D9CD2ACD.csv",
+        "file_name": "raw_can_EOL-6289D9CD2ACD.csv",
+        "session_id": "EOL-6289D9CD2ACD.csv",
+        "started_at": "2026-07-10T17:55:54",
+        "size": "525.78 KB",
+        "size_bytes": 538396,
+        "sha256": "62162d4584bd9b6c5e7613aa73426c65bdebf8a407222981ba77c9f949e94a15",
+        "download_url": "/logs/raw-can-files/raw_can_EOL-6289D9CD2ACD.csv/download"
+      },
+      {
+        "file_id": "raw_can_EOL-9EA012281EF9.csv",
+        "file_name": "raw_can_EOL-9EA012281EF9.csv",
+        "session_id": "EOL-9EA012281EF9.csv",
+        "started_at": "2026-07-10T17:55:42",
+        "size": "68.59 KB",
+        "size_bytes": 70236,
+        "sha256": "dddae694284a991c0f43ecdf40938927d9f585d0c2cc9b057d07f3133d287c81",
+        "download_url": "/logs/raw-can-files/raw_can_EOL-9EA012281EF9.csv/download"
+      },
+      {
+        "file_id": "raw_can_EOL-952B4331D81E.csv",
+        "file_name": "raw_can_EOL-952B4331D81E.csv",
+        "session_id": "EOL-952B4331D81E.csv",
+        "started_at": "2026-07-10T17:55:39",
+        "size": "33.79 KB",
+        "size_bytes": 34596,
+        "sha256": "352e4cf9e18fca76098fffad31a8d4b27581b587c75db3c0acee978362a7cb1a",
+        "download_url": "/logs/raw-can-files/raw_can_EOL-952B4331D81E.csv/download"
+      },
+      {
+        "file_id": "raw_can_EOL-74B44BB233DA.csv",
+        "file_name": "raw_can_EOL-74B44BB233DA.csv",
+        "session_id": "EOL-74B44BB233DA.csv",
+        "started_at": "2026-07-10T17:55:36",
+        "size": "942.89 KB",
+        "size_bytes": 965521,
+        "sha256": "f979c70b61cac21eb22706916f86be9f51dbe90da9e9911c8c1b3a4988a6fb54",
+        "download_url": "/logs/raw-can-files/raw_can_EOL-74B44BB233DA.csv/download"
+      },
+      {
+        "file_id": "raw_can_EOL-3FB7F2171C67.csv",
+        "file_name": "raw_can_EOL-3FB7F2171C67.csv",
+        "session_id": "EOL-3FB7F2171C67.csv",
+        "started_at": "2026-07-10T15:30:10",
+        "size": "161.01 KB",
+        "size_bytes": 164879,
+        "sha256": "60c1f915819981e386f8d41261f6940325089d51ce6d417c18a3b1e2e8273087",
+        "download_url": "/logs/raw-can-files/raw_can_EOL-3FB7F2171C67.csv/download"
+      },
+      {
+        "file_id": "raw_can_EOL-FE9172984142.csv",
+        "file_name": "raw_can_EOL-FE9172984142.csv",
+        "session_id": "EOL-FE9172984142.csv",
+        "started_at": "2026-07-10T15:30:00",
+        "size": "9.86 KB",
+        "size_bytes": 10094,
+        "sha256": "65e99fe2d67e41ce5b6484371583ad4d1e59d4ecfedbb5b5d5e94be35fc206b9",
+        "download_url": "/logs/raw-can-files/raw_can_EOL-FE9172984142.csv/download"
+      },
+      {
+        "file_id": "raw_can_EOL-CCE9FBEBCAB2.csv",
+        "file_name": "raw_can_EOL-CCE9FBEBCAB2.csv",
+        "session_id": "EOL-CCE9FBEBCAB2.csv",
+        "started_at": "2026-07-10T15:29:54",
+        "size": "1.17 MB",
+        "size_bytes": 1224637,
+        "sha256": "c715984ee5a21f6819900949b64e69f5e6fb3b3e7889db993bec6551335cab41",
+        "download_url": "/logs/raw-can-files/raw_can_EOL-CCE9FBEBCAB2.csv/download"
+      },
+      {
+        "file_id": "raw_can_EOL-52F8E0E7E318.csv",
+        "file_name": "raw_can_EOL-52F8E0E7E318.csv",
+        "session_id": "EOL-52F8E0E7E318.csv",
+        "started_at": "2026-07-10T15:29:30",
+        "size": "524.06 KB",
+        "size_bytes": 536633,
+        "sha256": "b6040afe208f482f77d926a936d296b2034edd2a3ead1cfb548d75048d801e2d",
+        "download_url": "/logs/raw-can-files/raw_can_EOL-52F8E0E7E318.csv/download"
+      },
+      {
+        "file_id": "raw_can_EOL-25FADA061DF9.csv",
+        "file_name": "raw_can_EOL-25FADA061DF9.csv",
+        "session_id": "EOL-25FADA061DF9.csv",
+        "started_at": "2026-07-10T15:29:19",
+        "size": "69.42 KB",
+        "size_bytes": 71084,
+        "sha256": "c2e6e115fe58fd6b363ee83ffd8641d8633f08a1808df4e919458f32f605e725",
+        "download_url": "/logs/raw-can-files/raw_can_EOL-25FADA061DF9.csv/download"
+      },
+      {
+        "file_id": "raw_can_EOL-23651704E26A.csv",
+        "file_name": "raw_can_EOL-23651704E26A.csv",
+        "session_id": "EOL-23651704E26A.csv",
+        "started_at": "2026-07-10T15:29:15",
+        "size": "33.09 KB",
+        "size_bytes": 33887,
+        "sha256": "1282c8ffccace9de547a4566459e7e4ac0abf33e0275a06bb286fef724c888f2",
+        "download_url": "/logs/raw-can-files/raw_can_EOL-23651704E26A.csv/download"
+      },
+      {
+        "file_id": "raw_can_EOL-9087E04A67CA.csv",
+        "file_name": "raw_can_EOL-9087E04A67CA.csv",
+        "session_id": "EOL-9087E04A67CA.csv",
+        "started_at": "2026-07-10T15:29:12",
+        "size": "977.97 KB",
+        "size_bytes": 1001444,
+        "sha256": "96a61920ce84143c4ceb41ce1bde7b95941bdb3455d5a36cab63d3f20f6afa4e",
+        "download_url": "/logs/raw-can-files/raw_can_EOL-9087E04A67CA.csv/download"
+      },
+      {
+        "file_id": "raw_can_EOL-93723D50B087.csv",
+        "file_name": "raw_can_EOL-93723D50B087.csv",
+        "session_id": "EOL-93723D50B087.csv",
+        "started_at": "2026-07-10T15:22:03",
+        "size": "157.40 KB",
+        "size_bytes": 161174,
+        "sha256": "5646b4a116f5008a49ba7051fed2ed0335eaf6ba1768a4f7c57592d4a1ae4eab",
+        "download_url": "/logs/raw-can-files/raw_can_EOL-93723D50B087.csv/download"
+      },
+      {
+        "file_id": "raw_can_EOL-A625FD0AF1AF.csv",
+        "file_name": "raw_can_EOL-A625FD0AF1AF.csv",
+        "session_id": "EOL-A625FD0AF1AF.csv",
+        "started_at": "2026-07-10T15:21:52",
+        "size": "9.35 KB",
+        "size_bytes": 9579,
+        "sha256": "32a474929b28cb496945d6c620e14db2951921b7a304a71b6ade2befd9e5c686",
+        "download_url": "/logs/raw-can-files/raw_can_EOL-A625FD0AF1AF.csv/download"
+      },
+      {
+        "file_id": "raw_can_EOL-B56531B3475C.csv",
+        "file_name": "raw_can_EOL-B56531B3475C.csv",
+        "session_id": "EOL-B56531B3475C.csv",
+        "started_at": "2026-07-10T15:21:46",
+        "size": "1.17 MB",
+        "size_bytes": 1229219,
+        "sha256": "90c2046218113810c684dad4735b8f062c0e8b9a8bfeaf2655558570ce228029",
+        "download_url": "/logs/raw-can-files/raw_can_EOL-B56531B3475C.csv/download"
+      },
+      {
+        "file_id": "raw_can_EOL-0CE7C14EC8DD.csv",
+        "file_name": "raw_can_EOL-0CE7C14EC8DD.csv",
+        "session_id": "EOL-0CE7C14EC8DD.csv",
+        "started_at": "2026-07-10T15:21:23",
+        "size": "524.54 KB",
+        "size_bytes": 537134,
+        "sha256": "8746b002c2caf5d1eb3825e9247d0b826150a42c4c658748684b97501f6df5d2",
+        "download_url": "/logs/raw-can-files/raw_can_EOL-0CE7C14EC8DD.csv/download"
+      },
+      {
+        "file_id": "raw_can_EOL-86F03F34C141.csv",
+        "file_name": "raw_can_EOL-86F03F34C141.csv",
+        "session_id": "EOL-86F03F34C141.csv",
+        "started_at": "2026-07-10T15:21:11",
+        "size": "71.71 KB",
+        "size_bytes": 73436,
+        "sha256": "80e36daab68a782d1ee88686731e2f9ea9d8b89507f43fb853637fa4529a4ecb",
+        "download_url": "/logs/raw-can-files/raw_can_EOL-86F03F34C141.csv/download"
+      },
+      {
+        "file_id": "raw_can_EOL-F43AB46044BC.csv",
+        "file_name": "raw_can_EOL-F43AB46044BC.csv",
+        "session_id": "EOL-F43AB46044BC.csv",
+        "started_at": "2026-07-10T15:21:08",
+        "size": "34.11 KB",
+        "size_bytes": 34926,
+        "sha256": "25503ace447e44d2642cf3bb178aa2c7ce160c0e3e1d9a9805bff9c76dd8e778",
+        "download_url": "/logs/raw-can-files/raw_can_EOL-F43AB46044BC.csv/download"
+      },
+      {
+        "file_id": "raw_can_EOL-770368C85396.csv",
+        "file_name": "raw_can_EOL-770368C85396.csv",
+        "session_id": "EOL-770368C85396.csv",
+        "started_at": "2026-07-10T15:21:05",
+        "size": "973.55 KB",
+        "size_bytes": 996914,
+        "sha256": "9e35c56692b134597603fd0f813edce64a1ff5d3d6c52afc9b86849f8b8e40aa",
+        "download_url": "/logs/raw-can-files/raw_can_EOL-770368C85396.csv/download"
+      },
+      {
+        "file_id": "raw_can_EOL-52042CCF0D18.csv",
+        "file_name": "raw_can_EOL-52042CCF0D18.csv",
+        "session_id": "EOL-52042CCF0D18.csv",
+        "started_at": "2026-07-10T15:15:40",
+        "size": "157.56 KB",
+        "size_bytes": 161339,
+        "sha256": "c1ce1905391bfe1e697b6280b788cdd968022bcccfb670d87ef2247ad82ed80e",
+        "download_url": "/logs/raw-can-files/raw_can_EOL-52042CCF0D18.csv/download"
+      },
+      {
+        "file_id": "raw_can_EOL-DB7E9808EE11.csv",
+        "file_name": "raw_can_EOL-DB7E9808EE11.csv",
+        "session_id": "EOL-DB7E9808EE11.csv",
+        "started_at": "2026-07-10T15:15:29",
+        "size": "10.02 KB",
+        "size_bytes": 10259,
+        "sha256": "bcba91d5e702dd59fb7c80ceb260f7b167be8e8ab71a18340c2c3b2994ebc6bc",
+        "download_url": "/logs/raw-can-files/raw_can_EOL-DB7E9808EE11.csv/download"
+      },
+      {
+        "file_id": "raw_can_EOL-6D1ADDA4B3F6.csv",
+        "file_name": "raw_can_EOL-6D1ADDA4B3F6.csv",
+        "session_id": "EOL-6D1ADDA4B3F6.csv",
+        "started_at": "2026-07-10T15:15:23",
+        "size": "1.17 MB",
+        "size_bytes": 1228724,
+        "sha256": "5b85b4ca4c97ff29f2cf5d67462e4a960002c088985d40c36b37ac569148514d",
+        "download_url": "/logs/raw-can-files/raw_can_EOL-6D1ADDA4B3F6.csv/download"
+      },
+      {
+        "file_id": "raw_can_EOL-6C32A08A9584.csv",
+        "file_name": "raw_can_EOL-6C32A08A9584.csv",
+        "session_id": "EOL-6C32A08A9584.csv",
+        "started_at": "2026-07-10T15:15:00",
+        "size": "524.04 KB",
+        "size_bytes": 536620,
+        "sha256": "36aadc1f9485a53aa091427a46f34bc6bf68f4aeba9a93533cfb9821508b85fd",
+        "download_url": "/logs/raw-can-files/raw_can_EOL-6C32A08A9584.csv/download"
+      },
+      {
+        "file_id": "raw_can_EOL-33098B12489E.csv",
+        "file_name": "raw_can_EOL-33098B12489E.csv",
+        "session_id": "EOL-33098B12489E.csv",
+        "started_at": "2026-07-10T15:14:48",
+        "size": "69.42 KB",
+        "size_bytes": 71084,
+        "sha256": "1d384797ca73bcf6a766cf0bea8c1708021fed759c30b9b79e8496680b996bc6",
+        "download_url": "/logs/raw-can-files/raw_can_EOL-33098B12489E.csv/download"
+      },
+      {
+        "file_id": "raw_can_EOL-008F8EB13084.csv",
+        "file_name": "raw_can_EOL-008F8EB13084.csv",
+        "session_id": "EOL-008F8EB13084.csv",
+        "started_at": "2026-07-10T15:14:45",
+        "size": "33.46 KB",
+        "size_bytes": 34266,
+        "sha256": "2fff408b7cb3ce19a038db06628056b9f050ec3873f6366edda5c2fb9f31e391",
+        "download_url": "/logs/raw-can-files/raw_can_EOL-008F8EB13084.csv/download"
+      },
+      {
+        "file_id": "raw_can_EOL-23FBDB9089E2.csv",
+        "file_name": "raw_can_EOL-23FBDB9089E2.csv",
+        "session_id": "EOL-23FBDB9089E2.csv",
+        "started_at": "2026-07-10T15:14:42",
+        "size": "978.82 KB",
+        "size_bytes": 1002311,
+        "sha256": "fa0527eecf109133d62f1e5b2d87f9b37e02e4c29601e52113c6f91fa17536c2",
+        "download_url": "/logs/raw-can-files/raw_can_EOL-23FBDB9089E2.csv/download"
+      },
+      {
+        "file_id": "raw_can_EOL-2E5A01C872F5.csv",
+        "file_name": "raw_can_EOL-2E5A01C872F5.csv",
+        "session_id": "EOL-2E5A01C872F5.csv",
+        "started_at": "2026-07-10T15:06:49",
+        "size": "937.75 KB",
+        "size_bytes": 960261,
+        "sha256": "b310a3a1554ca19e81e0d135b3138a8bee3e2cc0d7e51960da580a5963b18ee6",
+        "download_url": "/logs/raw-can-files/raw_can_EOL-2E5A01C872F5.csv/download"
+      },
+      {
+        "file_id": "raw_can_EOL-EBFB7C031F8C.csv",
+        "file_name": "raw_can_EOL-EBFB7C031F8C.csv",
+        "session_id": "EOL-EBFB7C031F8C.csv",
+        "started_at": "2026-07-10T15:02:52",
+        "size": "377.44 KB",
+        "size_bytes": 386497,
+        "sha256": "9eae2fdec2564d09b44b5aaee42ddbae77d6032a1d3e545e20b8f25d95aaa513",
+        "download_url": "/logs/raw-can-files/raw_can_EOL-EBFB7C031F8C.csv/download"
+      },
+      {
+        "file_id": "raw_can_EOL-E7C9294C6CA3.csv",
+        "file_name": "raw_can_EOL-E7C9294C6CA3.csv",
+        "session_id": "EOL-E7C9294C6CA3.csv",
+        "started_at": "2026-07-10T15:01:09",
+        "size": "287.01 KB",
+        "size_bytes": 293902,
+        "sha256": "fff1783aed9153ea7739897705897d49ba25dba4839c799c36006165f34ca4f9",
+        "download_url": "/logs/raw-can-files/raw_can_EOL-E7C9294C6CA3.csv/download"
+      },
+      {
+        "file_id": "raw_can_EOL-3C384FCB47A7.csv",
+        "file_name": "raw_can_EOL-3C384FCB47A7.csv",
+        "session_id": "EOL-3C384FCB47A7.csv",
+        "started_at": "2026-07-10T14:58:38",
+        "size": "190.01 KB",
+        "size_bytes": 194573,
+        "sha256": "0e0e3ff7c535cc61fbc4f4dd4466a40fc971d0ef2c3f6d92cbdf24ee53582975",
+        "download_url": "/logs/raw-can-files/raw_can_EOL-3C384FCB47A7.csv/download"
+      },
+      {
+        "file_id": "raw_can_EOL-413EE3897D43.csv",
+        "file_name": "raw_can_EOL-413EE3897D43.csv",
+        "session_id": "EOL-413EE3897D43.csv",
+        "started_at": "2026-07-10T14:56:22",
+        "size": "295.24 KB",
+        "size_bytes": 302326,
+        "sha256": "f5cda008cf4fd67b5fc4ebe709c533ba56bf2739f272d5d52f2b9b003b1fdfc4",
+        "download_url": "/logs/raw-can-files/raw_can_EOL-413EE3897D43.csv/download"
+      },
+      {
+        "file_id": "raw_can_EOL-FC8749472335.csv",
+        "file_name": "raw_can_EOL-FC8749472335.csv",
+        "session_id": "EOL-FC8749472335.csv",
+        "started_at": "2026-07-10T14:55:08",
+        "size": "190.67 KB",
+        "size_bytes": 195246,
+        "sha256": "813b2f65cc3664e127b6e493018d3e58e395f75682d919a96dc1b1add589d5cd",
+        "download_url": "/logs/raw-can-files/raw_can_EOL-FC8749472335.csv/download"
+      },
+      {
+        "file_id": "raw_can_EOL-0DB7D1176CFD.csv",
+        "file_name": "raw_can_EOL-0DB7D1176CFD.csv",
+        "session_id": "EOL-0DB7D1176CFD.csv",
+        "started_at": "2026-07-10T14:52:43",
+        "size": "103.49 KB",
+        "size_bytes": 105970,
+        "sha256": "f9ca83924019739952a5e930ff6a2badf72483f64dc5151118e72326ff0bf61a",
+        "download_url": "/logs/raw-can-files/raw_can_EOL-0DB7D1176CFD.csv/download"
+      },
+      {
+        "file_id": "raw_can_current.csv",
+        "file_name": "raw_can_current.csv",
+        "session_id": "current.csv",
+        "started_at": "2026-07-10T14:19:05",
+        "size": "137.55 MB",
+        "size_bytes": 144234476,
+        "sha256": "a3ccd49ca9325521d7ca3825a939981a71f666214d6b113bb51ad39447053803",
+        "download_url": "/logs/raw-can-files/raw_can_current.csv/download"
+      }
+    ],
+    "footer_status": {
+      "recording": true,
+      "uptime": "00:00:10",
+      "buffer_usage": 0,
+      "rx_fps": 639,
+      "tx_fps": 0
+    }
+  }
+}

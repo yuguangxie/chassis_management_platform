@@ -1,0 +1,103 @@
+{
+  "verification_time": "2026-07-10T15:37:02+08:00",
+  "phase": "phase-02-real-eol-persistence",
+  "phase01_gate_verified": true,
+  "real_vehicle_connected": false,
+  "network_boundary": "127.0.0.1 only",
+  "gate_passed": true,
+  "production_ready": false,
+  "profiles": [
+    {
+      "name": "normal_pass",
+      "expected_status": "PASSED",
+      "actual_status": "PASSED",
+      "expected_failure_step": null,
+      "actual_failure_step": null,
+      "step_count": 12,
+      "safe_stop": null,
+      "session_id": "EOL-9087E04A67CA",
+      "report_id": "33a907fd",
+      "database": {"sessions": 1, "steps": 12, "assertions": 26, "raw_frames": 5939, "decoded_signals": 48992, "statistics": 19, "alarms": 0, "reports": 4, "operator_actions": 5},
+      "passed": true
+    },
+    {
+      "name": "bms_low_soc",
+      "expected_status": "FAILED",
+      "actual_status": "FAILED",
+      "expected_failure_step": "bms_check",
+      "actual_failure_step": "bms_check",
+      "step_count": 3,
+      "safe_stop": "STOP_CONFIRMED",
+      "session_id": "EOL-23651704E26A",
+      "report_id": "88b91a16",
+      "database": {"sessions": 1, "steps": 3, "assertions": 10, "raw_frames": 200, "decoded_signals": 1570, "statistics": 19, "alarms": 1, "reports": 4, "operator_actions": 3},
+      "passed": true
+    },
+    {
+      "name": "warning_fault",
+      "expected_status": "FAILED",
+      "actual_status": "FAILED",
+      "expected_failure_step": "alarm_recheck",
+      "actual_failure_step": "alarm_recheck",
+      "step_count": 11,
+      "safe_stop": "STOP_CONFIRMED",
+      "session_id": "EOL-25FADA061DF9",
+      "report_id": "735dd250",
+      "database": {"sessions": 1, "steps": 11, "assertions": 16, "raw_frames": 420, "decoded_signals": 3282, "statistics": 19, "alarms": 2, "reports": 4, "operator_actions": 3},
+      "passed": true
+    },
+    {
+      "name": "steering_no_response",
+      "expected_status": "FAILED",
+      "actual_status": "FAILED",
+      "expected_failure_step": "steering_check",
+      "actual_failure_step": "steering_check",
+      "step_count": 8,
+      "safe_stop": "STOP_CONFIRMED",
+      "session_id": "EOL-52F8E0E7E318",
+      "report_id": "3dc78ec1",
+      "database": {"sessions": 1, "steps": 8, "assertions": 19, "raw_frames": 3182, "decoded_signals": 26237, "statistics": 19, "alarms": 0, "reports": 4, "operator_actions": 3},
+      "passed": true
+    },
+    {
+      "name": "brake_fail",
+      "expected_status": "FAILED",
+      "actual_status": "FAILED",
+      "expected_failure_step": "brake_stop_check",
+      "actual_failure_step": "brake_stop_check",
+      "step_count": 10,
+      "safe_stop": "SAFE_STOP_TIMEOUT_LATCHED",
+      "session_id": "EOL-CCE9FBEBCAB2",
+      "report_id": "6bf8e0b6",
+      "database": {"sessions": 1, "steps": 10, "assertions": 22, "raw_frames": 7262, "decoded_signals": 59689, "statistics": 19, "alarms": 1, "reports": 4, "operator_actions": 3},
+      "passed": true
+    }
+  ],
+  "guards": {
+    "can_disconnected_start": {"status_code": 409, "passed": true},
+    "can_disconnect_mid_session": {"terminal_status": "FAILED", "failure_step": "low_speed_drive_check", "safe_stop": "INTERLOCK_BLOCKED_LATCHED", "passed": true},
+    "dbc_unloaded": {"terminal_status": "FAILED", "failure_step": "power_on_self_check", "movement_started": false, "passed": true},
+    "database_unwritable": {"status_code": 409, "passed": true},
+    "pause_resume": {"paused_without_progress": true, "resumed": true, "passed": true},
+    "abort": {"terminal_status": "ABORTED", "passed": true},
+    "emergency_stop": {"terminal_status": "EMERGENCY_STOPPED", "safe_stop": "STOP_CONFIRMED", "passed": true},
+    "same_station_concurrency": {"second_start_status_code": 409, "passed": true},
+    "restart_recovery": {"before": "RUNNING", "after": "ABORTED", "reason": "service restart recovery", "passed": true},
+    "transaction_rollback": {"passed": true},
+    "actual_websocket_session": {"passed": true}
+  },
+  "tests": {
+    "backend": {"passed": 77, "failed": 0, "warnings": 5, "exit_code": 0},
+    "simulator": {"passed": 3, "failed": 0, "exit_code": 0},
+    "desktop_typecheck": {"passed": true, "exit_code": 0},
+    "desktop_build": {"passed": true, "exit_code": 0, "bundle_warning": true}
+  },
+  "closed_issues": ["EOL-001", "EOL-002", "DB-001", "DB-003", "DB-004", "DBC-002"],
+  "residuals": [
+    "Optional Parquet writer was not executed because CSV is configured and pyarrow is not installed",
+    "No real vehicle, physical CAN adapter, closed-bench, or production profile validation",
+    "No multi-process concurrency or long-duration storage pressure test",
+    "FastAPI lifespan deprecation warnings remain",
+    "Desktop main bundle exceeds 500 kB"
+  ]
+}

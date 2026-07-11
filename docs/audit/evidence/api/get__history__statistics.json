@@ -1,0 +1,87 @@
+{
+  "url": "http://127.0.0.1:8800/api/v1/history/statistics",
+  "method": "GET",
+  "status": 200,
+  "headers": {
+    "date": "Fri, 10 Jul 2026 03:01:29 GMT",
+    "server": "uvicorn",
+    "content-length": "541",
+    "content-type": "application/json",
+    "connection": "close"
+  },
+  "body": {
+    "summary": {
+      "total_tests": 1248,
+      "pass_rate": 94.4,
+      "fail_count": 68,
+      "alarm_count": 23,
+      "filtered_count": 128
+    },
+    "charts": {
+      "vehicle_result_trend": {
+        "vin": "L0000000000000001",
+        "x_axis": [
+          "03-25",
+          "03-26",
+          "03-27",
+          "03-28",
+          "03-29",
+          "03-30",
+          "03-31",
+          "04-01"
+        ],
+        "pass": [
+          12,
+          14,
+          13,
+          16,
+          15,
+          17,
+          13,
+          18
+        ],
+        "fail": [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0
+        ]
+      },
+      "failure_pareto": {
+        "categories": [
+          "低速驱动检测",
+          "转向检测",
+          "档位检测",
+          "BMS检测",
+          "其他"
+        ],
+        "counts": [
+          9,
+          5,
+          3,
+          2,
+          1
+        ],
+        "cumulative_percent": [
+          45.0,
+          70.0,
+          85.0,
+          95.0,
+          100.0
+        ]
+      }
+    },
+    "pagination": {
+      "page": 1,
+      "page_size": 20,
+      "total": 128,
+      "total_pages": 7
+    }
+  },
+  "started_at": "2026-07-10T11:01:30.133287+08:00",
+  "finished_at": "2026-07-10T11:01:30.134761+08:00"
+}

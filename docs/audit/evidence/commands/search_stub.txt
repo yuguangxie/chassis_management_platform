@@ -1,0 +1,101 @@
+﻿PATTERN: stub
+MATCHES: 98
+
+backend/tests\test_history_dashboard.py:73:def test_history_downloads_return_stable_stub(monkeypatch):
+backend/tests\test_history_dashboard.py:90:            assert response.json()["stub"] is True
+backend/tests\test_system_settings.py:153:def test_dbc_reload_and_stub_operations_are_stable():
+desktop/src\stores\settings.ts:9:  stub?: boolean
+desktop/src\stores\reports.ts:7:type ActionResponse = { ok?: boolean; stub?: boolean; message?: string; path?: string }
+desktop/src\stores\history.ts:19:type ActionResponse = { ok?: boolean; stub?: boolean; message?: string }
+desktop/src\stores\eol.ts:6:type ActionResponse = { ok?: boolean; stub?: boolean; message?: string; session_id?: string; report_id?: string }
+desktop/src\stores\alarms.ts:6:type AlarmActionResponse = { ok?: boolean; stub?: boolean; message?: string; acked?: string; requested?: string }
+desktop/src\api\types.ts:109:  stub?: boolean
+backend/app\api\alarms.py:48:def _stub(message: str) -> dict[str, Any]:
+backend/app\api\alarms.py:49:    return {"ok": True, "stub": True, "message": message}
+backend/app\api\alarms.py:144:    return _stub("诊断导出接口已预留，当前为 Mock 模式")
+backend/app\api\alarms.py:151:    return {**_stub("已定位相关 CAN 报文，当前为 Mock 模式"), "can_id": can_id, "route": "/can-monitor"}
+backend/app\api\alarms.py:167:        "stub": True,
+desktop/src\pages\CanMonitorPage.vue:347:    const res = await apiPost<{ message?: string; stub?: boolean; ok?: boolean }>(path)
+desktop/src\pages\CanMonitorPage.vue:348:    showToast(`${label}：${res.message || (res.stub ? '接口已预留，当前为 Mock 模式' : '完成')}`)
+desktop/src\pages\CanMonitorPage.vue:361:    const res = await apiDelete<{ message?: string; stub?: boolean }>(`/logs/raw-can-files/${encodeURIComponent(fileId)}`)
+desktop/src\pages\CanMonitorPage.vue:362:    showToast(`删除历史文件：${res.message || (res.stub ? '接口已预留，当前为 Mock 模式' : '完成')}`)
+backend/app\api\can.py:95:        return {"connected": True, "stub": False, "message": f"{channel} 已启动", "channel": channel, "status": result}
+backend/app\api\can.py:97:        return {"connected": True, "stub": True, "message": f"{channel} 接口已预留，当前为 Mock 模式：{exc}", "channel": channel}
+backend/app\api\can.py:107:        return {"disconnected": True, "stub": False, "message": f"{channel} 已停止", "channel": channel, "status": result}
+backend/app\api\can.py:109:        return {"disconnected": True, "stub": True, "message": f"{channel} 停止接口已预留，当前为 Mock 模式：{exc}", "channel": channel}
+backend/app\api\can.py:122:        "stub": True,
+backend/app\api\can.py:131:        return {"stopped": True, "stub": False, "message": "所有 CAN 通道已停止"}
+backend/app\api\can.py:133:        return {"stopped": True, "stub": True, "message": f"停止全部接口已预留，当前为 Mock 模式：{exc}"}
+backend/app\api\can.py:217:    return {"ok": True, "stub": True, "message": "接口已预留，当前为 Mock 模式"}
+backend/app\api\can.py:222:    return {"ok": True, "stub": True, "message": "接口已预留，当前为 Mock 模式", "file_path": "D:/Reports/raw_can_export.bin"}
+backend/app\api\can.py:227:    return {"ok": True, "stub": True, "message": "接口已预留，当前为 Mock 模式", "file_path": "D:/Reports/can_frames.csv"}
+backend/app\api\can.py:237:    return {"ok": True, "stub": True, "message": "接口已预留，当前为 Mock 模式"}
+backend/app\api\can.py:242:    return {"ok": True, "stub": True, "message": "接口已预留，当前为 Mock 模式", "file_id": file_id}
+desktop/src\mocks\fallbackData.ts:181:  stub: true,
+desktop/src\pages\AlarmDiagnosisPage.vue:256:    showToast(`${label}：${result.message || (result.stub ? '接口已预留，当前为 Mock 模式' : '完成')}`)
+desktop/src\pages\AutoTestPage.vue:375:    showToast(`${label}：${result.message || (result.stub ? '接口已预留，当前为 Mock 模式' : '完成')}`)
+backend/app\api\config.py:539:    return {"ok": True, "stub": True, "imported": False, "message": "配置导入接口已预留，当前支持 YAML / JSON 文件选择流程"}
+backend/app\api\config.py:546:    return {"ok": True, "stub": True, "message": "配置快照已生成，桌面文件保存接口当前为 Mock 模式", "format": format, "filename": f"system-config-{utc_now()[:10]}.{format}", "config": snapshot}
+backend/app\api\config.py:592:    response = {"saved": True, "stub": True, "message": "配置已校验并写入运行态；持久化由部署配置服务接管", "local_network": payload.get("local_network", DEFAULT_NETWORK_CONFIG["local_network"]), "channels": channels}
+backend/app\api\config.py:600:    return {"restored": True, "stub": True, "message": "已恢复默认网络与 CAN 通道配置", **DEFAULT_NETWORK_CONFIG}
+backend/app\api\config.py:623:    return {"ok": True, "stub": True, "message": "清理接口已预留，不会删除当前会话数据"}
+desktop/src\pages\ManualControlPage.vue:188:type ActionResponse = { ok?: boolean; stub?: boolean; message?: string; emergency_stop?: boolean }
+desktop/src\pages\ManualControlPage.vue:377:    showToast(`${label}：${result.message || (result.stub ? '接口已预留，当前为 Mock 模式' : '完成')}`)
+backend/app\api\control.py:89:def _stub(message: str) -> dict[str, Any]:
+backend/app\api\control.py:90:    logger.info("manual control stub: %s", message)
+backend/app\api\control.py:91:    return {"ok": True, "stub": True, "message": message}
+backend/app\api\control.py:152:        return _stub("安全停车接口已执行停止周期发送，当前急停锁定，停车帧保留为 Mock 模式")
+backend/app\api\control.py:174:    return _stub("默认控制值已恢复，当前为 Mock 模式")
+desktop/src\pages\RealtimeCurvePage.vue:221:type ActionResponse = { ok?: boolean; stub?: boolean; message?: string }
+desktop/src\pages\RealtimeCurvePage.vue:434:    showToast(`${label}：${result.message || (result.stub ? '接口已预留，当前为 Mock 模式' : '完成')}`)
+desktop/src\pages\ReportManagementPage.vue:229:  try { const result = await reportsStore.runAction(action); showToast(`${label}：${result.message || (result.stub ? '接口已预留，当前为 Mock 模式' : '完成')}`) }
+desktop/src\pages\NetworkConfigPage.vue:264:    const response = await apiPut<{ message?: string; stub?: boolean }>('/config/channels', config.value)
+desktop/src\pages\NetworkConfigPage.vue:265:    showToast(response.message || (response.stub ? '接口已预留，当前为仿真/Mock模式' : '配置已保存'))
+desktop/src\pages\NetworkConfigPage.vue:284:    const result = await apiPost<{ message?: string; stub?: boolean }>(`/can/channels/${channel}/connect`, {})
+desktop/src\pages\NetworkConfigPage.vue:293:    const result = await apiPost<{ message?: string; stub?: boolean }>('/can/channels/stop-all', {})
+desktop/src\pages\NetworkConfigPage.vue:294:    showToast(result.message || '所有通道已停止', result.stub ? 'warn' : 'ok')
+desktop/src\pages\NetworkConfigPage.vue:302:    const result = await apiPost<NetworkConfigSummary & { message?: string; stub?: boolean }>('/config/channels/restore-defaults', {})
+desktop/src\pages\NetworkConfigPage.vue:304:    showToast(result.message || '已恢复默认配置', result.stub ? 'warn' : 'ok')
+desktop/src\pages\SystemSettingsPage.vue:26:          <label class="wide"><span>默认报告目录</span><div class="path-input"><input v-model="settings.basic.report_directory" @input="syncReportPath" /><button aria-label="选择默认报告目录" @click="pathStub('默认报告目录')"><FolderOpen :size="14" /></button></div></label>
+desktop/src\pages\SystemSettingsPage.vue:27:          <label class="wide"><span>SQLite 数据库路径</span><div class="path-input"><input v-model="settings.basic.database_path" @input="syncDatabasePath" /><button aria-label="选择数据库文件" @click="pathStub('数据库文件')"><Database :size="14" /></button></div></label>
+desktop/src\pages\SystemSettingsPage.vue:28:          <label class="wide"><span>日志根目录</span><div class="path-input"><input v-model="settings.basic.log_directory" @input="markDirty" /><button aria-label="选择日志目录" @click="pathStub('日志根目录')"><FolderOpen :size="14" /></button></div></label>
+desktop/src\pages\SystemSettingsPage.vue:47:        <div class="mini-actions"><button @click="pathStub('DBC 文件')"><FolderOpen :size="13" />选择 DBC</button><button class="primary" @click="reloadDbc"><RefreshCw :size="13" />重载 DBC</button><button @click="showToast('5 条 DBC 语义覆盖规则已在当前卡片展开显示')"><FileText :size="13" />覆盖规则</button><button @click="viewMessages"><ListTree :size="13" />报文列表</button></div>
+desktop/src\pages\SystemSettingsPage.vue:54:          <label><span>报告目录</span><div class="path-input"><input v-model="settings.storage.report_directory" @input="syncStorageReportPath" /><button aria-label="选择报告目录" @click="pathStub('报告目录')"><FolderOpen :size="13" /></button></div></label>
+desktop/src\pages\SystemSettingsPage.vue:55:          <label><span>原始 CAN 日志</span><div class="path-input"><input v-model="settings.storage.raw_can_directory" @input="markDirty" /><button aria-label="选择原始 CAN 日志目录" @click="pathStub('原始 CAN 日志目录')"><FolderOpen :size="13" /></button></div></label>
+desktop/src\pages\SystemSettingsPage.vue:56:          <label><span>解码信号日志</span><div class="path-input"><input v-model="settings.storage.decoded_signal_directory" @input="markDirty" /><button aria-label="选择解码信号目录" @click="pathStub('解码信号日志目录')"><FolderOpen :size="13" /></button></div></label>
+desktop/src\pages\SystemSettingsPage.vue:213:function pathStub(name:string){showToast(`${name}选择器已预留，当前可直接编辑路径`)}
+desktop/src\pages\SignalDashboardPage.vue:343:    const result = await action() as { message?: string; stub?: boolean }
+desktop/src\pages\SignalDashboardPage.vue:344:    showToast(`${label}：${result.message || (result.stub ? '接口已预留，当前为 Mock 模式' : '完成')}`)
+backend/app\api\history.py:31:def _stub(message: str, **extra: Any) -> dict[str, Any]:
+backend/app\api\history.py:32:    return {"ok": True, "stub": True, "message": message, **extra}
+backend/app\api\history.py:311:    return _stub("历史导出接口已预留，当前为 Mock 模式")
+backend/app\api\history.py:374:    return _stub("下载接口已预留，当前为 Mock 模式", session_id=sid, file_type=file_type)
+backend/app\api\history.py:383:    return _stub("会话详情接口已预留，当前在历史页联动展示", session_id=sid)
+backend/app\api\history.py:402:    return _stub("回放跳转接口已预留，当前为 Mock 模式", session_id=sid, cursor=payload)
+backend/app\api\eol.py:136:def _stub(message: str, **extra: Any) -> dict[str, Any]:
+backend/app\api\eol.py:137:    logger.info("EOL stub action: %s", message)
+backend/app\api\eol.py:138:    return {"ok": True, "stub": True, "message": message, **extra}
+backend/app\api\eol.py:149:        return _stub("接口已预留，当前为 Mock 模式", session_id="EOL-20260401-0001")
+backend/app\api\eol.py:160:    return _stub("接口已预留，当前为 Mock 模式", session_id=sid)
+backend/app\api\eol.py:168:    return _stub("接口已预留，当前为 Mock 模式", session_id=sid)
+backend/app\api\eol.py:176:    return _stub("接口已预留，当前为 Mock 模式", session_id=sid)
+backend/app\api\eol.py:186:    return _stub("中止接口已预留，当前为 Mock 模式", session_id=sid)
+backend/app\api\eol.py:195:    return {"ok": True, "stub": False, "message": "急停已触发，周期发送已停止", "session_id": sid, "emergency_stop": True}
+backend/app\api\eol.py:204:        return {"ok": True, "stub": False, "message": "报告已生成", "session_id": sid, "report": session["report"]}
+backend/app\api\eol.py:205:    return _stub("报告接口已预留，当前为 Mock 模式", session_id=sid, report_id=f"RPT-{sid}")
+backend/app\api\signals.py:139:    return {"ok": True, "stub": True, "message": "接口已预留，当前为 Mock 模式"}
+backend/app\api\signals.py:146:    return {"ok": True, "stub": True, "message": "接口已预留，当前为 Mock 模式"}
+backend/app\api\signals.py:172:    return {"ok": True, "stub": True, "message": "快照接口已预留，当前为 Mock 模式"}
+backend/app\api\signals.py:177:    return {"ok": True, "stub": True, "message": "导出 CSV 接口已预留，当前为 Mock 模式", "path": "exports/curve_mock.csv"}
+backend/app\api\signals.py:182:    return {"ok": True, "stub": True, "message": "曲线选择已保存到 Mock 配置"}
+backend/app\api\signals.py:192:    return {"ok": True, "stub": True, "message": "接口已预留，当前为 Mock 模式"}
+backend/app\api\signals.py:197:    return {"ok": True, "stub": True, "message": "接口已预留，当前为 Mock 模式"}
+backend/app\api\reports.py:39:def _stub(message: str, **extra: Any) -> dict[str, Any]:
+backend/app\api\reports.py:40:    return {"ok": True, "stub": True, "message": message, **extra}
+backend/app\api\reports.py:205:    return _stub("报告目录扫描完成", count=len(rows), reports=[{key: value for key, value in row.items() if key != "session_id"} for row in rows])
+backend/app\api\reports.py:211:    return _stub("打开目录接口已预留，当前为 Mock 模式", path=_DIRECTORY_STATS["path"])
+backend/app\api\reports.py:218:    return _stub("报告目录变更接口已预留，当前为 Mock 模式", path=path)
+backend/app\api\reports.py:240:    return _stub("Word 导出接口已预留，当前为 Mock 模式", report_id=rid)
+backend/app\api\reports.py:246:    return _stub("PDF 导出接口已预留，当前为 Mock 模式", report_id=rid)
+backend/app\api\reports.py:252:    return _stub("报告重新生成任务已提交，当前为 Mock 模式", report_id=rid, status="queued")
+backend/app\api\reports.py:258:    return _stub("打印任务已加入队列，当前为 Mock 模式", report_id=rid)

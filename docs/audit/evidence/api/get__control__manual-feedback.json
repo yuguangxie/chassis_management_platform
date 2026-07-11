@@ -1,0 +1,24 @@
+{
+  "url": "http://127.0.0.1:8800/api/v1/control/manual-feedback",
+  "method": "GET",
+  "status": 200,
+  "headers": {
+    "date": "Fri, 10 Jul 2026 03:01:29 GMT",
+    "server": "uvicorn",
+    "content-length": "220",
+    "content-type": "application/json",
+    "connection": "close"
+  },
+  "body": {
+    "gear": "D",
+    "vehicle_speed": 2.0,
+    "front_steer_feedback": 11,
+    "rear_steer_feedback": 0,
+    "wheel_speeds": "2.1 / 2.0 / 2.0 / 2.1 km/h",
+    "light_feedback": "位置灯, 近光灯",
+    "brake_status": "未制动",
+    "alarm_status": "无告警"
+  },
+  "started_at": "2026-07-10T11:01:30.112970+08:00",
+  "finished_at": "2026-07-10T11:01:30.114291+08:00"
+}

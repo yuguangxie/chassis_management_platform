@@ -1,0 +1,551 @@
+{
+  "audit_time": "2026-07-10T11:23:29.062319+08:00",
+  "scope": "loopback-only temporary channels.dev.yaml",
+  "initial_interlock": {
+    "status": 200,
+    "body": {
+      "overall": "allow",
+      "items": [
+        {
+          "key": "key_frames_online",
+          "label": "关键报文在线",
+          "status": "pass",
+          "value": "在线"
+        },
+        {
+          "key": "no_severe_alarm",
+          "label": "无严重告警",
+          "status": "pass",
+          "value": "正常"
+        },
+        {
+          "key": "speed_limit",
+          "label": "速度上限",
+          "status": "pass",
+          "value": "≤ 8.0 km/h"
+        },
+        {
+          "key": "steering_limit",
+          "label": "转角限幅",
+          "status": "pass",
+          "value": "≤ ±120°"
+        },
+        {
+          "key": "emergency_stop",
+          "label": "急停",
+          "status": "pass",
+          "value": "未触发"
+        },
+        {
+          "key": "watchdog",
+          "label": "看门狗",
+          "status": "pass",
+          "value": "OK (120 ms)"
+        },
+        {
+          "key": "control_channel",
+          "label": "控制通道",
+          "status": "warning",
+          "value": "CAN2 延时 18ms"
+        }
+      ],
+      "reasons": []
+    }
+  },
+  "initial_signals": {
+    "CCU_Vehicle_Speed": {
+      "key": "CCU_Vehicle_Speed",
+      "value": 0.0,
+      "unit": "km/h",
+      "label": null,
+      "quality": "good",
+      "updated_at": "2026-07-10T03:23:29.050511+00:00",
+      "can_id": "0x51",
+      "message_name": "VCU_CCU_Status",
+      "channel": "CAN1"
+    },
+    "SAS_Front_Angle": {
+      "key": "SAS_Front_Angle",
+      "value": 0.0,
+      "unit": "cmd",
+      "label": null,
+      "quality": "good",
+      "updated_at": "2026-07-10T03:23:29.068219+00:00",
+      "can_id": "0xE1",
+      "message_name": "SAS_Angle_Feedback",
+      "channel": "CAN1"
+    },
+    "SAS_Rear_Angle": {
+      "key": "SAS_Rear_Angle",
+      "value": 0.0,
+      "unit": "cmd",
+      "label": null,
+      "quality": "good",
+      "updated_at": "2026-07-10T03:23:29.068228+00:00",
+      "can_id": "0xE1",
+      "message_name": "SAS_Angle_Feedback",
+      "channel": "CAN1"
+    },
+    "Brake_Status": {
+      "key": "Brake_Status",
+      "value": false,
+      "unit": "",
+      "label": null,
+      "quality": "good",
+      "updated_at": "2026-07-10T03:23:29.050538+00:00",
+      "can_id": "0x51",
+      "message_name": "VCU_CCU_Status",
+      "channel": "CAN1"
+    }
+  },
+  "preview": {
+    "status": 200,
+    "body": {
+      "can_id": "0x121",
+      "data": [
+        129,
+        196,
+        60,
+        20,
+        0,
+        64,
+        0,
+        4
+      ],
+      "data_hex": "81 C4 3C 14 00 40 00 04",
+      "note": "前/后转角按 int8 补码编码",
+      "bytes_hex": [
+        "01",
+        "08",
+        "3C",
+        "C4",
+        "00",
+        "00",
+        "00",
+        "00"
+      ],
+      "bytes_dec": [
+        1,
+        8,
+        60,
+        196,
+        0,
+        0,
+        0,
+        0
+      ],
+      "field_notes": [
+        "Byte0 (Gear)：档位请求，0x01 = D",
+        "Byte1 (TargetSpeed)：目标速度，0x08 = 8 × 0.25 = 2.0 km/h",
+        "Byte2 (FrontSteer)：前转角，0xC4 = -60（int8，有符号补码）= -60°",
+        "Byte3 (RearSteer)：后转角，0x3C = 60（int8，有符号补码）= +60°"
+      ]
+    }
+  },
+  "send_once": {
+    "status": 200,
+    "body": {
+      "sent": true,
+      "frame": {
+        "timestamp_ns": 1783653809103851000,
+        "channel": "CAN2",
+        "direction": "tx",
+        "can_id": 289,
+        "can_id_hex": "0x121",
+        "is_extended": false,
+        "is_remote": false,
+        "dlc": 8,
+        "data": [
+          129,
+          196,
+          60,
+          20,
+          0,
+          64,
+          0,
+          4
+        ],
+        "data_hex": "81 C4 3C 14 00 40 00 04",
+        "raw_packet_hex": "08 00 00 01 21 81 C4 3C 14 00 40 00 04",
+        "message_name": "SCU_Control_Command",
+        "parse_status": "ok",
+        "source": "backend"
+      },
+      "periodic": false
+    }
+  },
+  "after_send_once_signals": {
+    "CCU_Vehicle_Speed": {
+      "key": "CCU_Vehicle_Speed",
+      "value": 0.9,
+      "unit": "km/h",
+      "label": null,
+      "quality": "good",
+      "updated_at": "2026-07-10T03:23:30.309849+00:00",
+      "can_id": "0x51",
+      "message_name": "VCU_CCU_Status",
+      "channel": "CAN1"
+    },
+    "SAS_Front_Angle": {
+      "key": "SAS_Front_Angle",
+      "value": -52.9,
+      "unit": "cmd",
+      "label": null,
+      "quality": "good",
+      "updated_at": "2026-07-10T03:23:30.326000+00:00",
+      "can_id": "0xE1",
+      "message_name": "SAS_Angle_Feedback",
+      "channel": "CAN1"
+    },
+    "SAS_Rear_Angle": {
+      "key": "SAS_Rear_Angle",
+      "value": 52.9,
+      "unit": "cmd",
+      "label": null,
+      "quality": "good",
+      "updated_at": "2026-07-10T03:23:30.326009+00:00",
+      "can_id": "0xE1",
+      "message_name": "SAS_Angle_Feedback",
+      "channel": "CAN1"
+    },
+    "Brake_Status": {
+      "key": "Brake_Status",
+      "value": false,
+      "unit": "",
+      "label": null,
+      "quality": "good",
+      "updated_at": "2026-07-10T03:23:30.309875+00:00",
+      "can_id": "0x51",
+      "message_name": "VCU_CCU_Status",
+      "channel": "CAN1"
+    }
+  },
+  "start_periodic": {
+    "status": 200,
+    "body": {
+      "periodic": true,
+      "period_ms": 50
+    }
+  },
+  "stop_periodic": {
+    "status": 200,
+    "body": {
+      "periodic": false
+    }
+  },
+  "safe_stop": {
+    "status": 200,
+    "body": {
+      "sent": true,
+      "frame": {
+        "timestamp_ns": 1783653810816547400,
+        "channel": "CAN2",
+        "direction": "tx",
+        "can_id": 289,
+        "can_id_hex": "0x121",
+        "is_extended": false,
+        "is_remote": false,
+        "dlc": 8,
+        "data": [
+          64,
+          0,
+          0,
+          0,
+          2,
+          0,
+          0,
+          0
+        ],
+        "data_hex": "40 00 00 00 02 00 00 00",
+        "raw_packet_hex": "08 00 00 01 21 40 00 00 00 02 00 00 00",
+        "message_name": "SCU_Control_Command",
+        "parse_status": "ok",
+        "source": "backend"
+      },
+      "periodic": false
+    }
+  },
+  "after_safe_stop_signals": {
+    "CCU_Vehicle_Speed": {
+      "key": "CCU_Vehicle_Speed",
+      "value": 0.0,
+      "unit": "km/h",
+      "label": null,
+      "quality": "good",
+      "updated_at": "2026-07-10T03:23:32.001229+00:00",
+      "can_id": "0x51",
+      "message_name": "VCU_CCU_Status",
+      "channel": "CAN1"
+    },
+    "SAS_Front_Angle": {
+      "key": "SAS_Front_Angle",
+      "value": -6.6,
+      "unit": "cmd",
+      "label": null,
+      "quality": "good",
+      "updated_at": "2026-07-10T03:23:32.016952+00:00",
+      "can_id": "0xE1",
+      "message_name": "SAS_Angle_Feedback",
+      "channel": "CAN1"
+    },
+    "SAS_Rear_Angle": {
+      "key": "SAS_Rear_Angle",
+      "value": 6.6,
+      "unit": "cmd",
+      "label": null,
+      "quality": "good",
+      "updated_at": "2026-07-10T03:23:32.016961+00:00",
+      "can_id": "0xE1",
+      "message_name": "SAS_Angle_Feedback",
+      "channel": "CAN1"
+    },
+    "Brake_Status": {
+      "key": "Brake_Status",
+      "value": true,
+      "unit": "",
+      "label": null,
+      "quality": "good",
+      "updated_at": "2026-07-10T03:23:32.001253+00:00",
+      "can_id": "0x51",
+      "message_name": "VCU_CCU_Status",
+      "channel": "CAN1"
+    }
+  },
+  "overspeed_attempt": {
+    "status": 409,
+    "body": {
+      "detail": {
+        "code": "INTERLOCK_BLOCKED",
+        "message": "安全联锁阻止控制",
+        "details": {
+          "allowed": false,
+          "level": "danger",
+          "rules": [
+            {
+              "rule": "control_channel_online",
+              "label": "控制通道在线",
+              "status": "PASS",
+              "current": true,
+              "threshold": true,
+              "blocking": true
+            },
+            {
+              "rule": "dbc_loaded_or_raw_allowed",
+              "label": "DBC 状态允许控制",
+              "status": "PASS",
+              "current": {
+                "loaded": true,
+                "raw_only": false,
+                "file": "D:\\workspace\\0-yunle\\7_codex\\chassis_eol_management_platform_codex_pack\\chassis_management_platform\\assets\\Yunle_CAN_integrated_candb_jd.dbc",
+                "hash": "387ae48bd84852c8",
+                "version": "Yunle_CAN_Integrated_CANdb Release v1.0.2",
+                "error": null
+              },
+              "threshold": "loaded/raw",
+              "blocking": true
+            },
+            {
+              "rule": "no_severe_alarm",
+              "label": "无严重告警",
+              "status": "PASS",
+              "current": 0,
+              "threshold": "<3",
+              "blocking": true
+            },
+            {
+              "rule": "emergency_released",
+              "label": "急停未触发",
+              "status": "PASS",
+              "current": false,
+              "threshold": false,
+              "blocking": true
+            },
+            {
+              "rule": "database_writable",
+              "label": "数据库可写",
+              "status": "PASS",
+              "current": true,
+              "threshold": true,
+              "blocking": true
+            },
+            {
+              "rule": "single_control_channel",
+              "label": "单一控制通道 CAN2",
+              "status": "PASS",
+              "current": "CAN2",
+              "threshold": "CAN2",
+              "blocking": true
+            },
+            {
+              "rule": "speed_limit",
+              "label": "速度上限",
+              "status": "FAIL",
+              "current": 9.0,
+              "threshold": 3.0,
+              "blocking": true
+            },
+            {
+              "rule": "steering_limit",
+              "label": "转角限幅",
+              "status": "PASS",
+              "current": [
+                -60,
+                60
+              ],
+              "threshold": 120,
+              "blocking": true
+            }
+          ],
+          "reasons": [
+            {
+              "rule": "speed_limit",
+              "label": "速度上限",
+              "status": "FAIL",
+              "current": 9.0,
+              "threshold": 3.0,
+              "blocking": true
+            }
+          ]
+        }
+      }
+    }
+  },
+  "emergency_stop": {
+    "status": 200,
+    "body": {
+      "ok": true,
+      "emergency_stop": true,
+      "message": "急停已触发，周期发送已停止"
+    }
+  },
+  "send_during_emergency": {
+    "status": 409,
+    "body": {
+      "detail": {
+        "code": "INTERLOCK_BLOCKED",
+        "message": "安全联锁阻止控制",
+        "details": {
+          "allowed": false,
+          "level": "danger",
+          "rules": [
+            {
+              "rule": "control_channel_online",
+              "label": "控制通道在线",
+              "status": "PASS",
+              "current": true,
+              "threshold": true,
+              "blocking": true
+            },
+            {
+              "rule": "dbc_loaded_or_raw_allowed",
+              "label": "DBC 状态允许控制",
+              "status": "PASS",
+              "current": {
+                "loaded": true,
+                "raw_only": false,
+                "file": "D:\\workspace\\0-yunle\\7_codex\\chassis_eol_management_platform_codex_pack\\chassis_management_platform\\assets\\Yunle_CAN_integrated_candb_jd.dbc",
+                "hash": "387ae48bd84852c8",
+                "version": "Yunle_CAN_Integrated_CANdb Release v1.0.2",
+                "error": null
+              },
+              "threshold": "loaded/raw",
+              "blocking": true
+            },
+            {
+              "rule": "no_severe_alarm",
+              "label": "无严重告警",
+              "status": "PASS",
+              "current": 0,
+              "threshold": "<3",
+              "blocking": true
+            },
+            {
+              "rule": "emergency_released",
+              "label": "急停未触发",
+              "status": "FAIL",
+              "current": true,
+              "threshold": false,
+              "blocking": true
+            },
+            {
+              "rule": "database_writable",
+              "label": "数据库可写",
+              "status": "PASS",
+              "current": true,
+              "threshold": true,
+              "blocking": true
+            },
+            {
+              "rule": "single_control_channel",
+              "label": "单一控制通道 CAN2",
+              "status": "PASS",
+              "current": "CAN2",
+              "threshold": "CAN2",
+              "blocking": true
+            },
+            {
+              "rule": "speed_limit",
+              "label": "速度上限",
+              "status": "PASS",
+              "current": 2.0,
+              "threshold": 3.0,
+              "blocking": true
+            },
+            {
+              "rule": "steering_limit",
+              "label": "转角限幅",
+              "status": "PASS",
+              "current": [
+                -60,
+                60
+              ],
+              "threshold": 120,
+              "blocking": true
+            }
+          ],
+          "reasons": [
+            {
+              "rule": "emergency_released",
+              "label": "急停未触发",
+              "status": "FAIL",
+              "current": true,
+              "threshold": false,
+              "blocking": true
+            }
+          ]
+        }
+      }
+    }
+  },
+  "emergency_release": {
+    "status": 200,
+    "body": {
+      "ok": true,
+      "emergency_stop": false,
+      "message": "解除急停确认已执行"
+    }
+  },
+  "final_status": {
+    "status": 200,
+    "body": {
+      "can_send_allowed": true,
+      "control_message": "0x121",
+      "period_ms": 50,
+      "control_channel": "CAN2",
+      "periodic_running": false,
+      "last_tx_time": "2026-04-01 10:26:35.250",
+      "tx_fail_count": 0,
+      "emergency_stop": false,
+      "safe_stop_active": false
+    }
+  },
+  "checks": {
+    "actual_front_minus_60_is_c4": true,
+    "actual_rear_plus_60_is_3c": true,
+    "ui_preview_matches_transmitted_payload": false,
+    "overspeed_blocked": true,
+    "emergency_blocks_send": true,
+    "send_once_reached_simulator": true,
+    "safe_stop_reduced_speed": true
+  }
+}

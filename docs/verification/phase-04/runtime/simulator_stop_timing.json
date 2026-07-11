@@ -1,0 +1,6 @@
+{
+    "post_stop":  "simulator_stop_2s_control_rejection.json",
+    "wait_ms":  2200,
+    "pre_stop":  "pre_stop_channels.json",
+    "simulator_stopped_at":  "2026-07-10T19:20:42.7646922+08:00"
+}

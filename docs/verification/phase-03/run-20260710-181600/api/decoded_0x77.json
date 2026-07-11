@@ -1,0 +1,147 @@
+{
+  "request": {
+    "method": "GET",
+    "path": "/can/frames/latest/0x77/decoded",
+    "body": null
+  },
+  "status_code": 200,
+  "trace_id": "0d18d304ef56454b91461ea16fa90426",
+  "body": {
+    "data_source": "runtime+dbc",
+    "mock": false,
+    "quality": "good",
+    "updated_at": "2026-07-10T10:09:32.354374+00:00",
+    "trace_id": "0d18d304ef56454b91461ea16fa90426",
+    "frame": {
+      "key": "CAN2:77",
+      "timestamp_ns": 1783678172326944300,
+      "timestamp": "18:09:32.326.944",
+      "channel": "CAN2",
+      "direction": "RX",
+      "can_id": 119,
+      "can_id_hex": "0x77",
+      "frame_type": "标准帧",
+      "dlc": 8,
+      "data_hex": "00 00 00 00 00 00 00 00",
+      "message_name": "VCU_Warning_Level",
+      "period_ms": 17.6,
+      "status": "正常",
+      "source_session": "S20260401-001",
+      "frame_count": 11,
+      "first_seen": 1783678171.9971957,
+      "last_seen": 1783678172.3269444,
+      "last_seen_ms": 27
+    },
+    "signals": [
+      {
+        "name": "BMS_SOC_Warning",
+        "start_bit": 0,
+        "length": 3,
+        "type": "uint3",
+        "raw": "0x0",
+        "raw_value": 0,
+        "physical_value": 0,
+        "unit": "-",
+        "enum": "0 Normal / 1 Warning / 2 Derating / 3 Fault / 4 Severe",
+        "remark": "unsigned"
+      },
+      {
+        "name": "MCU_Disconnect_Warning",
+        "start_bit": 3,
+        "length": 3,
+        "type": "uint3",
+        "raw": "0x0",
+        "raw_value": 0,
+        "physical_value": 0,
+        "unit": "-",
+        "enum": "0 Normal / 1 Warning / 2 Derating / 3 Fault / 4 Severe",
+        "remark": "unsigned"
+      },
+      {
+        "name": "MCU_Motor_Warning",
+        "start_bit": 6,
+        "length": 3,
+        "type": "uint3",
+        "raw": "0x0",
+        "raw_value": 0,
+        "physical_value": 0,
+        "unit": "-",
+        "enum": "0 Normal / 1 Warning / 2 Derating / 3 Fault / 4 Severe",
+        "remark": "unsigned"
+      },
+      {
+        "name": "MCU_Speed_Warning",
+        "start_bit": 9,
+        "length": 3,
+        "type": "uint3",
+        "raw": "0x0",
+        "raw_value": 0,
+        "physical_value": 0,
+        "unit": "-",
+        "enum": "0 Normal / 1 Warning / 2 Derating / 3 Fault / 4 Severe",
+        "remark": "unsigned"
+      },
+      {
+        "name": "Steering_Disconnect_Warning",
+        "start_bit": 12,
+        "length": 3,
+        "type": "uint3",
+        "raw": "0x0",
+        "raw_value": 0,
+        "physical_value": 0,
+        "unit": "-",
+        "enum": "0 Normal / 1 Warning / 2 Derating / 3 Fault / 4 Severe",
+        "remark": "unsigned"
+      },
+      {
+        "name": "Steering_Lock_Warning",
+        "start_bit": 15,
+        "length": 3,
+        "type": "uint3",
+        "raw": "0x0",
+        "raw_value": 0,
+        "physical_value": 0,
+        "unit": "-",
+        "enum": "0 Normal / 1 Warning / 2 Derating / 3 Fault / 4 Severe",
+        "remark": "unsigned"
+      },
+      {
+        "name": "Steering_Uncontrollable_Warning",
+        "start_bit": 18,
+        "length": 3,
+        "type": "uint3",
+        "raw": "0x0",
+        "raw_value": 0,
+        "physical_value": 0,
+        "unit": "-",
+        "enum": "4 Severe / 3 Fault / 2 Derating / 1 Warning / 0 Normal",
+        "remark": "unsigned"
+      },
+      {
+        "name": "Steering_Error_Warning",
+        "start_bit": 21,
+        "length": 3,
+        "type": "uint3",
+        "raw": "0x0",
+        "raw_value": 0,
+        "physical_value": 0,
+        "unit": "-",
+        "enum": "4 Severe / 3 Fault / 2 Derating / 1 Warning / 0 Normal",
+        "remark": "unsigned"
+      },
+      {
+        "name": "Brake_Error_Warning",
+        "start_bit": 24,
+        "length": 3,
+        "type": "uint3",
+        "raw": "0x0",
+        "raw_value": 0,
+        "physical_value": 0,
+        "unit": "-",
+        "enum": "4 Severe / 3 Fault / 2 Derating / 1 Warning / 0 Normal",
+        "remark": "unsigned"
+      }
+    ],
+    "dbc_status": "decoded"
+  }
+}

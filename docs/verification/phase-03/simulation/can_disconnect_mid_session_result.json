@@ -1,0 +1,92 @@
+{
+  "name": "can_disconnect_mid_session",
+  "session_id": "EOL-3247BCB8C95E",
+  "terminal_status": "FAILED",
+  "failure_step": "low_speed_drive_check",
+  "failure_reason": "assertion speed_response failed: measured=[0.1], expected={'target': 1.5, 'tolerance': 0.5}, quality=good; 安全联锁阻止步骤: CAN1 原始接收在线, CAN2 原始接收在线, 关键速度反馈新鲜",
+  "safe_stop": {
+    "ok": false,
+    "code": "INTERLOCK_BLOCKED",
+    "message": "停车通道不可用，停车锁存保持",
+    "details": {
+      "allowed": false,
+      "operation": "safe_stop",
+      "level": "danger",
+      "rules": [
+        {
+          "rule": "can2_online",
+          "label": "CAN2 原始接收在线",
+          "status": "FAIL",
+          "current": 2093.0,
+          "threshold": "< 2000 ms",
+          "blocking": true
+        },
+        {
+          "rule": "can2_queue_healthy",
+          "label": "CAN2 接收队列健康",
+          "status": "PASS",
+          "current": 0,
+          "threshold": "< 512",
+          "blocking": true
+        },
+        {
+          "rule": "single_control_channel",
+          "label": "唯一控制通道为 CAN2",
+          "status": "PASS",
+          "current": [
+            "CAN2"
+          ],
+          "threshold": [
+            "CAN2"
+          ],
+          "blocking": true
+        },
+        {
+          "rule": "stop_command_shape",
+          "label": "停车命令为零速、N挡并制动",
+          "status": "PASS",
+          "current": {
+            "shift": "N",
+            "drive_mode": "Remote",
+            "target_speed_kmh": 0.0,
+            "front_steering_cmd": 0,
+            "rear_steering_cmd": 0,
+            "brake_enable": true,
+            "left_light": false,
+            "right_light": false,
+            "position_light": false,
+            "low_beam": false,
+            "speed_mode": true
+          },
+          "threshold": {
+            "shift": "N",
+            "target_speed_kmh": 0,
+            "brake_enable": true
+          },
+          "blocking": true
+        }
+      ],
+      "reasons": [
+        {
+          "rule": "can2_online",
+          "label": "CAN2 原始接收在线",
+          "status": "FAIL",
+          "current": 2093.0,
+          "threshold": "< 2000 ms",
+          "blocking": true
+        }
+      ]
+    },
+    "attempts": 0,
+    "latched": true,
+    "alarm": {
+      "id": "control_interlock_blocked",
+      "level": 3,
+      "label": "INTERLOCK_BLOCKED",
+      "description": "停车通道不可用，停车锁存保持",
+      "status": "active",
+      "acked": false
+    }
+  },
+  "passed": true
+}

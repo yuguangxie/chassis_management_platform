@@ -1,0 +1,287 @@
+{
+  "request": {
+    "method": "GET",
+    "path": "/history/dashboard?chassis_no=PH3-NORMAL-001&page=1&page_size=20",
+    "body": null
+  },
+  "status_code": 200,
+  "trace_id": "d7c307f9a4624a718c2f68fe2592d3d8",
+  "body": {
+    "data_source": "sqlite+filesystem",
+    "mock": false,
+    "quality": "good",
+    "updated_at": "2026-07-10T10:09:13.315526+00:00",
+    "trace_id": "d7c307f9a4624a718c2f68fe2592d3d8",
+    "filters": {
+      "start_time": "",
+      "end_time": "",
+      "page": 1,
+      "page_size": 20
+    },
+    "summary": {
+      "total_tests": 68,
+      "pass_rate": 8.8,
+      "fail_count": 30,
+      "alarm_count": 30,
+      "filtered_count": 1
+    },
+    "sessions": [
+      {
+        "session_id": "EOL-0B96CC1113B6",
+        "chassis_no": "PH3-NORMAL-001",
+        "vin": "PH3NORMAL0000001",
+        "serial_no": "PH3-1783678136013",
+        "started_at": "2026-07-10T10:08:56.032852+00:00",
+        "ended_at": "2026-07-10T10:09:12.687046+00:00",
+        "result": "PASS",
+        "failed_step": "-",
+        "operator": "dev-operator",
+        "station_id": "EOL-STATION-01",
+        "report_id": "8d4bd57a-pdf"
+      }
+    ],
+    "selected_session": {
+      "session_id": "EOL-0B96CC1113B6",
+      "duration": "0分16秒",
+      "result": "PASS",
+      "timeline": [
+        {
+          "time": "10:08:56.033",
+          "title": "上电自检",
+          "description": "[{\"name\": \"数据库可写\", \"value\": true, \"unit\": \"\", \"quality\": \"good\", \"source_can_id\": \"\", \"source_timestamp\": \"\"}, {\"name\": \"DBC 已加载\", \"value\": true, \"unit\": \"\", \"quality\": \"good\", \"source_can_id\": \"\", \"source_timestamp\": \"\"}, {\"name\": \"急停已释放\", \"value\": true, \"unit\": \"\", \"quality\": \"good\", \"source_can_id\": \"\", \"source_timestamp\": \"\"}]",
+          "status": "PASS",
+          "icon": "settings",
+          "step_id": "power_on_self_check",
+          "duration_ms": 108
+        },
+        {
+          "time": "10:08:56.141",
+          "title": "CAN 通信检测",
+          "description": "[{\"name\": \"CAN1 原始接收在线\", \"value\": true, \"unit\": \"\", \"quality\": \"good\", \"source_can_id\": \"\", \"source_timestamp\": \"\"}, {\"name\": \"CAN2 原始接收在线\", \"value\": true, \"unit\": \"\", \"quality\": \"good\", \"source_can_id\": \"\", \"source_timestamp\": \"\"}, {\"name\": \"关键报文完整\", \"value\": {\"present\": [\"0x168\", \"0x51\", \"0x77\", \"0xE1\"], \"missing\": []}, \"unit\": \"\", \"quality\": \"good\", \"source_can_id\": \"\", \"source_timestamp\": \"\"}]",
+          "status": "PASS",
+          "icon": "network",
+          "step_id": "can_communication_check",
+          "duration_ms": 202
+        },
+        {
+          "time": "10:08:56.344",
+          "title": "BMS 检测",
+          "description": "[{\"name\": \"BMS 总压在范围内\", \"value\": 52.0, \"unit\": \"V\", \"quality\": \"good\", \"source_can_id\": \"0x100\", \"source_timestamp\": \"2026-07-10T10:08:56.588016+00:00\"}, {\"name\": \"BMS SOC 不低于阈值\", \"value\": 86, \"unit\": \"%\", \"quality\": \"good\", \"source_can_id\": \"0x100\", \"source_timestamp\": \"2026-07-10T10:08:56.588028+00:00\"}, {\"name\": \"NTC 温度均在范围内\", \"value\": [25, 26, 24], \"unit\": \"degC\", \"quality\": \"good\", \"source_can_id\": \"0x103\", \"source_timestamp\": \"2026-07-10T10:08:56.595127+00:00\"}, {\"name\": \"0x102 保护位均未触发\", \"value\": {\"BMS_Protect_Bit_00\": 0, \"BMS_Protect_Bit_01\": 0, \"BMS_Protect_Bit_02\": 0, \"BMS_Protect_Bit_03\": 0, \"BMS_Protect_Bit_04\": 0, \"BMS_Protect_Bit_05\": 0, \"BMS_Protect_Bit_06\": 0, \"BMS_Protect_Bit_07\": 0, \"BMS_Protect_Bit_08\": 0, \"BMS_Protect_Bit_09\": 0, \"BMS_Protect_Bit_10\": 0, \"BMS_Protect_Bit_11\": 0, \"BMS_Protect_Bit_12\": 0, \"BMS_Protect_Bit_13\": 0, \"BMS_Protect_Bit_14\": 0, \"BMS_Protect_Bit_15\": 0, \"BMS_Protect_Short_Circuit\": 0, \"BMS_Protect_Over_Current\": 0, \"BMS_Protect_Over_Temperature\": 0, \"BMS_Protect_Under_Temperature\": 0, \"BMS_Protect_Over_Voltage\": 0, \"BMS_Protect_Under_Voltage\": 0, \"BMS_Protect_MOS_Fault\": 0, \"BMS_Protect_Precharge_Fault\": 0, \"BMS_Protect_Bitmap\": 0}, \"unit\": \"bool/bitmap\", \"quality\": \"good\", \"source_can_id\": \"0x102\", \"source_timestamp\": \"2026-07-10T10:08:56.592491+00:00\"}]",
+          "status": "PASS",
+          "icon": "battery",
+          "step_id": "bms_check",
+          "duration_ms": 253
+        },
+        {
+          "time": "10:08:56.597",
+          "title": "VCU 状态检测",
+          "description": "[{\"name\": \"点火状态有效\", \"value\": 1, \"unit\": \"\", \"quality\": \"good\", \"source_can_id\": \"0x51\", \"source_timestamp\": \"2026-07-10T10:08:56.798755+00:00\"}, {\"name\": \"初始车速接近零\", \"value\": 0.0, \"unit\": \"km/h\", \"quality\": \"good\", \"source_can_id\": \"0x51\", \"source_timestamp\": \"2026-07-10T10:08:56.798769+00:00\"}, {\"name\": \"无非预期制动冲突\", \"value\": [false, false], \"unit\": \"bool\", \"quality\": \"good\", \"source_can_id\": \"0x51\", \"source_timestamp\": \"2026-07-10T10:08:56.798775+00:00\"}]",
+          "status": "PASS",
+          "icon": "settings",
+          "step_id": "vcu_status_check",
+          "duration_ms": 260
+        },
+        {
+          "time": "10:08:56.859",
+          "title": "电机心跳检测",
+          "description": "[{\"name\": \"双电机心跳在线\", \"value\": {\"present\": [\"0x703\", \"0x704\"], \"missing\": []}, \"unit\": \"\", \"quality\": \"good\", \"source_can_id\": \"\", \"source_timestamp\": \"\"}]",
+          "status": "PASS",
+          "icon": "settings",
+          "step_id": "motor_heartbeat_check",
+          "duration_ms": 206
+        },
+        {
+          "time": "10:08:57.065",
+          "title": "档位检测",
+          "description": "[{\"name\": \"档位反馈跟随命令\", \"value\": [{\"expected\": 0, \"actual\": 0, \"observed\": [0.0, 0.0, 0.0, 0.0, 0.0], \"matched\": true}, {\"expected\": 1, \"actual\": 1, \"observed\": [1.0, 1.0, 1.0, 1.0, 1.0], \"matched\": true}, {\"expected\": 3, \"actual\": 3, \"observed\": [3.0, 3.0, 3.0, 3.0, 3.0], \"matched\": true}, {\"expected\": 0, \"actual\": 0, \"observed\": [0.0, 0.0, 0.0, 0.0], \"matched\": true}], \"unit\": \"\", \"quality\": \"good\", \"source_can_id\": \"\", \"source_timestamp\": \"\"}]",
+          "status": "PASS",
+          "icon": "settings",
+          "step_id": "shift_check",
+          "duration_ms": 1594
+        },
+        {
+          "time": "10:08:58.660",
+          "title": "低速驱动检测",
+          "description": "[{\"name\": \"车速达到目标附近\", \"value\": [0.0, 0.1, 0.3, 0.4, 0.6, 0.7, 0.9, 1.0, 1.2, 1.3, 1.4, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5], \"unit\": \"km/h\", \"quality\": \"good\", \"source_can_id\": \"0x51\", \"source_timestamp\": \"2026-07-10T10:08:59.849122+00:00\"}, {\"name\": \"四轮轮速一致\", \"value\": [[200.0, 200.0, 200.0, 200.0]], \"unit\": \"rpm\", \"quality\": \"good\", \"source_can_id\": \"0x168\", \"source_timestamp\": \"2026-07-10T10:08:59.854663+00:00\"}]",
+          "status": "PASS",
+          "icon": "gauge",
+          "step_id": "low_speed_drive_check",
+          "duration_ms": 2497
+        },
+        {
+          "time": "10:09:01.158",
+          "title": "转向检测",
+          "description": "[{\"name\": \"前转向反馈跟随命令\", \"value\": [{\"expected\": 30.0, \"actual\": 29.9, \"error\": 0.10000000000000142, \"sample_count\": 20}, {\"expected\": -30.0, \"actual\": -29.9, \"error\": 0.10000000000000142, \"sample_count\": 21}, {\"expected\": 0.0, \"actual\": 0.0, \"error\": 0.0, \"sample_count\": 20}], \"unit\": \"cmd\", \"quality\": \"good\", \"source_can_id\": \"0xE1\", \"source_timestamp\": \"2026-07-10T10:09:04.764741+00:00\"}, {\"name\": \"后转向反馈跟随命令\", \"value\": [{\"expected\": 30.0, \"actual\": 29.9, \"error\": 0.10000000000000142, \"sample_count\": 20}, {\"expected\": -30.0, \"actual\": -29.9, \"error\": 0.10000000000000142, \"sample_count\": 21}, {\"expected\": 0.0, \"actual\": 0.0, \"error\": 0.0, \"sample_count\": 20}], \"unit\": \"cmd\", \"quality\": \"good\", \"source_can_id\": \"0xE1\", \"source_timestamp\": \"2026-07-10T10:09:04.764751+00:00\"}]",
+          "status": "PASS",
+          "icon": "steering",
+          "step_id": "steering_check",
+          "duration_ms": 4055
+        },
+        {
+          "time": "10:09:05.214",
+          "title": "灯光检测",
+          "description": "[{\"name\": \"灯光反馈跟随命令\", \"value\": [{\"signal\": \"Left_Turn_Light_Status\", \"expected\": true, \"actual\": true, \"matched\": true}, {\"signal\": \"Right_Turn_Light_Status\", \"expected\": true, \"actual\": true, \"matched\": true}, {\"signal\": \"Position_Light_Status\", \"expected\": true, \"actual\": true, \"matched\": true}, {\"signal\": \"Low_Beam_Status\", \"expected\": true, \"actual\": true, \"matched\": true}], \"unit\": \"bool\", \"quality\": \"good\", \"source_can_id\": \"\", \"source_timestamp\": \"\"}]",
+          "status": "PASS",
+          "icon": "settings",
+          "step_id": "light_check",
+          "duration_ms": 4391
+        },
+        {
+          "time": "10:09:09.605",
+          "title": "制动停止检测",
+          "description": "[{\"name\": \"制动后车速归零\", \"value\": 0.0, \"unit\": \"km/h\", \"quality\": \"good\", \"source_can_id\": \"0x51\", \"source_timestamp\": \"2026-07-10T10:09:11.858096+00:00\"}, {\"name\": \"制动反馈已激活\", \"value\": [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true], \"unit\": \"bool\", \"quality\": \"good\", \"source_can_id\": \"0x51\", \"source_timestamp\": \"2026-07-10T10:09:11.678844+00:00\"}]",
+          "status": "PASS",
+          "icon": "brake",
+          "step_id": "brake_stop_check",
+          "duration_ms": 2600
+        },
+        {
+          "time": "10:09:12.206",
+          "title": "告警复查",
+          "description": "[{\"name\": \"最高告警等级为零\", \"value\": 0, \"unit\": \"\", \"quality\": \"good\", \"source_can_id\": \"0x77\", \"source_timestamp\": \"2026-07-10T10:09:12.387974+00:00\"}, {\"name\": \"无关键通道超时\", \"value\": {\"unhealthy_channels\": []}, \"unit\": \"\", \"quality\": \"good\", \"source_can_id\": \"\", \"source_timestamp\": \"\"}]",
+          "status": "PASS",
+          "icon": "alarm",
+          "step_id": "alarm_recheck",
+          "duration_ms": 202
+        },
+        {
+          "time": "10:09:12.410",
+          "title": "报告生成",
+          "description": "[{\"name\": \"会话数据已写入数据库\", \"value\": true, \"unit\": \"\", \"quality\": \"good\", \"source_can_id\": \"\", \"source_timestamp\": \"\"}, {\"name\": \"报告文件已生成\", \"value\": {\"report_id\": \"9e11e88e\", \"missing\": []}, \"unit\": \"\", \"quality\": \"good\", \"source_can_id\": \"\", \"source_timestamp\": \"\"}]",
+          "status": "PASS",
+          "icon": "report",
+          "step_id": "report_generation",
+          "duration_ms": 276
+        }
+      ],
+      "operator_logs": [
+        {
+          "time": "10:08:56.025",
+          "user": "dev-operator",
+          "action": "eol_create_session",
+          "target": "EOL-0B96CC1113B6",
+          "params": "{\"chassis_no\": \"PH3-NORMAL-001\", \"vin\": \"PH3NORMAL0000001\", \"serial_no\": \"PH3-1783678136013\", \"operator\": \"op01\", \"station_id\": \"EOL-STATION-01\", \"plan_id\": \"default_chassis_eol_v1\", \"remarks\": \"\"}",
+          "result": "成功",
+          "trace_id": ""
+        },
+        {
+          "time": "10:08:56.033",
+          "user": "dev-operator",
+          "action": "eol_start",
+          "target": "EOL-0B96CC1113B6",
+          "params": "{}",
+          "result": "成功",
+          "trace_id": ""
+        },
+        {
+          "time": "10:09:12.690",
+          "user": "eol-engine",
+          "action": "eol_session_finalized",
+          "target": "EOL-0B96CC1113B6",
+          "params": "{\"status\": \"PASSED\", \"failure_reason\": \"\", \"report_id\": \"9e11e88e\", \"safe_stop\": null}",
+          "result": "PASS",
+          "trace_id": ""
+        }
+      ],
+      "downloads": [
+        {
+          "key": "raw_can",
+          "name": "原始 CAN 数据",
+          "extension": ".csv",
+          "size": "0 B",
+          "size_bytes": 0,
+          "available": true,
+          "download_url": "/test-sessions/EOL-0B96CC1113B6/download/raw-can"
+        },
+        {
+          "key": "decoded_signals",
+          "name": "解析后信号数据",
+          "extension": ".csv",
+          "size": "0 B",
+          "size_bytes": 0,
+          "available": true,
+          "download_url": "/test-sessions/EOL-0B96CC1113B6/download/decoded-signals"
+        },
+        {
+          "key": "report_bundle",
+          "name": "报告与数据包",
+          "extension": ".zip",
+          "size": "416.74 KB",
+          "size_bytes": 426737,
+          "available": true,
+          "download_url": "/test-sessions/EOL-0B96CC1113B6/download/report-bundle"
+        },
+        {
+          "key": "audit_log",
+          "name": "审计日志",
+          "extension": ".json",
+          "size": "0 B",
+          "size_bytes": 0,
+          "available": true,
+          "download_url": "/test-sessions/EOL-0B96CC1113B6/download/audit-log"
+        },
+        {
+          "key": "curve_replay",
+          "name": "曲线回放包",
+          "extension": ".zip",
+          "size": "0 B",
+          "size_bytes": 0,
+          "available": true,
+          "download_url": "/test-sessions/EOL-0B96CC1113B6/download/curve-replay"
+        }
+      ]
+    },
+    "charts": {
+      "vehicle_result_trend": {
+        "vin": "PH3NORMAL0000001",
+        "x_axis": [
+          "07-10"
+        ],
+        "pass": [
+          1
+        ],
+        "fail": [
+          0
+        ]
+      },
+      "failure_pareto": {
+        "categories": [
+          "转向检测",
+          "低速驱动检测",
+          "告警复查",
+          "制动停止检测",
+          "上电自检",
+          "BMS 检测",
+          "灯光检测",
+          "档位检测"
+        ],
+        "counts": [
+          6,
+          6,
+          4,
+          4,
+          4,
+          4,
+          1,
+          1
+        ],
+        "cumulative_percent": [
+          20.0,
+          40.0,
+          53.3,
+          66.7,
+          80.0,
+          93.3,
+          96.7,
+          100.0
+        ]
+      }
+    },
+    "pagination": {
+      "page": 1,
+      "page_size": 20,
+      "total": 1,
+      "total_pages": 1
+    }
+  }
+}

@@ -1,0 +1,362 @@
+{
+  "request": {
+    "method": "GET",
+    "path": "/signals/timeseries?mode=live",
+    "body": null
+  },
+  "status_code": 200,
+  "trace_id": "2bf915d27e3048b89a09b4e185047746",
+  "body": {
+    "data_source": "runtime",
+    "mock": false,
+    "quality": "good",
+    "updated_at": "2026-07-10T10:08:55.969441+00:00",
+    "trace_id": "2bf915d27e3048b89a09b4e185047746",
+    "mode": "live",
+    "charts": {
+      "speed_vs_vehicle": {
+        "x_axis": [
+          "10:08:55",
+          "10:08:55",
+          "10:08:55",
+          "10:08:55",
+          "10:08:55",
+          "10:08:55",
+          "10:08:55",
+          "10:08:55",
+          "10:08:55",
+          "10:08:55"
+        ],
+        "series": [
+          {
+            "name": "SCU_Target_Speed",
+            "unit": "km/h",
+            "color": "#21C55D",
+            "data": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "name": "Vehicle_Speed",
+            "unit": "km/h",
+            "color": "#2F80FF",
+            "data": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        ]
+      },
+      "speed_vs_wheels": {
+        "x_axis": [
+          "10:08:55",
+          "10:08:55",
+          "10:08:55",
+          "10:08:55",
+          "10:08:55",
+          "10:08:55",
+          "10:08:55",
+          "10:08:55",
+          "10:08:55",
+          "10:08:55"
+        ],
+        "series": [
+          {
+            "name": "SCU_Target_Speed",
+            "unit": "km/h",
+            "color": "#21C55D",
+            "data": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "name": "FL_Wheel_Speed",
+            "unit": "km/h",
+            "color": "#7DD3FC",
+            "data": [
+              4.0,
+              4.0,
+              4.0,
+              4.0,
+              4.0,
+              4.0,
+              4.0,
+              4.0,
+              4.0,
+              4.0
+            ]
+          },
+          {
+            "name": "FR_Wheel_Speed",
+            "unit": "km/h",
+            "color": "#60A5FA",
+            "data": [
+              4.0,
+              4.0,
+              4.0,
+              4.0,
+              4.0,
+              4.0,
+              4.0,
+              4.0,
+              4.0,
+              4.0
+            ]
+          },
+          {
+            "name": "RL_Wheel_Speed",
+            "unit": "km/h",
+            "color": "#A78BFA",
+            "data": [
+              4.0,
+              4.0,
+              4.0,
+              4.0,
+              4.0,
+              4.0,
+              4.0,
+              4.0,
+              4.0,
+              4.0
+            ]
+          },
+          {
+            "name": "RR_Wheel_Speed",
+            "unit": "km/h",
+            "color": "#F472B6",
+            "data": [
+              4.0,
+              4.0,
+              4.0,
+              4.0,
+              4.0,
+              4.0,
+              4.0,
+              4.0,
+              4.0,
+              4.0
+            ]
+          }
+        ]
+      },
+      "steering": {
+        "x_axis": [
+          "10:08:55",
+          "10:08:55",
+          "10:08:55",
+          "10:08:55",
+          "10:08:55",
+          "10:08:55",
+          "10:08:55",
+          "10:08:55",
+          "10:08:55",
+          "10:08:55"
+        ],
+        "series": [
+          {
+            "name": "Front_Steer_Cmd",
+            "unit": "deg/raw",
+            "color": "#F6C343",
+            "data": []
+          },
+          {
+            "name": "Front_Steer_Fdbk",
+            "unit": "deg",
+            "color": "#2F80FF",
+            "data": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "name": "Rear_Steer_Cmd",
+            "unit": "deg/raw",
+            "color": "#22D3EE",
+            "data": []
+          },
+          {
+            "name": "Rear_Steer_Fdbk",
+            "unit": "deg",
+            "color": "#21C55D",
+            "data": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        ]
+      },
+      "bms": {
+        "x_axis": [
+          "10:08:55",
+          "10:08:55",
+          "10:08:55",
+          "10:08:55"
+        ],
+        "series": [
+          {
+            "name": "BMS_Total_Voltage",
+            "unit": "V",
+            "color": "#F6C343",
+            "data": [
+              52.0,
+              52.0,
+              52.0,
+              52.0
+            ]
+          },
+          {
+            "name": "BMS_Current",
+            "unit": "A",
+            "color": "#F472B6",
+            "data": [
+              1.2,
+              1.2,
+              1.2,
+              1.2
+            ]
+          },
+          {
+            "name": "SOC",
+            "unit": "%",
+            "color": "#22D3EE",
+            "data": [
+              86.0,
+              86.0,
+              86.0,
+              86.0
+            ]
+          }
+        ]
+      },
+      "motor": {
+        "x_axis": [],
+        "series": [
+          {
+            "name": "Motor_Speed",
+            "unit": "rpm",
+            "color": "#F97316",
+            "data": []
+          },
+          {
+            "name": "Motor_Current_A",
+            "unit": "A",
+            "color": "#2F80FF",
+            "data": []
+          }
+        ]
+      },
+      "alarm_timeline": {
+        "x_axis": [
+          "10:08:55",
+          "10:08:55",
+          "10:08:55",
+          "10:08:55",
+          "10:08:55",
+          "10:08:55",
+          "10:08:55",
+          "10:08:55",
+          "10:08:55",
+          "10:08:55"
+        ],
+        "series": [
+          {
+            "name": "正常",
+            "unit": "level",
+            "color": "#21C55D",
+            "data": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "name": "提示",
+            "unit": "level",
+            "color": "#2F80FF",
+            "data": [
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null
+            ]
+          },
+          {
+            "name": "次要",
+            "unit": "level",
+            "color": "#F6C343",
+            "data": [
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null
+            ]
+          },
+          {
+            "name": "严重",
+            "unit": "level",
+            "color": "#EF4444",
+            "data": [
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

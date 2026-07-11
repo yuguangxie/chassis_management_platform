@@ -1,0 +1,10 @@
+﻿[
+    {
+        "script":  "test",
+        "exit_code":  1
+    },
+    {
+        "script":  "lint",
+        "exit_code":  1
+    }
+]

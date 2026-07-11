@@ -1,0 +1,4 @@
+﻿PROFILE=bms_low_soc
+PID=31444
+SOC=86
+WARNING=0

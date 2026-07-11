@@ -1,0 +1,14 @@
+﻿[
+    {
+        "ProcessId":  43060,
+        "ParentProcessId":  42940,
+        "Name":  "python.exe",
+        "CommandLine":  "\"D:\\workspace\\0-yunle\\7_codex\\chassis_eol_management_platform_codex_pack\\chassis_management_platform\\backend\\.venv\\Scripts\\python.exe\" scripts/dev_simulator.py --profile normal_pass --rate-hz 60 "
+    },
+    {
+        "ProcessId":  39320,
+        "ParentProcessId":  43060,
+        "Name":  "python.exe",
+        "CommandLine":  "\"D:\\workspace\\0-yunle\\7_codex\\chassis_eol_management_platform_codex_pack\\chassis_management_platform\\backend\\.venv\\Scripts\\python.exe\" scripts/dev_simulator.py --profile normal_pass --rate-hz 60 "
+    }
+]

@@ -1,0 +1,195 @@
+﻿{
+  "channels_status": 200,
+  "channels": [
+    {
+      "channel": "CAN1",
+      "online": false,
+      "transport_connected": true,
+      "receive_age_ms": 10945.2,
+      "queue_healthy": true,
+      "queue_depth": 0,
+      "queue_capacity": 512,
+      "queue_dropped": 0,
+      "pipeline_queue_depth": 0,
+      "pipeline_queue_capacity": 4096,
+      "pipeline_queue_dropped": 0,
+      "stale_dropped": 0,
+      "malformed_datagrams": 0,
+      "processing_errors": 0,
+      "fps": 525.0,
+      "rx_count": 19542,
+      "tx_count": 0,
+      "error_count": 0,
+      "last_frame_at": 1783682035.249658,
+      "last_frame_hex": "80 00 00 01 00 00 00 00",
+      "protocol": "udp",
+      "local_ip": "127.0.0.1",
+      "local_port": 8234,
+      "device_ip": "127.0.0.1",
+      "device_port": 12341
+    },
+    {
+      "channel": "CAN2",
+      "online": false,
+      "transport_connected": true,
+      "receive_age_ms": 10944.9,
+      "queue_healthy": true,
+      "queue_depth": 0,
+      "queue_capacity": 512,
+      "queue_dropped": 0,
+      "pipeline_queue_depth": 0,
+      "pipeline_queue_capacity": 4096,
+      "pipeline_queue_dropped": 0,
+      "stale_dropped": 0,
+      "malformed_datagrams": 0,
+      "processing_errors": 0,
+      "fps": 525.0,
+      "rx_count": 33591,
+      "tx_count": 0,
+      "error_count": 0,
+      "last_frame_at": 1783682035.2498596,
+      "last_frame_hex": "02 08 00 0C 56 00 00 00",
+      "protocol": "udp",
+      "local_ip": "127.0.0.1",
+      "local_port": 8235,
+      "device_ip": "127.0.0.1",
+      "device_port": 12342
+    }
+  ],
+  "control_status": 409,
+  "control": {
+    "code": "INTERLOCK_BLOCKED",
+    "message": "��ȫ������ֹ����",
+    "details": {
+      "allowed": false,
+      "operation": "manual",
+      "level": "danger",
+      "rules": [
+        {
+          "rule": "can2_online",
+          "label": "CAN2 ԭʼ��������",
+          "status": "FAIL",
+          "current": 10948.2,
+          "threshold": "< 2000 ms",
+          "blocking": true
+        },
+        {
+          "rule": "can2_queue_healthy",
+          "label": "CAN2 ���ն��н���",
+          "status": "PASS",
+          "current": 0,
+          "threshold": "< 512",
+          "blocking": true
+        },
+        {
+          "rule": "single_control_channel",
+          "label": "Ψһ����ͨ��Ϊ CAN2",
+          "status": "PASS",
+          "current": [
+            "CAN2"
+          ],
+          "threshold": [
+            "CAN2"
+          ],
+          "blocking": true
+        },
+        {
+          "rule": "dbc_ready",
+          "label": "DBC/���ǹ������",
+          "status": "PASS",
+          "current": {
+            "loaded": true,
+            "raw_only": false,
+            "file": "D:\\workspace\\0-yunle\\7_codex\\chassis_eol_management_platform_codex_pack\\chassis_management_platform\\assets\\Yunle_CAN_integrated_candb_jd.dbc",
+            "hash": "387ae48bd84852c8",
+            "version": "Yunle_CAN_Integrated_CANdb Release v1.0.2",
+            "error": null
+          },
+          "threshold": "loaded or explicitly raw-allowed",
+          "blocking": true
+        },
+        {
+          "rule": "no_severe_alarm",
+          "label": "�����ظ澯",
+          "status": "PASS",
+          "current": 0,
+          "threshold": "< 3",
+          "blocking": true
+        },
+        {
+          "rule": "database_writable",
+          "label": "���ݿ��д",
+          "status": "PASS",
+          "current": true,
+          "threshold": true,
+          "blocking": true
+        },
+        {
+          "rule": "emergency_released",
+          "label": "��ͣδ����",
+          "status": "PASS",
+          "current": false,
+          "threshold": false,
+          "blocking": true
+        },
+        {
+          "rule": "safe_stop_released",
+          "label": "��ȫͣ��δ����",
+          "status": "PASS",
+          "current": false,
+          "threshold": false,
+          "blocking": true
+        },
+        {
+          "rule": "critical_feedback_fresh",
+          "label": "�ؼ��ٶȷ�������",
+          "status": "FAIL",
+          "current": null,
+          "threshold": "age < 2.0s",
+          "blocking": true
+        },
+        {
+          "rule": "speed_limit",
+          "label": "Ŀ���ٶȲ�������ȫ����",
+          "status": "PASS",
+          "current": 0.0,
+          "threshold": 3.0,
+          "blocking": true
+        },
+        {
+          "rule": "steering_limit",
+          "label": "ǰ��ת���ڰ�ȫ��Χ��",
+          "status": "PASS",
+          "current": [
+            0,
+            0
+          ],
+          "threshold": [
+            -120,
+            120
+          ],
+          "blocking": true
+        }
+      ],
+      "reasons": [
+        {
+          "rule": "can2_online",
+          "label": "CAN2 ԭʼ��������",
+          "status": "FAIL",
+          "current": 10948.2,
+          "threshold": "< 2000 ms",
+          "blocking": true
+        },
+        {
+          "rule": "critical_feedback_fresh",
+          "label": "�ؼ��ٶȷ�������",
+          "status": "FAIL",
+          "current": null,
+          "threshold": "age < 2.0s",
+          "blocking": true
+        }
+      ]
+    },
+    "trace_id": "37e3c2c4414c459cb30e7bb377117b9e"
+  }
+}

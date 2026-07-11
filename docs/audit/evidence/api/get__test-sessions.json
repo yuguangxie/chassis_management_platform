@@ -1,0 +1,113 @@
+{
+  "url": "http://127.0.0.1:8800/api/v1/test-sessions",
+  "method": "GET",
+  "status": 200,
+  "headers": {
+    "date": "Fri, 10 Jul 2026 03:01:29 GMT",
+    "server": "uvicorn",
+    "content-length": "2171",
+    "content-type": "application/json",
+    "connection": "close"
+  },
+  "body": {
+    "items": [
+      {
+        "session_id": "EOL-20260401-0001",
+        "chassis_no": "YL-JD-001",
+        "vin": "L0000000000000001",
+        "serial_no": "SN-20260401-001",
+        "started_at": "2026-04-01 10:15:22",
+        "ended_at": "2026-04-01 10:26:47",
+        "result": "PASS",
+        "failed_step": "-",
+        "operator": "op01",
+        "station_id": "EOL-STATION-01",
+        "report_id": "RPT-20260401-0001"
+      },
+      {
+        "session_id": "EOL-20260401-0000",
+        "chassis_no": "YL-JD-000",
+        "vin": "L0000000000000000",
+        "serial_no": "SN-20260401-000",
+        "started_at": "2026-04-01 09:58:13",
+        "ended_at": "2026-04-01 10:12:47",
+        "result": "PASS",
+        "failed_step": "-",
+        "operator": "op01",
+        "station_id": "EOL-STATION-01",
+        "report_id": "RPT-20260401-0000"
+      },
+      {
+        "session_id": "EOL-20260401-000-1",
+        "chassis_no": "YL-JD-099",
+        "vin": "L0000000000000099",
+        "serial_no": "SN-20260401-099",
+        "started_at": "2026-04-01 09:40:35",
+        "ended_at": "2026-04-01 09:55:03",
+        "result": "PASS",
+        "failed_step": "-",
+        "operator": "op01",
+        "station_id": "EOL-STATION-01",
+        "report_id": "RPT-20260401-0099"
+      },
+      {
+        "session_id": "EOL-20260401-000-2",
+        "chassis_no": "YL-JD-098",
+        "vin": "L0000000000000098",
+        "serial_no": "SN-20260401-098",
+        "started_at": "2026-04-01 09:22:11",
+        "ended_at": "2026-04-01 09:36:58",
+        "result": "FAIL",
+        "failed_step": "低速驱动检测",
+        "operator": "op01",
+        "station_id": "EOL-STATION-01",
+        "report_id": "RPT-20260401-0098"
+      },
+      {
+        "session_id": "EOL-20260401-000-3",
+        "chassis_no": "YL-JD-097",
+        "vin": "L0000000000000097",
+        "serial_no": "SN-20260401-097",
+        "started_at": "2026-04-01 09:04:03",
+        "ended_at": "2026-04-01 09:18:20",
+        "result": "PASS",
+        "failed_step": "-",
+        "operator": "op02",
+        "station_id": "EOL-STATION-01",
+        "report_id": "RPT-20260401-0097"
+      },
+      {
+        "session_id": "EOL-20260401-000-4",
+        "chassis_no": "YL-JD-096",
+        "vin": "L0000000000000096",
+        "serial_no": "SN-20260401-096",
+        "started_at": "2026-04-01 08:44:51",
+        "ended_at": "2026-04-01 08:59:27",
+        "result": "PASS",
+        "failed_step": "-",
+        "operator": "op02",
+        "station_id": "EOL-STATION-01",
+        "report_id": "RPT-20260401-0096"
+      },
+      {
+        "session_id": "EOL-20260401-000-5",
+        "chassis_no": "YL-JD-095",
+        "vin": "L0000000000000095",
+        "serial_no": "SN-20260401-095",
+        "started_at": "2026-04-01 08:24:12",
+        "ended_at": "2026-04-01 08:38:49",
+        "result": "PASS",
+        "failed_step": "-",
+        "operator": "op01",
+        "station_id": "EOL-STATION-01",
+        "report_id": "RPT-20260401-0095"
+      }
+    ],
+    "total": 128,
+    "page": 1,
+    "page_size": 20,
+    "total_pages": 7
+  },
+  "started_at": "2026-07-10T11:01:30.135063+08:00",
+  "finished_at": "2026-07-10T11:01:30.136784+08:00"
+}

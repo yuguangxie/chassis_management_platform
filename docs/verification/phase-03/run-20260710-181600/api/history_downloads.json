@@ -1,0 +1,56 @@
+{
+  "request": {
+    "method": "GET",
+    "path": "/test-sessions/EOL-1E0EDEEC82C1/downloads",
+    "body": null
+  },
+  "status_code": 200,
+  "trace_id": "b95805fdee0a4e2ba22299dbd0f23e0c",
+  "body": [
+    {
+      "key": "raw_can",
+      "name": "原始 CAN 数据",
+      "extension": ".csv",
+      "size": "0 B",
+      "size_bytes": 0,
+      "available": true,
+      "download_url": "/test-sessions/EOL-1E0EDEEC82C1/download/raw-can"
+    },
+    {
+      "key": "decoded_signals",
+      "name": "解析后信号数据",
+      "extension": ".csv",
+      "size": "0 B",
+      "size_bytes": 0,
+      "available": true,
+      "download_url": "/test-sessions/EOL-1E0EDEEC82C1/download/decoded-signals"
+    },
+    {
+      "key": "report_bundle",
+      "name": "报告与数据包",
+      "extension": ".zip",
+      "size": "416.59 KB",
+      "size_bytes": 426584,
+      "available": true,
+      "download_url": "/test-sessions/EOL-1E0EDEEC82C1/download/report-bundle"
+    },
+    {
+      "key": "audit_log",
+      "name": "审计日志",
+      "extension": ".json",
+      "size": "0 B",
+      "size_bytes": 0,
+      "available": true,
+      "download_url": "/test-sessions/EOL-1E0EDEEC82C1/download/audit-log"
+    },
+    {
+      "key": "curve_replay",
+      "name": "曲线回放包",
+      "extension": ".zip",
+      "size": "0 B",
+      "size_bytes": 0,
+      "available": true,
+      "download_url": "/test-sessions/EOL-1E0EDEEC82C1/download/curve-replay"
+    }
+  ]
+}

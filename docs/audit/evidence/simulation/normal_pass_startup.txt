@@ -1,0 +1,46 @@
+PID=24304
+UDP_LISTENERS=2
+LATEST_TOTAL=13
+CURRENT_SIGNALS=1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+
+
+LocalAddress LocalPort OwningProcess
+------------ --------- -------------
+127.0.0.1        12342         60848
+127.0.0.1        12341         60848
+
+
+
+
+[
+    {
+        "channel":  "CAN1",
+        "online":  true,
+        "fps":  2.5,
+        "rx_count":  324,
+        "tx_count":  0,
+        "error_count":  0,
+        "last_frame_at":  1783652553.5645862,
+        "last_frame_hex":  "01 00 00 00 00 00 00 00",
+        "protocol":  "udp",
+        "local_ip":  "[REDACTED_STATION_HOST]",
+        "local_port":  8234,
+        "device_ip":  "[REDACTED_CAN1_GATEWAY]",
+        "device_port":  1234
+    },
+    {
+        "channel":  "CAN2",
+        "online":  true,
+        "fps":  5.3,
+        "rx_count":  702,
+        "tx_count":  0,
+        "error_count":  0,
+        "last_frame_at":  1783652553.580014,
+        "last_frame_hex":  "00 00 00 00 00 00 00 00",
+        "protocol":  "udp",
+        "local_ip":  "[REDACTED_STATION_HOST]",
+        "local_port":  8235,
+        "device_ip":  "[REDACTED_CAN2_GATEWAY]",
+        "device_port":  1234
+    }
+]

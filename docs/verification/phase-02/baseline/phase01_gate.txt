@@ -1,0 +1,5 @@
+﻿phase01_gate=passed
+source=docs/verification/phase-01/PHASE_01_GATE.md
+phase01_loopback_all_passed=true
+real_vehicle_connected=false
+captured_at=2026-07-10T14:30:28.5197526+08:00

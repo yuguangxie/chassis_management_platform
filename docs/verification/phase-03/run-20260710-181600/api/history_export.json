@@ -1,0 +1,24 @@
+{
+  "request": {
+    "method": "POST",
+    "path": "/history/export",
+    "body": {
+      "chassis_no": "PH3-NORMAL-001"
+    }
+  },
+  "status_code": 200,
+  "trace_id": "72306443bae64a6080a0e2664202a426",
+  "body": {
+    "ok": true,
+    "message": "历史查询结果已导出",
+    "trace_id": "72306443bae64a6080a0e2664202a426",
+    "data_source": "service",
+    "mock": false,
+    "details": {
+      "file_name": "history_20260710_180951_200339.csv",
+      "file_size_bytes": 473,
+      "sha256": "7efc119ea24ff0db2ec5b68ccc38b1b7c5a0701bcf0c741c1915b3a3351b2d87",
+      "download_url": "/history/exports/history_20260710_180951_200339.csv"
+    }
+  }
+}

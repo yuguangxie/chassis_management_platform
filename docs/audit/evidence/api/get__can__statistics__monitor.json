@@ -1,0 +1,187 @@
+{
+  "url": "http://127.0.0.1:8800/api/v1/can/statistics/monitor",
+  "method": "GET",
+  "status": 200,
+  "headers": {
+    "date": "Fri, 10 Jul 2026 03:01:29 GMT",
+    "server": "uvicorn",
+    "content-length": "2109",
+    "content-type": "application/json",
+    "connection": "close"
+  },
+  "body": {
+    "can_id_distribution": [
+      {
+        "can_id_hex": "0x121",
+        "count": 4872,
+        "percent": 14.2
+      },
+      {
+        "can_id_hex": "0x100",
+        "count": 4210,
+        "percent": 12.3
+      },
+      {
+        "can_id_hex": "0x101",
+        "count": 3966,
+        "percent": 11.6
+      },
+      {
+        "can_id_hex": "0x51",
+        "count": 3812,
+        "percent": 11.1
+      },
+      {
+        "can_id_hex": "0x168",
+        "count": 3201,
+        "percent": 9.4
+      },
+      {
+        "can_id_hex": "0x77",
+        "count": 2988,
+        "percent": 8.7
+      },
+      {
+        "can_id_hex": "0x102",
+        "count": 2432,
+        "percent": 7.1
+      },
+      {
+        "can_id_hex": "0x103",
+        "count": 2011,
+        "percent": 5.9
+      },
+      {
+        "can_id_hex": "0xE1",
+        "count": 1756,
+        "percent": 5.1
+      },
+      {
+        "can_id_hex": "0x703",
+        "count": 1283,
+        "percent": 3.7
+      }
+    ],
+    "fps_trend": [
+      {
+        "time": "10:21:35",
+        "can1": 720,
+        "can2": 560
+      },
+      {
+        "time": "10:22:35",
+        "can1": 780,
+        "can2": 590
+      },
+      {
+        "time": "10:23:35",
+        "can1": 735,
+        "can2": 575
+      },
+      {
+        "time": "10:24:35",
+        "can1": 770,
+        "can2": 600
+      },
+      {
+        "time": "10:25:35",
+        "can1": 745,
+        "can2": 582
+      },
+      {
+        "time": "10:26:35",
+        "can1": 790,
+        "can2": 610
+      }
+    ],
+    "period_jitter": [
+      {
+        "time": "10:21:35",
+        "id_121": 4.2,
+        "id_51": 1.2,
+        "id_100": -3.5
+      },
+      {
+        "time": "10:22:35",
+        "id_121": 5.1,
+        "id_51": 0.8,
+        "id_100": -4.2
+      },
+      {
+        "time": "10:23:35",
+        "id_121": 3.8,
+        "id_51": 1.6,
+        "id_100": -2.8
+      },
+      {
+        "time": "10:24:35",
+        "id_121": 4.9,
+        "id_51": 1.1,
+        "id_100": -3.9
+      },
+      {
+        "time": "10:25:35",
+        "id_121": 3.6,
+        "id_51": 1.4,
+        "id_100": -4.6
+      },
+      {
+        "time": "10:26:35",
+        "id_121": 5.4,
+        "id_51": 0.9,
+        "id_100": -3.2
+      }
+    ],
+    "error_summary": {
+      "timeout_count": 23,
+      "error_frame_count": 4,
+      "protocol_error_count": 1
+    },
+    "history_files": [
+      {
+        "file_id": "raw_can_20260401_102015",
+        "file_name": "raw_can_20260401_102015.bin",
+        "session_id": "S20260401-001",
+        "started_at": "10:20:15",
+        "size": "122 MB"
+      },
+      {
+        "file_id": "raw_can_20260401_095430",
+        "file_name": "raw_can_20260401_095430.bin",
+        "session_id": "S20260401-002",
+        "started_at": "09:54:30",
+        "size": "118 MB"
+      },
+      {
+        "file_id": "raw_can_20260401_083012",
+        "file_name": "raw_can_20260401_083012.bin",
+        "session_id": "S20260401-003",
+        "started_at": "08:30:12",
+        "size": "97 MB"
+      },
+      {
+        "file_id": "raw_can_20260331_171512",
+        "file_name": "raw_can_20260331_171512.bin",
+        "session_id": "S20260331-001",
+        "started_at": "17:15:12",
+        "size": "104 MB"
+      },
+      {
+        "file_id": "raw_can_20260331_153045",
+        "file_name": "raw_can_20260331_153045.bin",
+        "session_id": "S20260331-002",
+        "started_at": "15:30:45",
+        "size": "91 MB"
+      }
+    ],
+    "footer_status": {
+      "recording": true,
+      "uptime": "02:15:48",
+      "buffer_usage": 26,
+      "rx_fps": 1284,
+      "tx_fps": 162
+    }
+  },
+  "started_at": "2026-07-10T11:01:30.046508+08:00",
+  "finished_at": "2026-07-10T11:01:30.048286+08:00"
+}

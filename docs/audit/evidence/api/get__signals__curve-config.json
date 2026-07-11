@@ -1,0 +1,179 @@
+{
+  "url": "http://127.0.0.1:8800/api/v1/signals/curve-config",
+  "method": "GET",
+  "status": 200,
+  "headers": {
+    "date": "Fri, 10 Jul 2026 03:01:29 GMT",
+    "server": "uvicorn",
+    "content-length": "2117",
+    "content-type": "application/json",
+    "connection": "close"
+  },
+  "body": {
+    "groups": [
+      {
+        "key": "speed",
+        "label": "速度",
+        "count": 6
+      },
+      {
+        "key": "wheel",
+        "label": "轮速",
+        "count": 4
+      },
+      {
+        "key": "steering",
+        "label": "转向",
+        "count": 8
+      },
+      {
+        "key": "bms",
+        "label": "BMS",
+        "count": 12
+      },
+      {
+        "key": "motor",
+        "label": "电机",
+        "count": 10
+      },
+      {
+        "key": "alarm",
+        "label": "告警",
+        "count": 7
+      },
+      {
+        "key": "custom",
+        "label": "自定义",
+        "count": 0
+      }
+    ],
+    "signals": [
+      {
+        "name": "SCU_Target_Speed",
+        "can_id": "0x121",
+        "unit": "km/h",
+        "color": "#21C55D",
+        "current_value": 30.0,
+        "selected": true
+      },
+      {
+        "name": "Vehicle_Speed",
+        "can_id": "0x051",
+        "unit": "km/h",
+        "color": "#2F80FF",
+        "current_value": 29.7,
+        "selected": true
+      },
+      {
+        "name": "FL_Wheel_Speed",
+        "can_id": "0x168",
+        "unit": "km/h",
+        "color": "#7DD3FC",
+        "current_value": 29.6,
+        "selected": true
+      },
+      {
+        "name": "FR_Wheel_Speed",
+        "can_id": "0x168",
+        "unit": "km/h",
+        "color": "#60A5FA",
+        "current_value": 29.8,
+        "selected": true
+      },
+      {
+        "name": "RL_Wheel_Speed",
+        "can_id": "0x168",
+        "unit": "km/h",
+        "color": "#A78BFA",
+        "current_value": 29.5,
+        "selected": true
+      },
+      {
+        "name": "RR_Wheel_Speed",
+        "can_id": "0x168",
+        "unit": "km/h",
+        "color": "#F472B6",
+        "current_value": 29.4,
+        "selected": true
+      },
+      {
+        "name": "Front_Steer_Cmd",
+        "can_id": "0x121",
+        "unit": "deg/raw",
+        "color": "#F6C343",
+        "current_value": -2.3,
+        "selected": true
+      },
+      {
+        "name": "Front_Steer_Fdbk",
+        "can_id": "0x0E1",
+        "unit": "deg",
+        "color": "#2F80FF",
+        "current_value": -2.1,
+        "selected": true
+      },
+      {
+        "name": "Rear_Steer_Cmd",
+        "can_id": "0x121",
+        "unit": "deg/raw",
+        "color": "#22D3EE",
+        "current_value": -0.6,
+        "selected": true
+      },
+      {
+        "name": "Rear_Steer_Fdbk",
+        "can_id": "0x0E1",
+        "unit": "deg",
+        "color": "#21C55D",
+        "current_value": -0.5,
+        "selected": true
+      },
+      {
+        "name": "BMS_Total_Voltage",
+        "can_id": "0x100",
+        "unit": "V",
+        "color": "#F6C343",
+        "current_value": 605.2,
+        "selected": true
+      },
+      {
+        "name": "BMS_Current",
+        "can_id": "0x100",
+        "unit": "A",
+        "color": "#F472B6",
+        "current_value": -15.6,
+        "selected": true
+      },
+      {
+        "name": "SOC",
+        "can_id": "0x100",
+        "unit": "%",
+        "color": "#22D3EE",
+        "current_value": 78.6,
+        "selected": true
+      },
+      {
+        "name": "Motor_Speed",
+        "can_id": "0x181",
+        "unit": "rpm",
+        "color": "#F97316",
+        "current_value": 1450,
+        "selected": true
+      },
+      {
+        "name": "Motor_Current_A",
+        "can_id": "0x181",
+        "unit": "A",
+        "color": "#2F80FF",
+        "current_value": 28.4,
+        "selected": true
+      }
+    ],
+    "default_window": "5分钟",
+    "default_sample_rate": "100 Hz",
+    "default_downsample": "平均值",
+    "default_playback_speed": "1.0x"
+  },
+  "started_at": "2026-07-10T11:01:30.068739+08:00",
+  "finished_at": "2026-07-10T11:01:30.070554+08:00"
+}

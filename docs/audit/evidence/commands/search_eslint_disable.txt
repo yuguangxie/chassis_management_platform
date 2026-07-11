@@ -1,0 +1,4 @@
+﻿PATTERN: eslint-disable
+MATCHES: 0
+
+

@@ -1,0 +1,14 @@
+[
+  {
+    "level": "warn",
+    "message": "[ECharts] Can't get DOM width or height. Please check dom.clientWidth and dom.clientHeight. They should not be 0.For example, you may need to call this in the callback of window.onload.",
+    "timestamp": "2026-07-10T03:04:59.244Z",
+    "url": "http://127.0.0.1:5173/node_modules/.vite/deps/echarts.js?v=7787b115"
+  },
+  {
+    "level": "warn",
+    "message": "[ECharts] Can't get DOM width or height. Please check dom.clientWidth and dom.clientHeight. They should not be 0.For example, you may need to call this in the callback of window.onload.",
+    "timestamp": "2026-07-10T03:04:59.248Z",
+    "url": "http://127.0.0.1:5173/node_modules/.vite/deps/echarts.js?v=7787b115"
+  }
+]

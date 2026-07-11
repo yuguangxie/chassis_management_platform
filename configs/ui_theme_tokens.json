@@ -1,0 +1,66 @@
+{
+  "themeName": "deep-blue-industrial-tech",
+  "colors": {
+    "bgPage": "#07111F",
+    "bgSidebar": "#0A1628",
+    "bgCard": "#0E1E33",
+    "bgCardElevated": "#10243D",
+    "primary": "#2F80FF",
+    "primaryHover": "#4C95FF",
+    "success": "#21C55D",
+    "warning": "#F6C343",
+    "danger": "#EF4444",
+    "severe": "#FF2D55",
+    "textPrimary": "#EAF2FF",
+    "textSecondary": "#95A8C6",
+    "borderSubtle": "#1E3A5F",
+    "gridLine": "#22486F",
+    "disabled": "#4B5E7A"
+  },
+  "font": {
+    "family": "Inter, Microsoft YaHei UI, Segoe UI, sans-serif",
+    "mono": "JetBrains Mono, Consolas, monospace",
+    "metric": "DIN Alternate, Inter, sans-serif"
+  },
+  "fontSize": {
+    "xs": 11,
+    "sm": 12,
+    "md": 14,
+    "lg": 16,
+    "xl": 20,
+    "metric": 36
+  },
+  "spacing": {
+    "xs": 4,
+    "sm": 8,
+    "md": 12,
+    "lg": 16,
+    "xl": 24
+  },
+  "radius": {
+    "sm": 4,
+    "md": 8,
+    "lg": 10,
+    "pill": 999
+  },
+  "shadow": {
+    "card": "0 8px 24px rgba(0,0,0,0.25)",
+    "modal": "0 24px 64px rgba(0,0,0,0.45)"
+  },
+  "status": {
+    "normal": "#21C55D",
+    "pass": "#21C55D",
+    "warning": "#F6C343",
+    "paused": "#F6C343",
+    "fail": "#EF4444",
+    "fault": "#EF4444",
+    "emergency": "#FF2D55",
+    "unknown": "#64748B"
+  },
+  "layout": {
+    "sidebarWidth": 220,
+    "topbarHeight": 56,
+    "cardGap": 16,
+    "tableRowHeight": 34
+  }
+}

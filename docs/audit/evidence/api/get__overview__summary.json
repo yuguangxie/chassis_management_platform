@@ -1,0 +1,327 @@
+{
+  "url": "http://127.0.0.1:8800/api/v1/overview/summary",
+  "method": "GET",
+  "status": 200,
+  "headers": {
+    "date": "Fri, 10 Jul 2026 03:01:29 GMT",
+    "server": "uvicorn",
+    "content-length": "4256",
+    "content-type": "application/json",
+    "connection": "close"
+  },
+  "body": {
+    "station": {
+      "station_id": "EOL-STATION-01",
+      "operator": "op01",
+      "software_version": "v1.0.2",
+      "dbc_version": "Yunle_CAN_Integrated_CANdb",
+      "database": {
+        "name": "SQLite",
+        "status": "normal"
+      },
+      "control_channel": "CAN2",
+      "mock_enabled": false,
+      "current_time": "2026-07-10 11:01:29"
+    },
+    "kpi": {
+      "today_total": 18,
+      "pass_rate": 94.4,
+      "fail_count": 1,
+      "avg_duration": "08:42",
+      "software_version": "v1.0.2"
+    },
+    "channels": {
+      "CAN1": {
+        "online": true,
+        "local": "[REDACTED_STATION_HOST]:8234",
+        "device": "[REDACTED_CAN1_GATEWAY]:1234",
+        "protocol": "UDP",
+        "fps": 820,
+        "error_frames": 0,
+        "last_frame_ms": 12,
+        "last_data_hex": "00 00 14 14 14 14 00 00"
+      },
+      "CAN2": {
+        "online": true,
+        "local": "[REDACTED_STATION_HOST]:8235",
+        "device": "[REDACTED_CAN2_GATEWAY]:1234",
+        "protocol": "UDP",
+        "fps": 610,
+        "error_frames": 0,
+        "last_frame_ms": 10,
+        "last_data_hex": "21 22 21 22 21 22 00 00"
+      }
+    },
+    "current_vehicle": {
+      "chassis_no": "YL-JD-001",
+      "vin": "L0000000000000001",
+      "serial_no": "SN-20260401-001",
+      "test_plan": "标准下线方案 V1",
+      "operator": "op01",
+      "current_step": "BMS检测",
+      "session_id": "EOL-20260401-0001"
+    },
+    "alarm_summary": {
+      "max_alarm_level": 0,
+      "max_alarm_label": "Normal",
+      "bms_protect_status": "全部未触发",
+      "emergency_stop": false,
+      "protection_items": [
+        {
+          "name": "过压保护",
+          "status": "正常"
+        },
+        {
+          "name": "欠压保护",
+          "status": "正常"
+        },
+        {
+          "name": "过流保护",
+          "status": "正常"
+        },
+        {
+          "name": "过温保护",
+          "status": "正常"
+        },
+        {
+          "name": "绝缘故障",
+          "status": "正常"
+        },
+        {
+          "name": "预充超时",
+          "status": "正常"
+        },
+        {
+          "name": "继电器粘连",
+          "status": "正常"
+        },
+        {
+          "name": "SOC过低",
+          "status": "正常"
+        }
+      ]
+    },
+    "charts": {
+      "today_result": {
+        "total": 18,
+        "items": [
+          {
+            "name": "PASS",
+            "value": 17,
+            "percent": 94.4
+          },
+          {
+            "name": "FAIL",
+            "value": 1,
+            "percent": 5.6
+          },
+          {
+            "name": "RUNNING",
+            "value": 0,
+            "percent": 0.0
+          },
+          {
+            "name": "中止",
+            "value": 0,
+            "percent": 0.0
+          }
+        ]
+      },
+      "hourly_output": [
+        {
+          "hour": "00",
+          "value": 0
+        },
+        {
+          "hour": "02",
+          "value": 1
+        },
+        {
+          "hour": "04",
+          "value": 2
+        },
+        {
+          "hour": "06",
+          "value": 3
+        },
+        {
+          "hour": "08",
+          "value": 5
+        },
+        {
+          "hour": "10",
+          "value": 7
+        },
+        {
+          "hour": "12",
+          "value": 3
+        },
+        {
+          "hour": "14",
+          "value": 2
+        },
+        {
+          "hour": "16",
+          "value": 2
+        },
+        {
+          "hour": "18",
+          "value": 1
+        },
+        {
+          "hour": "20",
+          "value": 0
+        },
+        {
+          "hour": "22",
+          "value": 0
+        }
+      ],
+      "fps_trend": [
+        {
+          "time": "09:56",
+          "can1": 900,
+          "can2": 610
+        },
+        {
+          "time": "10:01",
+          "can1": 920,
+          "can2": 620
+        },
+        {
+          "time": "10:06",
+          "can1": 890,
+          "can2": 600
+        },
+        {
+          "time": "10:11",
+          "can1": 930,
+          "can2": 615
+        },
+        {
+          "time": "10:16",
+          "can1": 910,
+          "can2": 605
+        },
+        {
+          "time": "10:21",
+          "can1": 940,
+          "can2": 620
+        },
+        {
+          "time": "10:26",
+          "can1": 920,
+          "can2": 610
+        }
+      ]
+    },
+    "recent_sessions": [
+      {
+        "session_id": "EOL-20260401-0001",
+        "chassis_no": "YL-JD-001",
+        "vin": "L0000000000000001",
+        "started_at": "2026-04-01 10:15:22",
+        "ended_at": "—",
+        "result": "RUNNING",
+        "operator": "op01",
+        "report": null
+      },
+      {
+        "session_id": "EOL-20260401-0000",
+        "chassis_no": "YL-JD-000",
+        "vin": "L0000000000000000",
+        "started_at": "2026-04-01 09:58:13",
+        "ended_at": "2026-04-01 10:12:47",
+        "result": "PASS",
+        "operator": "op01",
+        "report": "RPT-20260401-0000"
+      },
+      {
+        "session_id": "EOL-20260401-000-1",
+        "chassis_no": "YL-JD-099",
+        "vin": "L0000000000000099",
+        "started_at": "2026-04-01 09:12:20",
+        "ended_at": "2026-04-01 09:28:03",
+        "result": "PASS",
+        "operator": "op01",
+        "report": "RPT-20260401-000-1"
+      },
+      {
+        "session_id": "EOL-20260401-000-2",
+        "chassis_no": "YL-JD-098",
+        "vin": "L0000000000000098",
+        "started_at": "2026-04-01 08:41:09",
+        "ended_at": "2026-04-01 08:57:50",
+        "result": "FAIL",
+        "operator": "op02",
+        "report": "RPT-20260401-000-2"
+      }
+    ],
+    "status": {
+      "station_id": "EOL-STATION-01",
+      "operator": "op01",
+      "software_version": "v1.0.2",
+      "database": {
+        "type": "SQLite",
+        "writable": true
+      },
+      "control_channel": "CAN2",
+      "emergency_stop": false,
+      "mock_enabled": false,
+      "max_alarm_level": 0,
+      "dbc": {
+        "loaded": true,
+        "raw_only": false,
+        "file": "D:\\workspace\\0-yunle\\7_codex\\chassis_eol_management_platform_codex_pack\\chassis_management_platform\\assets\\Yunle_CAN_integrated_candb_jd.dbc",
+        "hash": "387ae48bd84852c8",
+        "version": "Yunle_CAN_Integrated_CANdb Release v1.0.2",
+        "error": null
+      },
+      "channels": [
+        {
+          "channel": "CAN1",
+          "online": false,
+          "fps": 0.0,
+          "rx_count": 0,
+          "tx_count": 0,
+          "error_count": 0,
+          "last_frame_at": 0.0,
+          "last_frame_hex": "",
+          "protocol": "udp",
+          "local_ip": "[REDACTED_STATION_HOST]",
+          "local_port": 8234,
+          "device_ip": "[REDACTED_CAN1_GATEWAY]",
+          "device_port": 1234
+        },
+        {
+          "channel": "CAN2",
+          "online": false,
+          "fps": 0.0,
+          "rx_count": 0,
+          "tx_count": 0,
+          "error_count": 0,
+          "last_frame_at": 0.0,
+          "last_frame_hex": "",
+          "protocol": "udp",
+          "local_ip": "[REDACTED_STATION_HOST]",
+          "local_port": 8235,
+          "device_ip": "[REDACTED_CAN2_GATEWAY]",
+          "device_port": 1234
+        }
+      ]
+    },
+    "signals": {
+      "signals": {},
+      "watchlist": [
+        "BMS_SOC",
+        "BMS_Voltage",
+        "Vehicle_Speed",
+        "SAS_Front_Angle",
+        "SAS_Rear_Angle",
+        "VCU_Max_Warning_Level"
+      ]
+    }
+  },
+  "started_at": "2026-07-10T11:01:29.994311+08:00",
+  "finished_at": "2026-07-10T11:01:29.995814+08:00"
+}

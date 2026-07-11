@@ -1,0 +1,8 @@
+﻿HTTP/1.1 422 Unprocessable Content
+date: Fri, 10 Jul 2026 11:48:44 GMT
+server: uvicorn
+x-trace-id: c1e3a192d195419fbcb7f9adeeb8918f
+content-length: 279
+content-type: application/json
+
+{"code":"VALIDATION_ERROR","message":"请求参数校验失败","details":{"errors":[{"type":"json_invalid","loc":["body",1],"msg":"JSON decode error","input":{},"ctx":{"error":"Expecting property name enclosed in double quotes"}}]},"trace_id":"c1e3a192d195419fbcb7f9adeeb8918f"}

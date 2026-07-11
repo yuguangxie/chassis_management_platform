@@ -1,0 +1,219 @@
+{
+  "request": {
+    "method": "GET",
+    "path": "/signals/curve-config",
+    "body": null
+  },
+  "status_code": 200,
+  "trace_id": "83c2bf5a84da48319cc966b32a6245bc",
+  "body": {
+    "data_source": "runtime",
+    "mock": false,
+    "quality": "good",
+    "updated_at": "2026-07-10T10:08:36.641312+00:00",
+    "trace_id": "83c2bf5a84da48319cc966b32a6245bc",
+    "groups": [
+      {
+        "key": "speed",
+        "label": "速度",
+        "count": 2
+      },
+      {
+        "key": "wheel",
+        "label": "轮速",
+        "count": 4
+      },
+      {
+        "key": "steering",
+        "label": "转向",
+        "count": 4
+      },
+      {
+        "key": "bms",
+        "label": "BMS",
+        "count": 3
+      },
+      {
+        "key": "motor",
+        "label": "电机",
+        "count": 2
+      },
+      {
+        "key": "alarm",
+        "label": "告警",
+        "count": 1
+      },
+      {
+        "key": "custom",
+        "label": "自定义",
+        "count": 0
+      }
+    ],
+    "signals": [
+      {
+        "name": "SCU_Target_Speed",
+        "source_signal": "SCU_Target_Speed_Feedback",
+        "can_id": "0x7F1",
+        "unit": "km/h",
+        "color": "#21C55D",
+        "current_value": 0.0,
+        "selected": true,
+        "quality": "good"
+      },
+      {
+        "name": "Vehicle_Speed",
+        "source_signal": "CCU_Vehicle_Speed",
+        "can_id": "0x51",
+        "unit": "km/h",
+        "color": "#2F80FF",
+        "current_value": 0.0,
+        "selected": true,
+        "quality": "good"
+      },
+      {
+        "name": "FL_Wheel_Speed",
+        "source_signal": "Wheel_Speed_Front_Left_RPM",
+        "can_id": "0x168",
+        "unit": "km/h",
+        "color": "#7DD3FC",
+        "current_value": 4.0,
+        "selected": true,
+        "quality": "good"
+      },
+      {
+        "name": "FR_Wheel_Speed",
+        "source_signal": "Wheel_Speed_Front_Right_RPM",
+        "can_id": "0x168",
+        "unit": "km/h",
+        "color": "#60A5FA",
+        "current_value": 4.0,
+        "selected": true,
+        "quality": "good"
+      },
+      {
+        "name": "RL_Wheel_Speed",
+        "source_signal": "Wheel_Speed_Rear_Left_RPM",
+        "can_id": "0x168",
+        "unit": "km/h",
+        "color": "#A78BFA",
+        "current_value": 4.0,
+        "selected": true,
+        "quality": "good"
+      },
+      {
+        "name": "RR_Wheel_Speed",
+        "source_signal": "Wheel_Speed_Rear_Right_RPM",
+        "can_id": "0x168",
+        "unit": "km/h",
+        "color": "#F472B6",
+        "current_value": 4.0,
+        "selected": true,
+        "quality": "good"
+      },
+      {
+        "name": "Front_Steer_Cmd",
+        "source_signal": "SCU_Steering_Angle_Front",
+        "can_id": "0x121",
+        "unit": "deg/raw",
+        "color": "#F6C343",
+        "current_value": null,
+        "selected": true,
+        "quality": "unavailable"
+      },
+      {
+        "name": "Front_Steer_Fdbk",
+        "source_signal": "SAS_Front_Angle",
+        "can_id": "0xE1",
+        "unit": "deg",
+        "color": "#2F80FF",
+        "current_value": 0.0,
+        "selected": true,
+        "quality": "good"
+      },
+      {
+        "name": "Rear_Steer_Cmd",
+        "source_signal": "SCU_Steering_Angle_Rear",
+        "can_id": "0x121",
+        "unit": "deg/raw",
+        "color": "#22D3EE",
+        "current_value": null,
+        "selected": true,
+        "quality": "unavailable"
+      },
+      {
+        "name": "Rear_Steer_Fdbk",
+        "source_signal": "SAS_Rear_Angle",
+        "can_id": "0xE1",
+        "unit": "deg",
+        "color": "#21C55D",
+        "current_value": 0.0,
+        "selected": true,
+        "quality": "good"
+      },
+      {
+        "name": "BMS_Total_Voltage",
+        "source_signal": "BMS_Voltage",
+        "can_id": "0x100",
+        "unit": "V",
+        "color": "#F6C343",
+        "current_value": 52.0,
+        "selected": true,
+        "quality": "good"
+      },
+      {
+        "name": "BMS_Current",
+        "source_signal": "BMS_Current",
+        "can_id": "0x100",
+        "unit": "A",
+        "color": "#F472B6",
+        "current_value": 1.2,
+        "selected": true,
+        "quality": "good"
+      },
+      {
+        "name": "SOC",
+        "source_signal": "BMS_SOC",
+        "can_id": "0x100",
+        "unit": "%",
+        "color": "#22D3EE",
+        "current_value": 86.0,
+        "selected": true,
+        "quality": "good"
+      },
+      {
+        "name": "Motor_Speed",
+        "source_signal": "Speed_feed_left",
+        "can_id": "0x284",
+        "unit": "rpm",
+        "color": "#F97316",
+        "current_value": null,
+        "selected": true,
+        "quality": "unavailable"
+      },
+      {
+        "name": "Motor_Current_A",
+        "source_signal": "Torque_feed_left",
+        "can_id": "0x384",
+        "unit": "A",
+        "color": "#2F80FF",
+        "current_value": null,
+        "selected": true,
+        "quality": "unavailable"
+      },
+      {
+        "name": "Alarm_Level",
+        "source_signal": "VCU_Max_Warning_Level",
+        "can_id": "0x77",
+        "unit": "level",
+        "color": "#EF4444",
+        "current_value": 0.0,
+        "selected": true,
+        "quality": "good"
+      }
+    ],
+    "default_window": "5分钟",
+    "default_sample_rate": "100 Hz",
+    "default_downsample": "平均值",
+    "default_playback_speed": "1.0x"
+  }
+}

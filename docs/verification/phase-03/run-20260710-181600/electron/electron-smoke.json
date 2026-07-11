@@ -1,0 +1,10 @@
+{
+  "targetUrl": "http://127.0.0.1:5173/report-management",
+  "renderer": {
+    "desktopFilesExposed": true,
+    "scanButtonPresent": false,
+    "reportRowsBefore": 0,
+    "reportRowsAfter": 0,
+    "toast": ""
+  }
+}

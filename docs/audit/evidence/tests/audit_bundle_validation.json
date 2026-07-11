@@ -1,0 +1,268 @@
+{
+  "ok": true,
+  "failure_count": 0,
+  "failures": [],
+  "checks": {
+    "required_files": {
+      "AUDIT_INDEX.md": {
+        "exists": true,
+        "bytes": 1599,
+        "ok": true
+      },
+      "00_EXECUTIVE_SUMMARY.md": {
+        "exists": true,
+        "bytes": 2982,
+        "ok": true
+      },
+      "01_PROJECT_BASELINE.md": {
+        "exists": true,
+        "bytes": 3556,
+        "ok": true
+      },
+      "02_UI_FIDELITY_AUDIT.md": {
+        "exists": true,
+        "bytes": 15045,
+        "ok": true
+      },
+      "03_PAGE_FUNCTION_AUDIT.md": {
+        "exists": true,
+        "bytes": 12404,
+        "ok": true
+      },
+      "04_FRONTEND_ARCHITECTURE_AUDIT.md": {
+        "exists": true,
+        "bytes": 2719,
+        "ok": true
+      },
+      "05_BACKEND_API_AUDIT.md": {
+        "exists": true,
+        "bytes": 2962,
+        "ok": true
+      },
+      "06_CAN_DBC_PROTOCOL_AUDIT.md": {
+        "exists": true,
+        "bytes": 2251,
+        "ok": true
+      },
+      "07_SIMULATION_E2E_AUDIT.md": {
+        "exists": true,
+        "bytes": 2235,
+        "ok": true
+      },
+      "08_EOL_TEST_ENGINE_AUDIT.md": {
+        "exists": true,
+        "bytes": 1848,
+        "ok": true
+      },
+      "09_DATABASE_LOG_REPORT_AUDIT.md": {
+        "exists": true,
+        "bytes": 2062,
+        "ok": true
+      },
+      "10_SECURITY_SAFETY_AUDIT.md": {
+        "exists": true,
+        "bytes": 2646,
+        "ok": true
+      },
+      "11_TEST_QUALITY_AUDIT.md": {
+        "exists": true,
+        "bytes": 1740,
+        "ok": true
+      },
+      "12_PERFORMANCE_RELIABILITY_AUDIT.md": {
+        "exists": true,
+        "bytes": 1539,
+        "ok": true
+      },
+      "13_PACKAGING_DEPLOYMENT_AUDIT.md": {
+        "exists": true,
+        "bytes": 1536,
+        "ok": true
+      },
+      "14_ISSUE_REGISTER.md": {
+        "exists": true,
+        "bytes": 36146,
+        "ok": true
+      },
+      "15_REMEDIATION_PLAN.md": {
+        "exists": true,
+        "bytes": 5077,
+        "ok": true
+      },
+      "AUDIT_MANIFEST.md": {
+        "exists": true,
+        "bytes": 36728,
+        "ok": true
+      },
+      "audit_results.json": {
+        "exists": true,
+        "bytes": 28982,
+        "ok": true
+      },
+      "issue_register.csv": {
+        "exists": true,
+        "bytes": 22980,
+        "ok": true
+      }
+    },
+    "audit_results": {
+      "valid_json": true,
+      "page_count": 11,
+      "issue_counts": {
+        "p0": 5,
+        "p1": 12,
+        "p2": 19,
+        "p3": 6
+      },
+      "production_readiness": "not_ready"
+    },
+    "issue_csv": {
+      "row_count": 42,
+      "headers": [
+        "issue_id",
+        "category",
+        "module",
+        "severity",
+        "title",
+        "phenomenon",
+        "impact",
+        "reproduction",
+        "evidence",
+        "code",
+        "cause",
+        "recommendation",
+        "effort",
+        "dependencies",
+        "status",
+        "blocks_production",
+        "vehicle_safety"
+      ]
+    },
+    "screenshots": {
+      "online_count": 22,
+      "reference_count": 10,
+      "diff_composite_count": 10,
+      "dimensions": {
+        "01_overview_1366x768.png": [
+          1366,
+          768
+        ],
+        "01_overview_1920x1080.png": [
+          1920,
+          1080
+        ],
+        "02_network_config_1366x768.png": [
+          1366,
+          768
+        ],
+        "02_network_config_1920x1080.png": [
+          1920,
+          1080
+        ],
+        "03_can_monitor_1366x768.png": [
+          1366,
+          768
+        ],
+        "03_can_monitor_1920x1080.png": [
+          1920,
+          1080
+        ],
+        "04_signal_dashboard_1366x768.png": [
+          1366,
+          768
+        ],
+        "04_signal_dashboard_1920x1080.png": [
+          1920,
+          1080
+        ],
+        "05_realtime_curve_1366x768.png": [
+          1366,
+          768
+        ],
+        "05_realtime_curve_1920x1080.png": [
+          1920,
+          1080
+        ],
+        "06_manual_control_1366x768.png": [
+          1366,
+          768
+        ],
+        "06_manual_control_1920x1080.png": [
+          1920,
+          1080
+        ],
+        "07_auto_test_1366x768.png": [
+          1366,
+          768
+        ],
+        "07_auto_test_1920x1080.png": [
+          1920,
+          1080
+        ],
+        "08_alarm_diagnosis_1366x768.png": [
+          1366,
+          768
+        ],
+        "08_alarm_diagnosis_1920x1080.png": [
+          1920,
+          1080
+        ],
+        "09_report_management_1366x768.png": [
+          1366,
+          768
+        ],
+        "09_report_management_1920x1080.png": [
+          1920,
+          1080
+        ],
+        "10_history_1366x768.png": [
+          1366,
+          768
+        ],
+        "10_history_1920x1080.png": [
+          1920,
+          1080
+        ],
+        "11_system_settings_1366x768.png": [
+          1366,
+          768
+        ],
+        "11_system_settings_1920x1080.png": [
+          1920,
+          1080
+        ]
+      }
+    },
+    "markdown_links": {
+      "missing": []
+    },
+    "route_coverage": {
+      "ui": {
+        "/overview": true,
+        "/network-config": true,
+        "/can-monitor": true,
+        "/signal-dashboard": true,
+        "/realtime-curve": true,
+        "/manual-control": true,
+        "/auto-test": true,
+        "/alarm-diagnosis": true,
+        "/report-management": true,
+        "/history": true,
+        "/system-settings": true
+      },
+      "function": {
+        "/overview": true,
+        "/network-config": true,
+        "/can-monitor": true,
+        "/signal-dashboard": true,
+        "/realtime-curve": true,
+        "/manual-control": true,
+        "/auto-test": true,
+        "/alarm-diagnosis": true,
+        "/report-management": true,
+        "/history": true,
+        "/system-settings": true
+      }
+    }
+  }
+}

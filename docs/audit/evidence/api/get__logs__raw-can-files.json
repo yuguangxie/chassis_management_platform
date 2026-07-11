@@ -1,0 +1,54 @@
+{
+  "url": "http://127.0.0.1:8800/api/v1/logs/raw-can-files",
+  "method": "GET",
+  "status": 200,
+  "headers": {
+    "date": "Fri, 10 Jul 2026 03:01:29 GMT",
+    "server": "uvicorn",
+    "content-length": "764",
+    "content-type": "application/json",
+    "connection": "close"
+  },
+  "body": {
+    "items": [
+      {
+        "file_id": "raw_can_20260401_102015",
+        "file_name": "raw_can_20260401_102015.bin",
+        "session_id": "S20260401-001",
+        "started_at": "10:20:15",
+        "size": "122 MB"
+      },
+      {
+        "file_id": "raw_can_20260401_095430",
+        "file_name": "raw_can_20260401_095430.bin",
+        "session_id": "S20260401-002",
+        "started_at": "09:54:30",
+        "size": "118 MB"
+      },
+      {
+        "file_id": "raw_can_20260401_083012",
+        "file_name": "raw_can_20260401_083012.bin",
+        "session_id": "S20260401-003",
+        "started_at": "08:30:12",
+        "size": "97 MB"
+      },
+      {
+        "file_id": "raw_can_20260331_171512",
+        "file_name": "raw_can_20260331_171512.bin",
+        "session_id": "S20260331-001",
+        "started_at": "17:15:12",
+        "size": "104 MB"
+      },
+      {
+        "file_id": "raw_can_20260331_153045",
+        "file_name": "raw_can_20260331_153045.bin",
+        "session_id": "S20260331-002",
+        "started_at": "15:30:45",
+        "size": "91 MB"
+      }
+    ],
+    "total": 5
+  },
+  "started_at": "2026-07-10T11:01:30.048626+08:00",
+  "finished_at": "2026-07-10T11:01:30.049927+08:00"
+}

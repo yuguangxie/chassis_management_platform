@@ -1,0 +1,24 @@
+{
+  "request": {
+    "method": "PUT",
+    "path": "/signals/watchlist",
+    "body": {
+      "signals": [
+        "Vehicle_Speed",
+        "BMS_Total_Voltage"
+      ]
+    }
+  },
+  "status_code": 422,
+  "trace_id": "5819d248485d460984d3cd73e5e4c2c8",
+  "body": {
+    "code": "UNKNOWN_SIGNAL",
+    "message": "关注列表包含未知信号",
+    "details": {
+      "signals": [
+        "BMS_Total_Voltage"
+      ]
+    },
+    "trace_id": "5819d248485d460984d3cd73e5e4c2c8"
+  }
+}

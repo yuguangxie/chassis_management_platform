@@ -1,0 +1,28 @@
+{
+  "url": "http://127.0.0.1:8800/api/v1/can/channels/self-test",
+  "method": "POST",
+  "status": 200,
+  "headers": {
+    "date": "Fri, 10 Jul 2026 03:01:29 GMT",
+    "server": "uvicorn",
+    "content-length": "249",
+    "content-type": "application/json",
+    "connection": "close"
+  },
+  "body": {
+    "ping_latency_ms": 0.92,
+    "udp_loopback": "pass",
+    "protocol_valid_rate": 99.96,
+    "dlc_check": "pass",
+    "reserved_bits_check": "pass",
+    "sticky_half_packets": {
+      "sticky": 0,
+      "half": 0
+    },
+    "last_error": "无",
+    "stub": true,
+    "message": "接口已预留，当前为 Mock 模式"
+  },
+  "started_at": "2026-07-10T11:01:30.183108+08:00",
+  "finished_at": "2026-07-10T11:01:30.199912+08:00"
+}

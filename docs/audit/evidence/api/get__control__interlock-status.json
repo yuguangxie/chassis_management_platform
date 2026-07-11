@@ -1,0 +1,62 @@
+{
+  "url": "http://127.0.0.1:8800/api/v1/control/interlock-status",
+  "method": "GET",
+  "status": 200,
+  "headers": {
+    "date": "Fri, 10 Jul 2026 03:01:29 GMT",
+    "server": "uvicorn",
+    "content-length": "637",
+    "content-type": "application/json",
+    "connection": "close"
+  },
+  "body": {
+    "overall": "allow",
+    "items": [
+      {
+        "key": "key_frames_online",
+        "label": "关键报文在线",
+        "status": "pass",
+        "value": "在线"
+      },
+      {
+        "key": "no_severe_alarm",
+        "label": "无严重告警",
+        "status": "pass",
+        "value": "正常"
+      },
+      {
+        "key": "speed_limit",
+        "label": "速度上限",
+        "status": "pass",
+        "value": "≤ 8.0 km/h"
+      },
+      {
+        "key": "steering_limit",
+        "label": "转角限幅",
+        "status": "pass",
+        "value": "≤ ±120°"
+      },
+      {
+        "key": "emergency_stop",
+        "label": "急停",
+        "status": "pass",
+        "value": "未触发"
+      },
+      {
+        "key": "watchdog",
+        "label": "看门狗",
+        "status": "pass",
+        "value": "OK (120 ms)"
+      },
+      {
+        "key": "control_channel",
+        "label": "控制通道",
+        "status": "warning",
+        "value": "CAN2 延时 18ms"
+      }
+    ],
+    "reasons": []
+  },
+  "started_at": "2026-07-10T11:01:30.110669+08:00",
+  "finished_at": "2026-07-10T11:01:30.112199+08:00"
+}

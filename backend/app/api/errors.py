@@ -1,0 +1,75 @@
+from __future__ import annotations
+
+from contextvars import ContextVar
+import re
+import uuid
+from typing import Any
+
+from fastapi import HTTPException, Request
+from fastapi.exceptions import RequestValidationError
+from fastapi.responses import JSONResponse
+
+
+TRACE_ID: ContextVar[str] = ContextVar("trace_id", default="")
+TRACE_PATTERN = re.compile(r"^[A-Za-z0-9._:-]{8,128}$")
+
+
+def new_trace_id(candidate: str | None = None) -> str:
+    value = (candidate or "").strip()
+    return value if TRACE_PATTERN.fullmatch(value) else uuid.uuid4().hex
+
+
+def get_trace_id() -> str:
+    return TRACE_ID.get() or uuid.uuid4().hex
+
+
+def with_trace(payload: dict[str, Any]) -> dict[str, Any]:
+    return {**payload, "trace_id": get_trace_id()}
+
+
+def _error_payload(detail: Any, default_code: str, default_message: str) -> dict[str, Any]:
+    if isinstance(detail, dict):
+        nested = detail.get("error") if isinstance(detail.get("error"), dict) else detail
+        return {
+            "code": str(nested.get("code") or default_code),
+            "message": str(nested.get("message") or default_message),
+            "details": nested.get("details", {}),
+            "trace_id": get_trace_id(),
+        }
+    return {
+        "code": default_code,
+        "message": str(detail or default_message),
+        "details": {},
+        "trace_id": get_trace_id(),
+    }
+
+
+async def http_exception_handler(_request: Request, exc: HTTPException) -> JSONResponse:
+    payload = _error_payload(exc.detail, f"HTTP_{exc.status_code}", "请求失败")
+    return JSONResponse(
+        status_code=exc.status_code,
+        content=payload,
+        headers={**(exc.headers or {}), "X-Trace-Id": payload["trace_id"]},
+    )
+
+
+async def validation_exception_handler(
+    _request: Request, exc: RequestValidationError
+) -> JSONResponse:
+    payload = {
+        "code": "VALIDATION_ERROR",
+        "message": "请求参数校验失败",
+        "details": {"errors": exc.errors()},
+        "trace_id": get_trace_id(),
+    }
+    return JSONResponse(status_code=422, content=payload, headers={"X-Trace-Id": payload["trace_id"]})
+
+
+async def unhandled_exception_handler(_request: Request, exc: Exception) -> JSONResponse:
+    payload = {
+        "code": "INTERNAL_ERROR",
+        "message": "服务器内部错误",
+        "details": {"exception": type(exc).__name__},
+        "trace_id": get_trace_id(),
+    }
+    return JSONResponse(status_code=500, content=payload, headers={"X-Trace-Id": payload["trace_id"]})

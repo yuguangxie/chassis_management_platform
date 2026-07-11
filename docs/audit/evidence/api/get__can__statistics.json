@@ -1,0 +1,49 @@
+{
+  "url": "http://127.0.0.1:8800/api/v1/can/statistics",
+  "method": "GET",
+  "status": 200,
+  "headers": {
+    "date": "Fri, 10 Jul 2026 03:01:29 GMT",
+    "server": "uvicorn",
+    "content-length": "494",
+    "content-type": "application/json",
+    "connection": "close"
+  },
+  "body": {
+    "channels": [
+      {
+        "channel": "CAN1",
+        "online": false,
+        "fps": 0.0,
+        "rx_count": 0,
+        "tx_count": 0,
+        "error_count": 0,
+        "last_frame_at": 0.0,
+        "last_frame_hex": "",
+        "protocol": "udp",
+        "local_ip": "[REDACTED_STATION_HOST]",
+        "local_port": 8234,
+        "device_ip": "[REDACTED_CAN1_GATEWAY]",
+        "device_port": 1234
+      },
+      {
+        "channel": "CAN2",
+        "online": false,
+        "fps": 0.0,
+        "rx_count": 0,
+        "tx_count": 0,
+        "error_count": 0,
+        "last_frame_at": 0.0,
+        "last_frame_hex": "",
+        "protocol": "udp",
+        "local_ip": "[REDACTED_STATION_HOST]",
+        "local_port": 8235,
+        "device_ip": "[REDACTED_CAN2_GATEWAY]",
+        "device_port": 1234
+      }
+    ],
+    "frames": []
+  },
+  "started_at": "2026-07-10T11:01:30.044772+08:00",
+  "finished_at": "2026-07-10T11:01:30.046148+08:00"
+}

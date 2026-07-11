@@ -1,0 +1,24 @@
+﻿RX_0X121_COUNT=10  
+2026-07-10 11:23:29,104 INFO rx 0x121 {'gear': 1, 'drive_mode': 2, 'front': -60, 'rear': 60, 'target_speed': 2.0, 'brak
+e': False, 'lights': '4000'}
+2026-07-10 11:23:30,358 INFO rx 0x121 {'gear': 1, 'drive_mode': 2, 'front': -60, 'rear': 60, 'target_speed': 2.0, 'brak
+e': False, 'lights': '4000'}
+2026-07-10 11:23:30,425 INFO rx 0x121 {'gear': 1, 'drive_mode': 2, 'front': -60, 'rear': 60, 'target_speed': 2.0, 'brak
+e': False, 'lights': '4000'}
+2026-07-10 11:23:30,486 INFO rx 0x121 {'gear': 1, 'drive_mode': 2, 'front': -60, 'rear': 60, 'target_speed': 2.0, 'brak
+e': False, 'lights': '4000'}
+2026-07-10 11:23:30,552 INFO rx 0x121 {'gear': 1, 'drive_mode': 2, 'front': -60, 'rear': 60, 'target_speed': 2.0, 'brak
+e': False, 'lights': '4000'}
+2026-07-10 11:23:30,607 INFO rx 0x121 {'gear': 1, 'drive_mode': 2, 'front': -60, 'rear': 60, 'target_speed': 2.0, 'brak
+e': False, 'lights': '4000'}
+2026-07-10 11:23:30,667 INFO rx 0x121 {'gear': 1, 'drive_mode': 2, 'front': -60, 'rear': 60, 'target_speed': 2.0, 'brak
+e': False, 'lights': '4000'}
+2026-07-10 11:23:30,728 INFO rx 0x121 {'gear': 1, 'drive_mode': 2, 'front': -60, 'rear': 60, 'target_speed': 2.0, 'brak
+e': False, 'lights': '4000'}
+2026-07-10 11:23:30,786 INFO rx 0x121 {'gear': 1, 'drive_mode': 2, 'front': -60, 'rear': 60, 'target_speed': 2.0, 'brak
+e': False, 'lights': '4000'}
+2026-07-10 11:23:30,816 INFO rx 0x121 {'gear': 0, 'drive_mode': 1, 'front': 0, 'rear': 0, 'target_speed': 0.0, 'brake':
+ True, 'lights': '0000'}
+
+
+

@@ -1,0 +1,31 @@
+report:
+  default_output_dir: D:\TestLogs\Reports
+  filename_pattern: '{date}_{chassis_no}_{vin_last6}_{result}_{session_id}'
+  generate_docx: true
+  generate_pdf: true
+  generate_json: true
+  generate_csv_summary: true
+  pdf_converter: auto
+  font:
+    environment_variable: CHASSIS_REPORT_FONT
+    bundled_candidate: assets/fonts/NotoSansCJKsc-Regular.otf
+    windows_candidate: C:\Windows\Fonts\simhei.ttf
+    linux_candidate: /usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc
+  include_sections:
+    cover: true
+    environment: true
+    dbc_and_config_version: true
+    step_summary: true
+    assertions: true
+    can_statistics: true
+    key_curves: true
+    alarms: true
+    raw_log_index: true
+    signatures: true
+  signature_fields:
+    operator: true
+    quality_engineer: true
+    supervisor: false
+  fail_report_style:
+    highlight_failed_step: true
+    include_context_frames: true

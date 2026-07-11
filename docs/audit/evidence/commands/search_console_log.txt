@@ -1,0 +1,4 @@
+﻿PATTERN: console\.log
+MATCHES: 0
+
+

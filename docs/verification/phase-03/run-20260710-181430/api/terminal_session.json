@@ -1,0 +1,1982 @@
+{
+  "chassis_no": "PH3-NORMAL-001",
+  "vin": "PH3NORMAL0000001",
+  "serial_no": "PH3-1783678136013",
+  "operator": "dev-operator",
+  "station_id": "EOL-STATION-01",
+  "plan_id": "default_chassis_eol_v1",
+  "remarks": "",
+  "id": "EOL-0B96CC1113B6",
+  "status": "PASSED",
+  "overall_result": "PASS",
+  "steps": [
+    {
+      "id": "power_on_self_check",
+      "order": 1,
+      "name": "上电自检",
+      "description": "检查数据库、DBC、急停和运行配置是否满足检测条件。",
+      "status": "DONE",
+      "result": "PASS",
+      "started_at": "2026-07-10T10:08:56.033177+00:00",
+      "assertions": [
+        {
+          "assertion_id": "db_writable",
+          "description": "数据库可写",
+          "signal_name": "system",
+          "operator": "==",
+          "threshold": true,
+          "measured_value": true,
+          "unit": "",
+          "result": "PASS",
+          "severity": "failure",
+          "failure_reason": "",
+          "sample_started_at": "2026-07-10T10:08:56.141103+00:00",
+          "sample_ended_at": "2026-07-10T10:08:56.141135+00:00",
+          "quality": "good",
+          "source_can_id": "",
+          "source_channel": "",
+          "source_timestamp": ""
+        },
+        {
+          "assertion_id": "dbc_loaded",
+          "description": "DBC 已加载",
+          "signal_name": "system",
+          "operator": "==",
+          "threshold": true,
+          "measured_value": true,
+          "unit": "",
+          "result": "PASS",
+          "severity": "failure",
+          "failure_reason": "",
+          "sample_started_at": "2026-07-10T10:08:56.141154+00:00",
+          "sample_ended_at": "2026-07-10T10:08:56.141170+00:00",
+          "quality": "good",
+          "source_can_id": "",
+          "source_channel": "",
+          "source_timestamp": ""
+        },
+        {
+          "assertion_id": "emergency_released",
+          "description": "急停已释放",
+          "signal_name": "system",
+          "operator": "==",
+          "threshold": true,
+          "measured_value": true,
+          "unit": "",
+          "result": "PASS",
+          "severity": "failure",
+          "failure_reason": "",
+          "sample_started_at": "2026-07-10T10:08:56.141177+00:00",
+          "sample_ended_at": "2026-07-10T10:08:56.141187+00:00",
+          "quality": "good",
+          "source_can_id": "",
+          "source_channel": "",
+          "source_timestamp": ""
+        }
+      ],
+      "commands": [],
+      "measurements": [
+        {
+          "name": "数据库可写",
+          "value": true,
+          "unit": "",
+          "quality": "good",
+          "source_can_id": "",
+          "source_timestamp": ""
+        },
+        {
+          "name": "DBC 已加载",
+          "value": true,
+          "unit": "",
+          "quality": "good",
+          "source_can_id": "",
+          "source_timestamp": ""
+        },
+        {
+          "name": "急停已释放",
+          "value": true,
+          "unit": "",
+          "quality": "good",
+          "source_can_id": "",
+          "source_timestamp": ""
+        }
+      ],
+      "db_id": 286,
+      "ended_at": "2026-07-10T10:08:56.141201+00:00",
+      "duration_ms": 108,
+      "failure_reason": ""
+    },
+    {
+      "id": "can_communication_check",
+      "order": 2,
+      "name": "CAN 通信检测",
+      "description": "检查 CAN1/CAN2 原始报文在线状态与关键报文时效。",
+      "status": "DONE",
+      "result": "PASS",
+      "started_at": "2026-07-10T10:08:56.141528+00:00",
+      "assertions": [
+        {
+          "assertion_id": "can1_online",
+          "description": "CAN1 原始接收在线",
+          "signal_name": "system",
+          "operator": "==",
+          "threshold": true,
+          "measured_value": true,
+          "unit": "",
+          "result": "PASS",
+          "severity": "failure",
+          "failure_reason": "",
+          "sample_started_at": "2026-07-10T10:08:56.343851+00:00",
+          "sample_ended_at": "2026-07-10T10:08:56.343902+00:00",
+          "quality": "good",
+          "source_can_id": "",
+          "source_channel": "",
+          "source_timestamp": ""
+        },
+        {
+          "assertion_id": "can2_online",
+          "description": "CAN2 原始接收在线",
+          "signal_name": "system",
+          "operator": "==",
+          "threshold": true,
+          "measured_value": true,
+          "unit": "",
+          "result": "PASS",
+          "severity": "failure",
+          "failure_reason": "",
+          "sample_started_at": "2026-07-10T10:08:56.343928+00:00",
+          "sample_ended_at": "2026-07-10T10:08:56.343940+00:00",
+          "quality": "good",
+          "source_can_id": "",
+          "source_channel": "",
+          "source_timestamp": ""
+        },
+        {
+          "assertion_id": "key_frames_present",
+          "description": "关键报文完整",
+          "signal_name": "0x51,0x77,0x168,0xE1",
+          "operator": "all_present",
+          "threshold": [
+            "0x168",
+            "0x51",
+            "0x77",
+            "0xE1"
+          ],
+          "measured_value": {
+            "present": [
+              "0x168",
+              "0x51",
+              "0x77",
+              "0xE1"
+            ],
+            "missing": []
+          },
+          "unit": "",
+          "result": "PASS",
+          "severity": "failure",
+          "failure_reason": "",
+          "sample_started_at": "2026-07-10T10:08:56.343947+00:00",
+          "sample_ended_at": "2026-07-10T10:08:56.343997+00:00",
+          "quality": "good",
+          "source_can_id": "",
+          "source_channel": "",
+          "source_timestamp": ""
+        }
+      ],
+      "commands": [],
+      "measurements": [
+        {
+          "name": "CAN1 原始接收在线",
+          "value": true,
+          "unit": "",
+          "quality": "good",
+          "source_can_id": "",
+          "source_timestamp": ""
+        },
+        {
+          "name": "CAN2 原始接收在线",
+          "value": true,
+          "unit": "",
+          "quality": "good",
+          "source_can_id": "",
+          "source_timestamp": ""
+        },
+        {
+          "name": "关键报文完整",
+          "value": {
+            "present": [
+              "0x168",
+              "0x51",
+              "0x77",
+              "0xE1"
+            ],
+            "missing": []
+          },
+          "unit": "",
+          "quality": "good",
+          "source_can_id": "",
+          "source_timestamp": ""
+        }
+      ],
+      "db_id": 287,
+      "ended_at": "2026-07-10T10:08:56.344017+00:00",
+      "duration_ms": 202,
+      "failure_reason": ""
+    },
+    {
+      "id": "bms_check",
+      "order": 3,
+      "name": "BMS 检测",
+      "description": "校验总压、SOC、NTC 温度和 0x102 unsigned 保护位。",
+      "status": "DONE",
+      "result": "PASS",
+      "started_at": "2026-07-10T10:08:56.344521+00:00",
+      "assertions": [
+        {
+          "assertion_id": "bms_voltage_range",
+          "description": "BMS 总压在范围内",
+          "signal_name": "BMS_Voltage",
+          "operator": "between",
+          "threshold": {
+            "min": 36.0,
+            "max": 72.0,
+            "note": "site_confirm_battery_pack_voltage"
+          },
+          "measured_value": 52.0,
+          "unit": "V",
+          "result": "PASS",
+          "severity": "failure",
+          "failure_reason": "",
+          "sample_started_at": "2026-07-10T10:08:56.597357+00:00",
+          "sample_ended_at": "2026-07-10T10:08:56.597393+00:00",
+          "quality": "good",
+          "source_can_id": "0x100",
+          "source_channel": "CAN2",
+          "source_timestamp": "2026-07-10T10:08:56.588016+00:00"
+        },
+        {
+          "assertion_id": "bms_soc_min",
+          "description": "BMS SOC 不低于阈值",
+          "signal_name": "BMS_SOC",
+          "operator": ">=",
+          "threshold": 30,
+          "measured_value": 86,
+          "unit": "%",
+          "result": "PASS",
+          "severity": "failure",
+          "failure_reason": "",
+          "sample_started_at": "2026-07-10T10:08:56.597407+00:00",
+          "sample_ended_at": "2026-07-10T10:08:56.597425+00:00",
+          "quality": "good",
+          "source_can_id": "0x100",
+          "source_channel": "CAN2",
+          "source_timestamp": "2026-07-10T10:08:56.588028+00:00"
+        },
+        {
+          "assertion_id": "bms_temperature_range",
+          "description": "NTC 温度均在范围内",
+          "signal_name": "NTC1,NTC2,NTC3",
+          "operator": "all_between",
+          "threshold": {
+            "min": -20,
+            "max": 60
+          },
+          "measured_value": [
+            25,
+            26,
+            24
+          ],
+          "unit": "degC",
+          "result": "PASS",
+          "severity": "failure",
+          "failure_reason": "",
+          "sample_started_at": "2026-07-10T10:08:56.597433+00:00",
+          "sample_ended_at": "2026-07-10T10:08:56.597465+00:00",
+          "quality": "good",
+          "source_can_id": "0x103",
+          "source_channel": "CAN2",
+          "source_timestamp": "2026-07-10T10:08:56.595127+00:00"
+        },
+        {
+          "assertion_id": "bms_no_protect",
+          "description": "0x102 保护位均未触发",
+          "signal_name": "0x102",
+          "operator": "all_bool_zero",
+          "threshold": 0,
+          "measured_value": {
+            "BMS_Protect_Bit_00": 0,
+            "BMS_Protect_Bit_01": 0,
+            "BMS_Protect_Bit_02": 0,
+            "BMS_Protect_Bit_03": 0,
+            "BMS_Protect_Bit_04": 0,
+            "BMS_Protect_Bit_05": 0,
+            "BMS_Protect_Bit_06": 0,
+            "BMS_Protect_Bit_07": 0,
+            "BMS_Protect_Bit_08": 0,
+            "BMS_Protect_Bit_09": 0,
+            "BMS_Protect_Bit_10": 0,
+            "BMS_Protect_Bit_11": 0,
+            "BMS_Protect_Bit_12": 0,
+            "BMS_Protect_Bit_13": 0,
+            "BMS_Protect_Bit_14": 0,
+            "BMS_Protect_Bit_15": 0,
+            "BMS_Protect_Short_Circuit": 0,
+            "BMS_Protect_Over_Current": 0,
+            "BMS_Protect_Over_Temperature": 0,
+            "BMS_Protect_Under_Temperature": 0,
+            "BMS_Protect_Over_Voltage": 0,
+            "BMS_Protect_Under_Voltage": 0,
+            "BMS_Protect_MOS_Fault": 0,
+            "BMS_Protect_Precharge_Fault": 0,
+            "BMS_Protect_Bitmap": 0
+          },
+          "unit": "bool/bitmap",
+          "result": "PASS",
+          "severity": "failure",
+          "failure_reason": "",
+          "sample_started_at": "2026-07-10T10:08:56.597470+00:00",
+          "sample_ended_at": "2026-07-10T10:08:56.597514+00:00",
+          "quality": "good",
+          "source_can_id": "0x102",
+          "source_channel": "CAN2",
+          "source_timestamp": "2026-07-10T10:08:56.592491+00:00"
+        }
+      ],
+      "commands": [],
+      "measurements": [
+        {
+          "name": "BMS 总压在范围内",
+          "value": 52.0,
+          "unit": "V",
+          "quality": "good",
+          "source_can_id": "0x100",
+          "source_timestamp": "2026-07-10T10:08:56.588016+00:00"
+        },
+        {
+          "name": "BMS SOC 不低于阈值",
+          "value": 86,
+          "unit": "%",
+          "quality": "good",
+          "source_can_id": "0x100",
+          "source_timestamp": "2026-07-10T10:08:56.588028+00:00"
+        },
+        {
+          "name": "NTC 温度均在范围内",
+          "value": [
+            25,
+            26,
+            24
+          ],
+          "unit": "degC",
+          "quality": "good",
+          "source_can_id": "0x103",
+          "source_timestamp": "2026-07-10T10:08:56.595127+00:00"
+        },
+        {
+          "name": "0x102 保护位均未触发",
+          "value": {
+            "BMS_Protect_Bit_00": 0,
+            "BMS_Protect_Bit_01": 0,
+            "BMS_Protect_Bit_02": 0,
+            "BMS_Protect_Bit_03": 0,
+            "BMS_Protect_Bit_04": 0,
+            "BMS_Protect_Bit_05": 0,
+            "BMS_Protect_Bit_06": 0,
+            "BMS_Protect_Bit_07": 0,
+            "BMS_Protect_Bit_08": 0,
+            "BMS_Protect_Bit_09": 0,
+            "BMS_Protect_Bit_10": 0,
+            "BMS_Protect_Bit_11": 0,
+            "BMS_Protect_Bit_12": 0,
+            "BMS_Protect_Bit_13": 0,
+            "BMS_Protect_Bit_14": 0,
+            "BMS_Protect_Bit_15": 0,
+            "BMS_Protect_Short_Circuit": 0,
+            "BMS_Protect_Over_Current": 0,
+            "BMS_Protect_Over_Temperature": 0,
+            "BMS_Protect_Under_Temperature": 0,
+            "BMS_Protect_Over_Voltage": 0,
+            "BMS_Protect_Under_Voltage": 0,
+            "BMS_Protect_MOS_Fault": 0,
+            "BMS_Protect_Precharge_Fault": 0,
+            "BMS_Protect_Bitmap": 0
+          },
+          "unit": "bool/bitmap",
+          "quality": "good",
+          "source_can_id": "0x102",
+          "source_timestamp": "2026-07-10T10:08:56.592491+00:00"
+        }
+      ],
+      "db_id": 288,
+      "ended_at": "2026-07-10T10:08:56.597525+00:00",
+      "duration_ms": 253,
+      "failure_reason": ""
+    },
+    {
+      "id": "vcu_status_check",
+      "order": 4,
+      "name": "VCU 状态检测",
+      "description": "校验点火、静止车速与制动请求状态。",
+      "status": "DONE",
+      "result": "PASS",
+      "started_at": "2026-07-10T10:08:56.597916+00:00",
+      "assertions": [
+        {
+          "assertion_id": "ignition_ok",
+          "description": "点火状态有效",
+          "signal_name": "CCU_Ignition_Status",
+          "operator": "in",
+          "threshold": null,
+          "measured_value": 1,
+          "unit": "",
+          "result": "PASS",
+          "severity": "failure",
+          "failure_reason": "",
+          "sample_started_at": "2026-07-10T10:08:56.856104+00:00",
+          "sample_ended_at": "2026-07-10T10:08:56.856338+00:00",
+          "quality": "good",
+          "source_can_id": "0x51",
+          "source_channel": "CAN1",
+          "source_timestamp": "2026-07-10T10:08:56.798755+00:00"
+        },
+        {
+          "assertion_id": "vehicle_speed_zero",
+          "description": "初始车速接近零",
+          "signal_name": "CCU_Vehicle_Speed",
+          "operator": "<=",
+          "threshold": 0.2,
+          "measured_value": 0.0,
+          "unit": "km/h",
+          "result": "PASS",
+          "severity": "failure",
+          "failure_reason": "",
+          "sample_started_at": "2026-07-10T10:08:56.856968+00:00",
+          "sample_ended_at": "2026-07-10T10:08:56.857303+00:00",
+          "quality": "good",
+          "source_can_id": "0x51",
+          "source_channel": "CAN1",
+          "source_timestamp": "2026-07-10T10:08:56.798769+00:00"
+        },
+        {
+          "assertion_id": "no_brake_conflict",
+          "description": "无非预期制动冲突",
+          "signal_name": "Remote_Brake_Request_Status,Touch_Brake_Request_Status",
+          "operator": "no_unexpected_active",
+          "threshold": null,
+          "measured_value": [
+            false,
+            false
+          ],
+          "unit": "bool",
+          "result": "PASS",
+          "severity": "failure",
+          "failure_reason": "",
+          "sample_started_at": "2026-07-10T10:08:56.857427+00:00",
+          "sample_ended_at": "2026-07-10T10:08:56.857565+00:00",
+          "quality": "good",
+          "source_can_id": "0x51",
+          "source_channel": "CAN1",
+          "source_timestamp": "2026-07-10T10:08:56.798775+00:00"
+        }
+      ],
+      "commands": [],
+      "measurements": [
+        {
+          "name": "点火状态有效",
+          "value": 1,
+          "unit": "",
+          "quality": "good",
+          "source_can_id": "0x51",
+          "source_timestamp": "2026-07-10T10:08:56.798755+00:00"
+        },
+        {
+          "name": "初始车速接近零",
+          "value": 0.0,
+          "unit": "km/h",
+          "quality": "good",
+          "source_can_id": "0x51",
+          "source_timestamp": "2026-07-10T10:08:56.798769+00:00"
+        },
+        {
+          "name": "无非预期制动冲突",
+          "value": [
+            false,
+            false
+          ],
+          "unit": "bool",
+          "quality": "good",
+          "source_can_id": "0x51",
+          "source_timestamp": "2026-07-10T10:08:56.798775+00:00"
+        }
+      ],
+      "db_id": 289,
+      "ended_at": "2026-07-10T10:08:56.857626+00:00",
+      "duration_ms": 260,
+      "failure_reason": ""
+    },
+    {
+      "id": "motor_heartbeat_check",
+      "order": 5,
+      "name": "电机心跳检测",
+      "description": "校验 0x703 和 0x704 心跳均新鲜。",
+      "status": "DONE",
+      "result": "PASS",
+      "started_at": "2026-07-10T10:08:56.859559+00:00",
+      "assertions": [
+        {
+          "assertion_id": "motor_heartbeat_online",
+          "description": "双电机心跳在线",
+          "signal_name": "0x703,0x704",
+          "operator": "all_present",
+          "threshold": [
+            "0x703",
+            "0x704"
+          ],
+          "measured_value": {
+            "present": [
+              "0x703",
+              "0x704"
+            ],
+            "missing": []
+          },
+          "unit": "",
+          "result": "PASS",
+          "severity": "failure",
+          "failure_reason": "",
+          "sample_started_at": "2026-07-10T10:08:57.065433+00:00",
+          "sample_ended_at": "2026-07-10T10:08:57.065486+00:00",
+          "quality": "good",
+          "source_can_id": "",
+          "source_channel": "",
+          "source_timestamp": ""
+        }
+      ],
+      "commands": [],
+      "measurements": [
+        {
+          "name": "双电机心跳在线",
+          "value": {
+            "present": [
+              "0x703",
+              "0x704"
+            ],
+            "missing": []
+          },
+          "unit": "",
+          "quality": "good",
+          "source_can_id": "",
+          "source_timestamp": ""
+        }
+      ],
+      "db_id": 290,
+      "ended_at": "2026-07-10T10:08:57.065518+00:00",
+      "duration_ms": 206,
+      "failure_reason": ""
+    },
+    {
+      "id": "shift_check",
+      "order": 6,
+      "name": "档位检测",
+      "description": "依次下发 N/D/R/N 并校验实际档位反馈。",
+      "status": "DONE",
+      "result": "PASS",
+      "started_at": "2026-07-10T10:08:57.065955+00:00",
+      "assertions": [
+        {
+          "assertion_id": "shift_feedback_matches",
+          "description": "档位反馈跟随命令",
+          "signal_name": "CCU_Shift_Level_Status",
+          "operator": "follows_commands",
+          "threshold": "feedback follows D/N/R/N",
+          "measured_value": [
+            {
+              "expected": 0,
+              "actual": 0,
+              "observed": [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0
+              ],
+              "matched": true
+            },
+            {
+              "expected": 1,
+              "actual": 1,
+              "observed": [
+                1.0,
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "matched": true
+            },
+            {
+              "expected": 3,
+              "actual": 3,
+              "observed": [
+                3.0,
+                3.0,
+                3.0,
+                3.0,
+                3.0
+              ],
+              "matched": true
+            },
+            {
+              "expected": 0,
+              "actual": 0,
+              "observed": [
+                0.0,
+                0.0,
+                0.0,
+                0.0
+              ],
+              "matched": true
+            }
+          ],
+          "unit": "",
+          "result": "PASS",
+          "severity": "failure",
+          "failure_reason": "",
+          "sample_started_at": "2026-07-10T10:08:58.403238+00:00",
+          "sample_ended_at": "2026-07-10T10:08:58.403279+00:00",
+          "quality": "good",
+          "source_can_id": "",
+          "source_channel": "",
+          "source_timestamp": ""
+        }
+      ],
+      "commands": [
+        {
+          "shift": "N",
+          "drive_mode": "Remote",
+          "target_speed_kmh": 0.0,
+          "front_steering_cmd": 0,
+          "rear_steering_cmd": 0,
+          "brake_enable": true,
+          "left_light": false,
+          "right_light": false,
+          "position_light": false,
+          "low_beam": false,
+          "speed_mode": true
+        },
+        {
+          "shift": "D",
+          "drive_mode": "Remote",
+          "target_speed_kmh": 0.0,
+          "front_steering_cmd": 0,
+          "rear_steering_cmd": 0,
+          "brake_enable": true,
+          "left_light": false,
+          "right_light": false,
+          "position_light": false,
+          "low_beam": false,
+          "speed_mode": true
+        },
+        {
+          "shift": "R",
+          "drive_mode": "Remote",
+          "target_speed_kmh": 0.0,
+          "front_steering_cmd": 0,
+          "rear_steering_cmd": 0,
+          "brake_enable": true,
+          "left_light": false,
+          "right_light": false,
+          "position_light": false,
+          "low_beam": false,
+          "speed_mode": true
+        },
+        {
+          "shift": "N",
+          "drive_mode": "Remote",
+          "target_speed_kmh": 0.0,
+          "front_steering_cmd": 0,
+          "rear_steering_cmd": 0,
+          "brake_enable": true,
+          "left_light": false,
+          "right_light": false,
+          "position_light": false,
+          "low_beam": false,
+          "speed_mode": true
+        }
+      ],
+      "measurements": [
+        {
+          "name": "档位反馈跟随命令",
+          "value": [
+            {
+              "expected": 0,
+              "actual": 0,
+              "observed": [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0
+              ],
+              "matched": true
+            },
+            {
+              "expected": 1,
+              "actual": 1,
+              "observed": [
+                1.0,
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "matched": true
+            },
+            {
+              "expected": 3,
+              "actual": 3,
+              "observed": [
+                3.0,
+                3.0,
+                3.0,
+                3.0,
+                3.0
+              ],
+              "matched": true
+            },
+            {
+              "expected": 0,
+              "actual": 0,
+              "observed": [
+                0.0,
+                0.0,
+                0.0,
+                0.0
+              ],
+              "matched": true
+            }
+          ],
+          "unit": "",
+          "quality": "good",
+          "source_can_id": "",
+          "source_timestamp": ""
+        }
+      ],
+      "db_id": 291,
+      "ended_at": "2026-07-10T10:08:58.660226+00:00",
+      "duration_ms": 1594,
+      "failure_reason": ""
+    },
+    {
+      "id": "low_speed_drive_check",
+      "order": 7,
+      "name": "低速驱动检测",
+      "description": "在封闭 Mock 环境下下发低速命令并校验车速与四轮一致性。",
+      "status": "DONE",
+      "result": "PASS",
+      "started_at": "2026-07-10T10:08:58.660830+00:00",
+      "assertions": [
+        {
+          "assertion_id": "speed_response",
+          "description": "车速达到目标附近",
+          "signal_name": "CCU_Vehicle_Speed",
+          "operator": "reaches_near",
+          "threshold": {
+            "target": 1.5,
+            "tolerance": 0.5
+          },
+          "measured_value": [
+            0.0,
+            0.1,
+            0.3,
+            0.4,
+            0.6,
+            0.7,
+            0.9,
+            1.0,
+            1.2,
+            1.3,
+            1.4,
+            1.5,
+            1.5,
+            1.5,
+            1.5,
+            1.5,
+            1.5,
+            1.5,
+            1.5,
+            1.5,
+            1.5
+          ],
+          "unit": "km/h",
+          "result": "PASS",
+          "severity": "failure",
+          "failure_reason": "",
+          "sample_started_at": "2026-07-10T10:09:00.841271+00:00",
+          "sample_ended_at": "2026-07-10T10:09:00.841329+00:00",
+          "quality": "good",
+          "source_can_id": "0x51",
+          "source_channel": "CAN1",
+          "source_timestamp": "2026-07-10T10:08:59.849122+00:00"
+        },
+        {
+          "assertion_id": "wheel_speed_consistent",
+          "description": "四轮轮速一致",
+          "signal_name": "Wheel_Speed_Front_Left_RPM,Wheel_Speed_Front_Right_RPM,Wheel_Speed_Rear_Left_RPM,Wheel_Speed_Rear_Right_RPM",
+          "operator": "consistent",
+          "threshold": {
+            "max_delta": 30.0
+          },
+          "measured_value": [
+            [
+              200.0,
+              200.0,
+              200.0,
+              200.0
+            ]
+          ],
+          "unit": "rpm",
+          "result": "PASS",
+          "severity": "failure",
+          "failure_reason": "",
+          "sample_started_at": "2026-07-10T10:09:00.841361+00:00",
+          "sample_ended_at": "2026-07-10T10:09:00.841377+00:00",
+          "quality": "good",
+          "source_can_id": "0x168",
+          "source_channel": "CAN1",
+          "source_timestamp": "2026-07-10T10:08:59.854663+00:00"
+        }
+      ],
+      "commands": [
+        {
+          "shift": "D",
+          "drive_mode": "Remote",
+          "target_speed_kmh": 1.5,
+          "front_steering_cmd": 0,
+          "rear_steering_cmd": 0,
+          "brake_enable": false,
+          "left_light": false,
+          "right_light": false,
+          "position_light": false,
+          "low_beam": false,
+          "speed_mode": true
+        },
+        {
+          "shift": "N",
+          "drive_mode": "Remote",
+          "target_speed_kmh": 0.0,
+          "front_steering_cmd": 0,
+          "rear_steering_cmd": 0,
+          "brake_enable": true,
+          "left_light": false,
+          "right_light": false,
+          "position_light": false,
+          "low_beam": false,
+          "speed_mode": true
+        }
+      ],
+      "measurements": [
+        {
+          "name": "车速达到目标附近",
+          "value": [
+            0.0,
+            0.1,
+            0.3,
+            0.4,
+            0.6,
+            0.7,
+            0.9,
+            1.0,
+            1.2,
+            1.3,
+            1.4,
+            1.5,
+            1.5,
+            1.5,
+            1.5,
+            1.5,
+            1.5,
+            1.5,
+            1.5,
+            1.5,
+            1.5
+          ],
+          "unit": "km/h",
+          "quality": "good",
+          "source_can_id": "0x51",
+          "source_timestamp": "2026-07-10T10:08:59.849122+00:00"
+        },
+        {
+          "name": "四轮轮速一致",
+          "value": [
+            [
+              200.0,
+              200.0,
+              200.0,
+              200.0
+            ]
+          ],
+          "unit": "rpm",
+          "quality": "good",
+          "source_can_id": "0x168",
+          "source_timestamp": "2026-07-10T10:08:59.854663+00:00"
+        }
+      ],
+      "db_id": 292,
+      "ended_at": "2026-07-10T10:09:01.157707+00:00",
+      "duration_ms": 2497,
+      "failure_reason": ""
+    },
+    {
+      "id": "steering_check",
+      "order": 8,
+      "name": "转向检测",
+      "description": "下发正向、负向与回中命令并校验前后转向跟随。",
+      "status": "DONE",
+      "result": "PASS",
+      "started_at": "2026-07-10T10:09:01.158460+00:00",
+      "assertions": [
+        {
+          "assertion_id": "front_steering_follow",
+          "description": "前转向反馈跟随命令",
+          "signal_name": "SAS_Front_Angle",
+          "operator": "follows_command",
+          "threshold": {
+            "max_error": 8.0
+          },
+          "measured_value": [
+            {
+              "expected": 30.0,
+              "actual": 29.9,
+              "error": 0.10000000000000142,
+              "sample_count": 20
+            },
+            {
+              "expected": -30.0,
+              "actual": -29.9,
+              "error": 0.10000000000000142,
+              "sample_count": 21
+            },
+            {
+              "expected": 0.0,
+              "actual": 0.0,
+              "error": 0.0,
+              "sample_count": 20
+            }
+          ],
+          "unit": "cmd",
+          "result": "PASS",
+          "severity": "failure",
+          "failure_reason": "",
+          "sample_started_at": "2026-07-10T10:09:04.905390+00:00",
+          "sample_ended_at": "2026-07-10T10:09:04.905488+00:00",
+          "quality": "good",
+          "source_can_id": "0xE1",
+          "source_channel": "CAN1",
+          "source_timestamp": "2026-07-10T10:09:04.764741+00:00"
+        },
+        {
+          "assertion_id": "rear_steering_follow",
+          "description": "后转向反馈跟随命令",
+          "signal_name": "SAS_Rear_Angle",
+          "operator": "follows_command",
+          "threshold": {
+            "max_error": 8.0
+          },
+          "measured_value": [
+            {
+              "expected": 30.0,
+              "actual": 29.9,
+              "error": 0.10000000000000142,
+              "sample_count": 20
+            },
+            {
+              "expected": -30.0,
+              "actual": -29.9,
+              "error": 0.10000000000000142,
+              "sample_count": 21
+            },
+            {
+              "expected": 0.0,
+              "actual": 0.0,
+              "error": 0.0,
+              "sample_count": 20
+            }
+          ],
+          "unit": "cmd",
+          "result": "PASS",
+          "severity": "failure",
+          "failure_reason": "",
+          "sample_started_at": "2026-07-10T10:09:04.905526+00:00",
+          "sample_ended_at": "2026-07-10T10:09:04.905559+00:00",
+          "quality": "good",
+          "source_can_id": "0xE1",
+          "source_channel": "CAN1",
+          "source_timestamp": "2026-07-10T10:09:04.764751+00:00"
+        }
+      ],
+      "commands": [
+        {
+          "shift": "N",
+          "drive_mode": "Remote",
+          "target_speed_kmh": 0.0,
+          "front_steering_cmd": 30,
+          "rear_steering_cmd": 30,
+          "brake_enable": true,
+          "left_light": false,
+          "right_light": false,
+          "position_light": false,
+          "low_beam": false,
+          "speed_mode": true
+        },
+        {
+          "shift": "N",
+          "drive_mode": "Remote",
+          "target_speed_kmh": 0.0,
+          "front_steering_cmd": -30,
+          "rear_steering_cmd": -30,
+          "brake_enable": true,
+          "left_light": false,
+          "right_light": false,
+          "position_light": false,
+          "low_beam": false,
+          "speed_mode": true
+        },
+        {
+          "shift": "N",
+          "drive_mode": "Remote",
+          "target_speed_kmh": 0.0,
+          "front_steering_cmd": 0,
+          "rear_steering_cmd": 0,
+          "brake_enable": true,
+          "left_light": false,
+          "right_light": false,
+          "position_light": false,
+          "low_beam": false,
+          "speed_mode": true
+        }
+      ],
+      "measurements": [
+        {
+          "name": "前转向反馈跟随命令",
+          "value": [
+            {
+              "expected": 30.0,
+              "actual": 29.9,
+              "error": 0.10000000000000142,
+              "sample_count": 20
+            },
+            {
+              "expected": -30.0,
+              "actual": -29.9,
+              "error": 0.10000000000000142,
+              "sample_count": 21
+            },
+            {
+              "expected": 0.0,
+              "actual": 0.0,
+              "error": 0.0,
+              "sample_count": 20
+            }
+          ],
+          "unit": "cmd",
+          "quality": "good",
+          "source_can_id": "0xE1",
+          "source_timestamp": "2026-07-10T10:09:04.764741+00:00"
+        },
+        {
+          "name": "后转向反馈跟随命令",
+          "value": [
+            {
+              "expected": 30.0,
+              "actual": 29.9,
+              "error": 0.10000000000000142,
+              "sample_count": 20
+            },
+            {
+              "expected": -30.0,
+              "actual": -29.9,
+              "error": 0.10000000000000142,
+              "sample_count": 21
+            },
+            {
+              "expected": 0.0,
+              "actual": 0.0,
+              "error": 0.0,
+              "sample_count": 20
+            }
+          ],
+          "unit": "cmd",
+          "quality": "good",
+          "source_can_id": "0xE1",
+          "source_timestamp": "2026-07-10T10:09:04.764751+00:00"
+        }
+      ],
+      "db_id": 293,
+      "ended_at": "2026-07-10T10:09:05.213391+00:00",
+      "duration_ms": 4055,
+      "failure_reason": ""
+    },
+    {
+      "id": "light_check",
+      "order": 9,
+      "name": "灯光检测",
+      "description": "依次下发转向灯、位置灯、近光灯并校验反馈。",
+      "status": "DONE",
+      "result": "PASS",
+      "started_at": "2026-07-10T10:09:05.214242+00:00",
+      "assertions": [
+        {
+          "assertion_id": "light_feedback",
+          "description": "灯光反馈跟随命令",
+          "signal_name": "Left_Turn_Light_Status,Right_Turn_Light_Status,Position_Light_Status,Low_Beam_Status",
+          "operator": "follows_commands_or_manual_review",
+          "threshold": "feedback follows light commands",
+          "measured_value": [
+            {
+              "signal": "Left_Turn_Light_Status",
+              "expected": true,
+              "actual": true,
+              "matched": true
+            },
+            {
+              "signal": "Right_Turn_Light_Status",
+              "expected": true,
+              "actual": true,
+              "matched": true
+            },
+            {
+              "signal": "Position_Light_Status",
+              "expected": true,
+              "actual": true,
+              "matched": true
+            },
+            {
+              "signal": "Low_Beam_Status",
+              "expected": true,
+              "actual": true,
+              "matched": true
+            }
+          ],
+          "unit": "bool",
+          "result": "PASS",
+          "severity": "failure",
+          "failure_reason": "",
+          "sample_started_at": "2026-07-10T10:09:09.342994+00:00",
+          "sample_ended_at": "2026-07-10T10:09:09.343051+00:00",
+          "quality": "good",
+          "source_can_id": "",
+          "source_channel": "",
+          "source_timestamp": ""
+        }
+      ],
+      "commands": [
+        {
+          "shift": "N",
+          "drive_mode": "Remote",
+          "target_speed_kmh": 0.0,
+          "front_steering_cmd": 0,
+          "rear_steering_cmd": 0,
+          "brake_enable": true,
+          "left_light": true,
+          "right_light": false,
+          "position_light": false,
+          "low_beam": false,
+          "speed_mode": true
+        },
+        {
+          "shift": "N",
+          "drive_mode": "Remote",
+          "target_speed_kmh": 0.0,
+          "front_steering_cmd": 0,
+          "rear_steering_cmd": 0,
+          "brake_enable": true,
+          "left_light": false,
+          "right_light": true,
+          "position_light": false,
+          "low_beam": false,
+          "speed_mode": true
+        },
+        {
+          "shift": "N",
+          "drive_mode": "Remote",
+          "target_speed_kmh": 0.0,
+          "front_steering_cmd": 0,
+          "rear_steering_cmd": 0,
+          "brake_enable": true,
+          "left_light": false,
+          "right_light": false,
+          "position_light": true,
+          "low_beam": true,
+          "speed_mode": true
+        },
+        {
+          "shift": "N",
+          "drive_mode": "Remote",
+          "target_speed_kmh": 0.0,
+          "front_steering_cmd": 0,
+          "rear_steering_cmd": 0,
+          "brake_enable": true,
+          "left_light": false,
+          "right_light": false,
+          "position_light": false,
+          "low_beam": false,
+          "speed_mode": true
+        }
+      ],
+      "measurements": [
+        {
+          "name": "灯光反馈跟随命令",
+          "value": [
+            {
+              "signal": "Left_Turn_Light_Status",
+              "expected": true,
+              "actual": true,
+              "matched": true
+            },
+            {
+              "signal": "Right_Turn_Light_Status",
+              "expected": true,
+              "actual": true,
+              "matched": true
+            },
+            {
+              "signal": "Position_Light_Status",
+              "expected": true,
+              "actual": true,
+              "matched": true
+            },
+            {
+              "signal": "Low_Beam_Status",
+              "expected": true,
+              "actual": true,
+              "matched": true
+            }
+          ],
+          "unit": "bool",
+          "quality": "good",
+          "source_can_id": "",
+          "source_timestamp": ""
+        }
+      ],
+      "db_id": 294,
+      "ended_at": "2026-07-10T10:09:09.604854+00:00",
+      "duration_ms": 4391,
+      "failure_reason": ""
+    },
+    {
+      "id": "brake_stop_check",
+      "order": 10,
+      "name": "制动停止检测",
+      "description": "建立低速后下发零速制动，校验制动反馈与停车结果。",
+      "status": "DONE",
+      "result": "PASS",
+      "started_at": "2026-07-10T10:09:09.605836+00:00",
+      "assertions": [
+        {
+          "assertion_id": "speed_to_zero",
+          "description": "制动后车速归零",
+          "signal_name": "CCU_Vehicle_Speed",
+          "operator": "<=",
+          "threshold": 0.2,
+          "measured_value": 0.0,
+          "unit": "km/h",
+          "result": "PASS",
+          "severity": "failure",
+          "failure_reason": "",
+          "sample_started_at": "2026-07-10T10:09:11.888133+00:00",
+          "sample_ended_at": "2026-07-10T10:09:11.888167+00:00",
+          "quality": "good",
+          "source_can_id": "0x51",
+          "source_channel": "CAN1",
+          "source_timestamp": "2026-07-10T10:09:11.858096+00:00"
+        },
+        {
+          "assertion_id": "brake_feedback_active",
+          "description": "制动反馈已激活",
+          "signal_name": "Brake_Status",
+          "operator": "brake_confirmed",
+          "threshold": true,
+          "measured_value": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "unit": "bool",
+          "result": "PASS",
+          "severity": "failure",
+          "failure_reason": "",
+          "sample_started_at": "2026-07-10T10:09:11.888188+00:00",
+          "sample_ended_at": "2026-07-10T10:09:11.888203+00:00",
+          "quality": "good",
+          "source_can_id": "0x51",
+          "source_channel": "CAN1",
+          "source_timestamp": "2026-07-10T10:09:11.678844+00:00"
+        }
+      ],
+      "commands": [
+        {
+          "shift": "D",
+          "drive_mode": "Remote",
+          "target_speed_kmh": 1.0,
+          "front_steering_cmd": 0,
+          "rear_steering_cmd": 0,
+          "brake_enable": false,
+          "left_light": false,
+          "right_light": false,
+          "position_light": false,
+          "low_beam": false,
+          "speed_mode": true
+        },
+        {
+          "shift": "N",
+          "drive_mode": "Remote",
+          "target_speed_kmh": 0.0,
+          "front_steering_cmd": 0,
+          "rear_steering_cmd": 0,
+          "brake_enable": true,
+          "left_light": false,
+          "right_light": false,
+          "position_light": false,
+          "low_beam": false,
+          "speed_mode": true
+        }
+      ],
+      "measurements": [
+        {
+          "name": "制动后车速归零",
+          "value": 0.0,
+          "unit": "km/h",
+          "quality": "good",
+          "source_can_id": "0x51",
+          "source_timestamp": "2026-07-10T10:09:11.858096+00:00"
+        },
+        {
+          "name": "制动反馈已激活",
+          "value": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "unit": "bool",
+          "quality": "good",
+          "source_can_id": "0x51",
+          "source_timestamp": "2026-07-10T10:09:11.678844+00:00"
+        }
+      ],
+      "db_id": 295,
+      "ended_at": "2026-07-10T10:09:12.205802+00:00",
+      "duration_ms": 2600,
+      "failure_reason": ""
+    },
+    {
+      "id": "alarm_recheck",
+      "order": 11,
+      "name": "告警复查",
+      "description": "校验 0x77 告警等级与 CAN 通道统计。",
+      "status": "DONE",
+      "result": "PASS",
+      "started_at": "2026-07-10T10:09:12.206741+00:00",
+      "assertions": [
+        {
+          "assertion_id": "warning_level_zero",
+          "description": "最高告警等级为零",
+          "signal_name": "0x77",
+          "operator": "max_level_equals",
+          "threshold": 0,
+          "measured_value": 0,
+          "unit": "",
+          "result": "PASS",
+          "severity": "failure",
+          "failure_reason": "",
+          "sample_started_at": "2026-07-10T10:09:12.409055+00:00",
+          "sample_ended_at": "2026-07-10T10:09:12.409086+00:00",
+          "quality": "good",
+          "source_can_id": "0x77",
+          "source_channel": "CAN1",
+          "source_timestamp": "2026-07-10T10:09:12.387974+00:00"
+        },
+        {
+          "assertion_id": "no_timeout_critical",
+          "description": "无关键通道超时",
+          "signal_name": "can_statistics",
+          "operator": "no_critical_timeout",
+          "threshold": "all channels healthy",
+          "measured_value": {
+            "unhealthy_channels": []
+          },
+          "unit": "",
+          "result": "PASS",
+          "severity": "failure",
+          "failure_reason": "",
+          "sample_started_at": "2026-07-10T10:09:12.409106+00:00",
+          "sample_ended_at": "2026-07-10T10:09:12.409124+00:00",
+          "quality": "good",
+          "source_can_id": "",
+          "source_channel": "",
+          "source_timestamp": ""
+        }
+      ],
+      "commands": [],
+      "measurements": [
+        {
+          "name": "最高告警等级为零",
+          "value": 0,
+          "unit": "",
+          "quality": "good",
+          "source_can_id": "0x77",
+          "source_timestamp": "2026-07-10T10:09:12.387974+00:00"
+        },
+        {
+          "name": "无关键通道超时",
+          "value": {
+            "unhealthy_channels": []
+          },
+          "unit": "",
+          "quality": "good",
+          "source_can_id": "",
+          "source_timestamp": ""
+        }
+      ],
+      "db_id": 296,
+      "ended_at": "2026-07-10T10:09:12.409138+00:00",
+      "duration_ms": 202,
+      "failure_reason": ""
+    },
+    {
+      "id": "report_generation",
+      "order": 12,
+      "name": "报告生成",
+      "description": "写入会话结果并生成 JSON、DOCX、PDF 和 CSV 报告。",
+      "status": "DONE",
+      "result": "PASS",
+      "started_at": "2026-07-10T10:09:12.410193+00:00",
+      "assertions": [
+        {
+          "assertion_id": "result_saved",
+          "description": "会话数据已写入数据库",
+          "signal_name": "database",
+          "operator": "==",
+          "threshold": true,
+          "measured_value": true,
+          "unit": "",
+          "result": "PASS",
+          "severity": "failure",
+          "failure_reason": "",
+          "sample_started_at": "2026-07-10T10:09:12.685819+00:00",
+          "sample_ended_at": "2026-07-10T10:09:12.685845+00:00",
+          "quality": "good",
+          "source_can_id": "",
+          "source_channel": "",
+          "source_timestamp": ""
+        },
+        {
+          "assertion_id": "report_generated",
+          "description": "报告文件已生成",
+          "signal_name": "report",
+          "operator": "==",
+          "threshold": [
+            "docx",
+            "json",
+            "csv"
+          ],
+          "measured_value": {
+            "report_id": "9e11e88e",
+            "missing": []
+          },
+          "unit": "",
+          "result": "PASS",
+          "severity": "failure",
+          "failure_reason": "",
+          "sample_started_at": "2026-07-10T10:09:12.685874+00:00",
+          "sample_ended_at": "2026-07-10T10:09:12.685884+00:00",
+          "quality": "good",
+          "source_can_id": "",
+          "source_channel": "",
+          "source_timestamp": ""
+        }
+      ],
+      "commands": [],
+      "measurements": [
+        {
+          "name": "会话数据已写入数据库",
+          "value": true,
+          "unit": "",
+          "quality": "good",
+          "source_can_id": "",
+          "source_timestamp": ""
+        },
+        {
+          "name": "报告文件已生成",
+          "value": {
+            "report_id": "9e11e88e",
+            "missing": []
+          },
+          "unit": "",
+          "quality": "good",
+          "source_can_id": "",
+          "source_timestamp": ""
+        }
+      ],
+      "db_id": 297,
+      "ended_at": "2026-07-10T10:09:12.685902+00:00",
+      "duration_ms": 276,
+      "failure_reason": ""
+    }
+  ],
+  "logs": [
+    {
+      "time": "2026-07-10T10:08:56.033273+00:00",
+      "step": "1 上电自检",
+      "action": "步骤开始",
+      "can_command": "",
+      "feedback": "",
+      "status": "RUNNING"
+    },
+    {
+      "time": "2026-07-10T10:08:56.141440+00:00",
+      "step": "1 上电自检",
+      "action": "步骤完成",
+      "can_command": "[]",
+      "feedback": "[{\"name\": \"数据库可写\", \"value\": true, \"unit\": \"\", \"quality\": \"good\", \"source_can_id\": \"\", \"source_timestamp\": \"\"}, {\"name\": \"DBC 已加载\", \"value\": true, \"unit\": \"\", \"quality\": \"good\", \"source_can_id\": \"\", \"source_timestamp\": \"\"}, {\"name\": \"急停已释放\", \"value\": true, \"unit\": \"\", \"quality\": \"good\", \"source_can_id\": \"\", \"source_timestamp\": \"\"}]",
+      "status": "PASS"
+    },
+    {
+      "time": "2026-07-10T10:08:56.141566+00:00",
+      "step": "2 CAN 通信检测",
+      "action": "步骤开始",
+      "can_command": "",
+      "feedback": "",
+      "status": "RUNNING"
+    },
+    {
+      "time": "2026-07-10T10:08:56.344383+00:00",
+      "step": "2 CAN 通信检测",
+      "action": "步骤完成",
+      "can_command": "[]",
+      "feedback": "[{\"name\": \"CAN1 原始接收在线\", \"value\": true, \"unit\": \"\", \"quality\": \"good\", \"source_can_id\": \"\", \"source_timestamp\": \"\"}, {\"name\": \"CAN2 原始接收在线\", \"value\": true, \"unit\": \"\", \"quality\": \"good\", \"source_can_id\": \"\", \"source_timestamp\": \"\"}, {\"name\": \"关键报文完整\", \"value\": {\"present\": [\"0x168\", \"0x51\", \"0x77\", \"0xE1\"], \"missing\": []}, \"unit\": \"\", \"quality\": \"good\", \"source_can_id\": \"\", \"source_timestamp\": \"\"}]",
+      "status": "PASS"
+    },
+    {
+      "time": "2026-07-10T10:08:56.344620+00:00",
+      "step": "3 BMS 检测",
+      "action": "步骤开始",
+      "can_command": "",
+      "feedback": "",
+      "status": "RUNNING"
+    },
+    {
+      "time": "2026-07-10T10:08:56.597704+00:00",
+      "step": "3 BMS 检测",
+      "action": "步骤完成",
+      "can_command": "[]",
+      "feedback": "[{\"name\": \"BMS 总压在范围内\", \"value\": 52.0, \"unit\": \"V\", \"quality\": \"good\", \"source_can_id\": \"0x100\", \"source_timestamp\": \"2026-07-10T10:08:56.588016+00:00\"}, {\"name\": \"BMS SOC 不低于阈值\", \"value\": 86, \"unit\": \"%\", \"quality\": \"good\", \"source_can_id\": \"0x100\", \"source_timestamp\": \"2026-07-10T10:08:56.588028+00:00\"}, {\"name\": \"NTC 温度均在范围内\", \"value\": [25, 26, 24], \"unit\": \"degC\", \"quality\": \"good\", \"source_can_id\": \"0x103\", \"source_timestamp\": \"2026-07-10T10:08:56.595127+00:00\"}, {\"name\": \"0x102 保护位均未触发\", \"value\": {\"BMS_Protect_Bit_00\": 0, \"BMS_Protect_Bit_01\": 0, \"BMS_Protect_Bit_02\": 0, \"BMS_Protect_Bit_03\": 0, \"BMS_Protect_Bit_04\": 0, \"BMS_Protect_Bit_05\": 0, \"BMS_Protect_Bit_06\": 0, \"BMS_Protect_Bit_07\": 0, \"BMS_Protect_Bit_08\": 0, \"BMS_Protect_Bit_09\": 0, \"BMS_Protect_Bit_10\": 0, \"BMS_Protect_Bit_11\": 0, \"BMS_Protect_Bit_12\": 0, \"BMS_Protect_Bit_13\": 0, \"BMS_Protect_Bit_14\": 0, \"BMS_Protect_Bit_15\": 0, \"BMS_Protect_Short_Circuit\": 0, \"BMS_Protect_Over_Current\": 0, \"BMS_Protect_Over_Temperature\": 0, \"BMS_Protect_Under_Temperature\": 0, \"BMS_Protect_Over_Voltage\": 0, \"BMS_Protect_Under_Voltage\": 0, \"BMS_Protect_MOS_Fault\": 0, \"BMS_Protect_Precharge_Fault\": 0, \"BMS_Protect_Bitmap\": 0}, \"unit\": \"bool/bitmap\", \"quality\": \"good\", \"source_can_id\": \"0x102\", \"source_timestamp\": \"2026-07-10T10:08:56.592491+00:00\"}]",
+      "status": "PASS"
+    },
+    {
+      "time": "2026-07-10T10:08:56.597960+00:00",
+      "step": "4 VCU 状态检测",
+      "action": "步骤开始",
+      "can_command": "",
+      "feedback": "",
+      "status": "RUNNING"
+    },
+    {
+      "time": "2026-07-10T10:08:56.858505+00:00",
+      "step": "4 VCU 状态检测",
+      "action": "步骤完成",
+      "can_command": "[]",
+      "feedback": "[{\"name\": \"点火状态有效\", \"value\": 1, \"unit\": \"\", \"quality\": \"good\", \"source_can_id\": \"0x51\", \"source_timestamp\": \"2026-07-10T10:08:56.798755+00:00\"}, {\"name\": \"初始车速接近零\", \"value\": 0.0, \"unit\": \"km/h\", \"quality\": \"good\", \"source_can_id\": \"0x51\", \"source_timestamp\": \"2026-07-10T10:08:56.798769+00:00\"}, {\"name\": \"无非预期制动冲突\", \"value\": [false, false], \"unit\": \"bool\", \"quality\": \"good\", \"source_can_id\": \"0x51\", \"source_timestamp\": \"2026-07-10T10:08:56.798775+00:00\"}]",
+      "status": "PASS"
+    },
+    {
+      "time": "2026-07-10T10:08:56.859787+00:00",
+      "step": "5 电机心跳检测",
+      "action": "步骤开始",
+      "can_command": "",
+      "feedback": "",
+      "status": "RUNNING"
+    },
+    {
+      "time": "2026-07-10T10:08:57.065648+00:00",
+      "step": "5 电机心跳检测",
+      "action": "步骤完成",
+      "can_command": "[]",
+      "feedback": "[{\"name\": \"双电机心跳在线\", \"value\": {\"present\": [\"0x703\", \"0x704\"], \"missing\": []}, \"unit\": \"\", \"quality\": \"good\", \"source_can_id\": \"\", \"source_timestamp\": \"\"}]",
+      "status": "PASS"
+    },
+    {
+      "time": "2026-07-10T10:08:57.066011+00:00",
+      "step": "6 档位检测",
+      "action": "步骤开始",
+      "can_command": "",
+      "feedback": "",
+      "status": "RUNNING"
+    },
+    {
+      "time": "2026-07-10T10:08:57.381482+00:00",
+      "step": "6 档位检测",
+      "action": "下发 0x121",
+      "can_command": "{\"shift\": \"N\", \"drive_mode\": \"Remote\", \"target_speed_kmh\": 0.0, \"front_steering_cmd\": 0, \"rear_steering_cmd\": 0, \"brake_enable\": true, \"left_light\": false, \"right_light\": false, \"position_light\": false, \"low_beam\": false, \"speed_mode\": true}",
+      "feedback": "{\"CCU_Vehicle_Speed\": 0.0, \"CCU_Shift_Level_Status\": 0, \"Brake_Status\": true, \"SAS_Front_Angle\": 0.0, \"SAS_Rear_Angle\": 0.0}",
+      "status": "PASS"
+    },
+    {
+      "time": "2026-07-10T10:08:57.683579+00:00",
+      "step": "6 档位检测",
+      "action": "下发 0x121",
+      "can_command": "{\"shift\": \"D\", \"drive_mode\": \"Remote\", \"target_speed_kmh\": 0.0, \"front_steering_cmd\": 0, \"rear_steering_cmd\": 0, \"brake_enable\": true, \"left_light\": false, \"right_light\": false, \"position_light\": false, \"low_beam\": false, \"speed_mode\": true}",
+      "feedback": "{\"CCU_Vehicle_Speed\": 0.0, \"CCU_Shift_Level_Status\": 1, \"Brake_Status\": true, \"SAS_Front_Angle\": 0.0, \"SAS_Rear_Angle\": 0.0}",
+      "status": "PASS"
+    },
+    {
+      "time": "2026-07-10T10:08:57.997079+00:00",
+      "step": "6 档位检测",
+      "action": "下发 0x121",
+      "can_command": "{\"shift\": \"R\", \"drive_mode\": \"Remote\", \"target_speed_kmh\": 0.0, \"front_steering_cmd\": 0, \"rear_steering_cmd\": 0, \"brake_enable\": true, \"left_light\": false, \"right_light\": false, \"position_light\": false, \"low_beam\": false, \"speed_mode\": true}",
+      "feedback": "{\"CCU_Vehicle_Speed\": 0.0, \"CCU_Shift_Level_Status\": 3, \"Brake_Status\": true, \"SAS_Front_Angle\": 0.0, \"SAS_Rear_Angle\": 0.0}",
+      "status": "PASS"
+    },
+    {
+      "time": "2026-07-10T10:08:58.302036+00:00",
+      "step": "6 档位检测",
+      "action": "下发 0x121",
+      "can_command": "{\"shift\": \"N\", \"drive_mode\": \"Remote\", \"target_speed_kmh\": 0.0, \"front_steering_cmd\": 0, \"rear_steering_cmd\": 0, \"brake_enable\": true, \"left_light\": false, \"right_light\": false, \"position_light\": false, \"low_beam\": false, \"speed_mode\": true}",
+      "feedback": "{\"CCU_Vehicle_Speed\": 0.0, \"CCU_Shift_Level_Status\": 0, \"Brake_Status\": true, \"SAS_Front_Angle\": 0.0, \"SAS_Rear_Angle\": 0.0}",
+      "status": "PASS"
+    },
+    {
+      "time": "2026-07-10T10:08:58.660212+00:00",
+      "step": "6 档位检测",
+      "action": "清理动作",
+      "can_command": "{\"shift\": \"N\", \"drive_mode\": \"Remote\", \"target_speed_kmh\": 0.0, \"front_steering_cmd\": 0, \"rear_steering_cmd\": 0, \"brake_enable\": true, \"left_light\": false, \"right_light\": false, \"position_light\": false, \"low_beam\": false, \"speed_mode\": true}",
+      "feedback": "{\"CCU_Vehicle_Speed\": 0.0, \"CCU_Shift_Level_Status\": 0, \"Brake_Status\": true, \"SAS_Front_Angle\": 0.0, \"SAS_Rear_Angle\": 0.0}",
+      "status": "PASS"
+    },
+    {
+      "time": "2026-07-10T10:08:58.660428+00:00",
+      "step": "6 档位检测",
+      "action": "步骤完成",
+      "can_command": "[{\"shift\": \"N\", \"drive_mode\": \"Remote\", \"target_speed_kmh\": 0.0, \"front_steering_cmd\": 0, \"rear_steering_cmd\": 0, \"brake_enable\": true, \"left_light\": false, \"right_light\": false, \"position_light\": false, \"low_beam\": false, \"speed_mode\": true}, {\"shift\": \"D\", \"drive_mode\": \"Remote\", \"target_speed_kmh\": 0.0, \"front_steering_cmd\": 0, \"rear_steering_cmd\": 0, \"brake_enable\": true, \"left_light\": false, \"right_light\": false, \"position_light\": false, \"low_beam\": false, \"speed_mode\": true}, {\"shift\": \"R\", \"drive_mode\": \"Remote\", \"target_speed_kmh\": 0.0, \"front_steering_cmd\": 0, \"rear_steering_cmd\": 0, \"brake_enable\": true, \"left_light\": false, \"right_light\": false, \"position_light\": false, \"low_beam\": false, \"speed_mode\": true}, {\"shift\": \"N\", \"drive_mode\": \"Remote\", \"target_speed_kmh\": 0.0, \"front_steering_cmd\": 0, \"rear_steering_cmd\": 0, \"brake_enable\": true, \"left_light\": false, \"right_light\": false, \"position_light\": false, \"low_beam\": false, \"speed_mode\": true}]",
+      "feedback": "[{\"name\": \"档位反馈跟随命令\", \"value\": [{\"expected\": 0, \"actual\": 0, \"observed\": [0.0, 0.0, 0.0, 0.0, 0.0], \"matched\": true}, {\"expected\": 1, \"actual\": 1, \"observed\": [1.0, 1.0, 1.0, 1.0, 1.0], \"matched\": true}, {\"expected\": 3, \"actual\": 3, \"observed\": [3.0, 3.0, 3.0, 3.0, 3.0], \"matched\": true}, {\"expected\": 0, \"actual\": 0, \"observed\": [0.0, 0.0, 0.0, 0.0], \"matched\": true}], \"unit\": \"\", \"quality\": \"good\", \"source_can_id\": \"\", \"source_timestamp\": \"\"}]",
+      "status": "PASS"
+    },
+    {
+      "time": "2026-07-10T10:08:58.660878+00:00",
+      "step": "7 低速驱动检测",
+      "action": "步骤开始",
+      "can_command": "",
+      "feedback": "",
+      "status": "RUNNING"
+    },
+    {
+      "time": "2026-07-10T10:08:59.869230+00:00",
+      "step": "7 低速驱动检测",
+      "action": "下发 0x121",
+      "can_command": "{\"shift\": \"D\", \"drive_mode\": \"Remote\", \"target_speed_kmh\": 1.5, \"front_steering_cmd\": 0, \"rear_steering_cmd\": 0, \"brake_enable\": false, \"left_light\": false, \"right_light\": false, \"position_light\": false, \"low_beam\": false, \"speed_mode\": true}",
+      "feedback": "{\"CCU_Vehicle_Speed\": 1.5, \"Wheel_Speed_Front_Right_RPM\": 200, \"Brake_Status\": false, \"Wheel_Speed_Rear_Right_RPM\": 200, \"Wheel_Speed_Rear_Left_RPM\": 200, \"SAS_Front_Angle\": 0.0, \"Wheel_Speed_Front_Left_RPM\": 200, \"SAS_Rear_Angle\": 0.0, \"CCU_Shift_Level_Status\": 1}",
+      "status": "PASS"
+    },
+    {
+      "time": "2026-07-10T10:09:00.677791+00:00",
+      "step": "7 低速驱动检测",
+      "action": "下发 0x121",
+      "can_command": "{\"shift\": \"N\", \"drive_mode\": \"Remote\", \"target_speed_kmh\": 0.0, \"front_steering_cmd\": 0, \"rear_steering_cmd\": 0, \"brake_enable\": true, \"left_light\": false, \"right_light\": false, \"position_light\": false, \"low_beam\": false, \"speed_mode\": true}",
+      "feedback": "{\"CCU_Vehicle_Speed\": 0.0, \"Wheel_Speed_Front_Right_RPM\": 200, \"Brake_Status\": true, \"Wheel_Speed_Rear_Right_RPM\": 200, \"Wheel_Speed_Rear_Left_RPM\": 200, \"SAS_Front_Angle\": 0.0, \"Wheel_Speed_Front_Left_RPM\": 200, \"SAS_Rear_Angle\": 0.0, \"CCU_Shift_Level_Status\": 0}",
+      "status": "PASS"
+    },
+    {
+      "time": "2026-07-10T10:09:01.157688+00:00",
+      "step": "7 低速驱动检测",
+      "action": "清理动作",
+      "can_command": "{\"shift\": \"N\", \"drive_mode\": \"Remote\", \"target_speed_kmh\": 0.0, \"front_steering_cmd\": 0, \"rear_steering_cmd\": 0, \"brake_enable\": true, \"left_light\": false, \"right_light\": false, \"position_light\": false, \"low_beam\": false, \"speed_mode\": true}",
+      "feedback": "{\"CCU_Vehicle_Speed\": 0.0, \"Wheel_Speed_Front_Right_RPM\": 200, \"Brake_Status\": true, \"Wheel_Speed_Rear_Right_RPM\": 200, \"Wheel_Speed_Rear_Left_RPM\": 200, \"SAS_Front_Angle\": 0.0, \"Wheel_Speed_Front_Left_RPM\": 200, \"SAS_Rear_Angle\": 0.0, \"CCU_Shift_Level_Status\": 0}",
+      "status": "PASS"
+    },
+    {
+      "time": "2026-07-10T10:09:01.157950+00:00",
+      "step": "7 低速驱动检测",
+      "action": "步骤完成",
+      "can_command": "[{\"shift\": \"D\", \"drive_mode\": \"Remote\", \"target_speed_kmh\": 1.5, \"front_steering_cmd\": 0, \"rear_steering_cmd\": 0, \"brake_enable\": false, \"left_light\": false, \"right_light\": false, \"position_light\": false, \"low_beam\": false, \"speed_mode\": true}, {\"shift\": \"N\", \"drive_mode\": \"Remote\", \"target_speed_kmh\": 0.0, \"front_steering_cmd\": 0, \"rear_steering_cmd\": 0, \"brake_enable\": true, \"left_light\": false, \"right_light\": false, \"position_light\": false, \"low_beam\": false, \"speed_mode\": true}]",
+      "feedback": "[{\"name\": \"车速达到目标附近\", \"value\": [0.0, 0.1, 0.3, 0.4, 0.6, 0.7, 0.9, 1.0, 1.2, 1.3, 1.4, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5], \"unit\": \"km/h\", \"quality\": \"good\", \"source_can_id\": \"0x51\", \"source_timestamp\": \"2026-07-10T10:08:59.849122+00:00\"}, {\"name\": \"四轮轮速一致\", \"value\": [[200.0, 200.0, 200.0, 200.0]], \"unit\": \"rpm\", \"quality\": \"good\", \"source_can_id\": \"0x168\", \"source_timestamp\": \"2026-07-10T10:08:59.854663+00:00\"}]",
+      "status": "PASS"
+    },
+    {
+      "time": "2026-07-10T10:09:01.158517+00:00",
+      "step": "8 转向检测",
+      "action": "步骤开始",
+      "can_command": "",
+      "feedback": "",
+      "status": "RUNNING"
+    },
+    {
+      "time": "2026-07-10T10:09:02.368022+00:00",
+      "step": "8 转向检测",
+      "action": "下发 0x121",
+      "can_command": "{\"shift\": \"N\", \"drive_mode\": \"Remote\", \"target_speed_kmh\": 0.0, \"front_steering_cmd\": 30, \"rear_steering_cmd\": 30, \"brake_enable\": true, \"left_light\": false, \"right_light\": false, \"position_light\": false, \"low_beam\": false, \"speed_mode\": true}",
+      "feedback": "{\"CCU_Vehicle_Speed\": 0.0, \"Brake_Status\": true, \"CCU_Shift_Level_Status\": 0, \"SAS_Front_Angle\": 29.9, \"SAS_Rear_Angle\": 29.9}",
+      "status": "PASS"
+    },
+    {
+      "time": "2026-07-10T10:09:03.587342+00:00",
+      "step": "8 转向检测",
+      "action": "下发 0x121",
+      "can_command": "{\"shift\": \"N\", \"drive_mode\": \"Remote\", \"target_speed_kmh\": 0.0, \"front_steering_cmd\": -30, \"rear_steering_cmd\": -30, \"brake_enable\": true, \"left_light\": false, \"right_light\": false, \"position_light\": false, \"low_beam\": false, \"speed_mode\": true}",
+      "feedback": "{\"CCU_Vehicle_Speed\": 0.0, \"Brake_Status\": true, \"CCU_Shift_Level_Status\": 0, \"SAS_Front_Angle\": -29.9, \"SAS_Rear_Angle\": -29.9}",
+      "status": "PASS"
+    },
+    {
+      "time": "2026-07-10T10:09:04.803041+00:00",
+      "step": "8 转向检测",
+      "action": "下发 0x121",
+      "can_command": "{\"shift\": \"N\", \"drive_mode\": \"Remote\", \"target_speed_kmh\": 0.0, \"front_steering_cmd\": 0, \"rear_steering_cmd\": 0, \"brake_enable\": true, \"left_light\": false, \"right_light\": false, \"position_light\": false, \"low_beam\": false, \"speed_mode\": true}",
+      "feedback": "{\"CCU_Vehicle_Speed\": 0.0, \"Brake_Status\": true, \"CCU_Shift_Level_Status\": 0, \"SAS_Front_Angle\": 0.0, \"SAS_Rear_Angle\": 0.0}",
+      "status": "PASS"
+    },
+    {
+      "time": "2026-07-10T10:09:05.213373+00:00",
+      "step": "8 转向检测",
+      "action": "清理动作",
+      "can_command": "{\"shift\": \"N\", \"drive_mode\": \"Remote\", \"target_speed_kmh\": 0.0, \"front_steering_cmd\": 0, \"rear_steering_cmd\": 0, \"brake_enable\": true, \"left_light\": false, \"right_light\": false, \"position_light\": false, \"low_beam\": false, \"speed_mode\": true}",
+      "feedback": "{\"CCU_Vehicle_Speed\": 0.0, \"Brake_Status\": true, \"CCU_Shift_Level_Status\": 0, \"SAS_Front_Angle\": 0.0, \"SAS_Rear_Angle\": 0.0}",
+      "status": "PASS"
+    },
+    {
+      "time": "2026-07-10T10:09:05.213632+00:00",
+      "step": "8 转向检测",
+      "action": "步骤完成",
+      "can_command": "[{\"shift\": \"N\", \"drive_mode\": \"Remote\", \"target_speed_kmh\": 0.0, \"front_steering_cmd\": 30, \"rear_steering_cmd\": 30, \"brake_enable\": true, \"left_light\": false, \"right_light\": false, \"position_light\": false, \"low_beam\": false, \"speed_mode\": true}, {\"shift\": \"N\", \"drive_mode\": \"Remote\", \"target_speed_kmh\": 0.0, \"front_steering_cmd\": -30, \"rear_steering_cmd\": -30, \"brake_enable\": true, \"left_light\": false, \"right_light\": false, \"position_light\": false, \"low_beam\": false, \"speed_mode\": true}, {\"shift\": \"N\", \"drive_mode\": \"Remote\", \"target_speed_kmh\": 0.0, \"front_steering_cmd\": 0, \"rear_steering_cmd\": 0, \"brake_enable\": true, \"left_light\": false, \"right_light\": false, \"position_light\": false, \"low_beam\": false, \"speed_mode\": true}]",
+      "feedback": "[{\"name\": \"前转向反馈跟随命令\", \"value\": [{\"expected\": 30.0, \"actual\": 29.9, \"error\": 0.10000000000000142, \"sample_count\": 20}, {\"expected\": -30.0, \"actual\": -29.9, \"error\": 0.10000000000000142, \"sample_count\": 21}, {\"expected\": 0.0, \"actual\": 0.0, \"error\": 0.0, \"sample_count\": 20}], \"unit\": \"cmd\", \"quality\": \"good\", \"source_can_id\": \"0xE1\", \"source_timestamp\": \"2026-07-10T10:09:04.764741+00:00\"}, {\"name\": \"后转向反馈跟随命令\", \"value\": [{\"expected\": 30.0, \"actual\": 29.9, \"error\": 0.10000000000000142, \"sample_count\": 20}, {\"expected\": -30.0, \"actual\": -29.9, \"error\": 0.10000000000000142, \"sample_count\": 21}, {\"expected\": 0.0, \"actual\": 0.0, \"error\": 0.0, \"sample_count\": 20}], \"unit\": \"cmd\", \"quality\": \"good\", \"source_can_id\": \"0xE1\", \"source_timestamp\": \"2026-07-10T10:09:04.764751+00:00\"}]",
+      "status": "PASS"
+    },
+    {
+      "time": "2026-07-10T10:09:05.214301+00:00",
+      "step": "9 灯光检测",
+      "action": "步骤开始",
+      "can_command": "",
+      "feedback": "",
+      "status": "RUNNING"
+    },
+    {
+      "time": "2026-07-10T10:09:06.223741+00:00",
+      "step": "9 灯光检测",
+      "action": "下发 0x121",
+      "can_command": "{\"shift\": \"N\", \"drive_mode\": \"Remote\", \"target_speed_kmh\": 0.0, \"front_steering_cmd\": 0, \"rear_steering_cmd\": 0, \"brake_enable\": true, \"left_light\": true, \"right_light\": false, \"position_light\": false, \"low_beam\": false, \"speed_mode\": true}",
+      "feedback": "{\"Left_Turn_Light_Status\": true, \"Right_Turn_Light_Status\": false, \"Low_Beam_Status\": false, \"CCU_Vehicle_Speed\": 0.0, \"Brake_Status\": true, \"SAS_Front_Angle\": 0.0, \"SAS_Rear_Angle\": 0.0, \"Position_Light_Status\": false, \"CCU_Shift_Level_Status\": 0}",
+      "status": "PASS"
+    },
+    {
+      "time": "2026-07-10T10:09:07.226526+00:00",
+      "step": "9 灯光检测",
+      "action": "下发 0x121",
+      "can_command": "{\"shift\": \"N\", \"drive_mode\": \"Remote\", \"target_speed_kmh\": 0.0, \"front_steering_cmd\": 0, \"rear_steering_cmd\": 0, \"brake_enable\": true, \"left_light\": false, \"right_light\": true, \"position_light\": false, \"low_beam\": false, \"speed_mode\": true}",
+      "feedback": "{\"Left_Turn_Light_Status\": false, \"Right_Turn_Light_Status\": true, \"Low_Beam_Status\": false, \"CCU_Vehicle_Speed\": 0.0, \"Brake_Status\": true, \"SAS_Front_Angle\": 0.0, \"SAS_Rear_Angle\": 0.0, \"Position_Light_Status\": false, \"CCU_Shift_Level_Status\": 0}",
+      "status": "PASS"
+    },
+    {
+      "time": "2026-07-10T10:09:08.232890+00:00",
+      "step": "9 灯光检测",
+      "action": "下发 0x121",
+      "can_command": "{\"shift\": \"N\", \"drive_mode\": \"Remote\", \"target_speed_kmh\": 0.0, \"front_steering_cmd\": 0, \"rear_steering_cmd\": 0, \"brake_enable\": true, \"left_light\": false, \"right_light\": false, \"position_light\": true, \"low_beam\": true, \"speed_mode\": true}",
+      "feedback": "{\"Left_Turn_Light_Status\": false, \"Right_Turn_Light_Status\": false, \"Low_Beam_Status\": true, \"CCU_Vehicle_Speed\": 0.0, \"Brake_Status\": true, \"SAS_Front_Angle\": 0.0, \"SAS_Rear_Angle\": 0.0, \"Position_Light_Status\": true, \"CCU_Shift_Level_Status\": 0}",
+      "status": "PASS"
+    },
+    {
+      "time": "2026-07-10T10:09:09.241268+00:00",
+      "step": "9 灯光检测",
+      "action": "下发 0x121",
+      "can_command": "{\"shift\": \"N\", \"drive_mode\": \"Remote\", \"target_speed_kmh\": 0.0, \"front_steering_cmd\": 0, \"rear_steering_cmd\": 0, \"brake_enable\": true, \"left_light\": false, \"right_light\": false, \"position_light\": false, \"low_beam\": false, \"speed_mode\": true}",
+      "feedback": "{\"Left_Turn_Light_Status\": false, \"Right_Turn_Light_Status\": false, \"Low_Beam_Status\": false, \"CCU_Vehicle_Speed\": 0.0, \"Brake_Status\": true, \"SAS_Front_Angle\": 0.0, \"SAS_Rear_Angle\": 0.0, \"Position_Light_Status\": false, \"CCU_Shift_Level_Status\": 0}",
+      "status": "PASS"
+    },
+    {
+      "time": "2026-07-10T10:09:09.604835+00:00",
+      "step": "9 灯光检测",
+      "action": "清理动作",
+      "can_command": "{\"shift\": \"N\", \"drive_mode\": \"Remote\", \"target_speed_kmh\": 0.0, \"front_steering_cmd\": 0, \"rear_steering_cmd\": 0, \"brake_enable\": true, \"left_light\": false, \"right_light\": false, \"position_light\": false, \"low_beam\": false, \"speed_mode\": true}",
+      "feedback": "{\"Left_Turn_Light_Status\": false, \"Right_Turn_Light_Status\": false, \"Low_Beam_Status\": false, \"CCU_Vehicle_Speed\": 0.0, \"Brake_Status\": true, \"SAS_Front_Angle\": 0.0, \"SAS_Rear_Angle\": 0.0, \"Position_Light_Status\": false, \"CCU_Shift_Level_Status\": 0}",
+      "status": "PASS"
+    },
+    {
+      "time": "2026-07-10T10:09:09.605065+00:00",
+      "step": "9 灯光检测",
+      "action": "步骤完成",
+      "can_command": "[{\"shift\": \"N\", \"drive_mode\": \"Remote\", \"target_speed_kmh\": 0.0, \"front_steering_cmd\": 0, \"rear_steering_cmd\": 0, \"brake_enable\": true, \"left_light\": true, \"right_light\": false, \"position_light\": false, \"low_beam\": false, \"speed_mode\": true}, {\"shift\": \"N\", \"drive_mode\": \"Remote\", \"target_speed_kmh\": 0.0, \"front_steering_cmd\": 0, \"rear_steering_cmd\": 0, \"brake_enable\": true, \"left_light\": false, \"right_light\": true, \"position_light\": false, \"low_beam\": false, \"speed_mode\": true}, {\"shift\": \"N\", \"drive_mode\": \"Remote\", \"target_speed_kmh\": 0.0, \"front_steering_cmd\": 0, \"rear_steering_cmd\": 0, \"brake_enable\": true, \"left_light\": false, \"right_light\": false, \"position_light\": true, \"low_beam\": true, \"speed_mode\": true}, {\"shift\": \"N\", \"drive_mode\": \"Remote\", \"target_speed_kmh\": 0.0, \"front_steering_cmd\": 0, \"rear_steering_cmd\": 0, \"brake_enable\": true, \"left_light\": false, \"right_light\": false, \"position_light\": false, \"low_beam\": false, \"speed_mode\": true}]",
+      "feedback": "[{\"name\": \"灯光反馈跟随命令\", \"value\": [{\"signal\": \"Left_Turn_Light_Status\", \"expected\": true, \"actual\": true, \"matched\": true}, {\"signal\": \"Right_Turn_Light_Status\", \"expected\": true, \"actual\": true, \"matched\": true}, {\"signal\": \"Position_Light_Status\", \"expected\": true, \"actual\": true, \"matched\": true}, {\"signal\": \"Low_Beam_Status\", \"expected\": true, \"actual\": true, \"matched\": true}], \"unit\": \"bool\", \"quality\": \"good\", \"source_can_id\": \"\", \"source_timestamp\": \"\"}]",
+      "status": "PASS"
+    },
+    {
+      "time": "2026-07-10T10:09:09.605925+00:00",
+      "step": "10 制动停止检测",
+      "action": "步骤开始",
+      "can_command": "",
+      "feedback": "",
+      "status": "RUNNING"
+    },
+    {
+      "time": "2026-07-10T10:09:10.516542+00:00",
+      "step": "10 制动停止检测",
+      "action": "下发 0x121",
+      "can_command": "{\"shift\": \"D\", \"drive_mode\": \"Remote\", \"target_speed_kmh\": 1.0, \"front_steering_cmd\": 0, \"rear_steering_cmd\": 0, \"brake_enable\": false, \"left_light\": false, \"right_light\": false, \"position_light\": false, \"low_beam\": false, \"speed_mode\": true}",
+      "feedback": "{\"CCU_Vehicle_Speed\": 1.0, \"Brake_Status\": false, \"CCU_Shift_Level_Status\": 1, \"SAS_Front_Angle\": 0.0, \"SAS_Rear_Angle\": 0.0}",
+      "status": "PASS"
+    },
+    {
+      "time": "2026-07-10T10:09:11.718255+00:00",
+      "step": "10 制动停止检测",
+      "action": "下发 0x121",
+      "can_command": "{\"shift\": \"N\", \"drive_mode\": \"Remote\", \"target_speed_kmh\": 0.0, \"front_steering_cmd\": 0, \"rear_steering_cmd\": 0, \"brake_enable\": true, \"left_light\": false, \"right_light\": false, \"position_light\": false, \"low_beam\": false, \"speed_mode\": true}",
+      "feedback": "{\"CCU_Vehicle_Speed\": 0.0, \"Brake_Status\": true, \"CCU_Shift_Level_Status\": 0, \"SAS_Front_Angle\": 0.0, \"SAS_Rear_Angle\": 0.0}",
+      "status": "PASS"
+    },
+    {
+      "time": "2026-07-10T10:09:12.205788+00:00",
+      "step": "10 制动停止检测",
+      "action": "清理动作",
+      "can_command": "{\"shift\": \"N\", \"drive_mode\": \"Remote\", \"target_speed_kmh\": 0.0, \"front_steering_cmd\": 0, \"rear_steering_cmd\": 0, \"brake_enable\": true, \"left_light\": false, \"right_light\": false, \"position_light\": false, \"low_beam\": false, \"speed_mode\": true}",
+      "feedback": "{\"CCU_Vehicle_Speed\": 0.0, \"Brake_Status\": true, \"CCU_Shift_Level_Status\": 0, \"SAS_Front_Angle\": 0.0, \"SAS_Rear_Angle\": 0.0}",
+      "status": "PASS"
+    },
+    {
+      "time": "2026-07-10T10:09:12.206028+00:00",
+      "step": "10 制动停止检测",
+      "action": "步骤完成",
+      "can_command": "[{\"shift\": \"D\", \"drive_mode\": \"Remote\", \"target_speed_kmh\": 1.0, \"front_steering_cmd\": 0, \"rear_steering_cmd\": 0, \"brake_enable\": false, \"left_light\": false, \"right_light\": false, \"position_light\": false, \"low_beam\": false, \"speed_mode\": true}, {\"shift\": \"N\", \"drive_mode\": \"Remote\", \"target_speed_kmh\": 0.0, \"front_steering_cmd\": 0, \"rear_steering_cmd\": 0, \"brake_enable\": true, \"left_light\": false, \"right_light\": false, \"position_light\": false, \"low_beam\": false, \"speed_mode\": true}]",
+      "feedback": "[{\"name\": \"制动后车速归零\", \"value\": 0.0, \"unit\": \"km/h\", \"quality\": \"good\", \"source_can_id\": \"0x51\", \"source_timestamp\": \"2026-07-10T10:09:11.858096+00:00\"}, {\"name\": \"制动反馈已激活\", \"value\": [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true], \"unit\": \"bool\", \"quality\": \"good\", \"source_can_id\": \"0x51\", \"source_timestamp\": \"2026-07-10T10:09:11.678844+00:00\"}]",
+      "status": "PASS"
+    },
+    {
+      "time": "2026-07-10T10:09:12.206804+00:00",
+      "step": "11 告警复查",
+      "action": "步骤开始",
+      "can_command": "",
+      "feedback": "",
+      "status": "RUNNING"
+    },
+    {
+      "time": "2026-07-10T10:09:12.409393+00:00",
+      "step": "11 告警复查",
+      "action": "步骤完成",
+      "can_command": "[]",
+      "feedback": "[{\"name\": \"最高告警等级为零\", \"value\": 0, \"unit\": \"\", \"quality\": \"good\", \"source_can_id\": \"0x77\", \"source_timestamp\": \"2026-07-10T10:09:12.387974+00:00\"}, {\"name\": \"无关键通道超时\", \"value\": {\"unhealthy_channels\": []}, \"unit\": \"\", \"quality\": \"good\", \"source_can_id\": \"\", \"source_timestamp\": \"\"}]",
+      "status": "PASS"
+    },
+    {
+      "time": "2026-07-10T10:09:12.410245+00:00",
+      "step": "12 报告生成",
+      "action": "步骤开始",
+      "can_command": "",
+      "feedback": "",
+      "status": "RUNNING"
+    },
+    {
+      "time": "2026-07-10T10:09:12.686134+00:00",
+      "step": "12 报告生成",
+      "action": "步骤完成",
+      "can_command": "[]",
+      "feedback": "[{\"name\": \"会话数据已写入数据库\", \"value\": true, \"unit\": \"\", \"quality\": \"good\", \"source_can_id\": \"\", \"source_timestamp\": \"\"}, {\"name\": \"报告文件已生成\", \"value\": {\"report_id\": \"9e11e88e\", \"missing\": []}, \"unit\": \"\", \"quality\": \"good\", \"source_can_id\": \"\", \"source_timestamp\": \"\"}]",
+      "status": "PASS"
+    }
+  ],
+  "measurements": [
+    {
+      "name": "会话数据已写入数据库",
+      "value": true,
+      "unit": "",
+      "quality": "good",
+      "source_can_id": "",
+      "source_timestamp": ""
+    },
+    {
+      "name": "报告文件已生成",
+      "value": {
+        "report_id": "9e11e88e",
+        "missing": []
+      },
+      "unit": "",
+      "quality": "good",
+      "source_can_id": "",
+      "source_timestamp": ""
+    }
+  ],
+  "created_at": "2026-07-10T10:08:56.025349+00:00",
+  "plan_name": "低速无人车线控底盘默认下线检测方案",
+  "plan_version": "2.0.0",
+  "dbc_hash": "387ae48bd84852c8",
+  "config_hash": "profile:dev",
+  "software_version": "v1.0.2",
+  "started_at": "2026-07-10T10:08:56.032852+00:00",
+  "current_step_id": "report_generation",
+  "current_step_name": "报告生成",
+  "report": {
+    "id": "9e11e88e",
+    "session_id": "EOL-0B96CC1113B6",
+    "result": "PASS",
+    "generated_at": "2026-07-10T10:09:12.410386+00:00",
+    "files": {
+      "json": "D:\\workspace\\0-yunle\\7_codex\\chassis_eol_management_platform_codex_pack\\chassis_management_platform\\data\\reports\\20260710_100912_PH3-NORMAL-001_000001_PASS_EOL-0B96CC1113B6_9e11e88e.json",
+      "docx": "D:\\workspace\\0-yunle\\7_codex\\chassis_eol_management_platform_codex_pack\\chassis_management_platform\\data\\reports\\20260710_100912_PH3-NORMAL-001_000001_PASS_EOL-0B96CC1113B6_9e11e88e.docx",
+      "pdf": "D:\\workspace\\0-yunle\\7_codex\\chassis_eol_management_platform_codex_pack\\chassis_management_platform\\data\\reports\\20260710_100912_PH3-NORMAL-001_000001_PASS_EOL-0B96CC1113B6_9e11e88e.pdf",
+      "csv": "D:\\workspace\\0-yunle\\7_codex\\chassis_eol_management_platform_codex_pack\\chassis_management_platform\\data\\reports\\20260710_100912_PH3-NORMAL-001_000001_PASS_EOL-0B96CC1113B6_9e11e88e.csv"
+    },
+    "statuses": {
+      "json": "COMPLETED",
+      "docx": "COMPLETED",
+      "pdf": "COMPLETED",
+      "csv": "COMPLETED"
+    },
+    "errors": {},
+    "font": {
+      "name": "ChassisCJK",
+      "path": "D:\\workspace\\0-yunle\\7_codex\\chassis_eol_management_platform_codex_pack\\chassis_management_platform\\assets\\fonts\\NotoSansSC-VF.ttf",
+      "embedded": true
+    },
+    "hashes": {
+      "json": "07637b7cd5e054a81f0f69195e68bc30171f99cde56444c9deeb1c287b33946c",
+      "docx": "fc386ca8cc4956c042c00c7f039a46fe583b451e8bf854a577d088c1b32c30f6",
+      "pdf": "e2700eb7095f6dfc0536262cb46a2032ea2449a3df446439586ea6042806a171",
+      "csv": "b502e2cb8b3b598f90941ce63d6e1f495110069dffdc1d84181f074d18e84c4b"
+    },
+    "database_ids": [
+      "9e11e88e-json",
+      "9e11e88e-docx",
+      "9e11e88e-pdf",
+      "9e11e88e-csv"
+    ]
+  },
+  "failure_reason": "",
+  "ended_at": "2026-07-10T10:09:12.687046+00:00"
+}

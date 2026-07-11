@@ -1,0 +1,1787 @@
+{
+  "baseUrl": "http://127.0.0.1:15173",
+  "inspections": [
+    {
+      "page": "overview",
+      "route": "/overview",
+      "width": 1920,
+      "height": 1080,
+      "filename": "overview_1920x1080.png",
+      "renderer_console_errors": [],
+      "renderer_page_errors": [],
+      "location": "#/overview",
+      "viewport": {
+        "width": 1920,
+        "height": 1040
+      },
+      "page_scrollable": false,
+      "root_scroll_height": 1040,
+      "root_client_height": 1040,
+      "white_controls": 0,
+      "chart_canvas_count": 3,
+      "failed_to_fetch_banner": false,
+      "layout_rects": {
+        "shell": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1040
+        },
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 280,
+          "height": 1040
+        },
+        "topbar": {
+          "x": 280,
+          "y": 32,
+          "width": 1640,
+          "height": 86
+        },
+        "content": {
+          "x": 280,
+          "y": 118,
+          "width": 1640,
+          "height": 922
+        }
+      },
+      "topbar_cells": [
+        {
+          "text": "工位EOL-STATION-01",
+          "rect": {
+            "x": 280,
+            "y": 32,
+            "width": 150,
+            "height": 85
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        },
+        {
+          "text": "用户op01",
+          "rect": {
+            "x": 430,
+            "y": 32,
+            "width": 82,
+            "height": 85
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        },
+        {
+          "text": "软件版本v1.0.2",
+          "rect": {
+            "x": 512,
+            "y": 32,
+            "width": 112,
+            "height": 85
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        }
+      ]
+    },
+    {
+      "page": "overview",
+      "route": "/overview",
+      "width": 1366,
+      "height": 768,
+      "filename": "overview_1366x768.png",
+      "renderer_console_errors": [],
+      "renderer_page_errors": [],
+      "location": "#/overview",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "page_scrollable": false,
+      "root_scroll_height": 768,
+      "root_client_height": 768,
+      "white_controls": 0,
+      "chart_canvas_count": 3,
+      "failed_to_fetch_banner": false,
+      "layout_rects": {
+        "shell": {
+          "x": 0,
+          "y": 0,
+          "width": 1366,
+          "height": 768
+        },
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 188,
+          "height": 768
+        },
+        "topbar": {
+          "x": 188,
+          "y": 32,
+          "width": 1178,
+          "height": 86
+        },
+        "content": {
+          "x": 188,
+          "y": 118,
+          "width": 1178,
+          "height": 650
+        }
+      },
+      "topbar_cells": [
+        {
+          "text": "工位EOL-STATION-01",
+          "rect": {
+            "x": 188,
+            "y": 32,
+            "width": 134,
+            "height": 85
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        },
+        {
+          "text": "用户op01",
+          "rect": {
+            "x": 322,
+            "y": 32,
+            "width": 76,
+            "height": 85
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        },
+        {
+          "text": "软件版本v1.0.2",
+          "rect": {
+            "x": 398,
+            "y": 32,
+            "width": 104,
+            "height": 85
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        }
+      ]
+    },
+    {
+      "page": "network-config",
+      "route": "/network-config",
+      "width": 1920,
+      "height": 1080,
+      "filename": "network-config_1920x1080.png",
+      "renderer_console_errors": [],
+      "renderer_page_errors": [],
+      "location": "#/network-config",
+      "viewport": {
+        "width": 1920,
+        "height": 1040
+      },
+      "page_scrollable": false,
+      "root_scroll_height": 1040,
+      "root_client_height": 1040,
+      "white_controls": 0,
+      "chart_canvas_count": 2,
+      "failed_to_fetch_banner": false,
+      "layout_rects": {
+        "shell": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1040
+        },
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 280,
+          "height": 1040
+        },
+        "topbar": {
+          "x": 280,
+          "y": 32,
+          "width": 1640,
+          "height": 86
+        },
+        "content": {
+          "x": 280,
+          "y": 118,
+          "width": 1640,
+          "height": 922
+        }
+      },
+      "topbar_cells": [
+        {
+          "text": "工位EOL-STATION-01",
+          "rect": {
+            "x": 280,
+            "y": 32,
+            "width": 150,
+            "height": 85
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        },
+        {
+          "text": "用户op01",
+          "rect": {
+            "x": 430,
+            "y": 32,
+            "width": 82,
+            "height": 85
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        },
+        {
+          "text": "软件版本v1.0.2",
+          "rect": {
+            "x": 512,
+            "y": 32,
+            "width": 112,
+            "height": 85
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        }
+      ]
+    },
+    {
+      "page": "network-config",
+      "route": "/network-config",
+      "width": 1366,
+      "height": 768,
+      "filename": "network-config_1366x768.png",
+      "renderer_console_errors": [],
+      "renderer_page_errors": [],
+      "location": "#/network-config",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "page_scrollable": false,
+      "root_scroll_height": 768,
+      "root_client_height": 768,
+      "white_controls": 0,
+      "chart_canvas_count": 2,
+      "failed_to_fetch_banner": false,
+      "layout_rects": {
+        "shell": {
+          "x": 0,
+          "y": 0,
+          "width": 1366,
+          "height": 768
+        },
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 188,
+          "height": 768
+        },
+        "topbar": {
+          "x": 188,
+          "y": 32,
+          "width": 1178,
+          "height": 86
+        },
+        "content": {
+          "x": 188,
+          "y": 118,
+          "width": 1178,
+          "height": 650
+        }
+      },
+      "topbar_cells": [
+        {
+          "text": "工位EOL-STATION-01",
+          "rect": {
+            "x": 188,
+            "y": 32,
+            "width": 134,
+            "height": 85
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        },
+        {
+          "text": "用户op01",
+          "rect": {
+            "x": 322,
+            "y": 32,
+            "width": 76,
+            "height": 85
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        },
+        {
+          "text": "软件版本v1.0.2",
+          "rect": {
+            "x": 398,
+            "y": 32,
+            "width": 104,
+            "height": 85
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        }
+      ]
+    },
+    {
+      "page": "can-monitor",
+      "route": "/can-monitor",
+      "width": 1920,
+      "height": 1080,
+      "filename": "can-monitor_1920x1080.png",
+      "renderer_console_errors": [],
+      "renderer_page_errors": [],
+      "location": "#/can-monitor",
+      "viewport": {
+        "width": 1920,
+        "height": 1040
+      },
+      "page_scrollable": false,
+      "root_scroll_height": 1040,
+      "root_client_height": 1040,
+      "white_controls": 0,
+      "chart_canvas_count": 3,
+      "failed_to_fetch_banner": false,
+      "layout_rects": {
+        "shell": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1040
+        },
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 280,
+          "height": 1040
+        },
+        "topbar": {
+          "x": 280,
+          "y": 32,
+          "width": 1640,
+          "height": 86
+        },
+        "content": {
+          "x": 280,
+          "y": 118,
+          "width": 1640,
+          "height": 922
+        }
+      },
+      "topbar_cells": [
+        {
+          "text": "工位EOL-STATION-01",
+          "rect": {
+            "x": 280,
+            "y": 32,
+            "width": 150,
+            "height": 85
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        },
+        {
+          "text": "用户op01",
+          "rect": {
+            "x": 430,
+            "y": 32,
+            "width": 82,
+            "height": 85
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        },
+        {
+          "text": "软件版本v1.0.2",
+          "rect": {
+            "x": 512,
+            "y": 32,
+            "width": 112,
+            "height": 85
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        }
+      ]
+    },
+    {
+      "page": "can-monitor",
+      "route": "/can-monitor",
+      "width": 1366,
+      "height": 768,
+      "filename": "can-monitor_1366x768.png",
+      "renderer_console_errors": [],
+      "renderer_page_errors": [],
+      "location": "#/can-monitor",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "page_scrollable": false,
+      "root_scroll_height": 768,
+      "root_client_height": 768,
+      "white_controls": 0,
+      "chart_canvas_count": 3,
+      "failed_to_fetch_banner": false,
+      "layout_rects": {
+        "shell": {
+          "x": 0,
+          "y": 0,
+          "width": 1366,
+          "height": 768
+        },
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 188,
+          "height": 768
+        },
+        "topbar": {
+          "x": 188,
+          "y": 32,
+          "width": 1178,
+          "height": 86
+        },
+        "content": {
+          "x": 188,
+          "y": 118,
+          "width": 1178,
+          "height": 650
+        }
+      },
+      "topbar_cells": [
+        {
+          "text": "工位EOL-STATION-01",
+          "rect": {
+            "x": 188,
+            "y": 32,
+            "width": 134,
+            "height": 85
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        },
+        {
+          "text": "用户op01",
+          "rect": {
+            "x": 322,
+            "y": 32,
+            "width": 76,
+            "height": 85
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        },
+        {
+          "text": "软件版本v1.0.2",
+          "rect": {
+            "x": 398,
+            "y": 32,
+            "width": 104,
+            "height": 85
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        }
+      ]
+    },
+    {
+      "page": "signal-dashboard",
+      "route": "/signal-dashboard",
+      "width": 1920,
+      "height": 1080,
+      "filename": "signal-dashboard_1920x1080.png",
+      "renderer_console_errors": [],
+      "renderer_page_errors": [],
+      "location": "#/signal-dashboard",
+      "viewport": {
+        "width": 1920,
+        "height": 1040
+      },
+      "page_scrollable": false,
+      "root_scroll_height": 1040,
+      "root_client_height": 1040,
+      "white_controls": 0,
+      "chart_canvas_count": 0,
+      "failed_to_fetch_banner": false,
+      "layout_rects": {
+        "shell": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1040
+        },
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 280,
+          "height": 1040
+        },
+        "topbar": {
+          "x": 280,
+          "y": 32,
+          "width": 1640,
+          "height": 86
+        },
+        "content": {
+          "x": 280,
+          "y": 118,
+          "width": 1640,
+          "height": 922
+        }
+      },
+      "topbar_cells": [
+        {
+          "text": "工位EOL-STATION-01",
+          "rect": {
+            "x": 280,
+            "y": 32,
+            "width": 150,
+            "height": 85
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        },
+        {
+          "text": "用户op01",
+          "rect": {
+            "x": 430,
+            "y": 32,
+            "width": 82,
+            "height": 85
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        },
+        {
+          "text": "软件版本v1.0.2",
+          "rect": {
+            "x": 512,
+            "y": 32,
+            "width": 112,
+            "height": 85
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        }
+      ]
+    },
+    {
+      "page": "signal-dashboard",
+      "route": "/signal-dashboard",
+      "width": 1366,
+      "height": 768,
+      "filename": "signal-dashboard_1366x768.png",
+      "renderer_console_errors": [],
+      "renderer_page_errors": [],
+      "location": "#/signal-dashboard",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "page_scrollable": false,
+      "root_scroll_height": 768,
+      "root_client_height": 768,
+      "white_controls": 0,
+      "chart_canvas_count": 0,
+      "failed_to_fetch_banner": false,
+      "layout_rects": {
+        "shell": {
+          "x": 0,
+          "y": 0,
+          "width": 1366,
+          "height": 768
+        },
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 188,
+          "height": 768
+        },
+        "topbar": {
+          "x": 188,
+          "y": 32,
+          "width": 1178,
+          "height": 86
+        },
+        "content": {
+          "x": 188,
+          "y": 118,
+          "width": 1178,
+          "height": 650
+        }
+      },
+      "topbar_cells": [
+        {
+          "text": "工位EOL-STATION-01",
+          "rect": {
+            "x": 188,
+            "y": 32,
+            "width": 134,
+            "height": 85
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        },
+        {
+          "text": "用户op01",
+          "rect": {
+            "x": 322,
+            "y": 32,
+            "width": 76,
+            "height": 85
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        },
+        {
+          "text": "软件版本v1.0.2",
+          "rect": {
+            "x": 398,
+            "y": 32,
+            "width": 104,
+            "height": 85
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        }
+      ]
+    },
+    {
+      "page": "realtime-curve",
+      "route": "/realtime-curve",
+      "width": 1920,
+      "height": 1080,
+      "filename": "realtime-curve_1920x1080.png",
+      "renderer_console_errors": [],
+      "renderer_page_errors": [],
+      "location": "#/realtime-curve",
+      "viewport": {
+        "width": 1920,
+        "height": 1040
+      },
+      "page_scrollable": false,
+      "root_scroll_height": 1040,
+      "root_client_height": 1040,
+      "white_controls": 0,
+      "chart_canvas_count": 7,
+      "failed_to_fetch_banner": false,
+      "layout_rects": {
+        "shell": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1040
+        },
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 280,
+          "height": 1040
+        },
+        "topbar": {
+          "x": 280,
+          "y": 32,
+          "width": 1640,
+          "height": 86
+        },
+        "content": {
+          "x": 280,
+          "y": 118,
+          "width": 1640,
+          "height": 922
+        }
+      },
+      "topbar_cells": [
+        {
+          "text": "工位EOL-STATION-01",
+          "rect": {
+            "x": 280,
+            "y": 32,
+            "width": 150,
+            "height": 85
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        },
+        {
+          "text": "用户op01",
+          "rect": {
+            "x": 430,
+            "y": 32,
+            "width": 82,
+            "height": 85
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        },
+        {
+          "text": "软件版本v1.0.2",
+          "rect": {
+            "x": 512,
+            "y": 32,
+            "width": 112,
+            "height": 85
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        }
+      ]
+    },
+    {
+      "page": "realtime-curve",
+      "route": "/realtime-curve",
+      "width": 1366,
+      "height": 768,
+      "filename": "realtime-curve_1366x768.png",
+      "renderer_console_errors": [],
+      "renderer_page_errors": [],
+      "location": "#/realtime-curve",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "page_scrollable": false,
+      "root_scroll_height": 768,
+      "root_client_height": 768,
+      "white_controls": 0,
+      "chart_canvas_count": 7,
+      "failed_to_fetch_banner": false,
+      "layout_rects": {
+        "shell": {
+          "x": 0,
+          "y": 0,
+          "width": 1366,
+          "height": 768
+        },
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 188,
+          "height": 768
+        },
+        "topbar": {
+          "x": 188,
+          "y": 32,
+          "width": 1178,
+          "height": 86
+        },
+        "content": {
+          "x": 188,
+          "y": 118,
+          "width": 1178,
+          "height": 650
+        }
+      },
+      "topbar_cells": [
+        {
+          "text": "工位EOL-STATION-01",
+          "rect": {
+            "x": 188,
+            "y": 32,
+            "width": 134,
+            "height": 85
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        },
+        {
+          "text": "用户op01",
+          "rect": {
+            "x": 322,
+            "y": 32,
+            "width": 76,
+            "height": 85
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        },
+        {
+          "text": "软件版本v1.0.2",
+          "rect": {
+            "x": 398,
+            "y": 32,
+            "width": 104,
+            "height": 85
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        }
+      ]
+    },
+    {
+      "page": "manual-control",
+      "route": "/manual-control",
+      "width": 1920,
+      "height": 1080,
+      "filename": "manual-control_1920x1080.png",
+      "renderer_console_errors": [],
+      "renderer_page_errors": [],
+      "location": "#/manual-control",
+      "viewport": {
+        "width": 1920,
+        "height": 1040
+      },
+      "page_scrollable": false,
+      "root_scroll_height": 1040,
+      "root_client_height": 1040,
+      "white_controls": 0,
+      "chart_canvas_count": 2,
+      "failed_to_fetch_banner": false,
+      "layout_rects": {
+        "shell": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1040
+        },
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 280,
+          "height": 1040
+        },
+        "topbar": {
+          "x": 280,
+          "y": 32,
+          "width": 1640,
+          "height": 86
+        },
+        "content": {
+          "x": 280,
+          "y": 118,
+          "width": 1640,
+          "height": 922
+        }
+      },
+      "topbar_cells": [
+        {
+          "text": "工位EOL-STATION-01",
+          "rect": {
+            "x": 280,
+            "y": 32,
+            "width": 150,
+            "height": 85
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        },
+        {
+          "text": "用户op01",
+          "rect": {
+            "x": 430,
+            "y": 32,
+            "width": 82,
+            "height": 85
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        },
+        {
+          "text": "软件版本v1.0.2",
+          "rect": {
+            "x": 512,
+            "y": 32,
+            "width": 112,
+            "height": 85
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        }
+      ]
+    },
+    {
+      "page": "manual-control",
+      "route": "/manual-control",
+      "width": 1366,
+      "height": 768,
+      "filename": "manual-control_1366x768.png",
+      "renderer_console_errors": [],
+      "renderer_page_errors": [],
+      "location": "#/manual-control",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "page_scrollable": false,
+      "root_scroll_height": 768,
+      "root_client_height": 768,
+      "white_controls": 0,
+      "chart_canvas_count": 0,
+      "failed_to_fetch_banner": false,
+      "layout_rects": {
+        "shell": {
+          "x": 0,
+          "y": 0,
+          "width": 1366,
+          "height": 768
+        },
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 188,
+          "height": 768
+        },
+        "topbar": {
+          "x": 188,
+          "y": 32,
+          "width": 1178,
+          "height": 86
+        },
+        "content": {
+          "x": 188,
+          "y": 118,
+          "width": 1178,
+          "height": 650
+        }
+      },
+      "topbar_cells": [
+        {
+          "text": "工位EOL-STATION-01",
+          "rect": {
+            "x": 188,
+            "y": 32,
+            "width": 134,
+            "height": 85
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        },
+        {
+          "text": "用户op01",
+          "rect": {
+            "x": 322,
+            "y": 32,
+            "width": 76,
+            "height": 85
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        },
+        {
+          "text": "软件版本v1.0.2",
+          "rect": {
+            "x": 398,
+            "y": 32,
+            "width": 104,
+            "height": 85
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        }
+      ]
+    },
+    {
+      "page": "auto-test",
+      "route": "/auto-test",
+      "width": 1920,
+      "height": 1080,
+      "filename": "auto-test_1920x1080.png",
+      "renderer_console_errors": [],
+      "renderer_page_errors": [],
+      "location": "#/auto-test",
+      "viewport": {
+        "width": 1920,
+        "height": 1040
+      },
+      "page_scrollable": false,
+      "root_scroll_height": 1040,
+      "root_client_height": 1040,
+      "white_controls": 0,
+      "chart_canvas_count": 1,
+      "failed_to_fetch_banner": false,
+      "layout_rects": {
+        "shell": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1040
+        },
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 280,
+          "height": 1040
+        },
+        "topbar": {
+          "x": 280,
+          "y": 32,
+          "width": 1640,
+          "height": 86
+        },
+        "content": {
+          "x": 280,
+          "y": 118,
+          "width": 1640,
+          "height": 922
+        }
+      },
+      "topbar_cells": [
+        {
+          "text": "工位EOL-STATION-01",
+          "rect": {
+            "x": 280,
+            "y": 32,
+            "width": 150,
+            "height": 85
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        },
+        {
+          "text": "用户op01",
+          "rect": {
+            "x": 430,
+            "y": 32,
+            "width": 82,
+            "height": 85
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        },
+        {
+          "text": "软件版本v1.0.2",
+          "rect": {
+            "x": 512,
+            "y": 32,
+            "width": 112,
+            "height": 85
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        }
+      ]
+    },
+    {
+      "page": "auto-test",
+      "route": "/auto-test",
+      "width": 1366,
+      "height": 768,
+      "filename": "auto-test_1366x768.png",
+      "renderer_console_errors": [],
+      "renderer_page_errors": [],
+      "location": "#/auto-test",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "page_scrollable": false,
+      "root_scroll_height": 768,
+      "root_client_height": 768,
+      "white_controls": 0,
+      "chart_canvas_count": 1,
+      "failed_to_fetch_banner": false,
+      "layout_rects": {
+        "shell": {
+          "x": 0,
+          "y": 0,
+          "width": 1366,
+          "height": 768
+        },
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 188,
+          "height": 768
+        },
+        "topbar": {
+          "x": 188,
+          "y": 32,
+          "width": 1178,
+          "height": 86
+        },
+        "content": {
+          "x": 188,
+          "y": 118,
+          "width": 1178,
+          "height": 650
+        }
+      },
+      "topbar_cells": [
+        {
+          "text": "工位EOL-STATION-01",
+          "rect": {
+            "x": 188,
+            "y": 32,
+            "width": 134,
+            "height": 85
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        },
+        {
+          "text": "用户op01",
+          "rect": {
+            "x": 322,
+            "y": 32,
+            "width": 76,
+            "height": 85
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        },
+        {
+          "text": "软件版本v1.0.2",
+          "rect": {
+            "x": 398,
+            "y": 32,
+            "width": 104,
+            "height": 85
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        }
+      ]
+    },
+    {
+      "page": "alarm-diagnosis",
+      "route": "/alarm-diagnosis",
+      "width": 1920,
+      "height": 1080,
+      "filename": "alarm-diagnosis_1920x1080.png",
+      "renderer_console_errors": [],
+      "renderer_page_errors": [],
+      "location": "#/alarm-diagnosis",
+      "viewport": {
+        "width": 1920,
+        "height": 1040
+      },
+      "page_scrollable": false,
+      "root_scroll_height": 1040,
+      "root_client_height": 1040,
+      "white_controls": 0,
+      "chart_canvas_count": 2,
+      "failed_to_fetch_banner": false,
+      "layout_rects": {
+        "shell": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1040
+        },
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 280,
+          "height": 1040
+        },
+        "topbar": {
+          "x": 280,
+          "y": 32,
+          "width": 1640,
+          "height": 86
+        },
+        "content": {
+          "x": 280,
+          "y": 118,
+          "width": 1640,
+          "height": 922
+        }
+      },
+      "topbar_cells": [
+        {
+          "text": "工位EOL-STATION-01",
+          "rect": {
+            "x": 280,
+            "y": 32,
+            "width": 150,
+            "height": 85
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        },
+        {
+          "text": "用户op01",
+          "rect": {
+            "x": 430,
+            "y": 32,
+            "width": 82,
+            "height": 85
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        },
+        {
+          "text": "软件版本v1.0.2",
+          "rect": {
+            "x": 512,
+            "y": 32,
+            "width": 112,
+            "height": 85
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        }
+      ]
+    },
+    {
+      "page": "alarm-diagnosis",
+      "route": "/alarm-diagnosis",
+      "width": 1366,
+      "height": 768,
+      "filename": "alarm-diagnosis_1366x768.png",
+      "renderer_console_errors": [],
+      "renderer_page_errors": [],
+      "location": "#/alarm-diagnosis",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "page_scrollable": false,
+      "root_scroll_height": 768,
+      "root_client_height": 768,
+      "white_controls": 0,
+      "chart_canvas_count": 0,
+      "failed_to_fetch_banner": false,
+      "layout_rects": {
+        "shell": {
+          "x": 0,
+          "y": 0,
+          "width": 1366,
+          "height": 768
+        },
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 188,
+          "height": 768
+        },
+        "topbar": {
+          "x": 188,
+          "y": 32,
+          "width": 1178,
+          "height": 86
+        },
+        "content": {
+          "x": 188,
+          "y": 118,
+          "width": 1178,
+          "height": 650
+        }
+      },
+      "topbar_cells": [
+        {
+          "text": "工位EOL-STATION-01",
+          "rect": {
+            "x": 188,
+            "y": 32,
+            "width": 134,
+            "height": 85
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        },
+        {
+          "text": "用户op01",
+          "rect": {
+            "x": 322,
+            "y": 32,
+            "width": 76,
+            "height": 85
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        },
+        {
+          "text": "软件版本v1.0.2",
+          "rect": {
+            "x": 398,
+            "y": 32,
+            "width": 104,
+            "height": 85
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        }
+      ]
+    },
+    {
+      "page": "report-management",
+      "route": "/report-management",
+      "width": 1920,
+      "height": 1080,
+      "filename": "report-management_1920x1080.png",
+      "renderer_console_errors": [],
+      "renderer_page_errors": [],
+      "location": "#/report-management",
+      "viewport": {
+        "width": 1920,
+        "height": 1040
+      },
+      "page_scrollable": false,
+      "root_scroll_height": 1040,
+      "root_client_height": 1040,
+      "white_controls": 0,
+      "chart_canvas_count": 3,
+      "failed_to_fetch_banner": false,
+      "layout_rects": {
+        "shell": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1040
+        },
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 280,
+          "height": 1040
+        },
+        "topbar": {
+          "x": 280,
+          "y": 32,
+          "width": 1640,
+          "height": 86
+        },
+        "content": {
+          "x": 280,
+          "y": 118,
+          "width": 1640,
+          "height": 922
+        }
+      },
+      "topbar_cells": [
+        {
+          "text": "工位EOL-STATION-01",
+          "rect": {
+            "x": 280,
+            "y": 32,
+            "width": 150,
+            "height": 85
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        },
+        {
+          "text": "用户op01",
+          "rect": {
+            "x": 430,
+            "y": 32,
+            "width": 82,
+            "height": 85
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        },
+        {
+          "text": "软件版本v1.0.2",
+          "rect": {
+            "x": 512,
+            "y": 32,
+            "width": 112,
+            "height": 85
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        }
+      ]
+    },
+    {
+      "page": "report-management",
+      "route": "/report-management",
+      "width": 1366,
+      "height": 768,
+      "filename": "report-management_1366x768.png",
+      "renderer_console_errors": [],
+      "renderer_page_errors": [],
+      "location": "#/report-management",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "page_scrollable": false,
+      "root_scroll_height": 768,
+      "root_client_height": 768,
+      "white_controls": 0,
+      "chart_canvas_count": 3,
+      "failed_to_fetch_banner": false,
+      "layout_rects": {
+        "shell": {
+          "x": 0,
+          "y": 0,
+          "width": 1366,
+          "height": 768
+        },
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 188,
+          "height": 768
+        },
+        "topbar": {
+          "x": 188,
+          "y": 32,
+          "width": 1178,
+          "height": 86
+        },
+        "content": {
+          "x": 188,
+          "y": 118,
+          "width": 1178,
+          "height": 650
+        }
+      },
+      "topbar_cells": [
+        {
+          "text": "工位EOL-STATION-01",
+          "rect": {
+            "x": 188,
+            "y": 32,
+            "width": 134,
+            "height": 85
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        },
+        {
+          "text": "用户op01",
+          "rect": {
+            "x": 322,
+            "y": 32,
+            "width": 76,
+            "height": 85
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        },
+        {
+          "text": "软件版本v1.0.2",
+          "rect": {
+            "x": 398,
+            "y": 32,
+            "width": 104,
+            "height": 85
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        }
+      ]
+    },
+    {
+      "page": "history",
+      "route": "/history",
+      "width": 1920,
+      "height": 1080,
+      "filename": "history_1920x1080.png",
+      "renderer_console_errors": [],
+      "renderer_page_errors": [],
+      "location": "#/history",
+      "viewport": {
+        "width": 1920,
+        "height": 1040
+      },
+      "page_scrollable": false,
+      "root_scroll_height": 1040,
+      "root_client_height": 1040,
+      "white_controls": 0,
+      "chart_canvas_count": 2,
+      "failed_to_fetch_banner": false,
+      "layout_rects": {
+        "shell": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1040
+        },
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 280,
+          "height": 1040
+        },
+        "topbar": {
+          "x": 280,
+          "y": 32,
+          "width": 1640,
+          "height": 86
+        },
+        "content": {
+          "x": 280,
+          "y": 118,
+          "width": 1640,
+          "height": 922
+        }
+      },
+      "topbar_cells": [
+        {
+          "text": "工位EOL-STATION-01",
+          "rect": {
+            "x": 280,
+            "y": 32,
+            "width": 150,
+            "height": 85
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        },
+        {
+          "text": "用户op01",
+          "rect": {
+            "x": 430,
+            "y": 32,
+            "width": 82,
+            "height": 85
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        },
+        {
+          "text": "软件版本v1.0.2",
+          "rect": {
+            "x": 512,
+            "y": 32,
+            "width": 112,
+            "height": 85
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        }
+      ]
+    },
+    {
+      "page": "history",
+      "route": "/history",
+      "width": 1366,
+      "height": 768,
+      "filename": "history_1366x768.png",
+      "renderer_console_errors": [],
+      "renderer_page_errors": [],
+      "location": "#/history",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "page_scrollable": false,
+      "root_scroll_height": 768,
+      "root_client_height": 768,
+      "white_controls": 0,
+      "chart_canvas_count": 2,
+      "failed_to_fetch_banner": false,
+      "layout_rects": {
+        "shell": {
+          "x": 0,
+          "y": 0,
+          "width": 1366,
+          "height": 768
+        },
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 188,
+          "height": 768
+        },
+        "topbar": {
+          "x": 188,
+          "y": 32,
+          "width": 1178,
+          "height": 86
+        },
+        "content": {
+          "x": 188,
+          "y": 118,
+          "width": 1178,
+          "height": 650
+        }
+      },
+      "topbar_cells": [
+        {
+          "text": "工位EOL-STATION-01",
+          "rect": {
+            "x": 188,
+            "y": 32,
+            "width": 134,
+            "height": 85
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        },
+        {
+          "text": "用户op01",
+          "rect": {
+            "x": 322,
+            "y": 32,
+            "width": 76,
+            "height": 85
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        },
+        {
+          "text": "软件版本v1.0.2",
+          "rect": {
+            "x": 398,
+            "y": 32,
+            "width": 104,
+            "height": 85
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        }
+      ]
+    },
+    {
+      "page": "system-settings",
+      "route": "/system-settings",
+      "width": 1920,
+      "height": 1080,
+      "filename": "system-settings_1920x1080.png",
+      "renderer_console_errors": [],
+      "renderer_page_errors": [],
+      "location": "#/system-settings",
+      "viewport": {
+        "width": 1920,
+        "height": 1040
+      },
+      "page_scrollable": false,
+      "root_scroll_height": 1040,
+      "root_client_height": 1040,
+      "white_controls": 0,
+      "chart_canvas_count": 1,
+      "failed_to_fetch_banner": false,
+      "layout_rects": {
+        "shell": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1040
+        },
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 280,
+          "height": 1040
+        },
+        "topbar": {
+          "x": 280,
+          "y": 32,
+          "width": 1640,
+          "height": 86
+        },
+        "content": {
+          "x": 280,
+          "y": 118,
+          "width": 1640,
+          "height": 922
+        }
+      },
+      "topbar_cells": [
+        {
+          "text": "工位EOL-STATION-01",
+          "rect": {
+            "x": 280,
+            "y": 32,
+            "width": 150,
+            "height": 85
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        },
+        {
+          "text": "用户op01",
+          "rect": {
+            "x": 430,
+            "y": 32,
+            "width": 82,
+            "height": 85
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        },
+        {
+          "text": "软件版本v1.0.2",
+          "rect": {
+            "x": 512,
+            "y": 32,
+            "width": 112,
+            "height": 85
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        }
+      ]
+    },
+    {
+      "page": "system-settings",
+      "route": "/system-settings",
+      "width": 1366,
+      "height": 768,
+      "filename": "system-settings_1366x768.png",
+      "renderer_console_errors": [],
+      "renderer_page_errors": [],
+      "location": "#/system-settings",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "page_scrollable": false,
+      "root_scroll_height": 768,
+      "root_client_height": 768,
+      "white_controls": 0,
+      "chart_canvas_count": 1,
+      "failed_to_fetch_banner": false,
+      "layout_rects": {
+        "shell": {
+          "x": 0,
+          "y": 0,
+          "width": 1366,
+          "height": 768
+        },
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 188,
+          "height": 768
+        },
+        "topbar": {
+          "x": 188,
+          "y": 32,
+          "width": 1178,
+          "height": 86
+        },
+        "content": {
+          "x": 188,
+          "y": 118,
+          "width": 1178,
+          "height": 650
+        }
+      },
+      "topbar_cells": [
+        {
+          "text": "工位EOL-STATION-01",
+          "rect": {
+            "x": 188,
+            "y": 32,
+            "width": 134,
+            "height": 85
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        },
+        {
+          "text": "用户op01",
+          "rect": {
+            "x": 322,
+            "y": 32,
+            "width": 76,
+            "height": 85
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        },
+        {
+          "text": "软件版本v1.0.2",
+          "rect": {
+            "x": 398,
+            "y": 32,
+            "width": 104,
+            "height": 85
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        }
+      ]
+    }
+  ]
+}

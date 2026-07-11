@@ -1,0 +1,55 @@
+﻿{
+    "captured_at":  "2026-07-10T19:50:08.7214158+08:00",
+    "channels":  [
+                     {
+                         "channel":  "CAN1",
+                         "online":  true,
+                         "fps":  204.0,
+                         "receive_age_ms":  9.2,
+                         "queue_depth":  0,
+                         "pipeline_depth":  0,
+                         "pipeline_dropped":  0,
+                         "recent_buffer_depth":  10000,
+                         "recent_buffer_capacity":  10000
+                     },
+                     {
+                         "channel":  "CAN2",
+                         "online":  true,
+                         "fps":  440.0,
+                         "receive_age_ms":  8.0,
+                         "queue_depth":  0,
+                         "pipeline_depth":  0,
+                         "pipeline_dropped":  0,
+                         "recent_buffer_depth":  10000,
+                         "recent_buffer_capacity":  10000
+                     }
+                 ],
+    "telemetry":  {
+                      "queue_depth":  0,
+                      "queue_capacity":  20000,
+                      "dropped":  0,
+                      "healthy":  true,
+                      "last_error":  "",
+                      "raw_log":  {
+                                      "buffers":  75,
+                                      "active_files":  1,
+                                      "rotations":  1,
+                                      "compressed":  1,
+                                      "bytes":  284264519,
+                                      "retention_days":  180
+                                  },
+                      "signal_log":  {
+                                         "buffers":  0,
+                                         "active_files":  0,
+                                         "bytes":  96271941,
+                                         "format":  "csv"
+                                     }
+                  },
+    "websocket":  {
+                      "clients":  0,
+                      "subscribed_clients":  0,
+                      "queue_depth":  0,
+                      "queue_capacity":  0,
+                      "dropped_messages":  0
+                  }
+}

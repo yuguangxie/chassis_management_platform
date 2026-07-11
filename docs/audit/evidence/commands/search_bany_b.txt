@@ -1,0 +1,115 @@
+﻿PATTERN: \bany\b
+MATCHES: 112
+
+backend/tests\test_safety_interlock.py:20:    assert any(r["rule"] == "emergency_released" for r in result["reasons"])
+backend/tests\test_safety_interlock.py:26:    assert any(r["rule"] == "speed_limit" for r in result["reasons"])
+backend/tests\test_system_settings.py:61:        assert any(item["key"] == "basic.language" for item in client.get("/api/v1/config/history").json())
+backend/app\core\config.py:3:from typing import Any
+backend/app\core\config.py:32:def _read_yaml(path: Path) -> dict[str, Any]:
+backend/app\eol\engine.py:36:            if any(a["level"] >= 3 for a in alarms) or soc < 30:
+backend/app\api\eol.py:4:from typing import Any
+backend/app\api\eol.py:15:def _steps() -> list[dict[str, Any]]:
+backend/app\api\eol.py:36:def _assertions() -> list[dict[str, Any]]:
+backend/app\api\eol.py:45:def _logs() -> list[dict[str, Any]]:
+backend/app\api\eol.py:56:def _charts() -> dict[str, Any]:
+backend/app\api\eol.py:70:def _latest_session() -> dict[str, Any] | None:
+backend/app\api\eol.py:76:def _dashboard() -> dict[str, Any]:
+backend/app\api\eol.py:136:def _stub(message: str, **extra: Any) -> dict[str, Any]:
+backend/app\api\control.py:4:from typing import Any
+backend/app\api\control.py:16:def _command_from_payload(payload: Any | None = None) -> Control121Command:
+backend/app\api\control.py:38:def _manual_preview(cmd: Control121Command) -> dict[str, Any]:
+backend/app\api\control.py:65:def _interlock_status() -> dict[str, Any]:
+backend/app\api\control.py:81:def _manual_curves() -> dict[str, Any]:
+backend/app\api\control.py:89:def _stub(message: str) -> dict[str, Any]:
+backend/app\api\control.py:116:async def control_preview(payload: Any = Body(default=None)):
+backend/app\api\control.py:121:async def send_once(payload: Any = Body(default=None)):
+backend/app\api\control.py:131:async def start_periodic(payload: Any = Body(default=None), period_ms: int = 20):
+backend/app\api\alarms.py:6:from typing import Any
+backend/app\api\alarms.py:35:def _audit(action: str, target: str, payload: dict[str, Any], result: str = "OK") -> None:
+backend/app\api\alarms.py:48:def _stub(message: str) -> dict[str, Any]:
+backend/app\api\alarms.py:52:def _history_rows() -> list[dict[str, Any]]:
+backend/app\api\alarms.py:77:def _dashboard() -> dict[str, Any]:
+backend/app\api\alarms.py:142:async def export_diagnosis(payload: dict[str, Any] = Body(default_factory=dict)):
+backend/app\api\alarms.py:148:async def jump_can_frame(payload: dict[str, Any] = Body(default_factory=dict)):
+backend/app\api\alarms.py:155:async def ack(alarm_id: str, payload: dict[str, Any] = Body(default_factory=dict)):
+backend/app\api\alarms.py:163:async def override(alarm_id: str, payload: dict[str, Any] = Body(default_factory=dict)):
+backend/app\api\can.py:4:from typing import Any
+backend/app\api\can.py:49:def _latest_items() -> list[dict[str, Any]]:
+backend/app\api\can.py:57:def _filter_latest(items: list[dict[str, Any]], channel: str, can_id: str, message_name: str, direction: str, status: str) -> list[dict[str, Any]]:
+backend/app\api\can.py:59:    filtered: list[dict[str, Any]] = []
+backend/app\api\can.py:75:def _sort_latest(items: list[dict[str, Any]], sort: str) -> list[dict[str, Any]]:
+backend/app\api\can.py:245:def decoded_signals_for(can_id: int) -> list[dict[str, Any]]:
+backend/app\api\history.py:7:from typing import Any
+backend/app\api\history.py:18:def _audit(action: str, target: str, payload: dict[str, Any], result: str = "OK") -> None:
+backend/app\api\history.py:31:def _stub(message: str, **extra: Any) -> dict[str, Any]:
+backend/app\api\history.py:47:def _db_sessions() -> list[dict[str, Any]]:
+backend/app\api\history.py:52:        normalized: list[dict[str, Any]] = []
+backend/app\api\history.py:84:def _runtime_sessions() -> list[dict[str, Any]]:
+backend/app\api\history.py:87:    rows: list[dict[str, Any]] = []
+backend/app\api\history.py:109:def _session_source() -> tuple[list[dict[str, Any]], bool]:
+backend/app\api\history.py:120:    rows: list[dict[str, Any]],
+backend/app\api\history.py:129:) -> list[dict[str, Any]]:
+backend/app\api\history.py:130:    def includes(value: Any, query: str | None) -> bool:
+backend/app\api\history.py:146:def _timeline(sid: str) -> list[dict[str, Any]]:
+backend/app\api\history.py:180:def _operator_logs(sid: str) -> list[dict[str, Any]]:
+backend/app\api\history.py:204:def _downloads() -> list[dict[str, Any]]:
+backend/app\api\history.py:208:def _selected_payload(row: dict[str, Any]) -> dict[str, Any]:
+backend/app\api\history.py:231:def _charts(vin: str = "L0000000000000001") -> dict[str, Any]:
+backend/app\api\history.py:248:def _summary(rows: list[dict[str, Any]], mock: bool, filtered_count: int) -> dict[str, Any]:
+backend/app\api\history.py:282:    has_filter = any([chassis_no, vin, serial_no, start_time, end_time, result, operator, station])
+backend/app\api\history.py:309:async def export_history(payload: dict[str, Any] = Body(default_factory=dict)):
+backend/app\api\history.py:327:    total = len(filtered) if any([chassis_no, vin, serial_no, result, operator, station]) or not mock else 128
+backend/app\api\history.py:344:    if not any(item["session_id"] == sid for item in rows):
+backend/app\api\history.py:352:    if not any(item["session_id"] == sid for item in rows):
+backend/app\api\history.py:360:    if not any(item["session_id"] == sid for item in rows):
+backend/app\api\history.py:371:    if not any(item["session_id"] == sid for item in rows):
+backend/app\api\history.py:380:    if not any(item["session_id"] == sid for item in rows):
+backend/app\api\history.py:401:async def replay_seek(sid: str, payload: Any = Body(default_factory=dict)):
+backend/app\api\config.py:14:from typing import Any, Literal
+backend/app\api\config.py:178:def _read_yaml(path: Path) -> dict[str, Any]:
+backend/app\api\config.py:189:def _display_time(value: Any) -> str:
+backend/app\api\config.py:220:def _thresholds() -> list[dict[str, Any]]:
+backend/app\api\config.py:258:def _config_history(limit: int = 8) -> list[dict[str, Any]]:
+backend/app\api\config.py:259:    items: list[dict[str, Any]] = []
+backend/app\api\config.py:276:def _audit_action(action: str, target: str, payload: dict[str, Any], result: str = "OK", changes: list[dict[str, Any]] | None = None) -> None:
+backend/app\api\config.py:294:async def _broadcast(topic: str, payload: dict[str, Any]) -> None:
+backend/app\api\config.py:300:def _atomic_write_settings(payload: dict[str, Any]) -> None:
+backend/app\api\config.py:323:def _normalize_channels(payload: dict[str, Any]) -> list[dict[str, Any]]:
+backend/app\api\config.py:327:    normalized: list[dict[str, Any]] = []
+backend/app\api\config.py:349:def _dbc_dashboard() -> dict[str, Any]:
+backend/app\api\config.py:368:def _storage_dashboard() -> dict[str, Any]:
+backend/app\api\config.py:391:def _system_version() -> dict[str, Any]:
+backend/app\api\config.py:407:def _merge_saved(dashboard: dict[str, Any]) -> None:
+backend/app\api\config.py:418:def _system_dashboard() -> dict[str, Any]:
+backend/app\api\config.py:458:def _changes(before: dict[str, Any], after: dict[str, Any]) -> list[dict[str, Any]]:
+backend/app\api\config.py:459:    changed: list[dict[str, Any]] = []
+backend/app\api\config.py:513:        dangerous = any(requested[key] for key in ("enable_0x123", "enable_0x126", "allow_canopen_nmt", "enable_pid_debug"))
+backend/app\api\config.py:531:    response = {"ok": True, "saved": True, "changed_items": changed, "requires_restart": any(item["key"] in {"basic.database_path", "basic.log_directory", "storage.database_path"} for item in changed), "requires_can_reconnect": any(item["key"] in {"basic.host_ip", "basic.control_channel"} for item in changed), "requires_dbc_reload": False, "message": "配置已校验并原子保存"}
+backend/app\api\config.py:537:async def import_config(payload: dict[str, Any] = Body(default_factory=dict)):
+backend/app\api\config.py:588:async def update_channels(payload: dict[str, Any]):
+backend/app\api\config.py:621:async def storage_cleanup(payload: dict[str, Any] = Body(default_factory=dict)):
+backend/app\api\config.py:670:    dangerous_enable = any(requested[key] and not old.get(key, False) for key in ("enable_0x123", "enable_0x126", "allow_canopen_nmt", "enable_pid_debug"))
+backend/app\api\reports.py:7:from typing import Any
+backend/app\api\reports.py:26:def _audit(action: str, target: str, payload: dict[str, Any], result: str = "OK") -> None:
+backend/app\api\reports.py:39:def _stub(message: str, **extra: Any) -> dict[str, Any]:
+backend/app\api\reports.py:43:def _db_reports() -> list[dict[str, Any]]:
+backend/app\api\reports.py:69:def _scanned_reports() -> list[dict[str, Any]]:
+backend/app\api\reports.py:71:    rows: list[dict[str, Any]] = []
+backend/app\api\reports.py:93:def _report_rows() -> list[dict[str, Any]]:
+backend/app\api\reports.py:102:    rows: list[dict[str, Any]],
+backend/app\api\reports.py:110:) -> list[dict[str, Any]]:
+backend/app\api\reports.py:111:    def matches(item: dict[str, Any]) -> bool:
+backend/app\api\reports.py:125:def _find_report(rid: str) -> dict[str, Any]:
+backend/app\api\reports.py:129:def _preview_payload(report: dict[str, Any]) -> dict[str, Any]:
+backend/app\api\reports.py:155:def _related_sessions(report: dict[str, Any] | None = None) -> list[dict[str, Any]]:
+backend/app\api\reports.py:168:def _dashboard_payload() -> dict[str, Any]:
+backend/app\api\reports.py:215:async def change_directory(payload: dict[str, Any] = Body(default_factory=dict)):
+backend/app\api\signals.py:3:from typing import Any
+backend/app\api\signals.py:45:def _curve_config() -> dict[str, Any]:
+backend/app\api\signals.py:64:def _chart(series: list[dict[str, Any]]) -> dict[str, Any]:
+backend/app\api\signals.py:68:def _curve_timeseries(mode: str = "live") -> dict[str, Any]:
+backend/app\api\signals.py:138:async def post_watchlist(payload: Any = Body(default={})):
+backend/app\api\signals.py:143:async def put_watchlist(payload: Any = Body(...)):
+backend/app\api\signals.py:176:async def export_csv(payload: Any = Body(default={})):
+backend/app\api\signals.py:181:async def curve_selection(payload: Any = Body(default={})):
+backend/app\api\signals.py:191:async def save_dashboard_layout(payload: dict[str, Any]):

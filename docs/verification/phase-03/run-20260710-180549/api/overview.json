@@ -1,0 +1,17 @@
+{
+  "request": {
+    "method": "GET",
+    "path": "/overview/summary",
+    "body": null
+  },
+  "status_code": 500,
+  "trace_id": "663cbcd53597440689f448f42471c1c5",
+  "body": {
+    "code": "INTERNAL_ERROR",
+    "message": "服务器内部错误",
+    "details": {
+      "exception": "PydanticSerializationError"
+    },
+    "trace_id": "663cbcd53597440689f448f42471c1c5"
+  }
+}

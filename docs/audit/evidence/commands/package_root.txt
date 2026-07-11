@@ -1,0 +1,14 @@
+﻿COMMAND:  Get-Content -Raw package.json 
+TIME: 2026-07-10 10:57:22 +08:00
+
+{
+  "scripts": {
+    "backend:dev": "python scripts/dev_backend.py",
+    "sim:normal": "python scripts/dev_simulator.py --profile normal_pass",
+    "desktop:dev": "npm --prefix desktop run dev",
+    "desktop:build": "npm --prefix desktop run build",
+    "test": "pytest backend/tests simulator/tests -q && npm --prefix desktop run typecheck && npm --prefix desktop run build"
+  }
+}
+
+

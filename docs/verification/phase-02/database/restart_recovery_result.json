@@ -1,0 +1,20 @@
+{
+  "real_vehicle_connected": false,
+  "network_boundary": "127.0.0.1 only",
+  "session_id": "EOL-FF86FAAFFCC3",
+  "before_restart": {
+    "id": "EOL-FF86FAAFFCC3",
+    "status": "RUNNING",
+    "overall_result": null,
+    "failure_reason": "",
+    "ended_at": null
+  },
+  "after_restart": {
+    "id": "EOL-FF86FAAFFCC3",
+    "status": "ABORTED",
+    "overall_result": "ABORTED",
+    "failure_reason": "service restart recovery",
+    "ended_at": "2026-07-10T07:16:56.544420+00:00"
+  },
+  "passed": true
+}

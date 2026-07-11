@@ -1,0 +1,529 @@
+{
+  "url": "http://127.0.0.1:8800/api/v1/config/history",
+  "method": "GET",
+  "status": 200,
+  "headers": {
+    "date": "Fri, 10 Jul 2026 03:01:29 GMT",
+    "server": "uvicorn",
+    "content-length": "12219",
+    "content-type": "application/json",
+    "connection": "close"
+  },
+  "body": [
+    {
+      "time": "2026-07-10 02:58:32",
+      "user": "op01",
+      "key": "maintenance.dangerous_features",
+      "old_value": "custom",
+      "new_value": "全部关闭",
+      "reason": "恢复安全默认",
+      "result": "成功"
+    },
+    {
+      "time": "2026-07-10 02:58:32",
+      "user": "op01",
+      "key": "control_period_ms",
+      "old_value": "custom",
+      "new_value": "20",
+      "reason": "恢复安全默认",
+      "result": "成功"
+    },
+    {
+      "time": "2026-07-10 02:58:32",
+      "user": "op01",
+      "key": "allow_warning_release",
+      "old_value": "custom",
+      "new_value": "False",
+      "reason": "恢复安全默认",
+      "result": "成功"
+    },
+    {
+      "time": "2026-07-10 02:58:32",
+      "user": "op01",
+      "key": "max_alarm_level",
+      "old_value": "custom",
+      "new_value": "0",
+      "reason": "恢复安全默认",
+      "result": "成功"
+    },
+    {
+      "time": "2026-07-10 02:58:32",
+      "user": "op01",
+      "key": "rear_steer_limit",
+      "old_value": "custom",
+      "new_value": "60",
+      "reason": "恢复安全默认",
+      "result": "成功"
+    },
+    {
+      "time": "2026-07-10 02:58:32",
+      "user": "op01",
+      "key": "front_steer_limit",
+      "old_value": "custom",
+      "new_value": "60",
+      "reason": "恢复安全默认",
+      "result": "成功"
+    },
+    {
+      "time": "2026-07-10 02:58:32",
+      "user": "op01",
+      "key": "auto_speed_limit",
+      "old_value": "custom",
+      "new_value": "1.5",
+      "reason": "恢复安全默认",
+      "result": "成功"
+    },
+    {
+      "time": "2026-07-10 02:58:32",
+      "user": "op01",
+      "key": "manual_speed_limit",
+      "old_value": "custom",
+      "new_value": "3.0",
+      "reason": "恢复安全默认",
+      "result": "成功"
+    },
+    {
+      "time": "2026-07-10 02:58:31",
+      "user": "op01",
+      "key": "basic.language",
+      "old_value": "zh-CN",
+      "new_value": "en-US",
+      "reason": "普通语言配置修改",
+      "result": "成功"
+    },
+    {
+      "time": "2026-07-10 02:23:46",
+      "user": "op01",
+      "key": "maintenance.dangerous_features",
+      "old_value": "custom",
+      "new_value": "全部关闭",
+      "reason": "恢复安全默认",
+      "result": "成功"
+    },
+    {
+      "time": "2026-07-10 02:23:46",
+      "user": "op01",
+      "key": "control_period_ms",
+      "old_value": "custom",
+      "new_value": "20",
+      "reason": "恢复安全默认",
+      "result": "成功"
+    },
+    {
+      "time": "2026-07-10 02:23:46",
+      "user": "op01",
+      "key": "allow_warning_release",
+      "old_value": "custom",
+      "new_value": "False",
+      "reason": "恢复安全默认",
+      "result": "成功"
+    },
+    {
+      "time": "2026-07-10 02:23:46",
+      "user": "op01",
+      "key": "max_alarm_level",
+      "old_value": "custom",
+      "new_value": "0",
+      "reason": "恢复安全默认",
+      "result": "成功"
+    },
+    {
+      "time": "2026-07-10 02:23:46",
+      "user": "op01",
+      "key": "rear_steer_limit",
+      "old_value": "custom",
+      "new_value": "60",
+      "reason": "恢复安全默认",
+      "result": "成功"
+    },
+    {
+      "time": "2026-07-10 02:23:46",
+      "user": "op01",
+      "key": "front_steer_limit",
+      "old_value": "custom",
+      "new_value": "60",
+      "reason": "恢复安全默认",
+      "result": "成功"
+    },
+    {
+      "time": "2026-07-10 02:23:46",
+      "user": "op01",
+      "key": "auto_speed_limit",
+      "old_value": "custom",
+      "new_value": "1.5",
+      "reason": "恢复安全默认",
+      "result": "成功"
+    },
+    {
+      "time": "2026-07-10 02:23:46",
+      "user": "op01",
+      "key": "manual_speed_limit",
+      "old_value": "custom",
+      "new_value": "3.0",
+      "reason": "恢复安全默认",
+      "result": "成功"
+    },
+    {
+      "time": "2026-07-10 02:23:46",
+      "user": "op01",
+      "key": "basic.language",
+      "old_value": "zh-CN",
+      "new_value": "en-US",
+      "reason": "普通语言配置修改",
+      "result": "成功"
+    },
+    {
+      "time": "2026-07-10 02:21:24",
+      "user": "op01",
+      "key": "maintenance.dangerous_features",
+      "old_value": "custom",
+      "new_value": "全部关闭",
+      "reason": "恢复安全默认",
+      "result": "成功"
+    },
+    {
+      "time": "2026-07-10 02:21:24",
+      "user": "op01",
+      "key": "control_period_ms",
+      "old_value": "custom",
+      "new_value": "20",
+      "reason": "恢复安全默认",
+      "result": "成功"
+    },
+    {
+      "time": "2026-07-10 02:21:24",
+      "user": "op01",
+      "key": "allow_warning_release",
+      "old_value": "custom",
+      "new_value": "False",
+      "reason": "恢复安全默认",
+      "result": "成功"
+    },
+    {
+      "time": "2026-07-10 02:21:24",
+      "user": "op01",
+      "key": "max_alarm_level",
+      "old_value": "custom",
+      "new_value": "0",
+      "reason": "恢复安全默认",
+      "result": "成功"
+    },
+    {
+      "time": "2026-07-10 02:21:24",
+      "user": "op01",
+      "key": "rear_steer_limit",
+      "old_value": "custom",
+      "new_value": "60",
+      "reason": "恢复安全默认",
+      "result": "成功"
+    },
+    {
+      "time": "2026-07-10 02:21:24",
+      "user": "op01",
+      "key": "front_steer_limit",
+      "old_value": "custom",
+      "new_value": "60",
+      "reason": "恢复安全默认",
+      "result": "成功"
+    },
+    {
+      "time": "2026-07-10 02:21:24",
+      "user": "op01",
+      "key": "auto_speed_limit",
+      "old_value": "custom",
+      "new_value": "1.5",
+      "reason": "恢复安全默认",
+      "result": "成功"
+    },
+    {
+      "time": "2026-07-10 02:21:24",
+      "user": "op01",
+      "key": "manual_speed_limit",
+      "old_value": "custom",
+      "new_value": "3.0",
+      "reason": "恢复安全默认",
+      "result": "成功"
+    },
+    {
+      "time": "2026-07-10 02:21:24",
+      "user": "op01",
+      "key": "basic.language",
+      "old_value": "zh-CN",
+      "new_value": "en-US",
+      "reason": "普通语言配置修改",
+      "result": "成功"
+    },
+    {
+      "time": "2026-07-10 02:17:15",
+      "user": "op01",
+      "key": "maintenance.mock_can_gateway",
+      "old_value": "True",
+      "new_value": "False",
+      "reason": "结束 MockCanGateway 演示",
+      "result": "成功"
+    },
+    {
+      "time": "2026-07-10 02:16:47",
+      "user": "op01",
+      "key": "maintenance.mock_can_gateway",
+      "old_value": "False",
+      "new_value": "True",
+      "reason": "MockCanGateway 演示验证",
+      "result": "成功"
+    },
+    {
+      "time": "2026-07-10 02:16:30",
+      "user": "op01",
+      "key": "maintenance_mode",
+      "old_value": "True",
+      "new_value": "False",
+      "reason": "系统设置页退出维护模式",
+      "result": "成功"
+    },
+    {
+      "time": "2026-07-10 02:16:20",
+      "user": "op01",
+      "key": "maintenance.enable_0x123",
+      "old_value": "False",
+      "new_value": "True",
+      "reason": "封闭台架扩展报文验证",
+      "result": "成功"
+    },
+    {
+      "time": "2026-07-10 02:16:07",
+      "user": "op01",
+      "key": "maintenance_mode",
+      "old_value": "False",
+      "new_value": "True",
+      "reason": "封闭台架系统设置验收",
+      "result": "成功"
+    },
+    {
+      "time": "2026-07-10 02:12:41",
+      "user": "op01",
+      "key": "maintenance.dangerous_features",
+      "old_value": "custom",
+      "new_value": "全部关闭",
+      "reason": "恢复安全默认",
+      "result": "成功"
+    },
+    {
+      "time": "2026-07-10 02:12:41",
+      "user": "op01",
+      "key": "control_period_ms",
+      "old_value": "custom",
+      "new_value": "20",
+      "reason": "恢复安全默认",
+      "result": "成功"
+    },
+    {
+      "time": "2026-07-10 02:12:41",
+      "user": "op01",
+      "key": "allow_warning_release",
+      "old_value": "custom",
+      "new_value": "False",
+      "reason": "恢复安全默认",
+      "result": "成功"
+    },
+    {
+      "time": "2026-07-10 02:12:41",
+      "user": "op01",
+      "key": "max_alarm_level",
+      "old_value": "custom",
+      "new_value": "0",
+      "reason": "恢复安全默认",
+      "result": "成功"
+    },
+    {
+      "time": "2026-07-10 02:12:41",
+      "user": "op01",
+      "key": "rear_steer_limit",
+      "old_value": "custom",
+      "new_value": "60",
+      "reason": "恢复安全默认",
+      "result": "成功"
+    },
+    {
+      "time": "2026-07-10 02:12:41",
+      "user": "op01",
+      "key": "front_steer_limit",
+      "old_value": "custom",
+      "new_value": "60",
+      "reason": "恢复安全默认",
+      "result": "成功"
+    },
+    {
+      "time": "2026-07-10 02:12:41",
+      "user": "op01",
+      "key": "auto_speed_limit",
+      "old_value": "custom",
+      "new_value": "1.5",
+      "reason": "恢复安全默认",
+      "result": "成功"
+    },
+    {
+      "time": "2026-07-10 02:12:41",
+      "user": "op01",
+      "key": "manual_speed_limit",
+      "old_value": "custom",
+      "new_value": "3.0",
+      "reason": "恢复安全默认",
+      "result": "成功"
+    },
+    {
+      "time": "2026-07-10 02:12:41",
+      "user": "op01",
+      "key": "basic.language",
+      "old_value": "zh-CN",
+      "new_value": "en-US",
+      "reason": "普通语言配置修改",
+      "result": "成功"
+    },
+    {
+      "time": "2026-07-10 02:12:03",
+      "user": "op01",
+      "key": "maintenance.dangerous_features",
+      "old_value": "custom",
+      "new_value": "全部关闭",
+      "reason": "恢复安全默认",
+      "result": "成功"
+    },
+    {
+      "time": "2026-07-10 02:12:03",
+      "user": "op01",
+      "key": "control_period_ms",
+      "old_value": "custom",
+      "new_value": "20",
+      "reason": "恢复安全默认",
+      "result": "成功"
+    },
+    {
+      "time": "2026-07-10 02:12:03",
+      "user": "op01",
+      "key": "allow_warning_release",
+      "old_value": "custom",
+      "new_value": "False",
+      "reason": "恢复安全默认",
+      "result": "成功"
+    },
+    {
+      "time": "2026-07-10 02:12:03",
+      "user": "op01",
+      "key": "max_alarm_level",
+      "old_value": "custom",
+      "new_value": "0",
+      "reason": "恢复安全默认",
+      "result": "成功"
+    },
+    {
+      "time": "2026-07-10 02:12:03",
+      "user": "op01",
+      "key": "rear_steer_limit",
+      "old_value": "custom",
+      "new_value": "60",
+      "reason": "恢复安全默认",
+      "result": "成功"
+    },
+    {
+      "time": "2026-07-10 02:12:03",
+      "user": "op01",
+      "key": "front_steer_limit",
+      "old_value": "custom",
+      "new_value": "60",
+      "reason": "恢复安全默认",
+      "result": "成功"
+    },
+    {
+      "time": "2026-07-10 02:12:03",
+      "user": "op01",
+      "key": "auto_speed_limit",
+      "old_value": "custom",
+      "new_value": "1.5",
+      "reason": "恢复安全默认",
+      "result": "成功"
+    },
+    {
+      "time": "2026-07-10 02:12:03",
+      "user": "op01",
+      "key": "manual_speed_limit",
+      "old_value": "custom",
+      "new_value": "3.0",
+      "reason": "恢复安全默认",
+      "result": "成功"
+    },
+    {
+      "time": "2026-07-10 02:12:03",
+      "user": "op01",
+      "key": "basic.language",
+      "old_value": "zh-CN",
+      "new_value": "en-US",
+      "reason": "普通语言配置修改",
+      "result": "成功"
+    },
+    {
+      "time": "2026-07-09 13:39:04",
+      "user": "op01",
+      "key": "config.channels",
+      "old_value": "-",
+      "new_value": "{\"local_network\": {\"host_ip\": \"[REDACTED_STATION_HOST]\", \"dev_ip\": \"127.0.0.1\", \"nic_name\": \"Intel(R) I210 Gigabit Network Connection\", \"subnet_mask\": \"255.255.255.0\", \"link_speed\": \"1000 Mbps（全双工）\", \"ports\": [{\"port\": 8234, \"protocol\": \"UDP\", \"status\": \"free\"}, {\"port\": 8235, \"protocol\": \"UDP\", \"status\": \"free\"}]}, \"channels\": [{\"name\": \"CAN1\", \"protocol\": \"UDP\", \"local_ip\": \"[REDACTED_STATION_HOST]\", \"local_port\": 8234, \"device_ip\": \"[REDACTED_CAN1_GATEWAY]\", \"device_port\": 1234, \"tx_enabled\": true, \"rx_status\": \"active\", \"period_ms\": 20, \"control_enabled\": false, \"status\": \"active\"}, {\"name\": \"CAN2\", \"protocol\": \"UDP\", \"local_ip\": \"[REDACTED_STATION_HOST]\", \"local_port\": 8235, \"device_ip\": \"[REDACTED_CAN2_GATEWAY]\", \"device_port\": 1234, \"tx_enabled\": true, \"rx_status\": \"active\", \"period_ms\": 20, \"control_enabled\": true, \"status\": \"active\"}]}",
+      "reason": "restore_defaults",
+      "result": "成功"
+    },
+    {
+      "time": "2026-07-09 13:38:59",
+      "user": "op01",
+      "key": "config.channels",
+      "old_value": "-",
+      "new_value": "{\"saved\": true, \"stub\": true, \"message\": \"配置已校验并写入运行态；持久化由部署配置服务接管\", \"local_network\": {\"host_ip\": \"[REDACTED_STATION_HOST]\", \"dev_ip\": \"127.0.0.1\", \"nic_name\": \"Intel(R) I210 Gigabit Network Connection\", \"subnet_mask\": \"255.255.255.0\", \"link_speed\": \"1000 Mbps（全双工）\", \"ports\": [{\"port\": 8234, \"protocol\": \"UDP\", \"status\": \"free\"}, {\"port\": 8235, \"protocol\": \"UDP\", \"status\": \"free\"}]}, \"channels\": [{\"name\": \"CAN1\", \"protocol\": \"UDP\", \"local_ip\": \"[REDACTED_STATION_HOST]\", \"local_port\": 8234, \"device_ip\": \"[REDACTED_CAN1_GATEWAY]\", \"device_port\": 1234, \"tx_enabled\": true, \"rx_status\": \"active\", \"period_ms\": 20, \"control_enabled\": false, \"status\": \"active\"}, {\"name\": \"CAN2\", \"protocol\": \"UDP\", \"local_ip\": \"[REDACTED_STATION_HOST]\", \"local_port\": 8235, \"device_ip\": \"[REDACTED_CAN2_GATEWAY]\", \"device_port\": 1234, \"tx_enabled\": true, \"rx_status\": \"active\", \"period_ms\": 20, \"control_enabled\": true, \"status\": \"active\"}]}",
+      "reason": "update_channels",
+      "result": "成功"
+    },
+    {
+      "time": "2026-07-09 13:38:15",
+      "user": "op01",
+      "key": "config.channels",
+      "old_value": "-",
+      "new_value": "{\"saved\": true, \"stub\": true, \"message\": \"配置已校验并写入运行态；持久化由部署配置服务接管\", \"local_network\": {\"host_ip\": \"[REDACTED_STATION_HOST]\", \"dev_ip\": \"127.0.0.1\", \"nic_name\": \"Intel(R) I210 Gigabit Network Connection\", \"subnet_mask\": \"255.255.255.0\", \"link_speed\": \"1000 Mbps（全双工）\", \"ports\": [{\"port\": 8234, \"protocol\": \"UDP\", \"status\": \"free\"}, {\"port\": 8235, \"protocol\": \"UDP\", \"status\": \"free\"}]}, \"channels\": [{\"name\": \"CAN1\", \"protocol\": \"UDP\", \"local_ip\": \"[REDACTED_STATION_HOST]\", \"local_port\": 8234, \"device_ip\": \"[REDACTED_CAN1_GATEWAY]\", \"device_port\": 1234, \"tx_enabled\": true, \"rx_status\": \"active\", \"period_ms\": 20, \"control_enabled\": false, \"status\": \"active\"}, {\"name\": \"CAN2\", \"protocol\": \"UDP\", \"local_ip\": \"[REDACTED_STATION_HOST]\", \"local_port\": 8235, \"device_ip\": \"[REDACTED_CAN2_GATEWAY]\", \"device_port\": 1234, \"tx_enabled\": true, \"rx_status\": \"active\", \"period_ms\": 20, \"control_enabled\": true, \"status\": \"active\"}]}",
+      "reason": "update_channels",
+      "result": "成功"
+    },
+    {
+      "time": "2026-04-01 10:15:20",
+      "user": "admin",
+      "key": "手动控制速度上限",
+      "old_value": "5",
+      "new_value": "8",
+      "reason": "台架调试",
+      "result": "成功"
+    },
+    {
+      "time": "2026-04-01 09:42:12",
+      "user": "engineer01",
+      "key": "报告目录",
+      "old_value": "D:\\Old",
+      "new_value": "D:\\TestLogs\\Reports",
+      "reason": "工位迁移",
+      "result": "成功"
+    },
+    {
+      "time": "2026-03-31 17:20:05",
+      "user": "admin",
+      "key": "0x121 发送周期",
+      "old_value": "50 ms",
+      "new_value": "20 ms",
+      "reason": "方案版本升级",
+      "result": "成功"
+    },
+    {
+      "time": "2026-03-31 15:08:42",
+      "user": "admin",
+      "key": "MockCanGateway",
+      "old_value": "开启",
+      "new_value": "关闭",
+      "reason": "接入真实台架",
+      "result": "成功"
+    }
+  ],
+  "started_at": "2026-07-10T11:01:30.011050+08:00",
+  "finished_at": "2026-07-10T11:01:30.013334+08:00"
+}

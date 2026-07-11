@@ -1,0 +1,231 @@
+{
+  "verification": "phase-03-business-data-api-reports",
+  "network_boundary": "127.0.0.1 only",
+  "real_vehicle_connected": false,
+  "passed": true,
+  "channels": [
+    {
+      "channel": "CAN1",
+      "online": true,
+      "transport_connected": true,
+      "receive_age_ms": 1.1,
+      "queue_healthy": true,
+      "queue_depth": 0,
+      "queue_capacity": 512,
+      "queue_dropped": 0,
+      "stale_dropped": 0,
+      "malformed_datagrams": 0,
+      "processing_errors": 0,
+      "fps": 10.0,
+      "rx_count": 10,
+      "tx_count": 0,
+      "error_count": 0,
+      "last_frame_at": 1783678172.0591538,
+      "last_frame_hex": "00 00 00 00 00 00 00 00",
+      "protocol": "udp",
+      "local_ip": "127.0.0.1",
+      "local_port": 8234,
+      "device_ip": "127.0.0.1",
+      "device_port": 12341
+    },
+    {
+      "channel": "CAN2",
+      "online": true,
+      "transport_connected": true,
+      "receive_age_ms": 1.1,
+      "queue_healthy": true,
+      "queue_depth": 1,
+      "queue_capacity": 512,
+      "queue_dropped": 0,
+      "stale_dropped": 0,
+      "malformed_datagrams": 0,
+      "processing_errors": 0,
+      "fps": 18.0,
+      "rx_count": 18,
+      "tx_count": 0,
+      "error_count": 0,
+      "last_frame_at": 1783678172.0591276,
+      "last_frame_hex": "01 00 00 00 00 00 00 00",
+      "protocol": "udp",
+      "local_ip": "127.0.0.1",
+      "local_port": 8235,
+      "device_ip": "127.0.0.1",
+      "device_port": 12342
+    }
+  ],
+  "session_id": "EOL-1E0EDEEC82C1",
+  "terminal_status": "PASSED",
+  "step_count": 12,
+  "dashboard_provenance": {
+    "/overview/summary": {
+      "data_source": "runtime+sqlite",
+      "mock": false,
+      "quality": "good",
+      "updated_at": "2026-07-10T10:09:32.070054+00:00",
+      "trace_id": "30cec66b31bd4a84b49c1ff0f2d99ecf"
+    },
+    "/can/frames/latest": {
+      "data_source": "runtime",
+      "mock": false,
+      "quality": "good",
+      "updated_at": "2026-07-10T10:09:32.073570+00:00",
+      "trace_id": "1fc8c682b8514fa9bf5fa61d861bcb90"
+    },
+    "/can/statistics/monitor": {
+      "data_source": "runtime+sqlite",
+      "mock": false,
+      "quality": "good",
+      "updated_at": "2026-07-10T10:09:32.075638+00:00",
+      "trace_id": "7886830a62c7435e9725e567fbc3873c"
+    },
+    "/signals/dashboard": {
+      "data_source": "runtime",
+      "mock": false,
+      "quality": "good",
+      "updated_at": "2026-07-10T10:09:32.287225+00:00",
+      "trace_id": "70ac2bc581f444eab247b5fad8db74bc"
+    },
+    "/signals/curve-config": {
+      "data_source": "runtime",
+      "mock": false,
+      "quality": "good",
+      "updated_at": "2026-07-10T10:09:32.309858+00:00",
+      "trace_id": "db62301b9ce14c2bb063c6e0e5a15dde"
+    },
+    "/signals/timeseries?mode=live": {
+      "data_source": "runtime",
+      "mock": false,
+      "quality": "good",
+      "updated_at": "2026-07-10T10:09:32.321953+00:00",
+      "trace_id": "faf6d824a39d4f8c8d2418211df88f50"
+    },
+    "/alarms/dashboard": {
+      "data_source": "runtime+sqlite",
+      "mock": false,
+      "quality": "good",
+      "updated_at": "2026-07-10T10:09:32.346964+00:00",
+      "trace_id": "a405fd0fd38142d18d3e6c32ef3b4d2e"
+    }
+  },
+  "database_counts": {
+    "test_sessions": 1,
+    "test_steps": 12,
+    "test_assertions": 26,
+    "raw_can_frames": 5685,
+    "decoded_signals": 46878,
+    "signal_statistics": 19,
+    "alarms": 0,
+    "reports": 8,
+    "operator_actions": 8
+  },
+  "report": {
+    "pdf_report_id": "9cfdce54-pdf",
+    "json_report_id": "9cfdce54-json",
+    "preview_screenshot": "screenshots\\report_preview_page_1.png",
+    "direct_download": {
+      "path": "downloads\\20260710_100948_PH3-NORMAL-001_000001_PASS_EOL-1E0EDEEC82C1_9cfdce54.pdf",
+      "bytes": 55073,
+      "content_type": "application/pdf",
+      "trace_id": "bd48a2e356d6470d84e2fd5ed1f1f523"
+    },
+    "traceability": {
+      "software_version": "v1.0.2",
+      "dbc_hash": "387ae48bd84852c8",
+      "config_hash": "profile:dev",
+      "config_profile": "dev",
+      "test_plan_id": "default_chassis_eol_v1",
+      "test_plan_version": "2.0.0",
+      "operator": "dev-operator"
+    }
+  },
+  "history_downloads": {
+    "raw_can": {
+      "path": "downloads\\EOL-1E0EDEEC82C1-raw_can.csv",
+      "bytes": 1123552,
+      "content_type": "text/csv; charset=utf-8",
+      "trace_id": "9858de86e5f342e394d0fd6547e0a68c"
+    },
+    "decoded_signals": {
+      "path": "downloads\\EOL-1E0EDEEC82C1-decoded_signals.csv",
+      "bytes": 6941136,
+      "content_type": "text/csv; charset=utf-8",
+      "trace_id": "397d90874ce24011be33ee3d50344720"
+    },
+    "report_bundle": {
+      "path": "downloads\\EOL-1E0EDEEC82C1-report_bundle.zip",
+      "bytes": 202939,
+      "content_type": "application/zip",
+      "trace_id": "c80616ebd37a454e91f58d06f070a4d8"
+    },
+    "audit_log": {
+      "path": "downloads\\EOL-1E0EDEEC82C1-audit_log.json",
+      "bytes": 3090,
+      "content_type": "application/json",
+      "trace_id": "ccfde63f02dc409388210181ac16f375"
+    },
+    "curve_replay": {
+      "path": "downloads\\EOL-1E0EDEEC82C1-curve_replay.zip",
+      "bytes": 370845,
+      "content_type": "application/zip",
+      "trace_id": "65af61871d864f8b8c9c51cdc44258ca"
+    }
+  },
+  "history_export": {
+    "path": "downloads\\history_20260710_180951_200339.csv",
+    "bytes": 473,
+    "content_type": "text/csv; charset=utf-8",
+    "trace_id": "2f26969184f240e6831c49b1ce4a1c17"
+  },
+  "button_actions": {
+    "report_scan.json": {
+      "ok": true,
+      "message": "报告目录扫描完成",
+      "trace_id": "938a164f994749b6a43e04527d13bda4"
+    },
+    "report_open_directory.json": {
+      "ok": true,
+      "message": "报告目录已通过安全校验，可由桌面端打开",
+      "trace_id": "4c19c16e0323464da7b338c978af49f1"
+    },
+    "report_export_word.json": {
+      "ok": true,
+      "message": "Word 报告已准备下载",
+      "trace_id": "52029b85d8ee423599e1f29399733f90"
+    },
+    "report_export_pdf.json": {
+      "ok": true,
+      "message": "PDF 报告已准备下载",
+      "trace_id": "2b441a0eaa4b476196d45a4955c3d46e"
+    },
+    "report_print.json": {
+      "ok": true,
+      "message": "打印任务已进入持久化队列",
+      "trace_id": "1a3719ea7b6548609c38efdc5e120875"
+    },
+    "report_regenerate.json": {
+      "ok": true,
+      "message": "报告已重新生成",
+      "trace_id": "7e2eb23627ad4db399e89b0b840c763d"
+    },
+    "signal_watchlist.json": {
+      "ok": true,
+      "message": "关注信号已保存",
+      "trace_id": "b6ccb3377fee4785addfb1c3ef99a72a"
+    },
+    "signal_curve_selection.json": {
+      "ok": true,
+      "message": "曲线信号选择已保存",
+      "trace_id": "f0d3fa7957f04cab8b1bad96313bd552"
+    },
+    "signal_snapshot.json": {
+      "ok": true,
+      "message": "信号快照已保存",
+      "trace_id": "d578b0d0e830430eaedb2228d14d8baa"
+    },
+    "signal_export.json": {
+      "ok": true,
+      "message": "曲线 CSV 已导出",
+      "trace_id": "94eec3cf5c9947539f31aa52113d830b"
+    }
+  }
+}

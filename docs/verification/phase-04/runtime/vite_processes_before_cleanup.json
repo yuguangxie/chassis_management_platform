@@ -1,0 +1,26 @@
+﻿[
+    {
+        "ProcessId":  11788,
+        "ParentProcessId":  60324,
+        "Name":  "cmd.exe",
+        "CommandLine":  "C:\\Windows\\system32\\cmd.exe /d /s /c vite --host 127.0.0.1 --port 5173"
+    },
+    {
+        "ProcessId":  58724,
+        "ParentProcessId":  11788,
+        "Name":  "node.exe",
+        "CommandLine":  "\"node\"   \"D:\\workspace\\0-yunle\\7_codex\\chassis_eol_management_platform_codex_pack\\chassis_management_platform\\desktop\\node_modules\\.bin\\\\..\\vite\\bin\\vite.js\" --host 127.0.0.1 --port 5173"
+    },
+    {
+        "ProcessId":  42808,
+        "ParentProcessId":  50516,
+        "Name":  "cmd.exe",
+        "CommandLine":  "C:\\Windows\\system32\\cmd.exe /d /s /c vite --host 127.0.0.1 --port 5173"
+    },
+    {
+        "ProcessId":  33264,
+        "ParentProcessId":  42808,
+        "Name":  "node.exe",
+        "CommandLine":  "\"node\"   \"D:\\workspace\\0-yunle\\7_codex\\chassis_eol_management_platform_codex_pack\\chassis_management_platform\\desktop\\node_modules\\.bin\\\\..\\vite\\bin\\vite.js\" --host 127.0.0.1 --port 5173"
+    }
+]

@@ -1,0 +1,8 @@
+﻿.\backend\.venv\Scripts\python.exe : D:\workspace\0-yunle\7_codex\chassis_eol_management_platform_codex_pack\chassis_ma
+nagement_platform\backend\.venv\Scripts\python.exe: No module named pip
+At line:24 char:1
++ .\backend\.venv\Scripts\python.exe -m pip freeze 2>&1 | Out-File -Enc ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (D:\workspace\0-...odule named pip:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 

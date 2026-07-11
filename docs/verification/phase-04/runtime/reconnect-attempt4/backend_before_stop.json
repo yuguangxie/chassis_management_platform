@@ -1,0 +1,14 @@
+﻿[
+    {
+        "ProcessId":  58200,
+        "ParentProcessId":  64292,
+        "Name":  "python.exe",
+        "CommandLine":  "\"D:\\workspace\\0-yunle\\7_codex\\chassis_eol_management_platform_codex_pack\\chassis_management_platform\\backend\\.venv\\Scripts\\python.exe\" scripts/dev_backend.py "
+    },
+    {
+        "ProcessId":  43944,
+        "ParentProcessId":  58200,
+        "Name":  "python.exe",
+        "CommandLine":  "\"D:\\workspace\\0-yunle\\7_codex\\chassis_eol_management_platform_codex_pack\\chassis_management_platform\\backend\\.venv\\Scripts\\python.exe\" scripts/dev_backend.py "
+    }
+]

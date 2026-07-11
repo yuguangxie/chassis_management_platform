@@ -1,0 +1,19 @@
+{
+  "url": "http://127.0.0.1:8800/api/v1/storage/cleanup",
+  "method": "POST",
+  "status": 200,
+  "headers": {
+    "date": "Fri, 10 Jul 2026 03:01:29 GMT",
+    "server": "uvicorn",
+    "content-length": "90",
+    "content-type": "application/json",
+    "connection": "close"
+  },
+  "body": {
+    "ok": true,
+    "stub": true,
+    "message": "清理接口已预留，不会删除当前会话数据"
+  },
+  "started_at": "2026-07-10T11:01:30.143860+08:00",
+  "finished_at": "2026-07-10T11:01:30.145839+08:00"
+}

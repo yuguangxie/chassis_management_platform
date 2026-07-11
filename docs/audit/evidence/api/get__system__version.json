@@ -1,0 +1,24 @@
+{
+  "url": "http://127.0.0.1:8800/api/v1/system/version",
+  "method": "GET",
+  "status": 200,
+  "headers": {
+    "date": "Fri, 10 Jul 2026 03:01:29 GMT",
+    "server": "uvicorn",
+    "content-length": "192",
+    "content-type": "application/json",
+    "connection": "close"
+  },
+  "body": {
+    "software": "v1.0.2",
+    "config": "cfg-20260401",
+    "test_plan": "eol-plan-1.0.2",
+    "python": "3.14.3",
+    "node": "20.x",
+    "electron": "^31.0.0",
+    "platform": "Windows 10 AMD64",
+    "build_time": "2026-07-10 03:01:30"
+  },
+  "started_at": "2026-07-10T11:01:30.034317+08:00",
+  "finished_at": "2026-07-10T11:01:30.035728+08:00"
+}

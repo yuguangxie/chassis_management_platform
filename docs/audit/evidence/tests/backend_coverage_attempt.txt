@@ -1,0 +1,10 @@
+﻿COMMAND: .\backend\.venv\Scripts\python.exe -m pytest backend\tests --cov=backend\app --cov-report=term-missing
+WORKDIR: D:\workspace\0-yunle\7_codex\chassis_eol_management_platform_codex_pack\chassis_management_platform
+EXIT_CODE: 4
+TIME: 2026-07-10 10:59:04 +08:00
+
+ERROR: usage: python -m pytest [options] [file_or_dir] [file_or_dir] [...]
+python -m pytest: error: unrecognized arguments: --cov=backend\app --cov-report=term-missing
+  inifile: D:\workspace\0-yunle\7_codex\chassis_eol_management_platform_codex_pack\chassis_management_platform\backend\pyproject.toml
+  rootdir: D:\workspace\0-yunle\7_codex\chassis_eol_management_platform_codex_pack\chassis_management_platform\backend
+System.Management.Automation.RemoteException

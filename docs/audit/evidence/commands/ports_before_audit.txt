@@ -1,0 +1,10 @@
+﻿COMMAND:  Get-NetTCPConnection -State Listen -ErrorAction SilentlyContinue | Where-Object { $_.LocalPort -in 5173,8800,8234,8235,12341,12342 } | Select-Object LocalAddress,LocalPort,OwningProcess 
+TIME: 2026-07-10 10:57:22 +08:00
+
+
+LocalAddress LocalPort OwningProcess
+------------ --------- -------------
+127.0.0.1         5173         42648
+
+
+

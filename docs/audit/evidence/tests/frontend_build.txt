@@ -1,0 +1,22 @@
+﻿COMMAND: npm.cmd run build
+EXIT_CODE: 0
+TIME: 2026-07-10 10:58:40 +08:00
+
+
+> chassis-eol-desktop@1.0.2 build
+> vue-tsc --noEmit && vite build
+
+vite v5.4.21 building for production...
+transforming...
+✓ 2204 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                     0.17 kB │ gzip:   0.14 kB
+dist/assets/index-CBjBPQBw.css    146.24 kB │ gzip:  23.70 kB
+dist/assets/index-BFyensHu.js   1,394.53 kB │ gzip: 455.51 kB
+System.Management.Automation.RemoteException
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 6.21s

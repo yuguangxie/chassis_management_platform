@@ -1,0 +1,4663 @@
+{
+  "network_boundary": "127.0.0.1 only",
+  "target_fps": 1000,
+  "duration_seconds": 600.0,
+  "started_at": "2026-07-10T11:22:10.922252+00:00",
+  "samples": [
+    {
+      "at": "2026-07-10T11:22:11.030762+00:00",
+      "channels": [
+        {
+          "channel": "CAN1",
+          "online": true,
+          "fps": 25.0,
+          "receive_age_ms": 5.0,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        },
+        {
+          "channel": "CAN2",
+          "online": true,
+          "fps": 25.0,
+          "receive_age_ms": 4.6,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        }
+      ],
+      "pipeline": {
+        "depth": 0,
+        "capacity": 4096,
+        "per_channel": {
+          "CAN2": 0,
+          "CAN1": 0
+        }
+      },
+      "telemetry": {
+        "queue_depth": 0,
+        "queue_capacity": 20000,
+        "dropped": 0,
+        "healthy": true,
+        "last_error": "",
+        "raw_log": {
+          "buffers": 59,
+          "active_files": 1,
+          "rotations": 0,
+          "compressed": 0,
+          "bytes": 235596008,
+          "retention_days": 180
+        },
+        "signal_log": {
+          "buffers": 0,
+          "active_files": 0,
+          "bytes": 96271941,
+          "format": "csv"
+        }
+      },
+      "websocket": {
+        "clients": 0,
+        "subscribed_clients": 0,
+        "queue_depth": 0,
+        "queue_capacity": 0,
+        "dropped_messages": 0
+      },
+      "process": {
+        "Id": 63788,
+        "Handles": 79,
+        "WorkingSet64": 3465216,
+        "CPU": 0
+      }
+    },
+    {
+      "at": "2026-07-10T11:22:21.031558+00:00",
+      "channels": [
+        {
+          "channel": "CAN1",
+          "online": true,
+          "fps": 500.0,
+          "receive_age_ms": 5.0,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        },
+        {
+          "channel": "CAN2",
+          "online": true,
+          "fps": 500.0,
+          "receive_age_ms": 4.8,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        }
+      ],
+      "pipeline": {
+        "depth": 0,
+        "capacity": 4096,
+        "per_channel": {
+          "CAN2": 0,
+          "CAN1": 0
+        }
+      },
+      "telemetry": {
+        "queue_depth": 0,
+        "queue_capacity": 20000,
+        "dropped": 0,
+        "healthy": true,
+        "last_error": "",
+        "raw_log": {
+          "buffers": 59,
+          "active_files": 1,
+          "rotations": 0,
+          "compressed": 0,
+          "bytes": 237121605,
+          "retention_days": 180
+        },
+        "signal_log": {
+          "buffers": 0,
+          "active_files": 0,
+          "bytes": 96271941,
+          "format": "csv"
+        }
+      },
+      "websocket": {
+        "clients": 0,
+        "subscribed_clients": 0,
+        "queue_depth": 0,
+        "queue_capacity": 0,
+        "dropped_messages": 0
+      },
+      "process": {
+        "Id": 63788,
+        "Handles": 79,
+        "WorkingSet64": 3465216,
+        "CPU": 0
+      }
+    },
+    {
+      "at": "2026-07-10T11:22:31.092105+00:00",
+      "channels": [
+        {
+          "channel": "CAN1",
+          "online": true,
+          "fps": 500.0,
+          "receive_age_ms": 15.6,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        },
+        {
+          "channel": "CAN2",
+          "online": true,
+          "fps": 500.0,
+          "receive_age_ms": 15.3,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        }
+      ],
+      "pipeline": {
+        "depth": 0,
+        "capacity": 4096,
+        "per_channel": {
+          "CAN2": 0,
+          "CAN1": 0
+        }
+      },
+      "telemetry": {
+        "queue_depth": 0,
+        "queue_capacity": 20000,
+        "dropped": 0,
+        "healthy": true,
+        "last_error": "",
+        "raw_log": {
+          "buffers": 109,
+          "active_files": 1,
+          "rotations": 0,
+          "compressed": 0,
+          "bytes": 238647205,
+          "retention_days": 180
+        },
+        "signal_log": {
+          "buffers": 0,
+          "active_files": 0,
+          "bytes": 96271941,
+          "format": "csv"
+        }
+      },
+      "websocket": {
+        "clients": 0,
+        "subscribed_clients": 0,
+        "queue_depth": 0,
+        "queue_capacity": 0,
+        "dropped_messages": 0
+      },
+      "process": {
+        "Id": 63788,
+        "Handles": 79,
+        "WorkingSet64": 3465216,
+        "CPU": 0
+      }
+    },
+    {
+      "at": "2026-07-10T11:22:41.150450+00:00",
+      "channels": [
+        {
+          "channel": "CAN1",
+          "online": true,
+          "fps": 500.0,
+          "receive_age_ms": 24.7,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        },
+        {
+          "channel": "CAN2",
+          "online": true,
+          "fps": 500.0,
+          "receive_age_ms": 24.4,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        }
+      ],
+      "pipeline": {
+        "depth": 0,
+        "capacity": 4096,
+        "per_channel": {
+          "CAN2": 0,
+          "CAN1": 0
+        }
+      },
+      "telemetry": {
+        "queue_depth": 0,
+        "queue_capacity": 20000,
+        "dropped": 0,
+        "healthy": true,
+        "last_error": "",
+        "raw_log": {
+          "buffers": 159,
+          "active_files": 1,
+          "rotations": 0,
+          "compressed": 0,
+          "bytes": 240172805,
+          "retention_days": 180
+        },
+        "signal_log": {
+          "buffers": 0,
+          "active_files": 0,
+          "bytes": 96271941,
+          "format": "csv"
+        }
+      },
+      "websocket": {
+        "clients": 0,
+        "subscribed_clients": 0,
+        "queue_depth": 0,
+        "queue_capacity": 0,
+        "dropped_messages": 0
+      },
+      "process": {
+        "Id": 63788,
+        "Handles": 79,
+        "WorkingSet64": 3481600,
+        "CPU": 0
+      }
+    },
+    {
+      "at": "2026-07-10T11:22:51.182346+00:00",
+      "channels": [
+        {
+          "channel": "CAN1",
+          "online": true,
+          "fps": 525.0,
+          "receive_age_ms": 6.7,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        },
+        {
+          "channel": "CAN2",
+          "online": true,
+          "fps": 525.0,
+          "receive_age_ms": 6.4,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        }
+      ],
+      "pipeline": {
+        "depth": 0,
+        "capacity": 4096,
+        "per_channel": {
+          "CAN2": 0,
+          "CAN1": 0
+        }
+      },
+      "telemetry": {
+        "queue_depth": 0,
+        "queue_capacity": 20000,
+        "dropped": 0,
+        "healthy": true,
+        "last_error": "",
+        "raw_log": {
+          "buffers": 9,
+          "active_files": 1,
+          "rotations": 0,
+          "compressed": 0,
+          "bytes": 241728917,
+          "retention_days": 180
+        },
+        "signal_log": {
+          "buffers": 0,
+          "active_files": 0,
+          "bytes": 96271941,
+          "format": "csv"
+        }
+      },
+      "websocket": {
+        "clients": 0,
+        "subscribed_clients": 0,
+        "queue_depth": 0,
+        "queue_capacity": 0,
+        "dropped_messages": 0
+      },
+      "process": {
+        "Id": 63788,
+        "Handles": 79,
+        "WorkingSet64": 3481600,
+        "CPU": 0
+      }
+    },
+    {
+      "at": "2026-07-10T11:23:01.182778+00:00",
+      "channels": [
+        {
+          "channel": "CAN1",
+          "online": true,
+          "fps": 525.0,
+          "receive_age_ms": 6.7,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        },
+        {
+          "channel": "CAN2",
+          "online": true,
+          "fps": 525.0,
+          "receive_age_ms": 6.4,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        }
+      ],
+      "pipeline": {
+        "depth": 0,
+        "capacity": 4096,
+        "per_channel": {
+          "CAN2": 0,
+          "CAN1": 0
+        }
+      },
+      "telemetry": {
+        "queue_depth": 0,
+        "queue_capacity": 20000,
+        "dropped": 0,
+        "healthy": true,
+        "last_error": "",
+        "raw_log": {
+          "buffers": 9,
+          "active_files": 1,
+          "rotations": 0,
+          "compressed": 0,
+          "bytes": 243254517,
+          "retention_days": 180
+        },
+        "signal_log": {
+          "buffers": 0,
+          "active_files": 0,
+          "bytes": 96271941,
+          "format": "csv"
+        }
+      },
+      "websocket": {
+        "clients": 0,
+        "subscribed_clients": 0,
+        "queue_depth": 0,
+        "queue_capacity": 0,
+        "dropped_messages": 0
+      },
+      "process": {
+        "Id": 63788,
+        "Handles": 79,
+        "WorkingSet64": 3481600,
+        "CPU": 0
+      }
+    },
+    {
+      "at": "2026-07-10T11:23:11.233039+00:00",
+      "channels": [
+        {
+          "channel": "CAN1",
+          "online": true,
+          "fps": 500.0,
+          "receive_age_ms": 6.1,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        },
+        {
+          "channel": "CAN2",
+          "online": true,
+          "fps": 500.0,
+          "receive_age_ms": 5.6,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        }
+      ],
+      "pipeline": {
+        "depth": 0,
+        "capacity": 4096,
+        "per_channel": {
+          "CAN2": 0,
+          "CAN1": 0
+        }
+      },
+      "telemetry": {
+        "queue_depth": 0,
+        "queue_capacity": 20000,
+        "dropped": 0,
+        "healthy": true,
+        "last_error": "",
+        "raw_log": {
+          "buffers": 59,
+          "active_files": 1,
+          "rotations": 1,
+          "compressed": 1,
+          "bytes": 212395293,
+          "retention_days": 180
+        },
+        "signal_log": {
+          "buffers": 0,
+          "active_files": 0,
+          "bytes": 96271941,
+          "format": "csv"
+        }
+      },
+      "websocket": {
+        "clients": 0,
+        "subscribed_clients": 0,
+        "queue_depth": 0,
+        "queue_capacity": 0,
+        "dropped_messages": 0
+      },
+      "process": {
+        "Id": 63788,
+        "Handles": 79,
+        "WorkingSet64": 3481600,
+        "CPU": 0
+      }
+    },
+    {
+      "at": "2026-07-10T11:23:21.232261+00:00",
+      "channels": [
+        {
+          "channel": "CAN1",
+          "online": true,
+          "fps": 500.0,
+          "receive_age_ms": 5.6,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        },
+        {
+          "channel": "CAN2",
+          "online": true,
+          "fps": 500.0,
+          "receive_age_ms": 5.2,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        }
+      ],
+      "pipeline": {
+        "depth": 0,
+        "capacity": 4096,
+        "per_channel": {
+          "CAN2": 0,
+          "CAN1": 0
+        }
+      },
+      "telemetry": {
+        "queue_depth": 0,
+        "queue_capacity": 20000,
+        "dropped": 0,
+        "healthy": true,
+        "last_error": "",
+        "raw_log": {
+          "buffers": 59,
+          "active_files": 1,
+          "rotations": 1,
+          "compressed": 1,
+          "bytes": 213920893,
+          "retention_days": 180
+        },
+        "signal_log": {
+          "buffers": 0,
+          "active_files": 0,
+          "bytes": 96271941,
+          "format": "csv"
+        }
+      },
+      "websocket": {
+        "clients": 0,
+        "subscribed_clients": 0,
+        "queue_depth": 0,
+        "queue_capacity": 0,
+        "dropped_messages": 0
+      },
+      "process": {
+        "Id": 63788,
+        "Handles": 79,
+        "WorkingSet64": 3481600,
+        "CPU": 0
+      }
+    },
+    {
+      "at": "2026-07-10T11:23:31.281847+00:00",
+      "channels": [
+        {
+          "channel": "CAN1",
+          "online": true,
+          "fps": 525.0,
+          "receive_age_ms": 5.3,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        },
+        {
+          "channel": "CAN2",
+          "online": true,
+          "fps": 525.0,
+          "receive_age_ms": 5.0,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        }
+      ],
+      "pipeline": {
+        "depth": 0,
+        "capacity": 4096,
+        "per_channel": {
+          "CAN2": 0,
+          "CAN1": 0
+        }
+      },
+      "telemetry": {
+        "queue_depth": 0,
+        "queue_capacity": 20000,
+        "dropped": 0,
+        "healthy": true,
+        "last_error": "",
+        "raw_log": {
+          "buffers": 109,
+          "active_files": 1,
+          "rotations": 1,
+          "compressed": 1,
+          "bytes": 215446493,
+          "retention_days": 180
+        },
+        "signal_log": {
+          "buffers": 0,
+          "active_files": 0,
+          "bytes": 96271941,
+          "format": "csv"
+        }
+      },
+      "websocket": {
+        "clients": 0,
+        "subscribed_clients": 0,
+        "queue_depth": 0,
+        "queue_capacity": 0,
+        "dropped_messages": 0
+      },
+      "process": {
+        "Id": 63788,
+        "Handles": 79,
+        "WorkingSet64": 3481600,
+        "CPU": 0
+      }
+    },
+    {
+      "at": "2026-07-10T11:23:41.331169+00:00",
+      "channels": [
+        {
+          "channel": "CAN1",
+          "online": true,
+          "fps": 525.0,
+          "receive_age_ms": 5.2,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        },
+        {
+          "channel": "CAN2",
+          "online": true,
+          "fps": 525.0,
+          "receive_age_ms": 5.0,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        }
+      ],
+      "pipeline": {
+        "depth": 0,
+        "capacity": 4096,
+        "per_channel": {
+          "CAN2": 0,
+          "CAN1": 0
+        }
+      },
+      "telemetry": {
+        "queue_depth": 0,
+        "queue_capacity": 20000,
+        "dropped": 0,
+        "healthy": true,
+        "last_error": "",
+        "raw_log": {
+          "buffers": 159,
+          "active_files": 1,
+          "rotations": 1,
+          "compressed": 1,
+          "bytes": 216972093,
+          "retention_days": 180
+        },
+        "signal_log": {
+          "buffers": 0,
+          "active_files": 0,
+          "bytes": 96271941,
+          "format": "csv"
+        }
+      },
+      "websocket": {
+        "clients": 0,
+        "subscribed_clients": 0,
+        "queue_depth": 0,
+        "queue_capacity": 0,
+        "dropped_messages": 0
+      },
+      "process": {
+        "Id": 63788,
+        "Handles": 79,
+        "WorkingSet64": 3481600,
+        "CPU": 0
+      }
+    },
+    {
+      "at": "2026-07-10T11:23:51.331087+00:00",
+      "channels": [
+        {
+          "channel": "CAN1",
+          "online": true,
+          "fps": 525.0,
+          "receive_age_ms": 5.1,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        },
+        {
+          "channel": "CAN2",
+          "online": true,
+          "fps": 525.0,
+          "receive_age_ms": 4.6,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        }
+      ],
+      "pipeline": {
+        "depth": 0,
+        "capacity": 4096,
+        "per_channel": {
+          "CAN2": 0,
+          "CAN1": 0
+        }
+      },
+      "telemetry": {
+        "queue_depth": 0,
+        "queue_capacity": 20000,
+        "dropped": 0,
+        "healthy": true,
+        "last_error": "",
+        "raw_log": {
+          "buffers": 159,
+          "active_files": 1,
+          "rotations": 1,
+          "compressed": 1,
+          "bytes": 218497693,
+          "retention_days": 180
+        },
+        "signal_log": {
+          "buffers": 0,
+          "active_files": 0,
+          "bytes": 96271941,
+          "format": "csv"
+        }
+      },
+      "websocket": {
+        "clients": 0,
+        "subscribed_clients": 0,
+        "queue_depth": 0,
+        "queue_capacity": 0,
+        "dropped_messages": 0
+      },
+      "process": {
+        "Id": 63788,
+        "Handles": 79,
+        "WorkingSet64": 3465216,
+        "CPU": 0
+      }
+    },
+    {
+      "at": "2026-07-10T11:24:01.382223+00:00",
+      "channels": [
+        {
+          "channel": "CAN1",
+          "online": true,
+          "fps": 525.0,
+          "receive_age_ms": 6.5,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        },
+        {
+          "channel": "CAN2",
+          "online": true,
+          "fps": 525.0,
+          "receive_age_ms": 6.2,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        }
+      ],
+      "pipeline": {
+        "depth": 0,
+        "capacity": 4096,
+        "per_channel": {
+          "CAN2": 0,
+          "CAN1": 0
+        }
+      },
+      "telemetry": {
+        "queue_depth": 0,
+        "queue_capacity": 20000,
+        "dropped": 0,
+        "healthy": true,
+        "last_error": "",
+        "raw_log": {
+          "buffers": 9,
+          "active_files": 1,
+          "rotations": 1,
+          "compressed": 1,
+          "bytes": 220053805,
+          "retention_days": 180
+        },
+        "signal_log": {
+          "buffers": 0,
+          "active_files": 0,
+          "bytes": 96271941,
+          "format": "csv"
+        }
+      },
+      "websocket": {
+        "clients": 0,
+        "subscribed_clients": 0,
+        "queue_depth": 0,
+        "queue_capacity": 0,
+        "dropped_messages": 0
+      },
+      "process": {
+        "Id": 63788,
+        "Handles": 79,
+        "WorkingSet64": 3465216,
+        "CPU": 0
+      }
+    },
+    {
+      "at": "2026-07-10T11:24:11.383289+00:00",
+      "channels": [
+        {
+          "channel": "CAN1",
+          "online": true,
+          "fps": 525.0,
+          "receive_age_ms": 7.1,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        },
+        {
+          "channel": "CAN2",
+          "online": true,
+          "fps": 525.0,
+          "receive_age_ms": 6.8,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        }
+      ],
+      "pipeline": {
+        "depth": 0,
+        "capacity": 4096,
+        "per_channel": {
+          "CAN2": 0,
+          "CAN1": 0
+        }
+      },
+      "telemetry": {
+        "queue_depth": 0,
+        "queue_capacity": 20000,
+        "dropped": 0,
+        "healthy": true,
+        "last_error": "",
+        "raw_log": {
+          "buffers": 9,
+          "active_files": 1,
+          "rotations": 1,
+          "compressed": 1,
+          "bytes": 221579405,
+          "retention_days": 180
+        },
+        "signal_log": {
+          "buffers": 0,
+          "active_files": 0,
+          "bytes": 96271941,
+          "format": "csv"
+        }
+      },
+      "websocket": {
+        "clients": 0,
+        "subscribed_clients": 0,
+        "queue_depth": 0,
+        "queue_capacity": 0,
+        "dropped_messages": 0
+      },
+      "process": {
+        "Id": 63788,
+        "Handles": 79,
+        "WorkingSet64": 3465216,
+        "CPU": 0
+      }
+    },
+    {
+      "at": "2026-07-10T11:24:21.383776+00:00",
+      "channels": [
+        {
+          "channel": "CAN1",
+          "online": true,
+          "fps": 525.0,
+          "receive_age_ms": 7.0,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        },
+        {
+          "channel": "CAN2",
+          "online": true,
+          "fps": 525.0,
+          "receive_age_ms": 6.7,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        }
+      ],
+      "pipeline": {
+        "depth": 0,
+        "capacity": 4096,
+        "per_channel": {
+          "CAN2": 0,
+          "CAN1": 0
+        }
+      },
+      "telemetry": {
+        "queue_depth": 0,
+        "queue_capacity": 20000,
+        "dropped": 0,
+        "healthy": true,
+        "last_error": "",
+        "raw_log": {
+          "buffers": 9,
+          "active_files": 1,
+          "rotations": 1,
+          "compressed": 1,
+          "bytes": 223105005,
+          "retention_days": 180
+        },
+        "signal_log": {
+          "buffers": 0,
+          "active_files": 0,
+          "bytes": 96271941,
+          "format": "csv"
+        }
+      },
+      "websocket": {
+        "clients": 0,
+        "subscribed_clients": 0,
+        "queue_depth": 0,
+        "queue_capacity": 0,
+        "dropped_messages": 0
+      },
+      "process": {
+        "Id": 63788,
+        "Handles": 79,
+        "WorkingSet64": 3465216,
+        "CPU": 0
+      }
+    },
+    {
+      "at": "2026-07-10T11:24:31.383118+00:00",
+      "channels": [
+        {
+          "channel": "CAN1",
+          "online": true,
+          "fps": 500.0,
+          "receive_age_ms": 6.5,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        },
+        {
+          "channel": "CAN2",
+          "online": true,
+          "fps": 500.0,
+          "receive_age_ms": 6.3,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        }
+      ],
+      "pipeline": {
+        "depth": 0,
+        "capacity": 4096,
+        "per_channel": {
+          "CAN2": 0,
+          "CAN1": 0
+        }
+      },
+      "telemetry": {
+        "queue_depth": 0,
+        "queue_capacity": 20000,
+        "dropped": 0,
+        "healthy": true,
+        "last_error": "",
+        "raw_log": {
+          "buffers": 9,
+          "active_files": 1,
+          "rotations": 1,
+          "compressed": 1,
+          "bytes": 224630605,
+          "retention_days": 180
+        },
+        "signal_log": {
+          "buffers": 0,
+          "active_files": 0,
+          "bytes": 96271941,
+          "format": "csv"
+        }
+      },
+      "websocket": {
+        "clients": 0,
+        "subscribed_clients": 0,
+        "queue_depth": 0,
+        "queue_capacity": 0,
+        "dropped_messages": 0
+      },
+      "process": {
+        "Id": 63788,
+        "Handles": 79,
+        "WorkingSet64": 3465216,
+        "CPU": 0
+      }
+    },
+    {
+      "at": "2026-07-10T11:24:41.384471+00:00",
+      "channels": [
+        {
+          "channel": "CAN1",
+          "online": true,
+          "fps": 500.0,
+          "receive_age_ms": 7.7,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        },
+        {
+          "channel": "CAN2",
+          "online": true,
+          "fps": 500.0,
+          "receive_age_ms": 7.2,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        }
+      ],
+      "pipeline": {
+        "depth": 0,
+        "capacity": 4096,
+        "per_channel": {
+          "CAN2": 0,
+          "CAN1": 0
+        }
+      },
+      "telemetry": {
+        "queue_depth": 0,
+        "queue_capacity": 20000,
+        "dropped": 0,
+        "healthy": true,
+        "last_error": "",
+        "raw_log": {
+          "buffers": 9,
+          "active_files": 1,
+          "rotations": 1,
+          "compressed": 1,
+          "bytes": 226156205,
+          "retention_days": 180
+        },
+        "signal_log": {
+          "buffers": 0,
+          "active_files": 0,
+          "bytes": 96271941,
+          "format": "csv"
+        }
+      },
+      "websocket": {
+        "clients": 0,
+        "subscribed_clients": 0,
+        "queue_depth": 0,
+        "queue_capacity": 0,
+        "dropped_messages": 0
+      },
+      "process": {
+        "Id": 63788,
+        "Handles": 79,
+        "WorkingSet64": 3465216,
+        "CPU": 0
+      }
+    },
+    {
+      "at": "2026-07-10T11:24:51.447205+00:00",
+      "channels": [
+        {
+          "channel": "CAN1",
+          "online": true,
+          "fps": 525.0,
+          "receive_age_ms": 21.2,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        },
+        {
+          "channel": "CAN2",
+          "online": true,
+          "fps": 525.0,
+          "receive_age_ms": 20.9,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        }
+      ],
+      "pipeline": {
+        "depth": 0,
+        "capacity": 4096,
+        "per_channel": {
+          "CAN2": 0,
+          "CAN1": 0
+        }
+      },
+      "telemetry": {
+        "queue_depth": 0,
+        "queue_capacity": 20000,
+        "dropped": 0,
+        "healthy": true,
+        "last_error": "",
+        "raw_log": {
+          "buffers": 59,
+          "active_files": 1,
+          "rotations": 1,
+          "compressed": 1,
+          "bytes": 227681805,
+          "retention_days": 180
+        },
+        "signal_log": {
+          "buffers": 0,
+          "active_files": 0,
+          "bytes": 96271941,
+          "format": "csv"
+        }
+      },
+      "websocket": {
+        "clients": 0,
+        "subscribed_clients": 0,
+        "queue_depth": 0,
+        "queue_capacity": 0,
+        "dropped_messages": 0
+      },
+      "process": {
+        "Id": 63788,
+        "Handles": 79,
+        "WorkingSet64": 3465216,
+        "CPU": 0
+      }
+    },
+    {
+      "at": "2026-07-10T11:25:01.431669+00:00",
+      "channels": [
+        {
+          "channel": "CAN1",
+          "online": true,
+          "fps": 500.0,
+          "receive_age_ms": 4.8,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        },
+        {
+          "channel": "CAN2",
+          "online": true,
+          "fps": 500.0,
+          "receive_age_ms": 4.5,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        }
+      ],
+      "pipeline": {
+        "depth": 0,
+        "capacity": 4096,
+        "per_channel": {
+          "CAN2": 0,
+          "CAN1": 0
+        }
+      },
+      "telemetry": {
+        "queue_depth": 0,
+        "queue_capacity": 20000,
+        "dropped": 0,
+        "healthy": true,
+        "last_error": "",
+        "raw_log": {
+          "buffers": 59,
+          "active_files": 1,
+          "rotations": 1,
+          "compressed": 1,
+          "bytes": 229207405,
+          "retention_days": 180
+        },
+        "signal_log": {
+          "buffers": 0,
+          "active_files": 0,
+          "bytes": 96271941,
+          "format": "csv"
+        }
+      },
+      "websocket": {
+        "clients": 0,
+        "subscribed_clients": 0,
+        "queue_depth": 0,
+        "queue_capacity": 0,
+        "dropped_messages": 0
+      },
+      "process": {
+        "Id": 63788,
+        "Handles": 79,
+        "WorkingSet64": 3465216,
+        "CPU": 0
+      }
+    },
+    {
+      "at": "2026-07-10T11:25:11.491227+00:00",
+      "channels": [
+        {
+          "channel": "CAN1",
+          "online": true,
+          "fps": 525.0,
+          "receive_age_ms": 14.8,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        },
+        {
+          "channel": "CAN2",
+          "online": true,
+          "fps": 525.0,
+          "receive_age_ms": 14.5,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        }
+      ],
+      "pipeline": {
+        "depth": 0,
+        "capacity": 4096,
+        "per_channel": {
+          "CAN2": 0,
+          "CAN1": 0
+        }
+      },
+      "telemetry": {
+        "queue_depth": 0,
+        "queue_capacity": 20000,
+        "dropped": 0,
+        "healthy": true,
+        "last_error": "",
+        "raw_log": {
+          "buffers": 109,
+          "active_files": 1,
+          "rotations": 1,
+          "compressed": 1,
+          "bytes": 230733005,
+          "retention_days": 180
+        },
+        "signal_log": {
+          "buffers": 0,
+          "active_files": 0,
+          "bytes": 96271941,
+          "format": "csv"
+        }
+      },
+      "websocket": {
+        "clients": 0,
+        "subscribed_clients": 0,
+        "queue_depth": 0,
+        "queue_capacity": 0,
+        "dropped_messages": 0
+      },
+      "process": {
+        "Id": 63788,
+        "Handles": 79,
+        "WorkingSet64": 3465216,
+        "CPU": 0
+      }
+    },
+    {
+      "at": "2026-07-10T11:25:21.551016+00:00",
+      "channels": [
+        {
+          "channel": "CAN1",
+          "online": true,
+          "fps": 525.0,
+          "receive_age_ms": 25.0,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        },
+        {
+          "channel": "CAN2",
+          "online": true,
+          "fps": 525.0,
+          "receive_age_ms": 24.7,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        }
+      ],
+      "pipeline": {
+        "depth": 0,
+        "capacity": 4096,
+        "per_channel": {
+          "CAN2": 0,
+          "CAN1": 0
+        }
+      },
+      "telemetry": {
+        "queue_depth": 0,
+        "queue_capacity": 20000,
+        "dropped": 0,
+        "healthy": true,
+        "last_error": "",
+        "raw_log": {
+          "buffers": 159,
+          "active_files": 1,
+          "rotations": 1,
+          "compressed": 1,
+          "bytes": 232258605,
+          "retention_days": 180
+        },
+        "signal_log": {
+          "buffers": 0,
+          "active_files": 0,
+          "bytes": 96271941,
+          "format": "csv"
+        }
+      },
+      "websocket": {
+        "clients": 0,
+        "subscribed_clients": 0,
+        "queue_depth": 0,
+        "queue_capacity": 0,
+        "dropped_messages": 0
+      },
+      "process": {
+        "Id": 63788,
+        "Handles": 79,
+        "WorkingSet64": 3465216,
+        "CPU": 0
+      }
+    },
+    {
+      "at": "2026-07-10T11:25:31.531704+00:00",
+      "channels": [
+        {
+          "channel": "CAN1",
+          "online": true,
+          "fps": 525.0,
+          "receive_age_ms": 5.1,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        },
+        {
+          "channel": "CAN2",
+          "online": true,
+          "fps": 525.0,
+          "receive_age_ms": 4.9,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        }
+      ],
+      "pipeline": {
+        "depth": 0,
+        "capacity": 4096,
+        "per_channel": {
+          "CAN2": 0,
+          "CAN1": 0
+        }
+      },
+      "telemetry": {
+        "queue_depth": 0,
+        "queue_capacity": 20000,
+        "dropped": 0,
+        "healthy": true,
+        "last_error": "",
+        "raw_log": {
+          "buffers": 159,
+          "active_files": 1,
+          "rotations": 1,
+          "compressed": 1,
+          "bytes": 233784205,
+          "retention_days": 180
+        },
+        "signal_log": {
+          "buffers": 0,
+          "active_files": 0,
+          "bytes": 96271941,
+          "format": "csv"
+        }
+      },
+      "websocket": {
+        "clients": 0,
+        "subscribed_clients": 0,
+        "queue_depth": 0,
+        "queue_capacity": 0,
+        "dropped_messages": 0
+      },
+      "process": {
+        "Id": 63788,
+        "Handles": 79,
+        "WorkingSet64": 3465216,
+        "CPU": 0
+      }
+    },
+    {
+      "at": "2026-07-10T11:25:41.531316+00:00",
+      "channels": [
+        {
+          "channel": "CAN1",
+          "online": true,
+          "fps": 500.0,
+          "receive_age_ms": 5.0,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        },
+        {
+          "channel": "CAN2",
+          "online": true,
+          "fps": 500.0,
+          "receive_age_ms": 4.7,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        }
+      ],
+      "pipeline": {
+        "depth": 0,
+        "capacity": 4096,
+        "per_channel": {
+          "CAN2": 0,
+          "CAN1": 0
+        }
+      },
+      "telemetry": {
+        "queue_depth": 0,
+        "queue_capacity": 20000,
+        "dropped": 0,
+        "healthy": true,
+        "last_error": "",
+        "raw_log": {
+          "buffers": 159,
+          "active_files": 1,
+          "rotations": 1,
+          "compressed": 1,
+          "bytes": 235309805,
+          "retention_days": 180
+        },
+        "signal_log": {
+          "buffers": 0,
+          "active_files": 0,
+          "bytes": 96271941,
+          "format": "csv"
+        }
+      },
+      "websocket": {
+        "clients": 0,
+        "subscribed_clients": 0,
+        "queue_depth": 0,
+        "queue_capacity": 0,
+        "dropped_messages": 0
+      },
+      "process": {
+        "Id": 63788,
+        "Handles": 79,
+        "WorkingSet64": 3465216,
+        "CPU": 0
+      }
+    },
+    {
+      "at": "2026-07-10T11:25:51.604161+00:00",
+      "channels": [
+        {
+          "channel": "CAN1",
+          "online": true,
+          "fps": 500.0,
+          "receive_age_ms": 12.6,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        },
+        {
+          "channel": "CAN2",
+          "online": true,
+          "fps": 500.0,
+          "receive_age_ms": 12.3,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        }
+      ],
+      "pipeline": {
+        "depth": 0,
+        "capacity": 4096,
+        "per_channel": {
+          "CAN2": 0,
+          "CAN1": 0
+        }
+      },
+      "telemetry": {
+        "queue_depth": 0,
+        "queue_capacity": 20000,
+        "dropped": 0,
+        "healthy": true,
+        "last_error": "",
+        "raw_log": {
+          "buffers": 9,
+          "active_files": 1,
+          "rotations": 1,
+          "compressed": 1,
+          "bytes": 236865917,
+          "retention_days": 180
+        },
+        "signal_log": {
+          "buffers": 0,
+          "active_files": 0,
+          "bytes": 96271941,
+          "format": "csv"
+        }
+      },
+      "websocket": {
+        "clients": 0,
+        "subscribed_clients": 0,
+        "queue_depth": 0,
+        "queue_capacity": 0,
+        "dropped_messages": 0
+      },
+      "process": {
+        "Id": 63788,
+        "Handles": 79,
+        "WorkingSet64": 3465216,
+        "CPU": 0
+      }
+    },
+    {
+      "at": "2026-07-10T11:26:01.637908+00:00",
+      "channels": [
+        {
+          "channel": "CAN1",
+          "online": true,
+          "fps": 525.0,
+          "receive_age_ms": 11.9,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        },
+        {
+          "channel": "CAN2",
+          "online": true,
+          "fps": 525.0,
+          "receive_age_ms": 11.6,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        }
+      ],
+      "pipeline": {
+        "depth": 0,
+        "capacity": 4096,
+        "per_channel": {
+          "CAN2": 0,
+          "CAN1": 0
+        }
+      },
+      "telemetry": {
+        "queue_depth": 0,
+        "queue_capacity": 20000,
+        "dropped": 0,
+        "healthy": true,
+        "last_error": "",
+        "raw_log": {
+          "buffers": 59,
+          "active_files": 1,
+          "rotations": 1,
+          "compressed": 1,
+          "bytes": 238391517,
+          "retention_days": 180
+        },
+        "signal_log": {
+          "buffers": 0,
+          "active_files": 0,
+          "bytes": 96271941,
+          "format": "csv"
+        }
+      },
+      "websocket": {
+        "clients": 0,
+        "subscribed_clients": 0,
+        "queue_depth": 0,
+        "queue_capacity": 0,
+        "dropped_messages": 0
+      },
+      "process": {
+        "Id": 63788,
+        "Handles": 79,
+        "WorkingSet64": 3465216,
+        "CPU": 0
+      }
+    },
+    {
+      "at": "2026-07-10T11:26:11.631602+00:00",
+      "channels": [
+        {
+          "channel": "CAN1",
+          "online": true,
+          "fps": 500.0,
+          "receive_age_ms": 5.2,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        },
+        {
+          "channel": "CAN2",
+          "online": true,
+          "fps": 525.0,
+          "receive_age_ms": 4.9,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        }
+      ],
+      "pipeline": {
+        "depth": 0,
+        "capacity": 4096,
+        "per_channel": {
+          "CAN2": 0,
+          "CAN1": 0
+        }
+      },
+      "telemetry": {
+        "queue_depth": 0,
+        "queue_capacity": 20000,
+        "dropped": 0,
+        "healthy": true,
+        "last_error": "",
+        "raw_log": {
+          "buffers": 59,
+          "active_files": 1,
+          "rotations": 1,
+          "compressed": 1,
+          "bytes": 239917117,
+          "retention_days": 180
+        },
+        "signal_log": {
+          "buffers": 0,
+          "active_files": 0,
+          "bytes": 96271941,
+          "format": "csv"
+        }
+      },
+      "websocket": {
+        "clients": 0,
+        "subscribed_clients": 0,
+        "queue_depth": 0,
+        "queue_capacity": 0,
+        "dropped_messages": 0
+      },
+      "process": {
+        "Id": 63788,
+        "Handles": 79,
+        "WorkingSet64": 3465216,
+        "CPU": 0
+      }
+    },
+    {
+      "at": "2026-07-10T11:26:21.681027+00:00",
+      "channels": [
+        {
+          "channel": "CAN1",
+          "online": true,
+          "fps": 525.0,
+          "receive_age_ms": 5.1,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        },
+        {
+          "channel": "CAN2",
+          "online": true,
+          "fps": 525.0,
+          "receive_age_ms": 4.8,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        }
+      ],
+      "pipeline": {
+        "depth": 0,
+        "capacity": 4096,
+        "per_channel": {
+          "CAN2": 0,
+          "CAN1": 0
+        }
+      },
+      "telemetry": {
+        "queue_depth": 0,
+        "queue_capacity": 20000,
+        "dropped": 0,
+        "healthy": true,
+        "last_error": "",
+        "raw_log": {
+          "buffers": 109,
+          "active_files": 1,
+          "rotations": 1,
+          "compressed": 1,
+          "bytes": 241442717,
+          "retention_days": 180
+        },
+        "signal_log": {
+          "buffers": 0,
+          "active_files": 0,
+          "bytes": 96271941,
+          "format": "csv"
+        }
+      },
+      "websocket": {
+        "clients": 0,
+        "subscribed_clients": 0,
+        "queue_depth": 0,
+        "queue_capacity": 0,
+        "dropped_messages": 0
+      },
+      "process": {
+        "Id": 63788,
+        "Handles": 79,
+        "WorkingSet64": 3465216,
+        "CPU": 0
+      }
+    },
+    {
+      "at": "2026-07-10T11:26:31.738096+00:00",
+      "channels": [
+        {
+          "channel": "CAN1",
+          "online": true,
+          "fps": 500.0,
+          "receive_age_ms": 11.5,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        },
+        {
+          "channel": "CAN2",
+          "online": true,
+          "fps": 500.0,
+          "receive_age_ms": 11.3,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        }
+      ],
+      "pipeline": {
+        "depth": 0,
+        "capacity": 4096,
+        "per_channel": {
+          "CAN2": 0,
+          "CAN1": 0
+        }
+      },
+      "telemetry": {
+        "queue_depth": 0,
+        "queue_capacity": 20000,
+        "dropped": 0,
+        "healthy": true,
+        "last_error": "",
+        "raw_log": {
+          "buffers": 159,
+          "active_files": 1,
+          "rotations": 1,
+          "compressed": 1,
+          "bytes": 242968317,
+          "retention_days": 180
+        },
+        "signal_log": {
+          "buffers": 0,
+          "active_files": 0,
+          "bytes": 96271941,
+          "format": "csv"
+        }
+      },
+      "websocket": {
+        "clients": 0,
+        "subscribed_clients": 0,
+        "queue_depth": 0,
+        "queue_capacity": 0,
+        "dropped_messages": 0
+      },
+      "process": {
+        "Id": 63788,
+        "Handles": 79,
+        "WorkingSet64": 3465216,
+        "CPU": 0
+      }
+    },
+    {
+      "at": "2026-07-10T11:26:41.783071+00:00",
+      "channels": [
+        {
+          "channel": "CAN1",
+          "online": true,
+          "fps": 500.0,
+          "receive_age_ms": 6.2,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        },
+        {
+          "channel": "CAN2",
+          "online": true,
+          "fps": 500.0,
+          "receive_age_ms": 6.0,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        }
+      ],
+      "pipeline": {
+        "depth": 0,
+        "capacity": 4096,
+        "per_channel": {
+          "CAN2": 0,
+          "CAN1": 0
+        }
+      },
+      "telemetry": {
+        "queue_depth": 0,
+        "queue_capacity": 20000,
+        "dropped": 0,
+        "healthy": true,
+        "last_error": "",
+        "raw_log": {
+          "buffers": 9,
+          "active_files": 1,
+          "rotations": 1,
+          "compressed": 1,
+          "bytes": 244524429,
+          "retention_days": 180
+        },
+        "signal_log": {
+          "buffers": 0,
+          "active_files": 0,
+          "bytes": 96271941,
+          "format": "csv"
+        }
+      },
+      "websocket": {
+        "clients": 0,
+        "subscribed_clients": 0,
+        "queue_depth": 0,
+        "queue_capacity": 0,
+        "dropped_messages": 0
+      },
+      "process": {
+        "Id": 63788,
+        "Handles": 79,
+        "WorkingSet64": 3465216,
+        "CPU": 0
+      }
+    },
+    {
+      "at": "2026-07-10T11:26:51.841196+00:00",
+      "channels": [
+        {
+          "channel": "CAN1",
+          "online": true,
+          "fps": 500.0,
+          "receive_age_ms": 14.4,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        },
+        {
+          "channel": "CAN2",
+          "online": true,
+          "fps": 500.0,
+          "receive_age_ms": 13.9,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        }
+      ],
+      "pipeline": {
+        "depth": 0,
+        "capacity": 4096,
+        "per_channel": {
+          "CAN2": 0,
+          "CAN1": 0
+        }
+      },
+      "telemetry": {
+        "queue_depth": 0,
+        "queue_capacity": 20000,
+        "dropped": 0,
+        "healthy": true,
+        "last_error": "",
+        "raw_log": {
+          "buffers": 59,
+          "active_files": 1,
+          "rotations": 2,
+          "compressed": 2,
+          "bytes": 213482865,
+          "retention_days": 180
+        },
+        "signal_log": {
+          "buffers": 0,
+          "active_files": 0,
+          "bytes": 96271941,
+          "format": "csv"
+        }
+      },
+      "websocket": {
+        "clients": 0,
+        "subscribed_clients": 0,
+        "queue_depth": 0,
+        "queue_capacity": 0,
+        "dropped_messages": 0
+      },
+      "process": {
+        "Id": 63788,
+        "Handles": 79,
+        "WorkingSet64": 3465216,
+        "CPU": 0
+      }
+    },
+    {
+      "at": "2026-07-10T11:27:01.889361+00:00",
+      "channels": [
+        {
+          "channel": "CAN1",
+          "online": true,
+          "fps": 500.0,
+          "receive_age_ms": 5.1,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        },
+        {
+          "channel": "CAN2",
+          "online": true,
+          "fps": 500.0,
+          "receive_age_ms": 4.9,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        }
+      ],
+      "pipeline": {
+        "depth": 0,
+        "capacity": 4096,
+        "per_channel": {
+          "CAN2": 0,
+          "CAN1": 0
+        }
+      },
+      "telemetry": {
+        "queue_depth": 0,
+        "queue_capacity": 20000,
+        "dropped": 0,
+        "healthy": true,
+        "last_error": "",
+        "raw_log": {
+          "buffers": 109,
+          "active_files": 1,
+          "rotations": 2,
+          "compressed": 2,
+          "bytes": 215008465,
+          "retention_days": 180
+        },
+        "signal_log": {
+          "buffers": 0,
+          "active_files": 0,
+          "bytes": 96271941,
+          "format": "csv"
+        }
+      },
+      "websocket": {
+        "clients": 0,
+        "subscribed_clients": 0,
+        "queue_depth": 0,
+        "queue_capacity": 0,
+        "dropped_messages": 0
+      },
+      "process": {
+        "Id": 63788,
+        "Handles": 79,
+        "WorkingSet64": 3465216,
+        "CPU": 0
+      }
+    },
+    {
+      "at": "2026-07-10T11:27:11.882988+00:00",
+      "channels": [
+        {
+          "channel": "CAN1",
+          "online": true,
+          "fps": 500.0,
+          "receive_age_ms": 5.5,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        },
+        {
+          "channel": "CAN2",
+          "online": true,
+          "fps": 500.0,
+          "receive_age_ms": 5.2,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        }
+      ],
+      "pipeline": {
+        "depth": 0,
+        "capacity": 4096,
+        "per_channel": {
+          "CAN2": 0,
+          "CAN1": 0
+        }
+      },
+      "telemetry": {
+        "queue_depth": 0,
+        "queue_capacity": 20000,
+        "dropped": 0,
+        "healthy": true,
+        "last_error": "",
+        "raw_log": {
+          "buffers": 109,
+          "active_files": 1,
+          "rotations": 2,
+          "compressed": 2,
+          "bytes": 216534065,
+          "retention_days": 180
+        },
+        "signal_log": {
+          "buffers": 0,
+          "active_files": 0,
+          "bytes": 96271941,
+          "format": "csv"
+        }
+      },
+      "websocket": {
+        "clients": 0,
+        "subscribed_clients": 0,
+        "queue_depth": 0,
+        "queue_capacity": 0,
+        "dropped_messages": 0
+      },
+      "process": {
+        "Id": 63788,
+        "Handles": 79,
+        "WorkingSet64": 3465216,
+        "CPU": 0
+      }
+    },
+    {
+      "at": "2026-07-10T11:27:21.932248+00:00",
+      "channels": [
+        {
+          "channel": "CAN1",
+          "online": true,
+          "fps": 525.0,
+          "receive_age_ms": 5.5,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        },
+        {
+          "channel": "CAN2",
+          "online": true,
+          "fps": 525.0,
+          "receive_age_ms": 5.0,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        }
+      ],
+      "pipeline": {
+        "depth": 0,
+        "capacity": 4096,
+        "per_channel": {
+          "CAN2": 0,
+          "CAN1": 0
+        }
+      },
+      "telemetry": {
+        "queue_depth": 0,
+        "queue_capacity": 20000,
+        "dropped": 0,
+        "healthy": true,
+        "last_error": "",
+        "raw_log": {
+          "buffers": 159,
+          "active_files": 1,
+          "rotations": 2,
+          "compressed": 2,
+          "bytes": 218059665,
+          "retention_days": 180
+        },
+        "signal_log": {
+          "buffers": 0,
+          "active_files": 0,
+          "bytes": 96271941,
+          "format": "csv"
+        }
+      },
+      "websocket": {
+        "clients": 0,
+        "subscribed_clients": 0,
+        "queue_depth": 0,
+        "queue_capacity": 0,
+        "dropped_messages": 0
+      },
+      "process": {
+        "Id": 63788,
+        "Handles": 79,
+        "WorkingSet64": 3465216,
+        "CPU": 0
+      }
+    },
+    {
+      "at": "2026-07-10T11:27:31.982382+00:00",
+      "channels": [
+        {
+          "channel": "CAN1",
+          "online": true,
+          "fps": 500.0,
+          "receive_age_ms": 6.3,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        },
+        {
+          "channel": "CAN2",
+          "online": true,
+          "fps": 500.0,
+          "receive_age_ms": 6.1,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        }
+      ],
+      "pipeline": {
+        "depth": 0,
+        "capacity": 4096,
+        "per_channel": {
+          "CAN2": 0,
+          "CAN1": 0
+        }
+      },
+      "telemetry": {
+        "queue_depth": 0,
+        "queue_capacity": 20000,
+        "dropped": 0,
+        "healthy": true,
+        "last_error": "",
+        "raw_log": {
+          "buffers": 9,
+          "active_files": 1,
+          "rotations": 2,
+          "compressed": 2,
+          "bytes": 219615777,
+          "retention_days": 180
+        },
+        "signal_log": {
+          "buffers": 0,
+          "active_files": 0,
+          "bytes": 96271941,
+          "format": "csv"
+        }
+      },
+      "websocket": {
+        "clients": 0,
+        "subscribed_clients": 0,
+        "queue_depth": 0,
+        "queue_capacity": 0,
+        "dropped_messages": 0
+      },
+      "process": {
+        "Id": 63788,
+        "Handles": 79,
+        "WorkingSet64": 3465216,
+        "CPU": 0
+      }
+    },
+    {
+      "at": "2026-07-10T11:27:41.996946+00:00",
+      "channels": [
+        {
+          "channel": "CAN1",
+          "online": true,
+          "fps": 500.0,
+          "receive_age_ms": 6.5,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        },
+        {
+          "channel": "CAN2",
+          "online": true,
+          "fps": 500.0,
+          "receive_age_ms": 4.2,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        }
+      ],
+      "pipeline": {
+        "depth": 0,
+        "capacity": 4096,
+        "per_channel": {
+          "CAN2": 0,
+          "CAN1": 0
+        }
+      },
+      "telemetry": {
+        "queue_depth": 0,
+        "queue_capacity": 20000,
+        "dropped": 0,
+        "healthy": true,
+        "last_error": "",
+        "raw_log": {
+          "buffers": 9,
+          "active_files": 1,
+          "rotations": 2,
+          "compressed": 2,
+          "bytes": 221141377,
+          "retention_days": 180
+        },
+        "signal_log": {
+          "buffers": 0,
+          "active_files": 0,
+          "bytes": 96271941,
+          "format": "csv"
+        }
+      },
+      "websocket": {
+        "clients": 0,
+        "subscribed_clients": 0,
+        "queue_depth": 0,
+        "queue_capacity": 0,
+        "dropped_messages": 0
+      },
+      "process": {
+        "Id": 63788,
+        "Handles": 79,
+        "WorkingSet64": 3465216,
+        "CPU": 0
+      }
+    },
+    {
+      "at": "2026-07-10T11:27:52.044008+00:00",
+      "channels": [
+        {
+          "channel": "CAN1",
+          "online": true,
+          "fps": 500.0,
+          "receive_age_ms": 5.3,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        },
+        {
+          "channel": "CAN2",
+          "online": true,
+          "fps": 500.0,
+          "receive_age_ms": 4.9,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        }
+      ],
+      "pipeline": {
+        "depth": 0,
+        "capacity": 4096,
+        "per_channel": {
+          "CAN2": 0,
+          "CAN1": 0
+        }
+      },
+      "telemetry": {
+        "queue_depth": 0,
+        "queue_capacity": 20000,
+        "dropped": 0,
+        "healthy": true,
+        "last_error": "",
+        "raw_log": {
+          "buffers": 59,
+          "active_files": 1,
+          "rotations": 2,
+          "compressed": 2,
+          "bytes": 222666977,
+          "retention_days": 180
+        },
+        "signal_log": {
+          "buffers": 0,
+          "active_files": 0,
+          "bytes": 96271941,
+          "format": "csv"
+        }
+      },
+      "websocket": {
+        "clients": 0,
+        "subscribed_clients": 0,
+        "queue_depth": 0,
+        "queue_capacity": 0,
+        "dropped_messages": 0
+      },
+      "process": {
+        "Id": 63788,
+        "Handles": 79,
+        "WorkingSet64": 3465216,
+        "CPU": 0
+      }
+    },
+    {
+      "at": "2026-07-10T11:28:02.032831+00:00",
+      "channels": [
+        {
+          "channel": "CAN1",
+          "online": true,
+          "fps": 500.0,
+          "receive_age_ms": 5.6,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        },
+        {
+          "channel": "CAN2",
+          "online": true,
+          "fps": 500.0,
+          "receive_age_ms": 5.1,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        }
+      ],
+      "pipeline": {
+        "depth": 0,
+        "capacity": 4096,
+        "per_channel": {
+          "CAN2": 0,
+          "CAN1": 0
+        }
+      },
+      "telemetry": {
+        "queue_depth": 0,
+        "queue_capacity": 20000,
+        "dropped": 0,
+        "healthy": true,
+        "last_error": "",
+        "raw_log": {
+          "buffers": 59,
+          "active_files": 1,
+          "rotations": 2,
+          "compressed": 2,
+          "bytes": 224192577,
+          "retention_days": 180
+        },
+        "signal_log": {
+          "buffers": 0,
+          "active_files": 0,
+          "bytes": 96271941,
+          "format": "csv"
+        }
+      },
+      "websocket": {
+        "clients": 0,
+        "subscribed_clients": 0,
+        "queue_depth": 0,
+        "queue_capacity": 0,
+        "dropped_messages": 0
+      },
+      "process": {
+        "Id": 63788,
+        "Handles": 79,
+        "WorkingSet64": 3465216,
+        "CPU": 0
+      }
+    },
+    {
+      "at": "2026-07-10T11:28:12.083051+00:00",
+      "channels": [
+        {
+          "channel": "CAN1",
+          "online": true,
+          "fps": 525.0,
+          "receive_age_ms": 5.5,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        },
+        {
+          "channel": "CAN2",
+          "online": true,
+          "fps": 500.0,
+          "receive_age_ms": 4.9,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        }
+      ],
+      "pipeline": {
+        "depth": 0,
+        "capacity": 4096,
+        "per_channel": {
+          "CAN2": 0,
+          "CAN1": 0
+        }
+      },
+      "telemetry": {
+        "queue_depth": 0,
+        "queue_capacity": 20000,
+        "dropped": 0,
+        "healthy": true,
+        "last_error": "",
+        "raw_log": {
+          "buffers": 109,
+          "active_files": 1,
+          "rotations": 2,
+          "compressed": 2,
+          "bytes": 225718177,
+          "retention_days": 180
+        },
+        "signal_log": {
+          "buffers": 0,
+          "active_files": 0,
+          "bytes": 96271941,
+          "format": "csv"
+        }
+      },
+      "websocket": {
+        "clients": 0,
+        "subscribed_clients": 0,
+        "queue_depth": 0,
+        "queue_capacity": 0,
+        "dropped_messages": 0
+      },
+      "process": {
+        "Id": 63788,
+        "Handles": 79,
+        "WorkingSet64": 3465216,
+        "CPU": 0
+      }
+    },
+    {
+      "at": "2026-07-10T11:28:22.082218+00:00",
+      "channels": [
+        {
+          "channel": "CAN1",
+          "online": true,
+          "fps": 500.0,
+          "receive_age_ms": 5.4,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        },
+        {
+          "channel": "CAN2",
+          "online": true,
+          "fps": 500.0,
+          "receive_age_ms": 5.0,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        }
+      ],
+      "pipeline": {
+        "depth": 0,
+        "capacity": 4096,
+        "per_channel": {
+          "CAN2": 0,
+          "CAN1": 0
+        }
+      },
+      "telemetry": {
+        "queue_depth": 0,
+        "queue_capacity": 20000,
+        "dropped": 0,
+        "healthy": true,
+        "last_error": "",
+        "raw_log": {
+          "buffers": 109,
+          "active_files": 1,
+          "rotations": 2,
+          "compressed": 2,
+          "bytes": 227243777,
+          "retention_days": 180
+        },
+        "signal_log": {
+          "buffers": 0,
+          "active_files": 0,
+          "bytes": 96271941,
+          "format": "csv"
+        }
+      },
+      "websocket": {
+        "clients": 0,
+        "subscribed_clients": 0,
+        "queue_depth": 0,
+        "queue_capacity": 0,
+        "dropped_messages": 0
+      },
+      "process": {
+        "Id": 63788,
+        "Handles": 79,
+        "WorkingSet64": 3465216,
+        "CPU": 0
+      }
+    },
+    {
+      "at": "2026-07-10T11:28:32.140794+00:00",
+      "channels": [
+        {
+          "channel": "CAN1",
+          "online": true,
+          "fps": 525.0,
+          "receive_age_ms": 14.7,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        },
+        {
+          "channel": "CAN2",
+          "online": true,
+          "fps": 500.0,
+          "receive_age_ms": 14.4,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        }
+      ],
+      "pipeline": {
+        "depth": 0,
+        "capacity": 4096,
+        "per_channel": {
+          "CAN2": 0,
+          "CAN1": 0
+        }
+      },
+      "telemetry": {
+        "queue_depth": 0,
+        "queue_capacity": 20000,
+        "dropped": 0,
+        "healthy": true,
+        "last_error": "",
+        "raw_log": {
+          "buffers": 159,
+          "active_files": 1,
+          "rotations": 2,
+          "compressed": 2,
+          "bytes": 228769377,
+          "retention_days": 180
+        },
+        "signal_log": {
+          "buffers": 0,
+          "active_files": 0,
+          "bytes": 96271941,
+          "format": "csv"
+        }
+      },
+      "websocket": {
+        "clients": 0,
+        "subscribed_clients": 0,
+        "queue_depth": 0,
+        "queue_capacity": 0,
+        "dropped_messages": 0
+      },
+      "process": {
+        "Id": 63788,
+        "Handles": 79,
+        "WorkingSet64": 3465216,
+        "CPU": 0
+      }
+    },
+    {
+      "at": "2026-07-10T11:28:42.192389+00:00",
+      "channels": [
+        {
+          "channel": "CAN1",
+          "online": true,
+          "fps": 500.0,
+          "receive_age_ms": 15.9,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        },
+        {
+          "channel": "CAN2",
+          "online": true,
+          "fps": 500.0,
+          "receive_age_ms": 15.6,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        }
+      ],
+      "pipeline": {
+        "depth": 0,
+        "capacity": 4096,
+        "per_channel": {
+          "CAN2": 0,
+          "CAN1": 0
+        }
+      },
+      "telemetry": {
+        "queue_depth": 0,
+        "queue_capacity": 20000,
+        "dropped": 0,
+        "healthy": true,
+        "last_error": "",
+        "raw_log": {
+          "buffers": 9,
+          "active_files": 1,
+          "rotations": 2,
+          "compressed": 2,
+          "bytes": 230325489,
+          "retention_days": 180
+        },
+        "signal_log": {
+          "buffers": 0,
+          "active_files": 0,
+          "bytes": 96271941,
+          "format": "csv"
+        }
+      },
+      "websocket": {
+        "clients": 0,
+        "subscribed_clients": 0,
+        "queue_depth": 0,
+        "queue_capacity": 0,
+        "dropped_messages": 0
+      },
+      "process": {
+        "Id": 63788,
+        "Handles": 79,
+        "WorkingSet64": 3465216,
+        "CPU": 0
+      }
+    },
+    {
+      "at": "2026-07-10T11:28:52.232163+00:00",
+      "channels": [
+        {
+          "channel": "CAN1",
+          "online": true,
+          "fps": 525.0,
+          "receive_age_ms": 5.9,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        },
+        {
+          "channel": "CAN2",
+          "online": true,
+          "fps": 500.0,
+          "receive_age_ms": 5.6,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        }
+      ],
+      "pipeline": {
+        "depth": 0,
+        "capacity": 4096,
+        "per_channel": {
+          "CAN2": 0,
+          "CAN1": 0
+        }
+      },
+      "telemetry": {
+        "queue_depth": 0,
+        "queue_capacity": 20000,
+        "dropped": 0,
+        "healthy": true,
+        "last_error": "",
+        "raw_log": {
+          "buffers": 59,
+          "active_files": 1,
+          "rotations": 2,
+          "compressed": 2,
+          "bytes": 231851089,
+          "retention_days": 180
+        },
+        "signal_log": {
+          "buffers": 0,
+          "active_files": 0,
+          "bytes": 96271941,
+          "format": "csv"
+        }
+      },
+      "websocket": {
+        "clients": 0,
+        "subscribed_clients": 0,
+        "queue_depth": 0,
+        "queue_capacity": 0,
+        "dropped_messages": 0
+      },
+      "process": {
+        "Id": 63788,
+        "Handles": 79,
+        "WorkingSet64": 3465216,
+        "CPU": 0
+      }
+    },
+    {
+      "at": "2026-07-10T11:29:02.233032+00:00",
+      "channels": [
+        {
+          "channel": "CAN1",
+          "online": true,
+          "fps": 525.0,
+          "receive_age_ms": 6.4,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        },
+        {
+          "channel": "CAN2",
+          "online": true,
+          "fps": 525.0,
+          "receive_age_ms": 6.1,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        }
+      ],
+      "pipeline": {
+        "depth": 0,
+        "capacity": 4096,
+        "per_channel": {
+          "CAN2": 0,
+          "CAN1": 0
+        }
+      },
+      "telemetry": {
+        "queue_depth": 0,
+        "queue_capacity": 20000,
+        "dropped": 0,
+        "healthy": true,
+        "last_error": "",
+        "raw_log": {
+          "buffers": 59,
+          "active_files": 1,
+          "rotations": 2,
+          "compressed": 2,
+          "bytes": 233376689,
+          "retention_days": 180
+        },
+        "signal_log": {
+          "buffers": 0,
+          "active_files": 0,
+          "bytes": 96271941,
+          "format": "csv"
+        }
+      },
+      "websocket": {
+        "clients": 0,
+        "subscribed_clients": 0,
+        "queue_depth": 0,
+        "queue_capacity": 0,
+        "dropped_messages": 0
+      },
+      "process": {
+        "Id": 63788,
+        "Handles": 79,
+        "WorkingSet64": 3465216,
+        "CPU": 0
+      }
+    },
+    {
+      "at": "2026-07-10T11:29:12.282038+00:00",
+      "channels": [
+        {
+          "channel": "CAN1",
+          "online": true,
+          "fps": 500.0,
+          "receive_age_ms": 5.0,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        },
+        {
+          "channel": "CAN2",
+          "online": true,
+          "fps": 525.0,
+          "receive_age_ms": 4.7,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        }
+      ],
+      "pipeline": {
+        "depth": 0,
+        "capacity": 4096,
+        "per_channel": {
+          "CAN2": 0,
+          "CAN1": 0
+        }
+      },
+      "telemetry": {
+        "queue_depth": 0,
+        "queue_capacity": 20000,
+        "dropped": 0,
+        "healthy": true,
+        "last_error": "",
+        "raw_log": {
+          "buffers": 109,
+          "active_files": 1,
+          "rotations": 2,
+          "compressed": 2,
+          "bytes": 234902289,
+          "retention_days": 180
+        },
+        "signal_log": {
+          "buffers": 0,
+          "active_files": 0,
+          "bytes": 96271941,
+          "format": "csv"
+        }
+      },
+      "websocket": {
+        "clients": 0,
+        "subscribed_clients": 0,
+        "queue_depth": 0,
+        "queue_capacity": 0,
+        "dropped_messages": 0
+      },
+      "process": {
+        "Id": 63788,
+        "Handles": 79,
+        "WorkingSet64": 3465216,
+        "CPU": 0
+      }
+    },
+    {
+      "at": "2026-07-10T11:29:22.330750+00:00",
+      "channels": [
+        {
+          "channel": "CAN1",
+          "online": true,
+          "fps": 525.0,
+          "receive_age_ms": 5.2,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        },
+        {
+          "channel": "CAN2",
+          "online": true,
+          "fps": 500.0,
+          "receive_age_ms": 4.7,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        }
+      ],
+      "pipeline": {
+        "depth": 0,
+        "capacity": 4096,
+        "per_channel": {
+          "CAN2": 0,
+          "CAN1": 0
+        }
+      },
+      "telemetry": {
+        "queue_depth": 0,
+        "queue_capacity": 20000,
+        "dropped": 0,
+        "healthy": true,
+        "last_error": "",
+        "raw_log": {
+          "buffers": 159,
+          "active_files": 1,
+          "rotations": 2,
+          "compressed": 2,
+          "bytes": 236427889,
+          "retention_days": 180
+        },
+        "signal_log": {
+          "buffers": 0,
+          "active_files": 0,
+          "bytes": 96271941,
+          "format": "csv"
+        }
+      },
+      "websocket": {
+        "clients": 0,
+        "subscribed_clients": 0,
+        "queue_depth": 0,
+        "queue_capacity": 0,
+        "dropped_messages": 0
+      },
+      "process": {
+        "Id": 63788,
+        "Handles": 79,
+        "WorkingSet64": 3465216,
+        "CPU": 0
+      }
+    },
+    {
+      "at": "2026-07-10T11:29:32.337563+00:00",
+      "channels": [
+        {
+          "channel": "CAN1",
+          "online": true,
+          "fps": 525.0,
+          "receive_age_ms": 10.9,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        },
+        {
+          "channel": "CAN2",
+          "online": true,
+          "fps": 525.0,
+          "receive_age_ms": 10.7,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        }
+      ],
+      "pipeline": {
+        "depth": 0,
+        "capacity": 4096,
+        "per_channel": {
+          "CAN2": 0,
+          "CAN1": 0
+        }
+      },
+      "telemetry": {
+        "queue_depth": 0,
+        "queue_capacity": 20000,
+        "dropped": 0,
+        "healthy": true,
+        "last_error": "",
+        "raw_log": {
+          "buffers": 159,
+          "active_files": 1,
+          "rotations": 2,
+          "compressed": 2,
+          "bytes": 237953489,
+          "retention_days": 180
+        },
+        "signal_log": {
+          "buffers": 0,
+          "active_files": 0,
+          "bytes": 96271941,
+          "format": "csv"
+        }
+      },
+      "websocket": {
+        "clients": 0,
+        "subscribed_clients": 0,
+        "queue_depth": 0,
+        "queue_capacity": 0,
+        "dropped_messages": 0
+      },
+      "process": {
+        "Id": 63788,
+        "Handles": 79,
+        "WorkingSet64": 3465216,
+        "CPU": 0
+      }
+    },
+    {
+      "at": "2026-07-10T11:29:42.383929+00:00",
+      "channels": [
+        {
+          "channel": "CAN1",
+          "online": true,
+          "fps": 500.0,
+          "receive_age_ms": 6.7,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        },
+        {
+          "channel": "CAN2",
+          "online": true,
+          "fps": 500.0,
+          "receive_age_ms": 6.2,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        }
+      ],
+      "pipeline": {
+        "depth": 0,
+        "capacity": 4096,
+        "per_channel": {
+          "CAN2": 0,
+          "CAN1": 0
+        }
+      },
+      "telemetry": {
+        "queue_depth": 0,
+        "queue_capacity": 20000,
+        "dropped": 0,
+        "healthy": true,
+        "last_error": "",
+        "raw_log": {
+          "buffers": 9,
+          "active_files": 1,
+          "rotations": 2,
+          "compressed": 2,
+          "bytes": 239509601,
+          "retention_days": 180
+        },
+        "signal_log": {
+          "buffers": 0,
+          "active_files": 0,
+          "bytes": 96271941,
+          "format": "csv"
+        }
+      },
+      "websocket": {
+        "clients": 0,
+        "subscribed_clients": 0,
+        "queue_depth": 0,
+        "queue_capacity": 0,
+        "dropped_messages": 0
+      },
+      "process": {
+        "Id": 63788,
+        "Handles": 79,
+        "WorkingSet64": 3465216,
+        "CPU": 0
+      }
+    },
+    {
+      "at": "2026-07-10T11:29:52.431789+00:00",
+      "channels": [
+        {
+          "channel": "CAN1",
+          "online": true,
+          "fps": 500.0,
+          "receive_age_ms": 5.0,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        },
+        {
+          "channel": "CAN2",
+          "online": true,
+          "fps": 500.0,
+          "receive_age_ms": 4.7,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        }
+      ],
+      "pipeline": {
+        "depth": 0,
+        "capacity": 4096,
+        "per_channel": {
+          "CAN2": 0,
+          "CAN1": 0
+        }
+      },
+      "telemetry": {
+        "queue_depth": 0,
+        "queue_capacity": 20000,
+        "dropped": 0,
+        "healthy": true,
+        "last_error": "",
+        "raw_log": {
+          "buffers": 59,
+          "active_files": 1,
+          "rotations": 2,
+          "compressed": 2,
+          "bytes": 241035201,
+          "retention_days": 180
+        },
+        "signal_log": {
+          "buffers": 0,
+          "active_files": 0,
+          "bytes": 96271941,
+          "format": "csv"
+        }
+      },
+      "websocket": {
+        "clients": 0,
+        "subscribed_clients": 0,
+        "queue_depth": 0,
+        "queue_capacity": 0,
+        "dropped_messages": 0
+      },
+      "process": {
+        "Id": 63788,
+        "Handles": 79,
+        "WorkingSet64": 3465216,
+        "CPU": 0
+      }
+    },
+    {
+      "at": "2026-07-10T11:30:02.433169+00:00",
+      "channels": [
+        {
+          "channel": "CAN1",
+          "online": true,
+          "fps": 500.0,
+          "receive_age_ms": 5.3,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        },
+        {
+          "channel": "CAN2",
+          "online": true,
+          "fps": 500.0,
+          "receive_age_ms": 5.1,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        }
+      ],
+      "pipeline": {
+        "depth": 0,
+        "capacity": 4096,
+        "per_channel": {
+          "CAN2": 0,
+          "CAN1": 0
+        }
+      },
+      "telemetry": {
+        "queue_depth": 0,
+        "queue_capacity": 20000,
+        "dropped": 0,
+        "healthy": true,
+        "last_error": "",
+        "raw_log": {
+          "buffers": 59,
+          "active_files": 1,
+          "rotations": 2,
+          "compressed": 2,
+          "bytes": 242560801,
+          "retention_days": 180
+        },
+        "signal_log": {
+          "buffers": 0,
+          "active_files": 0,
+          "bytes": 96271941,
+          "format": "csv"
+        }
+      },
+      "websocket": {
+        "clients": 0,
+        "subscribed_clients": 0,
+        "queue_depth": 0,
+        "queue_capacity": 0,
+        "dropped_messages": 0
+      },
+      "process": {
+        "Id": 63788,
+        "Handles": 79,
+        "WorkingSet64": 3465216,
+        "CPU": 0
+      }
+    },
+    {
+      "at": "2026-07-10T11:30:12.432635+00:00",
+      "channels": [
+        {
+          "channel": "CAN1",
+          "online": true,
+          "fps": 500.0,
+          "receive_age_ms": 5.3,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        },
+        {
+          "channel": "CAN2",
+          "online": true,
+          "fps": 500.0,
+          "receive_age_ms": 4.8,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        }
+      ],
+      "pipeline": {
+        "depth": 0,
+        "capacity": 4096,
+        "per_channel": {
+          "CAN2": 0,
+          "CAN1": 0
+        }
+      },
+      "telemetry": {
+        "queue_depth": 0,
+        "queue_capacity": 20000,
+        "dropped": 0,
+        "healthy": true,
+        "last_error": "",
+        "raw_log": {
+          "buffers": 59,
+          "active_files": 1,
+          "rotations": 2,
+          "compressed": 2,
+          "bytes": 244086401,
+          "retention_days": 180
+        },
+        "signal_log": {
+          "buffers": 0,
+          "active_files": 0,
+          "bytes": 96271941,
+          "format": "csv"
+        }
+      },
+      "websocket": {
+        "clients": 0,
+        "subscribed_clients": 0,
+        "queue_depth": 0,
+        "queue_capacity": 0,
+        "dropped_messages": 0
+      },
+      "process": {
+        "Id": 63788,
+        "Handles": 79,
+        "WorkingSet64": 3465216,
+        "CPU": 0
+      }
+    },
+    {
+      "at": "2026-07-10T11:30:22.657354+00:00",
+      "channels": [
+        {
+          "channel": "CAN1",
+          "online": true,
+          "fps": 425.0,
+          "receive_age_ms": 9.0,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        },
+        {
+          "channel": "CAN2",
+          "online": true,
+          "fps": 425.0,
+          "receive_age_ms": 8.7,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        }
+      ],
+      "pipeline": {
+        "depth": 0,
+        "capacity": 4096,
+        "per_channel": {
+          "CAN2": 0,
+          "CAN1": 0
+        }
+      },
+      "telemetry": {
+        "queue_depth": 0,
+        "queue_capacity": 20000,
+        "dropped": 0,
+        "healthy": true,
+        "last_error": "",
+        "raw_log": {
+          "buffers": 109,
+          "active_files": 1,
+          "rotations": 3,
+          "compressed": 3,
+          "bytes": 213044114,
+          "retention_days": 180
+        },
+        "signal_log": {
+          "buffers": 0,
+          "active_files": 0,
+          "bytes": 96271941,
+          "format": "csv"
+        }
+      },
+      "websocket": {
+        "clients": 0,
+        "subscribed_clients": 0,
+        "queue_depth": 0,
+        "queue_capacity": 0,
+        "dropped_messages": 0
+      },
+      "process": {
+        "Id": 63788,
+        "Handles": 79,
+        "WorkingSet64": 3465216,
+        "CPU": 0
+      }
+    },
+    {
+      "at": "2026-07-10T11:30:32.481591+00:00",
+      "channels": [
+        {
+          "channel": "CAN1",
+          "online": true,
+          "fps": 500.0,
+          "receive_age_ms": 5.4,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        },
+        {
+          "channel": "CAN2",
+          "online": true,
+          "fps": 500.0,
+          "receive_age_ms": 5.1,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        }
+      ],
+      "pipeline": {
+        "depth": 0,
+        "capacity": 4096,
+        "per_channel": {
+          "CAN2": 0,
+          "CAN1": 0
+        }
+      },
+      "telemetry": {
+        "queue_depth": 0,
+        "queue_capacity": 20000,
+        "dropped": 0,
+        "healthy": true,
+        "last_error": "",
+        "raw_log": {
+          "buffers": 109,
+          "active_files": 1,
+          "rotations": 3,
+          "compressed": 3,
+          "bytes": 214569714,
+          "retention_days": 180
+        },
+        "signal_log": {
+          "buffers": 0,
+          "active_files": 0,
+          "bytes": 96271941,
+          "format": "csv"
+        }
+      },
+      "websocket": {
+        "clients": 0,
+        "subscribed_clients": 0,
+        "queue_depth": 0,
+        "queue_capacity": 0,
+        "dropped_messages": 0
+      },
+      "process": {
+        "Id": 63788,
+        "Handles": 79,
+        "WorkingSet64": 3465216,
+        "CPU": 0
+      }
+    },
+    {
+      "at": "2026-07-10T11:30:42.494807+00:00",
+      "channels": [
+        {
+          "channel": "CAN1",
+          "online": true,
+          "fps": 500.0,
+          "receive_age_ms": 7.5,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        },
+        {
+          "channel": "CAN2",
+          "online": true,
+          "fps": 500.0,
+          "receive_age_ms": 7.0,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        }
+      ],
+      "pipeline": {
+        "depth": 0,
+        "capacity": 4096,
+        "per_channel": {
+          "CAN2": 0,
+          "CAN1": 0
+        }
+      },
+      "telemetry": {
+        "queue_depth": 0,
+        "queue_capacity": 20000,
+        "dropped": 0,
+        "healthy": true,
+        "last_error": "",
+        "raw_log": {
+          "buffers": 109,
+          "active_files": 1,
+          "rotations": 3,
+          "compressed": 3,
+          "bytes": 216095314,
+          "retention_days": 180
+        },
+        "signal_log": {
+          "buffers": 0,
+          "active_files": 0,
+          "bytes": 96271941,
+          "format": "csv"
+        }
+      },
+      "websocket": {
+        "clients": 0,
+        "subscribed_clients": 0,
+        "queue_depth": 0,
+        "queue_capacity": 0,
+        "dropped_messages": 0
+      },
+      "process": {
+        "Id": 63788,
+        "Handles": 79,
+        "WorkingSet64": 3465216,
+        "CPU": 0
+      }
+    },
+    {
+      "at": "2026-07-10T11:30:52.531973+00:00",
+      "channels": [
+        {
+          "channel": "CAN1",
+          "online": true,
+          "fps": 525.0,
+          "receive_age_ms": 5.3,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        },
+        {
+          "channel": "CAN2",
+          "online": true,
+          "fps": 525.0,
+          "receive_age_ms": 5.0,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        }
+      ],
+      "pipeline": {
+        "depth": 0,
+        "capacity": 4096,
+        "per_channel": {
+          "CAN2": 0,
+          "CAN1": 0
+        }
+      },
+      "telemetry": {
+        "queue_depth": 0,
+        "queue_capacity": 20000,
+        "dropped": 0,
+        "healthy": true,
+        "last_error": "",
+        "raw_log": {
+          "buffers": 159,
+          "active_files": 1,
+          "rotations": 3,
+          "compressed": 3,
+          "bytes": 217620914,
+          "retention_days": 180
+        },
+        "signal_log": {
+          "buffers": 0,
+          "active_files": 0,
+          "bytes": 96271941,
+          "format": "csv"
+        }
+      },
+      "websocket": {
+        "clients": 0,
+        "subscribed_clients": 0,
+        "queue_depth": 0,
+        "queue_capacity": 0,
+        "dropped_messages": 0
+      },
+      "process": {
+        "Id": 63788,
+        "Handles": 79,
+        "WorkingSet64": 3465216,
+        "CPU": 0
+      }
+    },
+    {
+      "at": "2026-07-10T11:31:02.533089+00:00",
+      "channels": [
+        {
+          "channel": "CAN1",
+          "online": true,
+          "fps": 500.0,
+          "receive_age_ms": 5.6,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        },
+        {
+          "channel": "CAN2",
+          "online": true,
+          "fps": 500.0,
+          "receive_age_ms": 5.1,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        }
+      ],
+      "pipeline": {
+        "depth": 0,
+        "capacity": 4096,
+        "per_channel": {
+          "CAN2": 0,
+          "CAN1": 0
+        }
+      },
+      "telemetry": {
+        "queue_depth": 0,
+        "queue_capacity": 20000,
+        "dropped": 0,
+        "healthy": true,
+        "last_error": "",
+        "raw_log": {
+          "buffers": 159,
+          "active_files": 1,
+          "rotations": 3,
+          "compressed": 3,
+          "bytes": 219146514,
+          "retention_days": 180
+        },
+        "signal_log": {
+          "buffers": 0,
+          "active_files": 0,
+          "bytes": 96271941,
+          "format": "csv"
+        }
+      },
+      "websocket": {
+        "clients": 0,
+        "subscribed_clients": 0,
+        "queue_depth": 0,
+        "queue_capacity": 0,
+        "dropped_messages": 0
+      },
+      "process": {
+        "Id": 63788,
+        "Handles": 79,
+        "WorkingSet64": 3465216,
+        "CPU": 0
+      }
+    },
+    {
+      "at": "2026-07-10T11:31:12.600257+00:00",
+      "channels": [
+        {
+          "channel": "CAN1",
+          "online": true,
+          "fps": 525.0,
+          "receive_age_ms": 24.3,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        },
+        {
+          "channel": "CAN2",
+          "online": true,
+          "fps": 525.0,
+          "receive_age_ms": 24.1,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        }
+      ],
+      "pipeline": {
+        "depth": 0,
+        "capacity": 4096,
+        "per_channel": {
+          "CAN2": 0,
+          "CAN1": 0
+        }
+      },
+      "telemetry": {
+        "queue_depth": 0,
+        "queue_capacity": 20000,
+        "dropped": 0,
+        "healthy": true,
+        "last_error": "",
+        "raw_log": {
+          "buffers": 9,
+          "active_files": 1,
+          "rotations": 3,
+          "compressed": 3,
+          "bytes": 220702626,
+          "retention_days": 180
+        },
+        "signal_log": {
+          "buffers": 0,
+          "active_files": 0,
+          "bytes": 96271941,
+          "format": "csv"
+        }
+      },
+      "websocket": {
+        "clients": 0,
+        "subscribed_clients": 0,
+        "queue_depth": 0,
+        "queue_capacity": 0,
+        "dropped_messages": 0
+      },
+      "process": {
+        "Id": 63788,
+        "Handles": 79,
+        "WorkingSet64": 3465216,
+        "CPU": 0
+      }
+    },
+    {
+      "at": "2026-07-10T11:31:22.582395+00:00",
+      "channels": [
+        {
+          "channel": "CAN1",
+          "online": true,
+          "fps": 525.0,
+          "receive_age_ms": 6.7,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        },
+        {
+          "channel": "CAN2",
+          "online": true,
+          "fps": 525.0,
+          "receive_age_ms": 6.5,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        }
+      ],
+      "pipeline": {
+        "depth": 0,
+        "capacity": 4096,
+        "per_channel": {
+          "CAN2": 0,
+          "CAN1": 0
+        }
+      },
+      "telemetry": {
+        "queue_depth": 0,
+        "queue_capacity": 20000,
+        "dropped": 0,
+        "healthy": true,
+        "last_error": "",
+        "raw_log": {
+          "buffers": 9,
+          "active_files": 1,
+          "rotations": 3,
+          "compressed": 3,
+          "bytes": 222228226,
+          "retention_days": 180
+        },
+        "signal_log": {
+          "buffers": 0,
+          "active_files": 0,
+          "bytes": 96271941,
+          "format": "csv"
+        }
+      },
+      "websocket": {
+        "clients": 0,
+        "subscribed_clients": 0,
+        "queue_depth": 0,
+        "queue_capacity": 0,
+        "dropped_messages": 0
+      },
+      "process": {
+        "Id": 63788,
+        "Handles": 79,
+        "WorkingSet64": 3465216,
+        "CPU": 0
+      }
+    },
+    {
+      "at": "2026-07-10T11:31:32.593340+00:00",
+      "channels": [
+        {
+          "channel": "CAN1",
+          "online": true,
+          "fps": 525.0,
+          "receive_age_ms": 6.4,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        },
+        {
+          "channel": "CAN2",
+          "online": true,
+          "fps": 525.0,
+          "receive_age_ms": 6.1,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        }
+      ],
+      "pipeline": {
+        "depth": 0,
+        "capacity": 4096,
+        "per_channel": {
+          "CAN2": 0,
+          "CAN1": 0
+        }
+      },
+      "telemetry": {
+        "queue_depth": 0,
+        "queue_capacity": 20000,
+        "dropped": 0,
+        "healthy": true,
+        "last_error": "",
+        "raw_log": {
+          "buffers": 9,
+          "active_files": 1,
+          "rotations": 3,
+          "compressed": 3,
+          "bytes": 223753826,
+          "retention_days": 180
+        },
+        "signal_log": {
+          "buffers": 0,
+          "active_files": 0,
+          "bytes": 96271941,
+          "format": "csv"
+        }
+      },
+      "websocket": {
+        "clients": 0,
+        "subscribed_clients": 0,
+        "queue_depth": 0,
+        "queue_capacity": 0,
+        "dropped_messages": 0
+      },
+      "process": {
+        "Id": 63788,
+        "Handles": 79,
+        "WorkingSet64": 3465216,
+        "CPU": 0
+      }
+    },
+    {
+      "at": "2026-07-10T11:31:42.582681+00:00",
+      "channels": [
+        {
+          "channel": "CAN1",
+          "online": true,
+          "fps": 500.0,
+          "receive_age_ms": 6.1,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        },
+        {
+          "channel": "CAN2",
+          "online": true,
+          "fps": 500.0,
+          "receive_age_ms": 5.8,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        }
+      ],
+      "pipeline": {
+        "depth": 0,
+        "capacity": 4096,
+        "per_channel": {
+          "CAN2": 0,
+          "CAN1": 0
+        }
+      },
+      "telemetry": {
+        "queue_depth": 0,
+        "queue_capacity": 20000,
+        "dropped": 0,
+        "healthy": true,
+        "last_error": "",
+        "raw_log": {
+          "buffers": 9,
+          "active_files": 1,
+          "rotations": 3,
+          "compressed": 3,
+          "bytes": 225279426,
+          "retention_days": 180
+        },
+        "signal_log": {
+          "buffers": 0,
+          "active_files": 0,
+          "bytes": 96271941,
+          "format": "csv"
+        }
+      },
+      "websocket": {
+        "clients": 0,
+        "subscribed_clients": 0,
+        "queue_depth": 0,
+        "queue_capacity": 0,
+        "dropped_messages": 0
+      },
+      "process": {
+        "Id": 63788,
+        "Handles": 79,
+        "WorkingSet64": 3465216,
+        "CPU": 0
+      }
+    },
+    {
+      "at": "2026-07-10T11:31:52.641276+00:00",
+      "channels": [
+        {
+          "channel": "CAN1",
+          "online": true,
+          "fps": 525.0,
+          "receive_age_ms": 5.1,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        },
+        {
+          "channel": "CAN2",
+          "online": true,
+          "fps": 525.0,
+          "receive_age_ms": 4.9,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        }
+      ],
+      "pipeline": {
+        "depth": 0,
+        "capacity": 4096,
+        "per_channel": {
+          "CAN2": 0,
+          "CAN1": 0
+        }
+      },
+      "telemetry": {
+        "queue_depth": 0,
+        "queue_capacity": 20000,
+        "dropped": 0,
+        "healthy": true,
+        "last_error": "",
+        "raw_log": {
+          "buffers": 59,
+          "active_files": 1,
+          "rotations": 3,
+          "compressed": 3,
+          "bytes": 226805026,
+          "retention_days": 180
+        },
+        "signal_log": {
+          "buffers": 0,
+          "active_files": 0,
+          "bytes": 96271941,
+          "format": "csv"
+        }
+      },
+      "websocket": {
+        "clients": 0,
+        "subscribed_clients": 0,
+        "queue_depth": 0,
+        "queue_capacity": 0,
+        "dropped_messages": 0
+      },
+      "process": {
+        "Id": 63788,
+        "Handles": 79,
+        "WorkingSet64": 3465216,
+        "CPU": 0
+      }
+    },
+    {
+      "at": "2026-07-10T11:32:02.631966+00:00",
+      "channels": [
+        {
+          "channel": "CAN1",
+          "online": true,
+          "fps": 500.0,
+          "receive_age_ms": 5.5,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        },
+        {
+          "channel": "CAN2",
+          "online": true,
+          "fps": 500.0,
+          "receive_age_ms": 4.9,
+          "queue_depth": 0,
+          "queue_capacity": 512,
+          "queue_dropped": 0,
+          "pipeline_queue_depth": 0,
+          "pipeline_queue_capacity": 4096,
+          "pipeline_queue_dropped": 0,
+          "stale_dropped": 0,
+          "processing_errors": 0
+        }
+      ],
+      "pipeline": {
+        "depth": 0,
+        "capacity": 4096,
+        "per_channel": {
+          "CAN2": 0,
+          "CAN1": 0
+        }
+      },
+      "telemetry": {
+        "queue_depth": 0,
+        "queue_capacity": 20000,
+        "dropped": 0,
+        "healthy": true,
+        "last_error": "",
+        "raw_log": {
+          "buffers": 59,
+          "active_files": 1,
+          "rotations": 3,
+          "compressed": 3,
+          "bytes": 228330626,
+          "retention_days": 180
+        },
+        "signal_log": {
+          "buffers": 0,
+          "active_files": 0,
+          "bytes": 96271941,
+          "format": "csv"
+        }
+      },
+      "websocket": {
+        "clients": 0,
+        "subscribed_clients": 0,
+        "queue_depth": 0,
+        "queue_capacity": 0,
+        "dropped_messages": 0
+      },
+      "process": {
+        "Id": 63788,
+        "Handles": 79,
+        "WorkingSet64": 3465216,
+        "CPU": 0
+      }
+    }
+  ],
+  "passed": true,
+  "initial": {
+    "at": "2026-07-10T11:22:11.020551+00:00",
+    "channels": [
+      {
+        "channel": "CAN1",
+        "online": false,
+        "fps": 102.0,
+        "receive_age_ms": 88280.3,
+        "queue_depth": 0,
+        "queue_capacity": 512,
+        "queue_dropped": 0,
+        "pipeline_queue_depth": 0,
+        "pipeline_queue_capacity": 4096,
+        "pipeline_queue_dropped": 0,
+        "stale_dropped": 0,
+        "processing_errors": 0
+      },
+      {
+        "channel": "CAN2",
+        "online": false,
+        "fps": 221.0,
+        "receive_age_ms": 88277.7,
+        "queue_depth": 0,
+        "queue_capacity": 512,
+        "queue_dropped": 0,
+        "pipeline_queue_depth": 0,
+        "pipeline_queue_capacity": 4096,
+        "pipeline_queue_dropped": 0,
+        "stale_dropped": 0,
+        "processing_errors": 0
+      }
+    ],
+    "pipeline": {
+      "depth": 0,
+      "capacity": 4096,
+      "per_channel": {
+        "CAN2": 0,
+        "CAN1": 0
+      }
+    },
+    "telemetry": {
+      "queue_depth": 0,
+      "queue_capacity": 20000,
+      "dropped": 0,
+      "healthy": true,
+      "last_error": "",
+      "raw_log": {
+        "buffers": 9,
+        "active_files": 1,
+        "rotations": 0,
+        "compressed": 0,
+        "bytes": 235596008,
+        "retention_days": 180
+      },
+      "signal_log": {
+        "buffers": 0,
+        "active_files": 0,
+        "bytes": 96271941,
+        "format": "csv"
+      }
+    },
+    "websocket": {
+      "clients": 0,
+      "subscribed_clients": 0,
+      "queue_depth": 0,
+      "queue_capacity": 0,
+      "dropped_messages": 0
+    }
+  },
+  "sent_frames": 600000,
+  "achieved_send_fps": 1000.0,
+  "final": {
+    "at": "2026-07-10T11:32:11.028446+00:00",
+    "channels": [
+      {
+        "channel": "CAN1",
+        "online": true,
+        "fps": 500.0,
+        "receive_age_ms": 51.4,
+        "queue_depth": 0,
+        "queue_capacity": 512,
+        "queue_dropped": 0,
+        "pipeline_queue_depth": 0,
+        "pipeline_queue_capacity": 4096,
+        "pipeline_queue_dropped": 0,
+        "stale_dropped": 0,
+        "processing_errors": 0
+      },
+      {
+        "channel": "CAN2",
+        "online": true,
+        "fps": 500.0,
+        "receive_age_ms": 51.1,
+        "queue_depth": 0,
+        "queue_capacity": 512,
+        "queue_dropped": 0,
+        "pipeline_queue_depth": 0,
+        "pipeline_queue_capacity": 4096,
+        "pipeline_queue_dropped": 0,
+        "stale_dropped": 0,
+        "processing_errors": 0
+      }
+    ],
+    "pipeline": {
+      "depth": 0,
+      "capacity": 4096,
+      "per_channel": {
+        "CAN2": 0,
+        "CAN1": 0
+      }
+    },
+    "telemetry": {
+      "queue_depth": 0,
+      "queue_capacity": 20000,
+      "dropped": 0,
+      "healthy": true,
+      "last_error": "",
+      "raw_log": {
+        "buffers": 9,
+        "active_files": 1,
+        "rotations": 3,
+        "compressed": 3,
+        "bytes": 229612130,
+        "retention_days": 180
+      },
+      "signal_log": {
+        "buffers": 0,
+        "active_files": 0,
+        "bytes": 96271941,
+        "format": "csv"
+      }
+    },
+    "websocket": {
+      "clients": 0,
+      "subscribed_clients": 0,
+      "queue_depth": 0,
+      "queue_capacity": 0,
+      "dropped_messages": 0
+    },
+    "process": {
+      "Id": 63788,
+      "Handles": 79,
+      "WorkingSet64": 3465216,
+      "CPU": 0
+    }
+  },
+  "assertions": {
+    "target_send_rate": true,
+    "channels_online": true,
+    "no_sustained_backlog": true,
+    "no_pipeline_drops": true,
+    "telemetry_healthy": true
+  },
+  "finished_at": "2026-07-10T11:32:11.264063+00:00"
+}

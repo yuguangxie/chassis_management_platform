@@ -1,0 +1,48 @@
+can_periods:
+  critical_messages:
+    '0x51': {expected_ms: 20, timeout_ms: 100, jitter_warn_ms: 20}
+    '0x77': {expected_ms: 100, timeout_ms: 300, jitter_warn_ms: 50}
+    '0x168': {expected_ms: 20, timeout_ms: 100, jitter_warn_ms: 20}
+    '0xE1': {expected_ms: 20, timeout_ms: 100, jitter_warn_ms: 20}
+    '0x7F1': {expected_ms: 20, timeout_ms: 100, jitter_warn_ms: 20}
+    '0x100': {expected_ms: 1000, timeout_ms: 1500, jitter_warn_ms: 500}
+  protocol_error_rate_warn_per_min: 10
+  protocol_error_rate_fail_per_min: 50
+bms:
+  total_voltage_v: {min: 36.0, max: 72.0, note: site_confirm_battery_pack_voltage}
+  soc_percent_min: 30
+  current_abs_a_max: 300
+  ntc_temperature_c: {min: -20, max: 60}
+  cell_voltage_v: {min: 2.8, max: 4.25}
+  cell_delta_v_max: 0.08
+  protect_status_required_zero: true
+vehicle:
+  manual_speed_limit_kmh: 3.0
+  auto_test_drive_speed_kmh: 1.5
+  vehicle_speed_error_kmh: 0.5
+  wheel_speed_error_rpm: 30
+  wheel_speed_response_timeout_ms: 1500
+steering:
+  command_limit_default: 60
+  command_limit_absolute: 120
+  feedback_error_cmd_units: 8
+  response_timeout_ms: 1500
+  actual_sensor_scale: 1.4
+alarms:
+  required_max_level_for_pass: 0
+  allow_warning_release: false
+  warning_release_max_level: 1
+motor:
+  heartbeat_ids: ['0x703', '0x704']
+  heartbeat_timeout_ms: 500
+  speed_feed_timeout_ms: 500
+control:
+  command_response_timeout_ms: 1000
+  safe_stop_timeout_ms: 5000
+  safe_stop_speed_threshold_kmh: 0.2
+  brake_stop_timeout_ms: 5000
+  control_watchdog_timeout_ms: 500
+report:
+  fail_if_report_json_missing: true
+  fail_if_word_report_missing: true
+  pdf_failure_blocks_pass: false

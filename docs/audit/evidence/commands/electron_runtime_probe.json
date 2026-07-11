@@ -1,0 +1,41 @@
+﻿{
+    "started_at":  "2026-07-10T12:17:31.9446884+08:00",
+    "root_process_id":  35708,
+    "root_process_alive_after_6s":  true,
+    "process_count":  4,
+    "processes":  [
+                      {
+                          "Id":  27080,
+                          "ProcessName":  "electron",
+                          "MainWindowTitle":  "",
+                          "Responding":  true,
+                          "StartTime":  "\/Date(1783657052322)\/"
+                      },
+                      {
+                          "Id":  29672,
+                          "ProcessName":  "electron",
+                          "MainWindowTitle":  "",
+                          "Responding":  true,
+                          "StartTime":  "\/Date(1783657052289)\/"
+                      },
+                      {
+                          "Id":  35708,
+                          "ProcessName":  "electron",
+                          "MainWindowTitle":  "",
+                          "Responding":  true,
+                          "StartTime":  "\/Date(1783657052041)\/"
+                      },
+                      {
+                          "Id":  59948,
+                          "ProcessName":  "electron",
+                          "MainWindowTitle":  "",
+                          "Responding":  true,
+                          "StartTime":  "\/Date(1783657052268)\/"
+                      }
+                  ],
+    "vite_listening":  true,
+    "backend_listening":  false,
+    "production_entry_configured":  false,
+    "backend_spawn_configured":  false,
+    "conclusion":  "Electron can open against the running Vite server, but main.cjs has no dist file load path, backend spawn, or packaging configuration."
+}

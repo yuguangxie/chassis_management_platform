@@ -1,0 +1,32 @@
+﻿COMMAND:  Get-Content -Raw desktop\package.json 
+TIME: 2026-07-10 10:57:22 +08:00
+
+{
+  "name": "chassis-eol-desktop",
+  "version": "1.0.2",
+  "type": "module",
+  "main": "electron/main.cjs",
+  "scripts": {
+    "dev": "node scripts/dev.mjs",
+    "dev:web": "vite --host 127.0.0.1 --port 5173",
+    "build": "vue-tsc --noEmit && vite build",
+    "typecheck": "vue-tsc --noEmit",
+    "electron:build": "vite build"
+  },
+  "dependencies": {
+    "@vitejs/plugin-vue": "^5.0.5",
+    "echarts": "^5.5.1",
+    "electron": "^31.0.0",
+    "lucide-vue-next": "^0.468.0",
+    "pinia": "^2.1.7",
+    "vue": "^3.4.21",
+    "vue-router": "^4.3.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.5",
+    "vite": "^5.2.0",
+    "vue-tsc": "^2.0.7"
+  }
+}
+
+

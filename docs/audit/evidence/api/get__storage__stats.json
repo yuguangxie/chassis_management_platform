@@ -1,0 +1,35 @@
+{
+  "url": "http://127.0.0.1:8800/api/v1/storage/stats",
+  "method": "GET",
+  "status": 200,
+  "headers": {
+    "date": "Fri, 10 Jul 2026 03:01:29 GMT",
+    "server": "uvicorn",
+    "content-length": "513",
+    "content-type": "application/json",
+    "connection": "close"
+  },
+  "body": {
+    "report_directory": "D:\\TestLogs\\Reports",
+    "raw_can_directory": "D:\\TestLogs\\RawCan",
+    "decoded_signal_directory": "D:\\TestLogs\\DecodedSignals",
+    "database_path": "D:\\TestLogs\\Database\\chassis_eol.sqlite3",
+    "retention_days": 180,
+    "max_log_gb": 50,
+    "auto_cleanup": true,
+    "word_enabled": true,
+    "pdf_enabled": true,
+    "csv_enabled": true,
+    "parquet_enabled": false,
+    "disk_total_gb": 465.8,
+    "disk_used_gb": 309.0,
+    "disk_free_gb": 156.7,
+    "disk_used_percent": 66.3,
+    "current_log_gb": 0.062,
+    "database_gb": 0.0002,
+    "reports_gb": 0.0,
+    "raw_can_gb": 0.0
+  },
+  "started_at": "2026-07-10T11:01:30.027633+08:00",
+  "finished_at": "2026-07-10T11:01:30.032155+08:00"
+}

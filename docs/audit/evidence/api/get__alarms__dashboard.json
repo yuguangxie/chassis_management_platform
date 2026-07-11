@@ -1,0 +1,335 @@
+{
+  "url": "http://127.0.0.1:8800/api/v1/alarms/dashboard",
+  "method": "GET",
+  "status": 200,
+  "headers": {
+    "date": "Fri, 10 Jul 2026 03:01:29 GMT",
+    "server": "uvicorn",
+    "content-length": "4121",
+    "content-type": "application/json",
+    "connection": "close"
+  },
+  "body": {
+    "summary": {
+      "max_level": 0,
+      "max_label": "Normal",
+      "current_count": 0,
+      "severe_locked": false,
+      "recommendation": "无处理中告警"
+    },
+    "warning_matrix_0x77": [
+      {
+        "key": "BMS_SOC",
+        "label": "BMS_SOC",
+        "value": 0,
+        "status": "Normal"
+      },
+      {
+        "key": "MCU_Disconnect",
+        "label": "MCU掉线",
+        "value": 0,
+        "status": "Normal"
+      },
+      {
+        "key": "MCU_Motor",
+        "label": "电机告警",
+        "value": 0,
+        "status": "Normal"
+      },
+      {
+        "key": "MCU_Speed",
+        "label": "超速",
+        "value": 0,
+        "status": "Normal"
+      },
+      {
+        "key": "Steering_Disconnect",
+        "label": "转向掉线",
+        "value": 0,
+        "status": "Normal"
+      },
+      {
+        "key": "Steering_Lock",
+        "label": "转向卡死",
+        "value": 0,
+        "status": "Normal"
+      },
+      {
+        "key": "Steering_Uncontrollable",
+        "label": "转向失控",
+        "value": 0,
+        "status": "Normal"
+      },
+      {
+        "key": "Steering_Error",
+        "label": "角度故障",
+        "value": 0,
+        "status": "Normal"
+      },
+      {
+        "key": "Brake_Error",
+        "label": "刹车故障",
+        "value": 0,
+        "status": "Normal"
+      }
+    ],
+    "bms_protect_0x102": {
+      "items": [
+        {
+          "key": "short_circuit",
+          "label": "短路",
+          "triggered": false
+        },
+        {
+          "key": "over_current",
+          "label": "过流",
+          "triggered": false
+        },
+        {
+          "key": "over_temp",
+          "label": "过温",
+          "triggered": false
+        },
+        {
+          "key": "under_temp",
+          "label": "欠温",
+          "triggered": false
+        },
+        {
+          "key": "over_voltage",
+          "label": "过压",
+          "triggered": false
+        },
+        {
+          "key": "under_voltage",
+          "label": "欠压",
+          "triggered": false
+        },
+        {
+          "key": "mos_status",
+          "label": "MOS状态",
+          "status": "正常"
+        },
+        {
+          "key": "precharge_status",
+          "label": "预充状态",
+          "status": "正常"
+        }
+      ],
+      "bitmap_bits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "bit_order": "High -> Low"
+    },
+    "diagnosis_suggestions": [
+      {
+        "check_item": "BMS 与通信链路",
+        "suggestion": "检查 CAN1 连接与供电",
+        "allow_override": false,
+        "priority": "高"
+      },
+      {
+        "check_item": "BMS 保护状态",
+        "suggestion": "确认 0x102 所有保护未触发",
+        "allow_override": false,
+        "priority": "高"
+      },
+      {
+        "check_item": "MCU 掉线",
+        "suggestion": "检查 MCU 心跳与供电",
+        "allow_override": false,
+        "priority": "高"
+      },
+      {
+        "check_item": "电机系统",
+        "suggestion": "检查电机与逆变器状态",
+        "allow_override": false,
+        "priority": "中"
+      },
+      {
+        "check_item": "转向系统",
+        "suggestion": "检查转向通信与角度信号",
+        "allow_override": false,
+        "priority": "中"
+      },
+      {
+        "check_item": "刹车系统",
+        "suggestion": "检查制动执行与反馈信号",
+        "allow_override": false,
+        "priority": "中"
+      },
+      {
+        "check_item": "超速（速度源）",
+        "suggestion": "校验速度传感器与标定",
+        "allow_override": false,
+        "priority": "低"
+      }
+    ],
+    "history": [
+      {
+        "id": "ALM-001",
+        "time": "2026-04-01 10:15:22.123",
+        "channel": "CAN1",
+        "can_id": "0x77",
+        "signal": "MCU掉线",
+        "level": "1 (Warning)",
+        "status": "恢复 (10:15:25.187)",
+        "suggestion": "检查 CAN1 与 MCU 供电/心跳",
+        "related_step": "步骤: 02-CAN通信自检",
+        "released": false
+      },
+      {
+        "id": "ALM-002",
+        "time": "2026-04-01 10:12:47.663",
+        "channel": "CAN1",
+        "can_id": "0x77",
+        "signal": "BMS_SOC",
+        "level": "1 (Warning)",
+        "status": "恢复 (10:12:55.021)",
+        "suggestion": "确认 SOC 来源与有效区间",
+        "related_step": "步骤: 03-BMS检查",
+        "released": false
+      },
+      {
+        "id": "ALM-003",
+        "time": "2026-04-01 10:08:31.558",
+        "channel": "CAN1",
+        "can_id": "0x77",
+        "signal": "超速",
+        "level": "2 (Fault)",
+        "status": "恢复 (10:08:33.914)",
+        "suggestion": "校验速度传感器与限速参数",
+        "related_step": "步骤: 04-速度校验",
+        "released": false
+      },
+      {
+        "id": "ALM-004",
+        "time": "2026-04-01 09:58:13.447",
+        "channel": "CAN1",
+        "can_id": "0x102",
+        "signal": "过温",
+        "level": "1 (Warning)",
+        "status": "恢复 (09:58:20.301)",
+        "suggestion": "检查电池温度传感器与散热",
+        "related_step": "步骤: 05-BMS保护",
+        "released": false
+      },
+      {
+        "id": "ALM-005",
+        "time": "2026-04-01 09:36:58.912",
+        "channel": "CAN1",
+        "can_id": "0x102",
+        "signal": "欠压",
+        "level": "2 (Fault)",
+        "status": "恢复 (09:37:05.772)",
+        "suggestion": "检查电池电压与预充状态",
+        "related_step": "步骤: 05-BMS保护",
+        "released": false
+      }
+    ],
+    "charts": {
+      "level_timeline": {
+        "x_axis": [
+          "09:56",
+          "10:01",
+          "10:06",
+          "10:11",
+          "10:16",
+          "10:21",
+          "10:26"
+        ],
+        "series": [
+          {
+            "name": "0 Normal",
+            "data": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "name": "1 Warning",
+            "data": [
+              0,
+              0,
+              1,
+              0,
+              0,
+              1,
+              0
+            ]
+          },
+          {
+            "name": "2 Fault",
+            "data": [
+              0,
+              0,
+              0,
+              2,
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "name": "3 Critical",
+            "data": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      "category_distribution": [
+        {
+          "name": "Normal",
+          "value": 156,
+          "percent": 83.9
+        },
+        {
+          "name": "Warning",
+          "value": 22,
+          "percent": 11.8
+        },
+        {
+          "name": "Fault",
+          "value": 8,
+          "percent": 4.3
+        },
+        {
+          "name": "Critical",
+          "value": 0,
+          "percent": 0.0
+        }
+      ]
+    },
+    "updated_at": "2026-07-10T03:01:30.119371+00:00",
+    "mock": true
+  },
+  "started_at": "2026-07-10T11:01:30.118060+08:00",
+  "finished_at": "2026-07-10T11:01:30.120106+08:00"
+}

@@ -1,0 +1,19 @@
+{
+  "url": "http://127.0.0.1:8800/api/v1/history/export",
+  "method": "POST",
+  "status": 200,
+  "headers": {
+    "date": "Fri, 10 Jul 2026 03:01:29 GMT",
+    "server": "uvicorn",
+    "content-length": "87",
+    "content-type": "application/json",
+    "connection": "close"
+  },
+  "body": {
+    "ok": true,
+    "stub": true,
+    "message": "历史导出接口已预留，当前为 Mock 模式"
+  },
+  "started_at": "2026-07-10T11:01:30.228225+08:00",
+  "finished_at": "2026-07-10T11:01:30.230657+08:00"
+}

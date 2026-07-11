@@ -1,0 +1,83 @@
+{
+  "session_id": "EOL-1E0EDEEC82C1",
+  "actions": [
+    {
+      "id": 875,
+      "session_id": "EOL-1E0EDEEC82C1",
+      "timestamp_utc": "2026-07-10T10:09:32.379651+00:00",
+      "operator": "dev-operator",
+      "role": "operator",
+      "action_type": "eol_create_session",
+      "target": "EOL-1E0EDEEC82C1",
+      "request_json": "{\"chassis_no\": \"PH3-NORMAL-001\", \"vin\": \"PH3NORMAL0000001\", \"serial_no\": \"PH3-1783678172371\", \"operator\": \"op01\", \"station_id\": \"EOL-STATION-01\", \"plan_id\": \"default_chassis_eol_v1\", \"remarks\": \"\"}",
+      "result": "OK",
+      "trace_id": "",
+      "created_at": "2026-07-10 10:09:32"
+    },
+    {
+      "id": 876,
+      "session_id": "EOL-1E0EDEEC82C1",
+      "timestamp_utc": "2026-07-10T10:09:32.387302+00:00",
+      "operator": "dev-operator",
+      "role": "operator",
+      "action_type": "eol_start",
+      "target": "EOL-1E0EDEEC82C1",
+      "request_json": "{}",
+      "result": "OK",
+      "trace_id": "",
+      "created_at": "2026-07-10 10:09:32"
+    },
+    {
+      "id": 877,
+      "session_id": "EOL-1E0EDEEC82C1",
+      "timestamp_utc": "2026-07-10T10:09:49.052122+00:00",
+      "operator": "eol-engine",
+      "role": "system",
+      "action_type": "eol_session_finalized",
+      "target": "EOL-1E0EDEEC82C1",
+      "request_json": "{\"status\": \"PASSED\", \"failure_reason\": \"\", \"report_id\": \"9cfdce54\", \"safe_stop\": null}",
+      "result": "PASS",
+      "trace_id": "",
+      "created_at": "2026-07-10 10:09:49"
+    },
+    {
+      "id": 887,
+      "session_id": "EOL-1E0EDEEC82C1",
+      "timestamp_utc": "2026-07-10T10:09:49.788371+00:00",
+      "operator": "dev-viewer",
+      "role": "viewer",
+      "action_type": "download_session_data",
+      "target": "EOL-1E0EDEEC82C1",
+      "request_json": "{\"file_type\": \"raw-can\", \"file_name\": \"raw-can_EOL-1E0EDEEC82C1.csv\"}",
+      "result": "OK",
+      "trace_id": "9858de86e5f342e394d0fd6547e0a68c",
+      "created_at": "2026-07-10 10:09:49"
+    },
+    {
+      "id": 888,
+      "session_id": "EOL-1E0EDEEC82C1",
+      "timestamp_utc": "2026-07-10T10:09:50.276812+00:00",
+      "operator": "dev-viewer",
+      "role": "viewer",
+      "action_type": "download_session_data",
+      "target": "EOL-1E0EDEEC82C1",
+      "request_json": "{\"file_type\": \"decoded-signals\", \"file_name\": \"decoded-signals_EOL-1E0EDEEC82C1.csv\"}",
+      "result": "OK",
+      "trace_id": "397d90874ce24011be33ee3d50344720",
+      "created_at": "2026-07-10 10:09:50"
+    },
+    {
+      "id": 889,
+      "session_id": "EOL-1E0EDEEC82C1",
+      "timestamp_utc": "2026-07-10T10:09:50.562767+00:00",
+      "operator": "dev-viewer",
+      "role": "viewer",
+      "action_type": "download_session_data",
+      "target": "EOL-1E0EDEEC82C1",
+      "request_json": "{\"file_type\": \"report-bundle\", \"file_name\": \"report-bundle_EOL-1E0EDEEC82C1.zip\"}",
+      "result": "OK",
+      "trace_id": "c80616ebd37a454e91f58d06f070a4d8",
+      "created_at": "2026-07-10 10:09:50"
+    }
+  ]
+}

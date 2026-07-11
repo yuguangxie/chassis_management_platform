@@ -1,0 +1,41 @@
+{
+  "baseUrl": "http://127.0.0.1:5173",
+  "inspections": [
+    {
+      "page": "manual-control",
+      "route": "/manual-control",
+      "width": 1920,
+      "height": 1080,
+      "filename": "manual-control_1920x1080.png",
+      "location": "#/manual-control",
+      "viewport": {
+        "width": 1920,
+        "height": 1040
+      },
+      "page_scrollable": false,
+      "root_scroll_height": 0,
+      "root_client_height": 0,
+      "white_controls": 0,
+      "chart_canvas_count": 2,
+      "failed_to_fetch_banner": false
+    },
+    {
+      "page": "manual-control",
+      "route": "/manual-control",
+      "width": 1366,
+      "height": 768,
+      "filename": "manual-control_1366x768.png",
+      "location": "#/manual-control",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "page_scrollable": false,
+      "root_scroll_height": 0,
+      "root_client_height": 0,
+      "white_controls": 0,
+      "chart_canvas_count": 0,
+      "failed_to_fetch_banner": false
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "pages": 11,
+  "all_routes_loaded": true,
+  "failed_fetch_count": 0,
+  "page_scrollable_count": 0,
+  "empty_chart_pages": [
+    "/signal-dashboard"
+  ],
+  "note": "signal-dashboard uses inline SVG sparklines; zero canvas is expected for that page"
+}

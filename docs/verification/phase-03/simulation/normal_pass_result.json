@@ -1,0 +1,149 @@
+{
+  "profile": "normal_pass",
+  "session_id": "EOL-74B44BB233DA",
+  "expected": {
+    "status": "PASSED",
+    "failure_step": null,
+    "step_count": 12
+  },
+  "actual": {
+    "status": "PASSED",
+    "result": "PASS",
+    "failure_step": null,
+    "step_count": 12,
+    "step_results": [
+      {
+        "id": "power_on_self_check",
+        "result": "PASS"
+      },
+      {
+        "id": "can_communication_check",
+        "result": "PASS"
+      },
+      {
+        "id": "bms_check",
+        "result": "PASS"
+      },
+      {
+        "id": "vcu_status_check",
+        "result": "PASS"
+      },
+      {
+        "id": "motor_heartbeat_check",
+        "result": "PASS"
+      },
+      {
+        "id": "shift_check",
+        "result": "PASS"
+      },
+      {
+        "id": "low_speed_drive_check",
+        "result": "PASS"
+      },
+      {
+        "id": "steering_check",
+        "result": "PASS"
+      },
+      {
+        "id": "light_check",
+        "result": "PASS"
+      },
+      {
+        "id": "brake_stop_check",
+        "result": "PASS"
+      },
+      {
+        "id": "alarm_recheck",
+        "result": "PASS"
+      },
+      {
+        "id": "report_generation",
+        "result": "PASS"
+      }
+    ],
+    "failure_reason": "",
+    "safe_stop": null,
+    "report_id": "1ba09486"
+  },
+  "channels_at_start": [
+    {
+      "channel": "CAN1",
+      "online": true,
+      "transport_connected": true,
+      "receive_age_ms": 33.4,
+      "queue_healthy": true,
+      "queue_depth": 0,
+      "queue_capacity": 512,
+      "queue_dropped": 0,
+      "stale_dropped": 0,
+      "malformed_datagrams": 0,
+      "processing_errors": 0,
+      "fps": 12.0,
+      "rx_count": 12,
+      "tx_count": 0,
+      "error_count": 0,
+      "last_frame_at": 1783677318.507189,
+      "last_frame_hex": "01 00 00 00 00 00 00 00",
+      "protocol": "udp",
+      "local_ip": "127.0.0.1",
+      "local_port": 8234,
+      "device_ip": "127.0.0.1",
+      "device_port": 12341
+    },
+    {
+      "channel": "CAN2",
+      "online": true,
+      "transport_connected": true,
+      "receive_age_ms": 30.1,
+      "queue_healthy": true,
+      "queue_depth": 0,
+      "queue_capacity": 512,
+      "queue_dropped": 0,
+      "stale_dropped": 0,
+      "malformed_datagrams": 0,
+      "processing_errors": 0,
+      "fps": 26.0,
+      "rx_count": 26,
+      "tx_count": 0,
+      "error_count": 0,
+      "last_frame_at": 1783677318.5105548,
+      "last_frame_hex": "00 00 00 00 00 00 00 00",
+      "protocol": "udp",
+      "local_ip": "127.0.0.1",
+      "local_port": 8235,
+      "device_ip": "127.0.0.1",
+      "device_port": 12342
+    }
+  ],
+  "database_counts": {
+    "test_sessions": 1,
+    "test_steps": 12,
+    "test_assertions": 26,
+    "raw_can_frames": 5724,
+    "decoded_signals": 46718,
+    "signal_statistics": 19,
+    "alarms": 0,
+    "reports": 4,
+    "operator_actions": 5,
+    "software_versions": 49
+  },
+  "persistence_ok": true,
+  "pause_resume": {
+    "status": "PAUSED",
+    "steps_before": 2,
+    "steps_after": 2,
+    "stable": true
+  },
+  "concurrency": {
+    "session_id": "EOL-3EB322288F7B",
+    "status_code": 409,
+    "body": {
+      "code": "STATION_BUSY",
+      "message": "station EOL-STATION-01 already has active session EOL-74B44BB233DA",
+      "details": {},
+      "trace_id": "fc1eacb916e7440f89d447ec788cf0ca"
+    },
+    "rejected": true
+  },
+  "passed": true
+}

@@ -1,0 +1,158 @@
+﻿PATTERN: fallback
+MATCHES: 155
+
+desktop/src\components\layout\TopStatusBar.vue:35:import { fallbackChannels } from '../../mocks/fallbackData'
+desktop/src\components\layout\TopStatusBar.vue:44:  const source = store.channels.length ? store.channels : (store.status.channels.length ? store.status.channels : fallbackChannels)
+desktop/src\components\layout\TopStatusBar.vue:47:const can1 = computed(() => channelMap.value.CAN1 ?? fallbackChannels[0])
+desktop/src\components\layout\TopStatusBar.vue:48:const can2 = computed(() => channelMap.value.CAN2 ?? fallbackChannels[1])
+backend/app\services\signal_store.py:83:    def _num(self, key: str, fallback: float) -> float:
+backend/app\services\signal_store.py:88:            return float(fallback)
+backend/app\services\signal_store.py:90:    def _wheel_speed(self, rpm_key: str, fallback: float) -> float:
+backend/app\services\signal_store.py:95:            return float(fallback)
+desktop/src\stores\signals.ts:5:import { fallbackCurveConfig, fallbackCurveTimeseries, fallbackFaultEvents, fallbackReplayMetadata, fallbackSignalDashboard } from '../mocks/fallbackData'
+desktop/src\stores\signals.ts:9:    dashboard: fallbackSignalDashboard as SignalDashboardSummary,
+desktop/src\stores\signals.ts:10:    curveConfig: fallbackCurveConfig as CurveConfig,
+desktop/src\stores\signals.ts:11:    curveTimeseries: fallbackCurveTimeseries as CurveTimeseries,
+desktop/src\stores\signals.ts:12:    replay: fallbackReplayMetadata as ReplayMetadata,
+desktop/src\stores\signals.ts:13:    faultEvents: fallbackFaultEvents as FaultEvent[],
+desktop/src\stores\signals.ts:27:        this.dashboard = fallbackSignalDashboard
+desktop/src\stores\signals.ts:40:        this.curveConfig = fallbackCurveConfig
+desktop/src\stores\signals.ts:50:        this.curveTimeseries = fallbackCurveTimeseries
+desktop/src\stores\signals.ts:53:    async loadReplay(sessionId = fallbackReplayMetadata.session_id) {
+desktop/src\stores\signals.ts:57:        this.replay = fallbackReplayMetadata
+desktop/src\stores\signals.ts:60:    async loadFaultEvents(sessionId = fallbackReplayMetadata.session_id) {
+desktop/src\stores\signals.ts:64:        this.faultEvents = fallbackFaultEvents
+desktop/src\stores\settings.ts:5:import { fallbackSystemSettings } from '../mocks/systemSettings'
+desktop/src\stores\settings.ts:23:    dashboard: clone(fallbackSystemSettings),
+desktop/src\stores\settings.ts:24:    original: clone(fallbackSystemSettings),
+desktop/src\stores\settings.ts:44:          this.dashboard = clone(fallbackSystemSettings)
+desktop/src\stores\settings.ts:45:          this.original = clone(fallbackSystemSettings)
+desktop/src\stores\reports.ts:4:import { fallbackReportManagementDashboard } from '../mocks/fallbackData'
+desktop/src\stores\reports.ts:10:  return structuredClone(fallbackReportManagementDashboard)
+desktop/src\stores\reports.ts:36:      const fallbackPreview: ReportPreviewData = {
+desktop/src\stores\reports.ts:41:      this.dashboard.selected_report = fallbackPreview
+desktop/src\stores\reports.ts:50:        this.dashboard.selected_report = fallbackPreview
+desktop/src\stores\history.ts:4:import { fallbackHistoryDashboard } from '../mocks/fallbackData'
+desktop/src\stores\history.ts:21:function cloneDashboard(): HistoryDashboard { return structuredClone(fallbackHistoryDashboard) }
+desktop/src\stores\history.ts:31:  state: () => ({ dashboard: cloneDashboard(), offline: false, loading: false, error: '', selectedSessionId: fallbackHistoryDashboard.selected_session?.session_id || '' }),
+desktop/src\stores\history.ts:62:        const fallback = structuredClone(fallbackHistoryDashboard.selected_session) as HistorySelectedSession
+desktop/src\stores\history.ts:63:        fallback.session_id = sessionId
+desktop/src\stores\history.ts:64:        fallback.result = row?.result || fallback.result
+desktop/src\stores\history.ts:65:        this.dashboard.selected_session = fallback
+desktop/src\stores\alarms.ts:4:import { fallbackAlarmDiagnosisDashboard } from '../mocks/fallbackData'
+desktop/src\stores\alarms.ts:9:  return structuredClone(fallbackAlarmDiagnosisDashboard)
+backend/app\can_gateway\udp_gateway.py:36:            LOGGER.warning("bind %s:%s failed, fallback to 127.0.0.1", bind_ip, self.config.local_receive_port)
+desktop/src\stores\eol.ts:4:import { fallbackAutoTestDashboard } from '../mocks/fallbackData'
+desktop/src\stores\eol.ts:9:  return structuredClone(fallbackAutoTestDashboard)
+desktop/src\stores\control.ts:4:import { fallbackManualCommand, fallbackManualCurves, fallbackManualFeedback, fallbackManualInterlock, fallbackManualPreview, fallbackManualStatus } from '../mocks/fallbackData'
+desktop/src\stores\control.ts:8:    command: { ...fallbackManualCommand } as ManualControlCommand,
+desktop/src\stores\control.ts:9:    status: { ...fallbackManualStatus } as ManualControlStatus,
+desktop/src\stores\control.ts:10:    interlock: { ...fallbackManualInterlock } as ManualInterlockStatus,
+desktop/src\stores\control.ts:11:    preview: { ...fallbackManualPreview } as ManualPreview,
+desktop/src\stores\control.ts:12:    feedback: { ...fallbackManualFeedback } as ManualFeedback,
+desktop/src\stores\control.ts:13:    curves: { ...fallbackManualCurves } as ManualCurves,
+desktop/src\stores\control.ts:33:        this.status = { ...fallbackManualStatus }
+desktop/src\stores\control.ts:42:        this.interlock = { ...fallbackManualInterlock }
+desktop/src\stores\control.ts:49:        this.feedback = { ...fallbackManualFeedback }
+desktop/src\stores\control.ts:56:        this.curves = { ...fallbackManualCurves }
+desktop/src\stores\control.ts:63:        this.preview = { ...fallbackManualPreview }
+desktop/src\stores\control.ts:67:      this.command = { ...fallbackManualCommand }
+desktop/src\stores\control.ts:68:      this.preview = { ...fallbackManualPreview }
+desktop/src\stores\can.ts:5:import { fallbackCanDecoded, fallbackCanLatestFrames, fallbackCanMonitorStatistics } from '../mocks/fallbackData'
+desktop/src\stores\can.ts:47:function formatTimestamp(timestampNs?: number, fallback?: string): string {
+desktop/src\stores\can.ts:48:  if (!timestampNs) return fallback || new Date().toTimeString().slice(0, 12)
+desktop/src\stores\can.ts:75:    decodedById: { ...fallbackCanDecoded } as Record<string, CanDecodedFrame>,
+desktop/src\stores\can.ts:76:    statistics: fallbackCanMonitorStatistics as CanMonitorStatistics,
+desktop/src\stores\can.ts:124:    initFallback() {
+desktop/src\stores\can.ts:125:      this.latestFramesById = Object.fromEntries(fallbackCanLatestFrames.map((frame) => [frameKey(frame), frame]))
+desktop/src\stores\can.ts:126:      this.decodedById = { ...fallbackCanDecoded }
+desktop/src\stores\can.ts:127:      this.statistics = fallbackCanMonitorStatistics
+desktop/src\stores\can.ts:158:        this.initFallback()
+desktop/src\stores\can.ts:170:        if (fallbackCanDecoded[key]) this.decodedById[key] = fallbackCanDecoded[key]
+desktop/src\stores\can.ts:177:        this.statistics = fallbackCanMonitorStatistics
+desktop/src\stores\appStatus.ts:5:import { fallbackStatus, fallbackChannels } from '../mocks/fallbackData'
+desktop/src\stores\appStatus.ts:10:  state: (): State => ({ backendOnline: false, error: '', status: fallbackStatus, channels: fallbackChannels, signals: {}, frames: [], timeseries: {} }),
+desktop/src\stores\appStatus.ts:33:        this.channels = overviewChannels.length ? overviewChannels : (overview.status.channels.length ? overview.status.channels : fallbackChannels)
+backend/app\api\can.py:13:FALLBACK_LATEST_FRAMES = [
+backend/app\api\can.py:54:    return [dict(item) for item in FALLBACK_LATEST_FRAMES]
+backend/app\api\can.py:157:        frame = next((item for item in FALLBACK_LATEST_FRAMES if int(item["can_id"]) == parsed), None)
+backend/app\api\can.py:280:    data = next((item["data_hex"].split(" ") for item in FALLBACK_LATEST_FRAMES if int(item["can_id"]) == can_id), ["00"] * 8)
+backend/app\api\overview.py:12:FALLBACK_PROTECTIONS = [
+backend/app\api\overview.py:23:FALLBACK_RECENT_SESSIONS = [
+backend/app\api\overview.py:37:def _overview_channel(status: dict, name: str, fallback: dict) -> dict:
+backend/app\api\overview.py:40:    local_ip, local_port = fallback["local"].split(":")
+backend/app\api\overview.py:41:    device_ip, device_port = fallback["device"].split(":")
+backend/app\api\overview.py:43:    last_frame_ms = fallback["last_frame_ms"]
+backend/app\api\overview.py:48:        online = fallback["online"]
+backend/app\api\overview.py:54:        "fps": int(raw.get("fps") or fallback["fps"]),
+backend/app\api\overview.py:55:        "error_frames": int(raw.get("error_count") or fallback["error_frames"]),
+backend/app\api\overview.py:57:        "last_data_hex": raw.get("last_frame_hex") or fallback["last_data_hex"],
+backend/app\api\overview.py:115:    recent_sessions = _recent_sessions_from_db() or FALLBACK_RECENT_SESSIONS
+backend/app\api\overview.py:116:    fallback_channels = {
+backend/app\api\overview.py:155:            "CAN1": _overview_channel(status, "CAN1", fallback_channels["CAN1"]),
+backend/app\api\overview.py:156:            "CAN2": _overview_channel(status, "CAN2", fallback_channels["CAN2"]),
+backend/app\api\overview.py:172:            "protection_items": FALLBACK_PROTECTIONS,
+desktop/src\mocks\fallbackData.ts:3:export const fallbackStatus: StatusSnapshot = {
+desktop/src\mocks\fallbackData.ts:16:export const fallbackChannels: ChannelStatus[] = [
+desktop/src\mocks\fallbackData.ts:21:export const fallbackSignals: Record<string, SignalValue> = {}
+desktop/src\mocks\fallbackData.ts:22:export const fallbackFrames: CanFrameRow[] = []
+desktop/src\mocks\fallbackData.ts:24:export const fallbackOverviewSummary: OverviewSummary = {
+desktop/src\mocks\fallbackData.ts:131:export const fallbackNetworkConfig: NetworkConfigSummary = {
+desktop/src\mocks\fallbackData.ts:173:export const fallbackNetworkSelfTest: NetworkSelfTestResult = {
+desktop/src\mocks\fallbackData.ts:185:export const fallbackCanLatestFrames: CanLatestFrame[] = [
+desktop/src\mocks\fallbackData.ts:213:export const fallbackCanDecoded: Record<string, CanDecodedFrame> = {
+desktop/src\mocks\fallbackData.ts:214:  '0x121': { frame: fallbackCanLatestFrames[0], signals: signal121, dbc_status: 'decoded' },
+desktop/src\mocks\fallbackData.ts:215:  '0x77': { frame: fallbackCanLatestFrames[2], signals: signal77, dbc_status: 'decoded' },
+desktop/src\mocks\fallbackData.ts:216:  '0x100': { frame: fallbackCanLatestFrames[3], signals: [
+desktop/src\mocks\fallbackData.ts:222:  '0x102': { frame: fallbackCanLatestFrames[5], signals: signal102, dbc_status: 'decoded' },
+desktop/src\mocks\fallbackData.ts:223:  '0x168': { frame: fallbackCanLatestFrames[7], signals: [
+desktop/src\mocks\fallbackData.ts:229:  '0xE1': { frame: fallbackCanLatestFrames[8], signals: [
+desktop/src\mocks\fallbackData.ts:235:export const fallbackCanMonitorStatistics: CanMonitorStatistics = {
+desktop/src\mocks\fallbackData.ts:275:export const fallbackSignalDashboard: SignalDashboardSummary = {
+desktop/src\mocks\fallbackData.ts:365:export const fallbackCurveConfig: CurveConfig = {
+desktop/src\mocks\fallbackData.ts:398:export const fallbackCurveTimeseries: CurveTimeseries = {
+desktop/src\mocks\fallbackData.ts:456:export const fallbackReplayMetadata: ReplayMetadata = {
+desktop/src\mocks\fallbackData.ts:467:export const fallbackFaultEvents: FaultEvent[] = [
+desktop/src\mocks\fallbackData.ts:471:export const fallbackManualCommand: ManualControlCommand = {
+desktop/src\mocks\fallbackData.ts:485:export const fallbackManualStatus: ManualControlStatus = {
+desktop/src\mocks\fallbackData.ts:497:export const fallbackManualInterlock: ManualInterlockStatus = {
+desktop/src\mocks\fallbackData.ts:511:export const fallbackManualPreview: ManualPreview = {
+desktop/src\mocks\fallbackData.ts:525:export const fallbackManualFeedback: ManualFeedback = {
+desktop/src\mocks\fallbackData.ts:536:export const fallbackManualCurves: ManualCurves = {
+desktop/src\mocks\fallbackData.ts:551:export const fallbackAutoTestDashboard: AutoTestDashboard = {
+desktop/src\mocks\fallbackData.ts:638:export const fallbackAlarmDiagnosisDashboard: AlarmDiagnosisDashboard = {
+desktop/src\mocks\fallbackData.ts:708:export const fallbackReportManagementDashboard: ReportManagementDashboard = {
+desktop/src\mocks\fallbackData.ts:771:export const fallbackHistoryDashboard: HistoryDashboard = {
+desktop/src\mocks\fallbackData.ts:820:export const fallbackPageData = {
+desktop/src\mocks\systemSettings.ts:3:export const fallbackSystemThresholds: SystemThresholdSetting[] = [
+desktop/src\mocks\systemSettings.ts:29:export const fallbackSystemSettings: SystemSettingsDashboard = {
+desktop/src\mocks\systemSettings.ts:41:  thresholds:fallbackSystemThresholds,
+desktop/src\pages\CanMonitorPage.vue:307:  store.initFallback()
+desktop/src\pages\HistoryPage.vue:82:import { fallbackHistoryDashboard } from '../mocks/fallbackData'
+desktop/src\pages\HistoryPage.vue:88:const selected = computed(() => dashboard.value.selected_session || fallbackHistoryDashboard.selected_session!)
+desktop/src\pages\NetworkConfigPage.vue:183:import { fallbackNetworkConfig, fallbackNetworkSelfTest } from '../mocks/fallbackData'
+desktop/src\pages\NetworkConfigPage.vue:212:const config = ref<NetworkConfigSummary>(structuredClone(fallbackNetworkConfig))
+desktop/src\pages\NetworkConfigPage.vue:213:const selfTest = ref<NetworkSelfTestResult>(fallbackNetworkSelfTest)
+desktop/src\pages\NetworkConfigPage.vue:232:    ...fallbackNetworkConfig,
+desktop/src\pages\NetworkConfigPage.vue:234:    local_network: { ...fallbackNetworkConfig.local_network, ...data.local_network },
+desktop/src\pages\NetworkConfigPage.vue:235:    channels: data.channels?.length ? data.channels : fallbackNetworkConfig.channels,
+desktop/src\pages\NetworkConfigPage.vue:237:  next.local_network.ports = next.local_network.ports?.length ? next.local_network.ports : fallbackNetworkConfig.local_network.ports
+desktop/src\pages\NetworkConfigPage.vue:248:    config.value = structuredClone(fallbackNetworkConfig)
+desktop/src\pages\NetworkConfigPage.vue:274:    selfTest.value = { ...fallbackNetworkSelfTest, ...result }
+desktop/src\pages\NetworkConfigPage.vue:277:    selfTest.value = fallbackNetworkSelfTest
+desktop/src\pages\NetworkConfigPage.vue:306:    config.value = structuredClone(fallbackNetworkConfig)
+desktop/src\pages\OverviewPage.vue:201:import { fallbackOverviewSummary } from '../mocks/fallbackData'
+desktop/src\pages\OverviewPage.vue:204:const summary = ref<OverviewSummary>(fallbackOverviewSummary)
+desktop/src\pages\OverviewPage.vue:215:    ...fallbackOverviewSummary,
+desktop/src\pages\OverviewPage.vue:217:    station: { ...fallbackOverviewSummary.station, ...data.station },
+desktop/src\pages\OverviewPage.vue:218:    kpi: { ...fallbackOverviewSummary.kpi, ...data.kpi },
+desktop/src\pages\OverviewPage.vue:220:      CAN1: { ...fallbackOverviewSummary.channels.CAN1, ...data.channels?.CAN1 },
+desktop/src\pages\OverviewPage.vue:221:      CAN2: { ...fallbackOverviewSummary.channels.CAN2, ...data.channels?.CAN2 },
+desktop/src\pages\OverviewPage.vue:223:    current_vehicle: { ...fallbackOverviewSummary.current_vehicle, ...data.current_vehicle },
+desktop/src\pages\OverviewPage.vue:225:      ...fallbackOverviewSummary.alarm_summary,
+desktop/src\pages\OverviewPage.vue:227:      protection_items: data.alarm_summary?.protection_items?.length ? data.alarm_summary.protection_items : fallbackOverviewSummary.alarm_summary.protection_items,
+desktop/src\pages\OverviewPage.vue:230:      today_result: data.charts?.today_result ?? fallbackOverviewSummary.charts.today_result,
+desktop/src\pages\OverviewPage.vue:231:      hourly_output: data.charts?.hourly_output?.length ? data.charts.hourly_output : fallbackOverviewSummary.charts.hourly_output,
+desktop/src\pages\OverviewPage.vue:232:      fps_trend: data.charts?.fps_trend?.length ? data.charts.fps_trend : fallbackOverviewSummary.charts.fps_trend,
+desktop/src\pages\OverviewPage.vue:234:    recent_sessions: data.recent_sessions?.length ? data.recent_sessions : fallbackOverviewSummary.recent_sessions,
+desktop/src\pages\OverviewPage.vue:246:    summary.value = fallbackOverviewSummary

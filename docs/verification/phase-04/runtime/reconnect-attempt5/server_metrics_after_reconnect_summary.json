@@ -1,0 +1,12 @@
+﻿{
+    "websocket":  {
+                      "clients":  0,
+                      "subscribed_clients":  0,
+                      "queue_depth":  0,
+                      "queue_capacity":  0,
+                      "dropped_messages":  0
+                  },
+    "data_source":  "runtime",
+    "quality":  "good",
+    "updated_at":  "2026-07-10T11:39:40.473529+00:00"
+}

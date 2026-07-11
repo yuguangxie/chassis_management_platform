@@ -1,0 +1,160 @@
+{
+  "url": "http://127.0.0.1:8800/api/v1/reports",
+  "method": "GET",
+  "status": 200,
+  "headers": {
+    "date": "Fri, 10 Jul 2026 03:01:29 GMT",
+    "server": "uvicorn",
+    "content-length": "4483",
+    "content-type": "application/json",
+    "connection": "close"
+  },
+  "body": [
+    {
+      "report_id": "RPT-SCAN-0001",
+      "chassis_no": "YL-JD-SCAN",
+      "vin": "L0000000000000000",
+      "test_time": "2026-04-01 10:15:22",
+      "result": "PASS",
+      "operator": "op01",
+      "type": ".pdf",
+      "size": "1.49 KB",
+      "path": "D:\\workspace\\0-yunle\\7_codex\\chassis_eol_management_platform_codex_pack\\chassis_management_platform\\data\\reports\\EOL-fe694871_ABORTED_f5cda6ae.pdf",
+      "generation_status": "完成"
+    },
+    {
+      "report_id": "RPT-SCAN-0002",
+      "chassis_no": "YL-JD-SCAN",
+      "vin": "L0000000000000000",
+      "test_time": "2026-04-01 10:15:22",
+      "result": "PASS",
+      "operator": "op01",
+      "type": ".docx",
+      "size": "34.77 KB",
+      "path": "D:\\workspace\\0-yunle\\7_codex\\chassis_eol_management_platform_codex_pack\\chassis_management_platform\\data\\reports\\EOL-fe694871_ABORTED_f5cda6ae.docx",
+      "generation_status": "完成"
+    },
+    {
+      "report_id": "RPT-SCAN-0003",
+      "chassis_no": "YL-JD-SCAN",
+      "vin": "L0000000000000000",
+      "test_time": "2026-04-01 10:15:22",
+      "result": "PASS",
+      "operator": "op01",
+      "type": ".json",
+      "size": "10.32 KB",
+      "path": "D:\\workspace\\0-yunle\\7_codex\\chassis_eol_management_platform_codex_pack\\chassis_management_platform\\data\\reports\\EOL-fe694871_ABORTED_f5cda6ae.json",
+      "generation_status": "完成"
+    },
+    {
+      "report_id": "RPT-SCAN-0004",
+      "chassis_no": "YL-JD-SCAN",
+      "vin": "L0000000000000000",
+      "test_time": "2026-04-01 10:15:22",
+      "result": "PASS",
+      "operator": "op01",
+      "type": ".pdf",
+      "size": "1.49 KB",
+      "path": "D:\\workspace\\0-yunle\\7_codex\\chassis_eol_management_platform_codex_pack\\chassis_management_platform\\data\\reports\\EOL-fe694871_PASS_e79ad01f.pdf",
+      "generation_status": "完成"
+    },
+    {
+      "report_id": "RPT-SCAN-0005",
+      "chassis_no": "YL-JD-SCAN",
+      "vin": "L0000000000000000",
+      "test_time": "2026-04-01 10:15:22",
+      "result": "PASS",
+      "operator": "op01",
+      "type": ".docx",
+      "size": "34.76 KB",
+      "path": "D:\\workspace\\0-yunle\\7_codex\\chassis_eol_management_platform_codex_pack\\chassis_management_platform\\data\\reports\\EOL-fe694871_PASS_e79ad01f.docx",
+      "generation_status": "完成"
+    },
+    {
+      "report_id": "RPT-SCAN-0006",
+      "chassis_no": "YL-JD-SCAN",
+      "vin": "L0000000000000000",
+      "test_time": "2026-04-01 10:15:22",
+      "result": "PASS",
+      "operator": "op01",
+      "type": ".json",
+      "size": "9.68 KB",
+      "path": "D:\\workspace\\0-yunle\\7_codex\\chassis_eol_management_platform_codex_pack\\chassis_management_platform\\data\\reports\\EOL-fe694871_PASS_e79ad01f.json",
+      "generation_status": "完成"
+    },
+    {
+      "report_id": "RPT-SCAN-0007",
+      "chassis_no": "YL-JD-SCAN",
+      "vin": "L0000000000000000",
+      "test_time": "2026-04-01 10:15:22",
+      "result": "PASS",
+      "operator": "op01",
+      "type": ".pdf",
+      "size": "1.49 KB",
+      "path": "D:\\workspace\\0-yunle\\7_codex\\chassis_eol_management_platform_codex_pack\\chassis_management_platform\\data\\reports\\EOL-ac8895db_PASS_e3b7cfb9.pdf",
+      "generation_status": "完成"
+    },
+    {
+      "report_id": "RPT-SCAN-0008",
+      "chassis_no": "YL-JD-SCAN",
+      "vin": "L0000000000000000",
+      "test_time": "2026-04-01 10:15:22",
+      "result": "PASS",
+      "operator": "op01",
+      "type": ".docx",
+      "size": "34.76 KB",
+      "path": "D:\\workspace\\0-yunle\\7_codex\\chassis_eol_management_platform_codex_pack\\chassis_management_platform\\data\\reports\\EOL-ac8895db_PASS_e3b7cfb9.docx",
+      "generation_status": "完成"
+    },
+    {
+      "report_id": "RPT-SCAN-0009",
+      "chassis_no": "YL-JD-SCAN",
+      "vin": "L0000000000000000",
+      "test_time": "2026-04-01 10:15:22",
+      "result": "PASS",
+      "operator": "op01",
+      "type": ".json",
+      "size": "9.68 KB",
+      "path": "D:\\workspace\\0-yunle\\7_codex\\chassis_eol_management_platform_codex_pack\\chassis_management_platform\\data\\reports\\EOL-ac8895db_PASS_e3b7cfb9.json",
+      "generation_status": "完成"
+    },
+    {
+      "report_id": "RPT-SCAN-0010",
+      "chassis_no": "YL-JD-SCAN",
+      "vin": "L0000000000000000",
+      "test_time": "2026-04-01 10:15:22",
+      "result": "PASS",
+      "operator": "op01",
+      "type": ".pdf",
+      "size": "1.49 KB",
+      "path": "D:\\workspace\\0-yunle\\7_codex\\chassis_eol_management_platform_codex_pack\\chassis_management_platform\\data\\reports\\EOL-25538c19_PASS_eaba04de.pdf",
+      "generation_status": "完成"
+    },
+    {
+      "report_id": "RPT-SCAN-0011",
+      "chassis_no": "YL-JD-SCAN",
+      "vin": "L0000000000000000",
+      "test_time": "2026-04-01 10:15:22",
+      "result": "PASS",
+      "operator": "op01",
+      "type": ".docx",
+      "size": "34.76 KB",
+      "path": "D:\\workspace\\0-yunle\\7_codex\\chassis_eol_management_platform_codex_pack\\chassis_management_platform\\data\\reports\\EOL-25538c19_PASS_eaba04de.docx",
+      "generation_status": "完成"
+    },
+    {
+      "report_id": "RPT-SCAN-0012",
+      "chassis_no": "YL-JD-SCAN",
+      "vin": "L0000000000000000",
+      "test_time": "2026-04-01 10:15:22",
+      "result": "PASS",
+      "operator": "op01",
+      "type": ".json",
+      "size": "9.68 KB",
+      "path": "D:\\workspace\\0-yunle\\7_codex\\chassis_eol_management_platform_codex_pack\\chassis_management_platform\\data\\reports\\EOL-25538c19_PASS_eaba04de.json",
+      "generation_status": "完成"
+    }
+  ],
+  "started_at": "2026-07-10T11:01:30.126411+08:00",
+  "finished_at": "2026-07-10T11:01:30.128683+08:00"
+}

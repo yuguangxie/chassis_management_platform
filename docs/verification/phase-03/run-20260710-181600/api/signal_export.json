@@ -1,0 +1,27 @@
+{
+  "request": {
+    "method": "POST",
+    "path": "/signals/export-csv",
+    "body": {
+      "signals": [
+        "Vehicle_Speed",
+        "BMS_Total_Voltage"
+      ]
+    }
+  },
+  "status_code": 200,
+  "trace_id": "94eec3cf5c9947539f31aa52113d830b",
+  "body": {
+    "ok": true,
+    "message": "曲线 CSV 已导出",
+    "trace_id": "94eec3cf5c9947539f31aa52113d830b",
+    "data_source": "service",
+    "mock": false,
+    "details": {
+      "file_name": "signal_curve_20260710_180951_333913.csv",
+      "file_size_bytes": 70279,
+      "sha256": "2724f0788a01a0471d5dfacd041a5aab6ee0b2b56e7fa1bc037b5e5f2d060666",
+      "download_url": "/signals/exports/signal_curve_20260710_180951_333913.csv"
+    }
+  }
+}

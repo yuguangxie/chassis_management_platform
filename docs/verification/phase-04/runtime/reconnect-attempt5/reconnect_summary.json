@@ -1,0 +1,16 @@
+{
+  "before": {
+    "hash": "#/overview",
+    "failed_to_fetch": false,
+    "page_scrollable": false,
+    "topbar_contains_can1_and_online": true,
+    "topbar_contains_can2_and_online": true
+  },
+  "after": {
+    "hash": "#/overview",
+    "failed_to_fetch": false,
+    "page_scrollable": false,
+    "topbar_contains_can1_and_online": true,
+    "topbar_contains_can2_and_online": true
+  }
+}

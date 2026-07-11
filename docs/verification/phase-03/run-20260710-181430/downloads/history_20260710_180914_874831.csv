@@ -1,0 +1,2 @@
+﻿session_id,chassis_no,vin,serial_no,started_at,ended_at,result,failed_step,operator,station_id,report_id
+EOL-0B96CC1113B6,PH3-NORMAL-001,PH3NORMAL0000001,PH3-1783678136013,2026-07-10T10:08:56.032852+00:00,2026-07-10T10:09:12.687046+00:00,PASS,-,dev-operator,EOL-STATION-01,8d4bd57a-pdf

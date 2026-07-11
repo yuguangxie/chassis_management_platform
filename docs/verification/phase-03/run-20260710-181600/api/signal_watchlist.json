@@ -1,0 +1,24 @@
+{
+  "request": {
+    "method": "PUT",
+    "path": "/signals/watchlist",
+    "body": {
+      "signals": [
+        "Vehicle_Speed",
+        "BMS_Voltage"
+      ]
+    }
+  },
+  "status_code": 200,
+  "trace_id": "b6ccb3377fee4785addfb1c3ef99a72a",
+  "body": {
+    "ok": true,
+    "message": "关注信号已保存",
+    "trace_id": "b6ccb3377fee4785addfb1c3ef99a72a",
+    "data_source": "service",
+    "mock": false,
+    "details": {
+      "count": 2
+    }
+  }
+}

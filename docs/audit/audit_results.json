@@ -1,0 +1,1080 @@
+{
+  "audit_time": "2026-07-10 12:30:00 +08:00",
+  "project_version": "1.0.2",
+  "overall_score": 48,
+  "ui_fidelity_score": 87.0,
+  "functional_completion_score": 46.1,
+  "real_implementation_score": 15.5,
+  "api_coverage_score": 100.0,
+  "test_score": 55,
+  "safety_score": 28,
+  "simulation_score": 40,
+  "deployment_score": 20,
+  "production_readiness": "not_ready",
+  "score_method": {
+    "overall_weights": {
+      "ui": 0.15,
+      "functional": 0.15,
+      "real": 0.2,
+      "api_route_coverage": 0.1,
+      "test": 0.1,
+      "safety": 0.15,
+      "simulation": 0.1,
+      "deployment": 0.05
+    },
+    "functional_weights": {
+      "REAL": 1.0,
+      "PARTIAL": 0.5,
+      "MOCK": 0.25,
+      "STUB": 0.1,
+      "MISSING": 0.0,
+      "UNVERIFIED": 0.0
+    }
+  },
+  "pages": [
+    {
+      "route": "/overview",
+      "name": "总览工作台",
+      "ui_score": 91,
+      "function_metrics": {
+        "total": 10,
+        "real": 0,
+        "partial": 5,
+        "mock": 5,
+        "stub": 0,
+        "missing": 0,
+        "unverified": 0,
+        "functional_completion": 37.5,
+        "real_completion": 0.0
+      },
+      "functions": [
+        {
+          "name": "KPI 数据来源",
+          "status": "PARTIAL",
+          "evidence": "API 混合 SQLite 结果和 fallback；数据库无会话记录"
+        },
+        {
+          "name": "CAN1/CAN2 状态",
+          "status": "PARTIAL",
+          "evidence": "读取真实 gateway，但 fps 算法和顶部状态存在不一致"
+        },
+        {
+          "name": "当前车辆",
+          "status": "MOCK",
+          "evidence": "固定 YL-JD-001"
+        },
+        {
+          "name": "告警摘要",
+          "status": "PARTIAL",
+          "evidence": "最高等级可来自 SignalStore，其余保护项固定"
+        },
+        {
+          "name": "快捷入口",
+          "status": "PARTIAL",
+          "evidence": "路由可用，打开目录为 Stub，安全停车仅部分实现"
+        },
+        {
+          "name": "今日结果图",
+          "status": "MOCK",
+          "evidence": "固定 18/17/1"
+        },
+        {
+          "name": "小时产能图",
+          "status": "MOCK",
+          "evidence": "固定序列"
+        },
+        {
+          "name": "帧率趋势",
+          "status": "MOCK",
+          "evidence": "固定趋势"
+        },
+        {
+          "name": "最近会话",
+          "status": "MOCK",
+          "evidence": "数据库为空后回填固定会话"
+        },
+        {
+          "name": "安全停车快捷按钮",
+          "status": "PARTIAL",
+          "evidence": "调用后端，但只发一次停车帧"
+        }
+      ]
+    },
+    {
+      "route": "/network-config",
+      "name": "网络配置",
+      "ui_score": 90,
+      "function_metrics": {
+        "total": 13,
+        "real": 2,
+        "partial": 5,
+        "mock": 5,
+        "stub": 1,
+        "missing": 0,
+        "unverified": 0,
+        "functional_completion": 45.0,
+        "real_completion": 15.4
+      },
+      "functions": [
+        {
+          "name": "读取配置",
+          "status": "PARTIAL",
+          "evidence": "返回运行配置与固定 NIC 信息"
+        },
+        {
+          "name": "保存配置",
+          "status": "PARTIAL",
+          "evidence": "校验并更新配置结构，运行 gateway 不支持完整热切换/持久化闭环"
+        },
+        {
+          "name": "UDP/TCP 切换",
+          "status": "PARTIAL",
+          "evidence": "UI/API 接受 TCP，实际仅有 UdpCanGateway"
+        },
+        {
+          "name": "CAN1 启停",
+          "status": "REAL",
+          "evidence": "实际绑定/关闭 socket"
+        },
+        {
+          "name": "CAN2 启停",
+          "status": "REAL",
+          "evidence": "实际绑定/关闭 socket"
+        },
+        {
+          "name": "自检",
+          "status": "STUB",
+          "evidence": "self-test 明确 stub=true"
+        },
+        {
+          "name": "Ping",
+          "status": "MOCK",
+          "evidence": "固定 0.92ms"
+        },
+        {
+          "name": "UDP 回环",
+          "status": "MOCK",
+          "evidence": "固定 pass"
+        },
+        {
+          "name": "13 字节合法率",
+          "status": "MOCK",
+          "evidence": "固定 99.96%"
+        },
+        {
+          "name": "DLC/保留位校验",
+          "status": "MOCK",
+          "evidence": "协议 codec 有校验，但诊断接口不执行测试"
+        },
+        {
+          "name": "粘包/半包统计",
+          "status": "MOCK",
+          "evidence": "固定 0/0"
+        },
+        {
+          "name": "恢复默认",
+          "status": "PARTIAL",
+          "evidence": "接口可恢复默认对象，未证明 gateway 原子重连"
+        },
+        {
+          "name": "端口检测",
+          "status": "PARTIAL",
+          "evidence": "状态主要来自固定配置"
+        }
+      ]
+    },
+    {
+      "route": "/can-monitor",
+      "name": "CAN 报文监控",
+      "ui_score": 84,
+      "function_metrics": {
+        "total": 13,
+        "real": 6,
+        "partial": 1,
+        "mock": 4,
+        "stub": 2,
+        "missing": 0,
+        "unverified": 0,
+        "functional_completion": 59.2,
+        "real_completion": 46.2
+      },
+      "functions": [
+        {
+          "name": "按 CAN ID 聚合",
+          "status": "REAL",
+          "evidence": "后端 latest map + 前端 Record"
+        },
+        {
+          "name": "新帧 upsert",
+          "status": "REAL",
+          "evidence": "同 ID 更新对应行"
+        },
+        {
+          "name": "CAN ID 排序",
+          "status": "REAL",
+          "evidence": "三态排序"
+        },
+        {
+          "name": "行选择",
+          "status": "REAL",
+          "evidence": "选中 ID 联动请求详情"
+        },
+        {
+          "name": "详情解码",
+          "status": "PARTIAL",
+          "evidence": "框架联动真实，signals 内容对常用 ID 硬编码"
+        },
+        {
+          "name": "0x77 详情",
+          "status": "MOCK",
+          "evidence": "固定 Normal 信号"
+        },
+        {
+          "name": "0x121 详情",
+          "status": "MOCK",
+          "evidence": "固定示例数据"
+        },
+        {
+          "name": "暂停刷新",
+          "status": "REAL",
+          "evidence": "pending map 暂存后 flush"
+        },
+        {
+          "name": "过滤",
+          "status": "REAL",
+          "evidence": "通道/ID/报文名/方向/状态"
+        },
+        {
+          "name": "导出 CSV",
+          "status": "STUB",
+          "evidence": "后端 stub"
+        },
+        {
+          "name": "原始日志导出",
+          "status": "STUB",
+          "evidence": "后端 stub"
+        },
+        {
+          "name": "历史文件",
+          "status": "MOCK",
+          "evidence": "固定文件清单"
+        },
+        {
+          "name": "统计图",
+          "status": "MOCK",
+          "evidence": "固定分布、趋势、抖动和错误数"
+        }
+      ]
+    },
+    {
+      "route": "/signal-dashboard",
+      "name": "信号仪表盘",
+      "ui_score": 83,
+      "function_metrics": {
+        "total": 14,
+        "real": 0,
+        "partial": 10,
+        "mock": 2,
+        "stub": 2,
+        "missing": 0,
+        "unverified": 0,
+        "functional_completion": 40.7,
+        "real_completion": 0.0
+      },
+      "functions": [
+        {
+          "name": "BMS",
+          "status": "PARTIAL",
+          "evidence": "SignalStore 覆盖部分字段，其余 fallback"
+        },
+        {
+          "name": "车辆状态",
+          "status": "PARTIAL",
+          "evidence": "部分真实信号 + fallback"
+        },
+        {
+          "name": "四轮轮速",
+          "status": "PARTIAL",
+          "evidence": "可读解码值，单位/映射仍有限"
+        },
+        {
+          "name": "转向反馈",
+          "status": "PARTIAL",
+          "evidence": "实时反馈可覆盖"
+        },
+        {
+          "name": "电机转速",
+          "status": "PARTIAL",
+          "evidence": "缺失时回填"
+        },
+        {
+          "name": "电机相电流",
+          "status": "PARTIAL",
+          "evidence": "文案单位 A 正确，数据源不完整"
+        },
+        {
+          "name": "心跳",
+          "status": "PARTIAL",
+          "evidence": "收到 0x703/0x704 可更新"
+        },
+        {
+          "name": "灯光",
+          "status": "PARTIAL",
+          "evidence": "部分信号/回填"
+        },
+        {
+          "name": "制动",
+          "status": "PARTIAL",
+          "evidence": "部分信号/回填"
+        },
+        {
+          "name": "告警",
+          "status": "PARTIAL",
+          "evidence": "SignalStore 最高等级"
+        },
+        {
+          "name": "Watchlist",
+          "status": "MOCK",
+          "evidence": "固定 8 行，少量值覆盖"
+        },
+        {
+          "name": "趋势图",
+          "status": "MOCK",
+          "evidence": "固定 sparkline"
+        },
+        {
+          "name": "自定义布局",
+          "status": "STUB",
+          "evidence": "按钮有反馈，无布局引擎"
+        },
+        {
+          "name": "保存关注信号",
+          "status": "STUB",
+          "evidence": "后端接口明确 stub"
+        }
+      ]
+    },
+    {
+      "route": "/realtime-curve",
+      "name": "实时曲线",
+      "ui_score": 84,
+      "function_metrics": {
+        "total": 13,
+        "real": 0,
+        "partial": 7,
+        "mock": 4,
+        "stub": 2,
+        "missing": 0,
+        "unverified": 0,
+        "functional_completion": 36.2,
+        "real_completion": 0.0
+      },
+      "functions": [
+        {
+          "name": "信号分组",
+          "status": "MOCK",
+          "evidence": "固定 group/config"
+        },
+        {
+          "name": "信号勾选",
+          "status": "PARTIAL",
+          "evidence": "checkbox 状态未约束实际 series"
+        },
+        {
+          "name": "6 个图表",
+          "status": "MOCK",
+          "evidence": "ECharts 真实渲染，数据固定"
+        },
+        {
+          "name": "时间窗口",
+          "status": "PARTIAL",
+          "evidence": "可改查询参数，后端忽略部分语义"
+        },
+        {
+          "name": "采样率",
+          "status": "PARTIAL",
+          "evidence": "控件与 query 存在，未执行真实重采样"
+        },
+        {
+          "name": "降采样",
+          "status": "MOCK",
+          "evidence": "选项存在，无算法"
+        },
+        {
+          "name": "暂停/继续",
+          "status": "PARTIAL",
+          "evidence": "轮询可暂停，WebSocket handler 仍触发加载"
+        },
+        {
+          "name": "缩放复位",
+          "status": "PARTIAL",
+          "evidence": "本地图表操作"
+        },
+        {
+          "name": "CSV",
+          "status": "STUB",
+          "evidence": "后端 stub"
+        },
+        {
+          "name": "快照",
+          "status": "STUB",
+          "evidence": "后端 stub"
+        },
+        {
+          "name": "历史会话",
+          "status": "MOCK",
+          "evidence": "固定回放元数据"
+        },
+        {
+          "name": "播放控制",
+          "status": "PARTIAL",
+          "evidence": "本地游标，seek 未形成后端闭环"
+        },
+        {
+          "name": "故障跳转",
+          "status": "PARTIAL",
+          "evidence": "固定故障事件与本地跳转"
+        }
+      ]
+    },
+    {
+      "route": "/manual-control",
+      "name": "手动控制",
+      "ui_score": 89,
+      "function_metrics": {
+        "total": 17,
+        "real": 10,
+        "partial": 5,
+        "mock": 2,
+        "stub": 0,
+        "missing": 0,
+        "unverified": 0,
+        "functional_completion": 76.5,
+        "real_completion": 58.8
+      },
+      "functions": [
+        {
+          "name": "安全联锁",
+          "status": "PARTIAL",
+          "evidence": "实际发送会 evaluate；展示接口却硬编码 allow"
+        },
+        {
+          "name": "档位",
+          "status": "REAL",
+          "evidence": "进入真实 0x121 payload"
+        },
+        {
+          "name": "驱动模式",
+          "status": "REAL",
+          "evidence": "进入真实 payload"
+        },
+        {
+          "name": "目标速度",
+          "status": "REAL",
+          "evidence": "0.1km/h 编码并受限速阻断"
+        },
+        {
+          "name": "前后转角",
+          "status": "REAL",
+          "evidence": "真实 int8 编码"
+        },
+        {
+          "name": "制动",
+          "status": "REAL",
+          "evidence": "进入 payload"
+        },
+        {
+          "name": "灯光",
+          "status": "REAL",
+          "evidence": "进入 payload"
+        },
+        {
+          "name": "0x121 预览",
+          "status": "PARTIAL",
+          "evidence": "API 返回真实 data，但 UI bytes_hex 采用另一套字节排列/比例"
+        },
+        {
+          "name": "int8 补码",
+          "status": "REAL",
+          "evidence": "-120/-60/0/60/120 实测正确"
+        },
+        {
+          "name": "一次发送",
+          "status": "REAL",
+          "evidence": "回环仿真器收到"
+        },
+        {
+          "name": "周期发送",
+          "status": "REAL",
+          "evidence": "回环仿真器收到"
+        },
+        {
+          "name": "停止发送",
+          "status": "REAL",
+          "evidence": "scheduler task 停止"
+        },
+        {
+          "name": "安全停车",
+          "status": "PARTIAL",
+          "evidence": "只发送一次 N/0/制动帧"
+        },
+        {
+          "name": "急停",
+          "status": "PARTIAL",
+          "evidence": "停止周期并锁存，但不下发停车帧"
+        },
+        {
+          "name": "解除急停",
+          "status": "PARTIAL",
+          "evidence": "仅清布尔锁存，无静止/反馈复核"
+        },
+        {
+          "name": "实时反馈",
+          "status": "MOCK",
+          "evidence": "固定 API"
+        },
+        {
+          "name": "曲线",
+          "status": "MOCK",
+          "evidence": "固定 API"
+        }
+      ]
+    },
+    {
+      "route": "/auto-test",
+      "name": "一键检测",
+      "ui_score": 87,
+      "function_metrics": {
+        "total": 14,
+        "real": 0,
+        "partial": 10,
+        "mock": 3,
+        "stub": 0,
+        "missing": 1,
+        "unverified": 0,
+        "functional_completion": 41.1,
+        "real_completion": 0.0
+      },
+      "functions": [
+        {
+          "name": "会话创建",
+          "status": "PARTIAL",
+          "evidence": "创建内存会话，不落库"
+        },
+        {
+          "name": "12 步流程",
+          "status": "PARTIAL",
+          "evidence": "存在 12 名称但不执行对应动作"
+        },
+        {
+          "name": "开始",
+          "status": "PARTIAL",
+          "evidence": "启动简化异步循环"
+        },
+        {
+          "name": "暂停",
+          "status": "PARTIAL",
+          "evidence": "状态改 PAUSED，任务继续"
+        },
+        {
+          "name": "继续",
+          "status": "PARTIAL",
+          "evidence": "状态接口存在，无真正阻塞点"
+        },
+        {
+          "name": "中止",
+          "status": "PARTIAL",
+          "evidence": "ABORTED 被最终 PASS 覆盖"
+        },
+        {
+          "name": "急停",
+          "status": "PARTIAL",
+          "evidence": "设置锁存但测试任务继续并 PASS"
+        },
+        {
+          "name": "当前测量值",
+          "status": "MOCK",
+          "evidence": "dashboard 固定"
+        },
+        {
+          "name": "检测断言",
+          "status": "PARTIAL",
+          "evidence": "引擎仅检查严重告警/SOC，页面断言固定"
+        },
+        {
+          "name": "步骤日志",
+          "status": "MOCK",
+          "evidence": "dashboard 固定"
+        },
+        {
+          "name": "曲线",
+          "status": "MOCK",
+          "evidence": "固定序列"
+        },
+        {
+          "name": "PASS/FAIL",
+          "status": "PARTIAL",
+          "evidence": "转向/制动故障错误 PASS"
+        },
+        {
+          "name": "报告生成",
+          "status": "PARTIAL",
+          "evidence": "生成文件但内容损坏/不完整"
+        },
+        {
+          "name": "数据持久化",
+          "status": "MISSING",
+          "evidence": "核心业务表 0 行"
+        }
+      ]
+    },
+    {
+      "route": "/alarm-diagnosis",
+      "name": "告警诊断",
+      "ui_score": 88,
+      "function_metrics": {
+        "total": 11,
+        "real": 0,
+        "partial": 7,
+        "mock": 2,
+        "stub": 2,
+        "missing": 0,
+        "unverified": 0,
+        "functional_completion": 38.2,
+        "real_completion": 0.0
+      },
+      "functions": [
+        {
+          "name": "0x77 矩阵",
+          "status": "PARTIAL",
+          "evidence": "部分 SignalStore 值覆盖固定矩阵"
+        },
+        {
+          "name": "0x102 unsigned bool",
+          "status": "PARTIAL",
+          "evidence": "bitmap unsigned 正确，单项保护值不完整"
+        },
+        {
+          "name": "Bitmap",
+          "status": "PARTIAL",
+          "evidence": "真实 16bit 数值可显示"
+        },
+        {
+          "name": "当前告警",
+          "status": "PARTIAL",
+          "evidence": "内存告警服务"
+        },
+        {
+          "name": "历史告警",
+          "status": "MOCK",
+          "evidence": "固定 5 条"
+        },
+        {
+          "name": "诊断建议",
+          "status": "MOCK",
+          "evidence": "固定建议"
+        },
+        {
+          "name": "人工放行",
+          "status": "STUB",
+          "evidence": "固定 stub"
+        },
+        {
+          "name": "确认告警",
+          "status": "PARTIAL",
+          "evidence": "可对内存项 ack"
+        },
+        {
+          "name": "跳转 CAN 帧",
+          "status": "PARTIAL",
+          "evidence": "API stub 后前端路由跳转"
+        },
+        {
+          "name": "导出诊断",
+          "status": "STUB",
+          "evidence": "固定 stub"
+        },
+        {
+          "name": "安全停车",
+          "status": "PARTIAL",
+          "evidence": "调用不完整 safe-stop"
+        }
+      ]
+    },
+    {
+      "route": "/report-management",
+      "name": "报告管理",
+      "ui_score": 86,
+      "function_metrics": {
+        "total": 16,
+        "real": 0,
+        "partial": 7,
+        "mock": 3,
+        "stub": 5,
+        "missing": 1,
+        "unverified": 0,
+        "functional_completion": 29.7,
+        "real_completion": 0.0
+      },
+      "functions": [
+        {
+          "name": "扫描目录",
+          "status": "PARTIAL",
+          "evidence": "确实扫描 data/reports，但响应仍标 stub"
+        },
+        {
+          "name": "报告列表",
+          "status": "PARTIAL",
+          "evidence": "扫描结果与 Mock 混合"
+        },
+        {
+          "name": "筛选",
+          "status": "PARTIAL",
+          "evidence": "对当前混合列表服务端过滤"
+        },
+        {
+          "name": "Word 文件",
+          "status": "PARTIAL",
+          "evidence": "实际生成 DOCX，但内容乱码"
+        },
+        {
+          "name": "PDF 文件",
+          "status": "PARTIAL",
+          "evidence": "实际生成 PDF，但中文方块且内容不足"
+        },
+        {
+          "name": "JSON 文件",
+          "status": "PARTIAL",
+          "evidence": "可打开但缺版本/hash"
+        },
+        {
+          "name": "CSV 文件",
+          "status": "MISSING",
+          "evidence": "报告生成器不生成 CSV"
+        },
+        {
+          "name": "PDF/Word 预览",
+          "status": "MOCK",
+          "evidence": "固定白纸模板，不读文件"
+        },
+        {
+          "name": "导出 Word",
+          "status": "STUB",
+          "evidence": "固定 stub"
+        },
+        {
+          "name": "导出 PDF",
+          "status": "STUB",
+          "evidence": "固定 stub"
+        },
+        {
+          "name": "打印",
+          "status": "STUB",
+          "evidence": "固定 stub"
+        },
+        {
+          "name": "删除",
+          "status": "PARTIAL",
+          "evidence": "后端可删但鉴权可伪造；前端不发送 x-role，正常操作 403"
+        },
+        {
+          "name": "重新生成",
+          "status": "STUB",
+          "evidence": "固定 queued"
+        },
+        {
+          "name": "打开目录",
+          "status": "STUB",
+          "evidence": "未调用 OS shell"
+        },
+        {
+          "name": "关联数据",
+          "status": "MOCK",
+          "evidence": "固定会话"
+        },
+        {
+          "name": "存储统计",
+          "status": "MOCK",
+          "evidence": "固定 931.5GB 等数值"
+        }
+      ]
+    },
+    {
+      "route": "/history",
+      "name": "历史记录",
+      "ui_score": 89,
+      "function_metrics": {
+        "total": 12,
+        "real": 2,
+        "partial": 3,
+        "mock": 5,
+        "stub": 2,
+        "missing": 0,
+        "unverified": 0,
+        "functional_completion": 41.2,
+        "real_completion": 16.7
+      },
+      "functions": [
+        {
+          "name": "筛选",
+          "status": "MOCK",
+          "evidence": "过滤 Mock 会话"
+        },
+        {
+          "name": "分页",
+          "status": "MOCK",
+          "evidence": "总数固定 128"
+        },
+        {
+          "name": "会话选择",
+          "status": "PARTIAL",
+          "evidence": "前端联动真实，端点数据回退 Mock"
+        },
+        {
+          "name": "时间线",
+          "status": "MOCK",
+          "evidence": "固定 9 节点"
+        },
+        {
+          "name": "操作日志",
+          "status": "PARTIAL",
+          "evidence": "可查 operator_actions；选定会话通常无真实业务数据"
+        },
+        {
+          "name": "文件下载",
+          "status": "STUB",
+          "evidence": "稳定 stub"
+        },
+        {
+          "name": "回放曲线",
+          "status": "PARTIAL",
+          "evidence": "路由可跳转，回放数据 Mock"
+        },
+        {
+          "name": "报告跳转",
+          "status": "REAL",
+          "evidence": "携带 query 跳转"
+        },
+        {
+          "name": "趋势图",
+          "status": "MOCK",
+          "evidence": "固定序列"
+        },
+        {
+          "name": "Pareto",
+          "status": "MOCK",
+          "evidence": "固定 counts/percent"
+        },
+        {
+          "name": "导出历史",
+          "status": "STUB",
+          "evidence": "固定 stub"
+        },
+        {
+          "name": "自动刷新",
+          "status": "REAL",
+          "evidence": "10/30/60s 定时并保留选择"
+        }
+      ]
+    },
+    {
+      "route": "/system-settings",
+      "name": "系统设置",
+      "ui_score": 86,
+      "function_metrics": {
+        "total": 15,
+        "real": 3,
+        "partial": 9,
+        "mock": 1,
+        "stub": 2,
+        "missing": 0,
+        "unverified": 0,
+        "functional_completion": 53.0,
+        "real_completion": 20.0
+      },
+      "functions": [
+        {
+          "name": "基础设置",
+          "status": "PARTIAL",
+          "evidence": "读取真实 YAML，保存到 system_settings.yaml；运行对象并非全部热更新"
+        },
+        {
+          "name": "DBC 管理",
+          "status": "REAL",
+          "evidence": "扫描、加载、hash、消息/信号计数"
+        },
+        {
+          "name": "阈值编辑",
+          "status": "PARTIAL",
+          "evidence": "Pydantic 校验和原子文件，但运行服务未全部同步"
+        },
+        {
+          "name": "报告存储",
+          "status": "PARTIAL",
+          "evidence": "读取配置和真实磁盘，目录迁移未实现"
+        },
+        {
+          "name": "权限矩阵",
+          "status": "MOCK",
+          "evidence": "固定角色，无认证系统"
+        },
+        {
+          "name": "配置历史",
+          "status": "REAL",
+          "evidence": "写入/查询 SQLite"
+        },
+        {
+          "name": "Mock",
+          "status": "PARTIAL",
+          "evidence": "切换状态，不重建 gateway"
+        },
+        {
+          "name": "维护模式",
+          "status": "PARTIAL",
+          "evidence": "二次确认与后端校验存在，但无可信身份"
+        },
+        {
+          "name": "0x123",
+          "status": "PARTIAL",
+          "evidence": "默认关且有 gate，无真实扩展发送实现"
+        },
+        {
+          "name": "0x126",
+          "status": "PARTIAL",
+          "evidence": "默认关且 126..525 校验，无真实发送"
+        },
+        {
+          "name": "CANopen NMT",
+          "status": "PARTIAL",
+          "evidence": "默认关且有 gate"
+        },
+        {
+          "name": "导入配置",
+          "status": "STUB",
+          "evidence": "无文件选择/解析"
+        },
+        {
+          "name": "导出配置",
+          "status": "STUB",
+          "evidence": "返回快照但不保存文件"
+        },
+        {
+          "name": "DBC 重载",
+          "status": "REAL",
+          "evidence": "实际重扫 assets"
+        },
+        {
+          "name": "恢复安全默认",
+          "status": "PARTIAL",
+          "evidence": "关闭危险项，但身份校验不可依赖"
+        }
+      ]
+    }
+  ],
+  "function_totals": {
+    "PARTIAL": 69,
+    "MOCK": 36,
+    "REAL": 23,
+    "STUB": 18,
+    "MISSING": 2,
+    "total": 148
+  },
+  "api_results": {
+    "openapi_operations": 112,
+    "core_spec_operations": 31,
+    "core_routes_present": 31,
+    "core_real_estimate": 8,
+    "core_partial_estimate": 13,
+    "core_stub_estimate": 4,
+    "core_mock_estimate": 6
+  },
+  "issues": {
+    "p0": 5,
+    "p1": 12,
+    "p2": 19,
+    "p3": 6
+  },
+  "test_results": {
+    "backend": {
+      "passed": 30,
+      "failed": 0,
+      "warnings": 5
+    },
+    "simulator_from_root": {
+      "passed": 0,
+      "collection_errors": 1
+    },
+    "simulator_from_package_dir": {
+      "passed": 1,
+      "failed": 0
+    },
+    "frontend_typecheck": "passed",
+    "frontend_build": "passed",
+    "frontend_test": "missing_script",
+    "frontend_lint": "missing_script",
+    "coverage": "unavailable_pytest_cov_not_installed"
+  },
+  "simulation_results": {
+    "normal_pass": {
+      "expected": "PASS",
+      "actual": "PASS",
+      "matched": true
+    },
+    "bms_low_soc": {
+      "expected": "FAIL",
+      "actual": "FAIL",
+      "matched": true,
+      "semantic_issue": "failed_at_step_1"
+    },
+    "warning_fault": {
+      "expected": "FAIL",
+      "actual": "FAIL",
+      "matched": true,
+      "semantic_issue": "failed_at_step_1"
+    },
+    "steering_no_response": {
+      "expected": "FAIL",
+      "actual": "PASS",
+      "matched": false
+    },
+    "brake_fail": {
+      "expected": "FAIL",
+      "actual": "PASS",
+      "matched": false
+    },
+    "control_loopback": {
+      "frames_received": 10,
+      "int8_vectors": "passed",
+      "overspeed_blocked": true,
+      "emergency_blocked": true
+    }
+  },
+  "blocking_issues": [
+    "SAFE-001",
+    "SAFE-002",
+    "SAFE-003",
+    "SAFE-004",
+    "SAFE-005",
+    "EOL-001",
+    "EOL-002",
+    "SAFE-006",
+    "SAFE-007",
+    "SAFE-008",
+    "PERF-001",
+    "API-001",
+    "DB-001",
+    "REPORT-001",
+    "DEPLOY-001",
+    "SIM-001",
+    "DB-002",
+    "DBC-001",
+    "DB-003"
+  ],
+  "unexecuted": [
+    "真实车辆/真实台架：因 P0 安全问题禁止执行",
+    "1000fps 10分钟：60秒已出现无界积压与磁盘增长，继续存在主机风险",
+    "Linux 和干净机安装：当前只有 Windows 环境且无安装包",
+    "真实打印/目录打开/导出：接口为 Stub",
+    "覆盖率：pytest-cov 未安装，前端无 test/lint script"
+  ]
+}

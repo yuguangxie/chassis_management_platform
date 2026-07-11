@@ -1,0 +1,60 @@
+{
+  "url": "http://127.0.0.1:8800/api/v1/auth/roles",
+  "method": "GET",
+  "status": 200,
+  "headers": {
+    "date": "Fri, 10 Jul 2026 03:01:29 GMT",
+    "server": "uvicorn",
+    "content-length": "753",
+    "content-type": "application/json",
+    "connection": "close"
+  },
+  "body": {
+    "current_user": "op01",
+    "current_role": "admin",
+    "roles": [
+      {
+        "role": "viewer",
+        "view": "全部查看",
+        "test": "无",
+        "manual_control": "无",
+        "config": "无",
+        "maintenance": "无",
+        "delete_report": false,
+        "admin_confirmation": false
+      },
+      {
+        "role": "operator",
+        "view": "业务页面",
+        "test": "执行检测",
+        "manual_control": "无",
+        "config": "无",
+        "maintenance": "无",
+        "delete_report": false,
+        "admin_confirmation": false
+      },
+      {
+        "role": "engineer",
+        "view": "全部业务页",
+        "test": "执行检测",
+        "manual_control": "0x121",
+        "config": "非危险配置",
+        "maintenance": "无",
+        "delete_report": false,
+        "admin_confirmation": false
+      },
+      {
+        "role": "admin",
+        "view": "全部",
+        "test": "全部",
+        "manual_control": "全部审批",
+        "config": "全部",
+        "maintenance": "管理员确认",
+        "delete_report": true,
+        "admin_confirmation": true
+      }
+    ]
+  },
+  "started_at": "2026-07-10T11:01:30.036015+08:00",
+  "finished_at": "2026-07-10T11:01:30.037398+08:00"
+}

@@ -1,0 +1,18 @@
+{
+  "captures": 22,
+  "pages": 11,
+  "viewports": [
+    "1920x1080",
+    "1366x768"
+  ],
+  "page_scrollable": [],
+  "white_controls": [],
+  "failed_fetch_banners": [],
+  "zero_canvas": [
+    "signal-dashboard_1920x1080.png",
+    "signal-dashboard_1366x768.png",
+    "manual-control_1366x768.png",
+    "alarm-diagnosis_1366x768.png"
+  ],
+  "note": "signal-dashboard intentionally uses inline SVG sparklines; compact 1366 layouts can hide non-core chart panels."
+}

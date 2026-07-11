@@ -1,0 +1,408 @@
+{
+  "audit_time": "2026-07-10T11:25:06.290153+08:00",
+  "db_sessions_before": 0,
+  "pause": {
+    "response": {
+      "status": 200,
+      "body": {
+        "chassis_no": "AUDIT-pause",
+        "vin": "LAUDIT00000000002",
+        "serial_no": "pause",
+        "operator": "audit",
+        "station_id": "EOL-STATION-01",
+        "plan_id": "default_chassis_eol_v1",
+        "remarks": "pause",
+        "id": "EOL-aa6a6f27",
+        "status": "PAUSED",
+        "overall_result": null,
+        "steps": [
+          {
+            "order": 1,
+            "name": "上电自检",
+            "status": "DONE",
+            "result": "PASS",
+            "started_at": "2026-07-10T03:25:06.327688+00:00",
+            "assertions": [
+              {
+                "id": "step_1_assert",
+                "result": "PASS",
+                "reason": ""
+              }
+            ],
+            "ended_at": "2026-07-10T03:25:06.415246+00:00"
+          },
+          {
+            "order": 2,
+            "name": "CAN 通信检测",
+            "status": "DONE",
+            "result": "PASS",
+            "started_at": "2026-07-10T03:25:06.415286+00:00",
+            "assertions": [
+              {
+                "id": "step_2_assert",
+                "result": "PASS",
+                "reason": ""
+              }
+            ],
+            "ended_at": "2026-07-10T03:25:06.509816+00:00"
+          },
+          {
+            "order": 3,
+            "name": "BMS 检测",
+            "status": "RUNNING",
+            "result": null,
+            "started_at": "2026-07-10T03:25:06.509901+00:00",
+            "assertions": []
+          }
+        ],
+        "created_at": "2026-07-10T03:25:06.325181+00:00",
+        "started_at": "2026-07-10T03:25:06.327360+00:00"
+      }
+    },
+    "steps_at_pause": 3,
+    "steps_after_450ms": 8,
+    "status_after_450ms": "PAUSED",
+    "execution_continued": true,
+    "final": {
+      "chassis_no": "AUDIT-pause",
+      "vin": "LAUDIT00000000002",
+      "serial_no": "pause",
+      "operator": "audit",
+      "station_id": "EOL-STATION-01",
+      "plan_id": "default_chassis_eol_v1",
+      "remarks": "pause",
+      "id": "EOL-aa6a6f27",
+      "status": "PASSED",
+      "overall_result": "PASS",
+      "steps": [
+        {
+          "order": 1,
+          "name": "上电自检",
+          "status": "DONE",
+          "result": "PASS",
+          "started_at": "2026-07-10T03:25:06.327688+00:00",
+          "assertions": [
+            {
+              "id": "step_1_assert",
+              "result": "PASS",
+              "reason": ""
+            }
+          ],
+          "ended_at": "2026-07-10T03:25:06.415246+00:00"
+        },
+        {
+          "order": 2,
+          "name": "CAN 通信检测",
+          "status": "DONE",
+          "result": "PASS",
+          "started_at": "2026-07-10T03:25:06.415286+00:00",
+          "assertions": [
+            {
+              "id": "step_2_assert",
+              "result": "PASS",
+              "reason": ""
+            }
+          ],
+          "ended_at": "2026-07-10T03:25:06.509816+00:00"
+        },
+        {
+          "order": 3,
+          "name": "BMS 检测",
+          "status": "DONE",
+          "result": "PASS",
+          "started_at": "2026-07-10T03:25:06.509901+00:00",
+          "assertions": [
+            {
+              "id": "step_3_assert",
+              "result": "PASS",
+              "reason": ""
+            }
+          ],
+          "ended_at": "2026-07-10T03:25:06.601129+00:00"
+        },
+        {
+          "order": 4,
+          "name": "VCU 状态检测",
+          "status": "DONE",
+          "result": "PASS",
+          "started_at": "2026-07-10T03:25:06.601168+00:00",
+          "assertions": [
+            {
+              "id": "step_4_assert",
+              "result": "PASS",
+              "reason": ""
+            }
+          ],
+          "ended_at": "2026-07-10T03:25:06.689856+00:00"
+        },
+        {
+          "order": 5,
+          "name": "电机心跳检测",
+          "status": "DONE",
+          "result": "PASS",
+          "started_at": "2026-07-10T03:25:06.690496+00:00",
+          "assertions": [
+            {
+              "id": "step_5_assert",
+              "result": "PASS",
+              "reason": ""
+            }
+          ],
+          "ended_at": "2026-07-10T03:25:06.780315+00:00"
+        },
+        {
+          "order": 6,
+          "name": "档位检测",
+          "status": "DONE",
+          "result": "PASS",
+          "started_at": "2026-07-10T03:25:06.780393+00:00",
+          "assertions": [
+            {
+              "id": "step_6_assert",
+              "result": "PASS",
+              "reason": ""
+            }
+          ],
+          "ended_at": "2026-07-10T03:25:06.870967+00:00"
+        },
+        {
+          "order": 7,
+          "name": "低速驱动检测",
+          "status": "DONE",
+          "result": "PASS",
+          "started_at": "2026-07-10T03:25:06.871092+00:00",
+          "assertions": [
+            {
+              "id": "step_7_assert",
+              "result": "PASS",
+              "reason": ""
+            }
+          ],
+          "ended_at": "2026-07-10T03:25:06.961293+00:00"
+        },
+        {
+          "order": 8,
+          "name": "转向检测",
+          "status": "DONE",
+          "result": "PASS",
+          "started_at": "2026-07-10T03:25:06.961401+00:00",
+          "assertions": [
+            {
+              "id": "step_8_assert",
+              "result": "PASS",
+              "reason": ""
+            }
+          ],
+          "ended_at": "2026-07-10T03:25:07.052078+00:00"
+        },
+        {
+          "order": 9,
+          "name": "灯光检测",
+          "status": "DONE",
+          "result": "PASS",
+          "started_at": "2026-07-10T03:25:07.052164+00:00",
+          "assertions": [
+            {
+              "id": "step_9_assert",
+              "result": "PASS",
+              "reason": ""
+            }
+          ],
+          "ended_at": "2026-07-10T03:25:07.142334+00:00"
+        },
+        {
+          "order": 10,
+          "name": "制动停止检测",
+          "status": "DONE",
+          "result": "PASS",
+          "started_at": "2026-07-10T03:25:07.142445+00:00",
+          "assertions": [
+            {
+              "id": "step_10_assert",
+              "result": "PASS",
+              "reason": ""
+            }
+          ],
+          "ended_at": "2026-07-10T03:25:07.239003+00:00"
+        },
+        {
+          "order": 11,
+          "name": "告警复查",
+          "status": "DONE",
+          "result": "PASS",
+          "started_at": "2026-07-10T03:25:07.239053+00:00",
+          "assertions": [
+            {
+              "id": "step_11_assert",
+              "result": "PASS",
+              "reason": ""
+            }
+          ],
+          "ended_at": "2026-07-10T03:25:07.322114+00:00"
+        },
+        {
+          "order": 12,
+          "name": "报告生成",
+          "status": "DONE",
+          "result": "PASS",
+          "started_at": "2026-07-10T03:25:07.322237+00:00",
+          "assertions": [
+            {
+              "id": "step_12_assert",
+              "result": "PASS",
+              "reason": ""
+            }
+          ],
+          "ended_at": "2026-07-10T03:25:07.413028+00:00"
+        }
+      ],
+      "created_at": "2026-07-10T03:25:06.325181+00:00",
+      "started_at": "2026-07-10T03:25:06.327360+00:00",
+      "ended_at": "2026-07-10T03:25:07.413261+00:00",
+      "report": {
+        "id": "444c75c0",
+        "session_id": "EOL-aa6a6f27",
+        "result": "PASS",
+        "files": {
+          "json": "D:\\workspace\\0-yunle\\7_codex\\chassis_eol_management_platform_codex_pack\\chassis_management_platform\\data\\reports\\EOL-aa6a6f27_PASS_444c75c0.json",
+          "docx": "D:\\workspace\\0-yunle\\7_codex\\chassis_eol_management_platform_codex_pack\\chassis_management_platform\\data\\reports\\EOL-aa6a6f27_PASS_444c75c0.docx",
+          "pdf": "D:\\workspace\\0-yunle\\7_codex\\chassis_eol_management_platform_codex_pack\\chassis_management_platform\\data\\reports\\EOL-aa6a6f27_PASS_444c75c0.pdf"
+        }
+      }
+    }
+  },
+  "abort": {
+    "response": {
+      "status": 200,
+      "body": {
+        "chassis_no": "AUDIT-abort",
+        "vin": "LAUDIT00000000002",
+        "serial_no": "abort",
+        "operator": "audit",
+        "station_id": "EOL-STATION-01",
+        "plan_id": "default_chassis_eol_v1",
+        "remarks": "abort",
+        "id": "EOL-25774b1b",
+        "status": "ABORTED",
+        "overall_result": "ABORTED",
+        "steps": [
+          {
+            "order": 1,
+            "name": "上电自检",
+            "status": "DONE",
+            "result": "PASS",
+            "started_at": "2026-07-10T03:25:07.807150+00:00",
+            "assertions": [
+              {
+                "id": "step_1_assert",
+                "result": "PASS",
+                "reason": ""
+              }
+            ],
+            "ended_at": "2026-07-10T03:25:07.888484+00:00"
+          },
+          {
+            "order": 2,
+            "name": "CAN 通信检测",
+            "status": "DONE",
+            "result": "PASS",
+            "started_at": "2026-07-10T03:25:07.888515+00:00",
+            "assertions": [
+              {
+                "id": "step_2_assert",
+                "result": "PASS",
+                "reason": ""
+              }
+            ],
+            "ended_at": "2026-07-10T03:25:07.969175+00:00"
+          },
+          {
+            "order": 3,
+            "name": "BMS 检测",
+            "status": "RUNNING",
+            "result": null,
+            "started_at": "2026-07-10T03:25:07.969252+00:00",
+            "assertions": []
+          }
+        ],
+        "created_at": "2026-07-10T03:25:07.804765+00:00",
+        "started_at": "2026-07-10T03:25:07.806761+00:00"
+      }
+    },
+    "final_status": "PASSED",
+    "final_result": "PASS",
+    "step_count": 12,
+    "abort_was_respected": false
+  },
+  "emergency": {
+    "response": {
+      "status": 200,
+      "body": {
+        "ok": true,
+        "stub": false,
+        "message": "急停已触发，周期发送已停止",
+        "session_id": "EOL-7e8d63d6",
+        "emergency_stop": true
+      }
+    },
+    "final_status": "PASSED",
+    "final_result": "PASS",
+    "step_count": 12,
+    "emergency_stopped_test": false
+  },
+  "concurrent": {
+    "first_result": "PASS",
+    "second_result": "PASS",
+    "both_executed": true
+  },
+  "can_disconnected": {
+    "stop_response": {
+      "status": 200,
+      "body": {
+        "stopped": true,
+        "stub": false,
+        "message": "所有 CAN 通道已停止"
+      }
+    },
+    "channel_status": {
+      "status": 200,
+      "body": [
+        {
+          "channel": "CAN1",
+          "online": false,
+          "fps": 28.3,
+          "rx_count": 4686,
+          "tx_count": 0,
+          "error_count": 0,
+          "last_frame_at": 1783653912.068942,
+          "last_frame_hex": "01 00 00 00 00 00 00 00",
+          "protocol": "udp",
+          "local_ip": "127.0.0.1",
+          "local_port": 8234,
+          "device_ip": "127.0.0.1",
+          "device_port": 12341
+        },
+        {
+          "channel": "CAN2",
+          "online": false,
+          "fps": 61.4,
+          "rx_count": 10153,
+          "tx_count": 10,
+          "error_count": 0,
+          "last_frame_at": 1783653912.0855875,
+          "last_frame_hex": "00 00 00 00 00 00 00 00",
+          "protocol": "udp",
+          "local_ip": "127.0.0.1",
+          "local_port": 8235,
+          "device_ip": "127.0.0.1",
+          "device_port": 12342
+        }
+      ]
+    },
+    "final_status": "PASSED",
+    "final_result": "PASS",
+    "incorrectly_passed": true
+  },
+  "db_sessions_after": 0,
+  "sessions_persisted": false
+}

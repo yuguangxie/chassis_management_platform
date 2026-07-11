@@ -1,0 +1,23 @@
+{
+  "request": {
+    "method": "POST",
+    "path": "/reports/9cfdce54-pdf/print",
+    "body": {}
+  },
+  "status_code": 200,
+  "trace_id": "1a3719ea7b6548609c38efdc5e120875",
+  "body": {
+    "ok": true,
+    "message": "打印任务已进入持久化队列",
+    "trace_id": "1a3719ea7b6548609c38efdc5e120875",
+    "data_source": "sqlite+filesystem",
+    "mock": false,
+    "details": {
+      "job_id": "PRINT-0B7B1A574E0B",
+      "report_id": "9cfdce54-pdf",
+      "status": "QUEUED",
+      "file_name": "20260710_100948_PH3-NORMAL-001_000001_PASS_EOL-1E0EDEEC82C1_9cfdce54.pdf",
+      "created_at": "2026-07-10T10:09:49.348669+00:00"
+    }
+  }
+}

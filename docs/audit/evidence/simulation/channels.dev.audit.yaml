@@ -1,0 +1,19 @@
+channels:
+  CAN1:
+    protocol: udp
+    local_ip: 127.0.0.1
+    local_receive_port: 8234
+    device_ip: 127.0.0.1
+    device_port: 12341
+    simulated_device_port: 12341
+    enabled: true
+    control_enabled: false
+  CAN2:
+    protocol: udp
+    local_ip: 127.0.0.1
+    local_receive_port: 8235
+    device_ip: 127.0.0.1
+    device_port: 12342
+    simulated_device_port: 12342
+    enabled: true
+    control_enabled: true

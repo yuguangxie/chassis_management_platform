@@ -1,0 +1,7 @@
+issue_id,severity,status,closure_evidence,residual
+EOL-001,P1,CLOSED,"gate-final/steering_no_response_result.json; gate-final/brake_fail_result.json","No real bench/vehicle validation"
+EOL-002,P1,CLOSED,"configs/test_plan.yaml; gate-final/bms_low_soc_result.json; gate-final/warning_fault_result.json","No production profile validation"
+DB-001,P1,CLOSED,"gate-final/summary.txt; database/report_validation_final.json","Long-run growth and retention are later-phase work"
+DB-003,P2,CLOSED,"backend/tests/test_phase02_plan_persistence.py; gate-final/*_result.json","Parquet optional path not exercised; CSV path verified"
+DB-004,P2,CLOSED,"backend/tests/test_phase02_plan_persistence.py; database-final/restart_recovery_result.json","Multi-process contention not tested"
+DBC-002,P2,CLOSED,"backend/tests/test_phase02_signal_dbc.py; gate-final/phase02_eol_results.json","No physical BMS validation"

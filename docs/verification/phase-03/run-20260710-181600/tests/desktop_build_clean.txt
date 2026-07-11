@@ -1,0 +1,18 @@
+
+> chassis-eol-desktop@1.0.2 build
+> vue-tsc --noEmit && vite build
+
+vite v5.4.21 building for production...
+transforming...
+✓ 2204 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                     0.17 kB │ gzip:   0.15 kB
+dist/assets/index-CjYMKvzl.css    146.46 kB │ gzip:  23.73 kB
+dist/assets/index-DRheIEsq.js   1,401.72 kB │ gzip: 458.40 kB
+
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 6.15s

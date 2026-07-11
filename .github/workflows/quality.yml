@@ -1,0 +1,133 @@
+name: quality-gates
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      long_runtime:
+        description: Run the optional 1000 fps / 10 minute loopback verification
+        required: false
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+jobs:
+  quality:
+    name: quality
+    runs-on: windows-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11.8'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.22.2'
+          cache: npm
+          cache-dependency-path: desktop/package-lock.json
+      - name: Prepare quality evidence directory
+        shell: pwsh
+        run: New-Item -ItemType Directory -Force docs/verification/phase-05/ci-runtime/quality | Out-Null
+      - uses: astral-sh/setup-uv@v5
+        with:
+          version: '0.10.7'
+      - name: Sync locked Python quality environment
+        working-directory: backend
+        run: uv sync --locked --extra test --extra quality
+      - name: Install desktop dependencies
+        run: npm.cmd ci --prefix desktop
+      - name: Run isolated Python quality suite with coverage
+        run: backend/.venv/Scripts/python.exe scripts/run_quality.py --suite all --coverage --artifact-dir docs/verification/phase-05/ci-runtime/quality/python
+      - name: Run desktop static and unit gates
+        shell: pwsh
+        run: |
+          npm.cmd --prefix desktop run lint *>&1 | Tee-Object docs/verification/phase-05/ci-runtime/quality/lint.txt
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          npm.cmd --prefix desktop run test *>&1 | Tee-Object docs/verification/phase-05/ci-runtime/quality/vitest.txt
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          npm.cmd --prefix desktop run typecheck *>&1 | Tee-Object docs/verification/phase-05/ci-runtime/quality/typecheck.txt
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          npm.cmd --prefix desktop run build *>&1 | Tee-Object docs/verification/phase-05/ci-runtime/quality/build.txt
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          npm.cmd --prefix desktop run test:bundle *>&1 | Tee-Object docs/verification/phase-05/ci-runtime/quality/bundle.txt
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Run dependency audits
+        shell: pwsh
+        run: |
+          npm.cmd --prefix desktop audit --audit-level=high *>&1 | Tee-Object docs/verification/phase-05/ci-runtime/quality/npm-audit.txt
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          cmd /c "backend/.venv/Scripts/python.exe -m pip_audit --skip-editable > docs/verification/phase-05/ci-runtime/quality/pip-audit.txt 2>&1"
+          $auditExitCode = $LASTEXITCODE
+          Get-Content docs/verification/phase-05/ci-runtime/quality/pip-audit.txt
+          if ($auditExitCode -ne 0) { exit $auditExitCode }
+      - name: Collect frontend coverage
+        if: always()
+        shell: pwsh
+        run: |
+          if (Test-Path desktop/coverage) {
+            Copy-Item -Recurse -Force desktop/coverage docs/verification/phase-05/ci-runtime/quality/frontend-coverage
+          }
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: phase-05-quality-${{ github.run_id }}
+          path: docs/verification/phase-05/ci-runtime/quality
+          if-no-files-found: error
+
+  renderer-e2e:
+    name: renderer-e2e
+    runs-on: windows-latest
+    needs: quality
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11.8'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.22.2'
+          cache: npm
+          cache-dependency-path: desktop/package-lock.json
+      - name: Reject Electron override
+        shell: pwsh
+        run: |
+          if (Test-Path Env:CHASSIS_E2E_ELECTRON) {
+            throw 'CHASSIS_E2E_ELECTRON must not be set for phase-05 verification'
+          }
+      - uses: astral-sh/setup-uv@v5
+        with:
+          version: '0.10.7'
+      - name: Sync locked Python E2E environment
+        working-directory: backend
+        run: uv sync --locked --extra test --extra quality
+      - name: Install desktop dependencies
+        run: npm.cmd ci --prefix desktop
+      - name: Verify installed Electron binary
+        shell: pwsh
+        run: |
+          $version = & '.\desktop\node_modules\.bin\electron.cmd' --version
+          $version | Tee-Object docs/verification/phase-05/e2e/electron-version-ci.txt
+          if ($version.Trim() -ne 'v43.1.0') {
+            throw "Electron 43.1.0 is required, got $version"
+          }
+      - name: Run Electron page capture and stale-online control gate
+        run: npm.cmd --prefix desktop run test:e2e
+      - name: Run WebSocket cadence and loopback integration gate
+        run: npm.cmd --prefix desktop run test:integration
+      - name: Run optional 1000 fps / 10 minute loopback verification
+        if: github.event_name == 'workflow_dispatch' && inputs.long_runtime
+        run: npm.cmd --prefix desktop run test:integration:long
+      - name: Verify E2E evidence contract
+        run: npm.cmd --prefix desktop run test:e2e:verify
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: phase-05-e2e-${{ github.run_id }}
+          path: docs/verification/phase-05/e2e
+          if-no-files-found: error

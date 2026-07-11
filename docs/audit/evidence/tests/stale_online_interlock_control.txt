@@ -1,0 +1,37 @@
+﻿TIME=2026-07-10T12:05:48.4951668+08:00
+SIMULATOR_STOPPED=true
+CHANNEL_STATUS_BEFORE=
+[
+    {
+        "channel":  "CAN1",
+        "online":  false,
+        "fps":  39.5,
+        "rx_count":  100290,
+        "tx_count":  0,
+        "error_count":  0,
+        "last_frame_at":  1783656285.4735265,
+        "last_frame_hex":  "01 00 00 00 00 00 00 00",
+        "protocol":  "udp",
+        "local_ip":  "127.0.0.1",
+        "local_port":  8234,
+        "device_ip":  "127.0.0.1",
+        "device_port":  12341
+    },
+    {
+        "channel":  "CAN2",
+        "online":  false,
+        "fps":  70.2,
+        "rx_count":  178206,
+        "tx_count":  10,
+        "error_count":  0,
+        "last_frame_at":  1783656285.9482117,
+        "last_frame_hex":  "00 00 00 00 00 00 00 00",
+        "protocol":  "udp",
+        "local_ip":  "127.0.0.1",
+        "local_port":  8235,
+        "device_ip":  "127.0.0.1",
+        "device_port":  12342
+    }
+]
+HTTP_STATUS=409
+RESPONSE={"detail":{"code":"INTERLOCK_BLOCKED","message":"安全联锁阻止控制","details":{"allowed":false,"level":"danger","rules":[{"rule":"control_channel_online","label":"控制通道在线","status":"FAIL","current":false,"threshold":true,"blocking":true},{"rule":"dbc_loaded_or_raw_allowed","label":"DBC 状态允许控制","status":"PASS","current":{"loaded":true,"raw_only":false,"file":"D:\\workspace\\0-yunle\\7_codex\\chassis_eol_management_platform_codex_pack\\chassis_management_platform\\assets\\Yunle_CAN_integrated_candb_jd.dbc","hash":"387ae48bd84852c8","version":"Yunle_CAN_Integrated_CANdb Release v1.0.2","error":null},"threshold":"loaded/raw","blocking":true},{"rule":"no_severe_alarm","label":"无严重告警","status":"PASS","current":0,"threshold":"<3","blocking":true},{"rule":"emergency_released","label":"急停未触发","status":"PASS","current":false,"threshold":false,"blocking":true},{"rule":"database_writable","label":"数据库可写","status":"PASS","current":true,"threshold":true,"blocking":true},{"rule":"single_control_channel","label":"单一控制通道 CAN2","status":"PASS","current":"CAN2","threshold":"CAN2","blocking":true},{"rule":"speed_limit","label":"速度上限","status":"PASS","current":0.0,"threshold":3.0,"blocking":true},{"rule":"steering_limit","label":"转角限幅","status":"PASS","current":[0,0],"threshold":120,"blocking":true}],"reasons":[{"rule":"control_channel_online","label":"控制通道在线","status":"FAIL","current":false,"threshold":true,"blocking":true}]}}}

@@ -1,0 +1,15 @@
+{
+  "url": "http://127.0.0.1:8800/api/v1/alarms/current",
+  "method": "GET",
+  "status": 200,
+  "headers": {
+    "date": "Fri, 10 Jul 2026 03:01:29 GMT",
+    "server": "uvicorn",
+    "content-length": "2",
+    "content-type": "application/json",
+    "connection": "close"
+  },
+  "body": [],
+  "started_at": "2026-07-10T11:01:30.120699+08:00",
+  "finished_at": "2026-07-10T11:01:30.121923+08:00"
+}

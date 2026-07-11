@@ -1,0 +1,11 @@
+﻿COMMAND:  git log -1 --decorate --stat 
+TIME: 2026-07-10 10:57:19 +08:00
+
+git : fatal: not a git repository (or any of the parent directories): .git
+At line:10 char:35
++ Save-Command 'git_log_last.txt' { git log -1 --decorate --stat }
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (fatal: not a gi...ectories): .git:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+

@@ -1,0 +1,19 @@
+{
+  "url": "http://127.0.0.1:8800/api/v1/signals/curve-selection",
+  "method": "PUT",
+  "status": 200,
+  "headers": {
+    "date": "Fri, 10 Jul 2026 03:01:29 GMT",
+    "server": "uvicorn",
+    "content-length": "72",
+    "content-type": "application/json",
+    "connection": "close"
+  },
+  "body": {
+    "ok": true,
+    "stub": true,
+    "message": "曲线选择已保存到 Mock 配置"
+  },
+  "started_at": "2026-07-10T11:01:30.208604+08:00",
+  "finished_at": "2026-07-10T11:01:30.209670+08:00"
+}

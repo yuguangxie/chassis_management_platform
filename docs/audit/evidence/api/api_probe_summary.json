@@ -1,0 +1,459 @@
+{
+  "audit_time": "2026-07-10T11:01:30.230915+08:00",
+  "openapi_status": 200,
+  "openapi_route_count": 112,
+  "probe_count": 56,
+  "status_counts": {
+    "200": 56
+  },
+  "results": [
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:8800/api/v1/health",
+      "status": 200,
+      "error": null,
+      "stub": null,
+      "message": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:8800/api/v1/overview/summary",
+      "status": 200,
+      "error": null,
+      "stub": null,
+      "message": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:8800/api/v1/config/system-dashboard",
+      "status": 200,
+      "error": null,
+      "stub": null,
+      "message": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:8800/api/v1/config",
+      "status": 200,
+      "error": null,
+      "stub": null,
+      "message": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:8800/api/v1/config/history",
+      "status": 200,
+      "error": null,
+      "stub": null,
+      "message": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:8800/api/v1/config/export",
+      "status": 200,
+      "error": null,
+      "stub": true,
+      "message": "配置快照已生成，桌面文件保存接口当前为 Mock 模式"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:8800/api/v1/storage/stats",
+      "status": 200,
+      "error": null,
+      "stub": null,
+      "message": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:8800/api/v1/storage/trend",
+      "status": 200,
+      "error": null,
+      "stub": null,
+      "message": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:8800/api/v1/system/version",
+      "status": 200,
+      "error": null,
+      "stub": null,
+      "message": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:8800/api/v1/auth/roles",
+      "status": 200,
+      "error": null,
+      "stub": null,
+      "message": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:8800/api/v1/dbc/status",
+      "status": 200,
+      "error": null,
+      "stub": null,
+      "message": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:8800/api/v1/dbc/messages",
+      "status": 200,
+      "error": null,
+      "stub": null,
+      "message": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:8800/api/v1/can/channels/status",
+      "status": 200,
+      "error": null,
+      "stub": null,
+      "message": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:8800/api/v1/can/frames/latest",
+      "status": 200,
+      "error": null,
+      "stub": null,
+      "message": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:8800/api/v1/can/statistics",
+      "status": 200,
+      "error": null,
+      "stub": null,
+      "message": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:8800/api/v1/can/statistics/monitor",
+      "status": 200,
+      "error": null,
+      "stub": null,
+      "message": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:8800/api/v1/logs/raw-can-files",
+      "status": 200,
+      "error": null,
+      "stub": null,
+      "message": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:8800/api/v1/signals/current",
+      "status": 200,
+      "error": null,
+      "stub": null,
+      "message": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:8800/api/v1/signals/dashboard",
+      "status": 200,
+      "error": null,
+      "stub": null,
+      "message": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:8800/api/v1/signals/watchlist",
+      "status": 200,
+      "error": null,
+      "stub": null,
+      "message": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:8800/api/v1/signals/curve-config",
+      "status": 200,
+      "error": null,
+      "stub": null,
+      "message": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:8800/api/v1/signals/timeseries",
+      "status": 200,
+      "error": null,
+      "stub": null,
+      "message": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:8800/api/v1/signals/threshold-status",
+      "status": 200,
+      "error": null,
+      "stub": null,
+      "message": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:8800/api/v1/control/status",
+      "status": 200,
+      "error": null,
+      "stub": null,
+      "message": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:8800/api/v1/control/interlock-status",
+      "status": 200,
+      "error": null,
+      "stub": null,
+      "message": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:8800/api/v1/control/manual-feedback",
+      "status": 200,
+      "error": null,
+      "stub": null,
+      "message": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:8800/api/v1/control/manual-curves",
+      "status": 200,
+      "error": null,
+      "stub": null,
+      "message": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:8800/api/v1/eol/dashboard",
+      "status": 200,
+      "error": null,
+      "stub": null,
+      "message": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:8800/api/v1/alarms/dashboard",
+      "status": 200,
+      "error": null,
+      "stub": null,
+      "message": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:8800/api/v1/alarms/current",
+      "status": 200,
+      "error": null,
+      "stub": null,
+      "message": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:8800/api/v1/alarms/history",
+      "status": 200,
+      "error": null,
+      "stub": null,
+      "message": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:8800/api/v1/reports/dashboard",
+      "status": 200,
+      "error": null,
+      "stub": null,
+      "message": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:8800/api/v1/reports",
+      "status": 200,
+      "error": null,
+      "stub": null,
+      "message": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:8800/api/v1/reports/storage-stats",
+      "status": 200,
+      "error": null,
+      "stub": null,
+      "message": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:8800/api/v1/history/dashboard",
+      "status": 200,
+      "error": null,
+      "stub": null,
+      "message": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:8800/api/v1/history/statistics",
+      "status": 200,
+      "error": null,
+      "stub": null,
+      "message": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:8800/api/v1/test-sessions",
+      "status": 200,
+      "error": null,
+      "stub": null,
+      "message": null
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:8800/api/v1/audit/operator-actions",
+      "status": 200,
+      "error": null,
+      "stub": null,
+      "message": null
+    },
+    {
+      "method": "POST",
+      "url": "http://127.0.0.1:8800/api/v1/config/import",
+      "status": 200,
+      "error": null,
+      "stub": true,
+      "message": "配置导入接口已预留，当前支持 YAML / JSON 文件选择流程"
+    },
+    {
+      "method": "POST",
+      "url": "http://127.0.0.1:8800/api/v1/storage/cleanup",
+      "status": 200,
+      "error": null,
+      "stub": true,
+      "message": "清理接口已预留，不会删除当前会话数据"
+    },
+    {
+      "method": "POST",
+      "url": "http://127.0.0.1:8800/api/v1/dbc/reload",
+      "status": 200,
+      "error": null,
+      "stub": null,
+      "message": "DBC 已重新扫描并加载"
+    },
+    {
+      "method": "POST",
+      "url": "http://127.0.0.1:8800/api/v1/can/channels/self-test",
+      "status": 200,
+      "error": null,
+      "stub": true,
+      "message": "接口已预留，当前为 Mock 模式"
+    },
+    {
+      "method": "POST",
+      "url": "http://127.0.0.1:8800/api/v1/can/frames/clear-display",
+      "status": 200,
+      "error": null,
+      "stub": true,
+      "message": "接口已预留，当前为 Mock 模式"
+    },
+    {
+      "method": "POST",
+      "url": "http://127.0.0.1:8800/api/v1/logs/export/raw-can",
+      "status": 200,
+      "error": null,
+      "stub": true,
+      "message": "接口已预留，当前为 Mock 模式"
+    },
+    {
+      "method": "POST",
+      "url": "http://127.0.0.1:8800/api/v1/logs/export/csv",
+      "status": 200,
+      "error": null,
+      "stub": true,
+      "message": "接口已预留，当前为 Mock 模式"
+    },
+    {
+      "method": "POST",
+      "url": "http://127.0.0.1:8800/api/v1/logs/load-history",
+      "status": 200,
+      "error": null,
+      "stub": true,
+      "message": "接口已预留，当前为 Mock 模式"
+    },
+    {
+      "method": "POST",
+      "url": "http://127.0.0.1:8800/api/v1/signals/snapshot",
+      "status": 200,
+      "error": null,
+      "stub": true,
+      "message": "快照接口已预留，当前为 Mock 模式"
+    },
+    {
+      "method": "POST",
+      "url": "http://127.0.0.1:8800/api/v1/signals/export-csv",
+      "status": 200,
+      "error": null,
+      "stub": true,
+      "message": "导出 CSV 接口已预留，当前为 Mock 模式"
+    },
+    {
+      "method": "PUT",
+      "url": "http://127.0.0.1:8800/api/v1/signals/curve-selection",
+      "status": 200,
+      "error": null,
+      "stub": true,
+      "message": "曲线选择已保存到 Mock 配置"
+    },
+    {
+      "method": "POST",
+      "url": "http://127.0.0.1:8800/api/v1/control/121/preview",
+      "status": 200,
+      "error": null,
+      "stub": null,
+      "message": null
+    },
+    {
+      "method": "POST",
+      "url": "http://127.0.0.1:8800/api/v1/alarms/export-diagnosis",
+      "status": 200,
+      "error": null,
+      "stub": true,
+      "message": "诊断导出接口已预留，当前为 Mock 模式"
+    },
+    {
+      "method": "POST",
+      "url": "http://127.0.0.1:8800/api/v1/alarms/jump-can-frame",
+      "status": 200,
+      "error": null,
+      "stub": true,
+      "message": "已定位相关 CAN 报文，当前为 Mock 模式"
+    },
+    {
+      "method": "POST",
+      "url": "http://127.0.0.1:8800/api/v1/alarms/audit-sample/ack",
+      "status": 200,
+      "error": null,
+      "stub": null,
+      "message": "当前告警状态已确认"
+    },
+    {
+      "method": "POST",
+      "url": "http://127.0.0.1:8800/api/v1/alarms/audit-sample/override-request",
+      "status": 200,
+      "error": null,
+      "stub": true,
+      "message": "人工放行申请已提交，需工程师复核"
+    },
+    {
+      "method": "POST",
+      "url": "http://127.0.0.1:8800/api/v1/reports/scan",
+      "status": 200,
+      "error": null,
+      "stub": true,
+      "message": "报告目录扫描完成"
+    },
+    {
+      "method": "POST",
+      "url": "http://127.0.0.1:8800/api/v1/history/export",
+      "status": 200,
+      "error": null,
+      "stub": true,
+      "message": "历史导出接口已预留，当前为 Mock 模式"
+    }
+  ]
+}

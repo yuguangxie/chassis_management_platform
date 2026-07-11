@@ -1,0 +1,21 @@
+{
+  "url": "http://127.0.0.1:8800/api/v1/alarms/jump-can-frame",
+  "method": "POST",
+  "status": 200,
+  "headers": {
+    "date": "Fri, 10 Jul 2026 03:01:29 GMT",
+    "server": "uvicorn",
+    "content-length": "125",
+    "content-type": "application/json",
+    "connection": "close"
+  },
+  "body": {
+    "ok": true,
+    "stub": true,
+    "message": "已定位相关 CAN 报文，当前为 Mock 模式",
+    "can_id": "0x77",
+    "route": "/can-monitor"
+  },
+  "started_at": "2026-07-10T11:01:30.216286+08:00",
+  "finished_at": "2026-07-10T11:01:30.219335+08:00"
+}

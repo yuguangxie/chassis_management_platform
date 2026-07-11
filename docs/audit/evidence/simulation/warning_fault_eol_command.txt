@@ -1,0 +1,14 @@
+﻿{
+  "profile": "warning_fault",
+  "expected_result": "FAIL",
+  "actual_result": "FAIL",
+  "matches_expected": true,
+  "session_status": "FAILED",
+  "step_count": 1,
+  "elapsed_seconds": 0.219,
+  "new_report_files": [
+    "EOL-f146df49_FAIL_fa6163be.docx",
+    "EOL-f146df49_FAIL_fa6163be.json",
+    "EOL-f146df49_FAIL_fa6163be.pdf"
+  ]
+}

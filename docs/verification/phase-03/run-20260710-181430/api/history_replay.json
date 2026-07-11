@@ -1,0 +1,24 @@
+{
+  "request": {
+    "method": "GET",
+    "path": "/test-sessions/EOL-0B96CC1113B6/replay",
+    "body": null
+  },
+  "status_code": 200,
+  "trace_id": "e6b919b4855b42ebb0fb5dcb80bb96ee",
+  "body": {
+    "session_id": "EOL-0B96CC1113B6",
+    "data_source": "SQLite decoded_signals",
+    "timezone": "UTC",
+    "start_time": "2026-07-10T10:08:56.074956+00:00",
+    "end_time": "2026-07-10T10:09:12.687422+00:00",
+    "duration": "00:00:16",
+    "current": "00:00:00",
+    "progress_percent": 0.0,
+    "point_count": 47078,
+    "quality": "good",
+    "mock": false,
+    "updated_at": "2026-07-10T10:09:13.377741+00:00",
+    "trace_id": "e6b919b4855b42ebb0fb5dcb80bb96ee"
+  }
+}

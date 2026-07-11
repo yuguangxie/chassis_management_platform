@@ -1,0 +1,14 @@
+﻿{
+  "profile": "bms_low_soc",
+  "expected_result": "FAIL",
+  "actual_result": "FAIL",
+  "matches_expected": true,
+  "session_status": "FAILED",
+  "step_count": 1,
+  "elapsed_seconds": 0.269,
+  "new_report_files": [
+    "EOL-044f3711_FAIL_f9ed07a4.docx",
+    "EOL-044f3711_FAIL_f9ed07a4.json",
+    "EOL-044f3711_FAIL_f9ed07a4.pdf"
+  ]
+}

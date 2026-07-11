@@ -1,0 +1,18 @@
+{
+  "url": "http://127.0.0.1:8800/api/v1/signals/threshold-status",
+  "method": "GET",
+  "status": 200,
+  "headers": {
+    "date": "Fri, 10 Jul 2026 03:01:29 GMT",
+    "server": "uvicorn",
+    "content-length": "49",
+    "content-type": "application/json",
+    "connection": "close"
+  },
+  "body": {
+    "BMS_SOC": "PASS",
+    "VCU_Max_Warning_Level": "PASS"
+  },
+  "started_at": "2026-07-10T11:01:30.073191+08:00",
+  "finished_at": "2026-07-10T11:01:30.095661+08:00"
+}

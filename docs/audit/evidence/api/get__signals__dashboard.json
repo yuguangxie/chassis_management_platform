@@ -1,0 +1,308 @@
+{
+  "url": "http://127.0.0.1:8800/api/v1/signals/dashboard",
+  "method": "GET",
+  "status": 200,
+  "headers": {
+    "date": "Fri, 10 Jul 2026 03:01:29 GMT",
+    "server": "uvicorn",
+    "content-length": "3145",
+    "content-type": "application/json",
+    "connection": "close"
+  },
+  "body": {
+    "status": {
+      "overall": "normal",
+      "updated_at": "2026-04-01 10:26:35.123",
+      "mock": true
+    },
+    "bms": {
+      "status": "正常",
+      "total_voltage": 76.8,
+      "current": -12.5,
+      "soc": 86.0,
+      "ntc_temperature": 31.0,
+      "cell_max_voltage": 3.228,
+      "cell_min_voltage": 3.21,
+      "cell_delta_mv": 18,
+      "charge_discharge_state": "放电",
+      "trend": {
+        "voltage": [
+          76.2,
+          76.5,
+          76.3,
+          76.8,
+          76.6,
+          76.9,
+          76.7,
+          76.8
+        ],
+        "current": [
+          -10.2,
+          -11.5,
+          -12.1,
+          -12.5,
+          -11.8,
+          -12.4,
+          -12.0,
+          -12.5
+        ],
+        "soc": [
+          85,
+          85,
+          85.5,
+          86,
+          86,
+          86.1,
+          86,
+          86
+        ],
+        "ntc": [
+          30,
+          31,
+          31,
+          31,
+          30.8,
+          31.2,
+          31,
+          31
+        ]
+      }
+    },
+    "vehicle": {
+      "status": "正常",
+      "gear": "D",
+      "drive_mode": "Remote",
+      "ignition": "ON",
+      "parking": "RELEASED",
+      "speed": 2.4
+    },
+    "wheel_speed": {
+      "status": "正常",
+      "unit": "km/h",
+      "front_left": 2.5,
+      "front_right": 2.4,
+      "rear_left": 2.5,
+      "rear_right": 2.4
+    },
+    "steering": {
+      "status": "正常",
+      "front_cmd": 17.0,
+      "front_feedback": 16.8,
+      "rear_cmd": 0.0,
+      "rear_feedback": 0.0,
+      "front_trend": [
+        15.8,
+        16.2,
+        16.8,
+        16.7,
+        16.9,
+        16.5,
+        16.8,
+        16.8
+      ],
+      "rear_trend": [
+        0.0,
+        0.1,
+        0.0,
+        0.0,
+        -0.1,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "motor": {
+      "status": "正常",
+      "speed_rpm": 620,
+      "phase_current_a": 14.2,
+      "heartbeat": "0x703 / 0x704",
+      "heartbeat_status": "正常",
+      "speed_trend": [
+        580,
+        600,
+        615,
+        620,
+        612,
+        618,
+        622,
+        620
+      ],
+      "current_trend": [
+        13.8,
+        14.0,
+        14.1,
+        14.2,
+        13.9,
+        14.3,
+        14.0,
+        14.2
+      ]
+    },
+    "lights_brake": {
+      "left_turn": "OFF",
+      "right_turn": "OFF",
+      "position_light": "ON",
+      "low_beam": "OFF",
+      "brake_request": "OFF"
+    },
+    "alarm": {
+      "status": "正常",
+      "level": 0,
+      "label": "Normal",
+      "thresholds": [
+        {
+          "name": "总压阈值",
+          "status": "正常"
+        },
+        {
+          "name": "电流阈值",
+          "status": "正常"
+        },
+        {
+          "name": "温度阈值",
+          "status": "正常"
+        },
+        {
+          "name": "压差阈值",
+          "status": "正常"
+        },
+        {
+          "name": "转角阈值",
+          "status": "正常"
+        }
+      ]
+    },
+    "watchlist": [
+      {
+        "signal_name": "BMS_总压",
+        "can_id": "0x180",
+        "channel": "CAN1",
+        "value": 76.8,
+        "unit": "V",
+        "threshold": "[60.0 ~ 84.0]",
+        "quality": "100%",
+        "updated_at": "2026-04-01 10:26:35.123",
+        "trend": [
+          76.2,
+          76.3,
+          76.5,
+          76.8
+        ]
+      },
+      {
+        "signal_name": "BMS_电流",
+        "can_id": "0x180",
+        "channel": "CAN1",
+        "value": -12.5,
+        "unit": "A",
+        "threshold": "[-120.0 ~ 120.0]",
+        "quality": "100%",
+        "updated_at": "2026-04-01 10:26:35.123",
+        "trend": [
+          -10.2,
+          -11.5,
+          -12.1,
+          -12.5
+        ]
+      },
+      {
+        "signal_name": "BMS_SOC",
+        "can_id": "0x181",
+        "channel": "CAN1",
+        "value": 86.0,
+        "unit": "%",
+        "threshold": "[10 ~ 100]",
+        "quality": "100%",
+        "updated_at": "2026-04-01 10:26:35.123",
+        "trend": [
+          85,
+          85,
+          86,
+          86
+        ]
+      },
+      {
+        "signal_name": "VCU_车速",
+        "can_id": "0x200",
+        "channel": "CAN2",
+        "value": 2.4,
+        "unit": "km/h",
+        "threshold": "[0 ~ 40]",
+        "quality": "100%",
+        "updated_at": "2026-04-01 10:26:35.123",
+        "trend": [
+          2.0,
+          2.2,
+          2.3,
+          2.4
+        ]
+      },
+      {
+        "signal_name": "WHL_FL_轮速",
+        "can_id": "0x280",
+        "channel": "CAN2",
+        "value": 2.5,
+        "unit": "km/h",
+        "threshold": "[0 ~ 80]",
+        "quality": "100%",
+        "updated_at": "2026-04-01 10:26:35.123",
+        "trend": [
+          2.2,
+          2.5,
+          2.4,
+          2.5
+        ]
+      },
+      {
+        "signal_name": "STEER_前转角反馈",
+        "can_id": "0x300",
+        "channel": "CAN1",
+        "value": 16.8,
+        "unit": "°",
+        "threshold": "[-45.0 ~ 45.0]",
+        "quality": "100%",
+        "updated_at": "2026-04-01 10:26:35.123",
+        "trend": [
+          15.8,
+          16.2,
+          16.8,
+          16.7
+        ]
+      },
+      {
+        "signal_name": "MCU_相电流",
+        "can_id": "0x400",
+        "channel": "CAN2",
+        "value": 14.2,
+        "unit": "A",
+        "threshold": "[0 ~ 200]",
+        "quality": "100%",
+        "updated_at": "2026-04-01 10:26:35.123",
+        "trend": [
+          13.8,
+          14.0,
+          14.1,
+          14.2
+        ]
+      },
+      {
+        "signal_name": "BMS_单体压差",
+        "can_id": "0x182",
+        "channel": "CAN1",
+        "value": 18,
+        "unit": "mV",
+        "threshold": "[0 ~ 50]",
+        "quality": "100%",
+        "updated_at": "2026-04-01 10:26:35.123",
+        "trend": [
+          14,
+          16,
+          18,
+          18
+        ]
+      }
+    ]
+  },
+  "started_at": "2026-07-10T11:01:30.051665+08:00",
+  "finished_at": "2026-07-10T11:01:30.065821+08:00"
+}

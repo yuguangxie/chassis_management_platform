@@ -1,0 +1,38 @@
+{
+  "request": {
+    "method": "GET",
+    "path": "/test-sessions/EOL-1E0EDEEC82C1/operator-actions",
+    "body": null
+  },
+  "status_code": 200,
+  "trace_id": "133b9a0629424e19a910efafae4b25e0",
+  "body": [
+    {
+      "time": "10:09:32.379",
+      "user": "dev-operator",
+      "action": "eol_create_session",
+      "target": "EOL-1E0EDEEC82C1",
+      "params": "{\"chassis_no\": \"PH3-NORMAL-001\", \"vin\": \"PH3NORMAL0000001\", \"serial_no\": \"PH3-1783678172371\", \"operator\": \"op01\", \"station_id\": \"EOL-STATION-01\", \"plan_id\": \"default_chassis_eol_v1\", \"remarks\": \"\"}",
+      "result": "成功",
+      "trace_id": ""
+    },
+    {
+      "time": "10:09:32.387",
+      "user": "dev-operator",
+      "action": "eol_start",
+      "target": "EOL-1E0EDEEC82C1",
+      "params": "{}",
+      "result": "成功",
+      "trace_id": ""
+    },
+    {
+      "time": "10:09:49.052",
+      "user": "eol-engine",
+      "action": "eol_session_finalized",
+      "target": "EOL-1E0EDEEC82C1",
+      "params": "{\"status\": \"PASSED\", \"failure_reason\": \"\", \"report_id\": \"9cfdce54\", \"safe_stop\": null}",
+      "result": "PASS",
+      "trace_id": ""
+    }
+  ]
+}

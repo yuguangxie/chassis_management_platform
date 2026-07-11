@@ -1,0 +1,92 @@
+{
+  "inspections": [
+    {
+      "route": "/overview",
+      "hash": "#/overview",
+      "title": "总览工作台生产下线全局状态与快捷入口自定义布局",
+      "failedToFetch": false,
+      "pageScrollable": false,
+      "canvases": 3
+    },
+    {
+      "route": "/network-config",
+      "hash": "#/network-config",
+      "title": "网络与 CAN 通道配置双通道通信参数、连接自检与控制通道配置使用说明",
+      "failedToFetch": false,
+      "pageScrollable": false,
+      "canvases": 2
+    },
+    {
+      "route": "/can-monitor",
+      "hash": "#/can-monitor",
+      "title": "CAN 报文监控",
+      "failedToFetch": false,
+      "pageScrollable": false,
+      "canvases": 3
+    },
+    {
+      "route": "/signal-dashboard",
+      "hash": "#/signal-dashboard",
+      "title": "信号仪表盘",
+      "failedToFetch": false,
+      "pageScrollable": false,
+      "canvases": 0
+    },
+    {
+      "route": "/realtime-curve",
+      "hash": "#/realtime-curve",
+      "title": "报文信号曲线实时与历史信号曲线、回放与快照加载历史会话添加信号",
+      "failedToFetch": false,
+      "pageScrollable": false,
+      "canvases": 7
+    },
+    {
+      "route": "/manual-control",
+      "hash": "#/manual-control",
+      "title": "手动下发控制基于 0x121 主控制报文的安全手动控制自定义布局",
+      "failedToFetch": false,
+      "pageScrollable": false,
+      "canvases": 2
+    },
+    {
+      "route": "/auto-test",
+      "hash": "#/auto-test",
+      "title": "一键检测标准下线流程执行，断言判定与报告生成自定义布局",
+      "failedToFetch": false,
+      "pageScrollable": false,
+      "canvases": 1
+    },
+    {
+      "route": "/alarm-diagnosis",
+      "hash": "#/alarm-diagnosis",
+      "title": "告警诊断",
+      "failedToFetch": false,
+      "pageScrollable": false,
+      "canvases": 2
+    },
+    {
+      "route": "/report-management",
+      "hash": "#/report-management",
+      "title": "报告管理",
+      "failedToFetch": false,
+      "pageScrollable": false,
+      "canvases": 3
+    },
+    {
+      "route": "/history",
+      "hash": "#/history",
+      "title": "历史记录与追溯",
+      "failedToFetch": false,
+      "pageScrollable": false,
+      "canvases": 2
+    },
+    {
+      "route": "/system-settings",
+      "hash": "#/system-settings",
+      "title": "系统设置",
+      "failedToFetch": false,
+      "pageScrollable": false,
+      "canvases": 1
+    }
+  ]
+}

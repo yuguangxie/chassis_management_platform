@@ -1,0 +1,38 @@
+﻿TEMP_CONFIG=configs/channels.dev.yaml
+BACKEND_READY=True
+SIGNALS_READY=True
+BACKEND_PID=8156
+SIMULATOR_PID=62284
+
+[
+    {
+        "channel":  "CAN1",
+        "online":  true,
+        "fps":  8.4,
+        "rx_count":  6,
+        "tx_count":  0,
+        "error_count":  0,
+        "last_frame_at":  1783653747.3760638,
+        "last_frame_hex":  "01 00 00 00 00 00 00 00",
+        "protocol":  "udp",
+        "local_ip":  "127.0.0.1",
+        "local_port":  8234,
+        "device_ip":  "127.0.0.1",
+        "device_port":  12341
+    },
+    {
+        "channel":  "CAN2",
+        "online":  true,
+        "fps":  18.2,
+        "rx_count":  13,
+        "tx_count":  0,
+        "error_count":  0,
+        "last_frame_at":  1783653747.380466,
+        "last_frame_hex":  "00 00 00 00 00 00 00 00",
+        "protocol":  "udp",
+        "local_ip":  "127.0.0.1",
+        "local_port":  8235,
+        "device_ip":  "127.0.0.1",
+        "device_port":  12342
+    }
+]

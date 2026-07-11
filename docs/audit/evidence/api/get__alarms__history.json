@@ -1,0 +1,76 @@
+{
+  "url": "http://127.0.0.1:8800/api/v1/alarms/history",
+  "method": "GET",
+  "status": 200,
+  "headers": {
+    "date": "Fri, 10 Jul 2026 03:01:29 GMT",
+    "server": "uvicorn",
+    "content-length": "1317",
+    "content-type": "application/json",
+    "connection": "close"
+  },
+  "body": [
+    {
+      "id": "ALM-001",
+      "time": "2026-04-01 10:15:22.123",
+      "channel": "CAN1",
+      "can_id": "0x77",
+      "signal": "MCU掉线",
+      "level": "1 (Warning)",
+      "status": "恢复 (10:15:25.187)",
+      "suggestion": "检查 CAN1 与 MCU 供电/心跳",
+      "related_step": "步骤: 02-CAN通信自检",
+      "released": false
+    },
+    {
+      "id": "ALM-002",
+      "time": "2026-04-01 10:12:47.663",
+      "channel": "CAN1",
+      "can_id": "0x77",
+      "signal": "BMS_SOC",
+      "level": "1 (Warning)",
+      "status": "恢复 (10:12:55.021)",
+      "suggestion": "确认 SOC 来源与有效区间",
+      "related_step": "步骤: 03-BMS检查",
+      "released": false
+    },
+    {
+      "id": "ALM-003",
+      "time": "2026-04-01 10:08:31.558",
+      "channel": "CAN1",
+      "can_id": "0x77",
+      "signal": "超速",
+      "level": "2 (Fault)",
+      "status": "恢复 (10:08:33.914)",
+      "suggestion": "校验速度传感器与限速参数",
+      "related_step": "步骤: 04-速度校验",
+      "released": false
+    },
+    {
+      "id": "ALM-004",
+      "time": "2026-04-01 09:58:13.447",
+      "channel": "CAN1",
+      "can_id": "0x102",
+      "signal": "过温",
+      "level": "1 (Warning)",
+      "status": "恢复 (09:58:20.301)",
+      "suggestion": "检查电池温度传感器与散热",
+      "related_step": "步骤: 05-BMS保护",
+      "released": false
+    },
+    {
+      "id": "ALM-005",
+      "time": "2026-04-01 09:36:58.912",
+      "channel": "CAN1",
+      "can_id": "0x102",
+      "signal": "欠压",
+      "level": "2 (Fault)",
+      "status": "恢复 (09:37:05.772)",
+      "suggestion": "检查电池电压与预充状态",
+      "related_step": "步骤: 05-BMS保护",
+      "released": false
+    }
+  ],
+  "started_at": "2026-07-10T11:01:30.122159+08:00",
+  "finished_at": "2026-07-10T11:01:30.123485+08:00"
+}

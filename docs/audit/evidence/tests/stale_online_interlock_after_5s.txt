@@ -1,0 +1,36 @@
+﻿SIMULATOR_STOPPED_SECONDS_AGO=5
+CHANNELS=
+[
+    {
+        "channel":  "CAN1",
+        "online":  false,
+        "fps":  38.8,
+        "rx_count":  103296,
+        "tx_count":  0,
+        "error_count":  0,
+        "last_frame_at":  1783656406.814911,
+        "last_frame_hex":  "01 00 00 00 00 00 00 00",
+        "protocol":  "udp",
+        "local_ip":  "127.0.0.1",
+        "local_port":  8234,
+        "device_ip":  "127.0.0.1",
+        "device_port":  12341
+    },
+    {
+        "channel":  "CAN2",
+        "online":  true,
+        "fps":  68.4,
+        "rx_count":  182251,
+        "tx_count":  10,
+        "error_count":  0,
+        "last_frame_at":  1783656409.6866853,
+        "last_frame_hex":  "00 00 00 00 00 00 00 00",
+        "protocol":  "udp",
+        "local_ip":  "127.0.0.1",
+        "local_port":  8235,
+        "device_ip":  "127.0.0.1",
+        "device_port":  12342
+    }
+]
+HTTP_STATUS=200
+RESPONSE={"sent":true,"frame":{"timestamp_ns":1783656409749625200,"channel":"CAN2","direction":"tx","can_id":289,"can_id_hex":"0x121","is_extended":false,"is_remote":false,"dlc":8,"data":[128,0,0,0,2,0,0,4],"data_hex":"80 00 00 00 02 00 00 04","raw_packet_hex":"08 00 00 01 21 80 00 00 00 02 00 00 04","message_name":"SCU_Control_Command","parse_status":"ok","source":"backend"},"periodic":false}

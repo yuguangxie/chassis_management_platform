@@ -1,0 +1,23 @@
+{
+  "request": {
+    "method": "POST",
+    "path": "/reports/9e11e88e-pdf/export-pdf",
+    "body": {}
+  },
+  "status_code": 200,
+  "trace_id": "0b2e4198569b4ea8935b6b340bd86b7d",
+  "body": {
+    "ok": true,
+    "message": "PDF 报告已准备下载",
+    "trace_id": "0b2e4198569b4ea8935b6b340bd86b7d",
+    "data_source": "sqlite+filesystem",
+    "mock": false,
+    "details": {
+      "report_id": "9e11e88e-pdf",
+      "file_name": "20260710_100912_PH3-NORMAL-001_000001_PASS_EOL-0B96CC1113B6_9e11e88e.pdf",
+      "file_size_bytes": 55075,
+      "sha256": "e2700eb7095f6dfc0536262cb46a2032ea2449a3df446439586ea6042806a171",
+      "download_url": "/reports/9e11e88e-pdf/file"
+    }
+  }
+}

@@ -1,0 +1,141 @@
+{
+  "profile": "brake_fail",
+  "session_id": "EOL-6D1ADDA4B3F6",
+  "expected": {
+    "status": "FAILED",
+    "failure_step": "brake_stop_check",
+    "step_count": 10
+  },
+  "actual": {
+    "status": "FAILED",
+    "result": "FAIL",
+    "failure_step": "brake_stop_check",
+    "step_count": 10,
+    "step_results": [
+      {
+        "id": "power_on_self_check",
+        "result": "PASS"
+      },
+      {
+        "id": "can_communication_check",
+        "result": "PASS"
+      },
+      {
+        "id": "bms_check",
+        "result": "PASS"
+      },
+      {
+        "id": "vcu_status_check",
+        "result": "PASS"
+      },
+      {
+        "id": "motor_heartbeat_check",
+        "result": "PASS"
+      },
+      {
+        "id": "shift_check",
+        "result": "PASS"
+      },
+      {
+        "id": "low_speed_drive_check",
+        "result": "PASS"
+      },
+      {
+        "id": "steering_check",
+        "result": "PASS"
+      },
+      {
+        "id": "light_check",
+        "result": "PASS"
+      },
+      {
+        "id": "brake_stop_check",
+        "result": "FAIL"
+      }
+    ],
+    "failure_reason": "assertion brake_feedback_active failed: measured=[False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False], expected=True, quality=good",
+    "safe_stop": {
+      "ok": false,
+      "code": "SAFE_STOP_TIMEOUT",
+      "message": "停车反馈超时，停车锁存保持",
+      "attempts": 84,
+      "latched": true,
+      "emergency_stop": false,
+      "alarm": {
+        "id": "control_safe_stop_timeout",
+        "level": 3,
+        "label": "SAFE_STOP_TIMEOUT",
+        "description": "停车反馈超时，停车锁存保持",
+        "status": "active",
+        "acked": false
+      }
+    },
+    "report_id": "6e69592e"
+  },
+  "channels_at_start": [
+    {
+      "channel": "CAN1",
+      "online": true,
+      "transport_connected": true,
+      "receive_age_ms": 28.7,
+      "queue_healthy": true,
+      "queue_depth": 0,
+      "queue_capacity": 512,
+      "queue_dropped": 0,
+      "stale_dropped": 0,
+      "malformed_datagrams": 0,
+      "processing_errors": 0,
+      "fps": 12.0,
+      "rx_count": 12,
+      "tx_count": 0,
+      "error_count": 0,
+      "last_frame_at": 1783667702.4801219,
+      "last_frame_hex": "01 00 00 00 00 00 00 00",
+      "protocol": "udp",
+      "local_ip": "127.0.0.1",
+      "local_port": 8234,
+      "device_ip": "127.0.0.1",
+      "device_port": 12341
+    },
+    {
+      "channel": "CAN2",
+      "online": true,
+      "transport_connected": true,
+      "receive_age_ms": 26.8,
+      "queue_healthy": true,
+      "queue_depth": 0,
+      "queue_capacity": 512,
+      "queue_dropped": 0,
+      "stale_dropped": 0,
+      "malformed_datagrams": 0,
+      "processing_errors": 0,
+      "fps": 26.0,
+      "rx_count": 26,
+      "tx_count": 0,
+      "error_count": 0,
+      "last_frame_at": 1783667702.4820774,
+      "last_frame_hex": "00 00 00 00 00 00 00 00",
+      "protocol": "udp",
+      "local_ip": "127.0.0.1",
+      "local_port": 8235,
+      "device_ip": "127.0.0.1",
+      "device_port": 12342
+    }
+  ],
+  "database_counts": {
+    "test_sessions": 1,
+    "test_steps": 10,
+    "test_assertions": 22,
+    "raw_can_frames": 7286,
+    "decoded_signals": 59870,
+    "signal_statistics": 19,
+    "alarms": 1,
+    "reports": 4,
+    "operator_actions": 3,
+    "software_versions": 49
+  },
+  "persistence_ok": true,
+  "pause_resume": null,
+  "concurrency": null,
+  "passed": true
+}

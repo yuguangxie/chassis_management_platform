@@ -1,0 +1,142 @@
+{
+  "profile": "warning_fault",
+  "session_id": "EOL-86F03F34C141",
+  "expected": {
+    "status": "FAILED",
+    "failure_step": "alarm_recheck",
+    "step_count": 11
+  },
+  "actual": {
+    "status": "FAILED",
+    "result": "FAIL",
+    "failure_step": "alarm_recheck",
+    "step_count": 11,
+    "step_results": [
+      {
+        "id": "power_on_self_check",
+        "result": "PASS"
+      },
+      {
+        "id": "can_communication_check",
+        "result": "PASS"
+      },
+      {
+        "id": "bms_check",
+        "result": "PASS"
+      },
+      {
+        "id": "vcu_status_check",
+        "result": "PASS"
+      },
+      {
+        "id": "motor_heartbeat_check",
+        "result": "PASS"
+      },
+      {
+        "id": "shift_check",
+        "result": "SKIPPED"
+      },
+      {
+        "id": "low_speed_drive_check",
+        "result": "SKIPPED"
+      },
+      {
+        "id": "steering_check",
+        "result": "SKIPPED"
+      },
+      {
+        "id": "light_check",
+        "result": "SKIPPED"
+      },
+      {
+        "id": "brake_stop_check",
+        "result": "SKIPPED"
+      },
+      {
+        "id": "alarm_recheck",
+        "result": "FAIL"
+      }
+    ],
+    "failure_reason": "assertion warning_level_zero failed: measured=3, expected=0, quality=good",
+    "safe_stop": {
+      "ok": true,
+      "code": "STOP_CONFIRMED",
+      "message": "已通过零速与制动反馈确认停车",
+      "attempts": 3,
+      "feedback": {
+        "speed_kmh": 0.0,
+        "brake": true,
+        "stopped": true
+      },
+      "latched": true,
+      "emergency_stop": false
+    },
+    "report_id": "79deabb1"
+  },
+  "channels_at_start": [
+    {
+      "channel": "CAN1",
+      "online": true,
+      "transport_connected": true,
+      "receive_age_ms": 40.3,
+      "queue_healthy": true,
+      "queue_depth": 0,
+      "queue_capacity": 512,
+      "queue_dropped": 0,
+      "stale_dropped": 0,
+      "malformed_datagrams": 0,
+      "processing_errors": 0,
+      "fps": 12.0,
+      "rx_count": 12,
+      "tx_count": 0,
+      "error_count": 0,
+      "last_frame_at": 1783668070.1773534,
+      "last_frame_hex": "01 00 00 00 00 00 00 00",
+      "protocol": "udp",
+      "local_ip": "127.0.0.1",
+      "local_port": 8234,
+      "device_ip": "127.0.0.1",
+      "device_port": 12341
+    },
+    {
+      "channel": "CAN2",
+      "online": true,
+      "transport_connected": true,
+      "receive_age_ms": 38.2,
+      "queue_healthy": true,
+      "queue_depth": 0,
+      "queue_capacity": 512,
+      "queue_dropped": 0,
+      "stale_dropped": 0,
+      "malformed_datagrams": 0,
+      "processing_errors": 0,
+      "fps": 26.0,
+      "rx_count": 26,
+      "tx_count": 0,
+      "error_count": 0,
+      "last_frame_at": 1783668070.1795163,
+      "last_frame_hex": "00 00 00 00 00 00 00 00",
+      "protocol": "udp",
+      "local_ip": "127.0.0.1",
+      "local_port": 8235,
+      "device_ip": "127.0.0.1",
+      "device_port": 12342
+    }
+  ],
+  "database_counts": {
+    "test_sessions": 1,
+    "test_steps": 11,
+    "test_assertions": 16,
+    "raw_can_frames": 434,
+    "decoded_signals": 3378,
+    "signal_statistics": 19,
+    "alarms": 2,
+    "reports": 4,
+    "operator_actions": 3,
+    "software_versions": 49
+  },
+  "persistence_ok": true,
+  "pause_resume": null,
+  "concurrency": null,
+  "passed": true
+}

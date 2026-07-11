@@ -1,0 +1,6 @@
+# Audit and verification files preserve captured command output verbatim.
+assets/*.dbc -whitespace
+docs/audit/evidence/** -whitespace
+docs/verification/** -whitespace
+docs/AUDIT_REPORT.md -whitespace
+scripts/generate_audit_report.py -whitespace

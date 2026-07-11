@@ -1,0 +1,25 @@
+{
+  "url": "http://127.0.0.1:8800/api/v1/control/status",
+  "method": "GET",
+  "status": 200,
+  "headers": {
+    "date": "Fri, 10 Jul 2026 03:01:29 GMT",
+    "server": "uvicorn",
+    "content-length": "223",
+    "content-type": "application/json",
+    "connection": "close"
+  },
+  "body": {
+    "can_send_allowed": true,
+    "control_message": "0x121",
+    "period_ms": 20,
+    "control_channel": "CAN2",
+    "periodic_running": false,
+    "last_tx_time": "2026-04-01 10:26:35.250",
+    "tx_fail_count": 0,
+    "emergency_stop": false,
+    "safe_stop_active": false
+  },
+  "started_at": "2026-07-10T11:01:30.096076+08:00",
+  "finished_at": "2026-07-10T11:01:30.110254+08:00"
+}

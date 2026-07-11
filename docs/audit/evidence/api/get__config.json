@@ -1,0 +1,50 @@
+{
+  "url": "http://127.0.0.1:8800/api/v1/config",
+  "method": "GET",
+  "status": 200,
+  "headers": {
+    "date": "Fri, 10 Jul 2026 03:01:29 GMT",
+    "server": "uvicorn",
+    "content-length": "671",
+    "content-type": "application/json",
+    "connection": "close"
+  },
+  "body": {
+    "host": "127.0.0.1",
+    "port": 8800,
+    "station_id": "EOL-STATION-01",
+    "operator": "op01",
+    "software_version": "v1.0.2",
+    "control_channel": "CAN2",
+    "channels": [
+      {
+        "channel": "CAN1",
+        "protocol": "udp",
+        "local_ip": "[REDACTED_STATION_HOST]",
+        "local_receive_port": 8234,
+        "device_ip": "[REDACTED_CAN1_GATEWAY]",
+        "device_port": 1234,
+        "simulated_device_port": null,
+        "enabled": true,
+        "control_enabled": false
+      },
+      {
+        "channel": "CAN2",
+        "protocol": "udp",
+        "local_ip": "[REDACTED_STATION_HOST]",
+        "local_receive_port": 8235,
+        "device_ip": "[REDACTED_CAN2_GATEWAY]",
+        "device_port": 1234,
+        "simulated_device_port": null,
+        "enabled": true,
+        "control_enabled": false
+      }
+    ],
+    "manual_speed_limit_kmh": 3.0,
+    "steering_limit_default": 60,
+    "steering_limit_absolute": 120,
+    "require_dbc_for_control": false
+  },
+  "started_at": "2026-07-10T11:01:30.009318+08:00",
+  "finished_at": "2026-07-10T11:01:30.010656+08:00"
+}

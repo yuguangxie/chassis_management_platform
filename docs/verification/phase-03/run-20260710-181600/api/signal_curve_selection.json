@@ -1,0 +1,24 @@
+{
+  "request": {
+    "method": "PUT",
+    "path": "/signals/curve-selection",
+    "body": {
+      "signals": [
+        "Vehicle_Speed",
+        "BMS_Total_Voltage"
+      ]
+    }
+  },
+  "status_code": 200,
+  "trace_id": "f0d3fa7957f04cab8b1bad96313bd552",
+  "body": {
+    "ok": true,
+    "message": "曲线信号选择已保存",
+    "trace_id": "f0d3fa7957f04cab8b1bad96313bd552",
+    "data_source": "service",
+    "mock": false,
+    "details": {
+      "count": 2
+    }
+  }
+}

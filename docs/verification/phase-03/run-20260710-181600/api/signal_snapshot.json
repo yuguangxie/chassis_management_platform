@@ -1,0 +1,22 @@
+{
+  "request": {
+    "method": "POST",
+    "path": "/signals/snapshot",
+    "body": {}
+  },
+  "status_code": 200,
+  "trace_id": "d578b0d0e830430eaedb2228d14d8baa",
+  "body": {
+    "ok": true,
+    "message": "信号快照已保存",
+    "trace_id": "d578b0d0e830430eaedb2228d14d8baa",
+    "data_source": "service",
+    "mock": false,
+    "details": {
+      "file_name": "signal_snapshot_20260710_180951_310458.json",
+      "file_size_bytes": 249943,
+      "sha256": "2dfe92cc6c4c62d9c3d4b40c8b36de23e210ca7f727915711046b5976010e4ac",
+      "download_url": "/signals/exports/signal_snapshot_20260710_180951_310458.json"
+    }
+  }
+}

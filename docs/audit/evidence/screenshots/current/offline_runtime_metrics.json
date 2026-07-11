@@ -1,0 +1,67 @@
+[
+  {
+    "route": "overview",
+    "file": "offline_01_overview_1920x1080.png",
+    "bodyScrollHeight": 1080,
+    "docScrollHeight": 1080,
+    "hasFailedFetch": false,
+    "hasOffline": true,
+    "href": "http://127.0.0.1:5173/#/overview",
+    "innerHeight": 1080,
+    "innerWidth": 1920,
+    "text": "低速无人车线控底盘\n生产下线管理平台\n总览\n网络配置\nCAN监控\n信号仪表盘\n实时曲线\n手动控制\n一键检测\n告警诊断\n报告管理\n历史记录\n系统设置\n收起侧栏\n低速无人车线控底盘生产下线管理平台\n-\n□\n×\n工位\nEOL-STATION-01\n用户\nop01\n软件版本\nv1.0.2\nDBC版本\nYunle_CAN_Integrated_CANdb\n数据库\nSQLite 正常\n控制通道\nCAN2\nCAN1\noffline\nCAN2\noffline\n急停\n未触发\n最高告警\n0 Normal\n当前时间\n2026-07-10 12:16:41\nMock\n关闭\n总览工作台\n\n生产下线全局状态与快捷入口\n\n后端离线 · Mock展示\n自定义布局\n今日检测数\n18\nPASS率\n94.4%\nFAIL数\n1\n平均检测时长\n08:42\n当前软件版本\nv1.0.2\nCAN状态\nCAN1\nonline\n本地：\n[REDACTED_STATION_HOST]:8234\n设备：\n[REDACTED_CAN1_GATEWAY]:1234\n协议：\nUDP\n帧率：\n820 fps\n错误帧：\n0\n最后报文：\n12 ms\nCAN2\nonline\n本地：\n[REDACTED_STATION_HOST]:8235\n设备：\n[REDACTED_CAN2_GATEWAY]:1234\n协议：\nUDP\n帧率：\n610 fps\n错误帧：\n0\n最后报文：\n10 ms\n当前车辆 / 当前检测\n底盘编号：\nYL-JD-001\nVIN：\nL0000000000000001\n序列号：\nSN-20260401-001\n检测方案：\n标准下线方案 V1\n操作员：\nop01\n当前步骤：\nBMS检测\n会话：\nEOL-20260401-0001\n告警摘要\n最高告警(0x77)\n0 Normal\nBMS保护状态\n全部未触发\n急停状态\n未触发\n过压保护\n正常\n欠压保护\n正常\n过流保护\n正常\n过温保护\n正常\n绝缘故障\n正常\n预充超时\n正常\n继电器粘连\n正常\nSOC过低\n正常\n新建检测\n创建新的下线检测会话\n继续上次会话\n恢复当前车辆检测流程\n打开报告目录\n刷新并查看报告文件\n进入安全停车\n发送安全停车控制\n进入CAN监控\n查看原始帧与解码信号\n进入手动控制\n受控发送 0x121 指令\n今日结果统计\nPASS\n17 (94.4%)\nFAIL\n1 (5.6%)\nRUNNING\n0 (0.0%)\n中止\n0 (0.0%)\n小时产能（台）\n今日产量：18 台\n帧率趋势（最近30分钟）\n单位 fps\n最近会话\n查看更多 >\nSession ID\t底盘编号\tVIN\t开始时间\t结束时间\t结果\t操作员\t报告\nEOL-20260401-0001\tYL-JD-001\tL0000000000000001\t2026-04-01 10:15:22\t—\tRUNNING\top01\t—\nEOL-20260401-0000\tYL-JD-000\tL0000000000000000\t2026-04-01 09:58:13\t2026-04-01 10:12:47\tPASS\top01\t\n\nEOL-20260401-000-1\tYL-JD-099\tL0000000000000099\t2026-04-01 09:12:20\t2026-04-01 09:28:03\tPASS\top01\t\n\nEOL-20260401-000-2\tYL-JD-098\tL0000000000000098\t2026-04-01 08:41:09\t2026-04-01 08:57:50\tFAIL\top02\t",
+    "title": ""
+  },
+  {
+    "route": "network-config",
+    "file": "offline_02_network_config_1920x1080.png",
+    "bodyScrollHeight": 1080,
+    "docScrollHeight": 1080,
+    "hasFailedFetch": false,
+    "hasOffline": true,
+    "href": "http://127.0.0.1:5173/#/network-config",
+    "innerHeight": 1080,
+    "innerWidth": 1920,
+    "text": "低速无人车线控底盘\n生产下线管理平台\n总览\n网络配置\nCAN监控\n信号仪表盘\n实时曲线\n手动控制\n一键检测\n告警诊断\n报告管理\n历史记录\n系统设置\n收起侧栏\n低速无人车线控底盘生产下线管理平台\n-\n□\n×\n工位\nEOL-STATION-01\n用户\nop01\n软件版本\nv1.0.2\nDBC版本\nYunle_CAN_Integrated_CANdb\n数据库\nSQLite 正常\n控制通道\nCAN2\nCAN1\noffline\nCAN2\noffline\n急停\n未触发\n最高告警\n0 Normal\n当前时间\n2026-07-10 12:16:44\nMock\n关闭\n网络与 CAN 通道配置\n\n双通道通信参数、连接自检与控制通道配置\n\nMock/离线数据\n使用说明\n本机网络\n工控机 IP\n[REDACTED_STATION_HOST]\n选中网卡\nIntel(R) I210 Gigabit Network Connection\n子网掩码\n255.255.255.0\n链路速率\n1000 Mbps（全双工）\n端口占用检测\n8234 UDP\n空闲\n8235 UDP\n空闲\nCAN1 配置（通道1）\n协议选择\nUDP\nTCP\n本地IP\n[REDACTED_STATION_HOST]\n本地端口\n8234\n设备IP\n[REDACTED_CAN1_GATEWAY]\n设备端口\n1234\n发送允许\n接收状态\nactive\n发送周期\n20\nms\n控制权限\ndisabled\nCAN2 配置（通道2）\n协议选择\nUDP\nTCP\n本地IP\n[REDACTED_STATION_HOST]\n本地端口\n8235\n设备IP\n[REDACTED_CAN2_GATEWAY]\n设备端口\n1234\n发送允许\n接收状态\nactive\n发送周期\n20\nms\n默认控制通道\nenabled\n连接诊断与自检\nPing 延迟（设备IP）\n0.92 ms\nUDP 回环测试（本地）\n通过\n13字节协议合法率\n99.96 %\nDLC 校验\n通过\n保留位校验\n通过\n粘包/半包统计（1分钟）\n0 / 0\n最近错误\n无\n重新检测\n通道配置总览\n通道\t协议\t本地IP\t本地端口\t设备IP\t设备端口\t控制通道\t发送周期\t状态\nCAN1\tUDP\t[REDACTED_STATION_HOST]\t8234\t[REDACTED_CAN1_GATEWAY]\t1234\t否\t20 ms\t\nactive\nCAN2\tUDP\t[REDACTED_STATION_HOST]\t8235\t[REDACTED_CAN2_GATEWAY]\t1234\t是（默认）\t20 ms\t\nactive\n说明：系统默认使用 UDP 协议进行通信，界面保留 TCP 选项以兼容特殊场景需求。\n各通道帧率（fps）趋势\n最近1分钟\n错误帧累计（个）\n最近1分钟\n保存配置\n保存当前配置到系统\n测试连接\n执行连接自检与诊断\n启动CAN1\n启动通道1通信\n启动CAN2\n启动通道2通信\n停止全部\n停止所有通道通信\n恢复默认\n恢复默认配置",
+    "title": ""
+  },
+  {
+    "route": "manual-control",
+    "file": "offline_06_manual_control_1920x1080.png",
+    "bodyScrollHeight": 1080,
+    "docScrollHeight": 1080,
+    "hasFailedFetch": false,
+    "hasOffline": true,
+    "href": "http://127.0.0.1:5173/#/manual-control",
+    "innerHeight": 1080,
+    "innerWidth": 1920,
+    "text": "低速无人车线控底盘\n生产下线管理平台\n总览\n网络配置\nCAN监控\n信号仪表盘\n实时曲线\n手动控制\n一键检测\n告警诊断\n报告管理\n历史记录\n系统设置\n收起侧栏\n低速无人车线控底盘生产下线管理平台\n-\n□\n×\n工位\nEOL-STATION-01\n用户\nop01\n软件版本\nv1.0.2\nDBC版本\nYunle_CAN_Integrated_CANdb\n数据库\nSQLite 正常\n控制通道\nCAN2\nCAN1\noffline\nCAN2\noffline\n急停\n未触发\n最高告警\n0 Normal\n当前时间\n2026-07-10 12:16:46\nMock\n关闭\n手动下发控制\n\n基于 0x121 主控制报文的安全手动控制\n\n后端离线，当前使用 Mock 控制数据\n自定义布局\n1. 安全互锁状态\n关键报文在线\n在线\n无严重告警\n正常\n速度上限\n正常\n≤ 8.0 km/h\n转角限幅\n正常\n≤ ±120°\n急停\n未触发\n看门狗\nOK (120 ms)\n控制通道\n警告\nCAN2 延时 18ms\n控制状态\n允许发送\n2. 0x121 主控制报文（输入控制）\n档位请求\nD\nN\nR\n驱动模式\nManual\nRemote\nAuto\n目标速度\nkm/h\n范围：0.0 ~ 8.0\n前转角\n-120\n+120\n°\n范围：-120 ~ +120\n后转角\n-120\n+120\n°\n范围：-120 ~ +120\n制动使能\n使能\n灯光控制\n左转灯\n关\n右转灯\n关\n位置灯\n开\n近光灯\n开\n控制模式\n速度模式\n电流模式\n3. 发送状态\n当前主控制报文\n0x121\n发送周期\n20 ms\n控制通道\nCAN2\n最后发送时间\n2026-04-01 10:26:35.250\n周期发送状态\n发送中\n失败次数\n0\n4. 0x121 报文预览（当前待发）\nByte\tByte0\tByte1\tByte2\tByte3\tByte4\tByte5\tByte6\tByte7\nHex\t01\t08\t00\t0C\t00\t00\t00\t00\nDec\t1\t8\t0\t12\t0\t0\t0\t0\n字段说明（部分）\n\n• Byte0 (Gear)：档位请求，0x01 = D\n\n• Byte1 (TargetSpeed)：目标速度，0x08 = 8 × 0.25 = 2.0 km/h\n\n• Byte2 (FrontSteer)：前转角，0x0C = 12（int8，有符号补码）= +12°\n\n• Byte3 (RearSteer)：后转角，0x00 = 0（int8，有符号补码）= 0°\n\n注意：SCU_Steering_Angle_Front / SCU_Steering_Angle_Rear 为 int8 有符号（补码）格式，不可按 DBC 原始 unsigned 直接发送。\n5. 实时反馈（当前状态）\n当前档位\nD\n车辆速度\n2.0 km/h\n前转角反馈\n+11°\n后转角反馈\n0°\n四轮轮速（FL / FR / RL / RR）\n2.1 / 2.0 / 2.0 / 2.1 km/h\n灯光反馈\n位置灯, 近光灯\n制动状态\n未制动\n告警状态\n无告警\n6. 速度命令 vs 速度反馈\n7. 转角命令 vs 转角反馈\n8. 操作控制\n发送一次立即发送 0x121\n开始周期发送按设定周期持续发送\n停止周期发送停止发送 0x121\n安全停车下发停车指令并制动\n急停立即下发急停指令\n解除急停确认需二次确认解除急停\n恢复默认控制值清空输入并恢复默认\n安全提示：请确保车辆处于安全环境，确认周围无人、无障碍物后再进行手动控制操作。手动控制仅限调试/测试用途，严禁在公共道路或非封闭区域使用。",
+    "title": ""
+  },
+  {
+    "route": "auto-test",
+    "file": "offline_07_auto_test_1920x1080.png",
+    "bodyScrollHeight": 1080,
+    "docScrollHeight": 1080,
+    "hasFailedFetch": false,
+    "hasOffline": true,
+    "href": "http://127.0.0.1:5173/#/auto-test",
+    "innerHeight": 1080,
+    "innerWidth": 1920,
+    "text": "低速无人车线控底盘\n生产下线管理平台\n总览\n网络配置\nCAN监控\n信号仪表盘\n实时曲线\n手动控制\n一键检测\n告警诊断\n报告管理\n历史记录\n系统设置\n收起侧栏\n低速无人车线控底盘生产下线管理平台\n-\n□\n×\n工位\nEOL-STATION-01\n用户\nop01\n软件版本\nv1.0.2\nDBC版本\nYunle_CAN_Integrated_CANdb\n数据库\nSQLite 正常\n控制通道\nCAN2\nCAN1\noffline\nCAN2\noffline\n急停\n未触发\n最高告警\n0 Normal\n当前时间\n2026-07-10 12:16:49\nMock\n关闭\n一键检测\n\n标准下线流程执行，断言判定与报告生成\n\n后端离线，当前使用 Mock 检测数据\n自定义布局\n检测信息\n底盘编号\nYL-JD-001\nVIN\nL0000000000000001\n序列号\nSN-20260401-001\n操作员\nop01\n工位号\nEOL-STATION-01\n检测方案\n标准下线方案 V1\n备注\n整体结果\nRUNNING\n已用时间\n00:05:32\n预计剩余\n00:17:48\n已完成\n2 / 12\n通过\n2\n失败\n0\n待执行\n10\n上电自检\nPASS\nCAN通信检测\nPASS\n3\nBMS检测\nRUNNING\n4\nVCU状态检测\nWAIT\n5\n电机心跳检测\nWAIT\n6\n档位检测\nWAIT\n7\n低速驱动检测\nWAIT\n8\n转向检测\nWAIT\n9\n灯光检测\nWAIT\n10\n制动停止检测\nWAIT\n11\n告警复查\nWAIT\n12\n报告生成\nWAIT\n当前步骤 3 / 12\n已用时间 00:05:32\n预计剩余 00:17:48\n步骤详情（当前步骤：BMS检测）\n步骤描述\n\n读取BMS关键状态，校验电池总压、SOC、温度等参数，并确认无保护告警。\n\n执行指令（CAN）\n0x7DF → 0x102：22 01 00\n周期：500ms\n超时：2000ms\n实时测量值\nBMS总压\n329.6 V\nSOC\n56.8 %\n电池温度(均值)\n28.6 °C\n电池电流\n-1.2 A\n单体最高温\n31.2 °C\n单体最低温\n26.1 °C\n保护状态(0x102)\n未触发\n检测断言\n断言\t阈值\t测量值\t结果\nBMS总压 在范围内\t280 ~ 360 V\t329.6 V\tPASS\nSOC >= 30%\t>= 30%\t56.8%\tPASS\n电池温度 在范围内\t-10 ~ 60°C\t28.6°C\tPASS\n0x102 保护未触发\t未触发\t未触发\tPASS\n实时曲线（关键指标）\n当前步骤断言列表\n描述\t信号\t阈值\t测量值\t结果\t失败原因\nBMS总压 在范围内\tBMS_TotVolt\t280 ~ 360 V\t329.6 V\tPASS\t-\nSOC >= 30%\tBMS_SOC\t>= 30%\t56.8%\tPASS\t-\n电池温度 在范围内\tBMS_Temp_Avg\t-10 ~ 60°C\t28.6°C\tPASS\t-\n0x102 保护未触发\tBMS_ProtState\t未触发\t未触发\tPASS\t-\n步骤日志\n时间\t步骤\t动作\tCAN命令\t反馈\t状态\n10:20:58\t1 上电自检\t发送上电检测请求\t0x7DF 22 01 00\t0x7E8 62 01 00\tPASS\n10:21:15\t1 上电自检\t读取VCU版本\t0x7DF 22 F1 90\t0x7E8 62 F1 90\tPASS\n10:21:33\t1 上电自检\t读取BMS版本\t0x7DF 22 F1 91\t0x7E8 62 F1 91\tPASS\n10:22:05\t2 CAN通信检测\t周期连通性检测\t0x7DF 3E 00\t0x7E8 7E 00\tPASS\n10:22:47\t2 CAN通信检测\t多节点心跳检测\t---\t---\tPASS\n10:23:03\t3 BMS检测\t读取BMS关键状态\t0x7DF 22 01 00\t0x7E8 62 01 00\tRUNNING\n关键统计（已完成步骤）\n通过率\n100%\n\n通过\n2 (100.0%)\n\n失败\n0 (0.0%)\n\n待执行\n10 (0.0%)\n\n总耗时\n00:05:32\n平均每步耗时\n00:02:46\n开始检测\n暂停\n继续\n中止\n急停\n生成报告\n查看关联日志",
+    "title": ""
+  },
+  {
+    "route": "system-settings",
+    "file": "offline_11_system_settings_1920x1080.png",
+    "bodyScrollHeight": 1080,
+    "docScrollHeight": 1080,
+    "hasFailedFetch": false,
+    "hasOffline": true,
+    "href": "http://127.0.0.1:5173/#/system-settings",
+    "innerHeight": 1080,
+    "innerWidth": 1920,
+    "text": "低速无人车线控底盘\n生产下线管理平台\n总览\n网络配置\nCAN监控\n信号仪表盘\n实时曲线\n手动控制\n一键检测\n告警诊断\n报告管理\n历史记录\n系统设置\n收起侧栏\n低速无人车线控底盘生产下线管理平台\n-\n□\n×\n工位\nEOL-STATION-01\n用户\nop01\n软件版本\nv1.0.2\nDBC版本\nYunle_CAN_Integrated_CANdb\n数据库\nSQLite 正常\n控制通道\nCAN2\nCAN1\noffline\nCAN2\noffline\n急停\n未触发\n最高告警\n0 Normal\n当前时间\n2026-07-10 12:16:52\nMock\n关闭\n系统设置\n\n阈值、存储、DBC、权限、Mock 与维护模式\n\n后端离线，当前使用 Mock 系统配置\n配置已保存\n导入配置\n导出配置\n保存设置\n1\n基础设置\n工位号\n工控机 IP\n默认控制通道\nCAN1\nCAN2\n时区\nUTC+08:00\nUTC+00:00\n默认报告目录\nSQLite 数据库路径\n日志根目录\n默认语言\n简体中文\nEnglish\n自动保存配置\n自动保存配置\n2\nDBC 管理\n当前文件\nYunle_CAN_integrated_candb_jd.dbc\n版本 / Hash\nRelease v1.0.2 · 9f31c2b7\n加载状态\n已加载\n报文 / 信号\n48 / 312\n最近加载\n2026-04-01 10:20:12\n0x121 前/后转角\nint8 有符号补码\n0x102 保护状态\nunsigned bool\n0x101 充放电状态\n0 idle / 1 charging / 2 discharging / 3 reserved\nTorque_req / Torque_feed\n电机相电流 raw × 0.1 A，不是 Nm\n0x104~0x109\nBMS cell 分段兼容，非固定 24 串\n选择 DBC\n重载 DBC\n覆盖规则\n报文列表\n3\n报告与存储\n报告目录\n原始 CAN 日志\n解码信号日志\n保留天数\n天\n最大日志\nGB\n自动清理\nWord\nPDF\nCSV\nParquet\n磁盘使用 236 / 512 GB\n46.1%\n剩余 276 GB · 目录切换可能需要迁移数据或重启服务\n4\n阈值设置\n23 项 · 单击数值编辑\n配置项\t当前值\t允许范围\t单位\t作用域\t说明\t状态\n0x121 发送周期\t\t10 ~ 100\tms\tCAN/控制\t默认主控制发送周期\t\n正常\nCAN 周期容差\t\t5 ~ 50\t%\tCAN/诊断\t周期抖动允许比例\t\n正常\n报文超时倍数\t\t1 ~ 10\t倍\tCAN/诊断\t期望周期的超时倍数\t\n正常\n电机心跳超时\t\t100 ~ 2000\tms\t电机\t0x703 / 0x704 离线阈值\t\n正常\n控制响应时间\t\t100 ~ 2000\tms\t控制\t指令反馈最大响应时间\t\n需审批\n安全停车超时\t\t500 ~ 5000\tms\t安全\t安全停车完成等待时间\t\n需审批\nBMS 总压最小值\t\t0 ~ 1000\tV\tBMS\t总压有效下限\t\n正常\nBMS 总压最大值\t\t1 ~ 1000\tV\tBMS\t总压有效上限\t\n正常\nSOC 最低值\t\t0 ~ 100\t%\tBMS\t允许检测的最低 SOC\t\n需审批\n电池温度最小值\t\t-50 ~ 20\t°C\tBMS\tNTC 有效下限\t\n正常\n电池温度最大值\t\t20 ~ 100\t°C\tBMS\tNTC 有效上限\t\n需审批\n单体电压最小值\t\t0 ~ 5\tV\tBMS\t单体电压有效下限\t\n正常\n单体电压最大值\t\t0 ~ 5\tV\tBMS\t单体电压有效上限\t\n需审批\n单体压差最大值\t\t0 ~ 200\tmV\tBMS\t单体最大允许压差\t\n正常\n手动控制速度上限\t\t0 ~ 8\tkm/h\t安全\t手动控制保守限速\t\n需审批\n自动检测速度上限\t\t0 ~ 5\tkm/h\t安全\t一键检测低速限速\t\n需审批\n前转角限幅\t\t-120 ~ 120\traw\t转向\tint8 补码控制值\t\n需审批\n后转角限幅\t\t-120 ~ 120\traw\t转向\tint8 补码控制值\t\n需审批\n车速允许误差\t\t0 ~ 3\tkm/h\t检测\t目标与反馈允许误差\t\n正常\n转角允许误差\t\t0 ~ 20\traw\t检测\t命令与反馈允许偏差\t\n正常\n四轮轮速允许误差\t\t0 ~ 100\trpm\t检测\t四轮反馈一致性阈值\t\n正常\n允许最大告警等级\t\t0 ~ 0\tlevel\t安全\t检测与控制必须保持 Normal\t\n需审批\n人工放行轻微告警\t关闭\t关闭 / 开启\t开关\t安全\t默认关闭，启用需管理员\t\n需审批\n5\n权限与审计\nADMIN 审批\n角色\t查看\t检测\t手动控制\t配置\t维护\t删除报告\nviewer\t全部查看\t无\t无\t无\t无\t否\noperator\t业务页面\t执行检测\t无\t无\t无\t否\nengineer\t全部业务页\t执行检测\t0x121\t非危险配置\t无\t否\nadmin\t全部\t全部\t全部审批\t全部\t管理员确认\t是\n最近配置历史\n修改权限配置必须经过后端审批\n时间\t用户\t配置项\t旧值\t新值\t原因\t结果\n2026-04-01 10:15:20\tadmin\t手动控制速度上限\t5\t8\t台架调试\t成功\n2026-04-01 09:42:12\tengineer01\t报告目录\tD:\\Old\tD:\\TestLogs\\Reports\t工位迁移\t成功\n2026-03-31 17:20:05\tadmin\t0x121 发送周期\t50 ms\t20 ms\t方案版本升级\t成功\n2026-03-31 15:08:42\tadmin\tMockCanGateway\t开启\t关闭\t接入真实台架\t成功\n6\n维护模式\n安全锁定\n维护模式可能导致车辆异常运动\n仅允许管理员在台架或封闭环境中启用，全部操作记录审计。\nMockCanGateway\n必须明确显示 Mock 模式\n启用 0x123\nSCU_Torque_Command，默认关闭\n启用 0x126\n角速度 126~525 deg/s，默认关闭\n允许 CANopen NMT\n默认禁止主动发送\nPID 调试 0x710 / 0x715\n仅维护台架可用\n双控制通道\n永久禁止，不可选择\n启用 Mock\n进入维护模式\n7\n日志空间趋势\n最近7天\n最近30天\n当前日志\n42 GB\n数据库\n0.12 GB\n报告\n12.8 GB\nRaw CAN\n28.4 GB\n最近清理 2026-03-31 02:00:00\n下次 2026-04-02 02:00:00\n策略正常 / 磁盘正常\n8\n安全默认值与系统版本\nUI 不直接发送 CAN\n生效\n所有运动控制必须经过安全联锁\n生效\n数据库不可写时禁止开始检测\n生效\nCAN 控制通道默认仅 CAN2\n生效\n0x123 默认禁用\n生效\n0x126 默认禁用\n生效\nCANopen NMT 默认禁用\n生效\nMock 不伪装真实硬件\n生效\n异常时执行安全停车\n生效\n软件版本\nv1.0.2\n配置版本\ncfg-20260401\n检测方案\neol-plan-1.0.2\nPython / Node\n3.11.8 / 20.x\nElectron\n^31.0.0\n平台\nWindows 10 64-bit\n构建时间\n2026-04-01 10:30:00\n恢复安全默认\n查看版本详情\n保存设置保存所有配置变更\n导入配置导入 YAML / JSON 配置\n导出配置导出当前配置快照\n重载 DBC重新扫描并加载 assets\n启用 Mock切换 MockCanGateway\n进入维护模式需管理员二次确认\n恢复安全默认仅恢复安全相关参数",
+    "title": ""
+  }
+]

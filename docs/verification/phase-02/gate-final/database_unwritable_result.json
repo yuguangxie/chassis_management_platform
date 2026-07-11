@@ -1,0 +1,128 @@
+{
+  "name": "database_unwritable",
+  "session_id": "EOL-DCCFD3F0198E",
+  "start_status_code": 409,
+  "start_body": {
+    "detail": {
+      "code": "INTERLOCK_BLOCKED",
+      "message": "安全联锁阻止开始检测",
+      "details": {
+        "allowed": false,
+        "operation": "eol",
+        "level": "danger",
+        "rules": [
+          {
+            "rule": "can1_online",
+            "label": "CAN1 原始接收在线",
+            "status": "PASS",
+            "current": 19.9,
+            "threshold": "< 2000 ms",
+            "blocking": true
+          },
+          {
+            "rule": "can1_queue_healthy",
+            "label": "CAN1 接收队列健康",
+            "status": "PASS",
+            "current": 0,
+            "threshold": "< 512",
+            "blocking": true
+          },
+          {
+            "rule": "can2_online",
+            "label": "CAN2 原始接收在线",
+            "status": "PASS",
+            "current": 18.3,
+            "threshold": "< 2000 ms",
+            "blocking": true
+          },
+          {
+            "rule": "can2_queue_healthy",
+            "label": "CAN2 接收队列健康",
+            "status": "PASS",
+            "current": 0,
+            "threshold": "< 512",
+            "blocking": true
+          },
+          {
+            "rule": "single_control_channel",
+            "label": "唯一控制通道为 CAN2",
+            "status": "PASS",
+            "current": [
+              "CAN2"
+            ],
+            "threshold": [
+              "CAN2"
+            ],
+            "blocking": true
+          },
+          {
+            "rule": "dbc_ready",
+            "label": "DBC/覆盖规则可用",
+            "status": "PASS",
+            "current": {
+              "loaded": true,
+              "raw_only": false,
+              "file": "D:\\workspace\\0-yunle\\7_codex\\chassis_eol_management_platform_codex_pack\\chassis_management_platform\\assets\\Yunle_CAN_integrated_candb_jd.dbc",
+              "hash": "387ae48bd84852c8",
+              "version": "Yunle_CAN_Integrated_CANdb Release v1.0.2",
+              "error": null
+            },
+            "threshold": "loaded or explicitly raw-allowed",
+            "blocking": true
+          },
+          {
+            "rule": "no_severe_alarm",
+            "label": "无严重告警",
+            "status": "PASS",
+            "current": 0,
+            "threshold": "< 3",
+            "blocking": false
+          },
+          {
+            "rule": "database_writable",
+            "label": "数据库可写",
+            "status": "FAIL",
+            "current": false,
+            "threshold": true,
+            "blocking": true
+          },
+          {
+            "rule": "emergency_released",
+            "label": "急停未锁存",
+            "status": "PASS",
+            "current": false,
+            "threshold": false,
+            "blocking": true
+          },
+          {
+            "rule": "safe_stop_released",
+            "label": "安全停车未锁存",
+            "status": "PASS",
+            "current": false,
+            "threshold": false,
+            "blocking": true
+          },
+          {
+            "rule": "critical_feedback_fresh",
+            "label": "关键速度反馈新鲜",
+            "status": "PASS",
+            "current": 0.0,
+            "threshold": "age < 2.0s",
+            "blocking": true
+          }
+        ],
+        "reasons": [
+          {
+            "rule": "database_writable",
+            "label": "数据库可写",
+            "status": "FAIL",
+            "current": false,
+            "threshold": true,
+            "blocking": true
+          }
+        ]
+      }
+    }
+  },
+  "passed": true
+}

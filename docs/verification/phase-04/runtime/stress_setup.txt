@@ -1,0 +1,1 @@
+simulator stopped before synthetic 1000fps soak

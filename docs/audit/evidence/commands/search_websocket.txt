@@ -1,0 +1,47 @@
+﻿PATTERN: WebSocket
+MATCHES: 44
+
+backend/app\main.py:8:from app.websocket.endpoint import router as ws_router
+desktop/src\stores\signals.ts:3:import { wsClient } from '../api/websocket'
+desktop/src\stores\signals.ts:67:    bindWebSocket() {
+backend/app\websocket\endpoint.py:1:from fastapi import APIRouter, WebSocket, WebSocketDisconnect
+backend/app\websocket\endpoint.py:7:@router.websocket("/ws")
+backend/app\websocket\endpoint.py:8:async def websocket_endpoint(ws: WebSocket) -> None:
+backend/app\websocket\endpoint.py:18:    except WebSocketDisconnect:
+backend/app\websocket\manager.py:3:from fastapi import WebSocket
+backend/app\websocket\manager.py:5:class WebSocketManager:
+backend/app\websocket\manager.py:7:        self.clients: dict[WebSocket, set[str]] = {}
+backend/app\websocket\manager.py:9:    async def connect(self, ws: WebSocket) -> None:
+backend/app\websocket\manager.py:13:    def disconnect(self, ws: WebSocket) -> None:
+backend/app\websocket\manager.py:16:    async def subscribe(self, ws: WebSocket, topics: list[str]) -> None:
+backend/app\websocket\manager.py:19:    async def unsubscribe(self, ws: WebSocket, topics: list[str]) -> None:
+backend/app\websocket\manager.py:35:manager = WebSocketManager()
+desktop/src\stores\settings.ts:3:import { wsClient } from '../api/websocket'
+desktop/src\stores\settings.ts:104:    bindWebSocket() {
+backend/app\services\lifecycle.py:12:from app.websocket.manager import manager as ws_manager
+desktop/src\stores\can.ts:4:import { wsClient } from '../api/websocket'
+desktop/src\stores\can.ts:130:    bindWebSocket() {
+desktop/src\stores\appStatus.ts:3:import { wsClient } from '../api/websocket'
+desktop/src\api\websocket.ts:3:  ws?: WebSocket
+desktop/src\api\websocket.ts:6:    this.ws = new WebSocket(import.meta.env.VITE_WS_URL || 'ws://127.0.0.1:8800/ws')
+desktop/src\api\websocket.ts:13:  send(data: unknown) { if (this.ws?.readyState === WebSocket.OPEN) this.ws.send(JSON.stringify(data)) }
+desktop/src\pages\AutoTestPage.vue:215:import { wsClient } from '../api/websocket'
+desktop/src\pages\AutoTestPage.vue:314:  setupWebSocketRefresh()
+desktop/src\pages\AutoTestPage.vue:333:function setupWebSocketRefresh() {
+desktop/src\pages\AlarmDiagnosisPage.vue:159:import { wsClient } from '../api/websocket'
+desktop/src\pages\AlarmDiagnosisPage.vue:215:  setupWebSocketRefresh()
+desktop/src\pages\AlarmDiagnosisPage.vue:239:function setupWebSocketRefresh() {
+desktop/src\pages\RealtimeCurvePage.vue:270:  signals.bindWebSocket()
+desktop/src\pages\HistoryPage.vue:79:import { wsClient } from '../api/websocket'
+desktop/src\pages\HistoryPage.vue:115:onMounted(async () => { await historyStore.loadDashboard(currentQuery()); setupWebSocket(); scheduleRefresh() })
+desktop/src\pages\HistoryPage.vue:133:function setupWebSocket(){ try{if(!wsReady){wsClient.connect();wsReady=true}wsClient.on('history.export_progress',()=>void historyStore.loadDashboard(currentQuery(),true))}catch{wsReady=false} }
+desktop/src\pages\ReportManagementPage.vue:136:import { wsClient } from '../api/websocket'
+desktop/src\pages\ReportManagementPage.vue:207:  setupWebSocketRefresh()
+desktop/src\pages\ReportManagementPage.vue:215:function setupWebSocketRefresh() {
+desktop/src\pages\CanMonitorPage.vue:241:import { wsClient } from '../api/websocket'
+desktop/src\pages\CanMonitorPage.vue:308:  store.bindWebSocket()
+desktop/src\pages\CanMonitorPage.vue:309:  if (!wsClient.ws || wsClient.ws.readyState > WebSocket.OPEN) wsClient.connect()
+desktop/src\pages\SystemSettingsPage.vue:197:onMounted(async()=>{await settingsStore.loadDashboard();settingsStore.bindWebSocket();pollTimer=window.setInterval(()=>void settingsStore.loadDashboard(true),8000);window.addEventListener('beforeunload',beforeUnload)})
+desktop/src\pages\SignalDashboardPage.vue:191:import { wsClient } from '../api/websocket'
+desktop/src\pages\SignalDashboardPage.vue:294:  signals.bindWebSocket()
+desktop/src\pages\SignalDashboardPage.vue:295:  if (!wsClient.ws || wsClient.ws.readyState > WebSocket.OPEN) wsClient.connect()

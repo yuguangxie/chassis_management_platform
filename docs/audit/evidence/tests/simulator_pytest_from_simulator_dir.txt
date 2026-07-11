@@ -1,0 +1,7 @@
+﻿COMMAND: ..\backend\.venv\Scripts\python.exe -m pytest tests -q
+WORKDIR: D:\workspace\0-yunle\7_codex\chassis_eol_management_platform_codex_pack\chassis_management_platform\simulator
+EXIT_CODE: 0
+TIME: 2026-07-10 10:59:04 +08:00
+
+.                                                                        [100%]
+1 passed in 0.01s

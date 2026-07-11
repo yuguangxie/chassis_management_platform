@@ -1,0 +1,22 @@
+﻿{
+  "websocket": {
+    "clients": 0,
+    "subscribed_clients": 0,
+    "queue_depth": 0,
+    "queue_capacity": 0,
+    "dropped_messages": 0
+  },
+  "pipeline": {
+    "depth": 0,
+    "capacity": 4096,
+    "per_channel": {
+      "CAN2": 0,
+      "CAN1": 0
+    }
+  },
+  "telemetry": {
+    "queue_depth": 0,
+    "dropped": 0,
+    "healthy": true
+  }
+}

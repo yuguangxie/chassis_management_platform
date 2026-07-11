@@ -1,0 +1,14 @@
+﻿{
+  "profile": "normal_pass",
+  "expected_result": "PASS",
+  "actual_result": "PASS",
+  "matches_expected": true,
+  "session_status": "PASSED",
+  "step_count": 12,
+  "elapsed_seconds": 2.147,
+  "new_report_files": [
+    "EOL-86d928f6_PASS_04e2fcb9.docx",
+    "EOL-86d928f6_PASS_04e2fcb9.json",
+    "EOL-86d928f6_PASS_04e2fcb9.pdf"
+  ]
+}

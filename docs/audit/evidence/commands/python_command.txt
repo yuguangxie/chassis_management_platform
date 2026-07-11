@@ -1,0 +1,35 @@
+﻿
+
+HelpUri            : 
+FileVersionInfo    : File:             C:\Users\xie\AppData\Local\Microsoft\WindowsApps\python.exe
+                     InternalName:     
+                     OriginalFilename: 
+                     FileVersion:      
+                     FileDescription:  
+                     Product:          
+                     ProductVersion:   
+                     Debug:            False
+                     Patched:          False
+                     PreRelease:       False
+                     PrivateBuild:     False
+                     SpecialBuild:     False
+                     Language:         
+                     
+Path               : C:\Users\xie\AppData\Local\Microsoft\WindowsApps\python.exe
+Extension          : .exe
+Definition         : C:\Users\xie\AppData\Local\Microsoft\WindowsApps\python.exe
+Source             : C:\Users\xie\AppData\Local\Microsoft\WindowsApps\python.exe
+Version            : 0.0.0.0
+Visibility         : Public
+OutputType         : {System.String}
+Name               : python.exe
+CommandType        : Application
+ModuleName         : 
+Module             : 
+RemotingCapability : PowerShell
+Parameters         : 
+ParameterSets      : 
+
+
+
+

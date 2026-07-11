@@ -1,0 +1,29 @@
+station:
+  id: EOL-STATION-01
+  name: 低速无人车线控底盘下线检测工位
+  plant: YUNLE-DEMO-PLANT
+  line: EOL-LINE-01
+  operator_login_required: true
+  default_vehicle_series: JD
+  supported_vehicle_series:
+    JD:
+      max_wheel_angle_deg: 24
+      tire_radius_m: 0.13
+      factory_speed_limit_kmh: 10
+    WD:
+      max_wheel_angle_deg: 27
+      tire_radius_m: 0.22
+      factory_speed_limit_kmh: 10
+    TD:
+      max_wheel_angle_deg: 25
+      tire_radius_m: 0.24
+      factory_speed_limit_kmh: 15
+software:
+  backend_host: 127.0.0.1
+  backend_port: 8800
+  timezone: Asia/Shanghai
+  mock_mode_default: false
+security:
+  require_reason_for_config_change: true
+  maintenance_mode_default: false
+  allow_manual_alarm_release: false

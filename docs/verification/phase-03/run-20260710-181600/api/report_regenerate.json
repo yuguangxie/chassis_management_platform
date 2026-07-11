@@ -1,0 +1,38 @@
+{
+  "request": {
+    "method": "POST",
+    "path": "/reports/9cfdce54-pdf/regenerate",
+    "body": {}
+  },
+  "status_code": 200,
+  "trace_id": "7e2eb23627ad4db399e89b0b840c763d",
+  "body": {
+    "ok": true,
+    "message": "报告已重新生成",
+    "trace_id": "7e2eb23627ad4db399e89b0b840c763d",
+    "data_source": "sqlite+filesystem",
+    "mock": false,
+    "details": {
+      "report_id": "74126c5d",
+      "database_ids": [
+        "74126c5d-json",
+        "74126c5d-docx",
+        "74126c5d-pdf",
+        "74126c5d-csv"
+      ],
+      "statuses": {
+        "json": "COMPLETED",
+        "docx": "COMPLETED",
+        "pdf": "COMPLETED",
+        "csv": "COMPLETED"
+      },
+      "errors": {},
+      "hashes": {
+        "json": "d1257f8a3fc8140d309ef6620d25512d41bc7228f9db41a9a9bb85aaed5c51f7",
+        "docx": "11e3efd2480d5e2649730b660e6ebc6165edb24396ce9f83a54a878b7686256a",
+        "pdf": "930326460d756675124e7d0d6e3480eb36bcaaee9603ea3855f0da51ad0057ee",
+        "csv": "e0e9c76faa48c6b45e7aea5797a2997c380e3f8b18c0fc5d3ec5c3212b30f200"
+      }
+    }
+  }
+}

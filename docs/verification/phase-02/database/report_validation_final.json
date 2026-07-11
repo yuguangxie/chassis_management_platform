@@ -1,0 +1,140 @@
+{
+  "reports": [
+    {
+      "profile": "normal_pass",
+      "session_id": "EOL-9087E04A67CA",
+      "database_report_rows": 4,
+      "types": [
+        "csv",
+        "docx",
+        "json",
+        "pdf"
+      ],
+      "all_completed": true,
+      "json_opened": true,
+      "json_result": "PASS",
+      "json_step_count": 12,
+      "json_last_step_result": "PASS",
+      "traceability": {
+        "software_version": "v1.0.2",
+        "dbc_hash": "387ae48bd84852c8",
+        "config_profile": "dev",
+        "test_plan_id": "default_chassis_eol_v1",
+        "test_plan_version": "2.0.0"
+      },
+      "docx_opened": true,
+      "pdf_opened": true,
+      "csv_rows": 25,
+      "passed": true
+    },
+    {
+      "profile": "bms_low_soc",
+      "session_id": "EOL-23651704E26A",
+      "database_report_rows": 4,
+      "types": [
+        "csv",
+        "docx",
+        "json",
+        "pdf"
+      ],
+      "all_completed": true,
+      "json_opened": true,
+      "json_result": "FAIL",
+      "json_step_count": 3,
+      "json_last_step_result": "FAIL",
+      "traceability": {
+        "software_version": "v1.0.2",
+        "dbc_hash": "387ae48bd84852c8",
+        "config_profile": "dev",
+        "test_plan_id": "default_chassis_eol_v1",
+        "test_plan_version": "2.0.0"
+      },
+      "docx_opened": true,
+      "pdf_opened": true,
+      "csv_rows": 10,
+      "passed": true
+    },
+    {
+      "profile": "warning_fault",
+      "session_id": "EOL-25FADA061DF9",
+      "database_report_rows": 4,
+      "types": [
+        "csv",
+        "docx",
+        "json",
+        "pdf"
+      ],
+      "all_completed": true,
+      "json_opened": true,
+      "json_result": "FAIL",
+      "json_step_count": 11,
+      "json_last_step_result": "FAIL",
+      "traceability": {
+        "software_version": "v1.0.2",
+        "dbc_hash": "387ae48bd84852c8",
+        "config_profile": "dev",
+        "test_plan_id": "default_chassis_eol_v1",
+        "test_plan_version": "2.0.0"
+      },
+      "docx_opened": true,
+      "pdf_opened": true,
+      "csv_rows": 21,
+      "passed": true
+    },
+    {
+      "profile": "steering_no_response",
+      "session_id": "EOL-52F8E0E7E318",
+      "database_report_rows": 4,
+      "types": [
+        "csv",
+        "docx",
+        "json",
+        "pdf"
+      ],
+      "all_completed": true,
+      "json_opened": true,
+      "json_result": "FAIL",
+      "json_step_count": 8,
+      "json_last_step_result": "FAIL",
+      "traceability": {
+        "software_version": "v1.0.2",
+        "dbc_hash": "387ae48bd84852c8",
+        "config_profile": "dev",
+        "test_plan_id": "default_chassis_eol_v1",
+        "test_plan_version": "2.0.0"
+      },
+      "docx_opened": true,
+      "pdf_opened": true,
+      "csv_rows": 19,
+      "passed": true
+    },
+    {
+      "profile": "brake_fail",
+      "session_id": "EOL-CCE9FBEBCAB2",
+      "database_report_rows": 4,
+      "types": [
+        "csv",
+        "docx",
+        "json",
+        "pdf"
+      ],
+      "all_completed": true,
+      "json_opened": true,
+      "json_result": "FAIL",
+      "json_step_count": 10,
+      "json_last_step_result": "FAIL",
+      "traceability": {
+        "software_version": "v1.0.2",
+        "dbc_hash": "387ae48bd84852c8",
+        "config_profile": "dev",
+        "test_plan_id": "default_chassis_eol_v1",
+        "test_plan_version": "2.0.0"
+      },
+      "docx_opened": true,
+      "pdf_opened": true,
+      "csv_rows": 22,
+      "passed": true
+    }
+  ],
+  "all_passed": true
+}

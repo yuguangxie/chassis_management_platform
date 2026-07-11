@@ -1,0 +1,12 @@
+﻿COMMAND: audit_control_e2e.py
+EXIT_CODE: 0
+
+{
+  "actual_front_minus_60_is_c4": true,
+  "actual_rear_plus_60_is_3c": true,
+  "ui_preview_matches_transmitted_payload": false,
+  "overspeed_blocked": true,
+  "emergency_blocks_send": true,
+  "send_once_reached_simulator": true,
+  "safe_stop_reduced_speed": true
+}

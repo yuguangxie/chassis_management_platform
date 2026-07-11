@@ -1,0 +1,4 @@
+﻿{
+  "before": "工位\nEOL-STATION-01\n用户\nop01\n软件版本\nv1.0.2\nDBC版本\nYunle_CAN_Integrated_CANdb Release v1.0.2\n数据库\nSQLite 正常\n控制通道\nCAN2\nCAN1\nonline\nCAN2\nonline\n急停\n未触发\n最高告警\n0 Normal\n当前时间\n2026-07-10 19:39:16\nMock\n关闭",
+  "after": "工位\nEOL-STATION-01\n用户\nop01\n软件版本\nv1.0.2\nDBC版本\nYunle_CAN_Integrated_CANdb Release v1.0.2\n数据库\nSQLite 正常\n控制通道\nCAN2\nCAN1\nonline\nCAN2\nonline\n急停\n未触发\n最高告警\n0 Normal\n当前时间\n2026-07-10 19:39:29\nMock\n关闭"
+}

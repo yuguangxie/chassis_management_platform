@@ -1,0 +1,1 @@
+﻿cmd.exe npm run electron:build exit=0; output bundle 1,394.53 kB (gzip 455.51 kB); command is Vite-only and did not create an Electron installer.

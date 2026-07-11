@@ -1,0 +1,20 @@
+﻿COMMAND: websocket probe 3s
+EXIT_CODE: 0
+
+{
+  "url": "ws://127.0.0.1:8800/ws",
+  "duration_seconds": 3.0,
+  "started_at": "2026-07-10T11:03:04.634620+08:00",
+  "finished_at": "2026-07-10T11:03:09.795239+08:00",
+  "total_messages": 5292,
+  "topic_counts": {
+    "alarms.current": 84,
+    "can.decoded_frame": 744,
+    "can.latest_frame_update": 744,
+    "can.raw_frame": 744,
+    "can.statistics": 744,
+    "signals.current": 744,
+    "signals.dashboard": 744,
+    "signals.timeseries.batch": 744
+  }
+}

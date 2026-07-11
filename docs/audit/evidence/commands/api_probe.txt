@@ -1,0 +1,12 @@
+﻿COMMAND: backend\.venv\Scripts\python.exe scripts\audit_api_probe.py
+EXIT_CODE: 0
+
+{
+  "audit_time": "2026-07-10T11:01:30.230915+08:00",
+  "openapi_status": 200,
+  "openapi_route_count": 112,
+  "probe_count": 56,
+  "status_counts": {
+    "200": 56
+  }
+}

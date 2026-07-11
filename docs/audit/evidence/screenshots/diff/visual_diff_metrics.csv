@@ -1,0 +1,11 @@
+﻿composite,current_height,current_width,mean_absolute_difference_0_255,page,pixels_changed_over_10_percent,pixels_changed_over_30_percent,reference_height,reference_width,rms_difference_0_255,status
+evidence/screenshots/diff/01_overview_reference_current_diff.png,1080,1920,22.366,01_overview,39.333,14.504,941,1672,46.288,compared
+evidence/screenshots/diff/02_network_config_reference_current_diff.png,1080,1920,19.428,02_network_config,31.297,12.068,941,1672,41.114,compared
+evidence/screenshots/diff/03_can_monitor_reference_current_diff.png,1080,1920,22.14,03_can_monitor,36.03,15.746,941,1672,43.535,compared
+evidence/screenshots/diff/04_signal_dashboard_reference_current_diff.png,1080,1920,18.743,04_signal_dashboard,28.68,11.848,941,1672,41.514,compared
+evidence/screenshots/diff/05_realtime_curve_reference_current_diff.png,1080,1920,19.724,05_realtime_curve,37.315,13.045,941,1672,39.476,compared
+evidence/screenshots/diff/06_manual_control_reference_current_diff.png,1080,1920,21.886,06_manual_control,38.83,15.287,941,1672,43.295,compared
+evidence/screenshots/diff/07_auto_test_reference_current_diff.png,1080,1920,24.03,07_auto_test,38.302,17.105,941,1672,48.995,compared
+evidence/screenshots/diff/08_alarm_diagnosis_reference_current_diff.png,1080,1920,21.049,08_alarm_diagnosis,39.375,14.169,941,1672,42.134,compared
+evidence/screenshots/diff/09_report_management_reference_current_diff.png,1080,1920,25.333,09_report_management,39.951,18.304,941,1672,50.332,compared
+evidence/screenshots/diff/10_history_reference_current_diff.png,1080,1920,20.979,10_history,38.894,14.256,941,1672,40.95,compared

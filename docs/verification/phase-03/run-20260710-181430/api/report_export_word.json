@@ -1,0 +1,23 @@
+{
+  "request": {
+    "method": "POST",
+    "path": "/reports/9e11e88e-pdf/export-word",
+    "body": {}
+  },
+  "status_code": 200,
+  "trace_id": "3e63cba3c6bd41e8bdc00953a91f8b2f",
+  "body": {
+    "ok": true,
+    "message": "Word 报告已准备下载",
+    "trace_id": "3e63cba3c6bd41e8bdc00953a91f8b2f",
+    "data_source": "sqlite+filesystem",
+    "mock": false,
+    "details": {
+      "report_id": "9e11e88e-docx",
+      "file_name": "20260710_100912_PH3-NORMAL-001_000001_PASS_EOL-0B96CC1113B6_9e11e88e.docx",
+      "file_size_bytes": 38583,
+      "sha256": "fc386ca8cc4956c042c00c7f039a46fe583b451e8bf854a577d088c1b32c30f6",
+      "download_url": "/reports/9e11e88e-docx/file"
+    }
+  }
+}

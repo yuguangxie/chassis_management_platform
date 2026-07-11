@@ -1,0 +1,116 @@
+{
+  "budgets": {
+    "main_gzip_bytes": 100000,
+    "echarts_vendor_gzip_bytes": 380000,
+    "total_js_gzip_bytes": 800000
+  },
+  "main": {
+    "name": "index-D7rBJo0L.js",
+    "bytes": 63284,
+    "gzip_bytes": 20934
+  },
+  "echarts_vendor": {
+    "name": "echarts-vendor-aCMsnSeq.js",
+    "bytes": 1117948,
+    "gzip_bytes": 367892
+  },
+  "total_gzip_bytes": 497648,
+  "chunks": [
+    {
+      "name": "echarts-vendor-aCMsnSeq.js",
+      "bytes": 1117948,
+      "gzip_bytes": 367892
+    },
+    {
+      "name": "icon-vendor-BKi2BoUn.js",
+      "bytes": 82033,
+      "gzip_bytes": 29613
+    },
+    {
+      "name": "index-D7rBJo0L.js",
+      "bytes": 63284,
+      "gzip_bytes": 20934
+    },
+    {
+      "name": "vue-vendor-CNYlcZOZ.js",
+      "bytes": 31012,
+      "gzip_bytes": 11991
+    },
+    {
+      "name": "SystemSettingsPage-Dk6JHtKa.js",
+      "bytes": 35517,
+      "gzip_bytes": 11603
+    },
+    {
+      "name": "CanMonitorPage-DKTI7P2Y.js",
+      "bytes": 20088,
+      "gzip_bytes": 6777
+    },
+    {
+      "name": "ReportManagementPage-Dr2VeKG3.js",
+      "bytes": 18882,
+      "gzip_bytes": 6645
+    },
+    {
+      "name": "HistoryPage-CF7fqGDM.js",
+      "bytes": 17671,
+      "gzip_bytes": 6309
+    },
+    {
+      "name": "ManualControlPage-CFf5BYTb.js",
+      "bytes": 16756,
+      "gzip_bytes": 5988
+    },
+    {
+      "name": "RealtimeCurvePage-Bi-ybo7l.js",
+      "bytes": 14735,
+      "gzip_bytes": 5476
+    },
+    {
+      "name": "AlarmDiagnosisPage-o6e-Zur5.js",
+      "bytes": 11977,
+      "gzip_bytes": 4775
+    },
+    {
+      "name": "OverviewPage-DT5oNcI6.js",
+      "bytes": 12030,
+      "gzip_bytes": 4690
+    },
+    {
+      "name": "AutoTestPage-BNQbNcLh.js",
+      "bytes": 12775,
+      "gzip_bytes": 4628
+    },
+    {
+      "name": "NetworkConfigPage-BS7ytq61.js",
+      "bytes": 11756,
+      "gzip_bytes": 4361
+    },
+    {
+      "name": "SignalDashboardPage-8MGKse_V.js",
+      "bytes": 12340,
+      "gzip_bytes": 4153
+    },
+    {
+      "name": "signals-DuhYHxLn.js",
+      "bytes": 2203,
+      "gzip_bytes": 789
+    },
+    {
+      "name": "RealtimeLineChart-BTe5Bp5V.js",
+      "bytes": 790,
+      "gzip_bytes": 514
+    },
+    {
+      "name": "BarChart-DRzd_sgH.js",
+      "bytes": 787,
+      "gzip_bytes": 510
+    }
+  ],
+  "assertions": {
+    "main_within_budget": true,
+    "echarts_vendor_within_budget": true,
+    "total_within_budget": true
+  },
+  "passed": true
+}

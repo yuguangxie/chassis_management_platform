@@ -1,0 +1,498 @@
+{
+  "url": "http://127.0.0.1:8800/api/v1/dbc/messages",
+  "method": "GET",
+  "status": 200,
+  "headers": {
+    "date": "Fri, 10 Jul 2026 03:01:29 GMT",
+    "server": "uvicorn",
+    "content-length": "6561",
+    "content-type": "application/json",
+    "connection": "close"
+  },
+  "body": [
+    {
+      "can_id": 256,
+      "can_id_hex": "0x100",
+      "name": "BMS_Status",
+      "length": 8,
+      "signals": [
+        "BMS_Voltage",
+        "BMS_Current",
+        "BMS_SOC",
+        "BMS_CRC_16"
+      ]
+    },
+    {
+      "can_id": 119,
+      "can_id_hex": "0x77",
+      "name": "VCU_Warning_Level",
+      "length": 8,
+      "signals": [
+        "BMS_SOC_Warning",
+        "MCU_Disconnect_Warning",
+        "MCU_Motor_Warning",
+        "MCU_Speed_Warning",
+        "Steering_Disconnect_Warning",
+        "Steering_Lock_Warning",
+        "Steering_Uncontrollable_Warning",
+        "Steering_Error_Warning",
+        "Brake_Error_Warning"
+      ]
+    },
+    {
+      "can_id": 1808,
+      "can_id_hex": "0x710",
+      "name": "VCU_Debug_Enable",
+      "length": 8,
+      "signals": [
+        "PID_Debug_Enable"
+      ]
+    },
+    {
+      "can_id": 1813,
+      "can_id_hex": "0x715",
+      "name": "VCU_Drive_Debug",
+      "length": 8,
+      "signals": [
+        "Velocity_Kp",
+        "Velocity_Ki",
+        "Velocity_Kd"
+      ]
+    },
+    {
+      "can_id": 2033,
+      "can_id_hex": "0x7F1",
+      "name": "SCU_Target_Speed_Feedback",
+      "length": 8,
+      "signals": [
+        "Hardware_Target_Speed",
+        "SCU_Target_Speed_Feedback",
+        "Vehicle_Target_Speed",
+        "Vehicle_Target_Speed_RPM"
+      ]
+    },
+    {
+      "can_id": 225,
+      "can_id_hex": "0xE1",
+      "name": "SAS_Angle_Feedback",
+      "length": 8,
+      "signals": [
+        "SAS_Front_Angle",
+        "SAS_Rear_Angle"
+      ]
+    },
+    {
+      "can_id": 360,
+      "can_id_hex": "0x168",
+      "name": "VCU_Wheel_Speed_Feedback",
+      "length": 8,
+      "signals": [
+        "Wheel_Speed_Front_Left_RPM",
+        "Wheel_Speed_Front_Right_RPM",
+        "Wheel_Speed_Rear_Left_RPM",
+        "Wheel_Speed_Rear_Right_RPM"
+      ]
+    },
+    {
+      "can_id": 81,
+      "can_id_hex": "0x51",
+      "name": "VCU_CCU_Status",
+      "length": 8,
+      "signals": [
+        "CCU_Shift_Level_Status",
+        "CCU_Parking_Status",
+        "CCU_Ignition_Status",
+        "CCU_Drive_Mode_Shift_Button",
+        "Steering_Wheel_Direction",
+        "CCU_Steering_Wheel_Angle",
+        "CCU_Vehicle_Speed",
+        "CCU_Drive_Mode",
+        "Remote_Brake_Request_Status",
+        "Emergency_Brake_Request_Status",
+        "SCU_Brake_Signal_Status",
+        "Touch_Brake_Request_Status",
+        "Handle_Brake_Request_Status",
+        "Handle_Mode_Flag_Status",
+        "Left_Turn_Light_Status",
+        "Right_Turn_Light_Status",
+        "Position_Light_Status",
+        "Low_Beam_Status"
+      ]
+    },
+    {
+      "can_id": 291,
+      "can_id_hex": "0x123",
+      "name": "SCU_Torque_Command",
+      "length": 8,
+      "signals": [
+        "Torque_Command_Front_Left",
+        "Torque_Command_Front_Right",
+        "Torque_Command_Rear_Left",
+        "Torque_Command_Rear_Right"
+      ]
+    },
+    {
+      "can_id": 294,
+      "can_id_hex": "0x126",
+      "name": "SCU_Chassis_Command",
+      "length": 8,
+      "signals": [
+        "VCU_Target_Steering_Angle_Speed",
+        "Brake_Force_Front_Left",
+        "Brake_Force_Front_Right",
+        "Brake_Force_Rear_Left",
+        "Brake_Force_Rear_Right"
+      ]
+    },
+    {
+      "can_id": 289,
+      "can_id_hex": "0x121",
+      "name": "SCU_Control_Command",
+      "length": 8,
+      "signals": [
+        "SCU_Shift_Level_Request",
+        "SCU_Drive_Mode_Request",
+        "SCU_Steering_Angle_Front",
+        "SCU_Steering_Angle_Rear",
+        "SCU_Target_Speed",
+        "SCU_Brake_Enable",
+        "GW_Left_Turn_Light_Request",
+        "GW_Right_Turn_Light_Request",
+        "GW_Position_Light_Request",
+        "GW_Low_Beam_Request",
+        "SCU_Torque_Or_Speed_Mode",
+        "Steering_Angle_Speed_Valid",
+        "Brake_Force_Command_Valid"
+      ]
+    },
+    {
+      "can_id": 1284,
+      "can_id_hex": "0x504",
+      "name": "Current_Velocity_gain_param_F",
+      "length": 8,
+      "signals": [
+        "Velocity_P_value",
+        "Velocity_I_value",
+        "Current_P_value",
+        "Current_I_value"
+      ]
+    },
+    {
+      "can_id": 1283,
+      "can_id_hex": "0x503",
+      "name": "Current_Velocity_gain_param_R",
+      "length": 8,
+      "signals": [
+        "Velocity_P_value",
+        "Velocity_I_value",
+        "Current_P_value",
+        "Current_I_value"
+      ]
+    },
+    {
+      "can_id": 0,
+      "can_id_hex": "0x0",
+      "name": "ignition",
+      "length": 8,
+      "signals": [
+        "ignition",
+        "reserved1",
+        "reserved2",
+        "reserved3"
+      ]
+    },
+    {
+      "can_id": 1796,
+      "can_id_hex": "0x704",
+      "name": "Heartbeat_F",
+      "length": 1,
+      "signals": [
+        "heartbeat"
+      ]
+    },
+    {
+      "can_id": 1795,
+      "can_id_hex": "0x703",
+      "name": "Heartbeat_R",
+      "length": 1,
+      "signals": [
+        "heartbeat"
+      ]
+    },
+    {
+      "can_id": 1156,
+      "can_id_hex": "0x484",
+      "name": "TPDO4_Position_Feed_F",
+      "length": 8,
+      "signals": [
+        "Position_value_left",
+        "Position_value_right"
+      ]
+    },
+    {
+      "can_id": 1155,
+      "can_id_hex": "0x483",
+      "name": "TPDO4_Position_Feed_R",
+      "length": 8,
+      "signals": [
+        "Position_value_left",
+        "Position_value_right"
+      ]
+    },
+    {
+      "can_id": 900,
+      "can_id_hex": "0x384",
+      "name": "TPDO3_Torque_Feed_F",
+      "length": 8,
+      "signals": [
+        "Motor_status_left",
+        "Torque_feed_left",
+        "Motor_status_right",
+        "Torque_feed_right"
+      ]
+    },
+    {
+      "can_id": 899,
+      "can_id_hex": "0x383",
+      "name": "TPDO3_Torque_Feed_R",
+      "length": 8,
+      "signals": [
+        "Motor_status_left",
+        "Torque_feed_left",
+        "Motor_status_right",
+        "Torque_feed_right"
+      ]
+    },
+    {
+      "can_id": 644,
+      "can_id_hex": "0x284",
+      "name": "TPDO2_Speed_Feed_F",
+      "length": 8,
+      "signals": [
+        "Speed_feed_left",
+        "Speed_feed_right"
+      ]
+    },
+    {
+      "can_id": 643,
+      "can_id_hex": "0x283",
+      "name": "TPDO2_Speed_Feed_R",
+      "length": 8,
+      "signals": [
+        "Speed_feed_left",
+        "Speed_feed_right"
+      ]
+    },
+    {
+      "can_id": 388,
+      "can_id_hex": "0x184",
+      "name": "TPDO1_Status_F",
+      "length": 7,
+      "signals": [
+        "Status_word_L",
+        "Status_word_H",
+        "Fault_code_left",
+        "Fault_code_Right",
+        "Display_mode"
+      ]
+    },
+    {
+      "can_id": 387,
+      "can_id_hex": "0x183",
+      "name": "TPDO1_Status_R",
+      "length": 7,
+      "signals": [
+        "Status_word_L",
+        "Status_word_H",
+        "Fault_code_left",
+        "Fault_code_Right",
+        "Display_mode"
+      ]
+    },
+    {
+      "can_id": 1027,
+      "can_id_hex": "0x403",
+      "name": "RPDO4_Control_R",
+      "length": 3,
+      "signals": [
+        "control_word",
+        "Operation_mode_req"
+      ]
+    },
+    {
+      "can_id": 1028,
+      "can_id_hex": "0x404",
+      "name": "RPDO4_Control_F",
+      "length": 3,
+      "signals": [
+        "control_word",
+        "Operation_mode_req"
+      ]
+    },
+    {
+      "can_id": 771,
+      "can_id_hex": "0x303",
+      "name": "RPDO2_Speed_Cmd_R",
+      "length": 8,
+      "signals": [
+        "Speed_req_left",
+        "Speed_req_right"
+      ]
+    },
+    {
+      "can_id": 772,
+      "can_id_hex": "0x304",
+      "name": "RPDO2_Speed_Cmd_F",
+      "length": 8,
+      "signals": [
+        "Speed_req_left",
+        "Speed_req_right"
+      ]
+    },
+    {
+      "can_id": 516,
+      "can_id_hex": "0x204",
+      "name": "RPDO1_Torque_Cmd_F",
+      "length": 4,
+      "signals": [
+        "Torque_req_left",
+        "Torque_req_right"
+      ]
+    },
+    {
+      "can_id": 515,
+      "can_id_hex": "0x203",
+      "name": "RPDO1_Torque_Cmd_R",
+      "length": 4,
+      "signals": [
+        "Torque_req_left",
+        "Torque_req_right"
+      ]
+    },
+    {
+      "can_id": 265,
+      "can_id_hex": "0x109",
+      "name": "BMS_Cell_Part6",
+      "length": 8,
+      "signals": [
+        "Cell1",
+        "Cell2",
+        "Cell3",
+        "Cell4"
+      ]
+    },
+    {
+      "can_id": 264,
+      "can_id_hex": "0x108",
+      "name": "BMS_Cell_Part5",
+      "length": 8,
+      "signals": [
+        "Cell1",
+        "Cell2",
+        "Cell3",
+        "Cell4"
+      ]
+    },
+    {
+      "can_id": 263,
+      "can_id_hex": "0x107",
+      "name": "BMS_Cell_Part4",
+      "length": 8,
+      "signals": [
+        "Cell1",
+        "Cell2",
+        "Cell3",
+        "Cell4"
+      ]
+    },
+    {
+      "can_id": 262,
+      "can_id_hex": "0x106",
+      "name": "BMS_Cell_Part3",
+      "length": 8,
+      "signals": [
+        "Cell1",
+        "Cell2",
+        "Cell3",
+        "Cell4"
+      ]
+    },
+    {
+      "can_id": 261,
+      "can_id_hex": "0x105",
+      "name": "BMS_Cell_Part2",
+      "length": 8,
+      "signals": [
+        "Cell1",
+        "Cell2",
+        "Cell3",
+        "Cell4"
+      ]
+    },
+    {
+      "can_id": 260,
+      "can_id_hex": "0x104",
+      "name": "BMS_Cell_Part1",
+      "length": 8,
+      "signals": [
+        "Cell1",
+        "Cell2",
+        "Cell3",
+        "Cell4"
+      ]
+    },
+    {
+      "can_id": 259,
+      "can_id_hex": "0x103",
+      "name": "BMS_NTC",
+      "length": 8,
+      "signals": [
+        "NTC1",
+        "NTC2",
+        "NTC3",
+        "reserved"
+      ]
+    },
+    {
+      "can_id": 258,
+      "can_id_hex": "0x102",
+      "name": "BMS_Protect_Status",
+      "length": 8,
+      "signals": [
+        "Balance_symbol_cell16",
+        "Balance_symbol_cell33",
+        "single_overvol_protection",
+        "single_undervol_protection",
+        "total_overvol_protection",
+        "total_undervol_protection",
+        "charge_overTem",
+        "charge_underTem",
+        "discharge_overTem",
+        "discharge_unnderTem",
+        "charge_overCur",
+        "discharge_overCur",
+        "short_circuit",
+        "IC_Error",
+        "Lock_MOS",
+        "reserve",
+        "CRC_16"
+      ]
+    },
+    {
+      "can_id": 257,
+      "can_id_hex": "0x101",
+      "name": "BMS_Capacity",
+      "length": 8,
+      "signals": [
+        "Full_capacity",
+        "discharge_circulate",
+        "Remaining_capacity",
+        "Charge_or_Discharge_State",
+        "Charge_MOS",
+        "Discharge_MOS"
+      ]
+    }
+  ],
+  "started_at": "2026-07-10T11:01:30.039578+08:00",
+  "finished_at": "2026-07-10T11:01:30.041128+08:00"
+}

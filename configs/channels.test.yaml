@@ -1,0 +1,26 @@
+runtime_profile: test
+channels:
+  CAN1:
+    enabled: true
+    protocol: udp
+    local_ip: 127.0.0.1
+    local_receive_port: 18340
+    device_ip: 127.0.0.1
+    device_port: 18440
+    simulated_device_port: 18440
+    control_enabled: false
+    receive_queue_size: 512
+    recent_buffer_size: 10000
+    max_frame_age_ms: 500
+  CAN2:
+    enabled: true
+    protocol: udp
+    local_ip: 127.0.0.1
+    local_receive_port: 18341
+    device_ip: 127.0.0.1
+    device_port: 18441
+    simulated_device_port: 18441
+    control_enabled: true
+    receive_queue_size: 512
+    recent_buffer_size: 10000
+    max_frame_age_ms: 500

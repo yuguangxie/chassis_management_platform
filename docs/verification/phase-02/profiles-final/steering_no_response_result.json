@@ -1,0 +1,130 @@
+{
+  "profile": "steering_no_response",
+  "session_id": "EOL-0CE7C14EC8DD",
+  "expected": {
+    "status": "FAILED",
+    "failure_step": "steering_check",
+    "step_count": 8
+  },
+  "actual": {
+    "status": "FAILED",
+    "result": "FAIL",
+    "failure_step": "steering_check",
+    "step_count": 8,
+    "step_results": [
+      {
+        "id": "power_on_self_check",
+        "result": "PASS"
+      },
+      {
+        "id": "can_communication_check",
+        "result": "PASS"
+      },
+      {
+        "id": "bms_check",
+        "result": "PASS"
+      },
+      {
+        "id": "vcu_status_check",
+        "result": "PASS"
+      },
+      {
+        "id": "motor_heartbeat_check",
+        "result": "PASS"
+      },
+      {
+        "id": "shift_check",
+        "result": "PASS"
+      },
+      {
+        "id": "low_speed_drive_check",
+        "result": "PASS"
+      },
+      {
+        "id": "steering_check",
+        "result": "FAIL"
+      }
+    ],
+    "failure_reason": "assertion front_steering_follow failed: measured=[{'expected': 30.0, 'actual': 0.0, 'error': 30.0, 'sample_count': 20}, {'expected': -30.0, 'actual': 0.0, 'error': 30.0, 'sample_count': 20}, {'expected': 0.0, 'actual': 0.0, 'error': 0.0, 'sample_count': 20}], expected={'max_error': 8.0}, quality=good; assertion rear_steering_follow failed: measured=[{'expected': 30.0, 'actual': 0.0, 'error': 30.0, 'sample_count': 20}, {'expected': -30.0, 'actual': 0.0, 'error': 30.0, 'sample_count': 20}, {'expected': 0.0, 'actual': 0.0, 'error': 0.0, 'sample_count': 20}], expected={'max_error': 8.0}, quality=good",
+    "safe_stop": {
+      "ok": true,
+      "code": "STOP_CONFIRMED",
+      "message": "已通过零速与制动反馈确认停车",
+      "attempts": 2,
+      "feedback": {
+        "speed_kmh": 0.0,
+        "brake": true,
+        "stopped": true
+      },
+      "latched": true,
+      "emergency_stop": false
+    },
+    "report_id": "49c84123"
+  },
+  "channels_at_start": [
+    {
+      "channel": "CAN1",
+      "online": true,
+      "transport_connected": true,
+      "receive_age_ms": 24.3,
+      "queue_healthy": true,
+      "queue_depth": 0,
+      "queue_capacity": 512,
+      "queue_dropped": 0,
+      "stale_dropped": 0,
+      "malformed_datagrams": 0,
+      "processing_errors": 0,
+      "fps": 12.0,
+      "rx_count": 12,
+      "tx_count": 0,
+      "error_count": 0,
+      "last_frame_at": 1783668073.8552637,
+      "last_frame_hex": "01 00 00 00 00 00 00 00",
+      "protocol": "udp",
+      "local_ip": "127.0.0.1",
+      "local_port": 8234,
+      "device_ip": "127.0.0.1",
+      "device_port": 12341
+    },
+    {
+      "channel": "CAN2",
+      "online": true,
+      "transport_connected": true,
+      "receive_age_ms": 22.2,
+      "queue_healthy": true,
+      "queue_depth": 0,
+      "queue_capacity": 512,
+      "queue_dropped": 0,
+      "stale_dropped": 0,
+      "malformed_datagrams": 0,
+      "processing_errors": 0,
+      "fps": 26.0,
+      "rx_count": 26,
+      "tx_count": 0,
+      "error_count": 0,
+      "last_frame_at": 1783668073.8574152,
+      "last_frame_hex": "00 00 00 00 00 00 00 00",
+      "protocol": "udp",
+      "local_ip": "127.0.0.1",
+      "local_port": 8235,
+      "device_ip": "127.0.0.1",
+      "device_port": 12342
+    }
+  ],
+  "database_counts": {
+    "test_sessions": 1,
+    "test_steps": 8,
+    "test_assertions": 19,
+    "raw_can_frames": 3185,
+    "decoded_signals": 26258,
+    "signal_statistics": 19,
+    "alarms": 0,
+    "reports": 4,
+    "operator_actions": 3,
+    "software_versions": 49
+  },
+  "persistence_ok": true,
+  "pause_resume": null,
+  "concurrency": null,
+  "passed": true
+}

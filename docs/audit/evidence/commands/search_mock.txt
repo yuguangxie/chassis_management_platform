@@ -1,0 +1,204 @@
+﻿PATTERN: mock
+MATCHES: 201
+
+configs\station.yaml:25:  mock_mode_default: false
+backend/tests\test_history_dashboard.py:9:def _use_mock_history(monkeypatch):
+backend/tests\test_history_dashboard.py:13:        lambda: (deepcopy(history_api._MOCK_SESSIONS), True),
+backend/tests\test_history_dashboard.py:18:    _use_mock_history(monkeypatch)
+backend/tests\test_history_dashboard.py:51:    _use_mock_history(monkeypatch)
+backend/tests\test_history_dashboard.py:74:    _use_mock_history(monkeypatch)
+backend/tests\test_history_dashboard.py:101:    _use_mock_history(monkeypatch)
+backend/tests\test_history_dashboard.py:115:    computed = history_api._summary(history_api._MOCK_SESSIONS, False, 7)
+backend/tests\test_system_settings.py:16:    state.mock_enabled = False
+backend/tests\test_system_settings.py:18:        "mock_can_gateway": False,
+backend/tests\test_system_settings.py:134:        state.mock_enabled = True
+backend/tests\test_system_settings.py:136:            {"mock_can_gateway": True, "enable_0x123": True, "enable_0x126": True, "allow_canopen_nmt": True, "enable_pid_debug": True}
+backend/tests\test_system_settings.py:145:        assert dashboard["maintenance"]["mock_can_gateway"] is False
+desktop/src\components\layout\TopStatusBar.vue:29:    <div class="cell mock"><span>Mock</span><strong :class="store.status.mock_enabled ? 'warn-text' : ''">{{ store.status.mock_enabled ? '开启' : '关闭' }}</strong></div>
+desktop/src\components\layout\TopStatusBar.vue:35:import { fallbackChannels } from '../../mocks/fallbackData'
+backend/app\services\signal_store.py:32:        data = deepcopy(_DASHBOARD_MOCK)
+backend/app\services\signal_store.py:34:        data["status"]["mock"] = not bool(self.current)
+backend/app\services\signal_store.py:102:_DASHBOARD_MOCK = {
+backend/app\services\signal_store.py:103:    "status": {"overall": "normal", "updated_at": "2026-04-01 10:26:35.123", "mock": True},
+desktop/src\stores\signals.ts:5:import { fallbackCurveConfig, fallbackCurveTimeseries, fallbackFaultEvents, fallbackReplayMetadata, fallbackSignalDashboard } from '../mocks/fallbackData'
+desktop/src\stores\settings.ts:5:import { fallbackSystemSettings } from '../mocks/systemSettings'
+backend/app\services\app_state.py:12:        self.mock_enabled = False
+backend/app\services\app_state.py:15:            "mock_can_gateway": False,
+backend/app\services\app_state.py:42:            "mock_enabled": self.mock_enabled,
+desktop/src\stores\reports.ts:4:import { fallbackReportManagementDashboard } from '../mocks/fallbackData'
+desktop/src\stores\history.ts:4:import { fallbackHistoryDashboard } from '../mocks/fallbackData'
+desktop/src\stores\eol.ts:4:import { fallbackAutoTestDashboard } from '../mocks/fallbackData'
+backend/app\can_gateway\mock_gateway.py:3:class MockCanGateway:
+backend/app\can_gateway\mock_gateway.py:5:        return CanFrame(channel=channel, can_id=can_id, dlc=8, data=(data + [0] * 8)[:8], source="mock")
+desktop/src\stores\control.ts:4:import { fallbackManualCommand, fallbackManualCurves, fallbackManualFeedback, fallbackManualInterlock, fallbackManualPreview, fallbackManualStatus } from '../mocks/fallbackData'
+desktop/src\stores\can.ts:5:import { fallbackCanDecoded, fallbackCanLatestFrames, fallbackCanMonitorStatistics } from '../mocks/fallbackData'
+desktop/src\stores\appStatus.ts:5:import { fallbackStatus, fallbackChannels } from '../mocks/fallbackData'
+desktop/src\stores\appStatus.ts:41:          mock_enabled: overview.station?.mock_enabled ?? overview.status.mock_enabled,
+desktop/src\stores\appStatus.ts:68:        const update = payload as { mock_can_gateway?: boolean }
+desktop/src\stores\appStatus.ts:69:        if (typeof update.mock_can_gateway === 'boolean') this.status.mock_enabled = update.mock_can_gateway
+backend/app\api\alarms.py:74:    return deepcopy(_MOCK_HISTORY)
+backend/app\api\alarms.py:78:    data = deepcopy(_DASHBOARD_MOCK)
+backend/app\api\alarms.py:122:    data["mock"] = not bool(state.signals.current)
+backend/app\api\alarms.py:144:    return _stub("诊断导出接口已预留，当前为 Mock 模式")
+backend/app\api\alarms.py:151:    return {**_stub("已定位相关 CAN 报文，当前为 Mock 模式"), "can_id": can_id, "route": "/can-monitor"}
+backend/app\api\alarms.py:174:_MOCK_HISTORY = [
+backend/app\api\alarms.py:183:_DASHBOARD_MOCK = {
+backend/app\api\alarms.py:219:    "history": _MOCK_HISTORY,
+desktop/src\stores\alarms.ts:4:import { fallbackAlarmDiagnosisDashboard } from '../mocks/fallbackData'
+backend/app\api\can.py:97:        return {"connected": True, "stub": True, "message": f"{channel} 接口已预留，当前为 Mock 模式：{exc}", "channel": channel}
+backend/app\api\can.py:109:        return {"disconnected": True, "stub": True, "message": f"{channel} 停止接口已预留，当前为 Mock 模式：{exc}", "channel": channel}
+backend/app\api\can.py:123:        "message": "接口已预留，当前为 Mock 模式",
+backend/app\api\can.py:133:        return {"stopped": True, "stub": True, "message": f"停止全部接口已预留，当前为 Mock 模式：{exc}"}
+backend/app\api\can.py:217:    return {"ok": True, "stub": True, "message": "接口已预留，当前为 Mock 模式"}
+backend/app\api\can.py:222:    return {"ok": True, "stub": True, "message": "接口已预留，当前为 Mock 模式", "file_path": "D:/Reports/raw_can_export.bin"}
+backend/app\api\can.py:227:    return {"ok": True, "stub": True, "message": "接口已预留，当前为 Mock 模式", "file_path": "D:/Reports/can_frames.csv"}
+backend/app\api\can.py:237:    return {"ok": True, "stub": True, "message": "接口已预留，当前为 Mock 模式"}
+backend/app\api\can.py:242:    return {"ok": True, "stub": True, "message": "接口已预留，当前为 Mock 模式", "file_id": file_id}
+desktop/src\api\types.ts:4:export interface StatusSnapshot { station_id: string; operator: string; software_version: string; control_channel: string; emergency_stop: boolean; mock_enabled: boolean; max_alarm_level: number; database: { type: string; writable: boolean }; dbc: { loaded: boolean; raw_only: boolean; version: string; error?: string }; channels: ChannelStatus[] }
+desktop/src\api\types.ts:25:    mock_enabled: boolean
+desktop/src\api\types.ts:162:    mock: boolean
+desktop/src\api\types.ts:527:  mock?: boolean
+desktop/src\api\types.ts:587:  mock?: boolean
+desktop/src\api\types.ts:676:  mock?: boolean
+desktop/src\api\types.ts:706:  mock_can_gateway: boolean
+desktop/src\api\types.ts:798:  mock?: boolean
+backend/app\api\config.py:79:    mock_can_gateway: bool = False
+backend/app\api\config.py:165:    {"label": "Mock 不伪装真实硬件", "enabled": True},
+backend/app\api\config.py:174:    {"time": "2026-03-31 15:08:42", "user": "admin", "key": "MockCanGateway", "old_value": "开启", "new_value": "关闭", "reason": "接入真实台架", "result": "成功"},
+backend/app\api\config.py:450:        "mock": False,
+backend/app\api\config.py:454:    dashboard["maintenance"]["mock_can_gateway"] = state.mock_enabled
+backend/app\api\config.py:546:    return {"ok": True, "stub": True, "message": "配置快照已生成，桌面文件保存接口当前为 Mock 模式", "format": format, "filename": f"system-config-{utc_now()[:10]}.{format}", "config": snapshot}
+backend/app\api\config.py:561:    state.mock_enabled = False
+backend/app\api\config.py:673:    mock_changed = requested.get("mock_can_gateway") != old.get("mock_can_gateway")
+backend/app\api\config.py:674:    expected_confirmation = "MAINTENANCE" if dangerous_enable else "MOCK" if mock_changed else payload.confirmation
+backend/app\api\config.py:675:    if (dangerous_enable or mock_changed) and payload.confirmation != expected_confirmation:
+backend/app\api\config.py:679:    state.mock_enabled = requested["mock_can_gateway"]
+backend/app\api\eol.py:149:        return _stub("接口已预留，当前为 Mock 模式", session_id="EOL-20260401-0001")
+backend/app\api\eol.py:160:    return _stub("接口已预留，当前为 Mock 模式", session_id=sid)
+backend/app\api\eol.py:168:    return _stub("接口已预留，当前为 Mock 模式", session_id=sid)
+backend/app\api\eol.py:176:    return _stub("接口已预留，当前为 Mock 模式", session_id=sid)
+backend/app\api\eol.py:186:    return _stub("中止接口已预留，当前为 Mock 模式", session_id=sid)
+backend/app\api\eol.py:205:    return _stub("报告接口已预留，当前为 Mock 模式", session_id=sid, report_id=f"RPT-{sid}")
+backend/app\api\control.py:152:        return _stub("安全停车接口已执行停止周期发送，当前急停锁定，停车帧保留为 Mock 模式")
+backend/app\api\control.py:174:    return _stub("默认控制值已恢复，当前为 Mock 模式")
+backend/app\api\history.py:116:    return deepcopy(_MOCK_SESSIONS), True
+backend/app\api\history.py:163:    return deepcopy(_MOCK_TIMELINE)
+backend/app\api\history.py:198:    logs = deepcopy(_MOCK_LOGS)
+backend/app\api\history.py:205:    return deepcopy(_MOCK_DOWNLOADS)
+backend/app\api\history.py:248:def _summary(rows: list[dict[str, Any]], mock: bool, filtered_count: int) -> dict[str, Any]:
+backend/app\api\history.py:249:    if mock:
+backend/app\api\history.py:280:    rows, mock = _session_source()
+backend/app\api\history.py:283:    total = len(filtered) if has_filter or not mock else 128
+backend/app\api\history.py:291:        "summary": _summary(rows, mock, total),
+backend/app\api\history.py:296:        "mock": mock,
+backend/app\api\history.py:303:    rows, mock = _session_source()
+backend/app\api\history.py:304:    total = 128 if mock else len(rows)
+backend/app\api\history.py:305:    return {"summary": _summary(rows, mock, total), "charts": _charts(), "pagination": {"page": 1, "page_size": 20, "total": total, "total_pages": max(1, (total + 19) // 20)}}
+backend/app\api\history.py:311:    return _stub("历史导出接口已预留，当前为 Mock 模式")
+backend/app\api\history.py:325:    rows, mock = _session_source()
+backend/app\api\history.py:327:    total = len(filtered) if any([chassis_no, vin, serial_no, result, operator, station]) or not mock else 128
+backend/app\api\history.py:374:    return _stub("下载接口已预留，当前为 Mock 模式", session_id=sid, file_type=file_type)
+backend/app\api\history.py:402:    return _stub("回放跳转接口已预留，当前为 Mock 模式", session_id=sid, cursor=payload)
+backend/app\api\history.py:416:_MOCK_SESSIONS = [
+backend/app\api\history.py:426:_MOCK_TIMELINE = [
+backend/app\api\history.py:438:_MOCK_LOGS = [
+backend/app\api\history.py:446:_MOCK_DOWNLOADS = [
+backend/app\api\overview.py:144:            "mock_enabled": bool(status.get("mock_enabled", False)),
+backend/app\api\reports.py:98:    return scanned if scanned else deepcopy(_MOCK_REPORTS)
+backend/app\api\reports.py:126:    return next((item for item in _report_rows() if item["report_id"] == rid), deepcopy(_MOCK_REPORTS[1]))
+backend/app\api\reports.py:178:        "mock": not bool(_db_reports()),
+backend/app\api\reports.py:211:    return _stub("打开目录接口已预留，当前为 Mock 模式", path=_DIRECTORY_STATS["path"])
+backend/app\api\reports.py:218:    return _stub("报告目录变更接口已预留，当前为 Mock 模式", path=path)
+backend/app\api\reports.py:240:    return _stub("Word 导出接口已预留，当前为 Mock 模式", report_id=rid)
+backend/app\api\reports.py:246:    return _stub("PDF 导出接口已预留，当前为 Mock 模式", report_id=rid)
+backend/app\api\reports.py:252:    return _stub("报告重新生成任务已提交，当前为 Mock 模式", report_id=rid, status="queued")
+backend/app\api\reports.py:258:    return _stub("打印任务已加入队列，当前为 Mock 模式", report_id=rid)
+backend/app\api\reports.py:293:_MOCK_REPORTS = [
+desktop/src\mocks\fallbackData.ts:9:  mock_enabled: false,
+desktop/src\mocks\fallbackData.ts:32:    mock_enabled: false,
+desktop/src\mocks\fallbackData.ts:182:  message: '接口已预留，当前为仿真/Mock模式',
+desktop/src\mocks\fallbackData.ts:279:    mock: true,
+desktop/src\mocks\fallbackData.ts:705:  mock: true,
+desktop/src\mocks\fallbackData.ts:767:  mock: true,
+desktop/src\mocks\fallbackData.ts:816:  mock: true,
+desktop/src\mocks\fallbackData.ts:966:      { time: '2026-07-08 17:22', user: 'admin', key: 'mock.enabled', oldValue: 'false', newValue: 'true', reason: '桌面端演示' },
+backend/app\api\signals.py:139:    return {"ok": True, "stub": True, "message": "接口已预留，当前为 Mock 模式"}
+backend/app\api\signals.py:146:    return {"ok": True, "stub": True, "message": "接口已预留，当前为 Mock 模式"}
+backend/app\api\signals.py:172:    return {"ok": True, "stub": True, "message": "快照接口已预留，当前为 Mock 模式"}
+backend/app\api\signals.py:177:    return {"ok": True, "stub": True, "message": "导出 CSV 接口已预留，当前为 Mock 模式", "path": "exports/curve_mock.csv"}
+backend/app\api\signals.py:182:    return {"ok": True, "stub": True, "message": "曲线选择已保存到 Mock 配置"}
+backend/app\api\signals.py:192:    return {"ok": True, "stub": True, "message": "接口已预留，当前为 Mock 模式"}
+backend/app\api\signals.py:197:    return {"ok": True, "stub": True, "message": "接口已预留，当前为 Mock 模式"}
+desktop/src\mocks\systemSettings.ts:48:  maintenance:{maintenance_mode:false,mock_can_gateway:false,enable_0x123:false,enable_0x126:false,allow_canopen_nmt:false,enable_pid_debug:false,dual_control_channel_allowed:false,requires_admin:true},
+desktop/src\mocks\systemSettings.ts:49:  safe_defaults:['UI 不直接发送 CAN','所有运动控制必须经过安全联锁','数据库不可写时禁止开始检测','CAN 控制通道默认仅 CAN2','0x123 默认禁用','0x126 默认禁用','CANopen NMT 默认禁用','Mock 不伪装真实硬件','异常时执行安全停车'].map(label=>({label,enabled:true})),
+desktop/src\mocks\systemSettings.ts:57:    {time:'2026-03-31 15:08:42',user:'admin',key:'MockCanGateway',old_value:'开启',new_value:'关闭',reason:'接入真实台架',result:'成功'},
+desktop/src\mocks\systemSettings.ts:59:  mock:true,updated_at:'2026-04-01 10:26:35',
+desktop/src\pages\AlarmDiagnosisPage.vue:12:        <span v-if="alarms.offline" class="mock-badge">后端离线，当前使用 Mock 告警数据</span>
+desktop/src\pages\AlarmDiagnosisPage.vue:13:        <button class="layout-btn" type="button" @click="showToast('自定义布局：接口已预留，当前为 Mock 模式')">
+desktop/src\pages\AlarmDiagnosisPage.vue:256:    showToast(`${label}：${result.message || (result.stub ? '接口已预留，当前为 Mock 模式' : '完成')}`)
+desktop/src\pages\AlarmDiagnosisPage.vue:266:  if (!(error instanceof Error)) return '接口暂不可用，当前保持 Mock 告警数据'
+desktop/src\pages\AlarmDiagnosisPage.vue:271:    return error.message.includes('Failed to fetch') ? '接口暂不可用，当前保持 Mock 告警数据' : error.message
+desktop/src\pages\AlarmDiagnosisPage.vue:343:.mock-badge,
+desktop/src\pages\AlarmDiagnosisPage.vue:353:.mock-badge {
+desktop/src\pages\AutoTestPage.vue:12:        <span v-if="eol.offline" class="mock-badge">后端离线，当前使用 Mock 检测数据</span>
+desktop/src\pages\AutoTestPage.vue:13:        <button class="small-btn ghost" @click="showToast('自定义布局：接口已预留，当前为 Mock 模式')">
+desktop/src\pages\AutoTestPage.vue:368:    showToast('查看关联日志：接口不可用，当前使用 Mock 日志')
+desktop/src\pages\AutoTestPage.vue:375:    showToast(`${label}：${result.message || (result.stub ? '接口已预留，当前为 Mock 模式' : '完成')}`)
+desktop/src\pages\AutoTestPage.vue:382:  if (!(error instanceof Error)) return '接口不可用，当前为 Mock 模式'
+desktop/src\pages\AutoTestPage.vue:387:    if (error.message.includes('Failed to fetch')) return '接口暂不可用，当前保持 Mock 检测数据'
+desktop/src\pages\AutoTestPage.vue:461:.mock-badge {
+desktop/src\pages\CanMonitorPage.vue:10:        <span v-if="store.offline" class="offline-badge">Mock / 离线数据</span>
+desktop/src\pages\CanMonitorPage.vue:112:                <td class="empty" colspan="12">当前显示缓存为空，可等待实时帧或刷新页面重新加载 Mock 数据。</td>
+desktop/src\pages\CanMonitorPage.vue:348:    showToast(`${label}：${res.message || (res.stub ? '接口已预留，当前为 Mock 模式' : '完成')}`)
+desktop/src\pages\CanMonitorPage.vue:350:    showToast(`${label}：接口不可用，已保留当前 Mock 展示`)
+desktop/src\pages\CanMonitorPage.vue:362:    showToast(`删除历史文件：${res.message || (res.stub ? '接口已预留，当前为 Mock 模式' : '完成')}`)
+desktop/src\pages\CanMonitorPage.vue:364:    showToast('删除历史文件：接口不可用，当前为 Mock 展示')
+desktop/src\pages\HistoryPage.vue:6:        <span v-if="historyStore.offline" class="mock-badge">后端离线，当前使用 Mock 历史数据</span>
+desktop/src\pages\HistoryPage.vue:82:import { fallbackHistoryDashboard } from '../mocks/fallbackData'
+desktop/src\pages\HistoryPage.vue:136:function formatError(error:unknown){ if(!(error instanceof Error))return'接口暂不可用，当前保持 Mock 历史数据';try{const parsed=JSON.parse(error.message) as {detail?:{message?:string};message?:string};return parsed.detail?.message||parsed.message||error.message}catch{return error.message.includes('Failed to fetch')?'接口暂不可用，当前保持 Mock 历史数据':error.message} }
+desktop/src\pages\HistoryPage.vue:142:.page-title-row{display:flex;align-items:center;justify-content:space-between;padding:0 4px}.title-left,.title-actions{display:flex;align-items:center;gap:10px}.title-icon{width:34px;height:34px;display:grid;place-items:center;border-radius:6px;color:#B9D9FF;border:1px solid rgba(47,128,255,.5);background:linear-gradient(135deg,rgba(47,128,255,.42),rgba(34,211,238,.16))}.page-title-row h1{margin:0;font-size:22px;line-height:24px;font-weight:800}.page-title-row p{margin:4px 0 0;color:#8CA6C5;font-size:12px}.mock-badge{height:29px;display:inline-flex;align-items:center;padding:0 10px;border-radius:6px;border:1px solid rgba(246,195,67,.42);color:#F6C343;background:rgba(246,195,67,.1);font-size:11px}.title-actions select{height:30px;width:82px;border:1px solid #315A83;border-radius:5px;color:#CFE2FF;background:#081A2F;padding:0 8px;font-size:11px}.auto-switch{height:30px;display:flex;align-items:center;gap:7px;border:1px solid #315A83;border-radius:5px;color:#AFC2DA;background:#0B2038;padding:0 9px;font-size:11px}.auto-switch span{position:relative;width:25px;height:13px;border-radius:999px;background:#315A83}.auto-switch span::after{content:'';position:absolute;top:2px;left:2px;width:9px;height:9px;border-radius:50%;background:#8CA6C5;transition:.15s}.auto-switch[aria-checked=true] span{background:#176CD9}.auto-switch[aria-checked=true] span::after{left:14px;background:#EAF2FF}
+desktop/src\pages\ManualControlPage.vue:12:        <span v-if="control.offline" class="mock-badge">后端离线，当前使用 Mock 控制数据</span>
+desktop/src\pages\ManualControlPage.vue:13:        <button class="small-btn ghost" @click="showToast('自定义布局：接口已预留，当前为 Mock 模式')"><Settings :size="15" />自定义布局</button>
+desktop/src\pages\ManualControlPage.vue:377:    showToast(`${label}：${result.message || (result.stub ? '接口已预留，当前为 Mock 模式' : '完成')}`)
+desktop/src\pages\ManualControlPage.vue:384:  if (!(error instanceof Error)) return '接口不可用，当前为 Mock 模式'
+desktop/src\pages\ManualControlPage.vue:461:.mock-badge {
+desktop/src\pages\NetworkConfigPage.vue:12:        <span v-if="offline" class="mock-pill">Mock/离线数据</span>
+desktop/src\pages\NetworkConfigPage.vue:13:        <span v-else-if="loading" class="mock-pill loading">正在刷新</span>
+desktop/src\pages\NetworkConfigPage.vue:183:import { fallbackNetworkConfig, fallbackNetworkSelfTest } from '../mocks/fallbackData'
+desktop/src\pages\NetworkConfigPage.vue:265:    showToast(response.message || (response.stub ? '接口已预留，当前为仿真/Mock模式' : '配置已保存'))
+desktop/src\pages\NetworkConfigPage.vue:278:    showToast('后端不可用，已使用 Mock 自检结果', 'warn')
+desktop/src\pages\NetworkConfigPage.vue:307:    showToast('后端不可用，已恢复本地 Mock 默认配置', 'warn')
+desktop/src\pages\NetworkConfigPage.vue:428:.mock-pill,
+desktop/src\pages\NetworkConfigPage.vue:444:.mock-pill {
+desktop/src\pages\NetworkConfigPage.vue:450:.mock-pill.loading {
+desktop/src\pages\RealtimeCurvePage.vue:12:        <span v-if="signals.offline" class="mock-badge">后端离线，当前使用 Mock 曲线数据</span>
+desktop/src\pages\RealtimeCurvePage.vue:400:  showToast('加载历史会话：已加载 Mock 回放元数据')
+desktop/src\pages\RealtimeCurvePage.vue:420:  showToast('播放控制：接口已预留，当前为 Mock 模式')
+desktop/src\pages\RealtimeCurvePage.vue:434:    showToast(`${label}：${result.message || (result.stub ? '接口已预留，当前为 Mock 模式' : '完成')}`)
+desktop/src\pages\RealtimeCurvePage.vue:436:    showToast(`${label}：接口不可用，当前为 Mock 模式`)
+desktop/src\pages\RealtimeCurvePage.vue:516:.mock-badge {
+desktop/src\pages\OverviewPage.vue:12:        <span v-if="offline" class="offline-pill">后端离线 · Mock展示</span>
+desktop/src\pages\OverviewPage.vue:201:import { fallbackOverviewSummary } from '../mocks/fallbackData'
+desktop/src\pages\ReportManagementPage.vue:8:      <span v-if="reportsStore.offline" class="mock-badge">后端离线，当前使用 Mock 报告数据</span>
+desktop/src\pages\ReportManagementPage.vue:222:    try { await reportsStore.relatedData(); showToast('查看关联日志：关联数据接口已返回，当前保持在本页') } catch { showToast('查看关联日志：接口暂不可用，当前保持 Mock 关联数据') }
+desktop/src\pages\ReportManagementPage.vue:229:  try { const result = await reportsStore.runAction(action); showToast(`${label}：${result.message || (result.stub ? '接口已预留，当前为 Mock 模式' : '完成')}`) }
+desktop/src\pages\ReportManagementPage.vue:240:  if (!(error instanceof Error)) return '接口暂不可用，当前保持 Mock 报告数据'
+desktop/src\pages\ReportManagementPage.vue:242:  catch { return error.message.includes('Failed to fetch') ? '接口暂不可用，当前保持 Mock 报告数据' : error.message }
+desktop/src\pages\ReportManagementPage.vue:254:.mock-badge { height:30px;display:inline-flex;align-items:center;padding:0 10px;border-radius:6px;border:1px solid rgba(246,195,67,.42);color:#F6C343;background:rgba(246,195,67,.1);font-size:12px; }
+desktop/src\pages\SignalDashboardPage.vue:10:        <span v-if="signals.offline" class="offline-badge">Mock / 离线数据</span>
+desktop/src\pages\SignalDashboardPage.vue:344:    showToast(`${label}：${result.message || (result.stub ? '接口已预留，当前为 Mock 模式' : '完成')}`)
+desktop/src\pages\SignalDashboardPage.vue:346:    showToast(`${label}：接口不可用，当前为 Mock 模式`)
+desktop/src\pages\SystemSettingsPage.vue:6:        <div><h1>系统设置</h1><p>阈值、存储、DBC、权限、Mock 与维护模式</p></div>
+desktop/src\pages\SystemSettingsPage.vue:9:        <span v-if="settingsStore.offline" class="offline-pill">后端离线，当前使用 Mock 系统配置</span>
+desktop/src\pages\SystemSettingsPage.vue:94:          <div class="maintenance-actions"><button class="mock" @click="openDialog('mock')"><Bot :size="14" />{{ settings.maintenance.mock_can_gateway?'关闭 Mock':'启用 Mock' }}</button><button :class="settings.maintenance.maintenance_mode?'exit':'enter'" @click="toggleMaintenance"><ShieldAlert :size="14" />{{ settings.maintenance.maintenance_mode?'退出维护模式':'进入维护模式' }}</button></div>
+desktop/src\pages\SystemSettingsPage.vue:118:      <ActionButton tone="warning" :title="settings.maintenance.mock_can_gateway?'关闭 Mock':'启用 Mock'" subtitle="切换 MockCanGateway" :icon="Bot" @click="openDialog('mock')" />
+desktop/src\pages\SystemSettingsPage.vue:153:const dialogMode = ref<'save'|'maintenance'|'mock'|'restore'|'feature'|null>(null)
+desktop/src\pages\SystemSettingsPage.vue:160:type FeatureKey = 'mock_can_gateway'|'enable_0x123'|'enable_0x126'|'allow_canopen_nmt'|'enable_pid_debug'|'dual_control_channel_allowed'
+desktop/src\pages\SystemSettingsPage.vue:164:  {key:'mock_can_gateway',label:'MockCanGateway',note:'必须明确显示 Mock 模式',risk:true,icon:Bot},
+desktop/src\pages\SystemSettingsPage.vue:192:const dialogExpected = computed(() => dialogMode.value==='maintenance'||dialogMode.value==='feature'?'MAINTENANCE':dialogMode.value==='mock'?'MOCK':dialogMode.value==='restore'?'RESTORE':'SAVE')
+desktop/src\pages\SystemSettingsPage.vue:193:const dialogTitle = computed(() => ({save:'保存危险参数',maintenance:'进入维护模式',mock:settings.value.maintenance.mock_can_gateway?'关闭 MockCanGateway':'启用 MockCanGateway',restore:'恢复安全默认值',feature:`变更 ${pendingFeature.value?.label||'危险功能'}`}[dialogMode.value||'save']))
+desktop/src\pages\SystemSettingsPage.vue:194:const dialogImpact = computed(() => ({save:'危险阈值会影响车辆控制与检测判定，后端将再次校验范围和权限。',maintenance:'维护模式可能导致车辆异常运动，仅允许管理员在封闭台架中使用。',mock:'Mock 模式不得伪装为真实硬件，切换将同步顶部状态并写入审计。',restore:'仅恢复速度、转角、告警、扩展报文和控制通道等安全参数，保留工位号与路径。',feature:`${pendingFeature.value?.note||''}，启用前必须确认维护模式与现场安全条件。`}[dialogMode.value||'save']))
+desktop/src\pages\SystemSettingsPage.vue:217:async function confirmDialog(){try{let result:{message?:string}|undefined;if(dialogMode.value==='save')result=await settingsStore.save(dialogReason.value);if(dialogMode.value==='maintenance')result=await settingsStore.enterMaintenance(dialogConfirmation.value,dialogReason.value);if(dialogMode.value==='restore')result=await settingsStore.restoreSafeDefaults(dialogConfirmation.value,dialogReason.value);if(dialogMode.value==='mock'){const next={...settings.value.maintenance,mock_can_gateway:!settings.value.maintenance.mock_can_gateway};result=await settingsStore.updateFeatures(next,dialogConfirmation.value,dialogReason.value)}if(dialogMode.value==='feature'&&pendingFeature.value){const next={...settings.value.maintenance,[pendingFeature.value.key]:!settings.value.maintenance[pendingFeature.value.key]};result=await settingsStore.updateFeatures(next,dialogConfirmation.value,dialogReason.value)}showToast(result?.message||'操作完成');closeDialog()}catch(error){showToast(formatError(error))}}
+desktop/src\pages\SystemSettingsPage.vue:218:function toggleFeature(feature:FeatureRow){if(feature.permanent){showToast('双控制通道由后端永久禁止，不能启用');return}if(feature.key!=='mock_can_gateway'&&!settings.value.maintenance.maintenance_mode){showToast('请先由管理员进入维护模式');return}openDialog(feature.key==='mock_can_gateway'?'mock':'feature',feature)}
+desktop/src\pages\SystemSettingsPage.vue:225:function formatError(error:unknown){if(!(error instanceof Error))return'操作失败';if(error.message.includes('Failed to fetch'))return'后端离线，操作未执行；当前继续显示 Mock 系统配置';try{const parsed=JSON.parse(error.message) as {detail?:{message?:string};message?:string};return parsed.detail?.message||parsed.message||error.message}catch{return error.message}}
+desktop/src\pages\SystemSettingsPage.vue:238:.maintenance-card{border-color:rgba(246,195,67,.55);box-shadow:inset 0 0 0 1px rgba(246,195,67,.05),0 8px 22px rgba(0,0,0,.22)}.maintenance-content{height:calc(100% - 31px);display:grid;grid-template-rows:43px minmax(0,1fr) 30px;gap:5px;padding-top:5px}.maintenance-warning{display:flex;align-items:center;gap:8px;padding:0 8px;border:1px solid rgba(246,195,67,.55);border-radius:5px;color:#F6C343;background:linear-gradient(90deg,rgba(246,195,67,.15),rgba(239,68,68,.06))}.maintenance-warning strong{display:block;font-size:10px}.maintenance-warning span{display:block;margin-top:2px;color:#C6AA68;font-size:8px}.maintenance-state{display:flex;align-items:center;gap:5px;color:#F6C343;font-size:9px}.maintenance-state i{width:7px;height:7px;border-radius:50%;background:currentColor}.maintenance-state.on{color:#EF4444}.feature-list{min-height:0;display:grid;grid-template-rows:repeat(6,1fr)}.feature-row{display:grid;grid-template-columns:1fr 1fr 29px;align-items:center;border:0;border-bottom:1px solid #263B4F;color:#DDEBFF;background:transparent;text-align:left;font-size:9px}.feature-row>span{display:flex;align-items:center;gap:5px}.feature-row>span svg{color:#F6C343}.feature-row small{overflow:hidden;color:#7F93AB;text-overflow:ellipsis;white-space:nowrap;font-size:8px}.feature-row>i{position:relative;width:25px;height:13px;border-radius:8px;background:#334C68}.feature-row>i b{position:absolute;top:2px;left:2px;width:9px;height:9px;border-radius:50%;background:#8EA3BC}.feature-row>i.on{background:#A62B38}.feature-row>i.on b{left:14px;background:#FFF}.feature-row.permanent{opacity:.48}.maintenance-actions{display:grid;grid-template-columns:1fr 1.2fr;gap:6px}.maintenance-actions button{display:flex;align-items:center;justify-content:center;gap:5px;border:1px solid;border-radius:4px;font-size:9px}.maintenance-actions .mock{color:#F6C343;border-color:#A87820;background:#32260C}.maintenance-actions .enter{color:#FFE1B2;border-color:#EF4444;background:#5A1825}.maintenance-actions .exit{color:#21C55D;border-color:#21C55D;background:#0C3B27}

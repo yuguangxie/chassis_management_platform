@@ -1,0 +1,44 @@
+{
+  "url": "http://127.0.0.1:8800/api/v1/storage/trend",
+  "method": "GET",
+  "status": 200,
+  "headers": {
+    "date": "Fri, 10 Jul 2026 03:01:29 GMT",
+    "server": "uvicorn",
+    "content-length": "197",
+    "content-type": "application/json",
+    "connection": "close"
+  },
+  "body": [
+    {
+      "date": "D-6",
+      "used_gb": 21
+    },
+    {
+      "date": "D-5",
+      "used_gb": 24
+    },
+    {
+      "date": "D-4",
+      "used_gb": 27
+    },
+    {
+      "date": "D-3",
+      "used_gb": 30
+    },
+    {
+      "date": "D-2",
+      "used_gb": 33
+    },
+    {
+      "date": "D-1",
+      "used_gb": 36
+    },
+    {
+      "date": "D-0",
+      "used_gb": 39
+    }
+  ],
+  "started_at": "2026-07-10T11:01:30.032534+08:00",
+  "finished_at": "2026-07-10T11:01:30.033970+08:00"
+}

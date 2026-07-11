@@ -1,0 +1,1233 @@
+{
+  "audit_time": "2026-07-10T11:19:53.814388+08:00",
+  "profile": "steering_no_response",
+  "expected_result": "FAIL",
+  "actual_result": "PASS",
+  "matches_expected": false,
+  "create_http_status": 200,
+  "start_http_status": 200,
+  "final_http_status": 200,
+  "elapsed_seconds": 1.228,
+  "session_id": "EOL-bd3127d1",
+  "session_status": "PASSED",
+  "step_count": 12,
+  "failed_steps": [],
+  "channels": [
+    {
+      "channel": "CAN1",
+      "online": true,
+      "fps": 95.7,
+      "rx_count": 1753,
+      "tx_count": 0,
+      "error_count": 0,
+      "last_frame_at": 1783653592.4696858,
+      "last_frame_hex": "42 00 00 00 00 00 00 00",
+      "protocol": "udp",
+      "local_ip": "[REDACTED_STATION_HOST]",
+      "local_port": 8234,
+      "device_ip": "[REDACTED_CAN1_GATEWAY]",
+      "device_port": 1234
+    },
+    {
+      "channel": "CAN2",
+      "online": true,
+      "fps": 207.2,
+      "rx_count": 3797,
+      "tx_count": 0,
+      "error_count": 0,
+      "last_frame_at": 1783653592.4696548,
+      "last_frame_hex": "42 00 00 00 00 00 00 00",
+      "protocol": "udp",
+      "local_ip": "[REDACTED_STATION_HOST]",
+      "local_port": 8235,
+      "device_ip": "[REDACTED_CAN2_GATEWAY]",
+      "device_port": 1234
+    }
+  ],
+  "signal_snapshot": {
+    "signals": {
+      "CCU_Shift_Level_Status": {
+        "key": "CCU_Shift_Level_Status",
+        "value": 2,
+        "unit": "",
+        "label": "N",
+        "quality": "good",
+        "updated_at": "2026-07-10T03:19:52.473684+00:00",
+        "can_id": "0x51",
+        "message_name": "VCU_CCU_Status",
+        "channel": "CAN1"
+      },
+      "CCU_Parking_Status": {
+        "key": "CCU_Parking_Status",
+        "value": {
+          "name": "Released",
+          "value": 0,
+          "_comments": {}
+        },
+        "unit": "",
+        "label": null,
+        "quality": "good",
+        "updated_at": "2026-07-10T03:19:52.473697+00:00",
+        "can_id": "0x51",
+        "message_name": "VCU_CCU_Status",
+        "channel": "CAN1"
+      },
+      "CCU_Ignition_Status": {
+        "key": "CCU_Ignition_Status",
+        "value": {
+          "name": "Off",
+          "value": 0,
+          "_comments": {}
+        },
+        "unit": "",
+        "label": null,
+        "quality": "good",
+        "updated_at": "2026-07-10T03:19:52.473700+00:00",
+        "can_id": "0x51",
+        "message_name": "VCU_CCU_Status",
+        "channel": "CAN1"
+      },
+      "CCU_Drive_Mode_Shift_Button": {
+        "key": "CCU_Drive_Mode_Shift_Button",
+        "value": {
+          "name": "Manual",
+          "value": 0,
+          "_comments": {}
+        },
+        "unit": "",
+        "label": null,
+        "quality": "good",
+        "updated_at": "2026-07-10T03:19:52.473703+00:00",
+        "can_id": "0x51",
+        "message_name": "VCU_CCU_Status",
+        "channel": "CAN1"
+      },
+      "Steering_Wheel_Direction": {
+        "key": "Steering_Wheel_Direction",
+        "value": {
+          "name": "LeftOrNegative",
+          "value": 0,
+          "_comments": {}
+        },
+        "unit": "",
+        "label": null,
+        "quality": "good",
+        "updated_at": "2026-07-10T03:19:52.473705+00:00",
+        "can_id": "0x51",
+        "message_name": "VCU_CCU_Status",
+        "channel": "CAN1"
+      },
+      "CCU_Steering_Wheel_Angle": {
+        "key": "CCU_Steering_Wheel_Angle",
+        "value": 0.0,
+        "unit": "",
+        "label": null,
+        "quality": "good",
+        "updated_at": "2026-07-10T03:19:52.473707+00:00",
+        "can_id": "0x51",
+        "message_name": "VCU_CCU_Status",
+        "channel": "CAN1"
+      },
+      "CCU_Vehicle_Speed": {
+        "key": "CCU_Vehicle_Speed",
+        "value": 0.0,
+        "unit": "km/h",
+        "label": null,
+        "quality": "good",
+        "updated_at": "2026-07-10T03:19:52.473709+00:00",
+        "can_id": "0x51",
+        "message_name": "VCU_CCU_Status",
+        "channel": "CAN1"
+      },
+      "CCU_Drive_Mode": {
+        "key": "CCU_Drive_Mode",
+        "value": 1,
+        "unit": "",
+        "label": null,
+        "quality": "good",
+        "updated_at": "2026-07-10T03:19:52.473712+00:00",
+        "can_id": "0x51",
+        "message_name": "VCU_CCU_Status",
+        "channel": "CAN1"
+      },
+      "Remote_Brake_Request_Status": {
+        "key": "Remote_Brake_Request_Status",
+        "value": {
+          "name": "Inactive",
+          "value": 0,
+          "_comments": {}
+        },
+        "unit": "",
+        "label": null,
+        "quality": "good",
+        "updated_at": "2026-07-10T03:19:52.473715+00:00",
+        "can_id": "0x51",
+        "message_name": "VCU_CCU_Status",
+        "channel": "CAN1"
+      },
+      "Emergency_Brake_Request_Status": {
+        "key": "Emergency_Brake_Request_Status",
+        "value": 0,
+        "unit": "",
+        "label": null,
+        "quality": "good",
+        "updated_at": "2026-07-10T03:19:52.473717+00:00",
+        "can_id": "0x51",
+        "message_name": "VCU_CCU_Status",
+        "channel": "CAN1"
+      },
+      "SCU_Brake_Signal_Status": {
+        "key": "SCU_Brake_Signal_Status",
+        "value": {
+          "name": "Inactive",
+          "value": 0,
+          "_comments": {}
+        },
+        "unit": "",
+        "label": null,
+        "quality": "good",
+        "updated_at": "2026-07-10T03:19:52.473719+00:00",
+        "can_id": "0x51",
+        "message_name": "VCU_CCU_Status",
+        "channel": "CAN1"
+      },
+      "Touch_Brake_Request_Status": {
+        "key": "Touch_Brake_Request_Status",
+        "value": 0,
+        "unit": "",
+        "label": null,
+        "quality": "good",
+        "updated_at": "2026-07-10T03:19:52.473721+00:00",
+        "can_id": "0x51",
+        "message_name": "VCU_CCU_Status",
+        "channel": "CAN1"
+      },
+      "Handle_Brake_Request_Status": {
+        "key": "Handle_Brake_Request_Status",
+        "value": 0,
+        "unit": "",
+        "label": null,
+        "quality": "good",
+        "updated_at": "2026-07-10T03:19:52.473723+00:00",
+        "can_id": "0x51",
+        "message_name": "VCU_CCU_Status",
+        "channel": "CAN1"
+      },
+      "Handle_Mode_Flag_Status": {
+        "key": "Handle_Mode_Flag_Status",
+        "value": 0,
+        "unit": "",
+        "label": null,
+        "quality": "good",
+        "updated_at": "2026-07-10T03:19:52.473726+00:00",
+        "can_id": "0x51",
+        "message_name": "VCU_CCU_Status",
+        "channel": "CAN1"
+      },
+      "Left_Turn_Light_Status": {
+        "key": "Left_Turn_Light_Status",
+        "value": {
+          "name": "Off",
+          "value": 0,
+          "_comments": {}
+        },
+        "unit": "",
+        "label": null,
+        "quality": "good",
+        "updated_at": "2026-07-10T03:19:52.473728+00:00",
+        "can_id": "0x51",
+        "message_name": "VCU_CCU_Status",
+        "channel": "CAN1"
+      },
+      "Right_Turn_Light_Status": {
+        "key": "Right_Turn_Light_Status",
+        "value": {
+          "name": "Off",
+          "value": 0,
+          "_comments": {}
+        },
+        "unit": "",
+        "label": null,
+        "quality": "good",
+        "updated_at": "2026-07-10T03:19:52.473730+00:00",
+        "can_id": "0x51",
+        "message_name": "VCU_CCU_Status",
+        "channel": "CAN1"
+      },
+      "Position_Light_Status": {
+        "key": "Position_Light_Status",
+        "value": {
+          "name": "Off",
+          "value": 0,
+          "_comments": {}
+        },
+        "unit": "",
+        "label": null,
+        "quality": "good",
+        "updated_at": "2026-07-10T03:19:52.473732+00:00",
+        "can_id": "0x51",
+        "message_name": "VCU_CCU_Status",
+        "channel": "CAN1"
+      },
+      "Low_Beam_Status": {
+        "key": "Low_Beam_Status",
+        "value": {
+          "name": "Off",
+          "value": 0,
+          "_comments": {}
+        },
+        "unit": "",
+        "label": null,
+        "quality": "good",
+        "updated_at": "2026-07-10T03:19:52.473734+00:00",
+        "can_id": "0x51",
+        "message_name": "VCU_CCU_Status",
+        "channel": "CAN1"
+      },
+      "Brake_Status": {
+        "key": "Brake_Status",
+        "value": false,
+        "unit": "",
+        "label": null,
+        "quality": "good",
+        "updated_at": "2026-07-10T03:19:52.473736+00:00",
+        "can_id": "0x51",
+        "message_name": "VCU_CCU_Status",
+        "channel": "CAN1"
+      },
+      "BMS_SOC_Warning": {
+        "key": "BMS_SOC_Warning",
+        "value": {
+          "name": "Normal",
+          "value": 0,
+          "_comments": {}
+        },
+        "unit": "",
+        "label": null,
+        "quality": "good",
+        "updated_at": "2026-07-10T03:19:52.479995+00:00",
+        "can_id": "0x77",
+        "message_name": "VCU_Warning_Level",
+        "channel": "CAN1"
+      },
+      "MCU_Disconnect_Warning": {
+        "key": "MCU_Disconnect_Warning",
+        "value": {
+          "name": "Normal",
+          "value": 0,
+          "_comments": {}
+        },
+        "unit": "",
+        "label": null,
+        "quality": "good",
+        "updated_at": "2026-07-10T03:19:52.480007+00:00",
+        "can_id": "0x77",
+        "message_name": "VCU_Warning_Level",
+        "channel": "CAN1"
+      },
+      "MCU_Motor_Warning": {
+        "key": "MCU_Motor_Warning",
+        "value": {
+          "name": "Normal",
+          "value": 0,
+          "_comments": {}
+        },
+        "unit": "",
+        "label": null,
+        "quality": "good",
+        "updated_at": "2026-07-10T03:19:52.480009+00:00",
+        "can_id": "0x77",
+        "message_name": "VCU_Warning_Level",
+        "channel": "CAN1"
+      },
+      "MCU_Speed_Warning": {
+        "key": "MCU_Speed_Warning",
+        "value": {
+          "name": "Normal",
+          "value": 0,
+          "_comments": {}
+        },
+        "unit": "",
+        "label": null,
+        "quality": "good",
+        "updated_at": "2026-07-10T03:19:52.480011+00:00",
+        "can_id": "0x77",
+        "message_name": "VCU_Warning_Level",
+        "channel": "CAN1"
+      },
+      "Steering_Disconnect_Warning": {
+        "key": "Steering_Disconnect_Warning",
+        "value": {
+          "name": "Normal",
+          "value": 0,
+          "_comments": {}
+        },
+        "unit": "",
+        "label": null,
+        "quality": "good",
+        "updated_at": "2026-07-10T03:19:52.480013+00:00",
+        "can_id": "0x77",
+        "message_name": "VCU_Warning_Level",
+        "channel": "CAN1"
+      },
+      "Steering_Lock_Warning": {
+        "key": "Steering_Lock_Warning",
+        "value": {
+          "name": "Normal",
+          "value": 0,
+          "_comments": {}
+        },
+        "unit": "",
+        "label": null,
+        "quality": "good",
+        "updated_at": "2026-07-10T03:19:52.480015+00:00",
+        "can_id": "0x77",
+        "message_name": "VCU_Warning_Level",
+        "channel": "CAN1"
+      },
+      "Steering_Uncontrollable_Warning": {
+        "key": "Steering_Uncontrollable_Warning",
+        "value": {
+          "name": "Normal",
+          "value": 0,
+          "_comments": {}
+        },
+        "unit": "",
+        "label": null,
+        "quality": "good",
+        "updated_at": "2026-07-10T03:19:52.480017+00:00",
+        "can_id": "0x77",
+        "message_name": "VCU_Warning_Level",
+        "channel": "CAN1"
+      },
+      "Steering_Error_Warning": {
+        "key": "Steering_Error_Warning",
+        "value": {
+          "name": "Normal",
+          "value": 0,
+          "_comments": {}
+        },
+        "unit": "",
+        "label": null,
+        "quality": "good",
+        "updated_at": "2026-07-10T03:19:52.480019+00:00",
+        "can_id": "0x77",
+        "message_name": "VCU_Warning_Level",
+        "channel": "CAN1"
+      },
+      "Brake_Error_Warning": {
+        "key": "Brake_Error_Warning",
+        "value": {
+          "name": "Normal",
+          "value": 0,
+          "_comments": {}
+        },
+        "unit": "",
+        "label": null,
+        "quality": "good",
+        "updated_at": "2026-07-10T03:19:52.480021+00:00",
+        "can_id": "0x77",
+        "message_name": "VCU_Warning_Level",
+        "channel": "CAN1"
+      },
+      "VCU_Max_Warning_Level": {
+        "key": "VCU_Max_Warning_Level",
+        "value": 0,
+        "unit": "",
+        "label": "Normal",
+        "quality": "good",
+        "updated_at": "2026-07-10T03:19:52.480024+00:00",
+        "can_id": "0x77",
+        "message_name": "VCU_Warning_Level",
+        "channel": "CAN1"
+      },
+      "Wheel_Speed_Front_Left_RPM": {
+        "key": "Wheel_Speed_Front_Left_RPM",
+        "value": 200,
+        "unit": "rpm",
+        "label": null,
+        "quality": "good",
+        "updated_at": "2026-07-10T03:19:52.485535+00:00",
+        "can_id": "0x168",
+        "message_name": "VCU_Wheel_Speed_Feedback",
+        "channel": "CAN1"
+      },
+      "Wheel_Speed_Front_Right_RPM": {
+        "key": "Wheel_Speed_Front_Right_RPM",
+        "value": 200,
+        "unit": "rpm",
+        "label": null,
+        "quality": "good",
+        "updated_at": "2026-07-10T03:19:52.485548+00:00",
+        "can_id": "0x168",
+        "message_name": "VCU_Wheel_Speed_Feedback",
+        "channel": "CAN1"
+      },
+      "Wheel_Speed_Rear_Left_RPM": {
+        "key": "Wheel_Speed_Rear_Left_RPM",
+        "value": 200,
+        "unit": "rpm",
+        "label": null,
+        "quality": "good",
+        "updated_at": "2026-07-10T03:19:52.485551+00:00",
+        "can_id": "0x168",
+        "message_name": "VCU_Wheel_Speed_Feedback",
+        "channel": "CAN1"
+      },
+      "Wheel_Speed_Rear_Right_RPM": {
+        "key": "Wheel_Speed_Rear_Right_RPM",
+        "value": 200,
+        "unit": "rpm",
+        "label": null,
+        "quality": "good",
+        "updated_at": "2026-07-10T03:19:52.485554+00:00",
+        "can_id": "0x168",
+        "message_name": "VCU_Wheel_Speed_Feedback",
+        "channel": "CAN1"
+      },
+      "Vehicle_Speed": {
+        "key": "Vehicle_Speed",
+        "value": 0.0,
+        "unit": "km/h",
+        "label": null,
+        "quality": "good",
+        "updated_at": "2026-07-10T03:19:52.485558+00:00",
+        "can_id": "0x168",
+        "message_name": "VCU_Wheel_Speed_Feedback",
+        "channel": "CAN1"
+      },
+      "SAS_Front_Angle": {
+        "key": "SAS_Front_Angle",
+        "value": 0.0,
+        "unit": "cmd",
+        "label": null,
+        "quality": "good",
+        "updated_at": "2026-07-10T03:19:52.490973+00:00",
+        "can_id": "0xE1",
+        "message_name": "SAS_Angle_Feedback",
+        "channel": "CAN1"
+      },
+      "SAS_Rear_Angle": {
+        "key": "SAS_Rear_Angle",
+        "value": 0.0,
+        "unit": "cmd",
+        "label": null,
+        "quality": "good",
+        "updated_at": "2026-07-10T03:19:52.490982+00:00",
+        "can_id": "0xE1",
+        "message_name": "SAS_Angle_Feedback",
+        "channel": "CAN1"
+      },
+      "heartbeat": {
+        "key": "heartbeat",
+        "value": 1,
+        "unit": "",
+        "label": null,
+        "quality": "good",
+        "updated_at": "2026-07-10T03:19:52.501980+00:00",
+        "can_id": "0x704",
+        "message_name": "Heartbeat_F",
+        "channel": "CAN1"
+      },
+      "Heartbeat_0x703": {
+        "key": "Heartbeat_0x703",
+        "value": 1,
+        "unit": "",
+        "label": null,
+        "quality": "good",
+        "updated_at": "2026-07-10T03:19:52.496364+00:00",
+        "can_id": "0x703",
+        "message_name": "Heartbeat_R",
+        "channel": "CAN1"
+      },
+      "Heartbeat_0x704": {
+        "key": "Heartbeat_0x704",
+        "value": 1,
+        "unit": "",
+        "label": null,
+        "quality": "good",
+        "updated_at": "2026-07-10T03:19:52.501990+00:00",
+        "can_id": "0x704",
+        "message_name": "Heartbeat_F",
+        "channel": "CAN1"
+      },
+      "BMS_Voltage": {
+        "key": "BMS_Voltage",
+        "value": 52.0,
+        "unit": "V",
+        "label": null,
+        "quality": "good",
+        "updated_at": "2026-07-10T03:19:52.445313+00:00",
+        "can_id": "0x100",
+        "message_name": "BMS_Status",
+        "channel": "CAN2"
+      },
+      "BMS_Current": {
+        "key": "BMS_Current",
+        "value": 1.2,
+        "unit": "A",
+        "label": null,
+        "quality": "good",
+        "updated_at": "2026-07-10T03:19:52.445325+00:00",
+        "can_id": "0x100",
+        "message_name": "BMS_Status",
+        "channel": "CAN2"
+      },
+      "BMS_SOC": {
+        "key": "BMS_SOC",
+        "value": 86,
+        "unit": "%",
+        "label": null,
+        "quality": "good",
+        "updated_at": "2026-07-10T03:19:52.445328+00:00",
+        "can_id": "0x100",
+        "message_name": "BMS_Status",
+        "channel": "CAN2"
+      },
+      "BMS_CRC_16": {
+        "key": "BMS_CRC_16",
+        "value": 0,
+        "unit": "",
+        "label": null,
+        "quality": "good",
+        "updated_at": "2026-07-10T03:19:52.445332+00:00",
+        "can_id": "0x100",
+        "message_name": "BMS_Status",
+        "channel": "CAN2"
+      },
+      "Full_capacity": {
+        "key": "Full_capacity",
+        "value": 220.18,
+        "unit": "",
+        "label": null,
+        "quality": "good",
+        "updated_at": "2026-07-10T03:19:52.450992+00:00",
+        "can_id": "0x101",
+        "message_name": "BMS_Capacity",
+        "channel": "CAN2"
+      },
+      "discharge_circulate": {
+        "key": "discharge_circulate",
+        "value": 0,
+        "unit": "",
+        "label": null,
+        "quality": "good",
+        "updated_at": "2026-07-10T03:19:52.451008+00:00",
+        "can_id": "0x101",
+        "message_name": "BMS_Capacity",
+        "channel": "CAN2"
+      },
+      "Remaining_capacity": {
+        "key": "Remaining_capacity",
+        "value": 0.0,
+        "unit": "",
+        "label": null,
+        "quality": "good",
+        "updated_at": "2026-07-10T03:19:52.451012+00:00",
+        "can_id": "0x101",
+        "message_name": "BMS_Capacity",
+        "channel": "CAN2"
+      },
+      "Charge_or_Discharge_State": {
+        "key": "Charge_or_Discharge_State",
+        "value": 2,
+        "unit": "",
+        "label": "discharging",
+        "quality": "good",
+        "updated_at": "2026-07-10T03:19:52.451015+00:00",
+        "can_id": "0x101",
+        "message_name": "BMS_Capacity",
+        "channel": "CAN2"
+      },
+      "Charge_MOS": {
+        "key": "Charge_MOS",
+        "value": 0,
+        "unit": "",
+        "label": null,
+        "quality": "good",
+        "updated_at": "2026-07-10T03:19:52.451017+00:00",
+        "can_id": "0x101",
+        "message_name": "BMS_Capacity",
+        "channel": "CAN2"
+      },
+      "Discharge_MOS": {
+        "key": "Discharge_MOS",
+        "value": 0,
+        "unit": "",
+        "label": null,
+        "quality": "good",
+        "updated_at": "2026-07-10T03:19:52.451019+00:00",
+        "can_id": "0x101",
+        "message_name": "BMS_Capacity",
+        "channel": "CAN2"
+      },
+      "Balance_symbol_cell16": {
+        "key": "Balance_symbol_cell16",
+        "value": 0,
+        "unit": "",
+        "label": null,
+        "quality": "good",
+        "updated_at": "2026-07-10T03:19:52.454074+00:00",
+        "can_id": "0x102",
+        "message_name": "BMS_Protect_Status",
+        "channel": "CAN2"
+      },
+      "Balance_symbol_cell33": {
+        "key": "Balance_symbol_cell33",
+        "value": 0,
+        "unit": "",
+        "label": null,
+        "quality": "good",
+        "updated_at": "2026-07-10T03:19:52.454088+00:00",
+        "can_id": "0x102",
+        "message_name": "BMS_Protect_Status",
+        "channel": "CAN2"
+      },
+      "single_overvol_protection": {
+        "key": "single_overvol_protection",
+        "value": 0,
+        "unit": "",
+        "label": null,
+        "quality": "good",
+        "updated_at": "2026-07-10T03:19:52.454091+00:00",
+        "can_id": "0x102",
+        "message_name": "BMS_Protect_Status",
+        "channel": "CAN2"
+      },
+      "single_undervol_protection": {
+        "key": "single_undervol_protection",
+        "value": 0,
+        "unit": "",
+        "label": null,
+        "quality": "good",
+        "updated_at": "2026-07-10T03:19:52.454094+00:00",
+        "can_id": "0x102",
+        "message_name": "BMS_Protect_Status",
+        "channel": "CAN2"
+      },
+      "total_overvol_protection": {
+        "key": "total_overvol_protection",
+        "value": 0,
+        "unit": "",
+        "label": null,
+        "quality": "good",
+        "updated_at": "2026-07-10T03:19:52.454096+00:00",
+        "can_id": "0x102",
+        "message_name": "BMS_Protect_Status",
+        "channel": "CAN2"
+      },
+      "total_undervol_protection": {
+        "key": "total_undervol_protection",
+        "value": 0,
+        "unit": "",
+        "label": null,
+        "quality": "good",
+        "updated_at": "2026-07-10T03:19:52.454099+00:00",
+        "can_id": "0x102",
+        "message_name": "BMS_Protect_Status",
+        "channel": "CAN2"
+      },
+      "charge_overTem": {
+        "key": "charge_overTem",
+        "value": 0,
+        "unit": "",
+        "label": null,
+        "quality": "good",
+        "updated_at": "2026-07-10T03:19:52.454101+00:00",
+        "can_id": "0x102",
+        "message_name": "BMS_Protect_Status",
+        "channel": "CAN2"
+      },
+      "charge_underTem": {
+        "key": "charge_underTem",
+        "value": 0,
+        "unit": "",
+        "label": null,
+        "quality": "good",
+        "updated_at": "2026-07-10T03:19:52.454104+00:00",
+        "can_id": "0x102",
+        "message_name": "BMS_Protect_Status",
+        "channel": "CAN2"
+      },
+      "discharge_overTem": {
+        "key": "discharge_overTem",
+        "value": 0,
+        "unit": "",
+        "label": null,
+        "quality": "good",
+        "updated_at": "2026-07-10T03:19:52.454106+00:00",
+        "can_id": "0x102",
+        "message_name": "BMS_Protect_Status",
+        "channel": "CAN2"
+      },
+      "discharge_unnderTem": {
+        "key": "discharge_unnderTem",
+        "value": 0,
+        "unit": "",
+        "label": null,
+        "quality": "good",
+        "updated_at": "2026-07-10T03:19:52.454108+00:00",
+        "can_id": "0x102",
+        "message_name": "BMS_Protect_Status",
+        "channel": "CAN2"
+      },
+      "charge_overCur": {
+        "key": "charge_overCur",
+        "value": 0,
+        "unit": "",
+        "label": null,
+        "quality": "good",
+        "updated_at": "2026-07-10T03:19:52.454110+00:00",
+        "can_id": "0x102",
+        "message_name": "BMS_Protect_Status",
+        "channel": "CAN2"
+      },
+      "discharge_overCur": {
+        "key": "discharge_overCur",
+        "value": 0,
+        "unit": "",
+        "label": null,
+        "quality": "good",
+        "updated_at": "2026-07-10T03:19:52.454113+00:00",
+        "can_id": "0x102",
+        "message_name": "BMS_Protect_Status",
+        "channel": "CAN2"
+      },
+      "short_circuit": {
+        "key": "short_circuit",
+        "value": 0,
+        "unit": "",
+        "label": null,
+        "quality": "good",
+        "updated_at": "2026-07-10T03:19:52.454115+00:00",
+        "can_id": "0x102",
+        "message_name": "BMS_Protect_Status",
+        "channel": "CAN2"
+      },
+      "IC_Error": {
+        "key": "IC_Error",
+        "value": 0,
+        "unit": "",
+        "label": null,
+        "quality": "good",
+        "updated_at": "2026-07-10T03:19:52.454117+00:00",
+        "can_id": "0x102",
+        "message_name": "BMS_Protect_Status",
+        "channel": "CAN2"
+      },
+      "Lock_MOS": {
+        "key": "Lock_MOS",
+        "value": 0,
+        "unit": "",
+        "label": null,
+        "quality": "good",
+        "updated_at": "2026-07-10T03:19:52.454119+00:00",
+        "can_id": "0x102",
+        "message_name": "BMS_Protect_Status",
+        "channel": "CAN2"
+      },
+      "reserve": {
+        "key": "reserve",
+        "value": 0,
+        "unit": "",
+        "label": null,
+        "quality": "good",
+        "updated_at": "2026-07-10T03:19:52.454122+00:00",
+        "can_id": "0x102",
+        "message_name": "BMS_Protect_Status",
+        "channel": "CAN2"
+      },
+      "CRC_16": {
+        "key": "CRC_16",
+        "value": 0,
+        "unit": "",
+        "label": null,
+        "quality": "good",
+        "updated_at": "2026-07-10T03:19:52.454124+00:00",
+        "can_id": "0x102",
+        "message_name": "BMS_Protect_Status",
+        "channel": "CAN2"
+      },
+      "BMS_Protect_Bitmap": {
+        "key": "BMS_Protect_Bitmap",
+        "value": 0,
+        "unit": "bitmap",
+        "label": null,
+        "quality": "good",
+        "updated_at": "2026-07-10T03:19:52.454126+00:00",
+        "can_id": "0x102",
+        "message_name": "BMS_Protect_Status",
+        "channel": "CAN2"
+      },
+      "NTC1": {
+        "key": "NTC1",
+        "value": 25,
+        "unit": "degC",
+        "label": null,
+        "quality": "good",
+        "updated_at": "2026-07-10T03:19:52.457106+00:00",
+        "can_id": "0x103",
+        "message_name": "BMS_NTC",
+        "channel": "CAN2"
+      },
+      "NTC2": {
+        "key": "NTC2",
+        "value": 26,
+        "unit": "degC",
+        "label": null,
+        "quality": "good",
+        "updated_at": "2026-07-10T03:19:52.457120+00:00",
+        "can_id": "0x103",
+        "message_name": "BMS_NTC",
+        "channel": "CAN2"
+      },
+      "NTC3": {
+        "key": "NTC3",
+        "value": 24,
+        "unit": "degC",
+        "label": null,
+        "quality": "good",
+        "updated_at": "2026-07-10T03:19:52.457122+00:00",
+        "can_id": "0x103",
+        "message_name": "BMS_NTC",
+        "channel": "CAN2"
+      },
+      "reserved": {
+        "key": "reserved",
+        "value": 0,
+        "unit": "",
+        "label": null,
+        "quality": "good",
+        "updated_at": "2026-07-10T03:19:52.457125+00:00",
+        "can_id": "0x103",
+        "message_name": "BMS_NTC",
+        "channel": "CAN2"
+      },
+      "Cell1": {
+        "key": "Cell1",
+        "value": 8.737,
+        "unit": "",
+        "label": null,
+        "quality": "good",
+        "updated_at": "2026-07-10T03:19:52.463479+00:00",
+        "can_id": "0x105",
+        "message_name": "BMS_Cell_Part2",
+        "channel": "CAN2"
+      },
+      "Cell2": {
+        "key": "Cell2",
+        "value": 8.737,
+        "unit": "",
+        "label": null,
+        "quality": "good",
+        "updated_at": "2026-07-10T03:19:52.463490+00:00",
+        "can_id": "0x105",
+        "message_name": "BMS_Cell_Part2",
+        "channel": "CAN2"
+      },
+      "Cell3": {
+        "key": "Cell3",
+        "value": 8.737,
+        "unit": "",
+        "label": null,
+        "quality": "good",
+        "updated_at": "2026-07-10T03:19:52.463493+00:00",
+        "can_id": "0x105",
+        "message_name": "BMS_Cell_Part2",
+        "channel": "CAN2"
+      },
+      "Cell4": {
+        "key": "Cell4",
+        "value": 0.0,
+        "unit": "",
+        "label": null,
+        "quality": "good",
+        "updated_at": "2026-07-10T03:19:52.463496+00:00",
+        "can_id": "0x105",
+        "message_name": "BMS_Cell_Part2",
+        "channel": "CAN2"
+      },
+      "Hardware_Target_Speed": {
+        "key": "Hardware_Target_Speed",
+        "value": 0.0,
+        "unit": "",
+        "label": null,
+        "quality": "good",
+        "updated_at": "2026-07-10T03:19:52.466712+00:00",
+        "can_id": "0x7F1",
+        "message_name": "SCU_Target_Speed_Feedback",
+        "channel": "CAN2"
+      },
+      "SCU_Target_Speed_Feedback": {
+        "key": "SCU_Target_Speed_Feedback",
+        "value": 0.0,
+        "unit": "km/h",
+        "label": null,
+        "quality": "good",
+        "updated_at": "2026-07-10T03:19:52.466727+00:00",
+        "can_id": "0x7F1",
+        "message_name": "SCU_Target_Speed_Feedback",
+        "channel": "CAN2"
+      },
+      "Vehicle_Target_Speed": {
+        "key": "Vehicle_Target_Speed",
+        "value": 0.0,
+        "unit": "",
+        "label": null,
+        "quality": "good",
+        "updated_at": "2026-07-10T03:19:52.466730+00:00",
+        "can_id": "0x7F1",
+        "message_name": "SCU_Target_Speed_Feedback",
+        "channel": "CAN2"
+      },
+      "Vehicle_Target_Speed_RPM": {
+        "key": "Vehicle_Target_Speed_RPM",
+        "value": 0.0,
+        "unit": "",
+        "label": null,
+        "quality": "good",
+        "updated_at": "2026-07-10T03:19:52.466733+00:00",
+        "can_id": "0x7F1",
+        "message_name": "SCU_Target_Speed_Feedback",
+        "channel": "CAN2"
+      }
+    },
+    "watchlist": [
+      "BMS_SOC",
+      "BMS_Voltage",
+      "Vehicle_Speed",
+      "SAS_Front_Angle",
+      "SAS_Rear_Angle",
+      "VCU_Max_Warning_Level"
+    ]
+  },
+  "alarms": [],
+  "start_response": {
+    "chassis_no": "AUDIT-steering_no_response",
+    "vin": "LAUDIT00000000001",
+    "serial_no": "AUDIT-steering_no_response",
+    "operator": "audit",
+    "station_id": "EOL-STATION-01",
+    "plan_id": "default_chassis_eol_v1",
+    "remarks": "audit profile steering_no_response",
+    "id": "EOL-bd3127d1",
+    "status": "RUNNING",
+    "overall_result": null,
+    "steps": [],
+    "created_at": "2026-07-10T03:19:52.562506+00:00",
+    "started_at": "2026-07-10T03:19:52.583213+00:00"
+  },
+  "final_session": {
+    "chassis_no": "AUDIT-steering_no_response",
+    "vin": "LAUDIT00000000001",
+    "serial_no": "AUDIT-steering_no_response",
+    "operator": "audit",
+    "station_id": "EOL-STATION-01",
+    "plan_id": "default_chassis_eol_v1",
+    "remarks": "audit profile steering_no_response",
+    "id": "EOL-bd3127d1",
+    "status": "PASSED",
+    "overall_result": "PASS",
+    "steps": [
+      {
+        "order": 1,
+        "name": "上电自检",
+        "status": "DONE",
+        "result": "PASS",
+        "started_at": "2026-07-10T03:19:52.586397+00:00",
+        "assertions": [
+          {
+            "id": "step_1_assert",
+            "result": "PASS",
+            "reason": ""
+          }
+        ],
+        "ended_at": "2026-07-10T03:19:52.678872+00:00"
+      },
+      {
+        "order": 2,
+        "name": "CAN 通信检测",
+        "status": "DONE",
+        "result": "PASS",
+        "started_at": "2026-07-10T03:19:52.678904+00:00",
+        "assertions": [
+          {
+            "id": "step_2_assert",
+            "result": "PASS",
+            "reason": ""
+          }
+        ],
+        "ended_at": "2026-07-10T03:19:52.764823+00:00"
+      },
+      {
+        "order": 3,
+        "name": "BMS 检测",
+        "status": "DONE",
+        "result": "PASS",
+        "started_at": "2026-07-10T03:19:52.765004+00:00",
+        "assertions": [
+          {
+            "id": "step_3_assert",
+            "result": "PASS",
+            "reason": ""
+          }
+        ],
+        "ended_at": "2026-07-10T03:19:52.856750+00:00"
+      },
+      {
+        "order": 4,
+        "name": "VCU 状态检测",
+        "status": "DONE",
+        "result": "PASS",
+        "started_at": "2026-07-10T03:19:52.856796+00:00",
+        "assertions": [
+          {
+            "id": "step_4_assert",
+            "result": "PASS",
+            "reason": ""
+          }
+        ],
+        "ended_at": "2026-07-10T03:19:52.945694+00:00"
+      },
+      {
+        "order": 5,
+        "name": "电机心跳检测",
+        "status": "DONE",
+        "result": "PASS",
+        "started_at": "2026-07-10T03:19:52.945742+00:00",
+        "assertions": [
+          {
+            "id": "step_5_assert",
+            "result": "PASS",
+            "reason": ""
+          }
+        ],
+        "ended_at": "2026-07-10T03:19:53.041465+00:00"
+      },
+      {
+        "order": 6,
+        "name": "档位检测",
+        "status": "DONE",
+        "result": "PASS",
+        "started_at": "2026-07-10T03:19:53.041529+00:00",
+        "assertions": [
+          {
+            "id": "step_6_assert",
+            "result": "PASS",
+            "reason": ""
+          }
+        ],
+        "ended_at": "2026-07-10T03:19:53.126142+00:00"
+      },
+      {
+        "order": 7,
+        "name": "低速驱动检测",
+        "status": "DONE",
+        "result": "PASS",
+        "started_at": "2026-07-10T03:19:53.126250+00:00",
+        "assertions": [
+          {
+            "id": "step_7_assert",
+            "result": "PASS",
+            "reason": ""
+          }
+        ],
+        "ended_at": "2026-07-10T03:19:53.216521+00:00"
+      },
+      {
+        "order": 8,
+        "name": "转向检测",
+        "status": "DONE",
+        "result": "PASS",
+        "started_at": "2026-07-10T03:19:53.216563+00:00",
+        "assertions": [
+          {
+            "id": "step_8_assert",
+            "result": "PASS",
+            "reason": ""
+          }
+        ],
+        "ended_at": "2026-07-10T03:19:53.306331+00:00"
+      },
+      {
+        "order": 9,
+        "name": "灯光检测",
+        "status": "DONE",
+        "result": "PASS",
+        "started_at": "2026-07-10T03:19:53.306429+00:00",
+        "assertions": [
+          {
+            "id": "step_9_assert",
+            "result": "PASS",
+            "reason": ""
+          }
+        ],
+        "ended_at": "2026-07-10T03:19:53.400190+00:00"
+      },
+      {
+        "order": 10,
+        "name": "制动停止检测",
+        "status": "DONE",
+        "result": "PASS",
+        "started_at": "2026-07-10T03:19:53.400240+00:00",
+        "assertions": [
+          {
+            "id": "step_10_assert",
+            "result": "PASS",
+            "reason": ""
+          }
+        ],
+        "ended_at": "2026-07-10T03:19:53.486132+00:00"
+      },
+      {
+        "order": 11,
+        "name": "告警复查",
+        "status": "DONE",
+        "result": "PASS",
+        "started_at": "2026-07-10T03:19:53.486416+00:00",
+        "assertions": [
+          {
+            "id": "step_11_assert",
+            "result": "PASS",
+            "reason": ""
+          }
+        ],
+        "ended_at": "2026-07-10T03:19:53.576123+00:00"
+      },
+      {
+        "order": 12,
+        "name": "报告生成",
+        "status": "DONE",
+        "result": "PASS",
+        "started_at": "2026-07-10T03:19:53.576188+00:00",
+        "assertions": [
+          {
+            "id": "step_12_assert",
+            "result": "PASS",
+            "reason": ""
+          }
+        ],
+        "ended_at": "2026-07-10T03:19:53.658492+00:00"
+      }
+    ],
+    "created_at": "2026-07-10T03:19:52.562506+00:00",
+    "started_at": "2026-07-10T03:19:52.583213+00:00",
+    "ended_at": "2026-07-10T03:19:53.658560+00:00",
+    "report": {
+      "id": "1ed17158",
+      "session_id": "EOL-bd3127d1",
+      "result": "PASS",
+      "files": {
+        "json": "D:\\workspace\\0-yunle\\7_codex\\chassis_eol_management_platform_codex_pack\\chassis_management_platform\\data\\reports\\EOL-bd3127d1_PASS_1ed17158.json",
+        "docx": "D:\\workspace\\0-yunle\\7_codex\\chassis_eol_management_platform_codex_pack\\chassis_management_platform\\data\\reports\\EOL-bd3127d1_PASS_1ed17158.docx",
+        "pdf": "D:\\workspace\\0-yunle\\7_codex\\chassis_eol_management_platform_codex_pack\\chassis_management_platform\\data\\reports\\EOL-bd3127d1_PASS_1ed17158.pdf"
+      }
+    }
+  },
+  "new_report_files": [
+    "EOL-bd3127d1_PASS_1ed17158.docx",
+    "EOL-bd3127d1_PASS_1ed17158.json",
+    "EOL-bd3127d1_PASS_1ed17158.pdf"
+  ],
+  "report_files_exist": true
+}
