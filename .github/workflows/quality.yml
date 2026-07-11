@@ -112,10 +112,13 @@ jobs:
       - name: Verify installed Electron binary
         shell: pwsh
         run: |
-          $version = & '.\desktop\node_modules\.bin\electron.cmd' --version
-          $version | Tee-Object docs/verification/phase-05/e2e/electron-version-ci.txt
+          $versionOutput = & '.\desktop\node_modules\.bin\electron.cmd' --version | Out-String
+          $versionOutput | Set-Content docs/verification/phase-05/e2e/electron-version-ci.raw.txt -Encoding utf8
+          $matches = [regex]::Matches($versionOutput, '\bv\d+\.\d+\.\d+\b')
+          $version = if ($matches.Count -gt 0) { $matches[$matches.Count - 1].Value } else { '' }
+          $version | Set-Content docs/verification/phase-05/e2e/electron-version-ci.txt -Encoding utf8
           if ($version.Trim() -ne 'v43.1.0') {
-            throw "Electron 43.1.0 is required, got $version"
+            throw "Electron 43.1.0 is required, got $versionOutput"
           }
       - name: Run Electron page capture and stale-online control gate
         run: npm.cmd --prefix desktop run test:e2e

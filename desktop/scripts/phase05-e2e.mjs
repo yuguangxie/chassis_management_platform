@@ -1,4 +1,5 @@
 /* Reproducible loopback-only quality run: backend, simulator, renderer and safety fallback. */
+import { once } from 'node:events'
 import { spawn } from 'node:child_process'
 import { createSocket } from 'node:dgram'
 import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
@@ -19,6 +20,19 @@ const webPort = Number(process.env.CHASSIS_E2E_WEB_PORT || 15173)
 
 function wait(milliseconds) { return new Promise((resolveWait) => setTimeout(resolveWait, milliseconds)) }
 
+async function resetOutputDirectory() {
+  for (let attempt = 0; attempt < 12; attempt += 1) {
+    try {
+      rmSync(output, { recursive: true, force: true })
+      mkdirSync(output, { recursive: true })
+      return
+    } catch (error) {
+      if (error?.code !== 'EBUSY' || attempt === 11) throw error
+      await wait(250)
+    }
+  }
+}
+
 async function commandOutput(command, args, options = {}) {
   return new Promise((resolveCommand, reject) => {
     const child = spawn(command, args, { windowsHide: true, shell: process.platform === 'win32', ...options })
@@ -28,6 +42,13 @@ async function commandOutput(command, args, options = {}) {
     child.once('error', reject)
     child.once('exit', (code) => code === 0 ? resolveCommand(outputText.trim()) : reject(new Error(`${command} exited with ${code}: ${outputText.trim()}`)))
   })
+}
+
+function extractElectronVersion(output) {
+  // Electron's npm launcher can emit a one-time binary download notice before
+  // the actual executable version on clean Windows runners.
+  const versions = output.match(/\bv\d+\.\d+\.\d+\b/g) ?? []
+  return versions.at(-1) ?? ''
 }
 
 async function chooseUdpBase() {
@@ -82,12 +103,23 @@ async function waitFor(url, label) {
   throw new Error(`${label} did not start: ${lastError}`)
 }
 
-function stop(child) {
+async function stop(child) {
   if (!child || child.exitCode !== null) return
+  const waitForExit = () => Promise.race([
+    once(child, 'exit'),
+    wait(5_000),
+  ])
   if (process.platform === 'win32' && child.pid) {
-    spawn('taskkill', ['/pid', String(child.pid), '/T', '/F'], { windowsHide: true, stdio: 'ignore' })
+    const killer = spawn('taskkill', ['/pid', String(child.pid), '/T', '/F'], { windowsHide: true, stdio: 'ignore' })
+    await Promise.race([
+      once(killer, 'exit'),
+      wait(5_000),
+    ])
+    await waitForExit()
+    await wait(200)
   } else {
     child.kill('SIGTERM')
+    await waitForExit()
   }
 }
 
@@ -101,9 +133,9 @@ async function main() {
   if (!existsSync(python)) throw new Error(`backend virtualenv is required: ${python}`)
   if (process.env.CHASSIS_E2E_ELECTRON) throw new Error('CHASSIS_E2E_ELECTRON is forbidden for phase-05 verification')
   if (!existsSync(electronLauncher) || !existsSync(electron)) throw new Error(`installed Electron 43 binary is required: ${electron}`)
-  rmSync(output, { recursive: true, force: true })
-  mkdirSync(output, { recursive: true })
-  const electronVersion = await commandOutput(electronLauncher, ['--version'])
+  await resetOutputDirectory()
+  const electronVersionOutput = await commandOutput(electronLauncher, ['--version'])
+  const electronVersion = extractElectronVersion(electronVersionOutput)
   if (electronVersion !== 'v43.1.0') throw new Error(`Electron 43.1.0 is required, got ${electronVersion}`)
   writeFileSync(resolve(output, 'electron-version.txt'), `${electronVersion}\n`)
   const udpBase = await chooseUdpBase()
@@ -167,7 +199,7 @@ async function main() {
       no_renderer_page_errors: inspections.every((item) => item.renderer_page_errors.length === 0),
     }
 
-    stop(simulator)
+    await stop(simulator)
     simulator = undefined
     const simulatorStoppedAt = performance.now()
     await wait(2300)
@@ -205,7 +237,9 @@ async function main() {
   } catch (error) {
     result.error = `${error?.name || 'Error'}: ${error?.message || error}`
   } finally {
-    stop(simulator); stop(frontend); stop(backend)
+    await stop(simulator)
+    await stop(frontend)
+    await stop(backend)
   }
   writeFileSync(resolve(output, 'e2e-summary.json'), JSON.stringify(result, null, 2))
   console.log(JSON.stringify(result, null, 2))
