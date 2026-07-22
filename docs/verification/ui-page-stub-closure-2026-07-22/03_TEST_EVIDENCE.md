@@ -47,4 +47,8 @@
 | `npm.cmd run test:integration` | 通过；Electron `v43.1.0`，仅 `127.0.0.1`，WebSocket/回环 runtime 证据 `passed=true` |
 | `npm.cmd run test:e2e:verify` | 通过；截图 22、交互页 11、离线控制 409 |
 
-质量证据位于 `quality-final/` 与 `docs/verification/phase-05/e2e/`。测试只使用临时 `data_root`、Mock 和 `127.0.0.1`；`nonLoopbackRequests=0`，没有执行真实硬件测试。实现提交哈希在提交后由证据补充提交记录，远程 Windows CI 结果亦在该补充中登记。
+质量证据位于 `quality-final/` 与 `docs/verification/phase-05/e2e/`。测试只使用临时 `data_root`、Mock 和 `127.0.0.1`；`nonLoopbackRequests=0`，没有执行真实硬件测试。
+
+- 实现提交：`8c0b16ac7ab8192451eb284a926f92c32511e2ef`
+- 分支：`codex/ui-page-stub-closure`
+- 远程 Windows CI：推送后通过 `quality-gates` 的 `workflow_dispatch` 验证；运行号与最终结论将在 CI 完成后补记。
