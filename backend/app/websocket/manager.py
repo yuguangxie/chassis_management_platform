@@ -34,8 +34,11 @@ class WebSocketManager:
         self.disconnect_after_drops = disconnect_after_drops
         self.clients: dict[WebSocket, _Client] = {}
 
-    async def connect(self, ws: WebSocket) -> None:
-        await ws.accept()
+    async def connect(self, ws: WebSocket, subprotocol: str | None = None) -> None:
+        if subprotocol is None:
+            await ws.accept()
+        else:
+            await ws.accept(subprotocol=subprotocol)
         client = _Client(websocket=ws, queue=asyncio.Queue(maxsize=self.client_queue_size))
         client.sender = asyncio.create_task(self._sender(client), name="websocket-client-sender")
         self.clients[ws] = client

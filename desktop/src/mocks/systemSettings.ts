@@ -29,7 +29,7 @@ export const fallbackSystemThresholds: SystemThresholdSetting[] = [
 export const fallbackSystemSettings: SystemSettingsDashboard = {
   save_state:{dirty:false,last_saved_at:'2026-04-01 10:26:35',status:'saved'},
   auth:{current_user:'offline',current_role:'operator'},
-  basic:{station_id:'EOL-STATION-01',host_ip:'127.0.0.1',control_channel:'CAN2',report_directory:'D:\\TestLogs\\Reports',database_path:'D:\\TestLogs\\Database\\chassis_eol.sqlite3',log_directory:'D:\\TestLogs\\AppLogs',timezone:'UTC+08:00',language:'zh-CN',auto_save:true},
+  basic:{station_id:'EOL-STATION-01',host_ip:'127.0.0.1',control_channel:'CAN2',report_directory:'<data_root>\\reports',database_path:'<data_root>\\database\\chassis_eol.sqlite3',log_directory:'<data_root>\\logs\\application',timezone:'UTC+08:00',language:'zh-CN',auto_save:true},
   dbc:{filename:'Yunle_CAN_integrated_candb_jd.dbc',version:'Release v1.0.2',hash:'9f31c2b7',status:'loaded',message_count:48,signal_count:312,loaded_at:'2026-04-01 10:20:12',overrides:[
     {key:'0x121_steering',label:'0x121 前/后转角',value:'int8 有符号补码',status:'active'},
     {key:'0x102_bool',label:'0x102 保护状态',value:'unsigned bool',status:'active'},
@@ -37,7 +37,7 @@ export const fallbackSystemSettings: SystemSettingsDashboard = {
     {key:'motor_current',label:'Torque_req / Torque_feed',value:'电机相电流 raw × 0.1 A，不是 Nm',status:'active'},
     {key:'bms_cell_segments',label:'0x104~0x109',value:'BMS cell 分段兼容，非固定 24 串',status:'active'},
   ]},
-  storage:{report_directory:'D:\\TestLogs\\Reports',raw_can_directory:'D:\\TestLogs\\RawCan',decoded_signal_directory:'D:\\TestLogs\\DecodedSignals',database_path:'D:\\TestLogs\\Database\\chassis_eol.sqlite3',retention_days:180,max_log_gb:50,auto_cleanup:true,word_enabled:true,pdf_enabled:true,csv_enabled:true,parquet_enabled:false,disk_total_gb:512,disk_used_gb:236,disk_free_gb:276,disk_used_percent:46.1},
+  storage:{data_root:'<data_root>',report_directory:'<data_root>\\reports',raw_can_directory:'<data_root>\\logs\\raw_can',decoded_signal_directory:'<data_root>\\logs\\decoded_signals',database_path:'<data_root>\\database\\chassis_eol.sqlite3',retention_days:180,max_log_gb:50,auto_cleanup:false,word_enabled:true,pdf_enabled:true,csv_enabled:true,parquet_enabled:false,disk_total_gb:0,disk_used_gb:0,disk_free_gb:0,disk_used_percent:0,measurement_error:'显式 Mock：未执行磁盘测量'},
   thresholds:fallbackSystemThresholds,
   roles:[
     {role:'viewer',view:'全部查看',test:'无',manual_control:'无',config:'无',maintenance:'无',delete_report:false,admin_confirmation:false},
@@ -48,11 +48,11 @@ export const fallbackSystemSettings: SystemSettingsDashboard = {
   maintenance:{maintenance_mode:false,mock_can_gateway:false,enable_0x123:false,enable_0x126:false,allow_canopen_nmt:false,enable_pid_debug:false,dual_control_channel_allowed:false,requires_admin:true},
   safe_defaults:['UI 不直接发送 CAN','所有运动控制必须经过安全联锁','数据库不可写时禁止开始检测','CAN 控制通道默认仅 CAN2','0x123 默认禁用','0x126 默认禁用','CANopen NMT 默认禁用','Mock 不伪装真实硬件','异常时执行安全停车'].map(label=>({label,enabled:true})),
   version:{software:'v1.0.2',config:'cfg-20260401',test_plan:'eol-plan-1.0.2',python:'3.11.8',node:'20.x',electron:'43.1.0',platform:'Windows 10 64-bit',build_time:'2026-04-01 10:30:00'},
-  storage_trend:[21,24,28,31,34,38,42].map((used_gb,index)=>({date:`04-0${index+1}`,used_gb})),
-  storage_summary:{current_log_gb:42,database_gb:.12,reports_gb:12.8,raw_can_gb:28.4,last_cleanup:'2026-03-31 02:00:00',next_cleanup:'2026-04-02 02:00:00',cleanup_status:'策略正常',disk_alarm:'正常'},
+  storage_trend:[{date:'Mock',used_gb:0,source:'explicit-mock'}],
+  storage_summary:{current_log_gb:0,database_gb:0,reports_gb:0,raw_can_gb:0,last_cleanup:'-',next_cleanup:'manual-confirmation-required',cleanup_status:'explicit-mock',disk_alarm:'unknown'},
   config_history:[
     {time:'2026-04-01 10:15:20',user:'admin',key:'手动控制速度上限',old_value:'5',new_value:'8',reason:'台架调试',result:'成功'},
-    {time:'2026-04-01 09:42:12',user:'engineer01',key:'报告目录',old_value:'D:\\Old',new_value:'D:\\TestLogs\\Reports',reason:'工位迁移',result:'成功'},
+    {time:'2026-04-01 09:42:12',user:'engineer01',key:'报告目录',old_value:'<旧 data_root>\\reports',new_value:'<data_root>\\reports',reason:'工位迁移',result:'成功'},
     {time:'2026-03-31 17:20:05',user:'admin',key:'0x121 发送周期',old_value:'50 ms',new_value:'20 ms',reason:'方案版本升级',result:'成功'},
     {time:'2026-03-31 15:08:42',user:'admin',key:'MockCanGateway',old_value:'开启',new_value:'关闭',reason:'接入真实台架',result:'成功'},
   ],

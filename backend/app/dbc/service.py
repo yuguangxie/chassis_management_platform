@@ -23,6 +23,7 @@ class DbcService:
             "file": self.result.file,
             "hash": self.result.hash,
             "version": self.result.version,
+            "vehicle_series": self.result.vehicle_series,
             "error": self.result.error,
         }
 

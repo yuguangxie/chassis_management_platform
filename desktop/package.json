@@ -1,6 +1,9 @@
 {
   "name": "chassis-eol-desktop",
   "version": "1.0.2",
+  "description": "低速无人车线控底盘生产下线管理平台 Windows 桌面端",
+  "private": true,
+  "author": "Yunle",
   "type": "module",
   "main": "electron/main.cjs",
   "engines": {
@@ -19,7 +22,12 @@
     "test:integration:long": "node scripts/phase05-e2e.mjs --runtime --long",
     "test:e2e:verify": "node ../scripts/verify_phase05_e2e_evidence.mjs",
     "test:bundle": "node ../scripts/verify_bundle_budget.mjs",
-    "electron:build": "vite build"
+    "electron:build": "vite build",
+    "test:sidecar": "node --test electron/sidecar.test.cjs",
+    "sidecar:build": "powershell -NoProfile -ExecutionPolicy Bypass -File ../scripts/build_sidecar.ps1",
+    "package:dir": "electron-builder --win dir --x64 --config electron-builder.config.cjs",
+    "package:win": "electron-builder --win nsis --x64 --config electron-builder.config.cjs",
+    "release:win": "powershell -NoProfile -ExecutionPolicy Bypass -File ../scripts/build_windows_release.ps1"
   },
   "dependencies": {
     "echarts": "^6.1.0",
@@ -34,6 +42,7 @@
     "@vitest/coverage-v8": "^4.1.10",
     "@vue/test-utils": "^2.4.6",
     "electron": "43.1.0",
+    "electron-builder": "26.15.3",
     "eslint": "^9.17.0",
     "eslint-plugin-vue": "^9.32.0",
     "globals": "^15.14.0",

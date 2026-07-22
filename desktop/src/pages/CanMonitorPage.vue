@@ -7,13 +7,13 @@
           <h1>CAN 报文监控</h1>
           <p>实时帧、历史帧、DBC 解码与统计分析</p>
         </div>
-        <span v-if="store.offline || store.quality !== 'good' || store.statistics.mock" class="offline-badge">{{ store.offline ? '后端离线 / Mock 数据' : store.quality === 'mock' ? '显式 Mock 数据' : `数据质量：${store.quality}` }}</span>
+        <PageDataState :loading="store.loading" :error="store.error" :stale="store.offline || store.quality !== 'good' || Boolean(store.statistics.mock)" :empty="!store.latestFrames.length" />
       </div>
       <div class="header-actions">
-        <button class="action danger" @click="clearDisplay"><Trash2 />清空显示</button>
-        <button class="action" @click="postAction('/logs/export/csv', '导出CSV')"><Download />导出CSV</button>
-        <button class="action" @click="postAction('/logs/export/raw-can', '导出原始日志')"><FileDown />导出原始日志</button>
-        <button class="action" @click="loadFirstHistory"><FolderOpen />加载历史文件</button>
+        <button v-if="auth.can('operator')" class="action danger" :disabled="store.offline" @click="clearDisplay"><Trash2 />清空显示</button>
+        <button v-if="auth.can('operator')" class="action" :disabled="store.offline" @click="postAction('/logs/export/csv', '导出CSV')"><Download />导出CSV</button>
+        <button v-if="auth.can('operator')" class="action" :disabled="store.offline" @click="postAction('/logs/export/raw-can', '导出原始日志')"><FileDown />导出原始日志</button>
+        <button v-if="auth.can('operator')" class="action" :disabled="store.offline" @click="loadFirstHistory"><FolderOpen />加载历史文件</button>
       </div>
     </section>
 
@@ -119,7 +119,7 @@
       <article class="panel detail-panel">
         <div class="panel-head detail-head">
           <h2>帧详情 - {{ selectedFrame?.can_id_hex || '-' }} ({{ selectedFrame?.message_name || 'raw-only' }})</h2>
-          <div class="icon-actions"><Maximize2 :size="16" /><X :size="16" /></div>
+          <div class="icon-actions"><button disabled title="尚未实现：帧详情独立全屏"><Maximize2 :size="16" /></button><button disabled title="尚未实现：关闭帧详情面板"><X :size="16" /></button></div>
         </div>
         <div v-if="selectedFrame" class="detail-content">
           <div class="frame-info">
@@ -133,13 +133,13 @@
           <div class="data-row">
             <span>Data Hex</span>
             <code>{{ selectedFrame.data_hex }}</code>
-            <Copy :size="14" />
+            <button class="copy-action" type="button" aria-label="复制帧数据" @click="copyFrameData"><Copy :size="14" /></button>
           </div>
           <div class="tabs">
             <button class="active">信号解码</button>
-            <button>原始数据</button>
-            <button>DBC信息</button>
-            <button>发送历史</button>
+            <button disabled title="尚未实现：当前帧原始信息已在上方展示">原始数据（尚未实现）</button>
+            <button disabled title="尚未实现：DBC 信息请在系统设置查看">DBC信息（尚未实现）</button>
+            <button disabled title="尚未实现：发送历史需要独立审计视图">发送历史（尚未实现）</button>
           </div>
           <div class="signal-table-wrap">
             <table class="signal-table">
@@ -197,11 +197,11 @@
         </div>
       </article>
       <article class="panel history-card">
-        <div class="panel-head"><h2>历史文件（raw_can）</h2><button class="more">更多 &gt;</button></div>
+        <div class="panel-head"><h2>历史文件（raw_can）</h2><button class="more" @click="showAllHistory = !showAllHistory">{{ showAllHistory ? '收起' : '更多' }} &gt;</button></div>
         <table class="history-table">
           <thead><tr><th>文件名</th><th>会话ID</th><th>开始时间</th><th>大小</th><th>操作</th></tr></thead>
           <tbody>
-            <tr v-for="file in store.statistics.history_files.slice(0, 4)" :key="file.file_id">
+            <tr v-for="file in visibleHistoryFiles" :key="file.file_id">
               <td>{{ file.file_name }}</td>
               <td>{{ file.session_id }}</td>
               <td>{{ file.started_at }}</td>
@@ -209,7 +209,7 @@
               <td class="file-actions">
                 <Download :size="14" @click="downloadHistory(file.file_id, file.file_name)" />
                 <FolderOpen :size="14" @click="postAction('/logs/load-history', '打开历史文件', { file_id: file.file_id })" />
-                <Trash2 :size="14" @click="deleteHistory(file.file_id)" />
+                <Trash2 v-if="auth.isAdmin" :size="14" @click="deleteHistory(file.file_id)" />
               </td>
             </tr>
           </tbody>
@@ -219,14 +219,14 @@
 
     <footer class="monitor-footer">
       <div>
-        <span class="green-dot" />
-        数据记录中
+        <span :class="store.offline ? 'stale-dot' : 'green-dot'" />
+        {{ store.offline ? '离线，记录状态未知' : '数据记录中' }}
         <span>已运行：{{ store.statistics.footer_status.uptime }}</span>
         <span>缓冲使用：{{ store.statistics.footer_status.buffer_usage }}%</span>
       </div>
       <div>
-        <span>接收帧率：{{ store.statistics.footer_status.rx_fps.toLocaleString() }} fps</span>
-        <span>发送帧率：{{ store.statistics.footer_status.tx_fps.toLocaleString() }} fps</span>
+        <span>接收帧率：{{ store.offline ? '—（stale）' : `${store.statistics.footer_status.rx_fps.toLocaleString()} fps` }}</span>
+        <span>发送帧率：{{ store.offline ? '—（stale）' : `${store.statistics.footer_status.tx_fps.toLocaleString()} fps` }}</span>
       </div>
     </footer>
 
@@ -243,13 +243,18 @@ import type { CanLatestFrame, CanDecodedSignal } from '../api/types'
 import { useCanStore } from '../stores/can'
 import BarChart from '../components/charts/BarChart.vue'
 import RealtimeLineChart from '../components/charts/RealtimeLineChart.vue'
+import PageDataState from '../components/PageDataState.vue'
+import { useAuthStore } from '../stores/auth'
 
 const store = useCanStore()
+const auth = useAuthStore()
 const toast = ref('')
+const showAllHistory = ref(false)
 
 const selectedFrame = computed(() => store.selectedFrame)
 const selectedSignals = computed<CanDecodedSignal[]>(() => store.selectedDecoded?.signals || rawSignals(selectedFrame.value))
 const sortLabel = computed(() => (store.sortMode === 'can_id_asc' ? '升序' : store.sortMode === 'can_id_desc' ? '降序' : '最近'))
+const visibleHistoryFiles = computed(() => showAllHistory.value ? store.statistics.history_files : store.statistics.history_files.slice(0, 4))
 
 const chartText = { color: '#91A7C6', fontSize: 10 }
 const axisLine = { lineStyle: { color: '#24486F' } }
@@ -383,6 +388,16 @@ async function deleteHistory(fileId: string) {
   }
 }
 
+async function copyFrameData() {
+  if (!selectedFrame.value) return
+  try {
+    await navigator.clipboard.writeText(selectedFrame.value.data_hex)
+    showToast('帧数据已复制')
+  } catch (error) {
+    showToast(`复制失败：${formatApiError(error)}`)
+  }
+}
+
 function showToast(message: string) {
   toast.value = message
   window.setTimeout(() => {
@@ -397,7 +412,7 @@ function showToast(message: string) {
   min-height: 0;
   overflow: hidden;
   display: grid;
-  grid-template-rows: 56px 76px minmax(0, 1.48fr) minmax(0, .88fr) 34px;
+  grid-template-rows: 42px 76px minmax(0, 1.48fr) minmax(0, .88fr) 34px;
   gap: 10px;
   color: #d7e7fb;
 }
@@ -649,6 +664,7 @@ button {
   color: #8EA7C8;
   flex: none;
 }
+.icon-actions button,.copy-action{display:grid;place-items:center;border:0;color:inherit;background:transparent}.icon-actions button:disabled{opacity:.45;cursor:not-allowed}.tabs button:disabled{opacity:.45;cursor:not-allowed}
 
 .frame-table-wrap,
 .signal-table-wrap {
@@ -967,7 +983,7 @@ thead th {
 
 @media (max-width: 1500px) {
   .can-monitor-page {
-    grid-template-rows: 56px 78px minmax(0, 1.4fr) minmax(0, .82fr) 34px;
+    grid-template-rows: 42px 78px minmax(0, 1.4fr) minmax(0, .82fr) 34px;
   }
 
   .filter-panel {

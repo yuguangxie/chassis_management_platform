@@ -5,7 +5,6 @@ from pathlib import Path
 from threading import RLock
 from typing import Any
 
-from app.core.paths import DATA_DIR
 
 
 DEFAULTS = {
@@ -25,7 +24,7 @@ DEFAULTS = {
 
 
 class PreferenceService:
-    def __init__(self, path: Path = DATA_DIR / "ui_preferences.json") -> None:
+    def __init__(self, path: Path) -> None:
         self.path = path
         self.path.parent.mkdir(parents=True, exist_ok=True)
         self._lock = RLock()

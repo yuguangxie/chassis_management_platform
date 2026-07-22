@@ -31,6 +31,7 @@ function compactInterlock(status: ManualInterlockStatus): ManualInterlockStatus 
   return {
     overall: status.overall,
     reasons: status.reasons,
+    evaluation: status.evaluation,
     items: [
       summary('key_frames_online', '关键报文在线', ['can2_online', 'critical_feedback_fresh'], '在线'),
       summary('no_severe_alarm', '无严重告警', ['no_severe_alarm'], '正常'),
@@ -52,17 +53,24 @@ export const useControlStore = defineStore('control', {
     feedback: { ...fallbackManualFeedback } as ManualFeedback,
     curves: { ...fallbackManualCurves } as ManualCurves,
     offline: false,
+    loading: false,
+    stale: true,
     error: '',
   }),
   actions: {
     async loadAll() {
-      await Promise.all([
-        this.loadStatus(),
-        this.loadInterlock(),
-        this.loadFeedback(),
-        this.loadCurves(),
-        this.refreshPreview(),
-      ])
+      this.loading = true
+      try {
+        await Promise.all([
+          this.loadStatus(),
+          this.loadInterlock(),
+          this.loadFeedback(),
+          this.loadCurves(),
+          this.refreshPreview(),
+        ])
+      } finally {
+        this.loading = false
+      }
     },
     async loadStatus() {
       try {
@@ -72,28 +80,34 @@ export const useControlStore = defineStore('control', {
       } catch (error) {
         this.status = { ...fallbackManualStatus }
         this.offline = true
+        this.stale = true
         this.error = error instanceof Error ? error.message : String(error)
       }
     },
     async loadInterlock() {
       try {
         this.interlock = compactInterlock(await apiGet<ManualInterlockStatus>('/control/interlock-status'))
-      } catch {
+      } catch (error) {
         this.interlock = { ...fallbackManualInterlock }
+        this.error = error instanceof Error ? error.message : String(error)
       }
     },
     async loadFeedback() {
       try {
         this.feedback = await apiGet<ManualFeedback>('/control/manual-feedback')
-      } catch {
+        this.stale = Boolean(this.feedback.stale) || this.feedback.overall === 'invalid'
+      } catch (error) {
         this.feedback = { ...fallbackManualFeedback }
+        this.stale = true
+        this.error = error instanceof Error ? error.message : String(error)
       }
     },
     async loadCurves() {
       try {
         this.curves = await apiGet<ManualCurves>('/control/manual-curves')
-      } catch {
+      } catch (error) {
         this.curves = { ...fallbackManualCurves }
+        this.error = error instanceof Error ? error.message : String(error)
       }
     },
     async refreshPreview() {

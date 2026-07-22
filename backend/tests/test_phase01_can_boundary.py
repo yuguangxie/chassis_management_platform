@@ -40,12 +40,12 @@ def test_udp_gateway_discards_partial_and_bounds_queue():
 
     gateway = UdpCanGateway(channel_config(), consume)
     packet = gateway.codec.encode_frame(CanFrame(channel="CAN1", can_id=0x51, data=[1] * 8))
-    gateway.on_datagram(packet[:7], "127.0.0.1:1")
+    gateway.on_datagram(packet[:7], "127.0.0.1:12341")
     assert gateway.queue.qsize() == 0
-    gateway.on_datagram(packet, "127.0.0.1:1")
+    gateway.on_datagram(packet, "127.0.0.1:12341")
     assert gateway.queue.qsize() == 1
     for _ in range(20):
-        gateway.on_datagram(packet, "127.0.0.1:1")
+        gateway.on_datagram(packet, "127.0.0.1:12341")
     snapshot = gateway.stats.snapshot()
     assert gateway.queue.qsize() == gateway.queue.maxsize
     assert snapshot["queue_dropped"] > 0
@@ -86,7 +86,7 @@ def test_reserved_or_invalid_dlc_frame_cannot_mark_channel_online():
     gateway = UdpCanGateway(channel_config(), consume)
     invalid = bytes([0x39]) + (0x51).to_bytes(4, "big") + bytes(8)
     gateway.stats.transport_connected = True
-    gateway.on_datagram(invalid, "127.0.0.1:1")
+    gateway.on_datagram(invalid, "127.0.0.1:12341")
     snapshot = gateway.stats.snapshot()
     assert snapshot["online"] is False
     assert snapshot["error_count"] == 1

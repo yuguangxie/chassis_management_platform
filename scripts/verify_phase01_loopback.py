@@ -72,9 +72,12 @@ def main() -> int:
     simulator: subprocess.Popen[Any] | None = None
     results: dict[str, Any] = {"started_at": time.strftime("%Y-%m-%d %H:%M:%S%z"), "checks": {}}
 
-    viewer = {"Authorization": "Bearer dev-viewer-token"}
-    operator = {"Authorization": "Bearer dev-operator-token"}
-    engineer = {"Authorization": "Bearer dev-engineer-token"}
+    role_tokens = {role: os.getenv(f"CHASSIS_{role.upper()}_TOKEN", "") for role in ("viewer", "operator", "engineer")}
+    if not all(role_tokens.values()):
+        raise VerificationFailure("runtime CHASSIS_VIEWER_TOKEN, CHASSIS_OPERATOR_TOKEN and CHASSIS_ENGINEER_TOKEN are required")
+    viewer = {"Authorization": f"Bearer {role_tokens['viewer']}"}
+    operator = {"Authorization": f"Bearer {role_tokens['operator']}"}
+    engineer = {"Authorization": f"Bearer {role_tokens['engineer']}"}
 
     try:
         environment = os.environ.copy()

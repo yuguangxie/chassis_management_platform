@@ -1,0 +1,488 @@
+{
+  "ProductionConfiguration": {
+    "$defs": {
+      "CanEndpointConfig": {
+        "additionalProperties": false,
+        "properties": {
+          "channel": {
+            "enum": [
+              "CAN1",
+              "CAN2"
+            ],
+            "title": "Channel",
+            "type": "string"
+          },
+          "protocol": {
+            "default": "udp",
+            "enum": [
+              "udp",
+              "tcp"
+            ],
+            "title": "Protocol",
+            "type": "string"
+          },
+          "local_ip": {
+            "title": "Local Ip",
+            "type": "string"
+          },
+          "local_port": {
+            "maximum": 65535,
+            "minimum": 1,
+            "title": "Local Port",
+            "type": "integer"
+          },
+          "device_ip": {
+            "title": "Device Ip",
+            "type": "string"
+          },
+          "device_port": {
+            "maximum": 65535,
+            "minimum": 1,
+            "title": "Device Port",
+            "type": "integer"
+          },
+          "source_allowlist": {
+            "items": {
+              "$ref": "#/$defs/SourceEndpoint"
+            },
+            "maxItems": 16,
+            "minItems": 1,
+            "title": "Source Allowlist",
+            "type": "array"
+          },
+          "enabled": {
+            "default": true,
+            "title": "Enabled",
+            "type": "boolean"
+          },
+          "control_enabled": {
+            "default": false,
+            "title": "Control Enabled",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "channel",
+          "local_ip",
+          "local_port",
+          "device_ip",
+          "device_port",
+          "source_allowlist"
+        ],
+        "title": "CanEndpointConfig",
+        "type": "object"
+      },
+      "NetworkInterfaceConfig": {
+        "additionalProperties": false,
+        "properties": {
+          "adapter_name": {
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Adapter Name",
+            "type": "string"
+          },
+          "bind_address": {
+            "title": "Bind Address",
+            "type": "string"
+          }
+        },
+        "required": [
+          "adapter_name",
+          "bind_address"
+        ],
+        "title": "NetworkInterfaceConfig",
+        "type": "object"
+      },
+      "PrinterConfig": {
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "anyOf": [
+              {
+                "maxLength": 256,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Name"
+          },
+          "required": {
+            "default": false,
+            "title": "Required",
+            "type": "boolean"
+          }
+        },
+        "title": "PrinterConfig",
+        "type": "object"
+      },
+      "SourceEndpoint": {
+        "additionalProperties": false,
+        "properties": {
+          "ip": {
+            "title": "Ip",
+            "type": "string"
+          },
+          "port": {
+            "maximum": 65535,
+            "minimum": 1,
+            "title": "Port",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "ip",
+          "port"
+        ],
+        "title": "SourceEndpoint",
+        "type": "object"
+      }
+    },
+    "additionalProperties": false,
+    "properties": {
+      "config_version": {
+        "maxLength": 64,
+        "minLength": 1,
+        "title": "Config Version",
+        "type": "string"
+      },
+      "runtime_profile": {
+        "enum": [
+          "dev",
+          "mock",
+          "test",
+          "production"
+        ],
+        "title": "Runtime Profile",
+        "type": "string"
+      },
+      "network_interface": {
+        "$ref": "#/$defs/NetworkInterfaceConfig"
+      },
+      "can_endpoints": {
+        "items": {
+          "$ref": "#/$defs/CanEndpointConfig"
+        },
+        "maxItems": 2,
+        "minItems": 2,
+        "title": "Can Endpoints",
+        "type": "array"
+      },
+      "vehicle_series": {
+        "maxLength": 32,
+        "minLength": 1,
+        "title": "Vehicle Series",
+        "type": "string"
+      },
+      "approved_dbc_sha256": {
+        "pattern": "^[0-9a-fA-F]{64}$",
+        "title": "Approved Dbc Sha256",
+        "type": "string"
+      },
+      "test_plan_version": {
+        "maxLength": 128,
+        "minLength": 1,
+        "title": "Test Plan Version",
+        "type": "string"
+      },
+      "data_root": {
+        "maxLength": 1024,
+        "minLength": 1,
+        "title": "Data Root",
+        "type": "string"
+      },
+      "station_id": {
+        "maxLength": 128,
+        "minLength": 1,
+        "title": "Station Id",
+        "type": "string"
+      },
+      "printer": {
+        "$ref": "#/$defs/PrinterConfig"
+      }
+    },
+    "required": [
+      "config_version",
+      "runtime_profile",
+      "network_interface",
+      "can_endpoints",
+      "vehicle_series",
+      "approved_dbc_sha256",
+      "test_plan_version",
+      "data_root",
+      "station_id"
+    ],
+    "title": "ProductionConfiguration",
+    "type": "object"
+  },
+  "SignedConfigurationPackage": {
+    "$defs": {
+      "CanEndpointConfig": {
+        "additionalProperties": false,
+        "properties": {
+          "channel": {
+            "enum": [
+              "CAN1",
+              "CAN2"
+            ],
+            "title": "Channel",
+            "type": "string"
+          },
+          "protocol": {
+            "default": "udp",
+            "enum": [
+              "udp",
+              "tcp"
+            ],
+            "title": "Protocol",
+            "type": "string"
+          },
+          "local_ip": {
+            "title": "Local Ip",
+            "type": "string"
+          },
+          "local_port": {
+            "maximum": 65535,
+            "minimum": 1,
+            "title": "Local Port",
+            "type": "integer"
+          },
+          "device_ip": {
+            "title": "Device Ip",
+            "type": "string"
+          },
+          "device_port": {
+            "maximum": 65535,
+            "minimum": 1,
+            "title": "Device Port",
+            "type": "integer"
+          },
+          "source_allowlist": {
+            "items": {
+              "$ref": "#/$defs/SourceEndpoint"
+            },
+            "maxItems": 16,
+            "minItems": 1,
+            "title": "Source Allowlist",
+            "type": "array"
+          },
+          "enabled": {
+            "default": true,
+            "title": "Enabled",
+            "type": "boolean"
+          },
+          "control_enabled": {
+            "default": false,
+            "title": "Control Enabled",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "channel",
+          "local_ip",
+          "local_port",
+          "device_ip",
+          "device_port",
+          "source_allowlist"
+        ],
+        "title": "CanEndpointConfig",
+        "type": "object"
+      },
+      "NetworkInterfaceConfig": {
+        "additionalProperties": false,
+        "properties": {
+          "adapter_name": {
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Adapter Name",
+            "type": "string"
+          },
+          "bind_address": {
+            "title": "Bind Address",
+            "type": "string"
+          }
+        },
+        "required": [
+          "adapter_name",
+          "bind_address"
+        ],
+        "title": "NetworkInterfaceConfig",
+        "type": "object"
+      },
+      "PrinterConfig": {
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "anyOf": [
+              {
+                "maxLength": 256,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Name"
+          },
+          "required": {
+            "default": false,
+            "title": "Required",
+            "type": "boolean"
+          }
+        },
+        "title": "PrinterConfig",
+        "type": "object"
+      },
+      "ProductionConfiguration": {
+        "additionalProperties": false,
+        "properties": {
+          "config_version": {
+            "maxLength": 64,
+            "minLength": 1,
+            "title": "Config Version",
+            "type": "string"
+          },
+          "runtime_profile": {
+            "enum": [
+              "dev",
+              "mock",
+              "test",
+              "production"
+            ],
+            "title": "Runtime Profile",
+            "type": "string"
+          },
+          "network_interface": {
+            "$ref": "#/$defs/NetworkInterfaceConfig"
+          },
+          "can_endpoints": {
+            "items": {
+              "$ref": "#/$defs/CanEndpointConfig"
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "title": "Can Endpoints",
+            "type": "array"
+          },
+          "vehicle_series": {
+            "maxLength": 32,
+            "minLength": 1,
+            "title": "Vehicle Series",
+            "type": "string"
+          },
+          "approved_dbc_sha256": {
+            "pattern": "^[0-9a-fA-F]{64}$",
+            "title": "Approved Dbc Sha256",
+            "type": "string"
+          },
+          "test_plan_version": {
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Test Plan Version",
+            "type": "string"
+          },
+          "data_root": {
+            "maxLength": 1024,
+            "minLength": 1,
+            "title": "Data Root",
+            "type": "string"
+          },
+          "station_id": {
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Station Id",
+            "type": "string"
+          },
+          "printer": {
+            "$ref": "#/$defs/PrinterConfig"
+          }
+        },
+        "required": [
+          "config_version",
+          "runtime_profile",
+          "network_interface",
+          "can_endpoints",
+          "vehicle_series",
+          "approved_dbc_sha256",
+          "test_plan_version",
+          "data_root",
+          "station_id"
+        ],
+        "title": "ProductionConfiguration",
+        "type": "object"
+      },
+      "SourceEndpoint": {
+        "additionalProperties": false,
+        "properties": {
+          "ip": {
+            "title": "Ip",
+            "type": "string"
+          },
+          "port": {
+            "maximum": 65535,
+            "minimum": 1,
+            "title": "Port",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "ip",
+          "port"
+        ],
+        "title": "SourceEndpoint",
+        "type": "object"
+      }
+    },
+    "additionalProperties": false,
+    "properties": {
+      "schema_version": {
+        "const": 1,
+        "default": 1,
+        "title": "Schema Version",
+        "type": "integer"
+      },
+      "package_id": {
+        "format": "uuid",
+        "title": "Package Id",
+        "type": "string"
+      },
+      "issued_at": {
+        "format": "date-time",
+        "title": "Issued At",
+        "type": "string"
+      },
+      "issuer": {
+        "maxLength": 128,
+        "minLength": 1,
+        "title": "Issuer",
+        "type": "string"
+      },
+      "configuration": {
+        "$ref": "#/$defs/ProductionConfiguration"
+      },
+      "signature_algorithm": {
+        "const": "HMAC-SHA256",
+        "default": "HMAC-SHA256",
+        "title": "Signature Algorithm",
+        "type": "string"
+      },
+      "signature": {
+        "pattern": "^[0-9a-f]{64}$",
+        "title": "Signature",
+        "type": "string"
+      }
+    },
+    "required": [
+      "package_id",
+      "issued_at",
+      "issuer",
+      "configuration",
+      "signature"
+    ],
+    "title": "SignedConfigurationPackage",
+    "type": "object"
+  }
+}

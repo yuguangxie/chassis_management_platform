@@ -7,7 +7,7 @@ from support import seed_dashboard_session
 
 def test_default_identity_is_not_admin():
     assert state.current_role != "admin"
-    assert state.auth.authenticate("dev-admin-token") is None
+    assert state.auth.authenticate("legacy-static-token") is None
 
 
 def test_unauthenticated_and_viewer_control_requests_fail(auth_headers):
@@ -33,7 +33,7 @@ def test_forged_body_role_cannot_enter_maintenance(auth_headers):
 def test_unauthenticated_report_delete_and_forged_header_fail(auth_headers):
     with TestClient(app) as client:
         seed_dashboard_session(state)
-        report_id = client.get("/api/v1/reports/dashboard").json()["selected_report"]["report_id"]
+        report_id = client.get("/api/v1/reports/dashboard", headers=auth_headers("viewer")).json()["selected_report"]["report_id"]
         assert client.delete(f"/api/v1/reports/{report_id}").status_code == 401
         response = client.delete(
             f"/api/v1/reports/{report_id}",

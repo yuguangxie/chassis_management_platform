@@ -9,8 +9,9 @@
         </div>
       </div>
       <div class="title-actions">
+        <PageDataState :loading="alarms.loading" :error="alarms.error" :empty="!alarms.loading && !dashboard.history.length" :stale="alarms.offline || dashboard.quality !== 'good'" />
         <span v-if="alarms.offline || dashboard.mock || dashboard.quality !== 'good'" class="mock-badge">{{ alarms.offline ? '后端离线，当前使用 Mock 告警数据' : dashboard.mock ? '显式 Mock 告警数据' : `数据质量：${dashboard.quality || 'unavailable'}` }}</span>
-        <button class="layout-btn" type="button" @click="saveLayout">
+        <button v-if="auth.can('engineer')" class="layout-btn" type="button" :disabled="alarms.offline || alarms.loading" @click="saveLayout">
           <Settings :size="15" />自定义布局
         </button>
       </div>
@@ -106,7 +107,7 @@
           </tbody>
         </table>
       </div>
-      <footer class="table-footer"><span>共 {{ dashboard.history.length }} 条</span><div><button>‹</button><b>1</b><button>›</button><span>20 条/页</span></div></footer>
+      <footer class="table-footer"><span>共 {{ dashboard.history.length }} 条</span><div><button disabled title="尚未实现：告警历史服务尚未分页">‹</button><b>1</b><button disabled title="尚未实现：告警历史服务尚未分页">›</button><span>20 条/页 · 尚未实现分页</span></div></footer>
     </article>
 
     <section class="chart-grid">
@@ -131,7 +132,7 @@
     </section>
 
     <section class="action-row">
-      <button v-for="item in actionButtons" :key="item.action" :class="['action-card', item.variant]" type="button" @click="handleAction(item.action, item.title)">
+      <button v-for="item in visibleActionButtons" :key="item.action" :class="['action-card', item.variant]" type="button" :disabled="alarms.loading || alarms.offline" @click="handleAction(item.action, item.title)">
         <span class="action-icon"><component :is="item.icon" :size="24" /></span>
         <span class="action-copy"><strong>{{ item.title }}</strong><small>{{ item.subtitle }}</small></span>
       </button>
@@ -158,12 +159,15 @@ import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { wsClient } from '../api/websocket'
 import { apiPut, formatApiError } from '../api/http'
+import PageDataState from '../components/PageDataState.vue'
 import RealtimeLineChart from '../components/charts/RealtimeLineChart.vue'
 import { useAlarmsStore } from '../stores/alarms'
+import { useAuthStore, type Role } from '../stores/auth'
 
 type AlarmAction = 'ack' | 'override-request' | 'export-diagnosis' | 'jump-can-frame' | 'safe-stop'
 
 const alarms = useAlarmsStore()
+const auth = useAuthStore()
 const router = useRouter()
 const dashboard = computed(() => alarms.dashboard)
 const toast = ref('')
@@ -172,23 +176,25 @@ let pollTimer: number | undefined
 let wsReady = false
 let wsDisposers: Array<() => void> = []
 
-const actionButtons: Array<{ title: string; subtitle: string; action: AlarmAction; icon: Component; variant: string }> = [
-  { title: '确认告警', subtitle: '确认当前告警状态', action: 'ack', icon: ClipboardCheck, variant: 'primary' },
-  { title: '人工放行申请', subtitle: '提交人工放行申请', action: 'override-request', icon: UserCheck, variant: 'primary' },
-  { title: '导出诊断', subtitle: '导出当前诊断报告', action: 'export-diagnosis', icon: FileDown, variant: 'primary' },
-  { title: '跳转CAN帧', subtitle: '定位相关 CAN 消息', action: 'jump-can-frame', icon: LocateFixed, variant: 'primary' },
-  { title: '触发安全停车', subtitle: '强制触发安全停车', action: 'safe-stop', icon: Power, variant: 'danger' },
+const actionButtons: Array<{ title: string; subtitle: string; action: AlarmAction; icon: Component; variant: string; role: Role }> = [
+  { title: '确认告警', subtitle: '确认当前告警状态', action: 'ack', icon: ClipboardCheck, variant: 'primary', role: 'operator' },
+  { title: '人工放行申请', subtitle: '提交人工放行申请', action: 'override-request', icon: UserCheck, variant: 'primary', role: 'engineer' },
+  { title: '导出诊断', subtitle: '导出当前诊断报告', action: 'export-diagnosis', icon: FileDown, variant: 'primary', role: 'operator' },
+  { title: '跳转CAN帧', subtitle: '定位相关 CAN 消息', action: 'jump-can-frame', icon: LocateFixed, variant: 'primary', role: 'viewer' },
+  { title: '触发安全停车', subtitle: '强制触发安全停车', action: 'safe-stop', icon: Power, variant: 'danger', role: 'operator' },
 ]
+const visibleActionButtons = computed(() => actionButtons.filter((item) => auth.can(item.role)))
 
 const timelineOption = computed(() => {
   const chart = dashboard.value.charts.level_timeline
-  const levelData = chart.x_axis.map((_, index) => Math.max(...chart.series.map((item) => Number(item.data[index] || 0))))
+  const xAxis = alarms.offline ? [] : chart.x_axis
+  const levelData = xAxis.map((_, index) => Math.max(...chart.series.map((item) => Number(item.data[index] || 0))))
   return {
     backgroundColor: 'transparent',
     color: ['#21C55D'],
     tooltip: { trigger: 'axis', backgroundColor: '#10243D', borderColor: '#2B4D78', textStyle: { color: '#EAF2FF' }, formatter: (params: Array<{ value: number; axisValue: string }>) => `${params[0]?.axisValue}<br/>等级：${params[0]?.value}` },
     grid: { left: 34, right: 20, top: 20, bottom: 24, containLabel: true },
-    xAxis: { type: 'category', data: chart.x_axis, boundaryGap: false, axisLine: { lineStyle: { color: '#315A83' } }, axisLabel: { color: '#8CA6C5', fontSize: 10 }, splitLine: { show: true, lineStyle: { color: '#143050' } } },
+    xAxis: { type: 'category', data: xAxis, boundaryGap: false, axisLine: { lineStyle: { color: '#315A83' } }, axisLabel: { color: '#8CA6C5', fontSize: 10 }, splitLine: { show: true, lineStyle: { color: '#143050' } } },
     yAxis: { type: 'value', min: 0, max: 3, interval: 1, axisLabel: { color: '#8CA6C5', fontSize: 10 }, splitLine: { lineStyle: { color: '#1A385C', type: 'dashed' } } },
     visualMap: { show: false, dimension: 1, pieces: [
       { value: 0, color: '#21C55D' }, { value: 1, color: '#F6C343' }, { value: 2, color: '#F97316' }, { value: 3, color: '#EF4444' },
@@ -198,17 +204,25 @@ const timelineOption = computed(() => {
 })
 
 const distributionOption = computed(() => {
-  const items = dashboard.value.charts.category_distribution
+  const items = alarms.offline ? [] : dashboard.value.charts.category_distribution
   const colors: Record<string, string> = { Normal: '#21C55D', Warning: '#F6C343', Fault: '#F97316', Critical: '#EF4444' }
   return {
     backgroundColor: 'transparent',
     tooltip: { trigger: 'item', backgroundColor: '#10243D', borderColor: '#2B4D78', textStyle: { color: '#EAF2FF' } },
-    legend: { orient: 'vertical', right: 8, top: 'center', textStyle: { color: '#CFE2FF', fontSize: 11 }, itemWidth: 9, itemHeight: 9, formatter: (name: string) => {
+    legend: { orient: 'vertical', right: 2, top: 'middle', width: '50%', itemGap: 7, textStyle: { color: '#CFE2FF', fontSize: 10 }, itemWidth: 8, itemHeight: 8, formatter: (name: string) => {
       const item = items.find((entry) => entry.name === name)
-      return `${name}    ${item?.value ?? 0} (${(item?.percent ?? 0).toFixed(1)}%)`
+      return `${name}  ${item?.value ?? 0} (${(item?.percent ?? 0).toFixed(1)}%)`
     } },
-    graphic: [{ type: 'text', left: '26%', top: '44%', style: { text: '总计\n18', fill: '#EAF2FF', fontSize: 15, fontWeight: 700, textAlign: 'center', lineHeight: 20 } }],
-    series: [{ type: 'pie', radius: ['47%', '68%'], center: ['28%', '55%'], avoidLabelOverlap: false, label: { show: false }, data: items.map((item) => ({ name: item.name, value: item.value, itemStyle: { color: colors[item.name] } })) }],
+    graphic: [{ type: 'text', left: '28%', top: '38%', style: { text: `总计\n${items.reduce((sum, item) => sum + item.value, 0)}`, fill: '#EAF2FF', fontSize: 14, fontWeight: 700, textAlign: 'center', lineHeight: 18 } }],
+    series: [{ type: 'pie', radius: ['38%', '59%'], center: ['28%', '53%'], avoidLabelOverlap: true, label: { show: false }, data: items.map((item) => ({ name: item.name, value: item.value, itemStyle: { color: colors[item.name] } })) }],
+    media: [{
+      query: { maxWidth: 360 },
+      option: {
+        legend: { show: false },
+        graphic: [{ type: 'text', left: '50%', top: '37%', style: { text: `总计\n${items.reduce((sum, item) => sum + item.value, 0)}`, fill: '#EAF2FF', fontSize: 13, fontWeight: 700, textAlign: 'center', lineHeight: 17 } }],
+        series: [{ radius: ['42%', '64%'], center: ['50%', '53%'] }],
+      },
+    }],
   }
 })
 
@@ -295,7 +309,7 @@ function showToast(message: string) {
   min-height: 0;
   overflow: hidden;
   display: grid;
-  grid-template-rows: 52px 100px 280px 210px minmax(0, 1fr) 70px;
+  grid-template-rows: 42px 100px 280px 210px minmax(0, 1fr) 70px;
   gap: 10px;
   color: #EAF2FF;
 }
@@ -356,6 +370,9 @@ function showToast(message: string) {
   border-radius: 6px;
   font-size: 12px;
 }
+.layout-btn:disabled,
+.action-card:disabled,
+.table-footer button:disabled { opacity: .45; cursor: not-allowed; }
 
 .mock-badge {
   padding: 0 10px;
@@ -743,5 +760,21 @@ function showToast(message: string) {
   .diagnosis-grid { grid-template-columns: 1.1fr 0.95fr 1.05fr; }
   .level-legend { gap: 10px; }
   .action-copy strong { font-size: 13px; }
+}
+
+@media (max-height: 800px) {
+  .alarm-page {
+    grid-template-rows: 42px 82px minmax(190px, 1.8fr) minmax(120px, 1fr) minmax(110px, .9fr) 56px;
+    gap: 7px;
+  }
+
+  .summary-panel { padding-block: 4px; }
+  .summary-item { gap: 8px; }
+  .summary-item strong { font-size: 20px; }
+  .action-card { gap: 8px; }
+  .action-copy small { display: none; }
+  .bitmap-panel { grid-template-rows: 20px 16px minmax(0, 1fr) 14px; padding: 4px 8px; }
+  .bitmap-grid.large .bitmap-bit { grid-template-rows: 11px 18px; font-size: 8px; }
+  .bitmap-note { overflow: hidden; font-size: 8px; line-height: 12px; white-space: nowrap; }
 }
 </style>

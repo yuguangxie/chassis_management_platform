@@ -5,16 +5,16 @@
     "total_js_gzip_bytes": 800000
   },
   "main": {
-    "name": "index-D7rBJo0L.js",
-    "bytes": 63284,
-    "gzip_bytes": 20934
+    "name": "index-CZjLKp3M.js",
+    "bytes": 68766,
+    "gzip_bytes": 22309
   },
   "echarts_vendor": {
     "name": "echarts-vendor-aCMsnSeq.js",
     "bytes": 1117948,
     "gzip_bytes": 367892
   },
-  "total_gzip_bytes": 497648,
+  "total_gzip_bytes": 511676,
   "chunks": [
     {
       "name": "echarts-vendor-aCMsnSeq.js",
@@ -22,89 +22,114 @@
       "gzip_bytes": 367892
     },
     {
-      "name": "icon-vendor-BKi2BoUn.js",
-      "bytes": 82033,
-      "gzip_bytes": 29613
+      "name": "icon-vendor-DaAs6b4D.js",
+      "bytes": 82901,
+      "gzip_bytes": 29854
     },
     {
-      "name": "index-D7rBJo0L.js",
-      "bytes": 63284,
-      "gzip_bytes": 20934
+      "name": "index-CZjLKp3M.js",
+      "bytes": 68766,
+      "gzip_bytes": 22309
     },
     {
-      "name": "vue-vendor-CNYlcZOZ.js",
-      "bytes": 31012,
-      "gzip_bytes": 11991
+      "name": "SystemSettingsPage-C9f0_r6s.js",
+      "bytes": 40832,
+      "gzip_bytes": 13415
     },
     {
-      "name": "SystemSettingsPage-Dk6JHtKa.js",
-      "bytes": 35517,
-      "gzip_bytes": 11603
+      "name": "vue-vendor-Cp633Dmf.js",
+      "bytes": 31011,
+      "gzip_bytes": 12019
     },
     {
-      "name": "CanMonitorPage-DKTI7P2Y.js",
-      "bytes": 20088,
-      "gzip_bytes": 6777
+      "name": "ReportManagementPage-DX39dWLg.js",
+      "bytes": 23690,
+      "gzip_bytes": 7990
     },
     {
-      "name": "ReportManagementPage-Dr2VeKG3.js",
-      "bytes": 18882,
-      "gzip_bytes": 6645
+      "name": "CanMonitorPage-Dq0x1BHn.js",
+      "bytes": 21797,
+      "gzip_bytes": 7392
     },
     {
-      "name": "HistoryPage-CF7fqGDM.js",
-      "bytes": 17671,
-      "gzip_bytes": 6309
+      "name": "HistoryPage-BGEyF0Rp.js",
+      "bytes": 18364,
+      "gzip_bytes": 6539
     },
     {
-      "name": "ManualControlPage-CFf5BYTb.js",
-      "bytes": 16756,
-      "gzip_bytes": 5988
+      "name": "ManualControlPage-oUJXbbpq.js",
+      "bytes": 18289,
+      "gzip_bytes": 6453
     },
     {
-      "name": "RealtimeCurvePage-Bi-ybo7l.js",
-      "bytes": 14735,
-      "gzip_bytes": 5476
+      "name": "RealtimeCurvePage-D0Oo4vtt.js",
+      "bytes": 15214,
+      "gzip_bytes": 5697
     },
     {
-      "name": "AlarmDiagnosisPage-o6e-Zur5.js",
-      "bytes": 11977,
-      "gzip_bytes": 4775
+      "name": "NetworkConfigPage-C87A4jtn.js",
+      "bytes": 14857,
+      "gzip_bytes": 5474
     },
     {
-      "name": "OverviewPage-DT5oNcI6.js",
-      "bytes": 12030,
-      "gzip_bytes": 4690
+      "name": "AlarmDiagnosisPage-idXdTWdA.js",
+      "bytes": 13047,
+      "gzip_bytes": 5125
     },
     {
-      "name": "AutoTestPage-BNQbNcLh.js",
-      "bytes": 12775,
-      "gzip_bytes": 4628
+      "name": "OverviewPage-QtFZCR2a.js",
+      "bytes": 12675,
+      "gzip_bytes": 4930
     },
     {
-      "name": "NetworkConfigPage-BS7ytq61.js",
-      "bytes": 11756,
-      "gzip_bytes": 4361
+      "name": "AutoTestPage-BLX9yVvV.js",
+      "bytes": 13453,
+      "gzip_bytes": 4863
     },
     {
-      "name": "SignalDashboardPage-8MGKse_V.js",
-      "bytes": 12340,
-      "gzip_bytes": 4153
+      "name": "SignalDashboardPage-BVX6fTVN.js",
+      "bytes": 13255,
+      "gzip_bytes": 4387
     },
     {
-      "name": "signals-DuhYHxLn.js",
-      "bytes": 2203,
-      "gzip_bytes": 789
+      "name": "LoginPage-BXz7xnvx.js",
+      "bytes": 2916,
+      "gzip_bytes": 1553
     },
     {
-      "name": "RealtimeLineChart-BTe5Bp5V.js",
-      "bytes": 790,
-      "gzip_bytes": 514
+      "name": "http-BNz7dCrs.js",
+      "bytes": 3010,
+      "gzip_bytes": 1490
     },
     {
-      "name": "BarChart-DRzd_sgH.js",
-      "bytes": 787,
-      "gzip_bytes": 510
+      "name": "LockScreenPage-DD3naMCN.js",
+      "bytes": 1449,
+      "gzip_bytes": 932
+    },
+    {
+      "name": "signals-BGxInHXF.js",
+      "bytes": 2734,
+      "gzip_bytes": 866
+    },
+    {
+      "name": "PageDataState-CLkh0Qyl.js",
+      "bytes": 1352,
+      "gzip_bytes": 777
+    },
+    {
+      "name": "RealtimeLineChart-JRMYSX_U.js",
+      "bytes": 999,
+      "gzip_bytes": 599
+    },
+    {
+      "name": "BarChart-CLaloSYm.js",
+      "bytes": 990,
+      "gzip_bytes": 593
+    },
+    {
+      "name": "ForbiddenPage-DRJoiCGw.js",
+      "bytes": 659,
+      "gzip_bytes": 527
     }
   ],
   "assertions": {

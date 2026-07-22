@@ -9,7 +9,12 @@ from .udp_gateway import UdpCanGateway
 from .tcp_gateway import TcpCanGateway
 
 class CanGatewayManager:
-    def __init__(self, config: RuntimeConfig, on_frame: Callable[[CanFrame], Awaitable[None]]) -> None:
+    def __init__(
+        self,
+        config: RuntimeConfig,
+        on_frame: Callable[[CanFrame], Awaitable[None]],
+        on_security_event: Callable[[dict], None] | None = None,
+    ) -> None:
         self.config = config
         self.on_frame = on_frame
         # Keep a bounded diagnostic window per channel. One noisy channel must not evict
@@ -18,7 +23,6 @@ class CanGatewayManager:
             channel.channel: deque(maxlen=channel.recent_buffer_size) for channel in config.channels
         }
         self.recent_frames: deque[CanFrame] = deque(maxlen=min(20_000, sum(channel.recent_buffer_size for channel in config.channels)))
-        gateway_type = {"udp": UdpCanGateway, "tcp": TcpCanGateway}
         self._pipeline_capacity = max(
             1024, min(16_384, sum(channel.receive_queue_size for channel in config.channels) * 4)
         )
@@ -28,15 +32,24 @@ class CanGatewayManager:
         self._stopping = False
         self._batch_size = 256
         self._critical_ids = {0x51, 0x77, 0x100, 0x102, 0x121, 0x168, 0xE1, 0x703, 0x704}
-        self.gateways = {
-            channel.channel: gateway_type[channel.protocol.lower()](
-                channel,
-                self._enqueue_frame,
-                online_timeout_seconds=config.channel_online_timeout_seconds,
-                allow_non_loopback=config.profile == "production",
-            )
-            for channel in config.channels
-        }
+        self.gateways = {}
+        for channel in config.channels:
+            common = {
+                "online_timeout_seconds": config.channel_online_timeout_seconds,
+                "allow_non_loopback": config.profile == "production",
+            }
+            if channel.protocol.lower() == "udp":
+                gateway = UdpCanGateway(
+                    channel,
+                    self._enqueue_frame,
+                    on_security_event=on_security_event,
+                    **common,
+                )
+            elif channel.protocol.lower() == "tcp":
+                gateway = TcpCanGateway(channel, self._enqueue_frame, **common)
+            else:
+                raise ValueError(f"unsupported CAN transport: {channel.protocol}")
+            self.gateways[channel.channel] = gateway
         self.latest_frames: dict[str, dict] = {}
 
     async def start_all(self) -> None:

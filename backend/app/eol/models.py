@@ -6,6 +6,33 @@ from typing import Any, Literal
 from pydantic import BaseModel, Field, model_validator
 
 
+AssertionOperator = Literal[
+    "==",
+    "!=",
+    ">=",
+    "<=",
+    ">",
+    "<",
+    "between",
+    "in",
+    "all_present",
+    "all_bool_zero",
+    "follows_commands",
+    "reaches_near",
+    "follows_target",
+    "consistent",
+    "wheel_consistent",
+    "follows_command",
+    "steering_follows",
+    "follows_commands_or_manual_review",
+    "brake_confirmed",
+    "max_level_equals",
+    "all_between",
+    "no_unexpected_active",
+    "no_critical_timeout",
+]
+
+
 class CreateSessionRequest(BaseModel):
     chassis_no: str = "YL-JD-001"
     vin: str = "L000000000000001"
@@ -30,7 +57,7 @@ class AssertionSpec(BaseModel):
     signals: list[str] = Field(default_factory=list)
     message: str | None = None
     channel: Literal["CAN1", "CAN2"] | None = None
-    operator: str = "=="
+    operator: AssertionOperator = "=="
     value: Any = None
     expected: Any = None
     values: list[Any] = Field(default_factory=list)

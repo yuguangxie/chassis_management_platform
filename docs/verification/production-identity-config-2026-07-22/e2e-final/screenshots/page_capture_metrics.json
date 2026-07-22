@@ -1,0 +1,670 @@
+{
+  "baseUrl": "http://127.0.0.1:15173",
+  "authentication": {
+    "unauthenticated_redirects_to_login": true,
+    "refresh_preserves_session": true,
+    "electron_restart_requires_login": true
+  },
+  "inspections": [
+    {
+      "page": "overview",
+      "route": "/overview",
+      "width": 1920,
+      "height": 1080,
+      "filename": "overview_1920x1080.png",
+      "renderer_console_errors": [],
+      "renderer_page_errors": [],
+      "location": "#/login",
+      "viewport": {
+        "width": 1920,
+        "height": 1040
+      },
+      "page_scrollable": false,
+      "root_scroll_height": 1040,
+      "root_client_height": 1040,
+      "white_controls": 0,
+      "chart_canvas_count": 0,
+      "failed_to_fetch_banner": false,
+      "sidebar_collapsed": false,
+      "layout_rects": {
+        "shell": null,
+        "sidebar": null,
+        "main": null,
+        "topbar": null,
+        "content": null,
+        "sidebar_expand": null
+      },
+      "topbar_cells": []
+    },
+    {
+      "page": "overview",
+      "route": "/overview",
+      "width": 1366,
+      "height": 768,
+      "filename": "overview_1366x768.png",
+      "renderer_console_errors": [],
+      "renderer_page_errors": [],
+      "location": "#/login",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "page_scrollable": false,
+      "root_scroll_height": 768,
+      "root_client_height": 768,
+      "white_controls": 0,
+      "chart_canvas_count": 0,
+      "failed_to_fetch_banner": false,
+      "sidebar_collapsed": false,
+      "layout_rects": {
+        "shell": null,
+        "sidebar": null,
+        "main": null,
+        "topbar": null,
+        "content": null,
+        "sidebar_expand": null
+      },
+      "topbar_cells": []
+    },
+    {
+      "page": "network-config",
+      "route": "/network-config",
+      "width": 1920,
+      "height": 1080,
+      "filename": "network-config_1920x1080.png",
+      "renderer_console_errors": [],
+      "renderer_page_errors": [],
+      "location": "#/login",
+      "viewport": {
+        "width": 1920,
+        "height": 1040
+      },
+      "page_scrollable": false,
+      "root_scroll_height": 1040,
+      "root_client_height": 1040,
+      "white_controls": 0,
+      "chart_canvas_count": 0,
+      "failed_to_fetch_banner": false,
+      "sidebar_collapsed": false,
+      "layout_rects": {
+        "shell": null,
+        "sidebar": null,
+        "main": null,
+        "topbar": null,
+        "content": null,
+        "sidebar_expand": null
+      },
+      "topbar_cells": []
+    },
+    {
+      "page": "network-config",
+      "route": "/network-config",
+      "width": 1366,
+      "height": 768,
+      "filename": "network-config_1366x768.png",
+      "renderer_console_errors": [],
+      "renderer_page_errors": [],
+      "location": "#/login",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "page_scrollable": false,
+      "root_scroll_height": 768,
+      "root_client_height": 768,
+      "white_controls": 0,
+      "chart_canvas_count": 0,
+      "failed_to_fetch_banner": false,
+      "sidebar_collapsed": false,
+      "layout_rects": {
+        "shell": null,
+        "sidebar": null,
+        "main": null,
+        "topbar": null,
+        "content": null,
+        "sidebar_expand": null
+      },
+      "topbar_cells": []
+    },
+    {
+      "page": "can-monitor",
+      "route": "/can-monitor",
+      "width": 1920,
+      "height": 1080,
+      "filename": "can-monitor_1920x1080.png",
+      "renderer_console_errors": [],
+      "renderer_page_errors": [],
+      "location": "#/login",
+      "viewport": {
+        "width": 1920,
+        "height": 1040
+      },
+      "page_scrollable": false,
+      "root_scroll_height": 1040,
+      "root_client_height": 1040,
+      "white_controls": 0,
+      "chart_canvas_count": 0,
+      "failed_to_fetch_banner": false,
+      "sidebar_collapsed": false,
+      "layout_rects": {
+        "shell": null,
+        "sidebar": null,
+        "main": null,
+        "topbar": null,
+        "content": null,
+        "sidebar_expand": null
+      },
+      "topbar_cells": []
+    },
+    {
+      "page": "can-monitor",
+      "route": "/can-monitor",
+      "width": 1366,
+      "height": 768,
+      "filename": "can-monitor_1366x768.png",
+      "renderer_console_errors": [],
+      "renderer_page_errors": [],
+      "location": "#/login",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "page_scrollable": false,
+      "root_scroll_height": 768,
+      "root_client_height": 768,
+      "white_controls": 0,
+      "chart_canvas_count": 0,
+      "failed_to_fetch_banner": false,
+      "sidebar_collapsed": false,
+      "layout_rects": {
+        "shell": null,
+        "sidebar": null,
+        "main": null,
+        "topbar": null,
+        "content": null,
+        "sidebar_expand": null
+      },
+      "topbar_cells": []
+    },
+    {
+      "page": "signal-dashboard",
+      "route": "/signal-dashboard",
+      "width": 1920,
+      "height": 1080,
+      "filename": "signal-dashboard_1920x1080.png",
+      "renderer_console_errors": [],
+      "renderer_page_errors": [],
+      "location": "#/login",
+      "viewport": {
+        "width": 1920,
+        "height": 1040
+      },
+      "page_scrollable": false,
+      "root_scroll_height": 1040,
+      "root_client_height": 1040,
+      "white_controls": 0,
+      "chart_canvas_count": 0,
+      "failed_to_fetch_banner": false,
+      "sidebar_collapsed": false,
+      "layout_rects": {
+        "shell": null,
+        "sidebar": null,
+        "main": null,
+        "topbar": null,
+        "content": null,
+        "sidebar_expand": null
+      },
+      "topbar_cells": []
+    },
+    {
+      "page": "signal-dashboard",
+      "route": "/signal-dashboard",
+      "width": 1366,
+      "height": 768,
+      "filename": "signal-dashboard_1366x768.png",
+      "renderer_console_errors": [],
+      "renderer_page_errors": [],
+      "location": "#/login",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "page_scrollable": false,
+      "root_scroll_height": 768,
+      "root_client_height": 768,
+      "white_controls": 0,
+      "chart_canvas_count": 0,
+      "failed_to_fetch_banner": false,
+      "sidebar_collapsed": false,
+      "layout_rects": {
+        "shell": null,
+        "sidebar": null,
+        "main": null,
+        "topbar": null,
+        "content": null,
+        "sidebar_expand": null
+      },
+      "topbar_cells": []
+    },
+    {
+      "page": "realtime-curve",
+      "route": "/realtime-curve",
+      "width": 1920,
+      "height": 1080,
+      "filename": "realtime-curve_1920x1080.png",
+      "renderer_console_errors": [],
+      "renderer_page_errors": [],
+      "location": "#/login",
+      "viewport": {
+        "width": 1920,
+        "height": 1040
+      },
+      "page_scrollable": false,
+      "root_scroll_height": 1040,
+      "root_client_height": 1040,
+      "white_controls": 0,
+      "chart_canvas_count": 0,
+      "failed_to_fetch_banner": false,
+      "sidebar_collapsed": false,
+      "layout_rects": {
+        "shell": null,
+        "sidebar": null,
+        "main": null,
+        "topbar": null,
+        "content": null,
+        "sidebar_expand": null
+      },
+      "topbar_cells": []
+    },
+    {
+      "page": "realtime-curve",
+      "route": "/realtime-curve",
+      "width": 1366,
+      "height": 768,
+      "filename": "realtime-curve_1366x768.png",
+      "renderer_console_errors": [],
+      "renderer_page_errors": [],
+      "location": "#/login",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "page_scrollable": false,
+      "root_scroll_height": 768,
+      "root_client_height": 768,
+      "white_controls": 0,
+      "chart_canvas_count": 0,
+      "failed_to_fetch_banner": false,
+      "sidebar_collapsed": false,
+      "layout_rects": {
+        "shell": null,
+        "sidebar": null,
+        "main": null,
+        "topbar": null,
+        "content": null,
+        "sidebar_expand": null
+      },
+      "topbar_cells": []
+    },
+    {
+      "page": "manual-control",
+      "route": "/manual-control",
+      "width": 1920,
+      "height": 1080,
+      "filename": "manual-control_1920x1080.png",
+      "renderer_console_errors": [],
+      "renderer_page_errors": [],
+      "location": "#/login",
+      "viewport": {
+        "width": 1920,
+        "height": 1040
+      },
+      "page_scrollable": false,
+      "root_scroll_height": 1040,
+      "root_client_height": 1040,
+      "white_controls": 0,
+      "chart_canvas_count": 0,
+      "failed_to_fetch_banner": false,
+      "sidebar_collapsed": false,
+      "layout_rects": {
+        "shell": null,
+        "sidebar": null,
+        "main": null,
+        "topbar": null,
+        "content": null,
+        "sidebar_expand": null
+      },
+      "topbar_cells": []
+    },
+    {
+      "page": "manual-control",
+      "route": "/manual-control",
+      "width": 1366,
+      "height": 768,
+      "filename": "manual-control_1366x768.png",
+      "renderer_console_errors": [],
+      "renderer_page_errors": [],
+      "location": "#/login",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "page_scrollable": false,
+      "root_scroll_height": 768,
+      "root_client_height": 768,
+      "white_controls": 0,
+      "chart_canvas_count": 0,
+      "failed_to_fetch_banner": false,
+      "sidebar_collapsed": false,
+      "layout_rects": {
+        "shell": null,
+        "sidebar": null,
+        "main": null,
+        "topbar": null,
+        "content": null,
+        "sidebar_expand": null
+      },
+      "topbar_cells": []
+    },
+    {
+      "page": "auto-test",
+      "route": "/auto-test",
+      "width": 1920,
+      "height": 1080,
+      "filename": "auto-test_1920x1080.png",
+      "renderer_console_errors": [],
+      "renderer_page_errors": [],
+      "location": "#/login",
+      "viewport": {
+        "width": 1920,
+        "height": 1040
+      },
+      "page_scrollable": false,
+      "root_scroll_height": 1040,
+      "root_client_height": 1040,
+      "white_controls": 0,
+      "chart_canvas_count": 0,
+      "failed_to_fetch_banner": false,
+      "sidebar_collapsed": false,
+      "layout_rects": {
+        "shell": null,
+        "sidebar": null,
+        "main": null,
+        "topbar": null,
+        "content": null,
+        "sidebar_expand": null
+      },
+      "topbar_cells": []
+    },
+    {
+      "page": "auto-test",
+      "route": "/auto-test",
+      "width": 1366,
+      "height": 768,
+      "filename": "auto-test_1366x768.png",
+      "renderer_console_errors": [],
+      "renderer_page_errors": [],
+      "location": "#/login",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "page_scrollable": false,
+      "root_scroll_height": 768,
+      "root_client_height": 768,
+      "white_controls": 0,
+      "chart_canvas_count": 0,
+      "failed_to_fetch_banner": false,
+      "sidebar_collapsed": false,
+      "layout_rects": {
+        "shell": null,
+        "sidebar": null,
+        "main": null,
+        "topbar": null,
+        "content": null,
+        "sidebar_expand": null
+      },
+      "topbar_cells": []
+    },
+    {
+      "page": "alarm-diagnosis",
+      "route": "/alarm-diagnosis",
+      "width": 1920,
+      "height": 1080,
+      "filename": "alarm-diagnosis_1920x1080.png",
+      "renderer_console_errors": [],
+      "renderer_page_errors": [],
+      "location": "#/login",
+      "viewport": {
+        "width": 1920,
+        "height": 1040
+      },
+      "page_scrollable": false,
+      "root_scroll_height": 1040,
+      "root_client_height": 1040,
+      "white_controls": 0,
+      "chart_canvas_count": 0,
+      "failed_to_fetch_banner": false,
+      "sidebar_collapsed": false,
+      "layout_rects": {
+        "shell": null,
+        "sidebar": null,
+        "main": null,
+        "topbar": null,
+        "content": null,
+        "sidebar_expand": null
+      },
+      "topbar_cells": []
+    },
+    {
+      "page": "alarm-diagnosis",
+      "route": "/alarm-diagnosis",
+      "width": 1366,
+      "height": 768,
+      "filename": "alarm-diagnosis_1366x768.png",
+      "renderer_console_errors": [],
+      "renderer_page_errors": [],
+      "location": "#/login",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "page_scrollable": false,
+      "root_scroll_height": 768,
+      "root_client_height": 768,
+      "white_controls": 0,
+      "chart_canvas_count": 0,
+      "failed_to_fetch_banner": false,
+      "sidebar_collapsed": false,
+      "layout_rects": {
+        "shell": null,
+        "sidebar": null,
+        "main": null,
+        "topbar": null,
+        "content": null,
+        "sidebar_expand": null
+      },
+      "topbar_cells": []
+    },
+    {
+      "page": "report-management",
+      "route": "/report-management",
+      "width": 1920,
+      "height": 1080,
+      "filename": "report-management_1920x1080.png",
+      "renderer_console_errors": [],
+      "renderer_page_errors": [],
+      "location": "#/login",
+      "viewport": {
+        "width": 1920,
+        "height": 1040
+      },
+      "page_scrollable": false,
+      "root_scroll_height": 1040,
+      "root_client_height": 1040,
+      "white_controls": 0,
+      "chart_canvas_count": 0,
+      "failed_to_fetch_banner": false,
+      "sidebar_collapsed": false,
+      "layout_rects": {
+        "shell": null,
+        "sidebar": null,
+        "main": null,
+        "topbar": null,
+        "content": null,
+        "sidebar_expand": null
+      },
+      "topbar_cells": []
+    },
+    {
+      "page": "report-management",
+      "route": "/report-management",
+      "width": 1366,
+      "height": 768,
+      "filename": "report-management_1366x768.png",
+      "renderer_console_errors": [],
+      "renderer_page_errors": [],
+      "location": "#/login",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "page_scrollable": false,
+      "root_scroll_height": 768,
+      "root_client_height": 768,
+      "white_controls": 0,
+      "chart_canvas_count": 0,
+      "failed_to_fetch_banner": false,
+      "sidebar_collapsed": false,
+      "layout_rects": {
+        "shell": null,
+        "sidebar": null,
+        "main": null,
+        "topbar": null,
+        "content": null,
+        "sidebar_expand": null
+      },
+      "topbar_cells": []
+    },
+    {
+      "page": "history",
+      "route": "/history",
+      "width": 1920,
+      "height": 1080,
+      "filename": "history_1920x1080.png",
+      "renderer_console_errors": [],
+      "renderer_page_errors": [],
+      "location": "#/login",
+      "viewport": {
+        "width": 1920,
+        "height": 1040
+      },
+      "page_scrollable": false,
+      "root_scroll_height": 1040,
+      "root_client_height": 1040,
+      "white_controls": 0,
+      "chart_canvas_count": 0,
+      "failed_to_fetch_banner": false,
+      "sidebar_collapsed": false,
+      "layout_rects": {
+        "shell": null,
+        "sidebar": null,
+        "main": null,
+        "topbar": null,
+        "content": null,
+        "sidebar_expand": null
+      },
+      "topbar_cells": []
+    },
+    {
+      "page": "history",
+      "route": "/history",
+      "width": 1366,
+      "height": 768,
+      "filename": "history_1366x768.png",
+      "renderer_console_errors": [],
+      "renderer_page_errors": [],
+      "location": "#/login",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "page_scrollable": false,
+      "root_scroll_height": 768,
+      "root_client_height": 768,
+      "white_controls": 0,
+      "chart_canvas_count": 0,
+      "failed_to_fetch_banner": false,
+      "sidebar_collapsed": false,
+      "layout_rects": {
+        "shell": null,
+        "sidebar": null,
+        "main": null,
+        "topbar": null,
+        "content": null,
+        "sidebar_expand": null
+      },
+      "topbar_cells": []
+    },
+    {
+      "page": "system-settings",
+      "route": "/system-settings",
+      "width": 1920,
+      "height": 1080,
+      "filename": "system-settings_1920x1080.png",
+      "renderer_console_errors": [],
+      "renderer_page_errors": [],
+      "location": "#/login",
+      "viewport": {
+        "width": 1920,
+        "height": 1040
+      },
+      "page_scrollable": false,
+      "root_scroll_height": 1040,
+      "root_client_height": 1040,
+      "white_controls": 0,
+      "chart_canvas_count": 0,
+      "failed_to_fetch_banner": false,
+      "sidebar_collapsed": false,
+      "layout_rects": {
+        "shell": null,
+        "sidebar": null,
+        "main": null,
+        "topbar": null,
+        "content": null,
+        "sidebar_expand": null
+      },
+      "topbar_cells": []
+    },
+    {
+      "page": "system-settings",
+      "route": "/system-settings",
+      "width": 1366,
+      "height": 768,
+      "filename": "system-settings_1366x768.png",
+      "renderer_console_errors": [],
+      "renderer_page_errors": [],
+      "location": "#/login",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "page_scrollable": false,
+      "root_scroll_height": 768,
+      "root_client_height": 768,
+      "white_controls": 0,
+      "chart_canvas_count": 0,
+      "failed_to_fetch_banner": false,
+      "sidebar_collapsed": false,
+      "layout_rects": {
+        "shell": null,
+        "sidebar": null,
+        "main": null,
+        "topbar": null,
+        "content": null,
+        "sidebar_expand": null
+      },
+      "topbar_cells": []
+    }
+  ]
+}

@@ -1,0 +1,79 @@
+{
+  "schema_version": 1,
+  "product": "低速无人车线控底盘生产下线管理平台",
+  "software_version": "1.0.2",
+  "commit": "3c6c838d1a2275d0b0d463ad3f04ac62293dfa0e",
+  "built_at_utc": "2026-07-22T15:34:29.405Z",
+  "source": {
+    "commit": "3c6c838d1a2275d0b0d463ad3f04ac62293dfa0e",
+    "dirty": true,
+    "dirty_file_count": 209
+  },
+  "release_label": "unsigned-internal",
+  "signing": {
+    "signed": false,
+    "provider": null,
+    "formal_release": false
+  },
+  "runtime": {
+    "electron": "43.1.0",
+    "python": "embedded by PyInstaller",
+    "network_dependency_at_runtime": false
+  },
+  "compatibility": {
+    "database_schema": 3,
+    "downgrade_open_newer_schema": "blocked",
+    "migration_backup": "required"
+  },
+  "packaged_inputs": {
+    "dbc": {
+      "file": "Yunle_CAN_integrated_candb_jd.dbc",
+      "sha256": "387ae48bd84852c8a6401653f96d1f7fca2a604c90fad018db800bf548ab468c"
+    },
+    "production_config_schema_sha256": "66b9344a0743fd5b9b53ec7e6260635bfa37b403d1193ed901849591c80185cb"
+  },
+  "safety_boundaries": [
+    "default runtime profile is mock on 127.0.0.1",
+    "first launch does not start a simulator or transmit CAN",
+    "active transmit allowlist remains CAN2 0x121 only",
+    "0x123, 0x126 and CANopen NMT remain disabled",
+    "sidecar readiness is not vehicle readiness; missing feedback remains HTTP 409"
+  ],
+  "artifacts": [
+    {
+      "file": "builder-debug.yml",
+      "bytes": 8036,
+      "sha256": "d780c333eeb20e0773cf954123da63bb1b8929f3fadc0dd6e7ef07bf9f4817ab"
+    },
+    {
+      "file": "Chassis-EOL-Setup-1.0.2-unsigned-internal-x64.exe",
+      "bytes": 165113990,
+      "sha256": "2b51aa6efedfe5eb68789f61496e18fea0abe8d099770718015a55d764001744"
+    },
+    {
+      "file": "Chassis-EOL-Setup-1.0.2-unsigned-internal-x64.exe.blockmap",
+      "bytes": 174691,
+      "sha256": "8dbbee7d16dde612d0085d9cb1fb24adbedbec1e0bc9a3a72acb84739c1c39fc"
+    },
+    {
+      "file": "npm-audit.json",
+      "bytes": 365,
+      "sha256": "50272b3da59f2d5b04c7c1cdc30db950230b1762595cb73f6fffe54ed5c99b17"
+    },
+    {
+      "file": "pip-audit.json",
+      "bytes": 4364,
+      "sha256": "3993c17af2b22e530add55d37531ef25e69a1166efaaa7ef1d044545869ab477"
+    },
+    {
+      "file": "sbom.cdx.json",
+      "bytes": 91574,
+      "sha256": "00ad4fbf21ce347709db86686286e93defc2973658cf2d4feb7b330f072b59ea"
+    },
+    {
+      "file": "signing-status.json",
+      "bytes": 289,
+      "sha256": "194b2f25912208e1f1d3e203815329d1cae53e02bfa047e876ca46fb7862b1f4"
+    }
+  ]
+}

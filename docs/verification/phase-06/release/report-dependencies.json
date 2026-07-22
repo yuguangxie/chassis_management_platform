@@ -1,0 +1,12 @@
+{
+  "ready": true,
+  "pdf_renderer": "reportlab-native",
+  "pdf_renderer_available": true,
+  "docx_to_pdf_converter": "disabled",
+  "docx_to_pdf_available": true,
+  "converter_path": null,
+  "python_docx_available": true,
+  "pdf_preview_available": true,
+  "action": null,
+  "semantics": "PDF and DOCX are independently rendered; no DOCX file is renamed or presented as PDF."
+}

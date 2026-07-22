@@ -3,6 +3,7 @@ from __future__ import annotations
 import base64
 import csv
 from datetime import datetime, timedelta
+import hashlib
 import json
 from pathlib import Path
 import shutil
@@ -13,7 +14,6 @@ from fastapi import HTTPException
 
 from app.api.data_source import dashboard_metadata
 from app.api.errors import get_trace_id
-from app.core.paths import DATA_DIR, REPORTS_DIR
 from app.core.time import utc_now
 from app.services.file_access import (
     human_size,
@@ -25,18 +25,29 @@ from app.services.file_access import (
 class ReportService:
     def __init__(self, app_state: Any) -> None:
         self.state = app_state
-        self.output_dir = Path(
-            getattr(app_state.reports, "output_dir", REPORTS_DIR)
+        self.output_dir = Path(app_state.reports.output_dir).resolve(strict=False)
+        self.data_root = Path(
+            getattr(getattr(app_state, "data_paths", None), "root", self.output_dir.parent)
         ).resolve(strict=False)
         self.output_dir.mkdir(parents=True, exist_ok=True)
 
     def set_output_dir(self, value: str | Path) -> Path:
         path = normalize_allowed_path(
             value,
-            [DATA_DIR, self.output_dir],
+            [self.data_root],
             must_exist=True,
             expect_file=False,
         )
+        required = self.state.data_paths.reports.resolve(strict=False)
+        if path != required:
+            raise HTTPException(
+                422,
+                {
+                    "code": "DERIVED_REPORT_PATH_IMMUTABLE",
+                    "message": "report output is fixed at <data_root>/reports",
+                    "details": {"supplied": str(path), "required": str(required)},
+                },
+            )
         self.output_dir = path
         self.state.reports.output_dir = path
         if self.state.preferences:
@@ -55,7 +66,7 @@ class ReportService:
                 },
             )
         path = normalize_allowed_path(
-            row["file_path"], [self.output_dir, REPORTS_DIR], expect_file=True
+            row["file_path"], [self.output_dir], expect_file=True
         )
         return {**row, "_path": path}
 
@@ -360,6 +371,15 @@ class ReportService:
         return {**generated, "database_ids": database_ids}
 
     def create_print_job(self, report_id: str, requested_by: str) -> dict[str, Any]:
+        if getattr(self.state, "printing", None):
+            from app.security.auth import Principal, Role
+
+            return self.state.printing.create(
+                report_id,
+                Principal(requested_by, Role.OPERATOR),
+                preview_confirmed=True,
+                printer_name=None,
+            )
         row = self.report_row(report_id)
         target = row
         if row["report_type"] != "pdf":
@@ -396,3 +416,39 @@ class ReportService:
         path.unlink()
         self.state.database.execute("DELETE FROM reports WHERE id=?", (report_id,))
         return {"report_id": report_id, "path": str(path), "deleted": True}
+
+    def archive(self, report_id: str, principal: Any) -> dict[str, Any]:
+        row = self.report_row(report_id)
+        path: Path = row["_path"]
+        file_hash = sha256_file(path)
+        archived_at = utc_now()
+        folder = self.state.data_paths.exports / "report-archives"
+        folder.mkdir(parents=True, exist_ok=True)
+        safe_id = hashlib.sha256(report_id.encode("utf-8")).hexdigest()[:20]
+        manifest_path = folder / f"report-{safe_id}.json"
+        payload = {
+            "manifest_version": 1,
+            "report_id": report_id,
+            "session_id": row["session_id"],
+            "file_name": path.name,
+            "file_sha256": file_hash,
+            "file_size_bytes": path.stat().st_size,
+            "archived_at": archived_at,
+            "archived_by": principal.username,
+        }
+        manifest_path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
+        manifest_hash = sha256_file(manifest_path)
+        try:
+            with self.state.database.transaction() as conn:
+                conn.execute(
+                    "UPDATE reports SET archived_at=?,archive_manifest_hash=?,file_hash=? WHERE id=?",
+                    (archived_at, manifest_hash, file_hash, report_id),
+                )
+                conn.execute(
+                    "INSERT INTO operator_actions(session_id,timestamp_utc,operator,role,action_type,target,request_json,result,trace_id) VALUES (?,?,?,?,?,?,?,?,?)",
+                    (row["session_id"], archived_at, principal.username, principal.role.value, "archive_report", report_id, json.dumps(payload, ensure_ascii=False), "OK", get_trace_id()),
+                )
+        except Exception:
+            manifest_path.unlink(missing_ok=True)
+            raise
+        return {**payload, "manifest_path": str(manifest_path), "manifest_sha256": manifest_hash}

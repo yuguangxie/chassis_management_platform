@@ -16,15 +16,15 @@ from app.services.app_state import state
 
 
 DASHBOARDS = [
-    ("/api/v1/overview/summary", None),
-    ("/api/v1/can/frames/latest", None),
-    ("/api/v1/can/statistics/monitor", None),
-    ("/api/v1/signals/dashboard", None),
-    ("/api/v1/signals/curve-config", None),
-    ("/api/v1/signals/timeseries", None),
-    ("/api/v1/alarms/dashboard", None),
-    ("/api/v1/reports/dashboard", None),
-    ("/api/v1/history/dashboard", None),
+    ("/api/v1/overview/summary", "viewer"),
+    ("/api/v1/can/frames/latest", "viewer"),
+    ("/api/v1/can/statistics/monitor", "viewer"),
+    ("/api/v1/signals/dashboard", "viewer"),
+    ("/api/v1/signals/curve-config", "viewer"),
+    ("/api/v1/signals/timeseries", "viewer"),
+    ("/api/v1/alarms/dashboard", "viewer"),
+    ("/api/v1/reports/dashboard", "viewer"),
+    ("/api/v1/history/dashboard", "viewer"),
     ("/api/v1/eol/dashboard", "viewer"),
     ("/api/v1/config/system-dashboard", "viewer"),
 ]
@@ -65,16 +65,17 @@ def test_dashboard_provenance_is_never_silent(auth_headers):
             assert payload["trace_id"] == response.headers["X-Trace-Id"]
 
 
-def test_can_frames_list_matches_declared_response_contract():
+def test_can_frames_list_matches_declared_response_contract(auth_headers):
     with TestClient(app) as client:
-        response = client.get("/api/v1/can/frames")
+        response = client.get("/api/v1/can/frames", headers=auth_headers("viewer"))
         assert response.status_code == 200
         assert isinstance(response.json(), list)
 
 
 def test_unified_4xx_validation_and_5xx_errors_have_trace_id(auth_headers, monkeypatch):
     with TestClient(app, raise_server_exceptions=False) as client:
-        missing = client.get("/api/v1/reports/REPORT-NOT-FOUND/preview")
+        viewer = auth_headers("viewer")
+        missing = client.get("/api/v1/reports/REPORT-NOT-FOUND/preview", headers=viewer)
         assert missing.status_code == 404
         assert set(missing.json()) == {"code", "message", "details", "trace_id"}
         assert missing.json()["code"] == "REPORT_NOT_FOUND"
@@ -82,7 +83,7 @@ def test_unified_4xx_validation_and_5xx_errors_have_trace_id(auth_headers, monke
 
         invalid = client.post(
             "/api/v1/test-sessions/no-session/replay/seek",
-            json={"progress_percent": 101},
+            json={"progress_percent": 101}, headers=viewer,
         )
         assert invalid.status_code == 422
         assert invalid.json()["code"] == "VALIDATION_ERROR"
@@ -90,7 +91,7 @@ def test_unified_4xx_validation_and_5xx_errors_have_trace_id(auth_headers, monke
 
         original = state.report_service.dashboard
         monkeypatch.setattr(state.report_service, "dashboard", lambda: (_ for _ in ()).throw(RuntimeError("secret")))
-        failed = client.get("/api/v1/reports/dashboard")
+        failed = client.get("/api/v1/reports/dashboard", headers=viewer)
         monkeypatch.setattr(state.report_service, "dashboard", original)
         assert failed.status_code == 500
         assert failed.json()["code"] == "INTERNAL_ERROR"
@@ -98,7 +99,7 @@ def test_unified_4xx_validation_and_5xx_errors_have_trace_id(auth_headers, monke
         assert failed.json()["trace_id"] == failed.headers["X-Trace-Id"]
 
 
-def test_production_rejects_unavailable_live_data_instead_of_using_fallback():
+def test_production_rejects_unavailable_live_data_instead_of_using_fallback(auth_headers):
     saved_profile = state.config.profile
     saved_latest = deepcopy(state.can.latest_frames)
     saved_recent = list(state.can.recent_frames)
@@ -107,7 +108,7 @@ def test_production_rejects_unavailable_live_data_instead_of_using_fallback():
         state.can.latest_frames.clear()
         state.can.recent_frames.clear()
         with TestClient(app) as client:
-            response = client.get("/api/v1/can/frames/latest")
+            response = client.get("/api/v1/can/frames/latest", headers=auth_headers("viewer"))
         assert response.status_code == 503
         body = response.json()
         assert body["code"] == "PRODUCTION_DATA_UNAVAILABLE"
@@ -120,7 +121,7 @@ def test_production_rejects_unavailable_live_data_instead_of_using_fallback():
         state.can.recent_frames.extend(saved_recent)
 
 
-def test_latest_can_details_use_actual_frame_and_authoritative_decoders():
+def test_latest_can_details_use_actual_frame_and_authoritative_decoders(auth_headers):
     with TestClient(app) as client:
         saved_latest = deepcopy(state.can.latest_frames)
         saved_recent = list(state.can.recent_frames)
@@ -137,10 +138,11 @@ def test_latest_can_details_use_actual_frame_and_authoritative_decoders():
             )
             asyncio.run(state.dbc.decode(warning))
             state.can.record_recent(warning)
-            overview = client.get("/api/v1/overview/summary")
+            viewer = auth_headers("viewer")
+            overview = client.get("/api/v1/overview/summary", headers=viewer)
             assert overview.status_code == 200, overview.text
             assert overview.json()["signals"]["signals"]
-            decoded = client.get("/api/v1/can/frames/latest/0x77/decoded").json()
+            decoded = client.get("/api/v1/can/frames/latest/0x77/decoded", headers=viewer).json()
             assert decoded["frame"]["data_hex"] == "01 00 00 00 00 00 00 00"
             assert decoded["frame"]["can_id_hex"] == "0x77"
             assert decoded["dbc_status"] == "decoded"
@@ -160,7 +162,7 @@ def test_latest_can_details_use_actual_frame_and_authoritative_decoders():
             data = encode_control_121(command)
             control = CanFrame(channel="CAN2", direction="tx", can_id=0x121, dlc=8, data=list(data), source="phase03-test")
             state.can.record_recent(control)
-            decoded_121 = client.get("/api/v1/can/frames/latest/0x121/decoded").json()
+            decoded_121 = client.get("/api/v1/can/frames/latest/0x121/decoded", headers=viewer).json()
             rows = {row["name"]: row for row in decoded_121["signals"]}
             assert rows["SCU_Steering_Angle_Front"]["raw_value"] == 0xC4
             assert rows["SCU_Steering_Angle_Front"]["physical_value"] == -60
@@ -169,7 +171,7 @@ def test_latest_can_details_use_actual_frame_and_authoritative_decoders():
 
             protect = CanFrame(channel="CAN2", direction="rx", can_id=0x102, dlc=8, data=[1, 128, 52, 18, 120, 86, 0, 0], source="phase03-test")
             state.can.record_recent(protect)
-            decoded_102 = client.get("/api/v1/can/frames/latest/0x102/decoded").json()
+            decoded_102 = client.get("/api/v1/can/frames/latest/0x102/decoded", headers=viewer).json()
             rows_102 = {row["name"]: row for row in decoded_102["signals"]}
             assert rows_102["BMS_Protect_Bitmap"]["raw_value"] == 0x8001
             assert rows_102["BMS_Protect_Bit_15"]["raw_value"] == 1

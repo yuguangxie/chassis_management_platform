@@ -23,4 +23,4 @@ def test_brake_fail_profile_does_not_report_brake_feedback():
         ("127.0.0.1", 12342),
     )
     assert PROFILES["brake_fail"]["brake_response"] is False
-    simulator.tx_sock.close()
+    assert simulator.channel_socks == {}

@@ -171,15 +171,15 @@ export const fallbackNetworkConfig: NetworkConfigSummary = {
 }
 
 export const fallbackNetworkSelfTest: NetworkSelfTestResult = {
-  ping_latency_ms: 0.92,
-  udp_loopback: 'pass',
-  protocol_valid_rate: 99.96,
+  ping_latency_ms: null,
+  udp_loopback: 'unavailable',
+  protocol_valid_rate: 0,
   dlc_check: 'pass',
   reserved_bits_check: 'pass',
   sticky_half_packets: { sticky: 0, half: 0 },
-  last_error: '无',
+  last_error: '尚未执行真实诊断',
   stub: true,
-  message: '接口已预留，当前为仿真/Mock模式',
+  message: '离线占位数据，不代表设备可达',
 }
 
 export const fallbackCanLatestFrames: CanLatestFrame[] = [
@@ -707,7 +707,7 @@ export const fallbackAlarmDiagnosisDashboard: AlarmDiagnosisDashboard = {
 
 export const fallbackReportManagementDashboard: ReportManagementDashboard = {
   directory: {
-    path: 'D:\\TestLogs\\Reports',
+    path: '<data_root>\\reports',
     total_gb: 931.5,
     used_gb: 286.7,
     free_gb: 644.8,
@@ -723,16 +723,16 @@ export const fallbackReportManagementDashboard: ReportManagementDashboard = {
     ],
   },
   reports: [
-    { report_id: 'RPT-20260401-0001', chassis_no: 'YL-JD-001', vin: 'L0000000000000001', test_time: '2026-04-01 10:15:22', result: 'PASS', operator: 'op01', type: '.docx', size: '1.24 MB', path: 'D:\\TestLogs\\Reports\\202604\\RPT-20260401-0001.docx', generation_status: '完成' },
-    { report_id: 'RPT-20260401-0002', chassis_no: 'YL-JD-001', vin: 'L0000000000000001', test_time: '2026-04-01 10:15:22', result: 'PASS', operator: 'op01', type: '.pdf', size: '2.87 MB', path: 'D:\\TestLogs\\Reports\\202604\\RPT-20260401-0002.pdf', generation_status: '完成' },
-    { report_id: 'RPT-20260401-0003', chassis_no: 'YL-JD-001', vin: 'L0000000000000001', test_time: '2026-04-01 10:15:22', result: 'PASS', operator: 'op01', type: '.json', size: '512.46 KB', path: 'D:\\TestLogs\\Reports\\202604\\RPT-20260401-0003.json', generation_status: '完成' },
-    { report_id: 'RPT-20260401-0004', chassis_no: 'YL-JD-001', vin: 'L0000000000000001', test_time: '2026-04-01 10:15:22', result: 'PASS', operator: 'op01', type: '.csv', size: '1.07 MB', path: 'D:\\TestLogs\\Reports\\202604\\RPT-20260401-0004.csv', generation_status: '完成' },
-    { report_id: 'RPT-20260401-0005', chassis_no: 'YL-JD-002', vin: 'L0000000000000002', test_time: '2026-04-01 09:58:13', result: 'PASS', operator: 'op01', type: '.docx', size: '1.19 MB', path: 'D:\\TestLogs\\Reports\\202604\\RPT-20260401-0005.docx', generation_status: '完成' },
-    { report_id: 'RPT-20260401-0006', chassis_no: 'YL-JD-002', vin: 'L0000000000000002', test_time: '2026-04-01 09:58:13', result: 'FAIL', operator: 'op01', type: '.pdf', size: '2.91 MB', path: 'D:\\TestLogs\\Reports\\202604\\RPT-20260401-0006.pdf', generation_status: '完成' },
-    { report_id: 'RPT-20260401-0007', chassis_no: 'YL-JD-002', vin: 'L0000000000000002', test_time: '2026-04-01 09:58:13', result: 'FAIL', operator: 'op01', type: '.json', size: '520.14 KB', path: 'D:\\TestLogs\\Reports\\202604\\RPT-20260401-0007.json', generation_status: '完成' },
-    { report_id: 'RPT-20260401-0008', chassis_no: 'YL-JD-003', vin: 'L0000000000000003', test_time: '2026-04-01 09:36:58', result: 'PASS', operator: 'op01', type: 'raw.log', size: '45.32 MB', path: 'D:\\TestLogs\\Reports\\202604\\RPT-20260401-0008.log', generation_status: '完成' },
-    { report_id: 'RPT-20260401-0009', chassis_no: 'YL-JD-003', vin: 'L0000000000000003', test_time: '2026-04-01 09:36:58', result: 'PASS', operator: 'op01', type: 'decoded.csv', size: '3.21 MB', path: 'D:\\TestLogs\\Reports\\202604\\RPT-20260401-0009.csv', generation_status: '完成' },
-    { report_id: 'RPT-20260401-0010', chassis_no: 'YL-JD-004', vin: 'L0000000000000004', test_time: '2026-04-01 09:22:11', result: 'FAIL', operator: 'op01', type: '.pdf', size: '2.65 MB', path: 'D:\\TestLogs\\Reports\\202604\\RPT-20260401-0010.pdf', generation_status: '完成' },
+    { report_id: 'RPT-20260401-0001', chassis_no: 'YL-JD-001', vin: 'L0000000000000001', test_time: '2026-04-01 10:15:22', result: 'PASS', operator: 'op01', type: '.docx', size: '1.24 MB', path: '<data_root>\\reports\\202604\\RPT-20260401-0001.docx', generation_status: '完成' },
+    { report_id: 'RPT-20260401-0002', chassis_no: 'YL-JD-001', vin: 'L0000000000000001', test_time: '2026-04-01 10:15:22', result: 'PASS', operator: 'op01', type: '.pdf', size: '2.87 MB', path: '<data_root>\\reports\\202604\\RPT-20260401-0002.pdf', generation_status: '完成' },
+    { report_id: 'RPT-20260401-0003', chassis_no: 'YL-JD-001', vin: 'L0000000000000001', test_time: '2026-04-01 10:15:22', result: 'PASS', operator: 'op01', type: '.json', size: '512.46 KB', path: '<data_root>\\reports\\202604\\RPT-20260401-0003.json', generation_status: '完成' },
+    { report_id: 'RPT-20260401-0004', chassis_no: 'YL-JD-001', vin: 'L0000000000000001', test_time: '2026-04-01 10:15:22', result: 'PASS', operator: 'op01', type: '.csv', size: '1.07 MB', path: '<data_root>\\reports\\202604\\RPT-20260401-0004.csv', generation_status: '完成' },
+    { report_id: 'RPT-20260401-0005', chassis_no: 'YL-JD-002', vin: 'L0000000000000002', test_time: '2026-04-01 09:58:13', result: 'PASS', operator: 'op01', type: '.docx', size: '1.19 MB', path: '<data_root>\\reports\\202604\\RPT-20260401-0005.docx', generation_status: '完成' },
+    { report_id: 'RPT-20260401-0006', chassis_no: 'YL-JD-002', vin: 'L0000000000000002', test_time: '2026-04-01 09:58:13', result: 'FAIL', operator: 'op01', type: '.pdf', size: '2.91 MB', path: '<data_root>\\reports\\202604\\RPT-20260401-0006.pdf', generation_status: '完成' },
+    { report_id: 'RPT-20260401-0007', chassis_no: 'YL-JD-002', vin: 'L0000000000000002', test_time: '2026-04-01 09:58:13', result: 'FAIL', operator: 'op01', type: '.json', size: '520.14 KB', path: '<data_root>\\reports\\202604\\RPT-20260401-0007.json', generation_status: '完成' },
+    { report_id: 'RPT-20260401-0008', chassis_no: 'YL-JD-003', vin: 'L0000000000000003', test_time: '2026-04-01 09:36:58', result: 'PASS', operator: 'op01', type: 'raw.log', size: '45.32 MB', path: '<data_root>\\reports\\202604\\RPT-20260401-0008.log', generation_status: '完成' },
+    { report_id: 'RPT-20260401-0009', chassis_no: 'YL-JD-003', vin: 'L0000000000000003', test_time: '2026-04-01 09:36:58', result: 'PASS', operator: 'op01', type: 'decoded.csv', size: '3.21 MB', path: '<data_root>\\reports\\202604\\RPT-20260401-0009.csv', generation_status: '完成' },
+    { report_id: 'RPT-20260401-0010', chassis_no: 'YL-JD-004', vin: 'L0000000000000004', test_time: '2026-04-01 09:22:11', result: 'FAIL', operator: 'op01', type: '.pdf', size: '2.65 MB', path: '<data_root>\\reports\\202604\\RPT-20260401-0010.pdf', generation_status: '完成' },
   ],
   selected_report: {
     report_id: 'RPT-20260401-0002',
@@ -961,7 +961,7 @@ export const fallbackPageData = {
       { role: 'admin', pages: '全部', control: '审批', maintenance: '危险项确认' },
     ],
     history: [
-      { time: '2026-07-09 09:10', user: 'admin', key: 'report.path', oldValue: 'D:\\Reports', newValue: 'D:\\TestLogs\\Reports', reason: '产线目录迁移' },
+      { time: '2026-07-09 09:10', user: 'admin', key: 'report.path', oldValue: '<旧 data_root>\\reports', newValue: '<data_root>\\reports', reason: '产线目录迁移' },
       { time: '2026-07-09 09:05', user: 'engineer', key: 'control.period_ms', oldValue: '50', newValue: '20', reason: '方案版本 v1.0.2' },
       { time: '2026-07-08 17:22', user: 'admin', key: 'mock.enabled', oldValue: 'false', newValue: 'true', reason: '桌面端演示' },
     ],

@@ -1,6 +1,39 @@
-const BASE = import.meta.env.VITE_API_BASE || 'http://127.0.0.1:8800/api/v1'
+export const AUTH_EXPIRED_EVENT = 'chassis:auth-expired'
 
-const DEV_TOKEN = 'dev-engineer-token'
+export interface DesktopRuntimeConnection {
+  apiBase: string
+  wsUrl: string
+  sidecarCredential: string
+  runtimeProfile: string
+  ready: boolean
+  packaged: boolean
+  releaseChannel: string
+}
+
+export function getRuntimeConnection(): DesktopRuntimeConnection {
+  const desktop = window.chassisRuntime?.getConnection()
+  if (desktop) return desktop
+  if (import.meta.env.PROD) {
+    return {
+      apiBase: '',
+      wsUrl: '',
+      sidecarCredential: '',
+      runtimeProfile: 'mock',
+      ready: false,
+      packaged: true,
+      releaseChannel: 'runtime-bridge-unavailable',
+    }
+  }
+  return {
+    apiBase: import.meta.env.VITE_API_BASE || 'http://127.0.0.1:8800/api/v1',
+    wsUrl: import.meta.env.VITE_WS_URL || 'ws://127.0.0.1:8800/ws',
+    sidecarCredential: '',
+    runtimeProfile: import.meta.env.MODE === 'production' ? 'mock' : 'dev',
+    ready: true,
+    packaged: false,
+    releaseChannel: 'development',
+  }
+}
 
 export interface ApiErrorPayload {
   code: string
@@ -28,8 +61,7 @@ export class ApiError extends Error {
 }
 
 export function getApiToken(): string {
-  const stored = window.sessionStorage.getItem('chassis_api_token') || window.localStorage.getItem('chassis_api_token')
-  return stored || import.meta.env.VITE_API_TOKEN || (import.meta.env.DEV ? DEV_TOKEN : '')
+  return window.sessionStorage.getItem('chassis_api_token') || ''
 }
 
 export function setApiToken(token: string): void {
@@ -39,15 +71,21 @@ export function setApiToken(token: string): void {
 
 function authHeaders(json = false): HeadersInit {
   const token = getApiToken()
+  const sidecarCredential = getRuntimeConnection().sidecarCredential
   return {
     ...(json ? { 'Content-Type': 'application/json' } : {}),
     ...(token ? { Authorization: `Bearer ${token}` } : {}),
+    ...(sidecarCredential ? { 'X-Chassis-Sidecar': sidecarCredential } : {}),
   }
 }
 
 async function request(path: string, init: RequestInit = {}): Promise<Response> {
+  const runtime = getRuntimeConnection()
+  if (!runtime.ready || !runtime.apiBase) {
+    throw new ApiError({ code: 'SIDECAR_NOT_READY', message: '本地安全服务未就绪', details: {} }, 0, true)
+  }
   try {
-    return await fetch(`${BASE}${path}`, init)
+    return await fetch(`${runtime.apiBase}${path}`, init)
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error)
     throw new ApiError({ code: 'NETWORK_ERROR', message: `后端不可达：${message}`, details: {} }, 0, true)
@@ -74,8 +112,22 @@ async function parseError(res: Response): Promise<ApiError> {
 }
 
 async function jsonRequest<T>(path: string, init: RequestInit): Promise<T> {
+  const attemptedAuthorization = new Headers(init.headers).get('Authorization') || ''
+  const attemptedToken = attemptedAuthorization.startsWith('Bearer ') ? attemptedAuthorization.slice(7) : ''
   const res = await request(path, init)
-  if (!res.ok) throw await parseError(res)
+  if (!res.ok) {
+    const error = await parseError(res)
+    if (
+      res.status === 401
+      && attemptedToken
+      && getApiToken() === attemptedToken
+      && !['/auth/login', '/auth/unlock', '/auth/bootstrap'].includes(path)
+    ) {
+      setApiToken('')
+      window.dispatchEvent(new CustomEvent(AUTH_EXPIRED_EVENT, { detail: { code: error.code } }))
+    }
+    throw error
+  }
   if (res.status === 204) return undefined as T
   return await res.json() as T
 }

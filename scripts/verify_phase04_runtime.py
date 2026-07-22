@@ -17,14 +17,17 @@ import websockets
 
 
 BASE = os.getenv("CHASSIS_API_BASE", "http://127.0.0.1:8800/api/v1")
-WS = os.getenv("CHASSIS_WS_URL", "ws://127.0.0.1:8800/ws?token=dev-viewer-token")
-HEADERS = {"Authorization": "Bearer dev-viewer-token"}
+WS = os.getenv("CHASSIS_WS_URL", "ws://127.0.0.1:8800/ws")
+TOKEN = os.getenv("CHASSIS_API_TOKEN", "")
+if not TOKEN:
+    raise RuntimeError("CHASSIS_API_TOKEN is required")
+HEADERS = {"Authorization": f"Bearer {TOKEN}"}
 
 
 async def collect_topics(topics: list[str], duration: float) -> dict[str, Any]:
     counts: Counter[str] = Counter()
     samples: dict[str, Any] = {}
-    async with websockets.connect(WS, open_timeout=5, close_timeout=2) as socket:
+    async with websockets.connect(WS, subprotocols=["chassis-session", f"chassis-token.{TOKEN}"], open_timeout=5, close_timeout=2) as socket:
         await socket.send(json.dumps({"action": "subscribe", "topics": topics}))
         deadline = asyncio.get_running_loop().time() + duration
         while True:

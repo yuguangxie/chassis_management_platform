@@ -9,10 +9,8 @@
         </div>
       </div>
       <div class="title-actions">
-        <span v-if="offline" class="offline-pill">后端离线 · Mock展示</span>
-        <span v-else-if="summary.mock || summary.quality !== 'good'" class="offline-pill loading">{{ summary.mock ? '显式 Mock 数据' : `数据质量：${summary.quality || 'unavailable'}` }}</span>
-        <span v-else-if="loading" class="offline-pill loading">正在刷新</span>
-        <button class="layout-btn" type="button"><SlidersHorizontal :size="16" />自定义布局</button>
+        <PageDataState :loading="loading" :error="loadError" :stale="offline || summary.mock || summary.quality !== 'good'" :empty="!summary.recent_sessions.length" />
+        <button class="layout-btn" type="button" disabled title="尚未实现：总览布局编辑器"><SlidersHorizontal :size="16" />自定义布局（尚未实现）</button>
       </div>
     </section>
 
@@ -41,9 +39,9 @@
               <div><dt>本地：</dt><dd>{{ summary.channels[name].local }}</dd></div>
               <div><dt>设备：</dt><dd>{{ summary.channels[name].device }}</dd></div>
               <div><dt>协议：</dt><dd>{{ summary.channels[name].protocol }}</dd></div>
-              <div><dt>帧率：</dt><dd>{{ summary.channels[name].fps }} fps</dd></div>
+              <div><dt>帧率：</dt><dd>{{ freshChannelMetric(name, 'fps') }}</dd></div>
               <div><dt>错误帧：</dt><dd>{{ summary.channels[name].error_frames }}</dd></div>
-              <div><dt>最后报文：</dt><dd>{{ summary.channels[name].last_frame_ms }} ms</dd></div>
+              <div><dt>最后报文：</dt><dd>{{ freshChannelMetric(name, 'last') }}</dd></div>
             </dl>
           </div>
         </div>
@@ -164,7 +162,7 @@
               <td><span :class="['result-pill', row.result.toLowerCase()]">{{ row.result }}</span></td>
               <td>{{ row.operator }}</td>
               <td>
-                <button v-if="row.report" class="report-btn" type="button" :title="row.report"><FileText :size="15" /></button>
+                <button v-if="row.report" class="report-btn" type="button" :title="row.report" @click="router.push({path:'/report-management',query:{report_id:row.report}})"><FileText :size="15" /></button>
                 <span v-else class="muted">—</span>
               </td>
             </tr>
@@ -200,11 +198,15 @@ import RealtimeLineChart from '../components/charts/RealtimeLineChart.vue'
 import { apiGet, apiPost, formatApiError, isNetworkError } from '../api/http'
 import type { OverviewSummary } from '../api/types'
 import { fallbackOverviewSummary } from '../mocks/fallbackData'
+import { useAuthStore, type Role } from '../stores/auth'
+import PageDataState from '../components/PageDataState.vue'
 
 const router = useRouter()
+const auth = useAuthStore()
 const summary = ref<OverviewSummary>({ ...structuredClone(fallbackOverviewSummary), data_source: 'frontend-explicit-fallback', mock: true, quality: 'mock' })
 const loading = ref(false)
 const offline = ref(false)
+const loadError = ref('')
 const actionMessage = ref('')
 const actionTone = ref<'ok' | 'warn' | 'bad'>('ok')
 let refreshTimer: number | undefined
@@ -217,12 +219,15 @@ async function loadSummary() {
     const data = await apiGet<OverviewSummary>('/overview/summary')
     summary.value = data
     offline.value = false
+    loadError.value = ''
   } catch (error) {
     if (isNetworkError(error)) {
       offline.value = true
       summary.value = { ...structuredClone(fallbackOverviewSummary), data_source: 'frontend-explicit-fallback', mock: true, quality: 'mock' }
+      loadError.value = formatApiError(error)
     } else {
       offline.value = false
+      loadError.value = formatApiError(error)
       showMessage(formatApiError(error), 'bad')
     }
   } finally {
@@ -255,14 +260,21 @@ async function safeStop() {
   }
 }
 
-const shortcuts = [
-  { title: '新建检测', desc: '创建新的下线检测会话', icon: Play, tone: 'primary', action: () => router.push('/auto-test') },
-  { title: '继续上次会话', desc: '恢复当前车辆检测流程', icon: ClipboardList, tone: 'primary', action: () => router.push('/auto-test') },
-  { title: '打开报告目录', desc: '刷新并查看报告文件', icon: FolderOpen, tone: 'primary', action: scanReports },
-  { title: '进入安全停车', desc: '发送安全停车控制', icon: ShieldAlert, tone: 'warning', action: safeStop },
-  { title: '进入CAN监控', desc: '查看原始帧与解码信号', icon: MonitorDot, tone: 'primary', action: () => router.push('/can-monitor') },
-  { title: '进入手动控制', desc: '受控发送 0x121 指令', icon: SlidersHorizontal, tone: 'primary', action: () => router.push('/manual-control') },
+const shortcutDefinitions: Array<{title:string;desc:string;icon:typeof Play;tone:string;action:()=>unknown;role:Role}> = [
+  { title: '新建检测', desc: '创建新的下线检测会话', icon: Play, tone: 'primary', action: () => router.push('/auto-test'), role:'operator' },
+  { title: '继续上次会话', desc: '恢复当前车辆检测流程', icon: ClipboardList, tone: 'primary', action: () => router.push('/auto-test'), role:'operator' },
+  { title: '打开报告目录', desc: '刷新并查看报告文件', icon: FolderOpen, tone: 'primary', action: scanReports, role:'operator' },
+  { title: '进入安全停车', desc: '发送安全停车控制', icon: ShieldAlert, tone: 'warning', action: safeStop, role:'operator' },
+  { title: '进入CAN监控', desc: '查看原始帧与解码信号', icon: MonitorDot, tone: 'primary', action: () => router.push('/can-monitor'), role:'viewer' },
+  { title: '进入手动控制', desc: '受控发送 0x121 指令', icon: SlidersHorizontal, tone: 'primary', action: () => router.push('/manual-control'), role:'engineer' },
 ]
+const shortcuts = computed(() => shortcutDefinitions.filter(item=>auth.can(item.role)))
+
+function freshChannelMetric(name: typeof canNames[number], metric: 'fps'|'last') {
+  const channel = summary.value.channels[name]
+  if (offline.value || !channel.online) return '—（stale）'
+  return metric === 'fps' ? `${channel.fps} fps` : `${channel.last_frame_ms} ms`
+}
 
 const kpiCards = computed(() => [
   { title: '今日检测数', value: String(summary.value.kpi.today_total), icon: ClipboardList, tone: 'blue' },
@@ -349,8 +361,8 @@ const lineOption = computed(() => ({
     axisLabel: { color: chartText, fontSize: 11 },
   },
   series: [
-    { name: 'CAN1', type: 'line', smooth: true, showSymbol: false, lineStyle: { width: 3, color: '#21C55D' }, areaStyle: { color: 'rgba(33, 197, 93, .08)' }, data: summary.value.charts.fps_trend.map((item) => item.can1) },
-    { name: 'CAN2', type: 'line', smooth: true, showSymbol: false, lineStyle: { width: 3, color: '#2F80FF' }, areaStyle: { color: 'rgba(47, 128, 255, .08)' }, data: summary.value.charts.fps_trend.map((item) => item.can2) },
+    { name: 'CAN1', type: 'line', smooth: true, showSymbol: false, lineStyle: { width: 3, color: '#21C55D' }, areaStyle: { color: 'rgba(33, 197, 93, .08)' }, data: offline.value || !summary.value.channels.CAN1.online ? [] : summary.value.charts.fps_trend.map((item) => item.can1) },
+    { name: 'CAN2', type: 'line', smooth: true, showSymbol: false, lineStyle: { width: 3, color: '#2F80FF' }, areaStyle: { color: 'rgba(47, 128, 255, .08)' }, data: offline.value || !summary.value.channels.CAN2.online ? [] : summary.value.charts.fps_trend.map((item) => item.can2) },
   ],
 }))
 
@@ -370,7 +382,7 @@ onBeforeUnmount(() => {
   height: 100%;
   min-height: 0;
   display: grid;
-  grid-template-rows: 44px 92px 240px 88px 205px minmax(0, 1fr);
+  grid-template-rows: 42px 92px 240px 88px 205px minmax(0, 1fr);
   gap: 12px;
   overflow: hidden;
 }

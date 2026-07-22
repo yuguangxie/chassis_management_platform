@@ -10,7 +10,7 @@ class FakeWebSocket {
   readyState = FakeWebSocket.CONNECTING
   onopen: (() => void) | null = null
   onmessage: ((event: MessageEvent<string>) => void) | null = null
-  onclose: (() => void) | null = null
+  onclose: ((event: CloseEvent) => void) | null = null
   onerror: (() => void) | null = null
 
   constructor(readonly url: string) {
@@ -20,12 +20,13 @@ class FakeWebSocket {
   send(payload: string) { this.sent.push(payload) }
   open() { this.readyState = FakeWebSocket.OPEN; this.onopen?.() }
   receive(payload: unknown) { this.onmessage?.({ data: JSON.stringify(payload) } as MessageEvent<string>) }
-  close() { this.readyState = FakeWebSocket.CLOSED; this.onclose?.() }
+  close(code = 1000) { this.readyState = FakeWebSocket.CLOSED; this.onclose?.({ code } as CloseEvent) }
 }
 
 describe('WsClient', () => {
   beforeEach(() => {
     FakeWebSocket.instances = []
+    sessionStorage.setItem('chassis_api_token', 'test-short-session')
     vi.resetModules()
     vi.useFakeTimers()
     vi.stubGlobal('WebSocket', FakeWebSocket)
@@ -62,12 +63,31 @@ describe('WsClient', () => {
     client.on('can.statistics', vi.fn())
     const first = FakeWebSocket.instances[0]
     first.open()
-    first.close()
+    first.close(1006)
 
     expect(client.connectionState).toBe('reconnecting')
     vi.advanceTimersByTime(499)
     expect(FakeWebSocket.instances).toHaveLength(1)
     vi.advanceTimersByTime(1)
     expect(FakeWebSocket.instances).toHaveLength(2)
+  })
+
+  it('does not place the token in the URL and stops retrying after session expiry', async () => {
+    sessionStorage.setItem('chassis_api_token', 'short-session-token')
+    const expired = vi.fn()
+    window.addEventListener('chassis:auth-expired', expired)
+    const { WsClient } = await import('./websocket')
+    const client = new WsClient()
+    client.on('can.statistics', vi.fn())
+    const socket = FakeWebSocket.instances[0]
+    expect(socket.url).not.toContain('short-session-token')
+    socket.open()
+    socket.close(4401)
+    vi.advanceTimersByTime(30_000)
+    expect(client.connectionState).toBe('auth-required')
+    expect(FakeWebSocket.instances).toHaveLength(1)
+    expect(sessionStorage.getItem('chassis_api_token')).toBeNull()
+    expect(expired).toHaveBeenCalledOnce()
+    window.removeEventListener('chassis:auth-expired', expired)
   })
 })

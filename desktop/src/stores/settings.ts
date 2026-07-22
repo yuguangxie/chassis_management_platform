@@ -1,7 +1,16 @@
 import { defineStore } from 'pinia'
-import { apiGet, apiPost, apiPut } from '../api/http'
+import { apiGet, apiPost, apiPut, formatApiError } from '../api/http'
 import { wsClient } from '../api/websocket'
-import type { SystemMaintenanceSettings, SystemSettingsDashboard } from '../api/types'
+import type {
+  ConfigurationExportResult,
+  ConfigurationPreviewResult,
+  SignedConfigurationPackage,
+  SystemMaintenanceSettings,
+  SystemSettingsDashboard,
+  CleanupPreview,
+  StorageLifecycleStats,
+  BackupListItem,
+} from '../api/types'
 import { fallbackSystemSettings } from '../mocks/systemSettings'
 
 interface OperationResult {
@@ -23,10 +32,15 @@ export const useSettingsStore = defineStore('settings', {
     dashboard: clone(fallbackSystemSettings),
     original: clone(fallbackSystemSettings),
     loading: false,
+    operationLoading: false,
     offline: false,
+    error: '',
     dirty: false,
     externalUpdated: false,
     wsBound: false,
+    storageStats: null as StorageLifecycleStats | null,
+    cleanupPreview: null as CleanupPreview | null,
+    backups: [] as BackupListItem[],
   }),
   actions: {
     async loadDashboard(preserveEdits = false) {
@@ -37,15 +51,17 @@ export const useSettingsStore = defineStore('settings', {
         this.dashboard = clone(data)
         this.original = clone(data)
         this.offline = false
+        this.error = ''
         this.dirty = false
         this.externalUpdated = false
-      } catch {
+      } catch (error) {
         if (!preserveEdits || !this.dirty) {
           this.dashboard = clone(fallbackSystemSettings)
           this.original = clone(fallbackSystemSettings)
           this.dirty = false
         }
         this.offline = true
+        this.error = formatApiError(error)
       } finally {
         this.loading = false
       }
@@ -56,23 +72,38 @@ export const useSettingsStore = defineStore('settings', {
       this.dashboard.save_state.status = 'dirty'
     },
     async save(reason: string) {
-      const result = await apiPut<OperationResult>('/config', {
-        basic: this.dashboard.basic,
-        storage: this.dashboard.storage,
-        thresholds: this.dashboard.thresholds,
-        role: this.dashboard.auth.current_role,
-        reason,
+      return await this.runOperation(async () => {
+        const result = await apiPut<OperationResult>('/config', {
+          basic: this.dashboard.basic,
+          storage: this.dashboard.storage,
+          thresholds: this.dashboard.thresholds,
+          role: this.dashboard.auth.current_role,
+          reason,
+        })
+        this.original = clone(this.dashboard)
+        this.dirty = false
+        this.dashboard.save_state = { dirty:false, status:'saved', last_saved_at:new Date().toISOString() }
+        return result
       })
-      this.original = clone(this.dashboard)
-      this.dirty = false
-      this.dashboard.save_state = { dirty:false, status:'saved', last_saved_at:new Date().toLocaleString('zh-CN',{hour12:false}) }
-      return result
     },
-    async importConfig() {
-      return await apiPost<OperationResult>('/config/import', { source:'electron-file-picker', role:this.dashboard.auth.current_role })
+    async previewConfig(configPackage: SignedConfigurationPackage) {
+      return await apiPost<ConfigurationPreviewResult>('/config/import', { package:configPackage, dry_run:true })
     },
     async exportConfig() {
-      return await apiGet<OperationResult>('/config/export?format=yaml')
+      const result = await apiGet<ConfigurationExportResult>('/config/export')
+      const blob = new Blob([JSON.stringify(result.package, null, 2)], { type:'application/json' })
+      const url = URL.createObjectURL(blob)
+      const anchor = document.createElement('a')
+      anchor.href = url
+      anchor.download = result.filename
+      anchor.click()
+      URL.revokeObjectURL(url)
+      return result
+    },
+    async applyConfig(configPackage: SignedConfigurationPackage, reason: string) {
+      const result = await apiPost<OperationResult>('/config/apply', { package:configPackage, confirmation:'APPLY', reason })
+      await this.loadDashboard()
+      return result
     },
     async reloadDbc() {
       const result = await apiPost<OperationResult>('/dbc/reload')
@@ -100,6 +131,46 @@ export const useSettingsStore = defineStore('settings', {
       const result = await apiPost<OperationResult>('/config/restore-safe-defaults', { confirmation, reason, role:this.dashboard.auth.current_role })
       await this.loadDashboard()
       return result
+    },
+    async loadStorageStats() {
+      this.storageStats = await apiGet<StorageLifecycleStats>('/storage/stats')
+      return this.storageStats
+    },
+    async createBackup() {
+      return await apiPost<Record<string, unknown>>('/storage/backups', {})
+    },
+    async listBackups() {
+      const result = await apiGet<{items:BackupListItem[]}>('/storage/backups')
+      this.backups = result.items
+      return result.items
+    },
+    async restoreBackup(backupId:string, confirmation:string) {
+      return await apiPost<Record<string, unknown>>(`/storage/backups/${encodeURIComponent(backupId)}/restore`, { confirmation })
+    },
+    async previewRetention(cutoffUtc: string) {
+      this.cleanupPreview = await apiPost<CleanupPreview>('/storage/cleanup/preview', { cutoff_utc:cutoffUtc })
+      return this.cleanupPreview
+    },
+    async startRetention(cutoffUtc: string) {
+      return await apiPost<Record<string, unknown>>('/storage/cleanup', { cutoff_utc:cutoffUtc, confirmation:'CLEANUP', batch_size:50 })
+    },
+    async recheckStorage() {
+      const result = await apiPost<Record<string, unknown>>('/storage/health/recheck', {})
+      await this.loadStorageStats()
+      return result
+    },
+    async runOperation<T>(operation: () => Promise<T>): Promise<T> {
+      this.operationLoading = true
+      try {
+        const result = await operation()
+        this.error = ''
+        return result
+      } catch (error) {
+        this.error = formatApiError(error)
+        throw error
+      } finally {
+        this.operationLoading = false
+      }
     },
     bindWebSocket() {
       if (this.wsBound) return

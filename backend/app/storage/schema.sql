@@ -154,6 +154,8 @@ CREATE TABLE IF NOT EXISTS reports (
   generation_status TEXT NOT NULL,
   generated_at TEXT NOT NULL,
   generated_by TEXT,
+  archived_at TEXT,
+  archive_manifest_hash TEXT,
   created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -163,7 +165,15 @@ CREATE TABLE IF NOT EXISTS report_print_jobs (
   file_path TEXT NOT NULL,
   requested_by TEXT NOT NULL,
   status TEXT NOT NULL,
+  printer_name TEXT,
+  backend TEXT,
+  spooler_job_id TEXT,
+  report_hash TEXT,
+  attempts INTEGER NOT NULL DEFAULT 0,
+  status_detail TEXT,
   error_message TEXT,
+  completed_at TEXT,
+  cancelled_at TEXT,
   created_at TEXT NOT NULL,
   updated_at TEXT NOT NULL
 );
@@ -180,6 +190,52 @@ CREATE TABLE IF NOT EXISTS operator_actions (
   result TEXT NOT NULL,
   trace_id TEXT,
   created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS auth_accounts (
+  username TEXT PRIMARY KEY,
+  password_salt TEXT NOT NULL,
+  password_hash TEXT NOT NULL,
+  role TEXT NOT NULL,
+  enabled INTEGER NOT NULL DEFAULT 1,
+  failed_attempts INTEGER NOT NULL DEFAULT 0,
+  locked_until TEXT,
+  created_at TEXT NOT NULL,
+  created_by TEXT NOT NULL,
+  updated_at TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS auth_sessions (
+  id TEXT PRIMARY KEY,
+  account_username TEXT NOT NULL REFERENCES auth_accounts(username),
+  token_hash TEXT NOT NULL UNIQUE,
+  status TEXT NOT NULL,
+  issued_at TEXT NOT NULL,
+  expires_at TEXT NOT NULL,
+  last_seen_at TEXT NOT NULL,
+  revoked_at TEXT,
+  revoke_reason TEXT
+);
+
+CREATE TABLE IF NOT EXISTS safety_overrides (
+  id TEXT PRIMARY KEY,
+  alarm_id TEXT NOT NULL,
+  status TEXT NOT NULL,
+  requested_by TEXT NOT NULL,
+  request_reason TEXT NOT NULL,
+  requested_at TEXT NOT NULL,
+  session_id TEXT NOT NULL,
+  operation TEXT NOT NULL,
+  vehicle_id TEXT NOT NULL,
+  authorized_user TEXT NOT NULL,
+  duration_seconds INTEGER NOT NULL,
+  approved_by TEXT,
+  approval_reason TEXT,
+  approved_at TEXT,
+  expires_at TEXT,
+  revoked_by TEXT,
+  revoke_reason TEXT,
+  revoked_at TEXT
 );
 
 CREATE TABLE IF NOT EXISTS config_history (
@@ -206,6 +262,36 @@ CREATE TABLE IF NOT EXISTS software_versions (
   created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
+CREATE TABLE IF NOT EXISTS backup_records (
+  id TEXT PRIMARY KEY,
+  manifest_path TEXT NOT NULL,
+  database_path TEXT NOT NULL,
+  database_hash TEXT NOT NULL,
+  schema_version INTEGER NOT NULL,
+  status TEXT NOT NULL,
+  created_by TEXT NOT NULL,
+  created_at TEXT NOT NULL,
+  verified_at TEXT,
+  restored_at TEXT
+);
+
+CREATE TABLE IF NOT EXISTS cleanup_jobs (
+  id TEXT PRIMARY KEY,
+  status TEXT NOT NULL,
+  cutoff_utc TEXT NOT NULL,
+  requested_by TEXT NOT NULL,
+  dry_run INTEGER NOT NULL,
+  confirmation TEXT,
+  candidate_json TEXT NOT NULL,
+  progress_json TEXT NOT NULL,
+  cancel_requested INTEGER NOT NULL DEFAULT 0,
+  error_message TEXT,
+  created_at TEXT NOT NULL,
+  started_at TEXT,
+  completed_at TEXT,
+  updated_at TEXT NOT NULL
+);
+
 CREATE INDEX IF NOT EXISTS idx_raw_can_session_time ON raw_can_frames(session_id, timestamp_utc);
 CREATE INDEX IF NOT EXISTS idx_decoded_session_signal_time ON decoded_signals(session_id, signal_name, timestamp_utc);
 CREATE INDEX IF NOT EXISTS idx_steps_session ON test_steps(session_id, step_order);
@@ -214,3 +300,8 @@ CREATE INDEX IF NOT EXISTS idx_alarms_session_time ON alarms(session_id, timesta
 CREATE INDEX IF NOT EXISTS idx_reports_session ON reports(session_id);
 CREATE INDEX IF NOT EXISTS idx_print_jobs_report ON report_print_jobs(report_id, created_at);
 CREATE INDEX IF NOT EXISTS idx_actions_session_time ON operator_actions(session_id, timestamp_utc);
+CREATE INDEX IF NOT EXISTS idx_auth_sessions_token_status ON auth_sessions(token_hash, status);
+CREATE INDEX IF NOT EXISTS idx_auth_sessions_account_expiry ON auth_sessions(account_username, expires_at);
+CREATE INDEX IF NOT EXISTS idx_safety_overrides_status_expiry ON safety_overrides(status, expires_at);
+CREATE INDEX IF NOT EXISTS idx_cleanup_jobs_status ON cleanup_jobs(status, created_at);
+CREATE INDEX IF NOT EXISTS idx_reports_archived ON reports(archived_at, generated_at);

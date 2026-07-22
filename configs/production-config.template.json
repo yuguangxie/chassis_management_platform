@@ -1,0 +1,41 @@
+{
+  "config_version": "REPLACE_WITH_DEPLOYMENT_VERSION",
+  "runtime_profile": "production",
+  "network_interface": {
+    "adapter_name": "REPLACE_WITH_APPROVED_ADAPTER_NAME",
+    "bind_address": "127.0.0.1"
+  },
+  "can_endpoints": [
+    {
+      "channel": "CAN1",
+      "protocol": "udp",
+      "local_ip": "127.0.0.1",
+      "local_port": 8234,
+      "device_ip": "127.0.0.1",
+      "device_port": 12341,
+      "source_allowlist": [{ "ip": "127.0.0.1", "port": 12341 }],
+      "enabled": true,
+      "control_enabled": false
+    },
+    {
+      "channel": "CAN2",
+      "protocol": "udp",
+      "local_ip": "127.0.0.1",
+      "local_port": 8235,
+      "device_ip": "127.0.0.1",
+      "device_port": 12342,
+      "source_allowlist": [{ "ip": "127.0.0.1", "port": 12342 }],
+      "enabled": true,
+      "control_enabled": true
+    }
+  ],
+  "vehicle_series": "REPLACE_WITH_APPROVED_SERIES",
+  "approved_dbc_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+  "test_plan_version": "REPLACE_WITH_APPROVED_PLAN_VERSION",
+  "data_root": "REPLACE_WITH_LOCAL_DATA_ROOT",
+  "station_id": "REPLACE_WITH_STATION_ID",
+  "printer": {
+    "name": null,
+    "required": false
+  }
+}

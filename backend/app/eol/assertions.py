@@ -73,11 +73,11 @@ class AssertionEvaluator:
             report = context.session.get("report") or {}
             files = report.get("files", {})
             missing = [name for name in spec.formats if not files.get(name)]
-            return not missing, {"report_id": report.get("id"), "missing": missing}, "", {"quality": "good"}, spec.formats
+            return not missing, {"report_id": report.get("id"), "missing": missing}, "", {"quality": "good" if not missing else "invalid"}, spec.formats
         if spec.type == "can_statistics":
             status = context.state.can.status() if context.state.can else []
             bad = [row["channel"] for row in status if not row.get("online") or not row.get("queue_healthy")]
-            return not bad, {"unhealthy_channels": bad}, "", {"quality": "good"}, "all channels healthy"
+            return not bad, {"unhealthy_channels": bad}, "", {"quality": "good" if not bad else "invalid"}, "all channels healthy"
 
         if spec.operator == "all_present":
             return self._all_frames_present(spec, context, threshold)
@@ -172,7 +172,7 @@ class AssertionEvaluator:
         }
         required = {self._normalize_can_id(value) for value in spec.signals}
         missing = sorted(required - found)
-        return not missing, {"present": sorted(required & found), "missing": missing}, "", {"quality": "good"}, sorted(required)
+        return not missing, {"present": sorted(required & found), "missing": missing}, "", {"quality": "good" if not missing else "invalid"}, sorted(required)
 
     async def _all_bool_zero(
         self,
@@ -226,11 +226,11 @@ class AssertionEvaluator:
                 }
             )
         passed = bool(comparisons) and all(row.get("matched") for row in comparisons)
-        return passed, comparisons, "", {"quality": "good"}, "feedback follows D/N/R/N"
+        return passed, comparisons, "", {"quality": "good" if passed else "invalid"}, "feedback follows D/N/R/N"
 
     def _reaches_target(self, spec: AssertionSpec, context: AssertionContext, threshold: Any):
-        tolerance = float(threshold if threshold is not None else 0)
-        target = float(spec.target if spec.target is not None else spec.value)
+        tolerance = self._finite_float(threshold if threshold is not None else 0, "tolerance")
+        target = self._finite_float(spec.target if spec.target is not None else spec.value, "target")
         values = []
         metadata: dict[str, Any] = {"quality": "invalid"}
         for observation in context.action_observations:
@@ -243,16 +243,16 @@ class AssertionEvaluator:
                 for item in observation.get("windows", {}).get(spec.signal or "", [])
             ]
             if window_values:
-                values.extend(window_values)
+                values.extend(self._finite_float(value, "sample") for value in window_values)
             elif sample:
-                values.append(float(sample["value"]))
+                values.append(self._finite_float(sample["value"], "sample"))
             if sample:
                 metadata = sample
         passed = bool(values) and any(abs(value - target) <= tolerance for value in values)
         return passed, values, metadata.get("unit", ""), metadata, {"target": target, "tolerance": tolerance}
 
     def _consistent(self, spec: AssertionSpec, context: AssertionContext, threshold: Any):
-        tolerance = float(threshold if threshold is not None else 0)
+        tolerance = self._finite_float(threshold if threshold is not None else 0, "tolerance")
         observed: list[list[float]] = []
         metadata: dict[str, Any] = {"quality": "invalid"}
         for observation in context.action_observations:
@@ -260,7 +260,7 @@ class AssertionEvaluator:
             if float(command.get("target_speed_kmh", 0)) <= 0:
                 continue
             samples = observation.get("samples", {})
-            row = [float(samples[key]["value"]) for key in spec.signals if key in samples]
+            row = [self._finite_float(samples[key]["value"], key) for key in spec.signals if key in samples]
             if len(row) == len(spec.signals):
                 observed.append(row)
                 metadata = samples[spec.signals[0]]
@@ -268,7 +268,7 @@ class AssertionEvaluator:
         return passed, observed, metadata.get("unit", ""), metadata, {"max_delta": tolerance}
 
     def _steering_follows(self, spec: AssertionSpec, context: AssertionContext, threshold: Any):
-        tolerance = float(threshold if threshold is not None else 0)
+        tolerance = self._finite_float(threshold if threshold is not None else 0, "tolerance")
         command_field = "front_steering_cmd" if "Front" in (spec.signal or "") else "rear_steering_cmd"
         comparisons = []
         metadata: dict[str, Any] = {"quality": "invalid"}
@@ -278,9 +278,9 @@ class AssertionEvaluator:
             if not sample:
                 comparisons.append({"expected": command.get(command_field), "actual": None})
                 continue
-            expected = float(command.get(command_field, 0))
+            expected = self._finite_float(command.get(command_field, 0), command_field)
             observed = [
-                float(item["value"])
+                self._finite_float(item["value"], spec.signal or "steering")
                 for item in observation.get("windows", {}).get(spec.signal or "", [])
             ] or [float(sample["value"])]
             actual = min(observed, key=lambda value: abs(value - expected))
@@ -330,7 +330,7 @@ class AssertionEvaluator:
                     }
                 )
         passed = bool(comparisons) and all(row["matched"] for row in comparisons)
-        return passed, comparisons, "bool", {"quality": "good"}, "feedback follows light commands"
+        return passed, comparisons, "bool", {"quality": "good" if passed else "invalid"}, "feedback follows light commands"
 
     def _brake_confirmed(self, spec: AssertionSpec, context: AssertionContext, threshold: Any):
         samples = []
@@ -355,21 +355,25 @@ class AssertionEvaluator:
 
     @staticmethod
     def _compare(operator: str, value: Any, expected: Any, values: list[Any]) -> bool:
+        if isinstance(value, float) and not math.isfinite(value):
+            raise ValueError(f"value is not finite: {value!r}")
+        if isinstance(expected, float) and not math.isfinite(expected):
+            raise ValueError(f"expected is not finite: {expected!r}")
         if operator == "==":
             return value == expected
         if operator == "!=":
             return value != expected
         if operator == ">=":
-            return float(value) >= float(expected)
+            return AssertionEvaluator._finite_float(value, "value") >= AssertionEvaluator._finite_float(expected, "expected")
         if operator == "<=":
-            return float(value) <= float(expected)
+            return AssertionEvaluator._finite_float(value, "value") <= AssertionEvaluator._finite_float(expected, "expected")
         if operator == ">":
-            return float(value) > float(expected)
+            return AssertionEvaluator._finite_float(value, "value") > AssertionEvaluator._finite_float(expected, "expected")
         if operator == "<":
-            return float(value) < float(expected)
+            return AssertionEvaluator._finite_float(value, "value") < AssertionEvaluator._finite_float(expected, "expected")
         if operator == "between":
             lower, upper = AssertionEvaluator._bounds(expected)
-            return lower <= float(value) <= upper
+            return lower <= AssertionEvaluator._finite_float(value, "value") <= upper
         if operator == "in":
             return value in values
         raise ValueError(f"unsupported operator: {operator}")
@@ -377,10 +381,28 @@ class AssertionEvaluator:
     @staticmethod
     def _bounds(value: Any) -> tuple[float, float]:
         if isinstance(value, dict) and "min" in value and "max" in value:
-            return float(value["min"]), float(value["max"])
+            lower = AssertionEvaluator._finite_float(value["min"], "minimum")
+            upper = AssertionEvaluator._finite_float(value["max"], "maximum")
+            if lower > upper:
+                raise ValueError("minimum exceeds maximum")
+            return lower, upper
         if isinstance(value, (list, tuple)) and len(value) == 2:
-            return float(value[0]), float(value[1])
+            lower = AssertionEvaluator._finite_float(value[0], "minimum")
+            upper = AssertionEvaluator._finite_float(value[1], "maximum")
+            if lower > upper:
+                raise ValueError("minimum exceeds maximum")
+            return lower, upper
         raise ValueError(f"threshold does not define min/max: {value!r}")
+
+    @staticmethod
+    def _finite_float(value: Any, label: str) -> float:
+        try:
+            parsed = float(value)
+        except (TypeError, ValueError) as exc:
+            raise ValueError(f"{label} is not numeric: {value!r}") from exc
+        if not math.isfinite(parsed):
+            raise ValueError(f"{label} is not finite: {value!r}")
+        return parsed
 
     @staticmethod
     def _normalize_can_id(value: str) -> str:

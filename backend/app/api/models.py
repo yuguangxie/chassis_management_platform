@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from datetime import datetime
 from typing import Any, Literal
 
 from pydantic import BaseModel, ConfigDict, Field, RootModel
@@ -196,6 +197,167 @@ class ReportChangeDirectoryRequest(ApiModel):
     path: str
 
 
+class ReportPrintRequest(ApiModel):
+    preview_confirmed: bool
+    printer_name: str | None = Field(default=None, min_length=1, max_length=256)
+
+
+class BackupRestoreRequest(ApiModel):
+    confirmation: str = Field(min_length=1, max_length=256)
+
+
+class CleanupPreviewRequest(ApiModel):
+    cutoff_utc: datetime
+
+
+class CleanupExecuteRequest(CleanupPreviewRequest):
+    confirmation: Literal["CLEANUP"]
+    batch_size: int = Field(default=50, ge=1, le=500)
+
+
+class RawLogDeleteRequest(ApiModel):
+    confirmation: Literal["DELETE"]
+    reason: str = Field(min_length=2, max_length=500)
+
+
+class StorageStatsResponse(ApiModel):
+    data_root: str
+    paths: dict[str, str]
+    total_bytes: int
+    used_bytes: int
+    free_bytes: int
+    used_percent: float
+    category_bytes: dict[str, int]
+    schema_version: int
+    latest_schema_version: int
+    database_writable: bool
+    health: dict[str, Any]
+    measured_at: str
+
+
+class StorageTrendPoint(ApiModel):
+    timestamp_utc: str
+    date: str
+    used_bytes: int
+    free_bytes: int
+    used_gb: float
+    source: Literal["current-measurement"]
+
+
+class SchemaVersionResponse(ApiModel):
+    schema_version: int
+
+
+class BackupCreateResponse(ApiModel):
+    backup_id: str
+    manifest_path: str
+    database_size_bytes: int
+    database_sha256: str
+    schema_version: int
+    created_at: str
+    status: Literal["VERIFIED"]
+
+
+class BackupListItem(ApiModel):
+    backup_id: str
+    valid: bool
+    created_at: str | None
+    schema_version: int | None
+    size_bytes: int
+    errors: list[str]
+
+
+class BackupListResponse(ApiModel):
+    items: list[BackupListItem]
+
+
+class BackupValidationResponse(ApiModel):
+    valid: bool
+    backup_id: str
+    manifest: dict[str, Any] | None
+    errors: list[str]
+
+
+class BackupRestoreResponse(ApiModel):
+    backup_id: str
+    status: Literal["RESTORED"]
+    restored_at: str
+    schema_version: int
+    rollback_path: str
+
+
+class CleanupPreviewResponse(ApiModel):
+    dry_run: bool = True
+    cutoff_utc: str
+    session_ids: list[str]
+    session_count: int
+    oldest_utc: str | None
+    newest_utc: str | None
+    row_counts: dict[str, int]
+    file_count: int
+    file_bytes: int
+    estimated_database_bytes: int
+    total_bytes: int
+    protected: dict[str, int | str]
+
+
+class CleanupJobResponse(ApiModel):
+    id: str
+    status: Literal["QUEUED", "RUNNING", "COMPLETED", "FAILED", "CANCELLED"]
+    cutoff_utc: str
+    requested_by: str
+    dry_run: bool
+    confirmation: str | None
+    candidate_json: str
+    progress_json: str
+    cancel_requested: bool
+    error_message: str | None
+    created_at: str
+    started_at: str | None
+    completed_at: str | None
+    updated_at: str
+    candidate: dict[str, Any]
+    progress: dict[str, Any]
+
+
+class PrinterInfoResponse(ApiModel):
+    name: str
+    is_default: bool
+    status: str
+
+
+class PrinterStatusResponse(ApiModel):
+    backend: str
+    available: bool
+    default_printer: str | None
+    printers: list[PrinterInfoResponse]
+    error: str | None
+
+
+class PrintJobResponse(ApiModel):
+    id: str
+    job_id: str
+    report_id: str
+    file_path: str
+    requested_by: str
+    status: Literal["QUEUED", "PRINTING", "COMPLETED", "FAILED", "CANCELLED"]
+    printer_name: str | None
+    backend: str | None
+    spooler_job_id: str | None
+    report_hash: str | None
+    attempts: int
+    status_detail: str | None
+    error_message: str | None
+    completed_at: str | None
+    cancelled_at: str | None
+    created_at: str
+    updated_at: str
+
+
+class PrintJobEnvelope(ApiModel):
+    job: PrintJobResponse
+
+
 class HistoryExportRequest(ApiModel):
     chassis_no: str | None = None
     vin: str | None = None
@@ -215,6 +377,12 @@ class AlarmActionRequest(ApiModel):
     alarm_id: str | None = None
     can_id: str | None = None
     reason: str | None = None
+
+
+class SafetyOverrideUseRequest(ApiModel):
+    override_id: str = Field(min_length=1, max_length=128)
+    session_id: str = Field(min_length=1, max_length=128)
+    vehicle_id: str = Field(min_length=1, max_length=128)
 
 
 class WatchlistUpdateRequest(ApiModel):

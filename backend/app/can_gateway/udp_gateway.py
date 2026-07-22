@@ -20,7 +20,7 @@ class _Protocol(asyncio.DatagramProtocol):
         self.gateway = gateway
 
     def datagram_received(self, data: bytes, addr) -> None:
-        self.gateway.on_datagram(data, f"{addr[0]}:{addr[1]}")
+        self.gateway.on_datagram(data, addr)
 
     def error_received(self, exc: Exception) -> None:
         LOGGER.warning("UDP error on %s: %s", self.gateway.config.channel, exc)
@@ -34,6 +34,7 @@ class UdpCanGateway:
         *,
         online_timeout_seconds: float = 2.0,
         allow_non_loopback: bool = False,
+        on_security_event: Callable[[dict], None] | None = None,
     ) -> None:
         self.config = config
         self.on_frame = on_frame
@@ -43,6 +44,8 @@ class UdpCanGateway:
         self.queue: asyncio.Queue[CanFrame] = asyncio.Queue(maxsize=config.receive_queue_size)
         self.worker_task: asyncio.Task[None] | None = None
         self.allow_non_loopback = allow_non_loopback
+        self.on_security_event = on_security_event
+        self._last_security_alarm_monotonic = 0.0
         self.stats.set_queue_depth(0, self.queue.maxsize)
 
     async def connect(self) -> None:
@@ -80,17 +83,46 @@ class UdpCanGateway:
                 break
         self.stats.set_queue_depth(0, self.queue.maxsize)
 
-    def on_datagram(self, data: bytes, source: str) -> None:
+    def on_datagram(self, data: bytes, source) -> None:
         received_monotonic = time.monotonic()
+        source_ip, source_port, source_text = self._source_endpoint(source)
+        expected_port = self.config.simulated_device_port or self.config.device_port
+        approved_sources = self.config.approved_source_endpoints()
+        if self.config.validate_source_endpoint and (
+            (source_ip, source_port) not in approved_sources
+        ):
+            self.stats.record_unauthorized_datagram(source_text)
+            if received_monotonic - self._last_security_alarm_monotonic >= 5.0:
+                self._last_security_alarm_monotonic = received_monotonic
+                LOGGER.error(
+                    "reject unauthorized UDP source channel=%s source=%s expected=%s:%s",
+                    self.config.channel,
+                    source_text,
+                    self.config.device_ip,
+                    expected_port,
+                )
+                if self.on_security_event:
+                    self.on_security_event(
+                        {
+                            "type": "unauthorized_udp_source",
+                            "channel": self.config.channel,
+                            "source": source_text,
+                            "expected_ip": self.config.device_ip,
+                            "expected_port": expected_port,
+                            "approved_sources": [f"{ip}:{port}" for ip, port in sorted(approved_sources)],
+                            "count": self.stats.unauthorized_datagrams,
+                        }
+                    )
+            return
         try:
-            frames = self.codec.decode_datagram(data, self.config.channel, source)
+            frames = self.codec.decode_datagram(data, self.config.channel, source_text)
         except ValueError:
             self.stats.record_malformed_datagram()
             LOGGER.warning(
                 "discard malformed UDP datagram channel=%s bytes=%s source=%s",
                 self.config.channel,
                 len(data),
-                source,
+                source_text,
             )
             return
         for frame in frames:
@@ -144,3 +176,15 @@ class UdpCanGateway:
             raise RuntimeError("non-production UDP bind must use loopback")
         if not ipaddress.ip_address(self.config.device_ip).is_loopback:
             raise RuntimeError("non-production UDP destination must use loopback")
+
+    @staticmethod
+    def _source_endpoint(source) -> tuple[str, int, str]:
+        if isinstance(source, tuple) and len(source) >= 2:
+            host, port = str(source[0]), int(source[1])
+            return host, port, f"{host}:{port}"
+        text = str(source)
+        try:
+            host, raw_port = text.rsplit(":", 1)
+            return host, int(raw_port), text
+        except (TypeError, ValueError):
+            return text, -1, text

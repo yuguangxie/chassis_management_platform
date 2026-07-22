@@ -1,0 +1,9 @@
+{
+  "profile": "test",
+  "data_dir": "D:\\workspace\\0-yunle\\7_codex\\chassis_eol_management_platform_codex_pack\\chassis_management_platform\\docs\\verification\\phase-06\\quality\\python\\data",
+  "udp_port_base": "24281",
+  "results": {
+    "backend": 0,
+    "simulator": 0
+  }
+}

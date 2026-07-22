@@ -9,9 +9,9 @@
         </div>
       </div>
       <div class="title-actions">
-        <span v-if="signals.offline || signals.curveTimeseries.mock || signals.curveTimeseries.quality !== 'good'" class="mock-badge">{{ signals.offline ? '后端离线，当前使用 Mock 曲线数据' : signals.curveTimeseries.mock ? '显式 Mock 曲线数据' : `数据质量：${signals.curveTimeseries.quality || 'unavailable'}` }}</span>
+        <PageDataState :loading="signals.loading" :error="signals.error" :stale="signals.offline || Boolean(signals.curveTimeseries.mock) || signals.curveTimeseries.quality !== 'good'" :empty="!signals.curveTimeseries.charts.speed_vs_vehicle.x_axis.length" />
         <button class="small-btn ghost" @click="loadHistory"><Database :size="15" />加载历史会话</button>
-        <button class="small-btn primary" @click="addSignal"><Plus :size="15" />添加信号</button>
+        <button v-if="auth.can('operator')" class="small-btn primary" :disabled="signals.offline" @click="addSignal"><Plus :size="15" />添加信号</button>
       </div>
     </header>
 
@@ -69,8 +69,8 @@
         <button class="small-btn ghost" @click="pauseCurve"><Pause :size="15" />暂停曲线</button>
         <button class="small-btn success" @click="resumeCurve"><Play :size="15" />继续</button>
         <button class="small-btn ghost" @click="resetZoom"><RotateCcw :size="15" />缩放复位</button>
-        <button class="small-btn ghost" @click="exportCsv"><Download :size="15" />导出CSV</button>
-        <button class="small-btn primary" @click="saveSnapshot"><Camera :size="15" />保存快照</button>
+        <button v-if="auth.can('operator')" class="small-btn ghost" :disabled="signals.offline" @click="exportCsv"><Download :size="15" />导出CSV</button>
+        <button v-if="auth.can('operator')" class="small-btn primary" :disabled="signals.offline" @click="saveSnapshot"><Camera :size="15" />保存快照</button>
       </div>
     </section>
 
@@ -78,7 +78,7 @@
       <aside class="signal-panel">
         <div class="panel-head">
           <h2>信号列表（{{ selectedNames.length }}/256）</h2>
-          <button title="信号列表设置"><Settings :size="16" /></button>
+          <button title="尚未实现：信号列表列设置" disabled><Settings :size="16" /></button>
         </div>
         <label class="search-box">
           <Search :size="15" />
@@ -108,7 +108,7 @@
                 <td class="mono">{{ signal.can_id }}</td>
                 <td><i class="color-swatch" :style="{ background: signal.color }"></i></td>
                 <td>{{ signal.unit }}</td>
-                <td class="value-cell">{{ signal.current_value }}</td>
+                <td class="value-cell">{{ signals.offline ? '—（stale）' : signal.current_value }}</td>
               </tr>
             </tbody>
           </table>
@@ -150,9 +150,9 @@
     <footer class="replay-panel">
       <section class="replay-card settings-card">
         <h2>历史回放设置</h2>
-        <label><span>会话</span><select v-model="sessionId"><option>EOL-20260401-0001</option></select></label>
-        <label><span>数据源</span><select v-model="dataSource"><option>本地存储</option></select></label>
-        <label><span>时区</span><select v-model="timezone"><option>UTC+08:00</option></select></label>
+        <label><span>会话</span><input v-model="sessionId" /></label>
+        <label><span>数据源</span><select v-model="dataSource" disabled title="当前仅支持本地 data_root"><option>本地存储</option></select></label>
+        <label><span>时区</span><select v-model="timezone" disabled title="时间戳存储为 UTC，显示按当前工作站时区"><option>UTC+08:00</option></select></label>
       </section>
 
       <section class="replay-card playback-card">
@@ -218,6 +218,8 @@ import type { CurveChart, CurveSeries } from '../api/types'
 import { apiDownload, apiPost, apiPut, formatApiError } from '../api/http'
 import RealtimeLineChart from '../components/charts/RealtimeLineChart.vue'
 import { useSignalsStore } from '../stores/signals'
+import { useAuthStore } from '../stores/auth'
+import PageDataState from '../components/PageDataState.vue'
 
 type ActionResponse = { ok?: boolean; message?: string; details?: Record<string, unknown> }
 
@@ -232,6 +234,7 @@ const ChartTitle = defineComponent({
 })
 
 const signals = useSignalsStore()
+const auth = useAuthStore()
 const route = useRoute()
 const activeGroup = ref('speed')
 const routeHistory = route.query.mode === 'history' && typeof route.query.session_id === 'string'
@@ -306,6 +309,7 @@ function makeQuery() {
 }
 
 function selectedSeries(chart: CurveChart) {
+  if (signals.offline || signals.curveTimeseries.quality === 'unavailable') return []
   if (chart === signals.curveTimeseries.charts.alarm_timeline) return chart.series
   const active = new Set(selectedNames.value)
   const filtered = chart.series.filter((series) => active.has(series.name))
@@ -495,7 +499,7 @@ function showToast(message: string) {
   min-height: 0;
   overflow: hidden;
   display: grid;
-  grid-template-rows: 52px 72px minmax(0, 1fr) 160px;
+  grid-template-rows: 42px 72px minmax(0, 1fr) 160px;
   gap: 10px;
   color: #EAF2FF;
 }
@@ -1037,7 +1041,7 @@ input:focus {
 
 @media (max-width: 1500px) {
   .curve-page {
-    grid-template-rows: 52px 104px minmax(0, 1fr) 160px;
+    grid-template-rows: 42px 104px minmax(0, 1fr) 160px;
   }
   .curve-toolbar {
     grid-template-columns: minmax(360px, 1fr) repeat(4, minmax(110px, 0.3fr));

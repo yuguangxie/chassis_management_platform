@@ -27,3 +27,8 @@ security:
   require_reason_for_config_change: true
   maintenance_mode_default: false
   allow_manual_alarm_release: false
+dbc:
+  require_for_control_in_production: true
+  allow_raw_only_in_nonproduction: true
+  approved_vehicle_series: JD
+  approved_sha256: 387ae48bd84852c8a6401653f96d1f7fca2a604c90fad018db800bf548ab468c

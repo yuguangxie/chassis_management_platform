@@ -12,6 +12,7 @@ class DecodeStats:
     reserved_bit_errors: int = 0
     short_packets: int = 0
     invalid_length_errors: int = 0
+    can_id_range_errors: int = 0
 
 class UsrCan115Codec:
     def __init__(self) -> None:
@@ -20,6 +21,11 @@ class UsrCan115Codec:
     def encode_frame(self, frame: CanFrame) -> bytes:
         if not 0 <= frame.dlc <= 8:
             raise ValueError("DLC must be 0..8")
+        self._validate_can_id(frame.can_id, frame.is_extended)
+        if len(frame.data) > 8:
+            raise ValueError("USR-CAN115 data area may not exceed 8 bytes")
+        if any(not 0 <= int(value) <= 0xFF for value in frame.data):
+            raise ValueError("CAN data bytes must be 0..255")
         frame_info = (0x80 if frame.is_extended else 0) | (0x40 if frame.is_remote else 0) | frame.dlc
         data = bytes((frame.data + [0] * 8)[:8])
         return bytes([frame_info]) + int(frame.can_id).to_bytes(4, "big") + data
@@ -39,10 +45,16 @@ class UsrCan115Codec:
         if reserved:
             self.stats.reserved_bit_errors += 1
             parse_status = "reserved_bits_error"
+        can_id = int.from_bytes(packet[1:5], "big")
+        try:
+            self._validate_can_id(can_id, bool(frame_info & 0x80))
+        except ValueError:
+            self.stats.can_id_range_errors += 1
+            parse_status = "can_id_range_error"
         frame = CanFrame(
             channel=channel,
             direction=direction,
-            can_id=int.from_bytes(packet[1:5], "big"),
+            can_id=can_id,
             is_extended=bool(frame_info & 0x80),
             is_remote=bool(frame_info & 0x40),
             dlc=min(dlc, 8),
@@ -74,3 +86,10 @@ class UsrCan115Codec:
             self.decode_packet(datagram[offset : offset + FRAME_LEN], channel, "rx", source)
             for offset in range(0, len(datagram), FRAME_LEN)
         ]
+
+    @staticmethod
+    def _validate_can_id(can_id: int, is_extended: bool) -> None:
+        upper = 0x1FFFFFFF if is_extended else 0x7FF
+        frame_type = "extended" if is_extended else "standard"
+        if not 0 <= int(can_id) <= upper:
+            raise ValueError(f"{frame_type} CAN ID must be 0..0x{upper:X}")

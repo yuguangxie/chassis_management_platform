@@ -5,7 +5,7 @@ import logging
 
 from app.can_gateway.models import CanFrame
 from app.control.control_121 import Control121Command, encode_control_121
-from app.control.safety_interlock import Operation
+from app.control.safety_interlock import Operation, SafetyEvaluationContext
 from app.core.time import utc_now
 from app.services.app_state import AppState
 
@@ -22,19 +22,28 @@ class TxScheduler:
         self.last_tx_time: str | None = None
         self._send_lock = asyncio.Lock()
         self._periodic_operation: Operation = "manual"
+        self._periodic_context: SafetyEvaluationContext | None = None
 
     async def send_once(
-        self, command: Control121Command, *, operation: Operation = "manual"
+        self,
+        command: Control121Command,
+        *,
+        operation: Operation = "manual",
+        context: SafetyEvaluationContext | None = None,
     ) -> dict:
-        self.state.safety.require_allowed(command, operation=operation)
+        self.state.safety.require_allowed(command, operation=operation, context=context)
         return await self._transmit(command)
 
     async def send_priority(
-        self, command: Control121Command, *, operation: Operation
+        self,
+        command: Control121Command,
+        *,
+        operation: Operation,
+        context: SafetyEvaluationContext | None = None,
     ) -> dict:
         if operation not in {"safe_stop", "emergency"}:
             raise ValueError("priority transmission is reserved for stop operations")
-        self.state.safety.require_allowed(command, operation=operation)
+        self.state.safety.require_allowed(command, operation=operation, context=context)
         return await self._transmit(command)
 
     async def _transmit(self, command: Control121Command) -> dict:
@@ -69,22 +78,46 @@ class TxScheduler:
         period_ms: int = 20,
         *,
         operation: Operation = "manual",
+        context: SafetyEvaluationContext | None = None,
     ) -> dict:
         if operation not in {"manual", "eol_motion"}:
             raise ValueError("periodic transmission is only available for manual or EOL motion")
-        self.state.safety.require_allowed(command, operation=operation)
+        self.state.safety.require_allowed(command, operation=operation, context=context)
         await self.stop()
         self.period_ms = max(10, min(100, int(period_ms)))
         self.last_command = command
         self._periodic_operation = operation
+        self._periodic_context = context
         self.task = asyncio.create_task(self._loop(), name="control-121-periodic")
         return {"ok": True, "periodic": True, "period_ms": self.period_ms}
+
+    async def start_stop_hold(
+        self,
+        command: Control121Command,
+        *,
+        operation: Operation,
+        period_ms: int,
+    ) -> dict:
+        if operation not in {"safe_stop", "emergency"}:
+            raise ValueError("stop hold is reserved for safe-stop operations")
+        self.state.safety.require_allowed(command, operation=operation)
+        await self.stop()
+        self.period_ms = max(20, min(500, int(period_ms)))
+        self.last_command = command
+        self._periodic_operation = operation
+        self._periodic_context = None
+        self.task = asyncio.create_task(self._loop(), name="control-121-stop-hold")
+        return {"ok": True, "periodic": True, "period_ms": self.period_ms, "stop_hold": True}
 
     async def _loop(self) -> None:
         assert self.last_command is not None
         while True:
             try:
-                await self.send_once(self.last_command, operation=self._periodic_operation)
+                await self.send_once(
+                    self.last_command,
+                    operation=self._periodic_operation,
+                    context=self._periodic_context,
+                )
                 await asyncio.sleep(self.period_ms / 1000)
             except asyncio.CancelledError:
                 raise
@@ -96,6 +129,7 @@ class TxScheduler:
     async def stop(self) -> dict:
         task = self.task
         self.task = None
+        self._periodic_context = None
         if task and task is not asyncio.current_task():
             task.cancel()
             try:

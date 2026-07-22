@@ -5,12 +5,13 @@ from datetime import datetime
 import time
 from typing import Any
 
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
 
 from app.api.data_source import dashboard_metadata
 from app.api.errors import get_trace_id
 from app.api.models import OverviewDashboardResponse
 from app.core.time import utc_now
+from app.security.auth import Principal, Role, require_role
 from app.services.app_state import state
 
 
@@ -193,17 +194,11 @@ def _current_vehicle(rows: list[dict[str, Any]]) -> dict[str, Any]:
 
 @router.get("/health")
 async def health():
-    return {
-        "status": "ok",
-        "version": state.config.software_version,
-        "database_writable": state.db_writable,
-        "dbc": state.dbc.status() if state.dbc else {},
-        "trace_id": get_trace_id(),
-    }
+    return {"status": "ok"}
 
 
 @router.get("/overview/summary", response_model=OverviewDashboardResponse)
-async def overview():
+async def overview(_principal: Principal = Depends(require_role(Role.VIEWER))):
     snapshot = state.snapshot()
     sessions = _session_rows()
     kpi, result_chart, hourly = _today_metrics(sessions)

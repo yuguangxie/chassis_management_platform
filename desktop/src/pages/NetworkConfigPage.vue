@@ -9,9 +9,8 @@
         </div>
       </div>
       <div class="title-actions">
-        <span v-if="offline" class="mock-pill">Mock/离线数据</span>
-        <span v-else-if="loading" class="mock-pill loading">正在刷新</span>
-        <button class="help-btn" type="button"><CircleHelp :size="16" />使用说明</button>
+        <PageDataState :loading="loading" :error="error" :stale="offline" :empty="!config.channels.length" />
+        <button class="help-btn" type="button" disabled title="尚未实现：联机帮助文档入口"><CircleHelp :size="16" />使用说明（尚未实现）</button>
       </div>
     </section>
 
@@ -27,7 +26,7 @@
           </div>
           <div class="field-row">
             <span>选中网卡</span>
-            <button class="select-like" type="button">{{ config.local_network.nic_name }}<ChevronDown :size="14" /></button>
+            <button class="select-like" type="button" disabled title="网卡只能通过经过校验的配置包修改">{{ config.local_network.nic_name }}<ChevronDown :size="14" /></button>
           </div>
           <div class="field-row">
             <span>子网掩码</span>
@@ -41,12 +40,12 @@
         <div class="port-box">
           <div class="port-head">
             <span>端口占用检测</span>
-            <button type="button" title="刷新检测" @click="showToast('端口占用检测已刷新')"><RefreshCw :size="16" /></button>
+            <button type="button" title="刷新检测" @click="() => runSelfTest()"><RefreshCw :size="16" /></button>
           </div>
           <div class="port-grid">
             <div v-for="port in config.local_network.ports" :key="port.port">
               <span>{{ port.port }} {{ port.protocol }}</span>
-              <b>{{ port.status === 'free' ? '空闲' : '占用' }}</b>
+              <b>{{ portStatusLabel(port.status) }}</b>
             </div>
           </div>
         </div>
@@ -60,14 +59,14 @@
           <div class="seg-row">
             <span>协议选择</span>
             <div class="segmented">
-              <button :class="{ active: channel.protocol === 'UDP' }" type="button" @click="channel.protocol = 'UDP'">UDP</button>
-              <button :class="{ active: channel.protocol === 'TCP' }" type="button" @click="channel.protocol = 'TCP'">TCP</button>
+              <button :class="{ active: channel.protocol === 'UDP' }" type="button" :disabled="!auth.isAdmin" @click="channel.protocol = 'UDP'">UDP</button>
+              <button :class="{ active: channel.protocol === 'TCP' }" type="button" :disabled="!auth.isAdmin" @click="channel.protocol = 'TCP'">TCP</button>
             </div>
           </div>
-          <ConfigInput label="本地IP" :value="channel.local_ip" />
-          <ConfigInput label="本地端口" :value="String(channel.local_port)" />
-          <ConfigInput label="设备IP" :value="channel.device_ip" />
-          <ConfigInput label="设备端口" :value="String(channel.device_port)" />
+          <ConfigInput label="本地IP" :value="channel.local_ip" :editable="auth.isAdmin" @update:value="channel.local_ip = $event" />
+          <ConfigInput label="本地端口" :value="String(channel.local_port)" :editable="auth.isAdmin" input-type="number" @update:value="channel.local_port = Number($event)" />
+          <ConfigInput label="设备IP" :value="channel.device_ip" :editable="auth.isAdmin" @update:value="channel.device_ip = $event" />
+          <ConfigInput label="设备端口" :value="String(channel.device_port)" :editable="auth.isAdmin" input-type="number" @update:value="channel.device_port = Number($event)" />
           <div class="switch-grid">
             <span>发送允许</span><ToggleVisual :enabled="channel.tx_enabled" />
             <span>接收状态</span><ActiveState :status="channel.rx_status" />
@@ -92,10 +91,11 @@
           <div v-for="item in diagnosisRows" :key="item.label" class="diagnosis-row">
             <span>{{ item.label }}</span>
             <b>{{ item.value }}</b>
-            <CircleCheck :size="17" />
+            <CircleCheck v-if="item.ok" :size="17" />
+            <CircleX v-else :size="17" class="diagnosis-fail" />
           </div>
         </div>
-        <button class="retest-btn" type="button" @click="runSelfTest"><RefreshCw :size="16" />重新检测</button>
+        <button class="retest-btn" type="button" @click="() => runSelfTest()"><RefreshCw :size="16" />重新检测</button>
       </article>
     </section>
 
@@ -132,7 +132,7 @@
       <article class="panel chart-panel">
         <header class="panel-head chart-head">
           <div><Activity :size="18" /><h2>各通道帧率（fps）趋势</h2></div>
-          <button class="mini-select" type="button">最近1分钟 <ChevronDown :size="13" /></button>
+          <button class="mini-select" type="button" disabled title="当前后端仅提供最近一分钟聚合">最近1分钟 <ChevronDown :size="13" /></button>
         </header>
         <RealtimeLineChart :option="fpsOption" />
       </article>
@@ -140,14 +140,14 @@
       <article class="panel chart-panel">
         <header class="panel-head chart-head">
           <div><BarChart3 :size="18" /><h2>错误帧累计（个）</h2></div>
-          <button class="mini-select" type="button">最近1分钟 <ChevronDown :size="13" /></button>
+          <button class="mini-select" type="button" disabled title="当前后端仅提供累计错误摘要">当前累计 <ChevronDown :size="13" /></button>
         </header>
         <BarChart :option="errorOption" />
       </article>
     </section>
 
     <section class="action-row">
-      <button v-for="action in actions" :key="action.title" :class="['action-card', action.tone]" type="button" @click="action.run">
+      <button v-for="action in visibleActions" :key="action.title" :class="['action-card', action.tone]" type="button" :disabled="loading || (offline && !action.allowOffline)" @click="action.run">
         <span class="action-icon"><component :is="action.icon" :size="31" /></span>
         <span>
           <strong>{{ action.title }}</strong>
@@ -168,6 +168,7 @@ import {
   ChevronDown,
   CircleCheck,
   CircleHelp,
+  CircleX,
   Info,
   ListChecks,
   Network,
@@ -178,16 +179,21 @@ import {
 } from 'lucide-vue-next'
 import BarChart from '../components/charts/BarChart.vue'
 import RealtimeLineChart from '../components/charts/RealtimeLineChart.vue'
-import { apiGet, apiPost, apiPut } from '../api/http'
-import type { NetworkChannelConfig, NetworkConfigSummary, NetworkSelfTestResult } from '../api/types'
-import { fallbackNetworkConfig, fallbackNetworkSelfTest } from '../mocks/fallbackData'
+import { apiGet, apiPost, apiPut, formatApiError } from '../api/http'
+import type { CanMonitorStatistics, NetworkChannelConfig, NetworkConfigSummary, NetworkSelfTestResult } from '../api/types'
+import { fallbackCanMonitorStatistics, fallbackNetworkConfig, fallbackNetworkSelfTest } from '../mocks/fallbackData'
+import { useAuthStore, type Role } from '../stores/auth'
+import PageDataState from '../components/PageDataState.vue'
 
 const ConfigInput = defineComponent({
-  props: { label: { type: String, required: true }, value: { type: String, required: true } },
-  setup(props) {
+  props: { label: { type: String, required: true }, value: { type: String, required: true }, editable: { type: Boolean, default: false }, inputType: { type: String, default: 'text' } },
+  emits: ['update:value'],
+  setup(props, { emit }) {
     return () => h('div', { class: 'field-row compact-field' }, [
       h('span', props.label),
-      h('b', { class: 'input-like text-input' }, props.value),
+      props.editable
+        ? h('input', { class: 'input-like text-input', type: props.inputType, value: props.value, onInput: (event: Event) => emit('update:value', (event.target as HTMLInputElement).value) })
+        : h('b', { class: 'input-like text-input' }, props.value),
     ])
   },
 })
@@ -210,22 +216,34 @@ const ActiveState = defineComponent({
 })
 
 const config = ref<NetworkConfigSummary>(structuredClone(fallbackNetworkConfig))
+const auth = useAuthStore()
 const selfTest = ref<NetworkSelfTestResult>(fallbackNetworkSelfTest)
+const statistics = ref<CanMonitorStatistics>(structuredClone(fallbackCanMonitorStatistics))
 const loading = ref(false)
 const offline = ref(false)
+const error = ref('')
+const appliedConfig = ref<NetworkConfigSummary>(structuredClone(fallbackNetworkConfig))
+
+function cloneConfig(value: NetworkConfigSummary): NetworkConfigSummary {
+  return JSON.parse(JSON.stringify(value)) as NetworkConfigSummary
+}
 const toast = ref('')
 const toastTone = ref<'ok' | 'warn' | 'bad'>('ok')
 let toastTimer: number | undefined
 
 const diagnosisRows = computed(() => [
-  { label: 'Ping 延迟（设备IP）', value: `${selfTest.value.ping_latency_ms.toFixed(2)} ms` },
-  { label: 'UDP 回环测试（本地）', value: selfTest.value.udp_loopback === 'pass' ? '通过' : '失败' },
-  { label: '13字节协议合法率', value: `${selfTest.value.protocol_valid_rate.toFixed(2)} %` },
-  { label: 'DLC 校验', value: selfTest.value.dlc_check === 'pass' ? '通过' : '失败' },
-  { label: '保留位校验', value: selfTest.value.reserved_bits_check === 'pass' ? '通过' : '失败' },
-  { label: '粘包/半包统计（1分钟）', value: `${selfTest.value.sticky_half_packets.sticky} / ${selfTest.value.sticky_half_packets.half}` },
-  { label: '最近错误', value: selfTest.value.last_error },
+  { label: '端点测量延迟', value: selfTest.value.ping_latency_ms === null ? '未测量（不伪造 ping）' : `${selfTest.value.ping_latency_ms.toFixed(2)} ms`, ok: selfTest.value.ping_latency_ms !== null },
+  { label: 'UDP 收帧确认（批准来源）', value: selfTest.value.udp_loopback === 'pass' ? '通过' : '未确认', ok: selfTest.value.udp_loopback === 'pass' },
+  { label: '13字节协议合法率', value: `${selfTest.value.protocol_valid_rate.toFixed(2)} %`, ok: selfTest.value.protocol_valid_rate === 100 },
+  { label: 'DLC 校验', value: selfTest.value.dlc_check === 'pass' ? '通过' : '失败', ok: selfTest.value.dlc_check === 'pass' },
+  { label: '保留位校验', value: selfTest.value.reserved_bits_check === 'pass' ? '通过' : '失败', ok: selfTest.value.reserved_bits_check === 'pass' },
+  { label: '粘包/半包统计（1分钟）', value: `${selfTest.value.sticky_half_packets.sticky} / ${selfTest.value.sticky_half_packets.half}`, ok: selfTest.value.sticky_half_packets.half === 0 },
+  { label: '最近错误', value: selfTest.value.last_error || '无', ok: !selfTest.value.last_error },
+  ...(selfTest.value.channels||[]).map(item=>({label:`${item.channel} 端点/收帧/TCP`,value:`${item.bind_status} / ${item.endpoint_status} / ${formatFrameAge(item.last_frame_age_ms)} / ${item.tcp_state}`,ok:item.bind_status !== 'occupied_or_unbindable' && item.endpoint_status === 'receive_confirmed'})),
 ])
+
+function portStatusLabel(status:string){return({owned_by_runtime:'当前进程使用',available:'可绑定',occupied_or_unbindable:'占用/不可绑定',not_diagnosed:'未检测','not-diagnosed':'未检测'} as Record<string,string>)[status]||status}
+function formatFrameAge(value:number|null|undefined){return value===null||value===undefined?'无批准来源帧':`${Math.round(value)} ms`}
 
 function mergeConfig(data: Partial<NetworkConfigSummary>): NetworkConfigSummary {
   const next = {
@@ -243,12 +261,25 @@ async function loadConfig() {
   try {
     const data = await apiGet<NetworkConfigSummary>('/config/channels')
     config.value = mergeConfig(data)
+    appliedConfig.value = cloneConfig(config.value)
     offline.value = false
-  } catch (error) {
+    error.value = ''
+  } catch (cause) {
     config.value = structuredClone(fallbackNetworkConfig)
     offline.value = true
+    appliedConfig.value = cloneConfig(config.value)
+    error.value = formatApiError(cause)
   } finally {
     loading.value = false
+  }
+}
+
+async function loadStatistics() {
+  try {
+    statistics.value = await apiGet<CanMonitorStatistics>('/can/statistics/monitor')
+  } catch (cause) {
+    statistics.value = { ...structuredClone(fallbackCanMonitorStatistics), fps_trend: [], period_jitter: [], can_id_distribution: [], footer_status: { ...fallbackCanMonitorStatistics.footer_status, rx_fps: 0, tx_fps: 0 } }
+    error.value = formatApiError(cause)
   }
 }
 
@@ -261,21 +292,31 @@ function showToast(message: string, tone: 'ok' | 'warn' | 'bad' = 'ok') {
 
 async function saveConfig() {
   try {
-    const response = await apiPut<{ message?: string; stub?: boolean }>('/config/channels', config.value)
-    showToast(response.message || (response.stub ? '接口已预留，当前为仿真/Mock模式' : '配置已保存'))
-  } catch (error) {
-    showToast(error instanceof Error ? error.message : '保存配置失败', 'bad')
+    const response = await apiPut<NetworkConfigSummary & { message?: string; saved?: boolean; reconnected?: boolean }>('/config/channels', config.value)
+    config.value = mergeConfig(response)
+    appliedConfig.value = cloneConfig(config.value)
+    error.value = ''
+    await Promise.all([runSelfTest(false), loadStatistics()])
+    showToast(response.message || '配置已保存、应用并通过运行态重连')
+  } catch (cause) {
+    config.value = cloneConfig(appliedConfig.value)
+    error.value = formatApiError(cause)
+    showToast(`配置应用失败，界面已回滚到上一已应用版本：${error.value}`, 'bad')
   }
 }
 
-async function runSelfTest() {
+async function runSelfTest(notify = true) {
   try {
     const result = await apiPost<NetworkSelfTestResult>('/can/channels/self-test', {})
     selfTest.value = { ...fallbackNetworkSelfTest, ...result }
-    showToast(result.message || '连接自检完成')
-  } catch (error) {
-    selfTest.value = fallbackNetworkSelfTest
-    showToast('后端不可用，已使用 Mock 自检结果', 'warn')
+    for(const measurement of result.channels||[]){const channel=config.value.channels.find(item=>item.name===measurement.channel);if(channel)Object.assign(channel,measurement)}
+    error.value = ''
+    offline.value = false
+    if (notify) showToast(result.message || '连接自检完成')
+  } catch (cause) {
+    selfTest.value = { ...fallbackNetworkSelfTest, ping_latency_ms: null, udp_loopback: 'unavailable', protocol_valid_rate: 0, last_error: '诊断未执行' }
+    error.value = formatApiError(cause)
+    if (notify) showToast(`诊断未执行：${error.value}`, 'bad')
   }
 }
 
@@ -299,38 +340,41 @@ async function stopAll() {
 
 async function restoreDefaults() {
   try {
-    const result = await apiPost<NetworkConfigSummary & { message?: string; stub?: boolean }>('/config/channels/restore-defaults', {})
+    const result = await apiPost<NetworkConfigSummary & { message?: string }>('/config/channels/restore-defaults', {})
     config.value = mergeConfig(result)
-    showToast(result.message || '已恢复默认配置', result.stub ? 'warn' : 'ok')
-  } catch (error) {
-    config.value = structuredClone(fallbackNetworkConfig)
-    showToast('后端不可用，已恢复本地 Mock 默认配置', 'warn')
+    appliedConfig.value = cloneConfig(config.value)
+    showToast(result.message || '已恢复并应用回环安全默认配置')
+  } catch (cause) {
+    config.value = cloneConfig(appliedConfig.value)
+    error.value = formatApiError(cause)
+    showToast(`恢复默认值失败，未改变当前运行配置：${error.value}`, 'bad')
   }
 }
 
 const actions = [
-  { title: '保存配置', desc: '保存当前配置到系统', icon: Save, tone: 'primary', run: saveConfig },
-  { title: '测试连接', desc: '执行连接自检与诊断', icon: Network, tone: 'primary', run: runSelfTest },
-  { title: '启动CAN1', desc: '启动通道1通信', icon: PlayCircle, tone: 'primary', run: () => connectChannel('CAN1') },
-  { title: '启动CAN2', desc: '启动通道2通信', icon: PlayCircle, tone: 'primary', run: () => connectChannel('CAN2') },
-  { title: '停止全部', desc: '停止所有通道通信', icon: Square, tone: 'danger', run: stopAll },
-  { title: '恢复默认', desc: '恢复默认配置', icon: RefreshCw, tone: 'primary', run: restoreDefaults },
+  { title: '保存并应用', desc: '原子应用，失败自动回滚', icon: Save, tone: 'primary', run: saveConfig, role: 'admin' as Role, allowOffline: false },
+  { title: '测试连接', desc: '执行端口与设备诊断', icon: Network, tone: 'primary', run: () => runSelfTest(), role: 'engineer' as Role, allowOffline: true },
+  { title: '启动CAN1', desc: '启动通道1通信', icon: PlayCircle, tone: 'primary', run: () => connectChannel('CAN1'), role: 'engineer' as Role, allowOffline: false },
+  { title: '启动CAN2', desc: '启动通道2通信', icon: PlayCircle, tone: 'primary', run: () => connectChannel('CAN2'), role: 'engineer' as Role, allowOffline: false },
+  { title: '停止全部', desc: '停止所有通道通信', icon: Square, tone: 'danger', run: stopAll, role: 'engineer' as Role, allowOffline: false },
+  { title: '恢复默认', desc: '恢复回环安全默认配置', icon: RefreshCw, tone: 'primary', run: restoreDefaults, role: 'admin' as Role, allowOffline: false },
 ]
+const visibleActions = computed(() => actions.filter((action) => auth.can(action.role)))
 
 const chartText = '#AFC2DD'
 const gridLine = '#1E3A5F'
-const timeline = ['09:26', '09:36', '09:46', '09:56', '10:06', '10:16', '10:26']
+const timeline = computed(() => offline.value ? [] : statistics.value.fps_trend.map(item => item.time.slice(0, 5)))
 
 const fpsOption = computed(() => ({
   backgroundColor: 'transparent',
   legend: { top: 2, right: 6, itemWidth: 16, itemHeight: 8, textStyle: { color: chartText, fontSize: 12 } },
   grid: { left: 42, right: 16, top: 34, bottom: 28 },
   tooltip: { trigger: 'axis' },
-  xAxis: { type: 'category', data: timeline, boundaryGap: false, axisLine: { lineStyle: { color: gridLine } }, axisTick: { show: false }, axisLabel: { color: chartText, fontSize: 11 } },
+  xAxis: { type: 'category', data: timeline.value, boundaryGap: false, axisLine: { lineStyle: { color: gridLine } }, axisTick: { show: false }, axisLabel: { color: chartText, fontSize: 11 } },
   yAxis: { type: 'value', min: 0, max: 1500, interval: 300, splitLine: { lineStyle: { color: gridLine, type: 'dashed' } }, axisLabel: { color: chartText, fontSize: 11 } },
   series: [
-    { name: 'CAN1', type: 'line', smooth: true, showSymbol: true, symbolSize: 5, lineStyle: { color: '#21C55D', width: 3 }, itemStyle: { color: '#21C55D' }, data: [1020, 990, 1045, 965, 940, 970, 955] },
-    { name: 'CAN2', type: 'line', smooth: true, showSymbol: true, symbolSize: 5, lineStyle: { color: '#2F80FF', width: 3 }, itemStyle: { color: '#2F80FF' }, data: [720, 705, 748, 715, 725, 740, 718] },
+    { name: 'CAN1', type: 'line', smooth: true, showSymbol: true, symbolSize: 5, lineStyle: { color: '#21C55D', width: 3 }, itemStyle: { color: '#21C55D' }, data: offline.value ? [] : statistics.value.fps_trend.map(item=>item.can1) },
+    { name: 'CAN2', type: 'line', smooth: true, showSymbol: true, symbolSize: 5, lineStyle: { color: '#2F80FF', width: 3 }, itemStyle: { color: '#2F80FF' }, data: offline.value ? [] : statistics.value.fps_trend.map(item=>item.can2) },
   ],
 }))
 
@@ -339,16 +383,15 @@ const errorOption = computed(() => ({
   legend: { top: 2, right: 6, itemWidth: 16, itemHeight: 8, textStyle: { color: chartText, fontSize: 12 } },
   grid: { left: 34, right: 14, top: 34, bottom: 28 },
   tooltip: { trigger: 'axis' },
-  xAxis: { type: 'category', data: timeline, axisLine: { lineStyle: { color: gridLine } }, axisTick: { show: false }, axisLabel: { color: chartText, fontSize: 11 } },
+  xAxis: { type: 'category', data: ['超时', '错误帧', '协议错误'], axisLine: { lineStyle: { color: gridLine } }, axisTick: { show: false }, axisLabel: { color: chartText, fontSize: 11 } },
   yAxis: { type: 'value', min: 0, max: 5, interval: 1, splitLine: { lineStyle: { color: gridLine } }, axisLabel: { color: chartText, fontSize: 11 } },
   series: [
-    { name: 'CAN1', type: 'bar', barWidth: 12, data: [0, 0, 0, 0, 0, 0, 0], label: { show: true, position: 'top', color: '#CFE3FF', fontSize: 11 }, itemStyle: { color: '#21C55D' } },
-    { name: 'CAN2', type: 'bar', barWidth: 12, data: [0, 0, 0, 0, 0, 0, 0], label: { show: true, position: 'top', color: '#CFE3FF', fontSize: 11 }, itemStyle: { color: '#2F80FF' } },
+    { name: '累计', type: 'bar', barWidth: 18, data: offline.value ? [] : [statistics.value.error_summary.timeout_count, statistics.value.error_summary.error_frame_count, statistics.value.error_summary.protocol_error_count], label: { show: true, position: 'top', color: '#CFE3FF', fontSize: 11 }, itemStyle: { color: '#2F80FF' } },
   ],
 }))
 
 onMounted(() => {
-  void loadConfig()
+  void Promise.all([loadConfig(), loadStatistics()])
 })
 
 onBeforeUnmount(() => {
@@ -362,7 +405,7 @@ onBeforeUnmount(() => {
   height: 100%;
   min-height: 0;
   display: grid;
-  grid-template-rows: 52px 365px minmax(0, 1fr) 116px;
+  grid-template-rows: 42px 365px minmax(0, 1fr) 116px;
   gap: 14px;
   overflow: hidden;
 }
@@ -564,6 +607,7 @@ p {
 .text-input {
   justify-content: flex-start;
 }
+input.text-input{width:100%;outline:none;font-family:inherit;font-weight:700}
 
 .input-like em {
   color: #9BAECB;
@@ -764,6 +808,7 @@ p {
   color: #21C55D;
   fill: rgba(33, 197, 93, .18);
 }
+.diagnosis-row svg.diagnosis-fail{color:#EF4444;fill:rgba(239,68,68,.16)}
 
 .retest-btn {
   float: right;
@@ -877,6 +922,7 @@ th:nth-child(9), td:nth-child(9) { width: 78px; }
   color: #EAF2FF;
   text-align: left;
 }
+.action-card:disabled,.help-btn:disabled,.mini-select:disabled,.select-like:disabled{opacity:.5;cursor:not-allowed}
 
 .action-card.primary {
   border-color: rgba(47, 128, 255, .78);
@@ -950,7 +996,7 @@ th:nth-child(9), td:nth-child(9) { width: 78px; }
     height: auto;
     min-height: 100%;
     overflow: visible;
-    grid-template-rows: 48px 340px 300px 104px;
+    grid-template-rows: 42px 340px 300px 104px;
     gap: 10px;
   }
 

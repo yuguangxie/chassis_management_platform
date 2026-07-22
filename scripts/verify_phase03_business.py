@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import base64
 import json
+import os
 from pathlib import Path
 import sqlite3
 import subprocess
@@ -17,8 +18,8 @@ import httpx
 
 ROOT = Path(__file__).resolve().parents[1]
 BASE = "http://127.0.0.1:8800/api/v1"
-VIEWER = {"Authorization": "Bearer dev-viewer-token"}
-OPERATOR = {"Authorization": "Bearer dev-operator-token"}
+VIEWER = {"Authorization": f"Bearer {os.getenv('CHASSIS_VIEWER_TOKEN', '')}"}
+OPERATOR = {"Authorization": f"Bearer {os.getenv('CHASSIS_OPERATOR_TOKEN', '')}"}
 
 
 class VerificationError(RuntimeError):

@@ -194,7 +194,7 @@ def _all_docx_text(path: Path) -> str:
     return "\n".join(parts)
 
 
-def test_pass_and_fail_reports_are_complete_readable_and_previewed(tmp_path: Path):
+def test_pass_and_fail_reports_are_complete_readable_and_previewed(tmp_path: Path, auth_headers):
     with TestClient(app) as client:
         with isolated_data_services(tmp_path) as (_database, generator):
             passed = seed_session(state.database, generator, "EOL-PHASE03-PASS", "PASS")
@@ -228,7 +228,7 @@ def test_pass_and_fail_reports_are_complete_readable_and_previewed(tmp_path: Pat
                 assert {row["result"] for row in csv_rows} == {expected}
 
             pdf_id = next(item for item in passed["database_ids"] if item.endswith("-pdf"))
-            preview = client.get(f"/api/v1/reports/{pdf_id}/preview")
+            preview = client.get(f"/api/v1/reports/{pdf_id}/preview", headers=auth_headers("viewer"))
             assert preview.status_code == 200
             body = preview.json()
             assert body["file_sha256"] == passed["hashes"]["pdf"]
@@ -290,6 +290,7 @@ def test_pdf_report_summarizes_oversized_assertion_values_without_layout_failure
 def test_report_history_file_actions_permissions_and_traversal(tmp_path: Path, auth_headers):
     with TestClient(app) as client:
         with isolated_data_services(tmp_path) as (database, generator):
+            viewer = auth_headers("viewer")
             passed = seed_session(database, generator, "EOL-PHASE03-PASS", "PASS")
             failed = seed_session(database, generator, "EOL-PHASE03-FAIL", "FAIL")
             report_id = next(item for item in failed["database_ids"] if item.endswith("-pdf"))
@@ -311,35 +312,36 @@ def test_report_history_file_actions_permissions_and_traversal(tmp_path: Path, a
                 "INSERT INTO reports(id,session_id,chassis_no,vin,result,report_type,file_path,file_size_bytes,generation_status,generated_at) VALUES (?,?,?,?,?,?,?,?,?,?)",
                 ("outside-report", "EOL-PHASE03-PASS", "YL-PASS-001", "LPASS00000000001", "PASS", "json", str(outside), 2, "COMPLETED", _utc(10)),
             )
-            traversal = client.get("/api/v1/reports/outside-report/preview")
+            traversal = client.get("/api/v1/reports/outside-report/preview", headers=viewer)
             assert traversal.status_code == 403
             assert traversal.json()["code"] == "PATH_OUTSIDE_ALLOWED_ROOT"
             database.execute("DELETE FROM reports WHERE id='outside-report'")
-            missing = client.get("/api/v1/reports/does-not-exist/preview")
+            missing = client.get("/api/v1/reports/does-not-exist/preview", headers=viewer)
             assert missing.status_code == 404
 
-            history = client.get("/api/v1/history/dashboard", params={"result": "PASS", "page": 1, "page_size": 1}).json()
+            history = client.get("/api/v1/history/dashboard", params={"result": "PASS", "page": 1, "page_size": 1}, headers=viewer).json()
             assert history["pagination"]["total"] == 1
             assert history["sessions"][0]["session_id"] == "EOL-PHASE03-PASS"
-            empty = client.get("/api/v1/history/dashboard", params={"vin": "NO-MATCH"}).json()
+            empty = client.get("/api/v1/history/dashboard", params={"vin": "NO-MATCH"}, headers=viewer).json()
             assert empty["sessions"] == [] and empty["selected_session"] is None
 
             session_id = "EOL-PHASE03-PASS"
-            assert len(client.get(f"/api/v1/test-sessions/{session_id}/timeline").json()) == 3
-            assert len(client.get(f"/api/v1/test-sessions/{session_id}/operator-actions").json()) >= 1
-            downloads = client.get(f"/api/v1/test-sessions/{session_id}/downloads").json()
+            assert len(client.get(f"/api/v1/test-sessions/{session_id}/timeline", headers=viewer).json()) == 3
+            assert len(client.get(f"/api/v1/test-sessions/{session_id}/operator-actions", headers=viewer).json()) >= 1
+            downloads = client.get(f"/api/v1/test-sessions/{session_id}/downloads", headers=viewer).json()
             assert len(downloads) == 5 and all(item["available"] for item in downloads)
             for file_type in ("raw-can", "decoded-signals", "report-bundle", "audit-log", "curve-replay"):
                 response = client.get(f"/api/v1/test-sessions/{session_id}/download/{file_type}", headers=auth_headers("viewer"))
                 assert response.status_code == 200, (file_type, response.text)
                 assert len(response.content) > 0
 
-            replay = client.get(f"/api/v1/test-sessions/{session_id}/replay").json()
+            replay = client.get(f"/api/v1/test-sessions/{session_id}/replay", headers=viewer).json()
             assert replay["point_count"] == 2
             assert replay["mock"] is False
             historical_curve = client.get(
                 "/api/v1/signals/timeseries",
                 params={"mode": "history", "session_id": session_id},
+                headers=viewer,
             ).json()
             voltage = next(series for series in historical_curve["charts"]["bms"]["series"] if series["name"] == "BMS_Total_Voltage")
             assert voltage["data"] == [329.6, 330.1]
@@ -351,10 +353,14 @@ def test_report_history_file_actions_permissions_and_traversal(tmp_path: Path, a
             assert export_file.status_code == 200
             assert b"EOL-PHASE03-PASS" in export_file.content
 
-            pareto = client.get("/api/v1/history/statistics").json()["charts"]["failure_pareto"]
+            pareto = client.get("/api/v1/history/statistics", headers=viewer).json()["charts"]["failure_pareto"]
             assert pareto["cumulative_percent"][-1] == 100.0
 
             remaining_pdf = next(item for item in passed["database_ids"] if item.endswith("-pdf"))
-            print_job = client.post(f"/api/v1/reports/{remaining_pdf}/print", json={}, headers=auth_headers("operator")).json()["details"]
+            print_job = client.post(
+                f"/api/v1/reports/{remaining_pdf}/print",
+                json={"preview_confirmed": True},
+                headers=auth_headers("operator"),
+            ).json()["details"]
             persisted = database.query_one("SELECT * FROM report_print_jobs WHERE id=?", (print_job["job_id"],))
             assert persisted and persisted["status"] == "QUEUED"

@@ -20,5 +20,11 @@ __pycache__/
 playwright-report/
 test-results/
 desktop/coverage/
+desktop/release/
+desktop/release-build.json
+/desktop/docs/
+docs/verification/**/runtime-data/
+docs/verification/**/python/data/
 docs/verification/phase-05/e2e/runtime-data/
 docs/verification/phase-05/e2e/*.log
+docs/verification/phase-05/e2e/signed-config-dry-run.json

@@ -9,3 +9,7 @@ contextBridge.exposeInMainWorld("windowControls", {
 contextBridge.exposeInMainWorld("desktopFiles", {
   openPath: (targetPath) => ipcRenderer.invoke("files:open-path", targetPath),
 })
+
+contextBridge.exposeInMainWorld("chassisRuntime", {
+  getConnection: () => ipcRenderer.sendSync("runtime:get-connection"),
+})

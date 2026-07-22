@@ -87,6 +87,21 @@ class SafeStopService:
                     feedback_seen = True
                     if feedback["stopped"]:
                         self.state.safe_stop_active = False
+                        policy = getattr(
+                            self.state.config,
+                            "safe_stop_post_confirm_policy",
+                            "stop_transmission",
+                        )
+                        hold_active = False
+                        if policy == "hold_brake_until_release":
+                            await self.state.tx_scheduler.start_stop_hold(
+                                command,
+                                operation=operation,
+                                period_ms=getattr(
+                                    self.state.config, "safe_stop_hold_period_ms", 50
+                                ),
+                            )
+                            hold_active = True
                         result = {
                             "ok": True,
                             "code": "STOP_CONFIRMED",
@@ -95,6 +110,15 @@ class SafeStopService:
                             "feedback": feedback,
                             "latched": True,
                             "emergency_stop": self.state.emergency_stop,
+                            "post_confirmation_policy": policy,
+                            "hold_active": hold_active,
+                            "hardware_validated": bool(
+                                getattr(
+                                    self.state.config,
+                                    "safe_stop_policy_hardware_validated",
+                                    False,
+                                )
+                            ),
                         }
                         record_operator_action(self.state, principal, operation, "control.0x121", {"reason": reason, "attempts": attempts, "feedback": feedback}, "CONFIRMED")
                         return result
@@ -127,21 +151,18 @@ class SafeStopService:
         if not evaluation["allowed"]:
             record_operator_action(self.state, principal, "release_emergency", "control.estop", {"reason": reason}, "BLOCKED")
             return {"ok": False, "code": "INTERLOCK_BLOCKED", "message": "解除急停条件不满足", "details": evaluation}
+        await self.state.tx_scheduler.stop()
         self.state.emergency_stop = False
         self.state.safe_stop_latched = False
         record_operator_action(self.state, principal, "release_emergency", "control.estop", {"reason": reason}, "OK")
         return {"ok": True, "emergency_stop": False, "message": "急停锁存已解除"}
 
     def _feedback_after(self, started_monotonic: float) -> dict | None:
-        speed_item = self.state.signals.freshest(
-            "CCU_Vehicle_Speed",
-            "Vehicle_Speed",
-            max_age_seconds=self.state.config.channel_online_timeout_seconds,
-        )
-        brake_item = self.state.signals.freshest(
-            "Brake_Status", max_age_seconds=self.state.config.channel_online_timeout_seconds
-        )
-        if not speed_item or not brake_item:
+        speed_requirement = self.state.config.feedback_dependencies.base[0]
+        brake_requirement = self.state.config.feedback_dependencies.brake[0]
+        speed_ok, speed_item, _ = self.state.safety.evaluate_feedback(speed_requirement)
+        brake_ok, brake_item, _ = self.state.safety.evaluate_feedback(brake_requirement)
+        if not speed_ok or not brake_ok:
             return None
         if min(
             float(speed_item.get("received_at_monotonic", 0)),

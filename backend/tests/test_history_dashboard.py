@@ -5,10 +5,11 @@ from app.services.app_state import state
 from support import seed_dashboard_session
 
 
-def test_history_dashboard_real_pagination_filter_and_empty_result():
+def test_history_dashboard_real_pagination_filter_and_empty_result(auth_headers):
     with TestClient(app) as client:
         seed_dashboard_session(state)
-        dashboard = client.get("/api/v1/history/dashboard", params={"page": 1, "page_size": 7})
+        viewer = auth_headers("viewer")
+        dashboard = client.get("/api/v1/history/dashboard", params={"page": 1, "page_size": 7}, headers=viewer)
         assert dashboard.status_code == 200
         payload = dashboard.json()
         assert payload["data_source"] == "sqlite+filesystem"
@@ -16,7 +17,7 @@ def test_history_dashboard_real_pagination_filter_and_empty_result():
         assert len(payload["sessions"]) <= 7
         assert payload["pagination"]["total"] == payload["summary"]["filtered_count"]
 
-        empty = client.get("/api/v1/history/dashboard", params={"vin": "VIN-NOT-FOUND-EXACT"}).json()
+        empty = client.get("/api/v1/history/dashboard", params={"vin": "VIN-NOT-FOUND-EXACT"}, headers=viewer).json()
         assert empty["sessions"] == []
         assert empty["selected_session"] is None
         assert empty["pagination"]["total"] == 0
@@ -26,13 +27,14 @@ def test_history_dashboard_real_pagination_filter_and_empty_result():
 def test_test_session_linked_resources_and_download_contract(auth_headers):
     with TestClient(app) as client:
         seed_dashboard_session(state)
-        dashboard = client.get("/api/v1/history/dashboard", params={"page_size": 1}).json()
+        viewer = auth_headers("viewer")
+        dashboard = client.get("/api/v1/history/dashboard", params={"page_size": 1}, headers=viewer).json()
         assert dashboard["sessions"]
         session_id = dashboard["sessions"][0]["session_id"]
-        detail = client.get(f"/api/v1/test-sessions/{session_id}")
-        timeline = client.get(f"/api/v1/test-sessions/{session_id}/timeline")
-        actions = client.get(f"/api/v1/test-sessions/{session_id}/operator-actions")
-        downloads = client.get(f"/api/v1/test-sessions/{session_id}/downloads")
+        detail = client.get(f"/api/v1/test-sessions/{session_id}", headers=viewer)
+        timeline = client.get(f"/api/v1/test-sessions/{session_id}/timeline", headers=viewer)
+        actions = client.get(f"/api/v1/test-sessions/{session_id}/operator-actions", headers=viewer)
+        downloads = client.get(f"/api/v1/test-sessions/{session_id}/downloads", headers=viewer)
         assert detail.status_code == timeline.status_code == actions.status_code == downloads.status_code == 200
         assert isinstance(timeline.json(), list)
         assert len(downloads.json()) == 5
@@ -45,10 +47,10 @@ def test_test_session_linked_resources_and_download_contract(auth_headers):
         assert invalid.json()["code"] == "INVALID_FILE_TYPE"
 
 
-def test_history_statistics_and_pareto_are_computed():
+def test_history_statistics_and_pareto_are_computed(auth_headers):
     with TestClient(app) as client:
         seed_dashboard_session(state)
-        payload = client.get("/api/v1/history/statistics").json()
+        payload = client.get("/api/v1/history/statistics", headers=auth_headers("viewer")).json()
         assert payload["summary"]["total_tests"] >= payload["summary"]["fail_count"]
         assert 0 <= payload["summary"]["pass_rate"] <= 100
         pareto = payload["charts"]["failure_pareto"]

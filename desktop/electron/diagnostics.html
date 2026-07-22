@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>启动诊断</title>
+    <style>
+      body { margin:0; min-height:100vh; display:grid; place-items:center; background:#07111f; color:#dcecff; font:16px/1.6 "Segoe UI",sans-serif; }
+      main { width:min(720px,80vw); padding:36px; border:1px solid #244b70; background:#0c1b2d; box-shadow:0 20px 70px #0008; }
+      h1 { margin-top:0; color:#ffbe55; font-size:26px; } code { color:#8ecbff; } small { color:#8fa9be; }
+    </style>
+  </head>
+  <body><main><h1>本地服务尚未就绪</h1><p id="message">正在启动离线后端，请稍候……</p><p>车辆接口保持离线，控制发送已停止。可检查用户数据目录中的 <code>logs/sidecar/sidecar.log</code>。</p><small>诊断页不会连接现场设备，也不会发送 CAN。</small></main></body>
+</html>

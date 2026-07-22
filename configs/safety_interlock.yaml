@@ -1,0 +1,26 @@
+feedback_dependencies:
+  # Every non-stop 0x121 command needs speed plus both controller heartbeats.
+  base:
+    - {id: vehicle_speed, label: 车辆速度反馈, signals: [CCU_Vehicle_Speed, Vehicle_Speed], channel: CAN1, max_age_ms: 500, expected_can_ids: ['0x51', '0x168'], minimum: 0, maximum: 51.1}
+    - {id: controller_heartbeat_front, label: 前控制器心跳, signals: [Heartbeat_0x704], channel: CAN1, max_age_ms: 500, expected_can_ids: ['0x704'], minimum: 0, maximum: 255}
+    - {id: controller_heartbeat_rear, label: 后控制器心跳, signals: [Heartbeat_0x703], channel: CAN1, max_age_ms: 500, expected_can_ids: ['0x703'], minimum: 0, maximum: 255}
+  drive:
+    - {id: gear_status, label: 实际挡位反馈, signals: [CCU_Shift_Level_Status], channel: CAN1, max_age_ms: 500, expected_can_ids: ['0x51'], allowed_values: [0, 1, 3]}
+    - {id: drive_mode, label: 驱动模式反馈, signals: [CCU_Drive_Mode], channel: CAN1, max_age_ms: 500, expected_can_ids: ['0x51'], allowed_values: [0, 1, 2, 3]}
+  steering:
+    - {id: front_steering, label: 前转角反馈, signals: [SAS_Front_Angle], channel: CAN1, max_age_ms: 500, expected_can_ids: ['0xE1'], minimum: -168, maximum: 168}
+    - {id: rear_steering, label: 后转角反馈, signals: [SAS_Rear_Angle], channel: CAN1, max_age_ms: 500, expected_can_ids: ['0xE1'], minimum: -168, maximum: 168}
+    - {id: steering_connected, label: 转向通信状态, signals: [Steering_Disconnect_Warning], channel: CAN1, max_age_ms: 500, expected_can_ids: ['0x77'], allowed_values: [0]}
+    - {id: steering_unlocked, label: 转向锁止状态, signals: [Steering_Lock_Warning], channel: CAN1, max_age_ms: 500, expected_can_ids: ['0x77'], allowed_values: [0]}
+    - {id: steering_controllable, label: 转向可控状态, signals: [Steering_Uncontrollable_Warning], channel: CAN1, max_age_ms: 500, expected_can_ids: ['0x77'], allowed_values: [0]}
+    - {id: steering_no_error, label: 转向故障状态, signals: [Steering_Error_Warning], channel: CAN1, max_age_ms: 500, expected_can_ids: ['0x77'], allowed_values: [0]}
+  brake:
+    - {id: brake_status, label: 制动反馈状态, signals: [Brake_Status, SCU_Brake_Signal_Status], channel: CAN1, max_age_ms: 500, expected_can_ids: ['0x51'], allowed_values: [false, true]}
+    - {id: brake_no_error, label: 制动故障状态, signals: [Brake_Error_Warning], channel: CAN1, max_age_ms: 500, expected_can_ids: ['0x77'], allowed_values: [0]}
+
+safe_stop:
+  # This is an explicit software policy, not evidence of the real controller watchdog.
+  post_confirmation_policy: stop_transmission
+  retry_ms: 50
+  hold_period_ms: 50
+  hardware_validated: false

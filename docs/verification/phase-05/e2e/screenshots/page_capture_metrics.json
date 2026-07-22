@@ -1,5 +1,13 @@
 {
   "baseUrl": "http://127.0.0.1:15173",
+  "authentication": {
+    "unauthenticated_redirects_to_login": true,
+    "refresh_preserves_session": true,
+    "electron_restart_requires_login": true
+  },
+  "permission": {
+    "viewer_network_redirects_403": true
+  },
   "inspections": [
     {
       "page": "overview",
@@ -7,6 +15,15 @@
       "width": 1920,
       "height": 1080,
       "filename": "overview_1920x1080.png",
+      "interaction": {
+        "name": "overview",
+        "clicked": [
+          "route-to-history"
+        ],
+        "assertions": {
+          "history_route": true
+        }
+      },
       "renderer_console_errors": [],
       "renderer_page_errors": [],
       "location": "#/overview",
@@ -20,6 +37,7 @@
       "white_controls": 0,
       "chart_canvas_count": 3,
       "failed_to_fetch_banner": false,
+      "sidebar_collapsed": false,
       "layout_rects": {
         "shell": {
           "x": 0,
@@ -33,18 +51,25 @@
           "width": 280,
           "height": 1040
         },
+        "main": {
+          "x": 280,
+          "y": 0,
+          "width": 1640,
+          "height": 1040
+        },
         "topbar": {
           "x": 280,
           "y": 32,
           "width": 1640,
-          "height": 86
+          "height": 58
         },
         "content": {
           "x": 280,
-          "y": 118,
+          "y": 90,
           "width": 1640,
-          "height": 922
-        }
+          "height": 950
+        },
+        "sidebar_expand": null
       },
       "topbar_cells": [
         {
@@ -52,19 +77,19 @@
           "rect": {
             "x": 280,
             "y": 32,
-            "width": 150,
-            "height": 85
+            "width": 146.296875,
+            "height": 57
           },
           "color": "rgb(234, 242, 255)",
           "display": "flex"
         },
         {
-          "text": "用户op01",
+          "text": "用户e2e-admin · admin",
           "rect": {
-            "x": 430,
+            "x": 426.296875,
             "y": 32,
-            "width": 82,
-            "height": 85
+            "width": 97.53125,
+            "height": 57
           },
           "color": "rgb(234, 242, 255)",
           "display": "flex"
@@ -72,10 +97,10 @@
         {
           "text": "软件版本v1.0.2",
           "rect": {
-            "x": 512,
+            "x": 523.828125,
             "y": 32,
-            "width": 112,
-            "height": 85
+            "width": 118.4375,
+            "height": 57
           },
           "color": "rgb(234, 242, 255)",
           "display": "flex"
@@ -88,6 +113,10 @@
       "width": 1366,
       "height": 768,
       "filename": "overview_1366x768.png",
+      "interaction": {
+        "name": "overview",
+        "skipped": "already exercised at 1920x1080"
+      },
       "renderer_console_errors": [],
       "renderer_page_errors": [],
       "location": "#/overview",
@@ -101,6 +130,7 @@
       "white_controls": 0,
       "chart_canvas_count": 3,
       "failed_to_fetch_banner": false,
+      "sidebar_collapsed": false,
       "layout_rects": {
         "shell": {
           "x": 0,
@@ -114,18 +144,25 @@
           "width": 188,
           "height": 768
         },
+        "main": {
+          "x": 188,
+          "y": 0,
+          "width": 1178,
+          "height": 768
+        },
         "topbar": {
           "x": 188,
           "y": 32,
           "width": 1178,
-          "height": 86
+          "height": 58
         },
         "content": {
           "x": 188,
-          "y": 118,
+          "y": 90,
           "width": 1178,
-          "height": 650
-        }
+          "height": 678
+        },
+        "sidebar_expand": null
       },
       "topbar_cells": [
         {
@@ -133,19 +170,19 @@
           "rect": {
             "x": 188,
             "y": 32,
-            "width": 134,
-            "height": 85
+            "width": 104.375,
+            "height": 57
           },
           "color": "rgb(234, 242, 255)",
           "display": "flex"
         },
         {
-          "text": "用户op01",
+          "text": "用户e2e-admin · admin",
           "rect": {
-            "x": 322,
+            "x": 292.375,
             "y": 32,
-            "width": 76,
-            "height": 85
+            "width": 69.59375,
+            "height": 57
           },
           "color": "rgb(234, 242, 255)",
           "display": "flex"
@@ -153,10 +190,10 @@
         {
           "text": "软件版本v1.0.2",
           "rect": {
-            "x": 398,
+            "x": 361.96875,
             "y": 32,
-            "width": 104,
-            "height": 85
+            "width": 84.515625,
+            "height": 57
           },
           "color": "rgb(234, 242, 255)",
           "display": "flex"
@@ -169,6 +206,16 @@
       "width": 1920,
       "height": 1080,
       "filename": "network-config_1920x1080.png",
+      "interaction": {
+        "name": "network-config",
+        "clicked": [
+          "network-self-test"
+        ],
+        "assertions": {
+          "diagnostics_rendered": true,
+          "no_fake_zero_ping": true
+        }
+      },
       "renderer_console_errors": [],
       "renderer_page_errors": [],
       "location": "#/network-config",
@@ -182,6 +229,7 @@
       "white_controls": 0,
       "chart_canvas_count": 2,
       "failed_to_fetch_banner": false,
+      "sidebar_collapsed": false,
       "layout_rects": {
         "shell": {
           "x": 0,
@@ -195,18 +243,25 @@
           "width": 280,
           "height": 1040
         },
+        "main": {
+          "x": 280,
+          "y": 0,
+          "width": 1640,
+          "height": 1040
+        },
         "topbar": {
           "x": 280,
           "y": 32,
           "width": 1640,
-          "height": 86
+          "height": 58
         },
         "content": {
           "x": 280,
-          "y": 118,
+          "y": 90,
           "width": 1640,
-          "height": 922
-        }
+          "height": 950
+        },
+        "sidebar_expand": null
       },
       "topbar_cells": [
         {
@@ -214,19 +269,19 @@
           "rect": {
             "x": 280,
             "y": 32,
-            "width": 150,
-            "height": 85
+            "width": 146.296875,
+            "height": 57
           },
           "color": "rgb(234, 242, 255)",
           "display": "flex"
         },
         {
-          "text": "用户op01",
+          "text": "用户e2e-admin · admin",
           "rect": {
-            "x": 430,
+            "x": 426.296875,
             "y": 32,
-            "width": 82,
-            "height": 85
+            "width": 97.53125,
+            "height": 57
           },
           "color": "rgb(234, 242, 255)",
           "display": "flex"
@@ -234,10 +289,10 @@
         {
           "text": "软件版本v1.0.2",
           "rect": {
-            "x": 512,
+            "x": 523.828125,
             "y": 32,
-            "width": 112,
-            "height": 85
+            "width": 118.4375,
+            "height": 57
           },
           "color": "rgb(234, 242, 255)",
           "display": "flex"
@@ -250,6 +305,10 @@
       "width": 1366,
       "height": 768,
       "filename": "network-config_1366x768.png",
+      "interaction": {
+        "name": "network-config",
+        "skipped": "already exercised at 1920x1080"
+      },
       "renderer_console_errors": [],
       "renderer_page_errors": [],
       "location": "#/network-config",
@@ -263,6 +322,7 @@
       "white_controls": 0,
       "chart_canvas_count": 2,
       "failed_to_fetch_banner": false,
+      "sidebar_collapsed": false,
       "layout_rects": {
         "shell": {
           "x": 0,
@@ -276,18 +336,25 @@
           "width": 188,
           "height": 768
         },
+        "main": {
+          "x": 188,
+          "y": 0,
+          "width": 1178,
+          "height": 768
+        },
         "topbar": {
           "x": 188,
           "y": 32,
           "width": 1178,
-          "height": 86
+          "height": 58
         },
         "content": {
           "x": 188,
-          "y": 118,
+          "y": 90,
           "width": 1178,
-          "height": 650
-        }
+          "height": 678
+        },
+        "sidebar_expand": null
       },
       "topbar_cells": [
         {
@@ -295,19 +362,19 @@
           "rect": {
             "x": 188,
             "y": 32,
-            "width": 134,
-            "height": 85
+            "width": 104.375,
+            "height": 57
           },
           "color": "rgb(234, 242, 255)",
           "display": "flex"
         },
         {
-          "text": "用户op01",
+          "text": "用户e2e-admin · admin",
           "rect": {
-            "x": 322,
+            "x": 292.375,
             "y": 32,
-            "width": 76,
-            "height": 85
+            "width": 69.59375,
+            "height": 57
           },
           "color": "rgb(234, 242, 255)",
           "display": "flex"
@@ -315,10 +382,10 @@
         {
           "text": "软件版本v1.0.2",
           "rect": {
-            "x": 398,
+            "x": 361.96875,
             "y": 32,
-            "width": 104,
-            "height": 85
+            "width": 84.515625,
+            "height": 57
           },
           "color": "rgb(234, 242, 255)",
           "display": "flex"
@@ -331,6 +398,16 @@
       "width": 1920,
       "height": 1080,
       "filename": "can-monitor_1920x1080.png",
+      "interaction": {
+        "name": "can-monitor",
+        "clicked": [
+          "pause-display",
+          "expand-history"
+        ],
+        "assertions": {
+          "paused": true
+        }
+      },
       "renderer_console_errors": [],
       "renderer_page_errors": [],
       "location": "#/can-monitor",
@@ -344,6 +421,7 @@
       "white_controls": 0,
       "chart_canvas_count": 3,
       "failed_to_fetch_banner": false,
+      "sidebar_collapsed": false,
       "layout_rects": {
         "shell": {
           "x": 0,
@@ -357,18 +435,25 @@
           "width": 280,
           "height": 1040
         },
+        "main": {
+          "x": 280,
+          "y": 0,
+          "width": 1640,
+          "height": 1040
+        },
         "topbar": {
           "x": 280,
           "y": 32,
           "width": 1640,
-          "height": 86
+          "height": 58
         },
         "content": {
           "x": 280,
-          "y": 118,
+          "y": 90,
           "width": 1640,
-          "height": 922
-        }
+          "height": 950
+        },
+        "sidebar_expand": null
       },
       "topbar_cells": [
         {
@@ -376,19 +461,19 @@
           "rect": {
             "x": 280,
             "y": 32,
-            "width": 150,
-            "height": 85
+            "width": 146.296875,
+            "height": 57
           },
           "color": "rgb(234, 242, 255)",
           "display": "flex"
         },
         {
-          "text": "用户op01",
+          "text": "用户e2e-admin · admin",
           "rect": {
-            "x": 430,
+            "x": 426.296875,
             "y": 32,
-            "width": 82,
-            "height": 85
+            "width": 97.53125,
+            "height": 57
           },
           "color": "rgb(234, 242, 255)",
           "display": "flex"
@@ -396,10 +481,10 @@
         {
           "text": "软件版本v1.0.2",
           "rect": {
-            "x": 512,
+            "x": 523.828125,
             "y": 32,
-            "width": 112,
-            "height": 85
+            "width": 118.4375,
+            "height": 57
           },
           "color": "rgb(234, 242, 255)",
           "display": "flex"
@@ -412,6 +497,10 @@
       "width": 1366,
       "height": 768,
       "filename": "can-monitor_1366x768.png",
+      "interaction": {
+        "name": "can-monitor",
+        "skipped": "already exercised at 1920x1080"
+      },
       "renderer_console_errors": [],
       "renderer_page_errors": [],
       "location": "#/can-monitor",
@@ -425,6 +514,7 @@
       "white_controls": 0,
       "chart_canvas_count": 3,
       "failed_to_fetch_banner": false,
+      "sidebar_collapsed": false,
       "layout_rects": {
         "shell": {
           "x": 0,
@@ -438,18 +528,25 @@
           "width": 188,
           "height": 768
         },
+        "main": {
+          "x": 188,
+          "y": 0,
+          "width": 1178,
+          "height": 768
+        },
         "topbar": {
           "x": 188,
           "y": 32,
           "width": 1178,
-          "height": 86
+          "height": 58
         },
         "content": {
           "x": 188,
-          "y": 118,
+          "y": 90,
           "width": 1178,
-          "height": 650
-        }
+          "height": 678
+        },
+        "sidebar_expand": null
       },
       "topbar_cells": [
         {
@@ -457,19 +554,19 @@
           "rect": {
             "x": 188,
             "y": 32,
-            "width": 134,
-            "height": 85
+            "width": 104.375,
+            "height": 57
           },
           "color": "rgb(234, 242, 255)",
           "display": "flex"
         },
         {
-          "text": "用户op01",
+          "text": "用户e2e-admin · admin",
           "rect": {
-            "x": 322,
+            "x": 292.375,
             "y": 32,
-            "width": 76,
-            "height": 85
+            "width": 69.59375,
+            "height": 57
           },
           "color": "rgb(234, 242, 255)",
           "display": "flex"
@@ -477,10 +574,10 @@
         {
           "text": "软件版本v1.0.2",
           "rect": {
-            "x": 398,
+            "x": 361.96875,
             "y": 32,
-            "width": 104,
-            "height": 85
+            "width": 84.515625,
+            "height": 57
           },
           "color": "rgb(234, 242, 255)",
           "display": "flex"
@@ -493,6 +590,15 @@
       "width": 1920,
       "height": 1080,
       "filename": "signal-dashboard_1920x1080.png",
+      "interaction": {
+        "name": "signal-dashboard",
+        "clicked": [
+          "save-watchlist"
+        ],
+        "assertions": {
+          "write_feedback": true
+        }
+      },
       "renderer_console_errors": [],
       "renderer_page_errors": [],
       "location": "#/signal-dashboard",
@@ -506,6 +612,7 @@
       "white_controls": 0,
       "chart_canvas_count": 0,
       "failed_to_fetch_banner": false,
+      "sidebar_collapsed": false,
       "layout_rects": {
         "shell": {
           "x": 0,
@@ -519,18 +626,25 @@
           "width": 280,
           "height": 1040
         },
+        "main": {
+          "x": 280,
+          "y": 0,
+          "width": 1640,
+          "height": 1040
+        },
         "topbar": {
           "x": 280,
           "y": 32,
           "width": 1640,
-          "height": 86
+          "height": 58
         },
         "content": {
           "x": 280,
-          "y": 118,
+          "y": 90,
           "width": 1640,
-          "height": 922
-        }
+          "height": 950
+        },
+        "sidebar_expand": null
       },
       "topbar_cells": [
         {
@@ -538,19 +652,19 @@
           "rect": {
             "x": 280,
             "y": 32,
-            "width": 150,
-            "height": 85
+            "width": 146.296875,
+            "height": 57
           },
           "color": "rgb(234, 242, 255)",
           "display": "flex"
         },
         {
-          "text": "用户op01",
+          "text": "用户e2e-admin · admin",
           "rect": {
-            "x": 430,
+            "x": 426.296875,
             "y": 32,
-            "width": 82,
-            "height": 85
+            "width": 97.53125,
+            "height": 57
           },
           "color": "rgb(234, 242, 255)",
           "display": "flex"
@@ -558,10 +672,10 @@
         {
           "text": "软件版本v1.0.2",
           "rect": {
-            "x": 512,
+            "x": 523.828125,
             "y": 32,
-            "width": 112,
-            "height": 85
+            "width": 118.4375,
+            "height": 57
           },
           "color": "rgb(234, 242, 255)",
           "display": "flex"
@@ -574,6 +688,10 @@
       "width": 1366,
       "height": 768,
       "filename": "signal-dashboard_1366x768.png",
+      "interaction": {
+        "name": "signal-dashboard",
+        "skipped": "already exercised at 1920x1080"
+      },
       "renderer_console_errors": [],
       "renderer_page_errors": [],
       "location": "#/signal-dashboard",
@@ -587,6 +705,7 @@
       "white_controls": 0,
       "chart_canvas_count": 0,
       "failed_to_fetch_banner": false,
+      "sidebar_collapsed": false,
       "layout_rects": {
         "shell": {
           "x": 0,
@@ -600,18 +719,25 @@
           "width": 188,
           "height": 768
         },
+        "main": {
+          "x": 188,
+          "y": 0,
+          "width": 1178,
+          "height": 768
+        },
         "topbar": {
           "x": 188,
           "y": 32,
           "width": 1178,
-          "height": 86
+          "height": 58
         },
         "content": {
           "x": 188,
-          "y": 118,
+          "y": 90,
           "width": 1178,
-          "height": 650
-        }
+          "height": 678
+        },
+        "sidebar_expand": null
       },
       "topbar_cells": [
         {
@@ -619,19 +745,19 @@
           "rect": {
             "x": 188,
             "y": 32,
-            "width": 134,
-            "height": 85
+            "width": 104.375,
+            "height": 57
           },
           "color": "rgb(234, 242, 255)",
           "display": "flex"
         },
         {
-          "text": "用户op01",
+          "text": "用户e2e-admin · admin",
           "rect": {
-            "x": 322,
+            "x": 292.375,
             "y": 32,
-            "width": 76,
-            "height": 85
+            "width": 69.59375,
+            "height": 57
           },
           "color": "rgb(234, 242, 255)",
           "display": "flex"
@@ -639,10 +765,10 @@
         {
           "text": "软件版本v1.0.2",
           "rect": {
-            "x": 398,
+            "x": 361.96875,
             "y": 32,
-            "width": 104,
-            "height": 85
+            "width": 84.515625,
+            "height": 57
           },
           "color": "rgb(234, 242, 255)",
           "display": "flex"
@@ -655,6 +781,16 @@
       "width": 1920,
       "height": 1080,
       "filename": "realtime-curve_1920x1080.png",
+      "interaction": {
+        "name": "realtime-curve",
+        "clicked": [
+          "pause-curve",
+          "resume-curve"
+        ],
+        "assertions": {
+          "pause_resume_feedback": true
+        }
+      },
       "renderer_console_errors": [],
       "renderer_page_errors": [],
       "location": "#/realtime-curve",
@@ -668,6 +804,7 @@
       "white_controls": 0,
       "chart_canvas_count": 7,
       "failed_to_fetch_banner": false,
+      "sidebar_collapsed": false,
       "layout_rects": {
         "shell": {
           "x": 0,
@@ -681,18 +818,25 @@
           "width": 280,
           "height": 1040
         },
+        "main": {
+          "x": 280,
+          "y": 0,
+          "width": 1640,
+          "height": 1040
+        },
         "topbar": {
           "x": 280,
           "y": 32,
           "width": 1640,
-          "height": 86
+          "height": 58
         },
         "content": {
           "x": 280,
-          "y": 118,
+          "y": 90,
           "width": 1640,
-          "height": 922
-        }
+          "height": 950
+        },
+        "sidebar_expand": null
       },
       "topbar_cells": [
         {
@@ -700,19 +844,19 @@
           "rect": {
             "x": 280,
             "y": 32,
-            "width": 150,
-            "height": 85
+            "width": 146.296875,
+            "height": 57
           },
           "color": "rgb(234, 242, 255)",
           "display": "flex"
         },
         {
-          "text": "用户op01",
+          "text": "用户e2e-admin · admin",
           "rect": {
-            "x": 430,
+            "x": 426.296875,
             "y": 32,
-            "width": 82,
-            "height": 85
+            "width": 97.53125,
+            "height": 57
           },
           "color": "rgb(234, 242, 255)",
           "display": "flex"
@@ -720,10 +864,10 @@
         {
           "text": "软件版本v1.0.2",
           "rect": {
-            "x": 512,
+            "x": 523.828125,
             "y": 32,
-            "width": 112,
-            "height": 85
+            "width": 118.4375,
+            "height": 57
           },
           "color": "rgb(234, 242, 255)",
           "display": "flex"
@@ -736,6 +880,10 @@
       "width": 1366,
       "height": 768,
       "filename": "realtime-curve_1366x768.png",
+      "interaction": {
+        "name": "realtime-curve",
+        "skipped": "already exercised at 1920x1080"
+      },
       "renderer_console_errors": [],
       "renderer_page_errors": [],
       "location": "#/realtime-curve",
@@ -749,6 +897,7 @@
       "white_controls": 0,
       "chart_canvas_count": 7,
       "failed_to_fetch_banner": false,
+      "sidebar_collapsed": false,
       "layout_rects": {
         "shell": {
           "x": 0,
@@ -762,18 +911,25 @@
           "width": 188,
           "height": 768
         },
+        "main": {
+          "x": 188,
+          "y": 0,
+          "width": 1178,
+          "height": 768
+        },
         "topbar": {
           "x": 188,
           "y": 32,
           "width": 1178,
-          "height": 86
+          "height": 58
         },
         "content": {
           "x": 188,
-          "y": 118,
+          "y": 90,
           "width": 1178,
-          "height": 650
-        }
+          "height": 678
+        },
+        "sidebar_expand": null
       },
       "topbar_cells": [
         {
@@ -781,19 +937,19 @@
           "rect": {
             "x": 188,
             "y": 32,
-            "width": 134,
-            "height": 85
+            "width": 104.375,
+            "height": 57
           },
           "color": "rgb(234, 242, 255)",
           "display": "flex"
         },
         {
-          "text": "用户op01",
+          "text": "用户e2e-admin · admin",
           "rect": {
-            "x": 322,
+            "x": 292.375,
             "y": 32,
-            "width": 76,
-            "height": 85
+            "width": 69.59375,
+            "height": 57
           },
           "color": "rgb(234, 242, 255)",
           "display": "flex"
@@ -801,10 +957,10 @@
         {
           "text": "软件版本v1.0.2",
           "rect": {
-            "x": 398,
+            "x": 361.96875,
             "y": 32,
-            "width": 104,
-            "height": 85
+            "width": 84.515625,
+            "height": 57
           },
           "color": "rgb(234, 242, 255)",
           "display": "flex"
@@ -817,6 +973,16 @@
       "width": 1920,
       "height": 1080,
       "filename": "manual-control_1920x1080.png",
+      "interaction": {
+        "name": "manual-control",
+        "clicked": [
+          "select-neutral-local-only"
+        ],
+        "assertions": {
+          "feedback_rules": true,
+          "motion_not_sent": true
+        }
+      },
       "renderer_console_errors": [],
       "renderer_page_errors": [],
       "location": "#/manual-control",
@@ -830,6 +996,7 @@
       "white_controls": 0,
       "chart_canvas_count": 2,
       "failed_to_fetch_banner": false,
+      "sidebar_collapsed": false,
       "layout_rects": {
         "shell": {
           "x": 0,
@@ -843,18 +1010,25 @@
           "width": 280,
           "height": 1040
         },
+        "main": {
+          "x": 280,
+          "y": 0,
+          "width": 1640,
+          "height": 1040
+        },
         "topbar": {
           "x": 280,
           "y": 32,
           "width": 1640,
-          "height": 86
+          "height": 58
         },
         "content": {
           "x": 280,
-          "y": 118,
+          "y": 90,
           "width": 1640,
-          "height": 922
-        }
+          "height": 950
+        },
+        "sidebar_expand": null
       },
       "topbar_cells": [
         {
@@ -862,19 +1036,19 @@
           "rect": {
             "x": 280,
             "y": 32,
-            "width": 150,
-            "height": 85
+            "width": 146.296875,
+            "height": 57
           },
           "color": "rgb(234, 242, 255)",
           "display": "flex"
         },
         {
-          "text": "用户op01",
+          "text": "用户e2e-admin · admin",
           "rect": {
-            "x": 430,
+            "x": 426.296875,
             "y": 32,
-            "width": 82,
-            "height": 85
+            "width": 97.53125,
+            "height": 57
           },
           "color": "rgb(234, 242, 255)",
           "display": "flex"
@@ -882,10 +1056,10 @@
         {
           "text": "软件版本v1.0.2",
           "rect": {
-            "x": 512,
+            "x": 523.828125,
             "y": 32,
-            "width": 112,
-            "height": 85
+            "width": 118.4375,
+            "height": 57
           },
           "color": "rgb(234, 242, 255)",
           "display": "flex"
@@ -898,6 +1072,10 @@
       "width": 1366,
       "height": 768,
       "filename": "manual-control_1366x768.png",
+      "interaction": {
+        "name": "manual-control",
+        "skipped": "already exercised at 1920x1080"
+      },
       "renderer_console_errors": [],
       "renderer_page_errors": [],
       "location": "#/manual-control",
@@ -911,6 +1089,7 @@
       "white_controls": 0,
       "chart_canvas_count": 0,
       "failed_to_fetch_banner": false,
+      "sidebar_collapsed": false,
       "layout_rects": {
         "shell": {
           "x": 0,
@@ -924,18 +1103,25 @@
           "width": 188,
           "height": 768
         },
+        "main": {
+          "x": 188,
+          "y": 0,
+          "width": 1178,
+          "height": 768
+        },
         "topbar": {
           "x": 188,
           "y": 32,
           "width": 1178,
-          "height": 86
+          "height": 58
         },
         "content": {
           "x": 188,
-          "y": 118,
+          "y": 90,
           "width": 1178,
-          "height": 650
-        }
+          "height": 678
+        },
+        "sidebar_expand": null
       },
       "topbar_cells": [
         {
@@ -943,19 +1129,19 @@
           "rect": {
             "x": 188,
             "y": 32,
-            "width": 134,
-            "height": 85
+            "width": 104.375,
+            "height": 57
           },
           "color": "rgb(234, 242, 255)",
           "display": "flex"
         },
         {
-          "text": "用户op01",
+          "text": "用户e2e-admin · admin",
           "rect": {
-            "x": 322,
+            "x": 292.375,
             "y": 32,
-            "width": 76,
-            "height": 85
+            "width": 69.59375,
+            "height": 57
           },
           "color": "rgb(234, 242, 255)",
           "display": "flex"
@@ -963,10 +1149,10 @@
         {
           "text": "软件版本v1.0.2",
           "rect": {
-            "x": 398,
+            "x": 361.96875,
             "y": 32,
-            "width": 104,
-            "height": 85
+            "width": 84.515625,
+            "height": 57
           },
           "color": "rgb(234, 242, 255)",
           "display": "flex"
@@ -979,6 +1165,15 @@
       "width": 1920,
       "height": 1080,
       "filename": "auto-test_1920x1080.png",
+      "interaction": {
+        "name": "auto-test",
+        "clicked": [
+          "view-mock-session-logs"
+        ],
+        "assertions": {
+          "session_visible": true
+        }
+      },
       "renderer_console_errors": [],
       "renderer_page_errors": [],
       "location": "#/auto-test",
@@ -992,6 +1187,7 @@
       "white_controls": 0,
       "chart_canvas_count": 1,
       "failed_to_fetch_banner": false,
+      "sidebar_collapsed": false,
       "layout_rects": {
         "shell": {
           "x": 0,
@@ -1005,18 +1201,25 @@
           "width": 280,
           "height": 1040
         },
+        "main": {
+          "x": 280,
+          "y": 0,
+          "width": 1640,
+          "height": 1040
+        },
         "topbar": {
           "x": 280,
           "y": 32,
           "width": 1640,
-          "height": 86
+          "height": 58
         },
         "content": {
           "x": 280,
-          "y": 118,
+          "y": 90,
           "width": 1640,
-          "height": 922
-        }
+          "height": 950
+        },
+        "sidebar_expand": null
       },
       "topbar_cells": [
         {
@@ -1024,19 +1227,19 @@
           "rect": {
             "x": 280,
             "y": 32,
-            "width": 150,
-            "height": 85
+            "width": 146.296875,
+            "height": 57
           },
           "color": "rgb(234, 242, 255)",
           "display": "flex"
         },
         {
-          "text": "用户op01",
+          "text": "用户e2e-admin · admin",
           "rect": {
-            "x": 430,
+            "x": 426.296875,
             "y": 32,
-            "width": 82,
-            "height": 85
+            "width": 97.53125,
+            "height": 57
           },
           "color": "rgb(234, 242, 255)",
           "display": "flex"
@@ -1044,10 +1247,10 @@
         {
           "text": "软件版本v1.0.2",
           "rect": {
-            "x": 512,
+            "x": 523.828125,
             "y": 32,
-            "width": 112,
-            "height": 85
+            "width": 118.4375,
+            "height": 57
           },
           "color": "rgb(234, 242, 255)",
           "display": "flex"
@@ -1060,6 +1263,10 @@
       "width": 1366,
       "height": 768,
       "filename": "auto-test_1366x768.png",
+      "interaction": {
+        "name": "auto-test",
+        "skipped": "already exercised at 1920x1080"
+      },
       "renderer_console_errors": [],
       "renderer_page_errors": [],
       "location": "#/auto-test",
@@ -1073,6 +1280,7 @@
       "white_controls": 0,
       "chart_canvas_count": 1,
       "failed_to_fetch_banner": false,
+      "sidebar_collapsed": false,
       "layout_rects": {
         "shell": {
           "x": 0,
@@ -1086,18 +1294,25 @@
           "width": 188,
           "height": 768
         },
+        "main": {
+          "x": 188,
+          "y": 0,
+          "width": 1178,
+          "height": 768
+        },
         "topbar": {
           "x": 188,
           "y": 32,
           "width": 1178,
-          "height": 86
+          "height": 58
         },
         "content": {
           "x": 188,
-          "y": 118,
+          "y": 90,
           "width": 1178,
-          "height": 650
-        }
+          "height": 678
+        },
+        "sidebar_expand": null
       },
       "topbar_cells": [
         {
@@ -1105,19 +1320,19 @@
           "rect": {
             "x": 188,
             "y": 32,
-            "width": 134,
-            "height": 85
+            "width": 104.375,
+            "height": 57
           },
           "color": "rgb(234, 242, 255)",
           "display": "flex"
         },
         {
-          "text": "用户op01",
+          "text": "用户e2e-admin · admin",
           "rect": {
-            "x": 322,
+            "x": 292.375,
             "y": 32,
-            "width": 76,
-            "height": 85
+            "width": 69.59375,
+            "height": 57
           },
           "color": "rgb(234, 242, 255)",
           "display": "flex"
@@ -1125,10 +1340,10 @@
         {
           "text": "软件版本v1.0.2",
           "rect": {
-            "x": 398,
+            "x": 361.96875,
             "y": 32,
-            "width": 104,
-            "height": 85
+            "width": 84.515625,
+            "height": 57
           },
           "color": "rgb(234, 242, 255)",
           "display": "flex"
@@ -1141,6 +1356,15 @@
       "width": 1920,
       "height": 1080,
       "filename": "alarm-diagnosis_1920x1080.png",
+      "interaction": {
+        "name": "alarm-diagnosis",
+        "clicked": [
+          "save-diagnosis-layout"
+        ],
+        "assertions": {
+          "write_feedback": true
+        }
+      },
       "renderer_console_errors": [],
       "renderer_page_errors": [],
       "location": "#/alarm-diagnosis",
@@ -1154,6 +1378,7 @@
       "white_controls": 0,
       "chart_canvas_count": 2,
       "failed_to_fetch_banner": false,
+      "sidebar_collapsed": false,
       "layout_rects": {
         "shell": {
           "x": 0,
@@ -1167,18 +1392,25 @@
           "width": 280,
           "height": 1040
         },
+        "main": {
+          "x": 280,
+          "y": 0,
+          "width": 1640,
+          "height": 1040
+        },
         "topbar": {
           "x": 280,
           "y": 32,
           "width": 1640,
-          "height": 86
+          "height": 58
         },
         "content": {
           "x": 280,
-          "y": 118,
+          "y": 90,
           "width": 1640,
-          "height": 922
-        }
+          "height": 950
+        },
+        "sidebar_expand": null
       },
       "topbar_cells": [
         {
@@ -1186,19 +1418,19 @@
           "rect": {
             "x": 280,
             "y": 32,
-            "width": 150,
-            "height": 85
+            "width": 146.296875,
+            "height": 57
           },
           "color": "rgb(234, 242, 255)",
           "display": "flex"
         },
         {
-          "text": "用户op01",
+          "text": "用户e2e-admin · admin",
           "rect": {
-            "x": 430,
+            "x": 426.296875,
             "y": 32,
-            "width": 82,
-            "height": 85
+            "width": 97.53125,
+            "height": 57
           },
           "color": "rgb(234, 242, 255)",
           "display": "flex"
@@ -1206,10 +1438,10 @@
         {
           "text": "软件版本v1.0.2",
           "rect": {
-            "x": 512,
+            "x": 523.828125,
             "y": 32,
-            "width": 112,
-            "height": 85
+            "width": 118.4375,
+            "height": 57
           },
           "color": "rgb(234, 242, 255)",
           "display": "flex"
@@ -1222,6 +1454,10 @@
       "width": 1366,
       "height": 768,
       "filename": "alarm-diagnosis_1366x768.png",
+      "interaction": {
+        "name": "alarm-diagnosis",
+        "skipped": "already exercised at 1920x1080"
+      },
       "renderer_console_errors": [],
       "renderer_page_errors": [],
       "location": "#/alarm-diagnosis",
@@ -1233,8 +1469,9 @@
       "root_scroll_height": 768,
       "root_client_height": 768,
       "white_controls": 0,
-      "chart_canvas_count": 0,
+      "chart_canvas_count": 2,
       "failed_to_fetch_banner": false,
+      "sidebar_collapsed": false,
       "layout_rects": {
         "shell": {
           "x": 0,
@@ -1248,18 +1485,25 @@
           "width": 188,
           "height": 768
         },
+        "main": {
+          "x": 188,
+          "y": 0,
+          "width": 1178,
+          "height": 768
+        },
         "topbar": {
           "x": 188,
           "y": 32,
           "width": 1178,
-          "height": 86
+          "height": 58
         },
         "content": {
           "x": 188,
-          "y": 118,
+          "y": 90,
           "width": 1178,
-          "height": 650
-        }
+          "height": 678
+        },
+        "sidebar_expand": null
       },
       "topbar_cells": [
         {
@@ -1267,19 +1511,19 @@
           "rect": {
             "x": 188,
             "y": 32,
-            "width": 134,
-            "height": 85
+            "width": 104.375,
+            "height": 57
           },
           "color": "rgb(234, 242, 255)",
           "display": "flex"
         },
         {
-          "text": "用户op01",
+          "text": "用户e2e-admin · admin",
           "rect": {
-            "x": 322,
+            "x": 292.375,
             "y": 32,
-            "width": 76,
-            "height": 85
+            "width": 69.59375,
+            "height": 57
           },
           "color": "rgb(234, 242, 255)",
           "display": "flex"
@@ -1287,10 +1531,10 @@
         {
           "text": "软件版本v1.0.2",
           "rect": {
-            "x": 398,
+            "x": 361.96875,
             "y": 32,
-            "width": 104,
-            "height": 85
+            "width": 84.515625,
+            "height": 57
           },
           "color": "rgb(234, 242, 255)",
           "display": "flex"
@@ -1303,6 +1547,16 @@
       "width": 1920,
       "height": 1080,
       "filename": "report-management_1920x1080.png",
+      "interaction": {
+        "name": "report-management",
+        "clicked": [
+          "scan-reports",
+          "preview-json"
+        ],
+        "assertions": {
+          "report_selected": true
+        }
+      },
       "renderer_console_errors": [],
       "renderer_page_errors": [],
       "location": "#/report-management",
@@ -1316,6 +1570,7 @@
       "white_controls": 0,
       "chart_canvas_count": 3,
       "failed_to_fetch_banner": false,
+      "sidebar_collapsed": false,
       "layout_rects": {
         "shell": {
           "x": 0,
@@ -1329,18 +1584,25 @@
           "width": 280,
           "height": 1040
         },
+        "main": {
+          "x": 280,
+          "y": 0,
+          "width": 1640,
+          "height": 1040
+        },
         "topbar": {
           "x": 280,
           "y": 32,
           "width": 1640,
-          "height": 86
+          "height": 58
         },
         "content": {
           "x": 280,
-          "y": 118,
+          "y": 90,
           "width": 1640,
-          "height": 922
-        }
+          "height": 950
+        },
+        "sidebar_expand": null
       },
       "topbar_cells": [
         {
@@ -1348,19 +1610,19 @@
           "rect": {
             "x": 280,
             "y": 32,
-            "width": 150,
-            "height": 85
+            "width": 146.296875,
+            "height": 57
           },
           "color": "rgb(234, 242, 255)",
           "display": "flex"
         },
         {
-          "text": "用户op01",
+          "text": "用户e2e-admin · admin",
           "rect": {
-            "x": 430,
+            "x": 426.296875,
             "y": 32,
-            "width": 82,
-            "height": 85
+            "width": 97.53125,
+            "height": 57
           },
           "color": "rgb(234, 242, 255)",
           "display": "flex"
@@ -1368,10 +1630,10 @@
         {
           "text": "软件版本v1.0.2",
           "rect": {
-            "x": 512,
+            "x": 523.828125,
             "y": 32,
-            "width": 112,
-            "height": 85
+            "width": 118.4375,
+            "height": 57
           },
           "color": "rgb(234, 242, 255)",
           "display": "flex"
@@ -1384,6 +1646,10 @@
       "width": 1366,
       "height": 768,
       "filename": "report-management_1366x768.png",
+      "interaction": {
+        "name": "report-management",
+        "skipped": "already exercised at 1920x1080"
+      },
       "renderer_console_errors": [],
       "renderer_page_errors": [],
       "location": "#/report-management",
@@ -1397,6 +1663,7 @@
       "white_controls": 0,
       "chart_canvas_count": 3,
       "failed_to_fetch_banner": false,
+      "sidebar_collapsed": false,
       "layout_rects": {
         "shell": {
           "x": 0,
@@ -1410,18 +1677,25 @@
           "width": 188,
           "height": 768
         },
+        "main": {
+          "x": 188,
+          "y": 0,
+          "width": 1178,
+          "height": 768
+        },
         "topbar": {
           "x": 188,
           "y": 32,
           "width": 1178,
-          "height": 86
+          "height": 58
         },
         "content": {
           "x": 188,
-          "y": 118,
+          "y": 90,
           "width": 1178,
-          "height": 650
-        }
+          "height": 678
+        },
+        "sidebar_expand": null
       },
       "topbar_cells": [
         {
@@ -1429,19 +1703,19 @@
           "rect": {
             "x": 188,
             "y": 32,
-            "width": 134,
-            "height": 85
+            "width": 104.375,
+            "height": 57
           },
           "color": "rgb(234, 242, 255)",
           "display": "flex"
         },
         {
-          "text": "用户op01",
+          "text": "用户e2e-admin · admin",
           "rect": {
-            "x": 322,
+            "x": 292.375,
             "y": 32,
-            "width": 76,
-            "height": 85
+            "width": 69.59375,
+            "height": 57
           },
           "color": "rgb(234, 242, 255)",
           "display": "flex"
@@ -1449,10 +1723,10 @@
         {
           "text": "软件版本v1.0.2",
           "rect": {
-            "x": 398,
+            "x": 361.96875,
             "y": 32,
-            "width": 104,
-            "height": 85
+            "width": 84.515625,
+            "height": 57
           },
           "color": "rgb(234, 242, 255)",
           "display": "flex"
@@ -1465,6 +1739,17 @@
       "width": 1920,
       "height": 1080,
       "filename": "history_1920x1080.png",
+      "interaction": {
+        "name": "history",
+        "clicked": [
+          "filter-history",
+          "query-history",
+          "paginate-history"
+        ],
+        "assertions": {
+          "pagination_present": true
+        }
+      },
       "renderer_console_errors": [],
       "renderer_page_errors": [],
       "location": "#/history",
@@ -1478,6 +1763,7 @@
       "white_controls": 0,
       "chart_canvas_count": 2,
       "failed_to_fetch_banner": false,
+      "sidebar_collapsed": false,
       "layout_rects": {
         "shell": {
           "x": 0,
@@ -1491,18 +1777,25 @@
           "width": 280,
           "height": 1040
         },
+        "main": {
+          "x": 280,
+          "y": 0,
+          "width": 1640,
+          "height": 1040
+        },
         "topbar": {
           "x": 280,
           "y": 32,
           "width": 1640,
-          "height": 86
+          "height": 58
         },
         "content": {
           "x": 280,
-          "y": 118,
+          "y": 90,
           "width": 1640,
-          "height": 922
-        }
+          "height": 950
+        },
+        "sidebar_expand": null
       },
       "topbar_cells": [
         {
@@ -1510,19 +1803,19 @@
           "rect": {
             "x": 280,
             "y": 32,
-            "width": 150,
-            "height": 85
+            "width": 146.296875,
+            "height": 57
           },
           "color": "rgb(234, 242, 255)",
           "display": "flex"
         },
         {
-          "text": "用户op01",
+          "text": "用户e2e-admin · admin",
           "rect": {
-            "x": 430,
+            "x": 426.296875,
             "y": 32,
-            "width": 82,
-            "height": 85
+            "width": 97.53125,
+            "height": 57
           },
           "color": "rgb(234, 242, 255)",
           "display": "flex"
@@ -1530,10 +1823,10 @@
         {
           "text": "软件版本v1.0.2",
           "rect": {
-            "x": 512,
+            "x": 523.828125,
             "y": 32,
-            "width": 112,
-            "height": 85
+            "width": 118.4375,
+            "height": 57
           },
           "color": "rgb(234, 242, 255)",
           "display": "flex"
@@ -1546,6 +1839,10 @@
       "width": 1366,
       "height": 768,
       "filename": "history_1366x768.png",
+      "interaction": {
+        "name": "history",
+        "skipped": "already exercised at 1920x1080"
+      },
       "renderer_console_errors": [],
       "renderer_page_errors": [],
       "location": "#/history",
@@ -1559,6 +1856,7 @@
       "white_controls": 0,
       "chart_canvas_count": 2,
       "failed_to_fetch_banner": false,
+      "sidebar_collapsed": false,
       "layout_rects": {
         "shell": {
           "x": 0,
@@ -1572,18 +1870,25 @@
           "width": 188,
           "height": 768
         },
+        "main": {
+          "x": 188,
+          "y": 0,
+          "width": 1178,
+          "height": 768
+        },
         "topbar": {
           "x": 188,
           "y": 32,
           "width": 1178,
-          "height": 86
+          "height": 58
         },
         "content": {
           "x": 188,
-          "y": 118,
+          "y": 90,
           "width": 1178,
-          "height": 650
-        }
+          "height": 678
+        },
+        "sidebar_expand": null
       },
       "topbar_cells": [
         {
@@ -1591,19 +1896,19 @@
           "rect": {
             "x": 188,
             "y": 32,
-            "width": 134,
-            "height": 85
+            "width": 104.375,
+            "height": 57
           },
           "color": "rgb(234, 242, 255)",
           "display": "flex"
         },
         {
-          "text": "用户op01",
+          "text": "用户e2e-admin · admin",
           "rect": {
-            "x": 322,
+            "x": 292.375,
             "y": 32,
-            "width": 76,
-            "height": 85
+            "width": 69.59375,
+            "height": 57
           },
           "color": "rgb(234, 242, 255)",
           "display": "flex"
@@ -1611,10 +1916,10 @@
         {
           "text": "软件版本v1.0.2",
           "rect": {
-            "x": 398,
+            "x": 361.96875,
             "y": 32,
-            "width": 104,
-            "height": 85
+            "width": 84.515625,
+            "height": 57
           },
           "color": "rgb(234, 242, 255)",
           "display": "flex"
@@ -1627,6 +1932,16 @@
       "width": 1920,
       "height": 1080,
       "filename": "system-settings_1920x1080.png",
+      "interaction": {
+        "name": "system-settings",
+        "clicked": [
+          "config-import-dry-run"
+        ],
+        "assertions": {
+          "dry_run_preview": true,
+          "not_applied": true
+        }
+      },
       "renderer_console_errors": [],
       "renderer_page_errors": [],
       "location": "#/system-settings",
@@ -1640,6 +1955,7 @@
       "white_controls": 0,
       "chart_canvas_count": 1,
       "failed_to_fetch_banner": false,
+      "sidebar_collapsed": false,
       "layout_rects": {
         "shell": {
           "x": 0,
@@ -1653,18 +1969,25 @@
           "width": 280,
           "height": 1040
         },
+        "main": {
+          "x": 280,
+          "y": 0,
+          "width": 1640,
+          "height": 1040
+        },
         "topbar": {
           "x": 280,
           "y": 32,
           "width": 1640,
-          "height": 86
+          "height": 58
         },
         "content": {
           "x": 280,
-          "y": 118,
+          "y": 90,
           "width": 1640,
-          "height": 922
-        }
+          "height": 950
+        },
+        "sidebar_expand": null
       },
       "topbar_cells": [
         {
@@ -1672,19 +1995,19 @@
           "rect": {
             "x": 280,
             "y": 32,
-            "width": 150,
-            "height": 85
+            "width": 146.296875,
+            "height": 57
           },
           "color": "rgb(234, 242, 255)",
           "display": "flex"
         },
         {
-          "text": "用户op01",
+          "text": "用户e2e-admin · admin",
           "rect": {
-            "x": 430,
+            "x": 426.296875,
             "y": 32,
-            "width": 82,
-            "height": 85
+            "width": 97.53125,
+            "height": 57
           },
           "color": "rgb(234, 242, 255)",
           "display": "flex"
@@ -1692,10 +2015,10 @@
         {
           "text": "软件版本v1.0.2",
           "rect": {
-            "x": 512,
+            "x": 523.828125,
             "y": 32,
-            "width": 112,
-            "height": 85
+            "width": 118.4375,
+            "height": 57
           },
           "color": "rgb(234, 242, 255)",
           "display": "flex"
@@ -1708,6 +2031,10 @@
       "width": 1366,
       "height": 768,
       "filename": "system-settings_1366x768.png",
+      "interaction": {
+        "name": "system-settings",
+        "skipped": "already exercised at 1920x1080"
+      },
       "renderer_console_errors": [],
       "renderer_page_errors": [],
       "location": "#/system-settings",
@@ -1721,6 +2048,7 @@
       "white_controls": 0,
       "chart_canvas_count": 1,
       "failed_to_fetch_banner": false,
+      "sidebar_collapsed": false,
       "layout_rects": {
         "shell": {
           "x": 0,
@@ -1734,18 +2062,25 @@
           "width": 188,
           "height": 768
         },
+        "main": {
+          "x": 188,
+          "y": 0,
+          "width": 1178,
+          "height": 768
+        },
         "topbar": {
           "x": 188,
           "y": 32,
           "width": 1178,
-          "height": 86
+          "height": 58
         },
         "content": {
           "x": 188,
-          "y": 118,
+          "y": 90,
           "width": 1178,
-          "height": 650
-        }
+          "height": 678
+        },
+        "sidebar_expand": null
       },
       "topbar_cells": [
         {
@@ -1753,19 +2088,19 @@
           "rect": {
             "x": 188,
             "y": 32,
-            "width": 134,
-            "height": 85
+            "width": 104.375,
+            "height": 57
           },
           "color": "rgb(234, 242, 255)",
           "display": "flex"
         },
         {
-          "text": "用户op01",
+          "text": "用户e2e-admin · admin",
           "rect": {
-            "x": 322,
+            "x": 292.375,
             "y": 32,
-            "width": 76,
-            "height": 85
+            "width": 69.59375,
+            "height": 57
           },
           "color": "rgb(234, 242, 255)",
           "display": "flex"
@@ -1773,10 +2108,10 @@
         {
           "text": "软件版本v1.0.2",
           "rect": {
-            "x": 398,
+            "x": 361.96875,
             "y": 32,
-            "width": 104,
-            "height": 85
+            "width": 84.515625,
+            "height": 57
           },
           "color": "rgb(234, 242, 255)",
           "display": "flex"

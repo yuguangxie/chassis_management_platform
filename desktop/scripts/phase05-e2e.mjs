@@ -1,6 +1,7 @@
 /* Reproducible loopback-only quality run: backend, simulator, renderer and safety fallback. */
 import { once } from 'node:events'
 import { spawn } from 'node:child_process'
+import { randomBytes } from 'node:crypto'
 import { createSocket } from 'node:dgram'
 import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
 import { dirname, resolve } from 'node:path'
@@ -8,7 +9,9 @@ import { fileURLToPath } from 'node:url'
 
 const desktop = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const root = resolve(desktop, '..')
-const output = resolve(root, 'docs/verification/phase-05/e2e')
+const output = process.env.CHASSIS_E2E_OUTPUT
+  ? resolve(root, process.env.CHASSIS_E2E_OUTPUT)
+  : resolve(root, 'docs/verification/phase-05/e2e')
 const python = resolve(root, `backend/.venv/${process.platform === 'win32' ? 'Scripts/python.exe' : 'bin/python'}`)
 const electronLauncher = resolve(desktop, process.platform === 'win32' ? 'node_modules/.bin/electron.cmd' : 'node_modules/.bin/electron')
 const electron = resolve(desktop, process.platform === 'win32' ? 'node_modules/electron/dist/electron.exe' : 'node_modules/.bin/electron')
@@ -103,6 +106,22 @@ async function waitFor(url, label) {
   throw new Error(`${label} did not start: ${lastError}`)
 }
 
+async function postJson(url, body, token) {
+  const headers = { 'Content-Type': 'application/json' }
+  if (token) headers.Authorization = `Bearer ${token}`
+  const response = await fetch(url, { method:'POST', headers, body:JSON.stringify(body) })
+  const payload = response.status === 204 ? null : await response.json()
+  if (!response.ok) throw new Error(`request failed (${response.status}) at ${new URL(url).pathname}: ${JSON.stringify(payload)}`)
+  return payload
+}
+
+async function getJson(url, token) {
+  const response = await fetch(url, { headers: token ? { Authorization: `Bearer ${token}` } : {} })
+  const payload = await response.json()
+  if (!response.ok) throw new Error(`request failed (${response.status}) at ${new URL(url).pathname}: ${JSON.stringify(payload)}`)
+  return payload
+}
+
 async function stop(child) {
   if (!child || child.exitCode !== null) return
   const waitForExit = () => Promise.race([
@@ -140,13 +159,26 @@ async function main() {
   writeFileSync(resolve(output, 'electron-version.txt'), `${electronVersion}\n`)
   const udpBase = await chooseUdpBase()
   const apiBase = `http://127.0.0.1:${apiPort}/api/v1`
+  const bootstrapSecret = randomBytes(32).toString('base64url')
+  const configSigningKey = randomBytes(48).toString('base64url')
+  const passwords = {
+    admin: `A-${randomBytes(18).toString('base64url')}9!`,
+    viewer: `V-${randomBytes(18).toString('base64url')}9!`,
+    operator: `O-${randomBytes(18).toString('base64url')}9!`,
+    engineer: `E-${randomBytes(18).toString('base64url')}9!`,
+  }
   const env = {
     ...process.env,
     CHASSIS_RUNTIME_PROFILE: 'test',
     CHASSIS_DATA_DIR: resolve(output, 'runtime-data'),
     CHASSIS_TEST_PORT_BASE: String(udpBase),
     CHASSIS_API_BASE: apiBase,
-    CHASSIS_WS_URL: `ws://127.0.0.1:${apiPort}/ws?token=dev-viewer-token`,
+    CHASSIS_WS_URL: `ws://127.0.0.1:${apiPort}/ws`,
+    VITE_API_BASE: apiBase,
+    VITE_WS_URL: `ws://127.0.0.1:${apiPort}/ws`,
+    CHASSIS_ALLOWED_UI_ORIGINS: `http://127.0.0.1:${webPort}`,
+    CHASSIS_BOOTSTRAP_SECRET: bootstrapSecret,
+    CHASSIS_CONFIG_SIGNING_KEY: configSigningKey,
     CHASSIS_CAN1_PORT: String(udpBase),
     CHASSIS_CAN2_PORT: String(udpBase + 1),
     PYTHONPATH: resolve(root, 'backend'),
@@ -164,9 +196,31 @@ async function main() {
   let backend
   let simulator
   let frontend
+  let viewerToken = ''
+  let operatorToken = ''
+  let engineerToken = ''
   try {
     backend = start('backend', python, ['-m', 'uvicorn', 'app.main:app', '--host', '127.0.0.1', '--port', String(apiPort)], { env })
     await waitFor(`${apiBase}/health`, 'FastAPI')
+    const admin = await postJson(`${apiBase}/auth/bootstrap`, { bootstrap_secret:bootstrapSecret, username:'e2e-admin', password:passwords.admin })
+    for (const role of ['viewer', 'operator', 'engineer']) {
+      await postJson(`${apiBase}/auth/accounts`, { username:`e2e-${role}`, password:passwords[role], role }, admin.token)
+    }
+    viewerToken = (await postJson(`${apiBase}/auth/login`, { username:'e2e-viewer', password:passwords.viewer })).token
+    operatorToken = (await postJson(`${apiBase}/auth/login`, { username:'e2e-operator', password:passwords.operator })).token
+    engineerToken = (await postJson(`${apiBase}/auth/login`, { username:'e2e-engineer', password:passwords.engineer })).token
+    const mockSession = await postJson(`${apiBase}/eol/sessions`, {
+      chassis_no:'MOCK-E2E-001', vin:'LMOCKE2E00000001', serial_no:'MOCK-E2E-SN', station_id:'LOOPBACK-E2E',
+      plan_id:'default_chassis_eol_v1', remarks:'Electron loopback UI interaction evidence',
+    }, operatorToken)
+    const mockSessionId = mockSession.id || mockSession.session_id
+    if (!mockSessionId) throw new Error('mock EOL session did not return an id')
+    const generatedReport = await postJson(`${apiBase}/eol/sessions/${encodeURIComponent(mockSessionId)}/report`, {}, operatorToken)
+    const configExport = await getJson(`${apiBase}/config/export`, admin.token)
+    const configPackagePath = resolve(output, 'signed-config-dry-run.json')
+    writeFileSync(configPackagePath, JSON.stringify(configExport.package, null, 2))
+    result.mockSession = { session_id:mockSessionId, report_generated:Boolean(generatedReport.ok) }
+    const authenticatedEnv = { ...env, CHASSIS_API_TOKEN:viewerToken }
     simulator = start('simulator', python, [
       'scripts/dev_simulator.py', '--profile', 'normal_pass', '--rate-hz', '60',
       '--can1-target', `127.0.0.1:${udpBase}`, '--can2-target', `127.0.0.1:${udpBase + 1}`,
@@ -177,10 +231,10 @@ async function main() {
     await wait(1800)
 
     if (runtime) {
-      await command(python, ['scripts/verify_phase04_runtime.py', '--output', resolve(output, 'runtime'), '--duration', '4'], env, 'runtime')
+      await command(python, ['scripts/verify_phase04_runtime.py', '--output', resolve(output, 'runtime'), '--duration', '4'], authenticatedEnv, 'runtime')
     }
     if (longRun) {
-      await command(python, ['scripts/verify_phase04_stress.py', '--output', resolve(output, 'stress-10m'), '--duration', '600', '--backend-pid', String(backend.pid)], env, 'stress-10m')
+      await command(python, ['scripts/verify_phase04_stress.py', '--output', resolve(output, 'stress-10m'), '--duration', '600', '--backend-pid', String(backend.pid)], authenticatedEnv, 'stress-10m')
     }
     const captureScript = resolve(desktop, 'electron/phase04_capture.cjs')
     await command(electron, [captureScript], {
@@ -188,8 +242,22 @@ async function main() {
       PHASE04_TARGET_URL: `http://127.0.0.1:${webPort}`,
       PHASE04_ELECTRON_OUTPUT: resolve(output, 'screenshots'),
       PHASE04_CAPTURE_DELAY_MS: '1000',
+      PHASE04_API_TOKEN: admin.token,
+      PHASE04_VIEWER_TOKEN: viewerToken,
+      PHASE04_CONFIG_PACKAGE: configPackagePath,
+      PHASE04_MOCK_SESSION_ID: mockSessionId,
     }, 'renderer-capture')
-    const inspections = JSON.parse(readFileSync(resolve(output, 'screenshots/page_capture_metrics.json'), 'utf8')).inspections
+    const captureMetrics = JSON.parse(readFileSync(resolve(output, 'screenshots/page_capture_metrics.json'), 'utf8'))
+    const inspections = captureMetrics.inspections
+    result.authentication = captureMetrics.authentication
+    result.permission = captureMetrics.permission
+    const interactionRows = inspections.filter((item) => item.width === 1920)
+    result.interaction_assertions = {
+      pages_exercised: interactionRows.length,
+      every_page_clicked: interactionRows.every((item) => Array.isArray(item.interaction.clicked) && item.interaction.clicked.length > 0),
+      every_assertion_passed: interactionRows.every((item) => Object.values(item.interaction.assertions || {}).every(Boolean)),
+      details: interactionRows.map((item) => ({ page:item.page, ...item.interaction })),
+    }
     result.screenshot_assertions = {
       captures: inspections.length,
       no_page_scroll: inspections.every((item) => !item.page_scrollable),
@@ -203,9 +271,9 @@ async function main() {
     simulator = undefined
     const simulatorStoppedAt = performance.now()
     await wait(2300)
-    const channels = await fetch(`${apiBase}/can/channels/status`, { headers: { Authorization: 'Bearer dev-viewer-token' } }).then((response) => response.json())
+    const channels = await fetch(`${apiBase}/can/channels/status`, { headers: { Authorization: `Bearer ${viewerToken}` } }).then((response) => response.json())
     const control = await fetch(`${apiBase}/control/121/send-once`, {
-      method: 'POST', headers: { Authorization: 'Bearer dev-engineer-token', 'Content-Type': 'application/json' },
+      method: 'POST', headers: { Authorization: `Bearer ${engineerToken}`, 'Content-Type': 'application/json' },
       body: JSON.stringify({ gear: 'D', drive_mode: 'Remote', target_speed: 1, front_steer: 0, rear_steer: 0, brake_enable: false }),
     })
     result.stale_online = { channels, control_status: control.status, control_body: await control.json() }
@@ -230,6 +298,12 @@ async function main() {
       && result.rendererConsoleErrors.length === 0
       && result.rendererPageErrors.length === 0
       && result.nonLoopbackRequests === 0
+      && Object.values(result.authentication).every(Boolean)
+      && result.permission.viewer_network_redirects_403
+      && result.mockSession.report_generated
+      && result.interaction_assertions.pages_exercised === 11
+      && result.interaction_assertions.every_page_clicked
+      && result.interaction_assertions.every_assertion_passed
       && result.screenshot_assertions.no_page_scroll
       && result.screenshot_assertions.no_white_controls
       && result.screenshot_assertions.no_failed_fetch_banner

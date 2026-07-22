@@ -1,0 +1,649 @@
+{
+  "electronVersion": "v43.1.0",
+  "pageCount": 11,
+  "viewportCount": 2,
+  "boundary": "127.0.0.1 loopback only",
+  "apiBase": "http://127.0.0.1:18800/api/v1",
+  "webPort": 15173,
+  "udpBase": 28637,
+  "passed": true,
+  "authentication": {
+    "unauthenticated_redirects_to_login": true,
+    "refresh_preserves_session": true,
+    "electron_restart_requires_login": true
+  },
+  "screenshot_assertions": {
+    "captures": 22,
+    "no_page_scroll": true,
+    "no_white_controls": true,
+    "no_failed_fetch_banner": true,
+    "no_renderer_console_errors": true,
+    "no_renderer_page_errors": true
+  },
+  "stale_online": {
+    "channels": [
+      {
+        "channel": "CAN1",
+        "online": false,
+        "transport_connected": true,
+        "receive_age_ms": 7532,
+        "queue_healthy": true,
+        "queue_depth": 0,
+        "queue_capacity": 512,
+        "queue_dropped": 0,
+        "pipeline_queue_depth": 0,
+        "pipeline_queue_capacity": 4096,
+        "pipeline_queue_dropped": 0,
+        "stale_dropped": 0,
+        "malformed_datagrams": 0,
+        "unauthorized_datagrams": 0,
+        "last_unauthorized_source": null,
+        "processing_errors": 0,
+        "fps": 198,
+        "rx_count": 6252,
+        "tx_count": 0,
+        "error_count": 0,
+        "last_frame_at": 1784728393.4918842,
+        "last_frame_hex": "01 00 00 00 00 00 00 00",
+        "protocol": "udp",
+        "local_ip": "127.0.0.1",
+        "local_port": 28637,
+        "device_ip": "127.0.0.1",
+        "device_port": 28737,
+        "recent_buffer_depth": 6252,
+        "recent_buffer_capacity": 10000
+      },
+      {
+        "channel": "CAN2",
+        "online": false,
+        "transport_connected": true,
+        "receive_age_ms": 7532,
+        "queue_healthy": true,
+        "queue_depth": 0,
+        "queue_capacity": 512,
+        "queue_dropped": 0,
+        "pipeline_queue_depth": 0,
+        "pipeline_queue_capacity": 4096,
+        "pipeline_queue_dropped": 0,
+        "stale_dropped": 0,
+        "malformed_datagrams": 0,
+        "unauthorized_datagrams": 0,
+        "last_unauthorized_source": null,
+        "processing_errors": 0,
+        "fps": 429,
+        "rx_count": 13546,
+        "tx_count": 0,
+        "error_count": 0,
+        "last_frame_at": 1784728393.4928842,
+        "last_frame_hex": "00 00 00 00 00 00 00 00",
+        "protocol": "udp",
+        "local_ip": "127.0.0.1",
+        "local_port": 28638,
+        "device_ip": "127.0.0.1",
+        "device_port": 28738,
+        "recent_buffer_depth": 10000,
+        "recent_buffer_capacity": 10000
+      }
+    ],
+    "control_status": 409,
+    "control_body": {
+      "code": "INTERLOCK_BLOCKED",
+      "message": "安全联锁阻止控制",
+      "details": {
+        "allowed": false,
+        "operation": "manual",
+        "profile": "test",
+        "degraded_mode": false,
+        "feedback_groups": [
+          "base",
+          "drive"
+        ],
+        "level": "danger",
+        "rules": [
+          {
+            "rule": "can2_online",
+            "label": "CAN2 原始接收在线",
+            "status": "FAIL",
+            "current": 7532,
+            "threshold": "< 2000 ms",
+            "blocking": true
+          },
+          {
+            "rule": "can2_queue_healthy",
+            "label": "CAN2 接收队列健康",
+            "status": "PASS",
+            "current": 0,
+            "threshold": "< 512",
+            "blocking": true
+          },
+          {
+            "rule": "single_control_channel",
+            "label": "唯一控制通道为 CAN2",
+            "status": "PASS",
+            "current": [
+              "CAN2"
+            ],
+            "threshold": [
+              "CAN2"
+            ],
+            "blocking": true
+          },
+          {
+            "rule": "dbc_ready",
+            "label": "DBC、完整哈希与车型匹配",
+            "status": "PASS",
+            "current": {
+              "loaded": true,
+              "raw_only": false,
+              "file": "D:\\workspace\\0-yunle\\7_codex\\chassis_eol_management_platform_codex_pack\\chassis_management_platform\\assets\\Yunle_CAN_integrated_candb_jd.dbc",
+              "hash": "387ae48bd84852c8a6401653f96d1f7fca2a604c90fad018db800bf548ab468c",
+              "version": "Yunle_CAN_Integrated_CANdb Release v1.0.2",
+              "vehicle_series": "JD",
+              "error": null,
+              "hash_match": null,
+              "vehicle_match": null
+            },
+            "threshold": "loaded or explicit non-production raw-only mode",
+            "blocking": true
+          },
+          {
+            "rule": "safe_stop_policy_approved",
+            "label": "安全停车保持策略已获硬件确认",
+            "status": "PASS",
+            "current": {
+              "policy": "stop_transmission",
+              "hardware_validated": false
+            },
+            "threshold": {
+              "hardware_validated": true
+            },
+            "blocking": true
+          },
+          {
+            "rule": "no_severe_alarm",
+            "label": "无严重告警或存在精确范围的双人批准",
+            "status": "PASS",
+            "current": {
+              "max_level": 0,
+              "critical_alarm_ids": [],
+              "override": {
+                "used": false
+              }
+            },
+            "threshold": "< 3 or one active, scoped and approved alarm override",
+            "blocking": true
+          },
+          {
+            "rule": "database_writable",
+            "label": "数据库可写",
+            "status": "PASS",
+            "current": true,
+            "threshold": true,
+            "blocking": true
+          },
+          {
+            "rule": "emergency_released",
+            "label": "急停未锁存",
+            "status": "PASS",
+            "current": false,
+            "threshold": false,
+            "blocking": true
+          },
+          {
+            "rule": "safe_stop_released",
+            "label": "安全停车未锁存",
+            "status": "PASS",
+            "current": false,
+            "threshold": false,
+            "blocking": true
+          },
+          {
+            "rule": "feedback_base_vehicle_speed",
+            "label": "车辆速度反馈",
+            "status": "FAIL",
+            "current": {
+              "signals": [
+                "CCU_Vehicle_Speed",
+                "Vehicle_Speed"
+              ],
+              "selected_signal": "CCU_Vehicle_Speed",
+              "value": 0,
+              "quality": "good",
+              "age_ms": 7532,
+              "received_at_monotonic": 702639.921,
+              "channel": "CAN1",
+              "can_id": "0x51",
+              "checks": {
+                "present": true,
+                "fresh": false,
+                "quality_valid": true,
+                "source_valid": true,
+                "value_valid": true
+              }
+            },
+            "threshold": {
+              "max_age_ms": 500,
+              "qualities": [
+                "good"
+              ],
+              "channel": "CAN1",
+              "can_ids": [
+                "0x168",
+                "0x51"
+              ],
+              "allowed_values": [],
+              "minimum": 0,
+              "maximum": 51.1
+            },
+            "blocking": true
+          },
+          {
+            "rule": "feedback_base_controller_heartbeat_front",
+            "label": "前控制器心跳",
+            "status": "FAIL",
+            "current": {
+              "signals": [
+                "Heartbeat_0x704"
+              ],
+              "selected_signal": "Heartbeat_0x704",
+              "value": 1,
+              "quality": "good",
+              "age_ms": 7532,
+              "received_at_monotonic": 702639.921,
+              "channel": "CAN1",
+              "can_id": "0x704",
+              "checks": {
+                "present": true,
+                "fresh": false,
+                "quality_valid": true,
+                "source_valid": true,
+                "value_valid": true
+              }
+            },
+            "threshold": {
+              "max_age_ms": 500,
+              "qualities": [
+                "good"
+              ],
+              "channel": "CAN1",
+              "can_ids": [
+                "0x704"
+              ],
+              "allowed_values": [],
+              "minimum": 0,
+              "maximum": 255
+            },
+            "blocking": true
+          },
+          {
+            "rule": "feedback_base_controller_heartbeat_rear",
+            "label": "后控制器心跳",
+            "status": "FAIL",
+            "current": {
+              "signals": [
+                "Heartbeat_0x703"
+              ],
+              "selected_signal": "Heartbeat_0x703",
+              "value": 1,
+              "quality": "good",
+              "age_ms": 7532,
+              "received_at_monotonic": 702639.921,
+              "channel": "CAN1",
+              "can_id": "0x703",
+              "checks": {
+                "present": true,
+                "fresh": false,
+                "quality_valid": true,
+                "source_valid": true,
+                "value_valid": true
+              }
+            },
+            "threshold": {
+              "max_age_ms": 500,
+              "qualities": [
+                "good"
+              ],
+              "channel": "CAN1",
+              "can_ids": [
+                "0x703"
+              ],
+              "allowed_values": [],
+              "minimum": 0,
+              "maximum": 255
+            },
+            "blocking": true
+          },
+          {
+            "rule": "feedback_drive_gear_status",
+            "label": "实际挡位反馈",
+            "status": "FAIL",
+            "current": {
+              "signals": [
+                "CCU_Shift_Level_Status"
+              ],
+              "selected_signal": "CCU_Shift_Level_Status",
+              "value": 0,
+              "quality": "good",
+              "age_ms": 7532,
+              "received_at_monotonic": 702639.921,
+              "channel": "CAN1",
+              "can_id": "0x51",
+              "checks": {
+                "present": true,
+                "fresh": false,
+                "quality_valid": true,
+                "source_valid": true,
+                "value_valid": true
+              }
+            },
+            "threshold": {
+              "max_age_ms": 500,
+              "qualities": [
+                "good"
+              ],
+              "channel": "CAN1",
+              "can_ids": [
+                "0x51"
+              ],
+              "allowed_values": [
+                0,
+                1,
+                3
+              ],
+              "minimum": null,
+              "maximum": null
+            },
+            "blocking": true
+          },
+          {
+            "rule": "feedback_drive_drive_mode",
+            "label": "驱动模式反馈",
+            "status": "FAIL",
+            "current": {
+              "signals": [
+                "CCU_Drive_Mode"
+              ],
+              "selected_signal": "CCU_Drive_Mode",
+              "value": 2,
+              "quality": "good",
+              "age_ms": 7532,
+              "received_at_monotonic": 702639.921,
+              "channel": "CAN1",
+              "can_id": "0x51",
+              "checks": {
+                "present": true,
+                "fresh": false,
+                "quality_valid": true,
+                "source_valid": true,
+                "value_valid": true
+              }
+            },
+            "threshold": {
+              "max_age_ms": 500,
+              "qualities": [
+                "good"
+              ],
+              "channel": "CAN1",
+              "can_ids": [
+                "0x51"
+              ],
+              "allowed_values": [
+                0,
+                1,
+                2,
+                3
+              ],
+              "minimum": null,
+              "maximum": null
+            },
+            "blocking": true
+          },
+          {
+            "rule": "speed_limit",
+            "label": "目标速度不超过安全上限",
+            "status": "PASS",
+            "current": 1,
+            "threshold": 3,
+            "blocking": true
+          },
+          {
+            "rule": "steering_limit",
+            "label": "前后转角在安全范围内",
+            "status": "PASS",
+            "current": [
+              0,
+              0
+            ],
+            "threshold": [
+              -120,
+              120
+            ],
+            "blocking": true
+          }
+        ],
+        "reasons": [
+          {
+            "rule": "can2_online",
+            "label": "CAN2 原始接收在线",
+            "status": "FAIL",
+            "current": 7532,
+            "threshold": "< 2000 ms",
+            "blocking": true
+          },
+          {
+            "rule": "feedback_base_vehicle_speed",
+            "label": "车辆速度反馈",
+            "status": "FAIL",
+            "current": {
+              "signals": [
+                "CCU_Vehicle_Speed",
+                "Vehicle_Speed"
+              ],
+              "selected_signal": "CCU_Vehicle_Speed",
+              "value": 0,
+              "quality": "good",
+              "age_ms": 7532,
+              "received_at_monotonic": 702639.921,
+              "channel": "CAN1",
+              "can_id": "0x51",
+              "checks": {
+                "present": true,
+                "fresh": false,
+                "quality_valid": true,
+                "source_valid": true,
+                "value_valid": true
+              }
+            },
+            "threshold": {
+              "max_age_ms": 500,
+              "qualities": [
+                "good"
+              ],
+              "channel": "CAN1",
+              "can_ids": [
+                "0x168",
+                "0x51"
+              ],
+              "allowed_values": [],
+              "minimum": 0,
+              "maximum": 51.1
+            },
+            "blocking": true
+          },
+          {
+            "rule": "feedback_base_controller_heartbeat_front",
+            "label": "前控制器心跳",
+            "status": "FAIL",
+            "current": {
+              "signals": [
+                "Heartbeat_0x704"
+              ],
+              "selected_signal": "Heartbeat_0x704",
+              "value": 1,
+              "quality": "good",
+              "age_ms": 7532,
+              "received_at_monotonic": 702639.921,
+              "channel": "CAN1",
+              "can_id": "0x704",
+              "checks": {
+                "present": true,
+                "fresh": false,
+                "quality_valid": true,
+                "source_valid": true,
+                "value_valid": true
+              }
+            },
+            "threshold": {
+              "max_age_ms": 500,
+              "qualities": [
+                "good"
+              ],
+              "channel": "CAN1",
+              "can_ids": [
+                "0x704"
+              ],
+              "allowed_values": [],
+              "minimum": 0,
+              "maximum": 255
+            },
+            "blocking": true
+          },
+          {
+            "rule": "feedback_base_controller_heartbeat_rear",
+            "label": "后控制器心跳",
+            "status": "FAIL",
+            "current": {
+              "signals": [
+                "Heartbeat_0x703"
+              ],
+              "selected_signal": "Heartbeat_0x703",
+              "value": 1,
+              "quality": "good",
+              "age_ms": 7532,
+              "received_at_monotonic": 702639.921,
+              "channel": "CAN1",
+              "can_id": "0x703",
+              "checks": {
+                "present": true,
+                "fresh": false,
+                "quality_valid": true,
+                "source_valid": true,
+                "value_valid": true
+              }
+            },
+            "threshold": {
+              "max_age_ms": 500,
+              "qualities": [
+                "good"
+              ],
+              "channel": "CAN1",
+              "can_ids": [
+                "0x703"
+              ],
+              "allowed_values": [],
+              "minimum": 0,
+              "maximum": 255
+            },
+            "blocking": true
+          },
+          {
+            "rule": "feedback_drive_gear_status",
+            "label": "实际挡位反馈",
+            "status": "FAIL",
+            "current": {
+              "signals": [
+                "CCU_Shift_Level_Status"
+              ],
+              "selected_signal": "CCU_Shift_Level_Status",
+              "value": 0,
+              "quality": "good",
+              "age_ms": 7532,
+              "received_at_monotonic": 702639.921,
+              "channel": "CAN1",
+              "can_id": "0x51",
+              "checks": {
+                "present": true,
+                "fresh": false,
+                "quality_valid": true,
+                "source_valid": true,
+                "value_valid": true
+              }
+            },
+            "threshold": {
+              "max_age_ms": 500,
+              "qualities": [
+                "good"
+              ],
+              "channel": "CAN1",
+              "can_ids": [
+                "0x51"
+              ],
+              "allowed_values": [
+                0,
+                1,
+                3
+              ],
+              "minimum": null,
+              "maximum": null
+            },
+            "blocking": true
+          },
+          {
+            "rule": "feedback_drive_drive_mode",
+            "label": "驱动模式反馈",
+            "status": "FAIL",
+            "current": {
+              "signals": [
+                "CCU_Drive_Mode"
+              ],
+              "selected_signal": "CCU_Drive_Mode",
+              "value": 2,
+              "quality": "good",
+              "age_ms": 7532,
+              "received_at_monotonic": 702639.921,
+              "channel": "CAN1",
+              "can_id": "0x51",
+              "checks": {
+                "present": true,
+                "fresh": false,
+                "quality_valid": true,
+                "source_valid": true,
+                "value_valid": true
+              }
+            },
+            "threshold": {
+              "max_age_ms": 500,
+              "qualities": [
+                "good"
+              ],
+              "channel": "CAN1",
+              "can_ids": [
+                "0x51"
+              ],
+              "allowed_values": [
+                0,
+                1,
+                2,
+                3
+              ],
+              "minimum": null,
+              "maximum": null
+            },
+            "blocking": true
+          }
+        ]
+      },
+      "trace_id": "01adc150c3d04c959c48a2a877bd7d0d"
+    }
+  },
+  "stale_online_assertion": true,
+  "screenshotCount": 22,
+  "pageLevelScrollFailures": 0,
+  "failedFetchBanners": 0,
+  "whiteControlFailures": 0,
+  "rendererConsoleErrors": [],
+  "rendererPageErrors": [],
+  "simulatorOfflineDelayMs": 2322,
+  "offlineControlStatus": 409,
+  "nonLoopbackRequests": 0
+}

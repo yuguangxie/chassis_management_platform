@@ -12,7 +12,6 @@ from fastapi import HTTPException
 
 from app.api.data_source import dashboard_metadata
 from app.api.errors import get_trace_id
-from app.core.paths import EXPORTS_DIR, LOGS_DIR, REPORTS_DIR
 from app.core.time import utc_now
 from app.services.file_access import human_size, normalize_allowed_path, sha256_file
 
@@ -29,7 +28,7 @@ DOWNLOAD_TYPES = {
 class HistoryService:
     def __init__(self, app_state: Any) -> None:
         self.state = app_state
-        self.export_root = EXPORTS_DIR / "history"
+        self.export_root = app_state.data_paths.exports / "history"
         self.export_root.mkdir(parents=True, exist_ok=True)
 
     def session_row(self, session_id: str) -> dict[str, Any]:
@@ -409,7 +408,11 @@ class HistoryService:
         manifest = []
         with zipfile.ZipFile(path, "w", compression=zipfile.ZIP_DEFLATED) as archive:
             for row in reports:
-                report_path = normalize_allowed_path(row["file_path"], [REPORTS_DIR, self.state.report_service.output_dir], expect_file=True)
+                report_path = normalize_allowed_path(
+                    row["file_path"],
+                    [self.state.data_paths.reports, self.state.report_service.output_dir],
+                    expect_file=True,
+                )
                 archive.write(report_path, arcname=report_path.name)
                 manifest.append({"report_id": row["id"], "file_name": report_path.name, "sha256": sha256_file(report_path)})
             archive.writestr("manifest.json", json.dumps({"session_id": session_id, "files": manifest}, ensure_ascii=False, indent=2))

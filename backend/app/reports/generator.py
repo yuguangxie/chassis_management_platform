@@ -12,7 +12,7 @@ from typing import Any
 import uuid
 from xml.sax.saxutils import escape
 
-from app.core.paths import ASSETS_DIR, REPORTS_DIR
+from app.core.paths import ASSETS_DIR
 from app.core.time import utc_now
 
 from .templates import REPORT_TITLE
@@ -23,7 +23,7 @@ DOCX_FONT_NAME = "Noto Sans CJK SC"
 
 
 class ReportGenerator:
-    def __init__(self, output_dir: Path = REPORTS_DIR) -> None:
+    def __init__(self, output_dir: Path) -> None:
         self.output_dir = Path(output_dir)
         self.pdf_font_name, self.pdf_font_path, self.pdf_font_embedded = self._register_pdf_font()
 

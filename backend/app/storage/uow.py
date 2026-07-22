@@ -321,7 +321,7 @@ class EolUnitOfWork:
         if latest and latest == {
             "version": state.config.software_version,
             "dbc_hash": dbc.get("hash"),
-            "migration_version": "phase-02",
+            "migration_version": str(self.database.schema_version()),
         }:
             return
         self.database.execute(
@@ -334,7 +334,7 @@ class EolUnitOfWork:
                 dbc.get("version"),
                 dbc.get("hash"),
                 "runtime-config",
-                "phase-02",
+                str(self.database.schema_version()),
             ),
         )
 

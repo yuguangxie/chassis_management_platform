@@ -1,7 +1,7 @@
 <template>
   <header class="topbar">
     <div class="cell station"><span>工位</span><strong>{{ store.status.station_id }}</strong></div>
-    <div class="cell"><span>用户</span><strong>{{ store.status.operator }}</strong></div>
+    <div class="cell"><span>用户</span><strong>{{ auth.principal?.username || '—' }} · {{ auth.principal?.role || '—' }}</strong></div>
     <div class="cell"><span>软件版本</span><strong>{{ store.status.software_version }}</strong></div>
     <div class="cell dbc"><span>DBC版本</span><strong :title="dbcVersion">{{ dbcVersion }}</strong></div>
     <div class="cell database">
@@ -34,8 +34,10 @@
 import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
 import { fallbackChannels } from '../../mocks/fallbackData'
 import { useAppStatusStore } from '../../stores/appStatus'
+import { useAuthStore } from '../../stores/auth'
 
 const store = useAppStatusStore()
+const auth = useAuthStore()
 const time = ref('')
 let timer: number | undefined
 
@@ -73,7 +75,11 @@ onBeforeUnmount(() => {
 .topbar {
   height: var(--topbar-height);
   display: grid;
-  grid-template-columns: 150px 82px 112px minmax(190px, 1.2fr) 142px 112px 90px 90px 112px 132px 178px 74px;
+  grid-template-columns:
+    minmax(84px, 1.05fr) minmax(54px, .7fr) minmax(72px, .85fr)
+    minmax(136px, 1.7fr) minmax(100px, 1.1fr) minmax(72px, .85fr)
+    minmax(60px, .7fr) minmax(60px, .7fr) minmax(84px, .9fr)
+    minmax(102px, 1.15fr) minmax(152px, 1.45fr) minmax(58px, .62fr);
   align-items: stretch;
   background: linear-gradient(180deg, #0A1729, #081425);
   border-bottom: 1px solid #1E3A5F;
@@ -82,17 +88,17 @@ onBeforeUnmount(() => {
 
 .cell {
   min-width: 0;
-  padding: 12px 11px 10px;
+  padding: 6px 8px 5px;
   border-right: 1px solid rgba(30, 58, 95, .92);
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 7px;
+  gap: 4px;
 }
 
 .cell span {
   color: #8FA5C4;
-  font-size: 12px;
+  font-size: 10px;
   line-height: 1;
   white-space: nowrap;
 }
@@ -100,7 +106,7 @@ onBeforeUnmount(() => {
 .cell strong {
   min-width: 0;
   color: #EAF2FF;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 700;
   line-height: 1.2;
   white-space: nowrap;
@@ -122,10 +128,10 @@ onBeforeUnmount(() => {
 .warn,
 .bad {
   border: 1px solid currentColor;
-  padding: 1px 6px;
+  padding: 0 5px;
   border-radius: 999px;
   margin-left: 5px;
-  font-size: 12px;
+  font-size: 10px;
   font-weight: 750;
 }
 
@@ -137,10 +143,10 @@ onBeforeUnmount(() => {
 
 .dot {
   display: inline-block;
-  width: 9px;
-  height: 9px;
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
-  margin-right: 6px;
+  margin-right: 4px;
   box-shadow: 0 0 10px currentColor;
 }
 
@@ -149,21 +155,25 @@ onBeforeUnmount(() => {
 
 .ring {
   display: inline-block;
-  width: 12px;
-  height: 12px;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
   border: 2px solid #EF4444;
-  margin-right: 6px;
+  margin-right: 4px;
   vertical-align: -2px;
 }
 
 @media (max-width: 1500px) {
-  .topbar {
-    grid-template-columns: 134px 76px 104px minmax(150px, 1fr) 120px 104px 78px 78px 94px 112px 154px 64px;
+  .cell {
+    padding-inline: 6px;
   }
 
-  .cell {
-    padding-inline: 8px;
+  .cell span {
+    font-size: 9px;
+  }
+
+  .cell strong {
+    font-size: 11px;
   }
 }
 </style>

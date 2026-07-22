@@ -35,6 +35,11 @@ assert(typeof summary.simulatorOfflineDelayMs === 'number' && summary.simulatorO
   `simulator offline transition outside expected range: ${summary.simulatorOfflineDelayMs}`)
 assert(summary.offlineControlStatus === 409, `expected stale-online control status 409, received ${summary.offlineControlStatus}`)
 assert(summary.nonLoopbackRequests === 0, `non-loopback requests: ${summary.nonLoopbackRequests}`)
+assert(summary.permission?.viewer_network_redirects_403 === true, 'viewer did not redirect to the 403 page')
+assert(summary.mockSession?.report_generated === true, 'Mock EOL session/report fixture was not generated')
+assert(summary.interaction_assertions?.pages_exercised === 11, `expected 11 interacted pages, received ${summary.interaction_assertions?.pages_exercised}`)
+assert(summary.interaction_assertions?.every_page_clicked === true, 'one or more pages had no safe UI interaction')
+assert(summary.interaction_assertions?.every_assertion_passed === true, 'one or more page interaction assertions failed')
 assert(summary.passed === true, 'E2E summary did not report passed=true')
 
 console.log(JSON.stringify({
@@ -42,5 +47,6 @@ console.log(JSON.stringify({
   screenshots: screenshots.length,
   simulatorOfflineDelayMs: summary.simulatorOfflineDelayMs,
   offlineControlStatus: summary.offlineControlStatus,
+  interactedPages: summary.interaction_assertions.pages_exercised,
   verification: 'passed',
 }, null, 2))

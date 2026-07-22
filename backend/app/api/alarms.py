@@ -12,7 +12,14 @@ from fastapi.responses import FileResponse
 from app.api.data_source import dashboard_metadata, require_data_in_production
 from app.api.errors import get_trace_id
 from app.api.models import ActionResponse, AlarmActionRequest, AlarmDashboardResponse, DashboardLayoutRequest, ObjectResponse
-from app.core.paths import EXPORTS_DIR
+from app.control.override_service import (
+    OverrideActionResponse,
+    OverrideApprovalRequest,
+    OverrideConflict,
+    OverrideCreateRequest,
+    OverrideListResponse,
+    OverrideRevokeRequest,
+)
 from app.core.time import utc_now
 from app.security.auth import Principal, Role, require_role
 from app.services.app_state import state
@@ -236,8 +243,9 @@ async def export_diagnosis(
     payload: AlarmActionRequest = Body(default_factory=AlarmActionRequest),
     principal: Principal = Depends(require_role(Role.OPERATOR)),
 ):
-    EXPORTS_DIR.mkdir(parents=True, exist_ok=True)
-    path = EXPORTS_DIR / f"alarm_diagnosis_{datetime.now().strftime('%Y%m%d_%H%M%S_%f')}.json"
+    root = state.data_paths.exports
+    root.mkdir(parents=True, exist_ok=True)
+    path = root / f"alarm_diagnosis_{datetime.now().strftime('%Y%m%d_%H%M%S_%f')}.json"
     path.write_text(
         json.dumps(
             {"generated_at": utc_now(), "requested_by": principal.username, "dashboard": _dashboard_payload(), "request": payload.model_dump()},
@@ -254,7 +262,8 @@ async def export_diagnosis(
 @router.get("/alarms/exports/{file_id}")
 async def download_alarm_export(file_id: str, _principal: Principal = Depends(require_role(Role.VIEWER))):
     validate_file_id(file_id)
-    path = normalize_allowed_path(EXPORTS_DIR / file_id, [EXPORTS_DIR], expect_file=True)
+    root = state.data_paths.exports
+    path = normalize_allowed_path(root / file_id, [root], expect_file=True)
     return FileResponse(path, filename=path.name, media_type="application/json", headers={"X-Trace-Id": get_trace_id()})
 
 
@@ -296,15 +305,63 @@ async def ack(
     return {"ok": True, "message": "当前告警状态已确认", "trace_id": get_trace_id(), "details": {"acked": alarm_id}}
 
 
-@router.post("/alarms/{alarm_id}/override-request", response_model=ActionResponse)
+def _override_http_error(exc: OverrideConflict) -> HTTPException:
+    status = 404 if exc.code == "OVERRIDE_NOT_FOUND" else 409
+    return HTTPException(status, {"code": exc.code, "message": exc.message, "details": {}})
+
+
+@router.get("/alarms/overrides", response_model=OverrideListResponse)
+async def list_overrides(
+    _principal: Principal = Depends(require_role(Role.VIEWER)),
+):
+    items = state.overrides.list() if state.overrides else []
+    return {"items": items, "total": len(items)}
+
+
+@router.post("/alarms/overrides/{override_id}/approve", response_model=OverrideActionResponse)
+async def approve_override(
+    override_id: str,
+    payload: OverrideApprovalRequest,
+    principal: Principal = Depends(require_role(Role.ADMIN)),
+):
+    try:
+        record = state.overrides.approve(override_id, payload, principal)
+    except OverrideConflict as exc:
+        record_operator_action(state, principal, "alarm_override_approve", override_id, payload.model_dump(), exc.code, trace_id=get_trace_id())
+        raise _override_http_error(exc)
+    record_operator_action(state, principal, "alarm_override_approve", override_id, payload.model_dump(), "APPROVED", trace_id=get_trace_id())
+    return {"ok": True, "message": "人工放行申请已由独立管理员批准", "trace_id": get_trace_id(), "override": record}
+
+
+@router.post("/alarms/overrides/{override_id}/revoke", response_model=OverrideActionResponse)
+async def revoke_override(
+    override_id: str,
+    payload: OverrideRevokeRequest,
+    principal: Principal = Depends(require_role(Role.ADMIN)),
+):
+    try:
+        record = state.overrides.revoke(override_id, payload, principal)
+    except OverrideConflict as exc:
+        record_operator_action(state, principal, "alarm_override_revoke", override_id, payload.model_dump(), exc.code, trace_id=get_trace_id())
+        raise _override_http_error(exc)
+    record_operator_action(state, principal, "alarm_override_revoke", override_id, payload.model_dump(), "REVOKED", trace_id=get_trace_id())
+    return {"ok": True, "message": "人工放行授权已撤销", "trace_id": get_trace_id(), "override": record}
+
+
+@router.post("/alarms/{alarm_id}/override-request", response_model=OverrideActionResponse)
 async def override(
     alarm_id: str,
-    payload: AlarmActionRequest = Body(default_factory=AlarmActionRequest),
+    payload: OverrideCreateRequest,
     principal: Principal = Depends(require_role(Role.ENGINEER)),
 ):
     if not _alarm_exists(alarm_id):
         raise HTTPException(404, {"code": "ALARM_NOT_FOUND", "message": "告警记录不存在", "details": {"alarm_id": alarm_id}})
-    if not payload.reason:
-        raise HTTPException(422, {"code": "REASON_REQUIRED", "message": "人工放行申请必须填写原因", "details": {}})
+    if state.overrides is None:
+        raise HTTPException(503, {"code": "OVERRIDE_SERVICE_UNAVAILABLE", "message": "人工放行服务不可用", "details": {}})
+    try:
+        record = state.overrides.create(alarm_id, payload, principal)
+    except OverrideConflict as exc:
+        record_operator_action(state, principal, "alarm_override_request", alarm_id, payload.model_dump(), exc.code, trace_id=get_trace_id())
+        raise _override_http_error(exc)
     record_operator_action(state, principal, "alarm_override_request", alarm_id, payload.model_dump(), "PENDING_REVIEW", trace_id=get_trace_id())
-    return {"ok": True, "message": "人工放行申请已提交，等待管理员审批", "trace_id": get_trace_id(), "details": {"requested": alarm_id, "status": "PENDING_REVIEW"}}
+    return {"ok": True, "message": "人工放行申请已提交，等待独立管理员审批", "trace_id": get_trace_id(), "override": record}

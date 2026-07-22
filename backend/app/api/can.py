@@ -23,11 +23,12 @@ from app.api.models import (
     CanMonitorStatisticsResponse,
     ObjectListResponse,
     ObjectResponse,
+    RawLogDeleteRequest,
 )
 from app.can_gateway.models import CanFrame
 from app.can_gateway.usr_can115 import UsrCan115Codec
-from app.core.paths import EXPORTS_DIR, LOGS_DIR
 from app.core.time import now_ns, utc_now
+from app.configuration.diagnostics import diagnose_network
 from app.dbc.service import DbcService
 from app.security.auth import Principal, Role, require_role
 from app.services.app_state import state
@@ -187,7 +188,8 @@ def _frame_from_item(item: dict[str, Any]) -> CanFrame:
 
 def _raw_log_rows() -> list[dict[str, Any]]:
     rows = []
-    for path in sorted(LOGS_DIR.glob("raw_can_*.csv*"), key=lambda item: item.stat().st_mtime, reverse=True):
+    root = state.data_paths.raw_can
+    for path in sorted(root.glob("raw_can_*.csv*"), key=lambda item: item.stat().st_mtime, reverse=True):
         session_id = path.name.removeprefix("raw_can_").split("_")[0]
         rows.append(
             {
@@ -314,32 +316,7 @@ async def disconnect(channel: str, principal: Principal = Depends(require_role(R
 
 @router.post("/can/channels/self-test", response_model=ObjectResponse)
 async def self_test(_principal: Principal = Depends(require_role(Role.ENGINEER))):
-    statuses = state.can.status() if state.can else []
-    total = sum(int(row.get("rx_count") or 0) for row in statuses)
-    errors = sum(int(row.get("error_count") or 0) for row in statuses)
-    protocol_rate = round((total - errors) / total * 100, 3) if total else 0.0
-    codec = UsrCan115Codec()
-    sample = CanFrame(channel="CAN1", can_id=0x121, dlc=8, data=[0] * 8)
-    encoded = codec.encode_frame(sample)
-    decoded = codec.decode_packet(encoded, "CAN1", "rx", "self-test")
-    passed = decoded.parse_status == "ok" and decoded.can_id == sample.can_id
-    return {
-        "ping_latency_ms": 0.0,
-        "udp_loopback": "pass" if statuses and all(row.get("online") for row in statuses) else "unavailable",
-        "protocol_valid_rate": protocol_rate,
-        "dlc_check": "pass" if passed else "fail",
-        "reserved_bits_check": "pass" if passed else "fail",
-        "sticky_half_packets": {
-            "sticky": 0,
-            "half": sum(int(row.get("malformed_datagrams") or 0) for row in statuses),
-        },
-        "last_error": "无" if errors == 0 else f"累计 {errors} 个通道/协议错误",
-        "data_source": "runtime",
-        "mock": False,
-        "quality": "good" if statuses else "unavailable",
-        "updated_at": utc_now(),
-        "trace_id": get_trace_id(),
-    }
+    return {**await diagnose_network(state), "trace_id": get_trace_id()}
 
 
 @router.post("/can/channels/stop-all", response_model=ObjectResponse)
@@ -455,8 +432,9 @@ async def clear_display(principal: Principal = Depends(require_role(Role.OPERATO
 
 
 def _write_recent_raw_export() -> Path:
-    EXPORTS_DIR.mkdir(parents=True, exist_ok=True)
-    path = EXPORTS_DIR / f"raw_can_{datetime.now().strftime('%Y%m%d_%H%M%S_%f')}.bin"
+    root = state.data_paths.exports
+    root.mkdir(parents=True, exist_ok=True)
+    path = root / f"raw_can_{datetime.now().strftime('%Y%m%d_%H%M%S_%f')}.bin"
     codec = UsrCan115Codec()
     with path.open("wb") as stream:
         for frame in reversed(list(state.can.recent_frames) if state.can else []):
@@ -465,8 +443,9 @@ def _write_recent_raw_export() -> Path:
 
 
 def _write_recent_csv_export() -> Path:
-    EXPORTS_DIR.mkdir(parents=True, exist_ok=True)
-    path = EXPORTS_DIR / f"can_frames_{datetime.now().strftime('%Y%m%d_%H%M%S_%f')}.csv"
+    root = state.data_paths.exports
+    root.mkdir(parents=True, exist_ok=True)
+    path = root / f"can_frames_{datetime.now().strftime('%Y%m%d_%H%M%S_%f')}.csv"
     columns = ["timestamp_ns", "channel", "direction", "can_id_hex", "dlc", "data_hex", "message_name", "parse_status", "source"]
     with path.open("w", newline="", encoding="utf-8-sig") as stream:
         writer = csv.DictWriter(stream, fieldnames=columns)
@@ -510,7 +489,8 @@ async def export_csv(principal: Principal = Depends(require_role(Role.OPERATOR))
 @router.get("/logs/exports/{file_id}")
 async def download_export(file_id: str, _principal: Principal = Depends(require_role(Role.VIEWER))):
     validate_file_id(file_id)
-    path = normalize_allowed_path(EXPORTS_DIR / file_id, [EXPORTS_DIR], expect_file=True)
+    root = state.data_paths.exports
+    path = normalize_allowed_path(root / file_id, [root], expect_file=True)
     return FileResponse(path, filename=path.name, media_type="application/octet-stream", headers={"X-Trace-Id": get_trace_id()})
 
 
@@ -523,7 +503,8 @@ async def raw_can_files():
 @router.get("/logs/raw-can-files/{file_id}/download")
 async def download_raw_can_file(file_id: str, _principal: Principal = Depends(require_role(Role.VIEWER))):
     validate_file_id(file_id)
-    path = normalize_allowed_path(LOGS_DIR / file_id, [LOGS_DIR], expect_file=True)
+    root = state.data_paths.raw_can
+    path = normalize_allowed_path(root / file_id, [root], expect_file=True)
     media_type = "application/gzip" if path.suffix == ".gz" else "text/csv"
     return FileResponse(path, filename=path.name, media_type=media_type, headers={"X-Trace-Id": get_trace_id()})
 
@@ -534,7 +515,8 @@ async def load_history(
     principal: Principal = Depends(require_role(Role.OPERATOR)),
 ):
     file_id = validate_file_id(str(payload.get("file_id") or ""))
-    path = normalize_allowed_path(LOGS_DIR / file_id, [LOGS_DIR], expect_file=True)
+    root = state.data_paths.raw_can
+    path = normalize_allowed_path(root / file_id, [root], expect_file=True)
     if path.suffix == ".gz":
         with gzip.open(path, "rt", encoding="utf-8", newline="") as stream:
             row_count = sum(1 for _ in stream) - 1
@@ -546,9 +528,24 @@ async def load_history(
 
 
 @router.delete("/logs/raw-can-files/{file_id}", response_model=ActionResponse)
-async def delete_raw_can_file(file_id: str, principal: Principal = Depends(require_role(Role.ADMIN))):
+async def delete_raw_can_file(
+    file_id: str,
+    payload: RawLogDeleteRequest,
+    principal: Principal = Depends(require_role(Role.ADMIN)),
+):
     validate_file_id(file_id)
-    path = normalize_allowed_path(LOGS_DIR / file_id, [LOGS_DIR], expect_file=True)
-    path.unlink()
-    record_operator_action(state, principal, "delete_raw_can_file", file_id, {}, trace_id=get_trace_id())
+    root = state.data_paths.raw_can
+    path = normalize_allowed_path(root / file_id, [root], expect_file=True)
+    quarantine = state.data_paths.temp / "manual-delete" / file_id
+    quarantine.parent.mkdir(parents=True, exist_ok=True)
+    path.replace(quarantine)
+    try:
+        state.database.execute(
+            "INSERT INTO operator_actions(timestamp_utc,operator,role,action_type,target,request_json,result,trace_id) VALUES (?,?,?,?,?,?,?,?)",
+            (utc_now(), principal.username, principal.role.value, "delete_raw_can_file", file_id, payload.model_dump_json(), "OK", get_trace_id()),
+        )
+    except Exception:
+        quarantine.replace(path)
+        raise
+    quarantine.unlink()
     return {"ok": True, "message": "原始 CAN 历史文件已删除", "trace_id": get_trace_id(), "details": {"file_id": file_id}}

@@ -36,6 +36,8 @@ class ChannelStats:
     pipeline_queue_capacity: int = 0
     pipeline_queue_dropped: int = 0
     malformed_datagrams: int = 0
+    unauthorized_datagrams: int = 0
+    last_unauthorized_source: str = ""
     processing_errors: int = 0
     last_queue_overflow_monotonic: float = 0.0
     started_monotonic: float = field(default_factory=time.monotonic)
@@ -108,6 +110,11 @@ class ChannelStats:
         self.malformed_datagrams += 1
         self.error_count += 1
 
+    def record_unauthorized_datagram(self, source: str) -> None:
+        self.unauthorized_datagrams += 1
+        self.last_unauthorized_source = source
+        self.error_count += 1
+
     def snapshot(self) -> dict:
         now = time.monotonic()
         receive_age = now - self.last_receive_monotonic if self.last_receive_monotonic else None
@@ -143,6 +150,8 @@ class ChannelStats:
             "pipeline_queue_dropped": self.pipeline_queue_dropped,
             "stale_dropped": self.stale_dropped,
             "malformed_datagrams": self.malformed_datagrams,
+            "unauthorized_datagrams": self.unauthorized_datagrams,
+            "last_unauthorized_source": self.last_unauthorized_source or None,
             "processing_errors": self.processing_errors,
             "fps": round(self.fps, 1),
             "rx_count": self.rx_count,

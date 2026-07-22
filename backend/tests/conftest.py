@@ -1,6 +1,7 @@
 import atexit
 import os
 import random
+import secrets
 import shutil
 import socket
 import sys
@@ -37,6 +38,8 @@ TEST_ROOT = Path(os.environ.setdefault("CHASSIS_TEST_ROOT", tempfile.mkdtemp(pre
 os.environ.setdefault("CHASSIS_RUNTIME_PROFILE", "test")
 os.environ.setdefault("CHASSIS_DATA_DIR", str(TEST_ROOT / "data"))
 os.environ.setdefault("CHASSIS_TEST_PORT_BASE", str(_find_udp_port_base()))
+os.environ.setdefault("CHASSIS_CONFIG_SIGNING_KEY", secrets.token_urlsafe(48))
+os.environ.setdefault("CHASSIS_ACTIVE_CONFIG_PATH", str(TEST_ROOT / "data" / "config" / "active-package.json"))
 if _owns_test_root:
     atexit.register(lambda: shutil.rmtree(TEST_ROOT, ignore_errors=True))
 

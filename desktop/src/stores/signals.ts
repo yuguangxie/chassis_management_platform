@@ -26,9 +26,14 @@ export const useSignalsStore = defineStore('signals', {
     wsBound: false,
     curvePaused: false,
     pendingCurveTimeseries: undefined as CurveTimeseries | undefined,
+    pendingRequests: 0,
   }),
+  getters: {
+    loading: (state) => state.pendingRequests > 0,
+  },
   actions: {
     async loadDashboard() {
+      this.pendingRequests += 1
       try {
         this.dashboard = await apiGet<SignalDashboardSummary>('/signals/dashboard')
         this.backendOnline = true
@@ -44,9 +49,10 @@ export const useSignalsStore = defineStore('signals', {
           this.backendOnline = true
           this.offline = false
         }
-      }
+      } finally { this.pendingRequests = Math.max(0, this.pendingRequests - 1) }
     },
     async loadCurveConfig() {
+      this.pendingRequests += 1
       try {
         this.curveConfig = await apiGet<CurveConfig>('/signals/curve-config')
         this.backendOnline = true
@@ -62,9 +68,10 @@ export const useSignalsStore = defineStore('signals', {
           this.backendOnline = true
           this.offline = false
         }
-      }
+      } finally { this.pendingRequests = Math.max(0, this.pendingRequests - 1) }
     },
     async loadCurveTimeseries(query = '') {
+      this.pendingRequests += 1
       try {
         this.curveTimeseries = await apiGet<CurveTimeseries>(`/signals/timeseries${query}`)
       } catch (error) {
@@ -73,9 +80,10 @@ export const useSignalsStore = defineStore('signals', {
           this.curveTimeseries = explicitFallback(fallbackCurveTimeseries)
           this.offline = true
         }
-      }
+      } finally { this.pendingRequests = Math.max(0, this.pendingRequests - 1) }
     },
     async loadReplay(sessionId = fallbackReplayMetadata.session_id) {
+      this.pendingRequests += 1
       try {
         this.replay = await apiGet<ReplayMetadata>(`/test-sessions/${encodeURIComponent(sessionId)}/replay`)
       } catch (error) {
@@ -84,9 +92,10 @@ export const useSignalsStore = defineStore('signals', {
           this.replay = structuredClone(fallbackReplayMetadata)
           this.offline = true
         }
-      }
+      } finally { this.pendingRequests = Math.max(0, this.pendingRequests - 1) }
     },
     async loadFaultEvents(sessionId = fallbackReplayMetadata.session_id) {
+      this.pendingRequests += 1
       try {
         this.faultEvents = await apiGet<FaultEvent[]>(`/test-sessions/${encodeURIComponent(sessionId)}/fault-events`)
       } catch (error) {
@@ -95,7 +104,7 @@ export const useSignalsStore = defineStore('signals', {
           this.faultEvents = structuredClone(fallbackFaultEvents)
           this.offline = true
         }
-      }
+      } finally { this.pendingRequests = Math.max(0, this.pendingRequests - 1) }
     },
     bindWebSocket() {
       if (this.wsBound) return

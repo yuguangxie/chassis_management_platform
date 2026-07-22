@@ -7,10 +7,10 @@ from app.services.app_state import state
 from support import seed_dashboard_session
 
 
-def test_report_dashboard_uses_sqlite_and_filesystem():
+def test_report_dashboard_uses_sqlite_and_filesystem(auth_headers):
     with TestClient(app) as client:
         seed_dashboard_session(state)
-        response = client.get("/api/v1/reports/dashboard")
+        response = client.get("/api/v1/reports/dashboard", headers=auth_headers("viewer"))
         assert response.status_code == 200
         payload = response.json()
         assert payload["data_source"] == "sqlite+filesystem"
@@ -28,21 +28,26 @@ def test_report_dashboard_uses_sqlite_and_filesystem():
 def test_report_operations_require_identity_and_return_real_jobs(auth_headers):
     with TestClient(app) as client:
         seed_dashboard_session(state)
-        dashboard = client.get("/api/v1/reports/dashboard").json()
+        viewer = auth_headers("viewer")
+        dashboard = client.get("/api/v1/reports/dashboard", headers=viewer).json()
         report_id = dashboard["selected_report"]["report_id"]
         operator = auth_headers("operator")
         assert client.post("/api/v1/reports/scan", json={}, headers=operator).status_code == 200
         opened = client.post("/api/v1/reports/open-directory", json={}, headers=operator)
         assert opened.status_code == 200
         assert Path(opened.json()["details"]["path"]).is_dir()
-        assert client.get(f"/api/v1/reports/{report_id}/preview").status_code == 200
-        assert client.get(f"/api/v1/reports/{report_id}/related-data").status_code == 200
+        assert client.get(f"/api/v1/reports/{report_id}/preview", headers=viewer).status_code == 200
+        assert client.get(f"/api/v1/reports/{report_id}/related-data", headers=viewer).status_code == 200
         word = client.post(f"/api/v1/reports/{report_id}/export-word", json={}, headers=operator)
         pdf = client.post(f"/api/v1/reports/{report_id}/export-pdf", json={}, headers=operator)
         assert word.status_code == pdf.status_code == 200
         assert word.json()["details"]["download_url"]
         assert pdf.json()["details"]["download_url"]
-        printed = client.post(f"/api/v1/reports/{report_id}/print", json={}, headers=operator)
+        printed = client.post(
+            f"/api/v1/reports/{report_id}/print",
+            json={"preview_confirmed": True},
+            headers=operator,
+        )
         assert printed.status_code == 200
         assert printed.json()["details"]["status"] == "QUEUED"
 

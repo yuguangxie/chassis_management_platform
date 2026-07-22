@@ -22,7 +22,6 @@ from app.api.models import (
     WatchlistUpdateRequest,
     ObjectResponse,
 )
-from app.core.paths import EXPORTS_DIR
 from app.core.time import utc_now
 from app.security.auth import Principal, Role, require_role
 from app.services.app_state import state
@@ -280,8 +279,9 @@ def live_timeseries_batch() -> dict[str, Any]:
 
 
 def _save_json_export(prefix: str, payload: Any) -> Path:
-    EXPORTS_DIR.mkdir(parents=True, exist_ok=True)
-    path = EXPORTS_DIR / f"{prefix}_{datetime.now().strftime('%Y%m%d_%H%M%S_%f')}.json"
+    root = state.data_paths.exports
+    root.mkdir(parents=True, exist_ok=True)
+    path = root / f"{prefix}_{datetime.now().strftime('%Y%m%d_%H%M%S_%f')}.json"
     path.write_text(json.dumps(payload, ensure_ascii=False, indent=2, default=str), encoding="utf-8")
     return path
 
@@ -376,8 +376,9 @@ async def export_csv(
     payload: CurveSelectionRequest,
     principal: Principal = Depends(require_role(Role.OPERATOR)),
 ):
-    EXPORTS_DIR.mkdir(parents=True, exist_ok=True)
-    path = EXPORTS_DIR / f"signal_curve_{datetime.now().strftime('%Y%m%d_%H%M%S_%f')}.csv"
+    root = state.data_paths.exports
+    root.mkdir(parents=True, exist_ok=True)
+    path = root / f"signal_curve_{datetime.now().strftime('%Y%m%d_%H%M%S_%f')}.csv"
     with path.open("w", newline="", encoding="utf-8-sig") as stream:
         writer = csv.writer(stream)
         writer.writerow(["signal", "timestamp", "value", "unit", "quality", "can_id", "channel"])
@@ -393,7 +394,8 @@ async def export_csv(
 @router.get("/signals/exports/{file_id}")
 async def download_signal_export(file_id: str, _principal: Principal = Depends(require_role(Role.VIEWER))):
     validate_file_id(file_id)
-    path = normalize_allowed_path(EXPORTS_DIR / file_id, [EXPORTS_DIR], expect_file=True)
+    root = state.data_paths.exports
+    path = normalize_allowed_path(root / file_id, [root], expect_file=True)
     return FileResponse(path, filename=path.name, media_type="application/octet-stream", headers={"X-Trace-Id": get_trace_id()})
 
 

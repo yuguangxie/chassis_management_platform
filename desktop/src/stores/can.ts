@@ -74,6 +74,11 @@ function fallbackStatistics(): CanMonitorStatistics {
   result.mock = true
   result.quality = 'mock'
   result.trace_id = ''
+  result.fps_trend = []
+  result.period_jitter = []
+  result.can_id_distribution = []
+  result.error_summary = { timeout_count: 0, error_frame_count: 0, protocol_error_count: 0 }
+  result.footer_status = { ...result.footer_status, recording: false, uptime: '-', buffer_usage: 0, rx_fps: 0, tx_fps: 0 }
   return result
 }
 
@@ -87,6 +92,7 @@ export const useCanStore = defineStore('can', {
     paused: false,
     backendOnline: true,
     offline: false,
+    loading: false,
     error: '',
     dataSource: 'initial',
     quality: 'unavailable' as 'good' | 'degraded' | 'unavailable' | 'mock',
@@ -156,6 +162,7 @@ export const useCanStore = defineStore('can', {
       })
     },
     async loadLatest() {
+      this.loading = true
       const params = new URLSearchParams()
       params.set('channel', this.filters.channel)
       if (this.filters.canId) params.set('can_id', this.filters.canId)
@@ -182,6 +189,8 @@ export const useCanStore = defineStore('can', {
           this.backendOnline = true
           this.offline = false
         }
+      } finally {
+        this.loading = false
       }
     },
     async loadDecoded(canId?: string, channel?: string) {

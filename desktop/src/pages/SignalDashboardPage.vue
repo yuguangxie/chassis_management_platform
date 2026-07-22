@@ -7,14 +7,14 @@
           <h1>信号仪表盘</h1>
           <p>关键反馈信号可视化与状态监控</p>
         </div>
-        <span v-if="signals.offline || data.mock || data.quality !== 'good'" class="offline-badge">{{ signals.offline ? '后端离线 / Mock 数据' : data.mock ? '显式 Mock 数据' : `数据质量：${data.quality || 'unavailable'}` }}</span>
+        <PageDataState :loading="signals.loading" :error="signals.error" :stale="signals.offline || Boolean(data.mock) || data.quality !== 'good'" :empty="!data.watchlist.length" />
       </div>
-      <button class="header-action" @click="saveLayout"><Settings :size="16" />自定义布局</button>
+      <button v-if="auth.can('operator')" class="header-action" :disabled="signals.offline" @click="saveLayout"><Settings :size="16" />自定义布局</button>
     </section>
 
     <section class="row row-one">
       <article class="panel bms-card">
-        <CardHead title="BMS 信号" status="正常"><BatteryCharging :size="18" /></CardHead>
+        <CardHead title="BMS 信号" :status="freshStatus"><BatteryCharging :size="18" /></CardHead>
         <div class="bms-grid">
           <MetricTile label="总压" :value="data.bms.total_voltage" unit="V" :trend="data.bms.trend.voltage" tone="blue" />
           <MetricTile label="电流" :value="data.bms.current" unit="A" :trend="data.bms.trend.current" tone="green" />
@@ -25,24 +25,24 @@
           <MetricTile label="单体压差" :value="data.bms.cell_delta_mv" unit="mV" tone="white" />
           <div class="metric-tile discharge">
             <span>充放电状态</span>
-            <strong><Snowflake :size="24" />{{ data.bms.charge_discharge_state }}</strong>
+            <strong><Snowflake :size="24" />{{ freshText(data.bms.charge_discharge_state) }}</strong>
           </div>
         </div>
       </article>
 
       <article class="panel vehicle-card">
-        <CardHead title="车辆状态" status="正常"><CarFront :size="18" /></CardHead>
+        <CardHead title="车辆状态" :status="freshStatus"><CarFront :size="18" /></CardHead>
         <div class="vehicle-list">
           <StatusLine label="当前档位" :value="data.vehicle.gear"><Cog :size="18" /></StatusLine>
           <StatusLine label="当前驱动模式" :value="data.vehicle.drive_mode" accent><SatelliteDish :size="18" /></StatusLine>
           <StatusLine label="点火状态" :value="data.vehicle.ignition" accent><KeyRound :size="18" /></StatusLine>
           <StatusLine label="驻车状态" :value="data.vehicle.parking" accent><CircleParking :size="18" /></StatusLine>
-          <StatusLine label="车辆速度" :value="`${data.vehicle.speed.toFixed(1)} km/h`" accent><Gauge :size="18" /></StatusLine>
+          <StatusLine label="车辆速度" :value="signals.offline ? '—（stale）' : `${data.vehicle.speed.toFixed(1)} km/h`" accent><Gauge :size="18" /></StatusLine>
         </div>
       </article>
 
       <article class="panel wheel-card">
-        <CardHead title="轮速（km/h）" status="正常"><Crosshair :size="18" /></CardHead>
+        <CardHead title="轮速（km/h）" :status="freshStatus"><Crosshair :size="18" /></CardHead>
         <div class="wheel-layout">
           <WheelValue label="左前" :value="data.wheel_speed.front_left" class="wheel-fl" />
           <WheelValue label="右前" :value="data.wheel_speed.front_right" class="wheel-fr" />
@@ -64,7 +64,7 @@
 
     <section class="row row-two">
       <article class="panel steering-card">
-        <CardHead title="转向反馈" status="正常"><ShieldCheck :size="18" /></CardHead>
+        <CardHead title="转向反馈" :status="freshStatus"><ShieldCheck :size="18" /></CardHead>
         <div class="split-trends">
           <TrendBlock title="前转角反馈" :value="data.steering.front_feedback" unit="°" :cmd="data.steering.front_cmd" :feedback="data.steering.front_feedback" :trend="data.steering.front_trend" color="#2F80FF" />
           <TrendBlock title="后转角反馈" :value="data.steering.rear_feedback" unit="°" :cmd="data.steering.rear_cmd" :feedback="data.steering.rear_feedback" :trend="data.steering.rear_trend" color="#21C55D" />
@@ -72,20 +72,20 @@
       </article>
 
       <article class="panel motor-card">
-        <CardHead title="电机信号" status="正常"><Activity :size="18" /></CardHead>
+        <CardHead title="电机信号" :status="freshStatus"><Activity :size="18" /></CardHead>
         <div class="motor-grid">
           <MetricTile label="电机转速" :value="data.motor.speed_rpm" unit="rpm" :trend="data.motor.speed_trend" tone="blue" />
           <MetricTile label="电机相电流" :value="data.motor.phase_current_a" unit="A" :trend="data.motor.current_trend" tone="green" />
           <div class="heartbeat-tile">
             <span>心跳状态</span>
-            <strong>{{ data.motor.heartbeat }}</strong>
-            <em>{{ data.motor.heartbeat_status }}</em>
+            <strong>{{ freshText(data.motor.heartbeat) }}</strong>
+            <em>{{ freshText(data.motor.heartbeat_status) }}</em>
           </div>
         </div>
       </article>
 
       <article class="panel light-card">
-        <CardHead title="灯光 & 制动"><BadgeInfo :size="18" /></CardHead>
+        <CardHead title="灯光 & 制动" :status="freshStatus"><BadgeInfo :size="18" /></CardHead>
         <div class="light-grid">
           <LightItem label="左转灯" :state="data.lights_brake.left_turn"><ArrowLeft :size="28" /></LightItem>
           <LightItem label="右转灯" :state="data.lights_brake.right_turn"><ArrowRight :size="28" /></LightItem>
@@ -98,7 +98,7 @@
 
     <section class="row row-three">
       <article class="panel alarm-card">
-        <CardHead title="告警状态" status="正常"><ShieldCheck :size="18" /></CardHead>
+        <CardHead title="告警状态" :status="freshStatus"><ShieldCheck :size="18" /></CardHead>
         <div class="alarm-body">
           <div class="alarm-level">
             <span>告警等级</span>
@@ -122,9 +122,9 @@
             <span>最后更新：{{ data.status.updated_at }}</span>
           </div>
           <div class="watch-actions">
-            <button @click="saveWatchlist">保存配置</button>
-            <button @click="exportSnapshot">导出快照</button>
-            <button @click="resetLayout">重置布局</button>
+            <button v-if="auth.can('operator')" :disabled="signals.offline" @click="saveWatchlist">保存配置</button>
+            <button v-if="auth.can('operator')" :disabled="signals.offline" @click="exportSnapshot">导出快照</button>
+            <button v-if="auth.can('operator')" :disabled="signals.offline" @click="resetLayout">重置布局</button>
           </div>
         </div>
         <div class="watch-table-wrap">
@@ -147,12 +147,12 @@
                 <td>{{ row.signal_name }}</td>
                 <td class="mono">{{ row.can_id }}</td>
                 <td>{{ row.channel }}</td>
-                <td :class="['value-cell', Number(row.value) < 0 || row.unit === 'A' ? 'green' : 'blue']">{{ row.value }}</td>
+                <td :class="['value-cell', Number(row.value) < 0 || row.unit === 'A' ? 'green' : 'blue']">{{ signals.offline ? '—' : row.value }}</td>
                 <td>{{ row.unit }}</td>
                 <td>{{ row.threshold }}</td>
                 <td><span class="quality">{{ row.quality }}</span></td>
-                <td>{{ row.updated_at }}</td>
-                <td><Sparkline :values="row.trend" :color="Number(row.value) < 0 || row.unit === 'A' ? '#21C55D' : '#2F80FF'" /></td>
+                <td>{{ signals.offline ? 'stale' : row.updated_at }}</td>
+                <td><Sparkline :values="signals.offline ? [] : row.trend" :color="Number(row.value) < 0 || row.unit === 'A' ? '#21C55D' : '#2F80FF'" /></td>
               </tr>
             </tbody>
           </table>
@@ -190,9 +190,13 @@ import {
 import { apiDownload, apiPost, apiPut, formatApiError } from '../api/http'
 import { wsClient } from '../api/websocket'
 import { useSignalsStore } from '../stores/signals'
+import { useAuthStore } from '../stores/auth'
+import PageDataState from '../components/PageDataState.vue'
 
 const signals = useSignalsStore()
+const auth = useAuthStore()
 const data = computed(() => signals.dashboard)
+const freshStatus = computed(() => signals.offline ? 'STALE' : data.value.quality === 'good' ? '正常' : String(data.value.quality || 'unavailable'))
 const toast = ref('')
 let refreshTimer: number | undefined
 
@@ -232,8 +236,8 @@ const MetricTile = defineComponent({
   setup(props) {
     return () => h('div', { class: ['metric-tile', props.tone] }, [
       h('span', props.label),
-      h('strong', [formatValue(props.value), props.unit ? h('small', ` ${props.unit}`) : null]),
-      props.trend.length ? h(Sparkline, { values: props.trend, color: props.tone === 'green' ? '#21C55D' : '#2F80FF', height: 28 }) : null,
+      h('strong', [signals.offline ? '—' : formatValue(props.value), !signals.offline && props.unit ? h('small', ` ${props.unit}`) : null]),
+      !signals.offline && props.trend.length ? h(Sparkline, { values: props.trend, color: props.tone === 'green' ? '#21C55D' : '#2F80FF', height: 28 }) : null,
     ])
   },
 })
@@ -243,7 +247,7 @@ const StatusLine = defineComponent({
   setup(props, { slots }) {
     return () => h('div', { class: 'vehicle-row' }, [
       h('span', { class: 'row-label' }, [slots.default?.(), props.label]),
-      h('strong', { class: props.accent ? 'accent' : '' }, props.value),
+      h('strong', { class: props.accent ? 'accent' : '' }, signals.offline ? '—（stale）' : props.value),
     ])
   },
 })
@@ -251,7 +255,7 @@ const StatusLine = defineComponent({
 const WheelValue = defineComponent({
   props: { label: { type: String, required: true }, value: { type: Number, required: true } },
   setup(props) {
-    return () => h('div', { class: 'wheel-value' }, [h('span', props.label), h('strong', props.value.toFixed(1))])
+    return () => h('div', { class: 'wheel-value' }, [h('span', props.label), h('strong', signals.offline ? '—' : props.value.toFixed(1))])
   },
 })
 
@@ -268,11 +272,11 @@ const TrendBlock = defineComponent({
   setup(props) {
     return () => h('div', { class: 'trend-block' }, [
       h('span', props.title),
-      h('strong', [props.value.toFixed(1), h('small', ` ${props.unit}`)]),
-      h('p', `指令 ${props.cmd.toFixed(1)}° | 反馈 ${props.feedback.toFixed(1)}°`),
+      h('strong', signals.offline ? '—（stale）' : [props.value.toFixed(1), h('small', ` ${props.unit}`)]),
+      h('p', signals.offline ? '指令 — | 反馈 —' : `指令 ${props.cmd.toFixed(1)}° | 反馈 ${props.feedback.toFixed(1)}°`),
       h('div', { class: 'mini-chart' }, [
         h('span', { class: 'axis top' }, '45°'),
-        h(Sparkline, { values: props.trend, color: props.color, height: 58, min: -45, max: 45 }),
+        h(Sparkline, { values: signals.offline ? [] : props.trend, color: props.color, height: 58, min: -45, max: 45 }),
         h('span', { class: 'axis bottom' }, '-45°'),
       ]),
     ])
@@ -285,7 +289,7 @@ const LightItem = defineComponent({
     return () => h('div', { class: ['light-item', props.active ? 'active' : '', props.danger ? 'danger' : ''] }, [
       h('span', props.label),
       h('i', slots.default?.()),
-      h('strong', props.state),
+      h('strong', signals.offline ? '—（stale）' : props.state),
     ])
   },
 })
@@ -322,6 +326,8 @@ function formatValue(value: number | string | null | undefined): string {
   if (Math.abs(value) >= 10) return value.toFixed(1)
   return value.toFixed(3).replace(/0+$/, '').replace(/\.$/, '')
 }
+
+function freshText(value: string) { return signals.offline ? '—（stale）' : value }
 
 async function saveLayout() {
   await runAction(() => apiPut('/signals/dashboard-layout', { layout: { preset: 'default' } }), '自定义布局')
@@ -364,7 +370,7 @@ function showToast(message: string) {
   min-height: 0;
   overflow: hidden;
   display: grid;
-  grid-template-rows: 56px 310px 220px minmax(0, 1fr);
+  grid-template-rows: 42px 310px 220px minmax(0, 1fr);
   gap: 12px;
   color: #d7e7fb;
 }
@@ -1038,7 +1044,7 @@ button {
 
 @media (max-width: 1500px) {
   .signal-dashboard-page {
-    grid-template-rows: 54px 292px 210px minmax(0, 1fr);
+    grid-template-rows: 42px 292px 210px minmax(0, 1fr);
     gap: 10px;
   }
 

@@ -40,6 +40,10 @@ python scripts/dev_backend.py
 
 默认 HTTP：`http://127.0.0.1:8800`，WebSocket：`ws://127.0.0.1:8800/ws`。
 
+首次启动不会提供默认账号或固定 token。若本地数据库尚无账号，请从运行数据目录的 `auth/bootstrap-admin.secret` 读取一次性凭据，在桌面登录页建立首个管理员；成功后该文件自动删除。随后由管理员建立 operator/engineer/viewer 账号。完整的干净机和 production 签名配置流程见 `docs/IDENTITY_AND_ACCESS.md`。
+
+所有持久化文件从签名配置的唯一 `data_root` 派生。production 部署、schema migration、备份恢复、retention 和打印依赖分别见 `docs/DEPLOYMENT.md`、`docs/DATABASE_AND_MIGRATIONS.md`、`docs/DATA_LIFECYCLE.md` 和 `docs/REPORTING_AND_PRINTING.md`。
+
 ## 启动仿真器
 
 ```bash
@@ -74,6 +78,7 @@ npm run test
 ```bash
 pytest backend/tests -q
 pytest simulator/tests -q
+python scripts/check_report_dependencies.py
 cd desktop
 npm run typecheck
 npm run build
@@ -88,6 +93,8 @@ npm run build
 - 一键检测：`backend/app/eol/engine.py`
 - 仿真器：`simulator/can_frame_simulator.py`
 - 桌面 UI：`desktop/src/`
+- Windows 离线打包：`docs/DESKTOP_PACKAGING.md`
+- 安装/升级/排障：`docs/WINDOWS_INSTALLATION_UPGRADE_TROUBLESHOOTING.md`
 
 ## 真实硬件确认项
 

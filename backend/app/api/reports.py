@@ -13,11 +13,16 @@ from app.api.models import (
     ReportDashboardResponse,
     ReportListResponse,
     ReportPreviewResponse,
+    ReportPrintRequest,
     ObjectResponse,
+    PrinterStatusResponse,
+    PrintJobEnvelope,
 )
 from app.security.auth import Principal, Role, require_role
 from app.services.app_state import state
 from app.services.audit import record_operator_action
+from app.reports.dependencies import report_dependency_status
+from app.core.paths import CONFIG_DIR
 
 
 router = APIRouter()
@@ -180,16 +185,77 @@ async def regenerate(
 @router.post("/reports/{rid}/print", response_model=ActionResponse)
 async def print_report(
     rid: str,
+    payload: ReportPrintRequest,
     principal: Principal = Depends(require_role(Role.OPERATOR)),
 ):
-    job = _service().create_print_job(rid, principal.username)
-    record_operator_action(state, principal, "queue_report_print", rid, job, trace_id=get_trace_id())
+    from fastapi import HTTPException
+
+    try:
+        job = state.printing.create(
+            rid,
+            principal,
+            preview_confirmed=payload.preview_confirmed,
+            printer_name=payload.printer_name,
+        )
+    except ValueError as exc:
+        raise HTTPException(422, {"code": "PRINT_PREVIEW_CONFIRMATION_REQUIRED", "message": str(exc), "details": {"report_id": rid}}) from exc
+    except Exception as exc:
+        raise HTTPException(409, {"code": "PRINT_SUBMISSION_FAILED", "message": str(exc), "details": {"report_id": rid}}) from exc
     return _action("打印任务已进入持久化队列", job)
 
 
-@router.get("/reports/print-jobs/{job_id}", response_model=ObjectResponse)
+@router.get("/reports/print-jobs/{job_id}", response_model=PrintJobEnvelope)
 async def print_job(job_id: str, _principal: Principal = Depends(require_role(Role.VIEWER))):
-    return {"job": _service().print_job(job_id), **dashboard_metadata("sqlite", quality="good")}
+    from fastapi import HTTPException
+
+    try:
+        job = state.printing.job(job_id)
+    except KeyError as exc:
+        raise HTTPException(404, {"code": "PRINT_JOB_NOT_FOUND", "message": "print job does not exist", "details": {"job_id": job_id}}) from exc
+    return {"job": job}
+
+
+@router.get("/reports/printers", response_model=PrinterStatusResponse)
+async def printers(_principal: Principal = Depends(require_role(Role.VIEWER))):
+    return state.printing.printer_status()
+
+
+@router.get("/reports/capabilities", response_model=ObjectResponse)
+async def report_capabilities(_principal: Principal = Depends(require_role(Role.VIEWER))):
+    return {
+        "report": report_dependency_status(CONFIG_DIR / "report_config.yaml"),
+        "printing": state.printing.printer_status(),
+    }
+
+
+@router.post("/reports/print-jobs/{job_id}/cancel", response_model=PrintJobEnvelope)
+async def cancel_print_job(job_id: str, principal: Principal = Depends(require_role(Role.OPERATOR))):
+    from fastapi import HTTPException
+
+    try:
+        return {"job": state.printing.cancel(job_id, principal)}
+    except KeyError as exc:
+        raise HTTPException(404, {"code": "PRINT_JOB_NOT_FOUND", "message": str(exc), "details": {"job_id": job_id}}) from exc
+    except Exception as exc:
+        raise HTTPException(409, {"code": "PRINT_CANCEL_FAILED", "message": str(exc), "details": {"job_id": job_id}}) from exc
+
+
+@router.post("/reports/print-jobs/{job_id}/retry", response_model=PrintJobEnvelope)
+async def retry_print_job(job_id: str, principal: Principal = Depends(require_role(Role.OPERATOR))):
+    from fastapi import HTTPException
+
+    try:
+        return {"job": state.printing.retry(job_id, principal)}
+    except KeyError as exc:
+        raise HTTPException(404, {"code": "PRINT_JOB_NOT_FOUND", "message": str(exc), "details": {"job_id": job_id}}) from exc
+    except Exception as exc:
+        raise HTTPException(409, {"code": "PRINT_RETRY_FAILED", "message": str(exc), "details": {"job_id": job_id}}) from exc
+
+
+@router.post("/reports/{rid}/archive", response_model=ActionResponse)
+async def archive_report(rid: str, principal: Principal = Depends(require_role(Role.ADMIN))):
+    details = _service().archive(rid, principal)
+    return _action("report archive manifest created", details)
 
 
 @router.delete("/reports/{rid}", response_model=ActionResponse)

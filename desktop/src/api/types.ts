@@ -91,6 +91,11 @@ export interface NetworkChannelConfig {
   period_ms: number
   control_enabled: boolean
   status: string
+  bind_status?: string
+  last_frame_age_ms?: number | null
+  tcp_state?: string
+  source_allowlist_enforced?: boolean
+  approved_sources?: string[]
 }
 
 export interface NetworkConfigSummary {
@@ -101,12 +106,14 @@ export interface NetworkConfigSummary {
     subnet_mask: string
     link_speed: string
     ports: NetworkLocalPort[]
+    diagnostic_source?: string
+    diagnosed_at?: string
   }
   channels: NetworkChannelConfig[]
 }
 
 export interface NetworkSelfTestResult {
-  ping_latency_ms: number
+  ping_latency_ms: number | null
   udp_loopback: string
   protocol_valid_rate: number
   dlc_check: string
@@ -115,6 +122,69 @@ export interface NetworkSelfTestResult {
   last_error: string
   stub?: boolean
   message?: string
+  channels?: Array<{
+    channel: string
+    protocol: string
+    bind_status: string
+    port_in_use: boolean
+    endpoint_status: string
+    last_frame_age_ms: number | null
+    tcp_state: string
+    source_allowlist_enforced: boolean
+  }>
+  steps?: Array<{ rule: string; status: string; duration_ms: number; details: Record<string, unknown>; recommendation: string }>
+}
+
+export interface SignedConfigurationPackage {
+  schema_version: 1
+  package_id: string
+  issued_at: string
+  issuer: string
+  configuration: {
+    config_version: string
+    runtime_profile: 'dev' | 'mock' | 'test' | 'production'
+    network_interface: { adapter_name: string; bind_address: string }
+    can_endpoints: Array<{
+      channel: 'CAN1' | 'CAN2'
+      protocol: 'udp' | 'tcp'
+      local_ip: string
+      local_port: number
+      device_ip: string
+      device_port: number
+      source_allowlist: Array<{ ip: string; port: number }>
+      enabled: boolean
+      control_enabled: boolean
+    }>
+    vehicle_series: string
+    approved_dbc_sha256: string
+    test_plan_version: string
+    data_root: string
+    station_id: string
+    printer: { name: string | null; required: boolean }
+  }
+  signature_algorithm: 'HMAC-SHA256'
+  signature: string
+}
+
+export interface ConfigurationPreviewResult {
+  ok: boolean
+  dry_run: true
+  signature_valid: boolean
+  schema_valid: boolean
+  compatible: boolean
+  summary: Record<string, string | number | boolean | null>
+  diff: Array<{ path: string; current: unknown; proposed: unknown }>
+  health_checks: Array<{ rule: string; passed: boolean; blocking: boolean; current: unknown; threshold: unknown }>
+  blocking_checks: Array<{ rule: string; passed: boolean; blocking: boolean; current: unknown; threshold: unknown }>
+  message: string
+}
+
+export interface ConfigurationExportResult {
+  ok: boolean
+  format: 'json'
+  filename: string
+  package: SignedConfigurationPackage
+  message: string
 }
 
 export interface CanLatestFrame {
@@ -324,6 +394,46 @@ export interface ManualControlCommand {
   position_light: boolean
   low_beam: boolean
   control_mode: 'speed' | 'current'
+  safety_context?: SafetyOverrideUse
+}
+
+export interface SafetyOverrideUse {
+  override_id: string
+  session_id: string
+  vehicle_id: string
+}
+
+export type SafetyOverrideOperation = 'manual'
+export type SafetyOverrideStatus = 'PENDING_REVIEW' | 'APPROVED' | 'REVOKED' | 'EXPIRED'
+
+export interface SafetyOverrideRequest {
+  reason: string
+  session_id: string
+  operation: SafetyOverrideOperation
+  vehicle_id: string
+  authorized_user: string
+  duration_seconds: number
+}
+
+export interface SafetyOverrideRecord {
+  id: string
+  alarm_id: string
+  status: SafetyOverrideStatus
+  requested_by: string
+  request_reason: string
+  requested_at: string
+  session_id: string
+  operation: SafetyOverrideOperation
+  vehicle_id: string
+  authorized_user: string
+  duration_seconds: number
+  approved_by?: string | null
+  approved_at?: string | null
+  approval_reason?: string | null
+  expires_at?: string | null
+  revoked_by?: string | null
+  revoked_at?: string | null
+  revoke_reason?: string | null
 }
 
 export interface ManualControlStatus {
@@ -343,12 +453,32 @@ export interface ManualInterlockItem {
   label: string
   status: 'pass' | 'warning' | 'fail'
   value: string
+  rule?: string
+  current?: unknown
+  threshold?: unknown
+  blocking?: boolean
 }
 
 export interface ManualInterlockStatus {
   overall: 'allow' | 'warning' | 'block'
   items: ManualInterlockItem[]
   reasons?: string[]
+  evaluation?: {
+    allowed: boolean
+    operation: string
+    profile: string
+    degraded_mode: boolean
+    feedback_groups: string[]
+    rules: Array<{
+      rule: string
+      label: string
+      status: 'PASS' | 'FAIL'
+      current: unknown
+      threshold: unknown
+      blocking: boolean
+    }>
+    reasons: Array<{ rule: string; label: string; status: string; current: unknown; threshold: unknown; blocking: boolean }>
+  }
 }
 
 export interface ManualPreview {
@@ -369,6 +499,32 @@ export interface ManualFeedback {
   light_feedback: string
   brake_status: string
   alarm_status: string
+  fields?: ManualFeedbackField[]
+  overall?: 'valid' | 'invalid'
+  mock?: boolean
+  stale?: boolean
+  updated_at?: string
+}
+
+export interface ManualFeedbackField {
+  rule: string
+  label: string
+  status: 'valid' | 'invalid'
+  present: boolean
+  age_ms: number | null
+  quality: string
+  channel: string | null
+  can_id: string | null
+  value: unknown
+  checks: {
+    present?: boolean
+    fresh?: boolean
+    quality_valid?: boolean
+    source_valid?: boolean
+    value_valid?: boolean
+  }
+  threshold: Record<string, unknown>
+  blocking: boolean
 }
 
 export interface ManualCurves {
@@ -548,6 +704,69 @@ export interface ReportListItem {
   path: string
   generation_status: string
   file_hash?: string | null
+}
+
+export interface PrinterStatus {
+  backend: string
+  available: boolean
+  default_printer: string | null
+  printers: Array<{ name: string; is_default: boolean; status: string }>
+  error: string | null
+}
+
+export interface PrintJob {
+  id: string
+  job_id: string
+  report_id: string
+  status: 'QUEUED' | 'PRINTING' | 'COMPLETED' | 'FAILED' | 'CANCELLED'
+  printer_name: string
+  backend: string
+  spooler_job_id: string | null
+  report_hash: string
+  attempts: number
+  status_detail: string | null
+  error_message: string | null
+  created_at: string
+  updated_at: string
+}
+
+export interface StorageLifecycleStats {
+  data_root: string
+  paths: Record<string, string>
+  total_bytes: number
+  used_bytes: number
+  free_bytes: number
+  used_percent: number
+  category_bytes: Record<string, number>
+  schema_version: number
+  latest_schema_version: number
+  database_writable: boolean
+  health: Record<string, unknown>
+  measured_at: string
+}
+
+export interface CleanupPreview {
+  dry_run: boolean
+  cutoff_utc: string
+  session_ids: string[]
+  session_count: number
+  oldest_utc: string | null
+  newest_utc: string | null
+  row_counts: Record<string, number>
+  file_count: number
+  file_bytes: number
+  estimated_database_bytes: number
+  total_bytes: number
+  protected: Record<string, number | string>
+}
+
+export interface BackupListItem {
+  backup_id: string
+  valid: boolean
+  created_at: string | null
+  schema_version: number | null
+  size_bytes: number
+  errors: string[]
 }
 
 export interface ReportPreviewData extends DataSourceMetadata {
@@ -760,6 +979,7 @@ export interface SystemSettingsDashboard extends DataSourceMetadata {
     overrides: Array<{ key: string; label: string; value: string; status: string }>
   }
   storage: {
+    data_root: string
     report_directory: string
     raw_can_directory: string
     decoded_signal_directory: string
@@ -775,6 +995,7 @@ export interface SystemSettingsDashboard extends DataSourceMetadata {
     disk_used_gb: number
     disk_free_gb: number
     disk_used_percent: number
+    measurement_error?: string | null
   }
   thresholds: SystemThresholdSetting[]
   roles: SystemRoleSetting[]
@@ -790,7 +1011,7 @@ export interface SystemSettingsDashboard extends DataSourceMetadata {
     platform: string
     build_time: string
   }
-  storage_trend: Array<{ date: string; used_gb: number }>
+  storage_trend: Array<{ date: string; used_gb: number; source?: string }>
   storage_summary: {
     current_log_gb: number
     database_gb: number

@@ -2,13 +2,11 @@ from __future__ import annotations
 
 import csv
 from collections import defaultdict
-from datetime import datetime, timedelta, timezone
 import gzip
 from pathlib import Path
 from typing import Any
 
 from app.can_gateway.models import CanFrame
-from app.core.paths import LOGS_DIR
 from app.core.time import utc_now
 
 
@@ -24,7 +22,7 @@ class RawLogWriter:
 
     def __init__(
         self,
-        root: Path = LOGS_DIR,
+        root: Path,
         *,
         batch_size: int = 200,
         rotate_bytes: int = 32 * 1024 * 1024,
@@ -41,7 +39,6 @@ class RawLogWriter:
         self.paths: dict[tuple[str, str], Path] = {}
         self.rotations = 0
         self.compressed = 0
-        self._cleanup_done_for: str | None = None
 
     def write(self, frame: CanFrame, session_id: str | None = None) -> None:
         timestamp = utc_now()
@@ -80,7 +77,6 @@ class RawLogWriter:
         rows = self.buffers.get(key, [])
         if not rows:
             return
-        self._cleanup_old_files(key[1])
         path = self._active_path(key, rows)
         exists = path.exists()
         with path.open("a", newline="", encoding="utf-8") as fp:
@@ -119,19 +115,6 @@ class RawLogWriter:
             destination.writelines(source)
         path.unlink(missing_ok=True)
         self.compressed += 1
-
-    def _cleanup_old_files(self, date: str) -> None:
-        if self._cleanup_done_for == date:
-            return
-        self._cleanup_done_for = date
-        try:
-            cutoff = datetime.now(timezone.utc) - timedelta(days=self.retention_days)
-            for path in self.root.rglob("raw_can_*.csv*"):
-                if datetime.fromtimestamp(path.stat().st_mtime, tz=timezone.utc) < cutoff:
-                    path.unlink(missing_ok=True)
-        except OSError:
-            # A retention failure must not break audit logging of the active session.
-            return
 
     @staticmethod
     def _safe_component(value: str) -> str:

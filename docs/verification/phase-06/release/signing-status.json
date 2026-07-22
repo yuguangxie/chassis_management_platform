@@ -1,0 +1,8 @@
+﻿{
+    "timestamp_utc":  "2026-07-22T15:34:29.2492438Z",
+    "file":  "Chassis-EOL-Setup-1.0.2-unsigned-internal-x64.exe",
+    "status":  "NotSigned",
+    "signed":  false,
+    "formal_release":  false,
+    "note":  "unsigned internal package; not a formal production release"
+}

@@ -135,3 +135,43 @@ jobs:
           name: phase-05-e2e-${{ github.run_id }}
           path: docs/verification/phase-05/e2e
           if-no-files-found: error
+
+  windows-installer:
+    name: unsigned-internal-windows-installer
+    runs-on: windows-latest
+    needs: [quality, renderer-e2e]
+    timeout-minutes: 75
+    env:
+      CSC_IDENTITY_AUTO_DISCOVERY: 'false'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11.8'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.22.2'
+          cache: npm
+          cache-dependency-path: desktop/package-lock.json
+      - uses: astral-sh/setup-uv@v5
+        with:
+          version: '0.10.7'
+      - name: Install locked desktop build dependencies
+        run: npm.cmd ci --prefix desktop
+      - name: Build offline unsigned internal installer, SBOM and manifest
+        shell: pwsh
+        run: .\scripts\build_windows_release.ps1 -SkipQuality
+      - name: Install, run 11 pages without simulator, recover sidecar, and uninstall
+        shell: pwsh
+        run: |
+          $installer = Get-ChildItem desktop/release/windows/Chassis-EOL-Setup-*-unsigned-internal-x64.exe | Select-Object -First 1
+          if (-not $installer) { throw 'unsigned internal installer not found' }
+          .\scripts\verify_windows_installer.ps1 -InstallerPath $installer.FullName
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: phase-06-windows-installer-${{ github.run_id }}
+          path: |
+            desktop/release/windows
+            docs/verification/phase-06
+          if-no-files-found: error

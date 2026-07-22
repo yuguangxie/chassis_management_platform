@@ -31,10 +31,13 @@ def test_system_dashboard_has_complete_structure(auth_headers):
         payload = response.json()
         assert payload["basic"]["station_id"] == "EOL-STATION-01"
         assert payload["basic"]["control_channel"] == "CAN2"
+        assert payload["storage"]["data_root"] == str(state.data_paths.root)
+        assert payload["storage"]["database_path"] == str(state.data_paths.database)
+        assert payload["storage"]["auto_cleanup"] is False
         assert len(payload["dbc"]["overrides"]) == 5
         assert len(payload["thresholds"]) >= 23
         assert len(payload["roles"]) == 4
-        assert len(payload["config_history"]) >= 4
+        assert all("TestLogs" not in str(item) for item in payload["config_history"])
         assert payload["maintenance"]["enable_0x123"] is False
         assert payload["maintenance"]["enable_0x126"] is False
         assert payload["maintenance"]["allow_canopen_nmt"] is False
@@ -60,6 +63,24 @@ def test_save_normal_config_is_atomic_and_audited(auth_headers):
         after = len(client.get("/api/v1/config/history", headers=auth_headers("viewer")).json())
         assert after >= before
         assert any(item["key"] == "basic.language" for item in client.get("/api/v1/config/history", headers=auth_headers("viewer")).json())
+
+
+def test_individual_storage_paths_and_unattended_cleanup_are_rejected(auth_headers, tmp_path: Path):
+    with TestClient(app) as client:
+        path = client.put(
+            "/api/v1/config",
+            json={"storage": {"report_directory": str(tmp_path / "outside")}, "reason": "path split"},
+            headers=auth_headers("engineer"),
+        )
+        assert path.status_code == 422
+        assert path.json()["code"] == "DERIVED_STORAGE_PATH_IMMUTABLE"
+        automatic = client.put(
+            "/api/v1/config",
+            json={"storage": {"auto_cleanup": True}, "reason": "unsafe auto cleanup"},
+            headers=auth_headers("engineer"),
+        )
+        assert automatic.status_code == 422
+        assert automatic.json()["code"] == "UNATTENDED_CLEANUP_FORBIDDEN"
 
 
 def test_out_of_range_threshold_is_rejected(auth_headers):
@@ -156,16 +177,19 @@ def test_restore_safe_defaults_disables_all_dangerous_features(auth_headers):
         assert dashboard["basic"]["control_channel"] == "CAN2"
 
 
-def test_dbc_reload_and_stub_operations_are_stable(auth_headers):
+def test_dbc_reload_and_support_operations_are_stable(auth_headers):
     with TestClient(app) as client:
         reload_response = client.post("/api/v1/dbc/reload", json={}, headers=auth_headers("engineer"))
         assert reload_response.status_code == 200
         reload_payload = reload_response.json()
         assert {"status", "message_count", "signal_count", "hash", "message"} <= reload_payload.keys()
-        assert client.post("/api/v1/config/import", json={"source": "test"}, headers=auth_headers("engineer")).status_code == 200
-        assert client.get("/api/v1/config/export", headers=auth_headers("viewer")).status_code == 200
+        assert client.post("/api/v1/config/import", json={"source": "test"}, headers=auth_headers("engineer")).status_code == 403
+        assert client.get("/api/v1/config/export", headers=auth_headers("viewer")).status_code == 403
+        assert client.get("/api/v1/config/export", headers=auth_headers("admin")).status_code == 200
         assert client.get("/api/v1/storage/stats", headers=auth_headers("viewer")).status_code == 200
         assert client.get("/api/v1/storage/trend", headers=auth_headers("viewer")).status_code == 200
-        assert client.post("/api/v1/storage/cleanup", json={}, headers=auth_headers("admin")).status_code == 200
+        cleanup = {"cutoff_utc": "2020-01-01T00:00:00Z", "confirmation": "CLEANUP", "batch_size": 10}
+        assert client.post("/api/v1/storage/cleanup", json=cleanup, headers=auth_headers("engineer")).status_code == 403
+        assert client.post("/api/v1/storage/cleanup", json=cleanup, headers=auth_headers("admin")).status_code == 200
         assert client.get("/api/v1/system/version", headers=auth_headers("viewer")).status_code == 200
         assert client.get("/api/v1/auth/roles", headers=auth_headers("viewer")).status_code == 200

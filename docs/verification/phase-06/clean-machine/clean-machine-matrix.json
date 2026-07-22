@@ -1,0 +1,18 @@
+﻿{
+    "timestamp_utc":  "2026-07-22T15:36:42.2340274Z",
+    "installer":  "D:\\workspace\\0-yunle\\7_codex\\chassis_eol_management_platform_codex_pack\\chassis_management_platform\\desktop\\release\\windows\\Chassis-EOL-Setup-1.0.2-unsigned-internal-x64.exe",
+    "no_node_python_uv_or_internet_runtime":  true,
+    "loopback_port_8800_occupied":  true,
+    "unicode_and_space_paths":  true,
+    "first_launch_11_pages":  true,
+    "second_launch":  true,
+    "sidecar_crash_restart":  true,
+    "sidecar_start_failure_diagnostics":  true,
+    "simulator_absent_control_409":  true,
+    "uninstall_preserved_business_data":  true,
+    "previous_version_upgrade":  "NOT_EXECUTED_NO_PREVIOUS_ARTIFACT",
+    "rollback":  "NOT_EXECUTED_NO_PREVIOUS_ARTIFACT",
+    "administrator_and_standard_user":  "CI asInvoker covered; independent standard-user VM remains external",
+    "antivirus_firewall":  "actionable diagnostic path covered; vendor-specific allowlisting remains external",
+    "passed":  true
+}

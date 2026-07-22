@@ -63,8 +63,8 @@ class Simulator:
         self.targets = {"CAN1": can1_target, "CAN2": can2_target}
         self.listens = {"CAN1": can1_listen, "CAN2": can2_listen}
         self.rate_hz = rate_hz
-        self.tx_sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         self.rx_socks: list[socket.socket] = []
+        self.channel_socks: dict[str, socket.socket] = {}
         self.running = True
 
     async def start(self) -> None:
@@ -73,6 +73,7 @@ class Simulator:
             sock.setblocking(False)
             sock.bind(addr)
             self.rx_socks.append(sock)
+            self.channel_socks[channel] = sock
             asyncio.create_task(self.listen(sock, channel))
         LOGGER.info("simulator profile=%s targets=%s listens=%s", self.profile, self.targets, self.listens)
         while self.running:
@@ -113,7 +114,7 @@ class Simulator:
             self.state.rear_fb += (self.state.rear_cmd - self.state.rear_fb) * 0.3
 
     def send(self, channel: str, can_id: int, data: list[int]) -> None:
-        self.tx_sock.sendto(build_usr_can115_frame(can_id, data), self.targets[channel])
+        self.channel_socks[channel].sendto(build_usr_can115_frame(can_id, data), self.targets[channel])
 
     def send_cycle(self, channel: str) -> None:
         soc = self.profile["soc"]

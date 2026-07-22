@@ -9,4 +9,15 @@ interface Window {
   desktopFiles?: {
     openPath: (targetPath: string) => Promise<{ ok: boolean }>
   }
+  chassisRuntime?: {
+    getConnection: () => {
+      apiBase: string
+      wsUrl: string
+      sidecarCredential: string
+      runtimeProfile: 'dev' | 'mock' | 'production'
+      ready: boolean
+      packaged: boolean
+      releaseChannel: string
+    }
+  }
 }

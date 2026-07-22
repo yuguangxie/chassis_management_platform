@@ -1,16 +1,18 @@
 report:
-  default_output_dir: D:\TestLogs\Reports
+  # Output is always <data_root>/reports. No site path or secret belongs here.
+  output_subdirectory: reports
   filename_pattern: '{date}_{chassis_no}_{vin_last6}_{result}_{session_id}'
   generate_docx: true
   generate_pdf: true
   generate_json: true
   generate_csv_summary: true
-  pdf_converter: auto
+  # Current PDFs are rendered natively by ReportLab, not renamed DOCX files.
+  # Set docx_to_pdf_converter to libreoffice or word only when packaging checks pass.
+  pdf_renderer: reportlab-native
+  docx_to_pdf_converter: disabled
   font:
     environment_variable: CHASSIS_REPORT_FONT
     bundled_candidate: assets/fonts/NotoSansCJKsc-Regular.otf
-    windows_candidate: C:\Windows\Fonts\simhei.ttf
-    linux_candidate: /usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc
   include_sections:
     cover: true
     environment: true

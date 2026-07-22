@@ -14,8 +14,8 @@ import httpx
 
 ROOT = Path(__file__).resolve().parents[1]
 BASE = "http://127.0.0.1:8800/api/v1"
-OPERATOR = {"Authorization": "Bearer dev-operator-token"}
-VIEWER = {"Authorization": "Bearer dev-viewer-token"}
+OPERATOR = {"Authorization": f"Bearer {os.getenv('CHASSIS_OPERATOR_TOKEN', '')}"}
+VIEWER = {"Authorization": f"Bearer {os.getenv('CHASSIS_VIEWER_TOKEN', '')}"}
 
 
 def wait(callback, timeout: float, label: str):

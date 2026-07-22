@@ -4,10 +4,10 @@ from app.main import app
 from app.services.app_state import state
 
 
-def test_alarm_dashboard_complete_and_unsigned_bitmap():
+def test_alarm_dashboard_complete_and_unsigned_bitmap(auth_headers):
     with TestClient(app) as client:
         state.signals.current["Balance_symbol_cell16"] = {"value": 0x8001}
-        response = client.get("/api/v1/alarms/dashboard")
+        response = client.get("/api/v1/alarms/dashboard", headers=auth_headers("viewer"))
         assert response.status_code == 200
         payload = response.json()
         assert payload["data_source"] == "runtime+sqlite"

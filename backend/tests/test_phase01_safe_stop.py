@@ -3,8 +3,10 @@ from types import SimpleNamespace
 
 import pytest
 
+from app.can_gateway.models import CanFrame
 from app.control.safe_stop import SafeStopService
 from app.control.safety_interlock import SafetyInterlockService
+from app.core.config import RuntimeConfig
 from app.security.auth import Principal, Role
 from app.services.signal_store import SignalStore
 
@@ -15,6 +17,8 @@ class FakeScheduler:
         self.feedback = feedback
         self.attempts = 0
         self.stopped = False
+        self.hold_started = False
+        self.hold_period_ms = None
 
     async def stop(self):
         self.stopped = True
@@ -29,20 +33,26 @@ class FakeScheduler:
             speed, brake = 1.2, True
         else:
             return {"sent": True}
-        self.state.signals.current["CCU_Vehicle_Speed"] = {
-            "value": speed,
-            "quality": "good",
-            "received_at_monotonic": now,
-        }
-        self.state.signals.current["Brake_Status"] = {
-            "value": brake,
-            "quality": "good",
-            "received_at_monotonic": now,
-        }
+        speed_frame = CanFrame(channel="CAN1", can_id=0x51, data=[0] * 8)
+        speed_frame.received_at_monotonic = now
+        brake_frame = CanFrame(channel="CAN1", can_id=0x51, data=[0] * 8)
+        brake_frame.received_at_monotonic = now
+        self.state.signals.update("CCU_Vehicle_Speed", speed, speed_frame)
+        self.state.signals.update("Brake_Status", brake, brake_frame)
         return {"sent": True, "operation": operation, "data": command.model_dump()}
 
+    async def start_stop_hold(self, command, *, operation, period_ms):
+        self.hold_started = True
+        self.hold_period_ms = period_ms
+        return {"periodic": True, "operation": operation, "data": command.model_dump()}
 
-def make_state(feedback: str, online: bool = True):
+
+def make_state(
+    feedback: str,
+    online: bool = True,
+    *,
+    post_confirm_policy: str = "stop_transmission",
+):
     config = SimpleNamespace(
         control_channel="CAN2",
         channels=[SimpleNamespace(channel="CAN2", control_enabled=True)],
@@ -53,6 +63,10 @@ def make_state(feedback: str, online: bool = True):
         require_dbc_for_control=False,
         manual_speed_limit_kmh=3.0,
         steering_limit_absolute=120,
+        feedback_dependencies=RuntimeConfig().feedback_dependencies,
+        safe_stop_post_confirm_policy=post_confirm_policy,
+        safe_stop_hold_period_ms=40,
+        safe_stop_policy_hardware_validated=False,
     )
     state = SimpleNamespace(
         config=config,
@@ -84,6 +98,27 @@ async def test_safe_stop_success_confirms_feedback_and_latches():
     assert result["code"] == "STOP_CONFIRMED"
     assert result["feedback"] == {"speed_kmh": 0.0, "brake": True, "stopped": True}
     assert state.safe_stop_latched is True
+    assert result["post_confirmation_policy"] == "stop_transmission"
+    assert result["hold_active"] is False
+    assert result["hardware_validated"] is False
+    assert state.tx_scheduler.hold_started is False
+
+
+@pytest.mark.asyncio
+async def test_safe_stop_can_hold_brake_until_release_when_explicitly_configured():
+    state = make_state("success", post_confirm_policy="hold_brake_until_release")
+    result = await SafeStopService(state).execute(
+        emergency=False,
+        principal=Principal("operator", Role.OPERATOR),
+        reason="mock hold policy",
+        timeout_ms=100,
+    )
+    assert result["ok"] is True
+    assert result["post_confirmation_policy"] == "hold_brake_until_release"
+    assert result["hold_active"] is True
+    assert result["hardware_validated"] is False
+    assert state.tx_scheduler.hold_started is True
+    assert state.tx_scheduler.hold_period_ms == 40
 
 
 @pytest.mark.asyncio

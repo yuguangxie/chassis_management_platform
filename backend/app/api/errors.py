@@ -6,6 +6,7 @@ import uuid
 from typing import Any
 
 from fastapi import HTTPException, Request
+from fastapi.encoders import jsonable_encoder
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 
@@ -56,10 +57,18 @@ async def http_exception_handler(_request: Request, exc: HTTPException) -> JSONR
 async def validation_exception_handler(
     _request: Request, exc: RequestValidationError
 ) -> JSONResponse:
+    errors = exc.errors()
+    for error in errors:
+        context = error.get("ctx")
+        if isinstance(context, dict):
+            error["ctx"] = {
+                key: str(value) if isinstance(value, BaseException) else value
+                for key, value in context.items()
+            }
     payload = {
         "code": "VALIDATION_ERROR",
         "message": "请求参数校验失败",
-        "details": {"errors": exc.errors()},
+        "details": {"errors": jsonable_encoder(errors)},
         "trace_id": get_trace_id(),
     }
     return JSONResponse(status_code=422, content=payload, headers={"X-Trace-Id": payload["trace_id"]})

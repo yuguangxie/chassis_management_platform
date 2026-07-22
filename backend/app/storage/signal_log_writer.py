@@ -6,7 +6,6 @@ import logging
 from pathlib import Path
 from typing import Any
 
-from app.core.paths import LOGS_DIR
 
 
 LOGGER = logging.getLogger(__name__)
@@ -28,7 +27,7 @@ SIGNAL_HEADERS = [
 class SignalLogWriter:
     def __init__(
         self,
-        root: Path = LOGS_DIR,
+        root: Path,
         *,
         format_name: str = "csv",
         batch_size: int = 200,

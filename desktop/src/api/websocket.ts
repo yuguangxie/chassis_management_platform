@@ -1,7 +1,7 @@
-import { getApiToken } from './http'
+import { AUTH_EXPIRED_EVENT, getApiToken, getRuntimeConnection, setApiToken } from './http'
 
 type Handler = (payload: unknown) => void
-type ConnectionState = 'idle' | 'connecting' | 'open' | 'reconnecting' | 'closed'
+type ConnectionState = 'idle' | 'connecting' | 'open' | 'reconnecting' | 'auth-required' | 'closed'
 type StatusHandler = (state: ConnectionState) => void
 
 export class WsClient {
@@ -17,12 +17,23 @@ export class WsClient {
     if (this.ws && (this.ws.readyState === WebSocket.OPEN || this.ws.readyState === WebSocket.CONNECTING)) return
     if (this.reconnectTimer) window.clearTimeout(this.reconnectTimer)
     this.reconnectTimer = undefined
+    const token = getApiToken()
+    if (!token) {
+      this.shouldReconnect = false
+      this.setState('auth-required')
+      return
+    }
     this.shouldReconnect = true
     this.setState(this.retryAttempt ? 'reconnecting' : 'connecting')
-    const base = import.meta.env.VITE_WS_URL || 'ws://127.0.0.1:8800/ws'
-    const token = getApiToken()
-    const separator = base.includes('?') ? '&' : '?'
-    const socket = new WebSocket(token ? `${base}${separator}token=${encodeURIComponent(token)}` : base)
+    const runtime = getRuntimeConnection()
+    if (!runtime.ready || !runtime.wsUrl) {
+      this.shouldReconnect = false
+      this.setState('closed')
+      return
+    }
+    const protocols = ['chassis-session', `chassis-token.${token}`]
+    if (runtime.sidecarCredential) protocols.push(`chassis-sidecar.${runtime.sidecarCredential}`)
+    const socket = new WebSocket(runtime.wsUrl, protocols)
     this.ws = socket
     socket.onopen = () => {
       if (this.ws !== socket) return
@@ -42,8 +53,15 @@ export class WsClient {
     socket.onerror = () => {
       // onclose schedules the retry. Keeping this handler side-effect free prevents duplicate retries.
     }
-    socket.onclose = () => {
+    socket.onclose = (event) => {
       if (this.ws === socket) this.ws = undefined
+      if (event.code === 4401) {
+        this.shouldReconnect = false
+        setApiToken('')
+        this.setState('auth-required')
+        window.dispatchEvent(new CustomEvent(AUTH_EXPIRED_EVENT, { detail: { code: 'SESSION_EXPIRED' } }))
+        return
+      }
       if (!this.shouldReconnect) {
         this.setState('closed')
         return
@@ -60,6 +78,17 @@ export class WsClient {
     this.ws = undefined
     socket?.close(1000, 'application shutdown')
     this.setState('closed')
+  }
+
+  suspendForAuth() {
+    this.close()
+    this.setState('auth-required')
+  }
+
+  resumeAfterAuth() {
+    this.shouldReconnect = true
+    this.retryAttempt = 0
+    this.connect()
   }
 
   send(data: unknown) {

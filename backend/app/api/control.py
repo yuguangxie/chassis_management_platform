@@ -1,15 +1,17 @@
 from __future__ import annotations
 
-from datetime import datetime
 from typing import Any
 
 from fastapi import APIRouter, Body, Depends, HTTPException
+from pydantic import ValidationError
 
+from app.api.models import SafetyOverrideUseRequest
 from app.control.control_121 import Control121Command, preview
-from app.control.safety_interlock import InterlockBlocked
+from app.control.safety_interlock import InterlockBlocked, SafetyEvaluationContext
 from app.security.auth import Principal, Role, require_role
 from app.services.app_state import state
 from app.services.audit import record_operator_action
+from app.core.time import utc_now
 
 router = APIRouter()
 
@@ -41,6 +43,29 @@ def _interlock_http_error(exc: InterlockBlocked) -> HTTPException:
             "message": "安全联锁阻止控制",
             "details": exc.evaluation,
         },
+    )
+
+
+def _safety_context(payload: Any, principal: Principal) -> SafetyEvaluationContext:
+    raw = payload.get("safety_context") if isinstance(payload, dict) else None
+    if raw is None:
+        return SafetyEvaluationContext(actor=principal.username)
+    try:
+        override = SafetyOverrideUseRequest.model_validate(raw)
+    except ValidationError as exc:
+        raise HTTPException(
+            422,
+            {
+                "code": "INVALID_SAFETY_CONTEXT",
+                "message": "人工放行使用范围不完整",
+                "details": exc.errors(include_url=False),
+            },
+        ) from exc
+    return SafetyEvaluationContext(
+        actor=principal.username,
+        override_id=override.override_id,
+        session_id=override.session_id,
+        vehicle_id=override.vehicle_id,
     )
 
 
@@ -106,12 +131,13 @@ async def send_once(
     principal: Principal = Depends(require_role(Role.ENGINEER)),
 ):
     command = _command_from_payload(payload)
+    context = _safety_context(payload, principal)
     try:
-        result = await state.tx_scheduler.send_once(command)
+        result = await state.tx_scheduler.send_once(command, context=context)
     except InterlockBlocked as exc:
-        record_operator_action(state, principal, "control_send_once", "0x121", command.model_dump(), "BLOCKED")
+        record_operator_action(state, principal, "control_send_once", "0x121", command.model_dump() | {"safety_context": context.model_dump(exclude_none=True)}, "BLOCKED")
         raise _interlock_http_error(exc)
-    record_operator_action(state, principal, "control_send_once", "0x121", command.model_dump())
+    record_operator_action(state, principal, "control_send_once", "0x121", command.model_dump() | {"safety_context": context.model_dump(exclude_none=True)})
     return {**result, "message": "0x121 已发送一次"}
 
 
@@ -122,12 +148,13 @@ async def start_periodic(
     principal: Principal = Depends(require_role(Role.ENGINEER)),
 ):
     command = _command_from_payload(payload)
+    context = _safety_context(payload, principal)
     try:
-        result = await state.tx_scheduler.start(command, period_ms)
+        result = await state.tx_scheduler.start(command, period_ms, context=context)
     except InterlockBlocked as exc:
-        record_operator_action(state, principal, "control_start_periodic", "0x121", command.model_dump(), "BLOCKED")
+        record_operator_action(state, principal, "control_start_periodic", "0x121", command.model_dump() | {"safety_context": context.model_dump(exclude_none=True)}, "BLOCKED")
         raise _interlock_http_error(exc)
-    record_operator_action(state, principal, "control_start_periodic", "0x121", command.model_dump() | {"period_ms": period_ms})
+    record_operator_action(state, principal, "control_start_periodic", "0x121", command.model_dump() | {"period_ms": period_ms, "safety_context": context.model_dump(exclude_none=True)})
     return {**result, "message": "0x121 周期发送已启动"}
 
 
@@ -194,13 +221,19 @@ async def release(
 async def reset_defaults(principal: Principal = Depends(require_role(Role.ENGINEER))):
     if state.emergency_stop:
         raise HTTPException(409, {"code": "EMERGENCY_LATCHED", "message": "急停锁存时不能恢复发送默认值"})
-    speed = state.signals.fresh_value(
-        "CCU_Vehicle_Speed", "Vehicle_Speed", max_age_seconds=state.config.channel_online_timeout_seconds
-    )
-    brake = state.signals.fresh_value("Brake_Status", max_age_seconds=state.config.channel_online_timeout_seconds)
-    severe_alarm = bool(state.alarms and state.alarms.max_level() >= 3)
-    if speed is None or abs(float(speed)) > state.config.stopped_speed_threshold_kmh or brake is not True or severe_alarm:
-        raise HTTPException(409, {"code": "STOP_NOT_CONFIRMED", "message": "需要速度归零、制动反馈有效且无严重告警，才能解除安全停车锁存"})
+    try:
+        state.safety.require_allowed(operation="release_emergency")
+    except InterlockBlocked as exc:
+        record_operator_action(
+            state,
+            principal,
+            "control_reset_defaults",
+            "0x121",
+            {"reasons": exc.evaluation["reasons"]},
+            "BLOCKED",
+        )
+        raise _interlock_http_error(exc)
+    await state.tx_scheduler.stop()
     state.safe_stop_latched = False
     record_operator_action(state, principal, "control_reset_defaults", "0x121", {})
     return {"ok": True, "message": "控制默认值已恢复，安全停车锁存已解除"}
@@ -208,22 +241,60 @@ async def reset_defaults(principal: Principal = Depends(require_role(Role.ENGINE
 
 @router.get("/control/manual-feedback")
 async def manual_feedback(_principal: Principal = Depends(require_role(Role.VIEWER))):
-    speed = state.signals.fresh_value("CCU_Vehicle_Speed", "Vehicle_Speed", max_age_seconds=2.0)
-    gear = state.signals.freshest("CCU_Shift_Level_Status", max_age_seconds=2.0)
-    front = state.signals.fresh_value("SAS_Front_Angle", max_age_seconds=2.0)
-    rear = state.signals.fresh_value("SAS_Rear_Angle", max_age_seconds=2.0)
-    brake = state.signals.fresh_value("Brake_Status", max_age_seconds=2.0)
+    evaluation = (
+        state.safety.evaluate(Control121Command(), operation="manual")
+        if state.safety
+        else {"allowed": False, "rules": [], "reasons": []}
+    )
+    feedback_rules = [
+        rule for rule in evaluation.get("rules", [])
+        if str(rule.get("rule", "")).startswith("feedback_")
+    ]
+    by_rule = {str(rule["rule"]): rule for rule in feedback_rules}
+
+    def value(rule_name: str, default: Any = None) -> Any:
+        current = by_rule.get(rule_name, {}).get("current")
+        return current.get("value", default) if isinstance(current, dict) else default
+
+    fields = []
+    for rule in feedback_rules:
+        current = rule.get("current") if isinstance(rule.get("current"), dict) else {}
+        fields.append(
+            {
+                "rule": rule["rule"],
+                "label": rule["label"],
+                "status": "valid" if rule.get("status") == "PASS" else "invalid",
+                "present": bool(current.get("checks", {}).get("present")),
+                "age_ms": current.get("age_ms"),
+                "quality": current.get("quality", "missing"),
+                "channel": current.get("channel"),
+                "can_id": current.get("can_id"),
+                "value": current.get("value"),
+                "checks": current.get("checks", {}),
+                "threshold": rule.get("threshold", {}),
+                "blocking": bool(rule.get("blocking", True)),
+            }
+        )
+
+    speed = value("feedback_base_vehicle_speed")
+    gear = value("feedback_drive_gear_status")
+    front = value("feedback_steering_front_steering")
+    rear = value("feedback_steering_rear_steering")
+    brake = value("feedback_brake_brake_status")
     return {
-        "gear": str(gear.get("label", "-") if gear else "-"),
+        "gear": "-" if gear is None else str(gear),
         "vehicle_speed": float(speed or 0),
         "front_steer_feedback": float(front or 0),
         "rear_steer_feedback": float(rear or 0),
         "wheel_speeds": "-",
         "light_feedback": "-",
-        "brake_status": "已制动" if brake else "未制动",
+        "brake_status": "未知" if brake is None else ("已制动" if brake else "未制动"),
         "alarm_status": "无告警" if not state.alarms or state.alarms.max_level() == 0 else "存在告警",
-        "mock": speed is None,
-        "updated_at": datetime.now().isoformat(timespec="milliseconds"),
+        "fields": fields,
+        "overall": "valid" if fields and all(item["status"] == "valid" for item in fields) else "invalid",
+        "mock": bool(state.mock_enabled),
+        "stale": not fields or any(not item["checks"].get("fresh", False) for item in fields),
+        "updated_at": utc_now(),
     }
 
 

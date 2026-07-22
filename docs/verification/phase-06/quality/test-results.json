@@ -1,0 +1,28 @@
+{
+  "timestamp_utc": "2026-07-22T15:27:00Z",
+  "commit": "3c6c838d1a2275d0b0d463ad3f04ac62293dfa0e",
+  "source_dirty_unsigned_internal": true,
+  "boundary": "Mock and 127.0.0.1 only; simulator absent during installed-package verification; no real CAN hardware",
+  "results": {
+    "backend": { "passed": 179, "failed": 0, "coverage_percent": 78.31 },
+    "simulator": { "passed": 3, "failed": 0, "coverage_percent": 42.98 },
+    "frontend": { "files_passed": 13, "tests_passed": 35, "failed": 0, "lines_percent": 60.55 },
+    "sidecar_node": { "passed": 4, "failed": 0 },
+    "lint": "passed",
+    "typecheck": "passed",
+    "vite_build": "passed",
+    "pyinstaller_self_test": "passed",
+    "nsis_build": "passed",
+    "installed_pages": { "pages": 11, "viewports": 2, "screenshots": 22, "passed": true },
+    "simulator_absent_control_status": 409,
+    "npm_audit_vulnerabilities": 0,
+    "pip_audit": "No known vulnerabilities found"
+  },
+  "installer": {
+    "file": "Chassis-EOL-Setup-1.0.2-unsigned-internal-x64.exe",
+    "bytes": 165113990,
+    "sha256": "2b51aa6efedfe5eb68789f61496e18fea0abe8d099770718015a55d764001744",
+    "authenticode": "NotSigned",
+    "formal_release": false
+  }
+}

@@ -9,9 +9,9 @@
         </div>
       </div>
       <div class="title-actions">
-        <span v-if="eol.offline" class="mock-badge">后端离线，当前使用 Mock 检测数据</span>
-        <button class="small-btn ghost" @click="showToast('自定义布局：接口已预留，当前为 Mock 模式')">
-          <Settings :size="15" />自定义布局
+        <PageDataState :loading="eol.loading" :error="eol.error" :stale="eol.offline" :empty="!dashboard.steps.length" />
+        <button class="small-btn ghost" disabled title="尚未实现：检测页布局编辑器">
+          <Settings :size="15" />自定义布局（尚未实现）
         </button>
       </div>
     </header>
@@ -94,7 +94,7 @@
         <div class="measure-list">
           <div v-for="item in dashboard.measurements" :key="item.name">
             <span>{{ item.name }}</span>
-            <strong>{{ item.value }} <small>{{ item.unit }}</small></strong>
+              <strong>{{ eol.offline ? '—（stale）' : item.value }} <small v-if="!eol.offline">{{ item.unit }}</small></strong>
           </div>
         </div>
       </article>
@@ -170,9 +170,9 @@
         <div class="stats-body">
           <div class="pass-donut"><span>通过率</span><strong>{{ dashboard.stats.pass_rate }}%</strong></div>
           <div class="stats-legend">
-            <p><i class="green"></i>通过 <b>{{ dashboard.stats.passed }} (100.0%)</b></p>
-            <p><i class="red"></i>失败 <b>{{ dashboard.stats.failed }} (0.0%)</b></p>
-            <p><i class="gray"></i>待执行 <b>{{ dashboard.stats.waiting }} (0.0%)</b></p>
+            <p><i class="green"></i>通过 <b>{{ dashboard.stats.passed }} ({{ stepPercent(dashboard.stats.passed) }}%)</b></p>
+            <p><i class="red"></i>失败 <b>{{ dashboard.stats.failed }} ({{ stepPercent(dashboard.stats.failed) }}%)</b></p>
+            <p><i class="gray"></i>待执行 <b>{{ dashboard.stats.waiting }} ({{ stepPercent(dashboard.stats.waiting) }}%)</b></p>
           </div>
         </div>
         <footer class="stats-footer">
@@ -183,13 +183,13 @@
     </section>
 
     <section class="action-row">
-      <ActionButton title="开始检测" :icon="PlayCircle" variant="primary" @click="startTest" />
-      <ActionButton title="暂停" :icon="PauseCircle" variant="warning" @click="runAction('暂停', 'pause')" />
-      <ActionButton title="继续" :icon="PlayCircle" variant="secondary" @click="runAction('继续', 'resume')" />
-      <ActionButton title="中止" :icon="Square" variant="danger" @click="abortTest" />
-      <ActionButton title="急停" :icon="OctagonAlert" variant="danger hot" @click="emergencyStop" />
-      <ActionButton title="生成报告" :icon="FileText" variant="outline" @click="runAction('生成报告', 'report')" />
-      <ActionButton title="查看关联日志" :icon="ScrollText" variant="outline" @click="viewLogs" />
+      <ActionButton title="开始检测" :icon="PlayCircle" variant="primary" :disabled="writeDisabled" @click="startTest" />
+      <ActionButton title="暂停" :icon="PauseCircle" variant="warning" :disabled="writeDisabled" @click="runAction('暂停', 'pause')" />
+      <ActionButton title="继续" :icon="PlayCircle" variant="secondary" :disabled="writeDisabled" @click="runAction('继续', 'resume')" />
+      <ActionButton title="中止" :icon="Square" variant="danger" :disabled="writeDisabled" @click="abortTest" />
+      <ActionButton title="急停" :icon="OctagonAlert" variant="danger hot" :disabled="writeDisabled" @click="emergencyStop" />
+      <ActionButton title="生成报告" :icon="FileText" variant="outline" :disabled="writeDisabled" @click="runAction('生成报告', 'report')" />
+      <ActionButton title="查看关联日志" :icon="ScrollText" variant="outline" :disabled="writeDisabled" @click="viewLogs" />
     </section>
 
     <div v-if="toast" class="toast">{{ toast }}</div>
@@ -216,11 +216,13 @@ import { wsClient } from '../api/websocket'
 import type { AutoTestStepStatus } from '../api/types'
 import RealtimeLineChart from '../components/charts/RealtimeLineChart.vue'
 import { useEolStore } from '../stores/eol'
+import PageDataState from '../components/PageDataState.vue'
 
 type ActionName = 'start' | 'pause' | 'resume' | 'abort' | 'emergency-stop' | 'report'
 
 const eol = useEolStore()
 const dashboard = computed(() => eol.dashboard)
+const writeDisabled = computed(() => eol.offline || eol.loading)
 const toast = ref('')
 let toastTimer: number | undefined
 let pollTimer: number | undefined
@@ -246,10 +248,11 @@ const ActionButton = defineComponent({
     title: { type: String, required: true },
     icon: { type: Function as unknown as () => Component, required: true },
     variant: { type: String, required: true },
+    disabled: { type: Boolean, default: false },
   },
   emits: ['click'],
   setup(props, { emit }) {
-    return () => h('button', { class: ['action-btn', ...props.variant.split(' ')], onClick: () => emit('click') }, [
+    return () => h('button', { class: ['action-btn', ...props.variant.split(' ')], disabled: props.disabled, onClick: () => emit('click') }, [
       h(props.icon, { size: props.variant.includes('hot') ? 26 : 22 }),
       h('span', props.title),
     ])
@@ -266,7 +269,7 @@ const realtimeOption = computed(() => {
     grid: { left: 40, right: 44, top: 42, bottom: 26, containLabel: true },
     xAxis: {
       type: 'category',
-      data: realtime.x_axis,
+      data: eol.offline ? [] : realtime.x_axis,
       boundaryGap: false,
       axisLine: { lineStyle: { color: '#315A83' } },
       axisLabel: { color: '#8CA6C5', fontSize: 10 },
@@ -303,7 +306,7 @@ const realtimeOption = computed(() => {
       smooth: true,
       symbol: 'circle',
       symbolSize: 4,
-      data: item.data,
+      data: eol.offline ? [] : item.data,
       yAxisIndex: item.name.includes('总压') ? 1 : item.name.includes('告警') ? 2 : 0,
       lineStyle: { width: 2 },
     })),
@@ -331,6 +334,11 @@ function statusClass(status: string) {
   if (normalized === 'FAIL' || normalized === 'ABORTED') return 'fail'
   if (normalized === 'RUNNING' || normalized === 'PAUSED') return 'running'
   return 'wait'
+}
+
+function stepPercent(value:number) {
+  const total = dashboard.value.stats.passed + dashboard.value.stats.failed + dashboard.value.stats.waiting
+  return total ? (value / total * 100).toFixed(1) : '0.0'
 }
 
 function setupWebSocketRefresh() {
@@ -408,7 +416,7 @@ function showToast(message: string) {
   min-height: 0;
   overflow: hidden;
   display: grid;
-  grid-template-rows: 52px 150px 104px 230px 230px 70px;
+  grid-template-rows: 42px 150px 122px 230px 230px 70px;
   gap: 9px;
   color: #EAF2FF;
 }
@@ -548,7 +556,7 @@ function showToast(message: string) {
 }
 
 .remark-field {
-  grid-column: span 3;
+  grid-column: span 2;
 }
 
 .info-field input {
@@ -650,8 +658,8 @@ function showToast(message: string) {
 
 .stepper-card {
   display: grid;
-  grid-template-rows: 1fr 24px;
-  padding: 10px 18px 7px;
+  grid-template-rows: minmax(0, 1fr) 22px;
+  padding: 7px 18px 5px;
 }
 
 .steps {
@@ -664,8 +672,9 @@ function showToast(message: string) {
 .step-item {
   position: relative;
   display: grid;
+  grid-template-rows: 36px minmax(0, 28px) 12px;
   justify-items: center;
-  gap: 4px;
+  gap: 2px;
   min-width: 0;
   text-align: center;
 }
@@ -743,7 +752,7 @@ function showToast(message: string) {
 .stepper-card footer {
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: 18px;
   border-top: 1px solid #1E3A5F;
   color: #8CA6C5;
   font-size: 12px;
@@ -1051,6 +1060,7 @@ function showToast(message: string) {
   background: rgba(16, 36, 61, 0.82);
   border-color: #315A83;
 }
+.action-btn:disabled{opacity:.42;cursor:not-allowed;filter:saturate(.45)}
 
 .toast {
   position: absolute;
@@ -1069,16 +1079,72 @@ function showToast(message: string) {
 
 @media (max-width: 1500px) {
   .auto-test-page {
-    grid-template-rows: 52px 150px 116px 230px 230px 70px;
+    grid-template-rows: 42px 150px 122px 230px 230px 70px;
   }
 
   .steps {
-    grid-template-columns: repeat(6, minmax(0, 1fr));
-    row-gap: 8px;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    row-gap: 0;
   }
 
   .step-item:nth-child(6)::after {
-    display: none;
+    display: block;
   }
+
+  .step-item {
+    grid-template-rows: 28px minmax(0, 24px) 10px;
+    gap: 1px;
+  }
+
+  .step-node {
+    width: 28px;
+    height: 28px;
+    border-width: 1px;
+    font-size: 11px;
+  }
+
+  .step-item:not(:last-child)::after {
+    top: 14px;
+    left: calc(50% + 18px);
+    right: calc(-50% + 18px);
+  }
+
+  .step-item strong {
+    font-size: 9px;
+    line-height: 11px;
+  }
+
+  .step-item small {
+    font-size: 8px;
+  }
+
+  .info-field {
+    grid-template-columns: 60px minmax(0, 1fr);
+    gap: 4px;
+    padding-inline: 6px;
+  }
+
+  .info-field span,
+  .info-field strong,
+  .info-field input {
+    font-size: 11px;
+  }
+}
+
+@media (max-height: 800px) {
+  .auto-test-page {
+    grid-template-rows: 42px 122px 112px minmax(140px, 1.15fr) minmax(140px, 1fr) 58px;
+    gap: 7px;
+  }
+
+  .info-grid { grid-template-rows: repeat(2, 36px); gap: 7px; }
+  .steps { min-height: 0; }
+  .stepper-card { padding-inline: 12px; }
+  .stepper-card footer { gap: 12px; font-size: 10px; }
+  .stats-card { grid-template-rows: 20px minmax(0, 1fr); }
+  .stats-card h2 { font-size: 12px; line-height: 16px; }
+  .stats-footer { display: none; }
+  .action-card { gap: 8px; }
+  .action-copy small { display: none; }
 }
 </style>

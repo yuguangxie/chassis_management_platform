@@ -1,0 +1,20 @@
+2026-07-22 local Windows verification commands
+
+uv lock
+uv sync --project backend --locked --extra test --extra quality --extra production --extra packaging
+npm.cmd ci --prefix desktop
+backend/.venv/Scripts/python.exe scripts/run_quality.py --suite all --coverage --artifact-dir docs/verification/phase-06/quality/python
+npm.cmd --prefix desktop run lint
+npm.cmd --prefix desktop run test
+npm.cmd --prefix desktop run typecheck
+npm.cmd --prefix desktop run build
+npm.cmd --prefix desktop run test:sidecar
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts/build_sidecar.ps1
+node scripts/generate_release_metadata.mjs prepare
+npm.cmd --prefix desktop run package:win
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts/verify_windows_installer.ps1 -InstallerPath desktop/release/windows/Chassis-EOL-Setup-1.0.2-unsigned-internal-x64.exe
+npm.cmd --prefix desktop audit --json
+backend/.venv/Scripts/python.exe -m pip_audit --skip-editable --format json
+node scripts/generate_release_metadata.mjs finalize
+
+All dynamic endpoints were localhost/127.0.0.1. No simulator or real CAN device was used by the installed-package verification.

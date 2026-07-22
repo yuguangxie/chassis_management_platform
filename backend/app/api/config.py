@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import asyncio
 from copy import deepcopy
 from datetime import datetime
 import hashlib
@@ -14,11 +15,24 @@ from pathlib import Path
 from typing import Any, Literal
 
 from fastapi import APIRouter, Body, Depends, HTTPException
-from pydantic import BaseModel, Field, field_validator
+from pydantic import BaseModel, ConfigDict, Field, field_validator
 import yaml
 
 from app.core.config import ChannelConfig, RuntimeConfig
-from app.core.paths import ASSETS_DIR, CONFIG_DIR, DATA_DIR, DB_PATH, PROJECT_ROOT
+from app.configuration.diagnostics import configuration_preflight, diagnose_network
+from app.configuration.models import SignedConfigurationPackage
+from app.configuration.service import (
+    ConfigurationLifecycleError,
+    active_package_path,
+    export_signed_package,
+    package_diff,
+    package_summary,
+    persist_active_package,
+    restore_active_package,
+    runtime_from_package,
+    validate_signed_package,
+)
+from app.core.paths import ASSETS_DIR, CONFIG_DIR, PROJECT_ROOT, DataPaths
 from app.core.time import utc_now
 from app.api.data_source import dashboard_metadata
 from app.api.errors import get_trace_id
@@ -122,16 +136,29 @@ class RestoreSafeDefaultsRequest(BaseModel):
     role: str = "operator"
 
 
+class ConfigImportRequest(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    package: SignedConfigurationPackage
+    dry_run: Literal[True] = True
+
+
+class ConfigApplyRequest(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    package: SignedConfigurationPackage
+    confirmation: Literal["APPLY"]
+    reason: str = Field(min_length=2, max_length=200)
+
+
 DEFAULT_NETWORK_CONFIG = {
     "local_network": {
         "host_ip": "127.0.0.1",
         "dev_ip": "127.0.0.1",
-        "nic_name": "Loopback test adapter",
-        "subnet_mask": "255.255.255.0",
-        "link_speed": "1000 Mbps（全双工）",
+        "nic_name": "loopback-placeholder",
+        "subnet_mask": "not-measured",
+        "link_speed": "not-measured",
         "ports": [
-            {"port": 8234, "protocol": "UDP", "status": "free"},
-            {"port": 8235, "protocol": "UDP", "status": "free"},
+            {"port": 8234, "protocol": "UDP", "status": "not-diagnosed"},
+            {"port": 8235, "protocol": "UDP", "status": "not-diagnosed"},
         ],
     },
     "channels": [
@@ -209,16 +236,20 @@ def _dir_size_gb(path: Path) -> float:
         return 0.0
 
 
-def _disk_stats() -> dict[str, float]:
+def _runtime_data_paths() -> DataPaths:
+    return state.data_paths or DataPaths.from_root(state.config.data_root)
+
+
+def _disk_stats() -> dict[str, Any]:
     try:
-        usage = shutil.disk_usage(DATA_DIR)
+        usage = shutil.disk_usage(_runtime_data_paths().root)
         total = round(usage.total / 1024 ** 3, 1)
         used = round(usage.used / 1024 ** 3, 1)
         free = round(usage.free / 1024 ** 3, 1)
         percent = round(usage.used / usage.total * 100, 1) if usage.total else 0.0
-        return {"disk_total_gb": total, "disk_used_gb": used, "disk_free_gb": free, "disk_used_percent": percent}
-    except OSError:
-        return {"disk_total_gb": 512.0, "disk_used_gb": 236.0, "disk_free_gb": 276.0, "disk_used_percent": 46.1}
+        return {"disk_total_gb": total, "disk_used_gb": used, "disk_free_gb": free, "disk_used_percent": percent, "measurement_error": None}
+    except OSError as exc:
+        return {"disk_total_gb": 0.0, "disk_used_gb": 0.0, "disk_free_gb": 0.0, "disk_used_percent": 0.0, "measurement_error": str(exc)}
 
 
 def _thresholds() -> list[dict[str, Any]]:
@@ -270,10 +301,6 @@ def _config_history(limit: int = 8) -> list[dict[str, Any]]:
             ]
         except Exception:
             logger.exception("failed to read config history")
-    for row in DEFAULT_CONFIG_HISTORY:
-        if len(items) >= max(4, limit):
-            break
-        items.append(deepcopy(row))
     return items[:limit]
 
 
@@ -422,17 +449,18 @@ def _dbc_dashboard() -> dict[str, Any]:
 def _storage_dashboard() -> dict[str, Any]:
     storage_doc = _read_yaml(CONFIG_DIR / "storage_config.yaml")
     report_doc = _read_yaml(CONFIG_DIR / "report_config.yaml")
-    storage_cfg = storage_doc.get("storage", {})
     retention = storage_doc.get("retention", {})
     report_cfg = report_doc.get("report", {})
+    paths = _runtime_data_paths()
     data = {
-        "report_directory": report_cfg.get("default_output_dir", storage_cfg.get("reports_dir", r"D:\TestLogs\Reports")),
-        "raw_can_directory": storage_cfg.get("raw_can_dir", r"D:\TestLogs\RawCan"),
-        "decoded_signal_directory": storage_cfg.get("decoded_signal_dir", r"D:\TestLogs\Signals"),
-        "database_path": storage_cfg.get("database_path", str(DB_PATH)),
+        "data_root": str(paths.root),
+        "report_directory": str(paths.reports),
+        "raw_can_directory": str(paths.raw_can),
+        "decoded_signal_directory": str(paths.decoded_signals),
+        "database_path": str(paths.database),
         "retention_days": retention.get("raw_can_days", 180),
         "max_log_gb": 50,
-        "auto_cleanup": True,
+        "auto_cleanup": False,
         "word_enabled": bool(report_cfg.get("generate_docx", True)),
         "pdf_enabled": bool(report_cfg.get("generate_pdf", True)),
         "csv_enabled": bool(report_cfg.get("generate_csv_summary", True)),
@@ -469,6 +497,33 @@ def _merge_saved(dashboard: dict[str, Any]) -> None:
             item.update(saved_thresholds[item["key"]])
 
 
+def _storage_summary() -> dict[str, Any]:
+    paths = _runtime_data_paths()
+    last_cleanup = None
+    if state.database is not None:
+        try:
+            row = state.database.query_one(
+                "SELECT completed_at,status FROM cleanup_jobs ORDER BY created_at DESC LIMIT 1"
+            )
+            last_cleanup = row.get("completed_at") if row else None
+            cleanup_status = row.get("status") if row else "not-run"
+        except Exception:
+            cleanup_status = "unavailable"
+    else:
+        cleanup_status = "unavailable"
+    healthy = bool(getattr(getattr(state, "storage_health", None), "last", {}).get("healthy", state.db_writable))
+    return {
+        "current_log_gb": round(_dir_size_gb(paths.app_logs) + _dir_size_gb(paths.decoded_signals), 3),
+        "database_gb": round(paths.database.stat().st_size / 1024 ** 3, 4) if paths.database.exists() else 0.0,
+        "reports_gb": _dir_size_gb(paths.reports),
+        "raw_can_gb": _dir_size_gb(paths.raw_can),
+        "last_cleanup": last_cleanup or "-",
+        "next_cleanup": "manual-confirmation-required",
+        "cleanup_status": cleanup_status,
+        "disk_alarm": "normal" if healthy else "critical",
+    }
+
+
 def _system_dashboard() -> dict[str, Any]:
     channels = _read_yaml(CONFIG_DIR / "channels.yaml")
     station = _read_yaml(CONFIG_DIR / "station.yaml")
@@ -482,7 +537,7 @@ def _system_dashboard() -> dict[str, Any]:
         "control_channel": channels.get("control", {}).get("default_control_channel", state.config.control_channel),
         "report_directory": storage["report_directory"],
         "database_path": storage["database_path"],
-        "log_directory": _read_yaml(CONFIG_DIR / "storage_config.yaml").get("storage", {}).get("app_logs_dir", r"D:\TestLogs\Logs"),
+        "log_directory": str(_runtime_data_paths().app_logs),
         "timezone": "UTC+08:00" if software.get("timezone", "Asia/Shanghai") == "Asia/Shanghai" else software.get("timezone"),
         "language": "zh-CN",
         "auto_save": True,
@@ -503,11 +558,25 @@ def _system_dashboard() -> dict[str, Any]:
         "maintenance": {"maintenance_mode": state.maintenance_mode, **deepcopy(state.maintenance_features), "requires_admin": True},
         "safe_defaults": deepcopy(SAFE_DEFAULTS),
         "version": _system_version(),
-        "storage_trend": [{"date": date, "used_gb": value} for date, value in zip(["04-01", "04-02", "04-03", "04-04", "04-05", "04-06", "04-07"], [21, 24, 28, 31, 34, 38, 42])],
-        "storage_summary": {"current_log_gb": _dir_size_gb(DATA_DIR / "logs"), "database_gb": round(DB_PATH.stat().st_size / 1024 ** 3, 4) if DB_PATH.exists() else 0.012, "reports_gb": _dir_size_gb(DATA_DIR / "reports"), "raw_can_gb": _dir_size_gb(DATA_DIR / "raw_can"), "last_cleanup": "2026-03-31 02:00:00", "next_cleanup": "2026-04-02 02:00:00", "cleanup_status": "策略正常", "disk_alarm": "正常"},
+        "storage_trend": [{"date": utc_now()[:10], "used_gb": _disk_stats()["disk_used_gb"], "source": "current-measurement"}],
+        "storage_summary": _storage_summary(),
         "config_history": _config_history(),
     }
     _merge_saved(dashboard)
+    paths = _runtime_data_paths()
+    dashboard["storage"].update({
+        "data_root": str(paths.root),
+        "report_directory": str(paths.reports),
+        "raw_can_directory": str(paths.raw_can),
+        "decoded_signal_directory": str(paths.decoded_signals),
+        "database_path": str(paths.database),
+        "auto_cleanup": False,
+    })
+    dashboard["basic"].update({
+        "report_directory": str(paths.reports),
+        "database_path": str(paths.database),
+        "log_directory": str(paths.app_logs),
+    })
     dashboard["maintenance"]["mock_can_gateway"] = state.mock_enabled
     return dashboard
 
@@ -533,7 +602,9 @@ def _require_admin(principal: Principal) -> None:
 
 @router.get("/config/system-dashboard", response_model=SystemDashboardResponse)
 async def system_dashboard(_principal: Principal = Depends(require_role(Role.VIEWER))):
-    return _system_dashboard()
+    payload = _system_dashboard()
+    payload["auth"] = {"current_user": _principal.username, "current_role": _principal.role.value}
+    return payload
 
 
 @router.get("/config")
@@ -546,6 +617,43 @@ async def put_config(payload: SystemConfigUpdate, principal: Principal = Depends
     current = _system_dashboard()
     data = payload.model_dump(exclude_none=True)
     data.pop("role", None)
+    paths = _runtime_data_paths()
+    managed_paths = {
+        "basic.report_directory": str(paths.reports),
+        "basic.database_path": str(paths.database),
+        "basic.log_directory": str(paths.app_logs),
+        "storage.report_directory": str(paths.reports),
+        "storage.raw_can_directory": str(paths.raw_can),
+        "storage.decoded_signal_directory": str(paths.decoded_signals),
+        "storage.database_path": str(paths.database),
+    }
+    supplied = {
+        **({f"basic.{key}": value for key, value in payload.basic.model_dump(exclude_none=True).items()} if payload.basic else {}),
+        **({f"storage.{key}": value for key, value in payload.storage.model_dump(exclude_none=True).items()} if payload.storage else {}),
+    }
+    invalid_paths = {
+        key: {"supplied": value, "required": managed_paths[key]}
+        for key, value in supplied.items()
+        if key in managed_paths and str(Path(str(value)).resolve(strict=False)) != str(Path(managed_paths[key]).resolve(strict=False))
+    }
+    if invalid_paths:
+        raise HTTPException(
+            422,
+            {
+                "code": "DERIVED_STORAGE_PATH_IMMUTABLE",
+                "message": "database, log and report paths are derived from signed data_root and cannot be edited independently",
+                "details": invalid_paths,
+            },
+        )
+    if payload.storage and payload.storage.auto_cleanup:
+        raise HTTPException(
+            422,
+            {
+                "code": "UNATTENDED_CLEANUP_FORBIDDEN",
+                "message": "cleanup requires an administrator dry-run and explicit confirmation",
+                "details": {},
+            },
+        )
     if payload.control_channels and len(set(payload.control_channels)) > 1:
         raise HTTPException(409, {"code": "MULTIPLE_CONTROL_CHANNELS", "message": "不能同时启用两个控制通道", "details": {"channels": payload.control_channels}, "trace_id": ""})
     dangerous_thresholds = []
@@ -590,17 +698,123 @@ async def put_config(payload: SystemConfigUpdate, principal: Principal = Depends
 
 
 @router.post("/config/import")
-async def import_config(payload: dict[str, Any] = Body(default_factory=dict), principal: Principal = Depends(require_role(Role.ENGINEER))):
-    payload.pop("role", None)
-    _audit_action("import_config", "config.system", payload, principal=principal)
-    return {"ok": True, "stub": True, "imported": False, "message": "配置导入接口已预留，当前支持 YAML / JSON 文件选择流程"}
+async def import_config(payload: ConfigImportRequest, principal: Principal = Depends(require_role(Role.ADMIN))):
+    try:
+        validate_signed_package(payload.package, state.config.profile)
+        checks = configuration_preflight(state, payload.package.configuration)
+    except ConfigurationLifecycleError as exc:
+        _audit_action("config_import_rejected", "config.package", {"code": exc.code}, result="REJECTED", principal=principal)
+        raise HTTPException(exc.status_code, {"code": exc.code, "message": exc.message, "details": exc.details}) from exc
+    blocking = [item for item in checks if item["blocking"] and not item["passed"]]
+    result = {
+        "ok": not blocking,
+        "dry_run": True,
+        "signature_valid": True,
+        "schema_valid": True,
+        "compatible": not blocking,
+        "summary": package_summary(payload.package),
+        "diff": package_diff(state.config, payload.package),
+        "health_checks": checks,
+        "blocking_checks": blocking,
+        "message": "配置包已完成签名、schema、版本、差异和健康预检；尚未应用" if not blocking else "配置包预检存在阻断项，禁止应用",
+    }
+    _audit_action(
+        "config_import_dry_run",
+        "config.package",
+        {"summary": result["summary"], "blocking_rules": [item["rule"] for item in blocking]},
+        result="OK" if not blocking else "REJECTED",
+        principal=principal,
+    )
+    return result
 
 
 @router.get("/config/export")
-async def export_config(format: str = "yaml", principal: Principal = Depends(require_role(Role.VIEWER))):
-    snapshot = _system_dashboard()
-    _audit_action("export_config", "config.system", {"format": format}, principal=principal)
-    return {"ok": True, "stub": True, "message": "配置快照已生成，桌面文件保存接口当前为 Mock 模式", "format": format, "filename": f"system-config-{utc_now()[:10]}.{format}", "config": snapshot}
+async def export_config(principal: Principal = Depends(require_role(Role.ADMIN))):
+    try:
+        package = export_signed_package(state.config, principal.username)
+    except ConfigurationLifecycleError as exc:
+        _audit_action("config_export_rejected", "config.package", {"code": exc.code}, result="REJECTED", principal=principal)
+        raise HTTPException(exc.status_code, {"code": exc.code, "message": exc.message, "details": exc.details}) from exc
+    summary = package_summary(package)
+    _audit_action("config_export_signed", "config.package", summary, principal=principal)
+    return {
+        "ok": True,
+        "format": "json",
+        "filename": f"chassis-config-{summary['config_version']}-{utc_now()[:10]}.json",
+        "package": package.model_dump(mode="json"),
+        "summary": summary,
+        "message": "已生成与当前运行配置一致的签名配置包",
+    }
+
+
+@router.post("/config/apply")
+async def apply_config(payload: ConfigApplyRequest, principal: Principal = Depends(require_role(Role.ADMIN))):
+    summary = package_summary(payload.package)
+    try:
+        validate_signed_package(payload.package, state.config.profile)
+    except ConfigurationLifecycleError as exc:
+        _audit_action("config_apply_rejected", "config.package", {"summary": summary, "code": exc.code}, result="REJECTED", principal=principal)
+        raise HTTPException(exc.status_code, {"code": exc.code, "message": exc.message, "details": exc.details}) from exc
+    checks = configuration_preflight(state, payload.package.configuration)
+    blocking = [item for item in checks if item["blocking"] and not item["passed"]]
+    if blocking:
+        _audit_action("config_apply_rejected", "config.package", {"summary": summary, "blocking_rules": [item["rule"] for item in blocking], "reason": payload.reason}, result="REJECTED", principal=principal)
+        raise HTTPException(409, {"code": "CONFIG_HEALTH_CHECK_FAILED", "message": "配置包健康预检失败，未执行应用", "details": {"checks": checks}})
+
+    old_config = state.config
+    old_manager = state.can
+    active_path = active_package_path()
+    previous_package = active_path.read_bytes() if active_path.exists() else None
+    new_config = runtime_from_package(old_config, payload.package)
+    from app.can_gateway.manager import CanGatewayManager
+    from app.services.lifecycle import on_can_security_event, on_frame
+
+    new_manager = CanGatewayManager(new_config, on_frame, on_can_security_event)
+    try:
+        if state.tx_scheduler:
+            await state.tx_scheduler.stop()
+        if old_manager:
+            await old_manager.stop_all()
+        state.config = new_config
+        state.can = new_manager
+        await _start_enabled_channels(new_manager, new_config)
+        post_status = new_manager.status()
+        failed_transports = [item["channel"] for item in post_status if not item.get("transport_connected")]
+        if failed_transports:
+            raise RuntimeError(f"transport did not start: {failed_transports}")
+        if new_config.profile == "production":
+            deadline = asyncio.get_running_loop().time() + new_config.channel_online_timeout_seconds
+            while asyncio.get_running_loop().time() < deadline:
+                post_status = new_manager.status()
+                if all(item.get("online") for item in post_status if item.get("enabled", True)):
+                    break
+                await asyncio.sleep(0.05)
+            unavailable = [item["channel"] for item in new_manager.status() if item.get("enabled", True) and not item.get("online")]
+            if unavailable:
+                raise RuntimeError(f"approved-source receive health check failed: {unavailable}")
+        persist_active_package(payload.package)
+    except Exception as exc:
+        await new_manager.stop_all()
+        await _restore_manager(old_config, old_manager)
+        restore_active_package(previous_package)
+        _audit_action("config_apply_rolled_back", "config.package", {"summary": summary, "reason": payload.reason, "error_type": type(exc).__name__}, result="ROLLED_BACK", principal=principal)
+        raise HTTPException(503, {"code": "CONFIG_APPLY_ROLLED_BACK", "message": "配置应用或健康检查失败，已回滚运行配置和持久化配置包", "details": {"error_type": type(exc).__name__}}) from exc
+
+    changed = package_diff(old_config, payload.package)
+    response = {
+        "ok": True,
+        "applied": True,
+        "rolled_back": False,
+        "summary": summary,
+        "diff": changed,
+        "health_checks": checks,
+        "requires_restart": old_config.data_root != new_config.data_root,
+        "message": "签名配置包已应用并完成通道启动健康检查",
+    }
+    _audit_action("config_apply_succeeded", "config.package", {"summary": summary, "reason": payload.reason, "requires_restart": response["requires_restart"]}, changes=[{"key": item["path"], "old_value": item["current"], "new_value": item["proposed"]} for item in changed], principal=principal)
+    await _broadcast("system.config_changed", response)
+    await _broadcast("can.channel_status", state.can.status())
+    return response
 
 
 @router.get("/config/history")
@@ -637,6 +851,8 @@ async def restore_safe_defaults(payload: RestoreSafeDefaultsRequest, principal: 
 
 @router.get("/config/channels", response_model=ChannelSettingsResponse)
 async def channels_config(_principal: Principal = Depends(require_role(Role.VIEWER))):
+    diagnostic = await diagnose_network(state)
+    diagnostic_by_channel = {item["channel"]: item for item in diagnostic["channels"]}
     channels = [
         {
             "name": item.channel,
@@ -646,15 +862,42 @@ async def channels_config(_principal: Principal = Depends(require_role(Role.VIEW
             "device_ip": item.device_ip,
             "device_port": item.simulated_device_port or item.device_port,
             "tx_enabled": item.enabled,
-            "rx_status": "active" if next((row.get("online") for row in (state.can.status() if state.can else []) if row.get("channel") == item.channel), False) else "offline",
+            "rx_status": diagnostic_by_channel.get(item.channel, {}).get("endpoint_status", "unconfirmed"),
             "period_ms": 20,
             "control_enabled": item.control_enabled,
             "status": "active" if item.enabled else "disabled",
+            "bind_status": diagnostic_by_channel.get(item.channel, {}).get("bind_status", "not_diagnosed"),
+            "last_frame_age_ms": diagnostic_by_channel.get(item.channel, {}).get("last_frame_age_ms"),
+            "tcp_state": diagnostic_by_channel.get(item.channel, {}).get("tcp_state", "not_applicable"),
+            "source_allowlist_enforced": diagnostic_by_channel.get(item.channel, {}).get("source_allowlist_enforced", False),
+            "approved_sources": diagnostic_by_channel.get(item.channel, {}).get("approved_sources", []),
         }
         for item in state.config.channels
     ]
     local_ip = state.config.channels[0].local_ip if state.config.channels else "127.0.0.1"
-    return {"local_network": DEFAULT_NETWORK_CONFIG["local_network"] | {"host_ip": local_ip, "dev_ip": "127.0.0.1"}, "channels": channels, "runtime_profile": state.config.profile, "trace_id": get_trace_id()}
+    ports = [
+        {
+            "port": item.local_receive_port,
+            "protocol": item.protocol.upper(),
+            "status": diagnostic_by_channel.get(item.channel, {}).get("bind_status", "not_diagnosed"),
+        }
+        for item in state.config.channels
+    ]
+    return {
+        "local_network": {
+            "host_ip": local_ip,
+            "dev_ip": "127.0.0.1" if ipaddress.ip_address(local_ip).is_loopback else "not-applicable",
+            "nic_name": state.config.network_interface_name,
+            "subnet_mask": "not-measured",
+            "link_speed": "not-measured",
+            "ports": ports,
+            "diagnostic_source": diagnostic["data_source"],
+            "diagnosed_at": diagnostic["updated_at"],
+        },
+        "channels": channels,
+        "runtime_profile": state.config.profile,
+        "trace_id": get_trace_id(),
+    }
 
 
 @router.put("/config/channels", response_model=ChannelSettingsResponse)
@@ -754,29 +997,6 @@ async def restore_channels_defaults(principal: Principal = Depends(require_role(
     result["message"] = "当前运行 profile 的安全通道默认值已恢复并重新连接"
     _audit_action("restore_defaults", "config.channels", result, principal=principal)
     return result
-
-
-@router.get("/storage/stats")
-async def storage_stats(_principal: Principal = Depends(require_role(Role.VIEWER))):
-    storage = _storage_dashboard()
-    return {**storage, "current_log_gb": _dir_size_gb(DATA_DIR / "logs"), "database_gb": round(DB_PATH.stat().st_size / 1024 ** 3, 4) if DB_PATH.exists() else 0.0, "reports_gb": _dir_size_gb(DATA_DIR / "reports"), "raw_can_gb": _dir_size_gb(DATA_DIR / "raw_can")}
-
-
-@router.get("/storage/trend")
-async def storage_trend(range: str = "7d", _principal: Principal = Depends(require_role(Role.VIEWER))):
-    days = 30 if range == "30d" else 7
-    values = [max(1, 21 + index * 3) for index in range_builtin(days)]
-    return [{"date": f"D-{days - index - 1}", "used_gb": value} for index, value in enumerate(values)]
-
-
-def range_builtin(value: int) -> range:
-    return range(value)
-
-
-@router.post("/storage/cleanup")
-async def storage_cleanup(payload: dict[str, Any] = Body(default_factory=dict), principal: Principal = Depends(require_role(Role.ADMIN))):
-    _audit_action("storage_cleanup", "storage.logs", payload, principal=principal)
-    return {"ok": True, "stub": True, "message": "清理接口已预留，不会删除当前会话数据"}
 
 
 @router.get("/system/version")

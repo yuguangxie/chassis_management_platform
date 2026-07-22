@@ -9,8 +9,8 @@
         </div>
       </div>
       <div class="title-actions">
-        <span v-if="control.offline" class="mock-badge">后端离线，当前使用 Mock 控制数据</span>
-        <button class="small-btn ghost" @click="showToast('自定义布局：接口已预留，当前为 Mock 模式')"><Settings :size="15" />自定义布局</button>
+        <PageDataState :loading="control.loading" :error="control.error" :stale="control.offline || control.stale" />
+        <button class="small-btn ghost" disabled title="尚未实现：本工作包不提供控制页面布局编辑器"><Settings :size="15" />自定义布局（尚未实现）</button>
       </div>
     </header>
 
@@ -114,14 +114,19 @@
       <article class="panel feedback-card">
         <h2>5. 实时反馈（当前状态）</h2>
         <div class="feedback-list">
-          <FeedbackRow label="当前档位" :value="control.feedback.gear" :icon="KeyRound" />
-          <FeedbackRow label="车辆速度" :value="`${control.feedback.vehicle_speed.toFixed(1)} km/h`" :icon="Gauge" />
-          <FeedbackRow label="前转角反馈" :value="signed(control.feedback.front_steer_feedback)" :icon="MoveHorizontal" />
-          <FeedbackRow label="后转角反馈" :value="`${control.feedback.rear_steer_feedback}°`" :icon="MoveHorizontal" />
-          <FeedbackRow label="四轮轮速（FL / FR / RL / RR）" :value="control.feedback.wheel_speeds" :icon="CircleGauge" />
-          <FeedbackRow label="灯光反馈" :value="control.feedback.light_feedback" :icon="Lightbulb" />
-          <FeedbackRow label="制动状态" :value="control.feedback.brake_status" :icon="Disc3" tone="green" />
-          <FeedbackRow label="告警状态" :value="control.feedback.alarm_status" :icon="TriangleAlert" tone="green" />
+          <FeedbackRow label="当前档位" :value="freshFeedback(control.feedback.gear)" :icon="KeyRound" />
+          <FeedbackRow label="车辆速度" :value="freshFeedback(`${control.feedback.vehicle_speed.toFixed(1)} km/h`)" :icon="Gauge" />
+          <FeedbackRow label="前转角反馈" :value="freshFeedback(signed(control.feedback.front_steer_feedback))" :icon="MoveHorizontal" />
+          <FeedbackRow label="后转角反馈" :value="freshFeedback(`${control.feedback.rear_steer_feedback}°`)" :icon="MoveHorizontal" />
+          <FeedbackRow label="四轮轮速（FL / FR / RL / RR）" :value="freshFeedback(control.feedback.wheel_speeds)" :icon="CircleGauge" />
+          <FeedbackRow label="灯光反馈" :value="freshFeedback(control.feedback.light_feedback)" :icon="Lightbulb" />
+          <FeedbackRow label="制动状态" :value="freshFeedback(control.feedback.brake_status)" :icon="Disc3" tone="green" />
+          <FeedbackRow label="告警状态" :value="freshFeedback(control.feedback.alarm_status)" :icon="TriangleAlert" tone="green" />
+          <div v-for="field in control.feedback.fields || []" :key="field.rule" :data-feedback-rule="field.rule" :class="['feedback-quality-row', field.status]">
+            <span>{{ field.label }}</span>
+            <strong>{{ field.status === 'valid' ? '可信' : '阻断' }}</strong>
+            <small>{{ feedbackFieldMeta(field) }}</small>
+          </div>
         </div>
       </article>
     </section>
@@ -140,13 +145,13 @@
     <section class="panel action-panel">
       <h2>8. 操作控制</h2>
       <div class="action-row">
-        <ActionButton title="发送一次" desc="立即发送 0x121" :icon="Send" variant="primary" @click="sendOnce" />
-        <ActionButton title="开始周期发送" desc="按设定周期持续发送" :icon="PlayCircle" variant="primary" @click="startPeriodic" />
-        <ActionButton title="停止周期发送" desc="停止发送 0x121" :icon="Square" variant="neutral" @click="stopPeriodic" />
-        <ActionButton title="安全停车" desc="下发停车指令并制动" :icon="ParkingCircle" variant="warning" @click="safeStop" />
-        <ActionButton title="急停" desc="立即下发急停指令" :icon="OctagonAlert" variant="danger" @click="emergencyStop" />
-        <ActionButton title="解除急停确认" desc="需二次确认解除急停" :icon="BadgeCheck" variant="dangerOutline" @click="releaseEmergency" />
-        <ActionButton title="恢复默认控制值" desc="清空输入并恢复默认" :icon="RefreshCw" variant="primary" @click="resetDefaults" />
+        <ActionButton title="发送一次" desc="立即发送 0x121" :icon="Send" variant="primary" :disabled="motionWriteDisabled" @click="sendOnce" />
+        <ActionButton title="开始周期发送" desc="按设定周期持续发送" :icon="PlayCircle" variant="primary" :disabled="motionWriteDisabled" @click="startPeriodic" />
+        <ActionButton title="停止周期发送" desc="停止发送 0x121" :icon="Square" variant="neutral" :disabled="control.offline" @click="stopPeriodic" />
+        <ActionButton title="安全停车" desc="下发停车指令并制动" :icon="ParkingCircle" variant="warning" :disabled="control.offline" @click="safeStop" />
+        <ActionButton title="急停" desc="立即下发急停指令" :icon="OctagonAlert" variant="danger" :disabled="control.offline" @click="emergencyStop" />
+        <ActionButton title="解除急停确认" desc="需二次确认解除急停" :icon="BadgeCheck" variant="dangerOutline" :disabled="control.offline" @click="releaseEmergency" />
+        <ActionButton title="恢复默认控制值" desc="清空输入并恢复默认" :icon="RefreshCw" variant="primary" :disabled="control.offline" @click="resetDefaults" />
       </div>
     </section>
 
@@ -181,14 +186,16 @@ import {
 import type { Component } from 'vue'
 import { computed, defineComponent, h, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { apiPost } from '../api/http'
-import type { ManualInterlockItem } from '../api/types'
+import type { ManualFeedbackField, ManualInterlockItem } from '../api/types'
 import RealtimeLineChart from '../components/charts/RealtimeLineChart.vue'
+import PageDataState from '../components/PageDataState.vue'
 import { useControlStore } from '../stores/control'
 
 type ActionResponse = { ok?: boolean; stub?: boolean; message?: string; emergency_stop?: boolean }
 
 const control = useControlStore()
 const toast = ref('')
+const motionWriteDisabled = computed(() => control.offline || control.loading || control.stale || !control.status.can_send_allowed)
 let toastTimer: number | undefined
 let pollTimer: number | undefined
 
@@ -254,10 +261,11 @@ const ActionButton = defineComponent({
     desc: { type: String, required: true },
     icon: { type: Function as unknown as () => Component, required: true },
     variant: { type: String, required: true },
+    disabled: { type: Boolean, default: false },
   },
   emits: ['click'],
   setup(props, { emit }) {
-    return () => h('button', { class: ['action-btn', props.variant], onClick: () => emit('click') }, [
+    return () => h('button', { class: ['action-btn', props.variant], disabled: props.disabled, onClick: () => emit('click') }, [
       h('span', { class: 'action-icon' }, [h(props.icon, { size: props.variant === 'danger' ? 30 : 25 })]),
       h('span', { class: 'action-text' }, [h('strong', props.title), h('small', props.desc)]),
     ])
@@ -269,11 +277,11 @@ const speedOption = computed(() => ({
   tooltip: { trigger: 'axis', backgroundColor: '#10243D', borderColor: '#2B4D78', textStyle: { color: '#EAF2FF' } },
   legend: { top: 0, right: 20, textStyle: { color: '#B9CBE2', fontSize: 12 } },
   grid: { left: 48, right: 24, top: 36, bottom: 28, containLabel: true },
-  xAxis: axisX(control.curves.speed.x_axis),
+  xAxis: axisX(control.offline || control.stale ? [] : control.curves.speed.x_axis),
   yAxis: axisY('km/h', 0, 10),
   series: [
-    line('目标速度（km/h）', control.curves.speed.target_speed, '#2F80FF'),
-    line('反馈速度（km/h）', control.curves.speed.feedback_speed, '#21C55D'),
+    line('目标速度（km/h）', control.offline || control.stale ? [] : control.curves.speed.target_speed, '#2F80FF'),
+    line('反馈速度（km/h）', control.offline || control.stale ? [] : control.curves.speed.feedback_speed, '#21C55D'),
   ],
 }))
 
@@ -282,13 +290,13 @@ const steerOption = computed(() => ({
   tooltip: { trigger: 'axis', backgroundColor: '#10243D', borderColor: '#2B4D78', textStyle: { color: '#EAF2FF' } },
   legend: { top: 0, right: 20, textStyle: { color: '#B9CBE2', fontSize: 12 } },
   grid: { left: 48, right: 24, top: 36, bottom: 28, containLabel: true },
-  xAxis: axisX(control.curves.steering.x_axis),
+  xAxis: axisX(control.offline || control.stale ? [] : control.curves.steering.x_axis),
   yAxis: axisY('°', -120, 120),
   series: [
-    line('前转角命令（°）', control.curves.steering.front_cmd, '#2F80FF'),
-    line('前转角反馈（°）', control.curves.steering.front_feedback, '#60A5FA'),
-    line('后转角命令（°）', control.curves.steering.rear_cmd, '#21C55D'),
-    line('后转角反馈（°）', control.curves.steering.rear_feedback, '#21C55D', 'dashed'),
+    line('前转角命令（°）', control.offline || control.stale ? [] : control.curves.steering.front_cmd, '#2F80FF'),
+    line('前转角反馈（°）', control.offline || control.stale ? [] : control.curves.steering.front_feedback, '#60A5FA'),
+    line('后转角命令（°）', control.offline || control.stale ? [] : control.curves.steering.rear_cmd, '#21C55D'),
+    line('后转角反馈（°）', control.offline || control.stale ? [] : control.curves.steering.rear_feedback, '#21C55D', 'dashed'),
   ],
 }))
 
@@ -333,6 +341,16 @@ function line(name: string, data: number[], color: string, type = 'solid') {
 
 function signed(value: number) {
   return `${value > 0 ? '+' : ''}${value}°`
+}
+
+function freshFeedback(value: string) {
+  return control.offline || control.stale ? '—（stale）' : value
+}
+
+function feedbackFieldMeta(field: ManualFeedbackField) {
+  const age = field.age_ms === null ? 'age missing' : `${Math.round(field.age_ms)} ms`
+  const source = field.channel && field.can_id ? `${field.channel}/${field.can_id}` : 'source missing'
+  return `${age} · ${field.quality} · ${source}`
 }
 
 async function sendOnce() {
@@ -407,7 +425,7 @@ function showToast(message: string) {
   min-height: 0;
   overflow: hidden;
   display: grid;
-  grid-template-rows: 52px 115px 360px 185px 100px 32px;
+  grid-template-rows: 42px 115px 360px 185px 100px 32px;
   gap: 9px;
   color: #EAF2FF;
 }
@@ -890,7 +908,7 @@ input[type='range'] {
 .feedback-list {
   border: 1px solid #1E3A5F;
   border-radius: 6px;
-  overflow: hidden;
+  overflow: auto;
 }
 
 .feedback-row {
@@ -916,6 +934,8 @@ input[type='range'] {
   font-size: 13px;
   text-align: right;
 }
+
+.feedback-quality-row{display:grid;grid-template-columns:1fr 46px 1.4fr;align-items:center;gap:6px;min-height:27px;padding:0 10px;border-bottom:1px solid #173456;color:#AFC2DA;font-size:9px}.feedback-quality-row strong{color:#21C55D}.feedback-quality-row.invalid strong{color:#EF4444}.feedback-quality-row small{overflow:hidden;color:#7F96B4;text-align:right;text-overflow:ellipsis;white-space:nowrap}
 
 .chart-row {
   display: grid;
@@ -955,6 +975,7 @@ input[type='range'] {
   text-align: left;
   cursor: pointer;
 }
+.action-btn:disabled,.small-btn:disabled{opacity:.42;cursor:not-allowed;filter:saturate(.45)}
 
 .action-icon {
   width: 42px;
@@ -1047,7 +1068,7 @@ input[type='range'] {
 
 @media (max-width: 1500px) {
   .manual-page {
-    grid-template-rows: 52px 132px 360px 185px 100px 32px;
+    grid-template-rows: 42px 132px 360px 185px 100px 32px;
   }
   .interlock-grid {
     grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -1058,7 +1079,7 @@ input[type='range'] {
   /* Keep all safety decisions and the emergency-stop action in the first viewport.
      Curves remain available at larger heights; the dense input card owns local scroll here. */
   .manual-page {
-    grid-template-rows: 48px 100px minmax(0, 1fr) 88px;
+    grid-template-rows: 42px 100px minmax(0, 1fr) 88px;
     gap: 7px;
   }
   .page-title h1 { font-size: 18px; }

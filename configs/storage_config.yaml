@@ -1,17 +1,22 @@
 storage:
-  root_dir: D:\TestLogs
-  database_path: D:\TestLogs\Database\chassis_eol.sqlite3
-  raw_can_dir: D:\TestLogs\RawCan
-  decoded_signal_dir: D:\TestLogs\DecodedSignals
-  reports_dir: D:\TestLogs\Reports
-  snapshots_dir: D:\TestLogs\Snapshots
-  app_logs_dir: D:\TestLogs\AppLogs
+  # Every mutable path is derived by the backend from RuntimeConfig.data_root.
+  # These names document the fixed layout; they are not independently editable.
+  layout_version: 1
+  database: database/chassis_eol.sqlite3
+  application_logs: logs/application
+  raw_can: logs/raw_can
+  decoded_signals: logs/decoded_signals
+  reports: reports
+  exports: exports
+  temporary: temp
+  backups: backups
+  print_jobs: print_jobs
 raw_can_logging:
   enabled: true
   format: csv
   rotate_by: session_and_date
   flush_interval_ms: 1000
-  compress_after_days: 7
+  compress_rotated: true
 decoded_signal_logging:
   enabled: true
   format: csv
@@ -22,6 +27,9 @@ retention:
   decoded_signal_days: 180
   reports_days: 3650
   app_logs_days: 90
+  unattended_cleanup: false
+  require_admin_confirmation: true
 integrity:
   write_file_hash: true
   report_records_log_hash: true
+  backup_manifest_hash: sha256

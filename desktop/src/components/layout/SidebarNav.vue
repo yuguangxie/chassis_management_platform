@@ -1,5 +1,5 @@
 <template>
-  <aside class="sidebar">
+  <aside class="sidebar" :aria-hidden="layout.sidebarCollapsed">
     <div class="brand">
       <div class="logo"><Truck :size="25" /></div>
       <div class="brand-copy">
@@ -9,13 +9,25 @@
     </div>
 
     <nav class="nav-list">
-      <RouterLink v-for="item in nav" :key="item.path" :to="item.path" class="nav-item">
+      <RouterLink v-for="item in visibleNav" :key="item.path" :to="item.path" class="nav-item">
         <component :is="item.icon" :size="20" />
         <span>{{ item.label }}</span>
       </RouterLink>
     </nav>
 
-    <button class="collapse" type="button">
+    <div class="session-panel">
+      <div><strong>{{ auth.principal?.username }}</strong><span>{{ auth.principal?.role }}</span></div>
+      <button type="button" title="锁定工作站" aria-label="锁定工作站" @click="lockSession"><LockKeyhole :size="16" /></button>
+      <button type="button" title="退出登录" aria-label="退出登录" @click="logout"><LogOut :size="16" /></button>
+    </div>
+
+    <button
+      class="collapse"
+      type="button"
+      aria-label="隐藏左侧导航栏"
+      title="隐藏左侧导航栏"
+      @click="layout.collapseSidebar"
+    >
       <ChevronsLeft :size="18" />
       <span>收起侧栏</span>
     </button>
@@ -23,6 +35,8 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
+import { useRouter } from 'vue-router'
 import {
   Activity,
   ChevronsLeft,
@@ -32,33 +46,52 @@ import {
   Globe2,
   History,
   LayoutDashboard,
+  LockKeyhole,
+  LogOut,
   Monitor,
   Settings,
   TriangleAlert,
   Truck,
   Zap,
 } from 'lucide-vue-next'
+import { useLayoutStore } from '../../stores/layout'
+import { useAuthStore, type Role } from '../../stores/auth'
+
+const layout = useLayoutStore()
+const auth = useAuthStore()
+const router = useRouter()
 
 const nav = [
-  { path: '/overview', label: '总览', icon: LayoutDashboard },
-  { path: '/network-config', label: '网络配置', icon: Globe2 },
-  { path: '/can-monitor', label: 'CAN监控', icon: Monitor },
-  { path: '/signal-dashboard', label: '信号仪表盘', icon: Gauge },
-  { path: '/realtime-curve', label: '实时曲线', icon: Activity },
-  { path: '/manual-control', label: '手动控制', icon: Gamepad2 },
-  { path: '/auto-test', label: '一键检测', icon: Zap },
-  { path: '/alarm-diagnosis', label: '告警诊断', icon: TriangleAlert },
-  { path: '/report-management', label: '报告管理', icon: FileText },
-  { path: '/history', label: '历史记录', icon: History },
-  { path: '/system-settings', label: '系统设置', icon: Settings },
+  { path: '/overview', label: '总览', icon: LayoutDashboard, roles: ['viewer','operator','engineer','admin'] as Role[] },
+  { path: '/network-config', label: '网络配置', icon: Globe2, roles: ['engineer','admin'] as Role[] },
+  { path: '/can-monitor', label: 'CAN监控', icon: Monitor, roles: ['viewer','operator','engineer','admin'] as Role[] },
+  { path: '/signal-dashboard', label: '信号仪表盘', icon: Gauge, roles: ['viewer','operator','engineer','admin'] as Role[] },
+  { path: '/realtime-curve', label: '实时曲线', icon: Activity, roles: ['viewer','operator','engineer','admin'] as Role[] },
+  { path: '/manual-control', label: '手动控制', icon: Gamepad2, roles: ['engineer','admin'] as Role[] },
+  { path: '/auto-test', label: '一键检测', icon: Zap, roles: ['operator','engineer','admin'] as Role[] },
+  { path: '/alarm-diagnosis', label: '告警诊断', icon: TriangleAlert, roles: ['viewer','operator','engineer','admin'] as Role[] },
+  { path: '/report-management', label: '报告管理', icon: FileText, roles: ['viewer','operator','engineer','admin'] as Role[] },
+  { path: '/history', label: '历史记录', icon: History, roles: ['viewer','operator','engineer','admin'] as Role[] },
+  { path: '/system-settings', label: '系统设置', icon: Settings, roles: ['engineer','admin'] as Role[] },
 ]
+const visibleNav = computed(() => nav.filter((item) => auth.hasAnyRole(item.roles)))
+
+async function lockSession() {
+  await auth.lock()
+  await router.push('/lock')
+}
+
+async function logout() {
+  await auth.logout()
+  await router.push('/login')
+}
 </script>
 
 <style scoped>
 .sidebar {
-  position: fixed;
-  inset: 0 auto 0 0;
-  width: var(--sidebar-width);
+  position: relative;
+  width: var(--shell-sidebar-width, var(--sidebar-width));
+  min-width: var(--shell-sidebar-width, var(--sidebar-width));
   height: 100vh;
   background:
     linear-gradient(180deg, rgba(14, 35, 61, .96), rgba(7, 17, 31, 1) 48%, rgba(5, 13, 24, 1)),
@@ -69,7 +102,13 @@ const nav = [
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  opacity: 1;
+  transition: width 220ms ease-in-out, min-width 220ms ease-in-out, opacity 160ms ease-in-out, padding 220ms ease-in-out, border-color 160ms ease-in-out;
 }
+
+.session-panel{display:grid;grid-template-columns:minmax(0,1fr) 30px 30px;gap:6px;align-items:center;margin-top:auto;margin-bottom:8px;padding:9px;border:1px solid rgba(47,128,255,.24);border-radius:7px;background:rgba(7,17,31,.5)}
+.session-panel div{min-width:0;display:flex;flex-direction:column}.session-panel strong,.session-panel span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.session-panel strong{font-size:12px;color:#eaf2ff}.session-panel span{font-size:10px;color:#8fa5c4}.session-panel button{width:30px;height:30px;display:grid;place-items:center;border:1px solid #294b72;border-radius:5px;background:#0a1b30;color:#9cc8ff}
+
 
 .brand {
   min-height: 82px;
@@ -166,7 +205,7 @@ const nav = [
 }
 
 .collapse {
-  margin-top: auto;
+  margin-top: 0;
   height: 46px;
   border: 1px solid rgba(30, 58, 95, .86);
   border-radius: 8px;

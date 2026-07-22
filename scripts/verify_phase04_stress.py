@@ -16,7 +16,10 @@ import httpx
 
 
 BASE = os.getenv("CHASSIS_API_BASE", "http://127.0.0.1:8800/api/v1")
-HEADERS = {"Authorization": "Bearer dev-viewer-token"}
+TOKEN = os.getenv("CHASSIS_API_TOKEN", "")
+if not TOKEN:
+    raise RuntimeError("CHASSIS_API_TOKEN is required")
+HEADERS = {"Authorization": f"Bearer {TOKEN}"}
 FRAME_COUNT_PER_CHANNEL = 25
 TICKS_PER_SECOND = 20
 

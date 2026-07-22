@@ -1,0 +1,56 @@
+{
+  "work_package": "production-identity-config",
+  "verified_at_utc": "2026-07-22T13:53:33.3983001+00:00",
+  "branch": "main",
+  "baseline_commit": "3c6c838d1a2275d0b0d463ad3f04ac62293dfa0e",
+  "worktree_contains_uncommitted_package_changes": true,
+  "boundary": {
+    "profile": "test",
+    "network": "127.0.0.1 loopback only",
+    "real_can_accessed": false,
+    "non_loopback_requests": 0,
+    "secrets_retained_in_evidence": false
+  },
+  "backend": {
+    "passed": 160,
+    "failed": 0,
+    "statements": 7098,
+    "covered_lines": 5593,
+    "coverage_percent": 78.80
+  },
+  "simulator": {
+    "passed": 3,
+    "failed": 0,
+    "statements": 121,
+    "covered_lines": 52,
+    "coverage_percent": 42.98
+  },
+  "frontend": {
+    "test_files_passed": 13,
+    "tests_passed": 35,
+    "tests_failed": 0,
+    "statement_coverage_percent": 58.25,
+    "line_coverage_percent": 60.73,
+    "lint": "pass",
+    "typecheck": "pass",
+    "build": "pass"
+  },
+  "electron_e2e": {
+    "passed": true,
+    "electron_version": "43.1.0",
+    "pages": 11,
+    "viewports": 2,
+    "screenshots": 22,
+    "unauthenticated_redirects_to_login": true,
+    "refresh_preserves_session": true,
+    "restart_requires_login": true,
+    "offline_control_status": 409,
+    "non_loopback_requests": 0
+  },
+  "generated_contracts": {
+    "openapi": "docs/openapi.json",
+    "authorization_inventory": "docs/api-authorization-matrix.csv",
+    "authorization_operation_count": 136,
+    "configuration_schema": "docs/production-configuration.schema.json"
+  }
+}

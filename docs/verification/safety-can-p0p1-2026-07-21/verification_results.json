@@ -1,0 +1,34 @@
+{
+  "date": "2026-07-21",
+  "baseline_commit": "3c6c838d1a2275d0b0d463ad3f04ac62293dfa0e",
+  "worktree_committed": false,
+  "runtime_profile": "test",
+  "network_boundary": "Mock and 127.0.0.1 loopback only",
+  "real_hardware_accessed": false,
+  "active_tx_allowlist": {
+    "channel": "CAN2",
+    "can_ids": ["0x121"]
+  },
+  "backend": {
+    "passed": 139,
+    "failed": 0,
+    "coverage_percent": 78.39,
+    "coverage_gate_percent": 60
+  },
+  "simulator": {
+    "passed": 3,
+    "failed": 0,
+    "coverage_percent": 42.98,
+    "coverage_gate_percent": 40
+  },
+  "desktop_typecheck": "PASS",
+  "desktop_lint": "PASS",
+  "compileall": "PASS",
+  "diff_check": "PASS",
+  "known_warnings": [
+    "Starlette TestClient httpx compatibility deprecation",
+    "FastAPI on_event lifespan deprecation"
+  ],
+  "production_ready": false,
+  "hardware_confirmation_required": true
+}

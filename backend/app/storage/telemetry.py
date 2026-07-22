@@ -30,6 +30,7 @@ class TelemetryRecorder:
         raw_writer: RawLogWriter,
         signal_writer: SignalLogWriter,
         session_id_provider: Callable[[], str | None],
+        failure_callback: Callable[[str], None] | None = None,
         *,
         queue_size: int = 20_000,
         batch_size: int = 200,
@@ -38,6 +39,7 @@ class TelemetryRecorder:
         self.raw_writer = raw_writer
         self.signal_writer = signal_writer
         self.session_id_provider = session_id_provider
+        self.failure_callback = failure_callback
         self.queue: asyncio.Queue[TelemetryItem] = asyncio.Queue(maxsize=queue_size)
         self.batch_size = batch_size
         self.task: asyncio.Task[None] | None = None
@@ -60,6 +62,7 @@ class TelemetryRecorder:
             self.dropped += 1
             self.healthy = False
             self.last_error = "telemetry persistence queue overflow"
+            self._notify_failure(self.last_error)
 
     async def drain(self, session_id: str | None = None) -> None:
         await self.queue.join()
@@ -94,6 +97,7 @@ class TelemetryRecorder:
             except Exception as exc:
                 self.healthy = False
                 self.last_error = str(exc)
+                self._notify_failure(self.last_error)
                 LOGGER.exception("telemetry persistence batch failed")
             finally:
                 for _ in batch:
@@ -203,6 +207,13 @@ class TelemetryRecorder:
                 )
         for session_id, rows in file_rows.items():
             self.signal_writer.write_rows(session_id, rows)
+
+    def _notify_failure(self, message: str) -> None:
+        if self.failure_callback:
+            try:
+                self.failure_callback(message)
+            except Exception:
+                LOGGER.exception("telemetry failure callback failed")
 
     def metrics(self) -> dict[str, Any]:
         return {
