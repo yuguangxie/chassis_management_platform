@@ -51,4 +51,7 @@
 
 - 实现提交：`8c0b16ac7ab8192451eb284a926f92c32511e2ef`
 - 分支：`codex/ui-page-stub-closure`
-- 远程 Windows CI：推送后通过 `quality-gates` 的 `workflow_dispatch` 验证；运行号与最终结论将在 CI 完成后补记。
+- 远程 Windows CI：[quality-gates #29938962298](https://github.com/yuguangxie/chassis_management_platform/actions/runs/29938962298)，验证提交 `df4d15ff6503ece5492fa5d0ed9db00e7e6d0bc4`，最终结论 `success`。
+- Windows jobs：`quality` 通过（3m42s）；`renderer-e2e` 通过（4m20s）；`unsigned-internal-windows-installer` 通过（5m40s）。可选 1000 fps / 10 分钟长稳态未启用，按 workflow 条件跳过。
+- CI artifacts：`phase-05-quality-29938962298`、`phase-05-e2e-29938962298`、`phase-06-windows-installer-29938962298`。最后一项包含 unsigned 内测安装包、SBOM、hash/manifest 以及安装—11 页离线运行—sidecar 恢复—卸载证据。
+- CI 注记：GitHub 对 actions v4/v5 内置 Node 20 运行时给出弃用提示；不影响本次通过结论，但应在上游 action 发布兼容版本后升级。
