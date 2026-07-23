@@ -36,6 +36,12 @@ async function resetOutputDirectory() {
   }
 }
 
+function removeSensitiveRuntimeArtifacts() {
+  for (const name of ['runtime-data', 'backend.log', 'frontend.log', 'renderer-capture.log', 'simulator.log']) {
+    rmSync(resolve(output, name), { recursive: true, force: true })
+  }
+}
+
 async function commandOutput(command, args, options = {}) {
   return new Promise((resolveCommand, reject) => {
     const child = spawn(command, args, { windowsHide: true, shell: process.platform === 'win32', ...options })
@@ -260,6 +266,21 @@ async function main() {
       every_assertion_passed: interactionRows.every((item) => Object.values(item.interaction.assertions || {}).every(Boolean)),
       details: interactionRows.map((item) => ({ page:item.page, ...item.interaction })),
     }
+    result.layout_failures = inspections
+      .filter((item) => !item.page_inside_content
+        || !item.sections_inside_content
+        || !item.segmented_controls_fit
+        || !item.action_texts_fit)
+      .map((item) => ({
+        page: item.page,
+        width: item.width,
+        height: item.height,
+        page_inside_content: item.page_inside_content,
+        section_failures: item.section_bounds.filter((entry) => !entry.inside),
+        segmented_failures: item.segmented_bounds.filter((entry) => !entry.inside || !entry.textFits),
+        action_text_failures: item.action_text_bounds.filter((entry) => !entry.fits),
+        layout_rects: item.layout_rects,
+      }))
     result.screenshot_assertions = {
       captures: inspections.length,
       no_page_scroll: inspections.every((item) => !item.page_scrollable),
@@ -338,6 +359,7 @@ async function main() {
     await stop(backend)
   }
   writeFileSync(resolve(output, 'e2e-summary.json'), JSON.stringify(result, null, 2))
+  removeSensitiveRuntimeArtifacts()
   console.log(JSON.stringify(result, null, 2))
   if (!result.passed) process.exitCode = 1
 }

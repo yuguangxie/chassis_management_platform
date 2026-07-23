@@ -85,10 +85,17 @@ async function performSafeInteraction(window, name) {
         element.click()
         return true
       }
+      const clickWhenAvailable = async (selector, text, attempts = 20) => {
+        for (let attempt = 0; attempt < attempts; attempt += 1) {
+          if (click(selector, text)) return true
+          await wait(100)
+        }
+        return false
+      }
       const name = ${JSON.stringify(name)}
       const evidence = { name, clicked: [], assertions: {} }
       if (name === 'overview') {
-        if (click('button', '查看更多')) evidence.clicked.push('route-to-history')
+        if (await clickWhenAvailable('button', '查看更多')) evidence.clicked.push('route-to-history')
         await wait(500)
         evidence.assertions.history_route = location.hash.startsWith('#/history')
       } else if (name === 'network-config') {
