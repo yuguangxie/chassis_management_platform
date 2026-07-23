@@ -60,7 +60,8 @@ try {
   $SummaryPath = Join-Path $Output 'installed-e2e-summary.json'
   if (-not (Test-Path $SummaryPath)) { throw 'installed E2E summary was not produced' }
   $Summary = Get-Content $SummaryPath -Raw | ConvertFrom-Json
-  if (-not $Summary.passed -or $Summary.screenshot_count -ne 22 -or $Summary.offline_control_status -ne 409) {
+  if (-not $Summary.passed -or $Summary.screenshot_count -ne 22 -or $Summary.offline_control_status -ne 409 -or
+      -not $Summary.route_capture_matches -or -not $Summary.viewport_matches_request -or -not $Summary.unique_page_captures) {
     throw 'installed E2E safety/UI assertions failed'
   }
 

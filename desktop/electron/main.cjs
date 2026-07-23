@@ -1,4 +1,5 @@
 const { app, BrowserWindow, Menu, ipcMain, session, shell } = require('electron')
+const crypto = require('node:crypto')
 const fs = require('node:fs')
 const path = require('node:path')
 const { SidecarSupervisor } = require('./sidecar.cjs')
@@ -142,6 +143,27 @@ async function requestJson(url, options = {}) {
   return body
 }
 
+async function waitForPackagedRoute(route, timeoutMs = 10000) {
+  const expectedHash = `#${route}`
+  const deadline = Date.now() + timeoutMs
+  let state = {}
+  while (Date.now() < deadline) {
+    state = await mainWindow.webContents.executeJavaScript(`({
+      hash: location.hash,
+      currentRoute: document.documentElement.dataset.currentRoute || '',
+      readyState: document.readyState
+    })`)
+    if (state.hash === expectedHash && state.currentRoute === route && state.readyState === 'complete') {
+      await mainWindow.webContents.executeJavaScript(`new Promise((resolve) => {
+        requestAnimationFrame(() => requestAnimationFrame(resolve))
+      })`)
+      return state
+    }
+    await new Promise((resolve) => setTimeout(resolve, 50))
+  }
+  throw new Error(`renderer route did not settle: expected ${expectedHash}, got ${JSON.stringify(state)}`)
+}
+
 async function runPackagedVerification() {
   if (process.env.CHASSIS_PACKAGED_E2E !== '1') return
   const output = process.env.CHASSIS_PACKAGED_E2E_OUTPUT
@@ -163,7 +185,7 @@ async function runPackagedVerification() {
   const status = await requestJson(`${runtime.apiBase}/auth/bootstrap/status`, { headers: sidecarHeaders })
   if (!status.required) throw new Error('packaged verification requires a clean isolated database')
   const bootstrapSecret = fs.readFileSync(path.join(dataRoot(), 'auth', 'bootstrap-admin.secret'), 'utf8').trim()
-  const password = `E2e-${require('node:crypto').randomBytes(18).toString('base64url')}9!`
+  const password = `E2e-${crypto.randomBytes(18).toString('base64url')}9!`
   const sessionResult = await requestJson(`${runtime.apiBase}/auth/bootstrap`, {
     method: 'POST',
     headers: { ...sidecarHeaders, 'Content-Type': 'application/json' },
@@ -185,19 +207,33 @@ async function runPackagedVerification() {
   ]
   const inspections = []
   for (const [width, height] of [[1366, 768], [1920, 1080]]) {
-    mainWindow.setSize(width, height)
+    mainWindow.setResizable(true)
+    mainWindow.setMinimumSize(width, height)
+    mainWindow.setContentSize(width, height, false)
+    mainWindow.setResizable(false)
     for (const [name, route] of pages) {
       await mainWindow.webContents.executeJavaScript(`location.hash = ${JSON.stringify(`#${route}`)}`)
-      await new Promise((resolve) => setTimeout(resolve, 450))
+      await waitForPackagedRoute(route)
       const inspection = await mainWindow.webContents.executeJavaScript(`({
         route: location.hash,
+        current_route: document.documentElement.dataset.currentRoute || '',
+        viewport: { width: window.innerWidth, height: window.innerHeight },
         page_scrollable: document.documentElement.scrollHeight > document.documentElement.clientHeight + 2,
         failed_fetch: document.body.innerText.includes('Failed to fetch'),
         text_length: document.body.innerText.length
       })`)
-      const image = await mainWindow.capturePage()
-      fs.writeFileSync(path.join(output, `${name}_${width}x${height}.png`), image.toPNG())
-      inspections.push({ name, width, height, ...inspection })
+      const image = await mainWindow.webContents.capturePage()
+      const png = image.toPNG()
+      const imageSize = image.getSize()
+      fs.writeFileSync(path.join(output, `${name}_${width}x${height}.png`), png)
+      inspections.push({
+        name,
+        width,
+        height,
+        ...inspection,
+        image_size: imageSize,
+        image_sha256: crypto.createHash('sha256').update(png).digest('hex'),
+      })
     }
   }
   const channels = await requestJson(`${runtime.apiBase}/can/channels/status`, {
@@ -227,10 +263,22 @@ async function runPackagedVerification() {
     crash_restart_credential_rotated: process.env.CHASSIS_E2E_CRASH_ONCE === '1' ? restarted : 'not-requested',
     inspections,
   }
+  summary.route_capture_matches = inspections.every((item) => item.route === `#/${item.name}` && item.current_route === `/${item.name}`)
+  summary.viewport_matches_request = inspections.every((item) => item.viewport?.width === item.width
+    && item.viewport?.height === item.height
+    && item.image_size?.width === item.width
+    && item.image_size?.height === item.height)
+  summary.unique_page_captures = [1366, 1920].every((width) => {
+    const hashes = inspections.filter((item) => item.width === width).map((item) => item.image_sha256)
+    return hashes.length === pages.length && new Set(hashes).size === pages.length
+  })
   summary.passed = summary.screenshot_count === 22
     && summary.loopback_only
     && summary.channels_offline
     && summary.offline_control_status === 409
+    && summary.route_capture_matches
+    && summary.viewport_matches_request
+    && summary.unique_page_captures
     && inspections.every((item) => !item.page_scrollable && !item.failed_fetch && item.text_length > 20)
     && summary.crash_restart_credential_rotated !== false
   fs.writeFileSync(path.join(output, 'installed-e2e-summary.json'), `${JSON.stringify(summary, null, 2)}\n`, 'utf8')
