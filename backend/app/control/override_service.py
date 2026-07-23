@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from datetime import datetime, timedelta, timezone
 from enum import StrEnum
+import json
 from uuid import uuid4
 
 from pydantic import BaseModel, ConfigDict, Field
@@ -85,17 +86,24 @@ class OverrideConflict(RuntimeError):
         self.message = message
 
 
+class OverridePersistenceError(RuntimeError):
+    code = "OVERRIDE_PERSISTENCE_FAILED"
+
+
 class OverrideService:
     """Persisted dual-control approval; only the severe-alarm rule is overridable."""
 
-    def __init__(self, database) -> None:
+    def __init__(self, database, state=None) -> None:
         self.database = database
+        self.state = state
 
     def create(
         self,
         alarm_id: str,
         request: OverrideCreateRequest,
         principal: Principal,
+        *,
+        trace_id: str = "",
     ) -> SafetyOverrideRecord:
         self._require_database()
         record = SafetyOverrideRecord(
@@ -111,22 +119,20 @@ class OverrideService:
             authorized_user=request.authorized_user,
             duration_seconds=request.duration_seconds,
         )
-        self.database.execute(
-            "INSERT INTO safety_overrides(id,alarm_id,status,requested_by,request_reason,requested_at,session_id,operation,vehicle_id,authorized_user,duration_seconds) VALUES (?,?,?,?,?,?,?,?,?,?,?)",
-            (
-                record.id,
-                record.alarm_id,
-                record.status.value,
-                record.requested_by,
-                record.request_reason,
-                record.requested_at,
-                record.session_id,
-                record.operation.value,
-                record.vehicle_id,
-                record.authorized_user,
-                record.duration_seconds,
-            ),
-        )
+        try:
+            with self.database.transaction() as conn:
+                conn.execute(
+                    "INSERT INTO safety_overrides(id,alarm_id,status,requested_by,request_reason,requested_at,session_id,operation,vehicle_id,authorized_user,duration_seconds) VALUES (?,?,?,?,?,?,?,?,?,?,?)",
+                    (
+                        record.id, record.alarm_id, record.status.value, record.requested_by,
+                        record.request_reason, record.requested_at, record.session_id,
+                        record.operation.value, record.vehicle_id, record.authorized_user,
+                        record.duration_seconds,
+                    ),
+                )
+                self._audit(conn, principal, "alarm_override_request", record.id, request.model_dump(mode="json"), record.status.value, trace_id)
+        except Exception as exc:
+            self._persistence_failed(exc)
         return record
 
     def approve(
@@ -134,6 +140,8 @@ class OverrideService:
         override_id: str,
         request: OverrideApprovalRequest,
         principal: Principal,
+        *,
+        trace_id: str = "",
     ) -> SafetyOverrideRecord:
         record = self.get(override_id)
         if record.status != OverrideStatus.PENDING:
@@ -142,17 +150,15 @@ class OverrideService:
             raise OverrideConflict("SEPARATION_OF_DUTIES", "申请人与批准人必须为不同用户")
         approved_at = datetime.now(timezone.utc)
         expires_at = approved_at + timedelta(seconds=record.duration_seconds)
-        self.database.execute(
-            "UPDATE safety_overrides SET status=?,approved_by=?,approval_reason=?,approved_at=?,expires_at=? WHERE id=?",
-            (
-                OverrideStatus.APPROVED.value,
-                principal.username,
-                request.reason,
-                approved_at.isoformat(),
-                expires_at.isoformat(),
-                override_id,
-            ),
-        )
+        try:
+            with self.database.transaction() as conn:
+                conn.execute(
+                    "UPDATE safety_overrides SET status=?,approved_by=?,approval_reason=?,approved_at=?,expires_at=? WHERE id=?",
+                    (OverrideStatus.APPROVED.value, principal.username, request.reason, approved_at.isoformat(), expires_at.isoformat(), override_id),
+                )
+                self._audit(conn, principal, "alarm_override_approve", override_id, request.model_dump(mode="json"), "APPROVED", trace_id)
+        except Exception as exc:
+            self._persistence_failed(exc)
         return self.get(override_id)
 
     def revoke(
@@ -160,20 +166,21 @@ class OverrideService:
         override_id: str,
         request: OverrideRevokeRequest,
         principal: Principal,
+        *,
+        trace_id: str = "",
     ) -> SafetyOverrideRecord:
         record = self.get(override_id)
         if record.status not in {OverrideStatus.PENDING, OverrideStatus.APPROVED}:
             raise OverrideConflict("OVERRIDE_NOT_ACTIVE", "申请已撤销、已过期或不存在活动授权")
-        self.database.execute(
-            "UPDATE safety_overrides SET status=?,revoked_by=?,revoke_reason=?,revoked_at=? WHERE id=?",
-            (
-                OverrideStatus.REVOKED.value,
-                principal.username,
-                request.reason,
-                utc_now(),
-                override_id,
-            ),
-        )
+        try:
+            with self.database.transaction() as conn:
+                conn.execute(
+                    "UPDATE safety_overrides SET status=?,revoked_by=?,revoke_reason=?,revoked_at=? WHERE id=?",
+                    (OverrideStatus.REVOKED.value, principal.username, request.reason, utc_now(), override_id),
+                )
+                self._audit(conn, principal, "alarm_override_revoke", override_id, request.model_dump(mode="json"), "REVOKED", trace_id)
+        except Exception as exc:
+            self._persistence_failed(exc)
         return self.get(override_id)
 
     def get(self, override_id: str) -> SafetyOverrideRecord:
@@ -183,10 +190,15 @@ class OverrideService:
             raise OverrideConflict("OVERRIDE_NOT_FOUND", "人工放行申请不存在")
         record = SafetyOverrideRecord.model_validate(row)
         if record.status == OverrideStatus.APPROVED and self._is_expired(record):
-            self.database.execute(
-                "UPDATE safety_overrides SET status=? WHERE id=?",
-                (OverrideStatus.EXPIRED.value, override_id),
-            )
+            try:
+                with self.database.transaction() as conn:
+                    conn.execute("UPDATE safety_overrides SET status=? WHERE id=?", (OverrideStatus.EXPIRED.value, override_id))
+                    conn.execute(
+                        "INSERT INTO operator_actions(timestamp_utc,operator,role,action_type,target,request_json,result,trace_id) VALUES (?,?,?,?,?,?,?,?)",
+                        (utc_now(), "system", "admin", "alarm_override_expired", override_id, "{}", "EXPIRED", ""),
+                    )
+            except Exception as exc:
+                self._persistence_failed(exc)
             record = SafetyOverrideRecord.model_validate(
                 self.database.query_one("SELECT * FROM safety_overrides WHERE id=?", (override_id,))
             )
@@ -242,3 +254,15 @@ class OverrideService:
     def _require_database(self) -> None:
         if self.database is None:
             raise OverrideConflict("DATABASE_UNAVAILABLE", "数据库不可用，人工放行默认拒绝")
+
+    @staticmethod
+    def _audit(conn, principal: Principal, action: str, target: str, payload: dict, result: str, trace_id: str) -> None:
+        conn.execute(
+            "INSERT INTO operator_actions(timestamp_utc,operator,role,action_type,target,request_json,result,trace_id) VALUES (?,?,?,?,?,?,?,?)",
+            (utc_now(), principal.username, principal.role.value, action, target, json.dumps(payload, ensure_ascii=False), result, trace_id),
+        )
+
+    def _persistence_failed(self, exc: Exception) -> None:
+        if self.state is not None:
+            self.state.db_writable = False
+        raise OverridePersistenceError("人工放行状态与审计未能原子持久化，操作已回滚") from exc

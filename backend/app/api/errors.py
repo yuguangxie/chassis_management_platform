@@ -10,6 +10,9 @@ from fastapi.encoders import jsonable_encoder
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 
+from app.control.intent_service import ControlIntentPersistenceError
+from app.services.audit import AuditPersistenceError
+
 
 TRACE_ID: ContextVar[str] = ContextVar("trace_id", default="")
 TRACE_PATTERN = re.compile(r"^[A-Za-z0-9._:-]{8,128}$")
@@ -72,6 +75,19 @@ async def validation_exception_handler(
         "trace_id": get_trace_id(),
     }
     return JSONResponse(status_code=422, content=payload, headers={"X-Trace-Id": payload["trace_id"]})
+
+
+async def safety_persistence_exception_handler(
+    _request: Request,
+    exc: AuditPersistenceError | ControlIntentPersistenceError,
+) -> JSONResponse:
+    payload = {
+        "code": getattr(exc, "code", "SAFETY_PERSISTENCE_UNAVAILABLE"),
+        "message": "安全操作记录不可写，已保持联锁拒绝",
+        "details": {"blocking": True, "exception": type(exc).__name__},
+        "trace_id": get_trace_id(),
+    }
+    return JSONResponse(status_code=503, content=payload, headers={"X-Trace-Id": payload["trace_id"]})
 
 
 async def unhandled_exception_handler(_request: Request, exc: Exception) -> JSONResponse:

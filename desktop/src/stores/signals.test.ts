@@ -55,4 +55,29 @@ describe('signals store', () => {
     expect(store.dashboard.data_source).toBe('frontend-explicit-fallback')
     expect(store.dashboard.status.overall).toBe(fallbackSignalDashboard.status.overall)
   })
+
+  it('does not replace a good REST quality when a websocket payload omits provenance', async () => {
+    const { useSignalsStore } = await import('./signals')
+    const store = useSignalsStore()
+    store.dashboard = { ...structuredClone(fallbackSignalDashboard), quality: 'good', mock: false, data_source: 'runtime' }
+    store.bindWebSocket()
+
+    websocketCallbacks.get('signals.dashboard')?.({ status: { overall: '正常', updated_at: '2030-01-01T00:00:00Z', mock: false } })
+
+    expect(store.dashboard.quality).toBe('good')
+    expect(store.dashboard.data_source).toBe('runtime')
+    expect(store.dashboard.status.quality).toBe('good')
+  })
+
+  it('accepts nested websocket quality and blocks invalid data', async () => {
+    const { useSignalsStore } = await import('./signals')
+    const store = useSignalsStore()
+    store.dashboard = { ...structuredClone(fallbackSignalDashboard), quality: 'good', mock: false }
+    store.bindWebSocket()
+
+    websocketCallbacks.get('signals.dashboard')?.({ status: { quality: 'invalid', updated_at: '2030-01-01T00:00:00Z', mock: false } })
+
+    expect(store.dashboard.quality).toBe('invalid')
+    expect(store.dashboard.status.quality).toBe('invalid')
+  })
 })

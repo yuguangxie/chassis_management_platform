@@ -12,11 +12,11 @@ type PageContract = {
 }
 
 const contracts: PageContract[] = [
-  { file:'OverviewPage.vue', route:'/overview', read:"'/overview/summary'", write:"'/reports/scan'", error:'formatApiError', emptyOrStale:'—（stale）' },
+  { file:'OverviewPage.vue', route:'/overview', read:"'/overview/summary'", write:"'/reports/scan'", error:'formatApiError', emptyOrStale:'—（数据陈旧）' },
   { file:'NetworkConfigPage.vue', route:'/network-config', read:"'/config/channels'", write:"apiPut<NetworkConfigSummary", error:'界面已回滚', emptyOrStale:'offline.value ? []' },
-  { file:'CanMonitorPage.vue', route:'/can-monitor', read:'store.loadLatest()', write:"'/can/frames/clear-display'", error:'formatApiError', emptyOrStale:'—（stale）' },
-  { file:'SignalDashboardPage.vue', route:'/signal-dashboard', read:'signals.loadDashboard()', write:"'/signals/watchlist'", error:'formatApiError', emptyOrStale:'—（stale）' },
-  { file:'RealtimeCurvePage.vue', route:'/realtime-curve', read:'signals.loadCurveTimeseries', write:"'/signals/snapshot'", error:'formatApiError', emptyOrStale:'—（stale）' },
+  { file:'CanMonitorPage.vue', route:'/can-monitor', read:'store.loadLatest()', write:"'/can/frames/clear-display'", error:'formatApiError', emptyOrStale:'—（数据陈旧）' },
+  { file:'SignalDashboardPage.vue', route:'/signal-dashboard', read:'signals.loadDashboard()', write:"'/signals/watchlist'", error:'formatApiError', emptyOrStale:'—（数据陈旧）' },
+  { file:'RealtimeCurvePage.vue', route:'/realtime-curve', read:'signals.loadCurveTimeseries', write:"'/signals/snapshot'", error:'formatApiError', emptyOrStale:'—（数据陈旧）' },
   { file:'ManualControlPage.vue', route:'/manual-control', read:'control.loadAll()', write:"'/control/121/send-once'", error:'formatActionError', emptyOrStale:'control.stale' },
   { file:'AutoTestPage.vue', route:'/auto-test', read:'eol.loadDashboard()', write:"'start'", error:'formatActionError', emptyOrStale:':stale="eol.offline"' },
   { file:'AlarmDiagnosisPage.vue', route:'/alarm-diagnosis', read:'alarms.loadDashboard()', write:'alarms.runAction', error:'formatApiError', emptyOrStale:'alarms.offline ? []' },
@@ -57,10 +57,10 @@ describe('11-page control-to-service contracts', () => {
   })
 
   it('masks offline FPS and live metrics instead of presenting fallback values as fresh', () => {
-    expect(source('OverviewPage.vue')).toContain("return '—（stale）'")
+    expect(source('OverviewPage.vue')).toContain("return '—（数据陈旧）'")
     expect(source('NetworkConfigPage.vue')).toContain('offline.value ? []')
-    expect(source('CanMonitorPage.vue')).toContain("store.offline ? '—（stale）'")
-    expect(source('SignalDashboardPage.vue')).toContain("signals.offline ? '—（stale）'")
+    expect(source('CanMonitorPage.vue')).toContain("store.offline ? '—（数据陈旧）'")
+    expect(source('SignalDashboardPage.vue')).toContain("signals.offline ? 'stale'")
     expect(source('RealtimeCurvePage.vue')).toContain('if (signals.offline')
   })
 })

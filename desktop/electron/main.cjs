@@ -59,6 +59,7 @@ function sidecarOptions() {
     profile,
     packaged: app.isPackaged,
     releaseChannel: readReleaseChannel(root),
+    releaseManifest: path.join(root, 'release-build.json'),
   }
 }
 

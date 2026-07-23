@@ -45,7 +45,7 @@ def test_signed_production_package_loads_with_approved_identity(monkeypatch, tmp
         {
             "config_version": "production-test-v1",
             "runtime_profile": "production",
-            "network_interface": {"adapter_name": "approved-test-adapter", "bind_address": "127.0.0.1"},
+            "network_interface": {"adapter_name": "approved-test-adapter", "adapter_index": 1, "mac_address": "00:11:22:33:44:55", "bind_address": "127.0.0.1"},
             "can_endpoints": [
                 {"channel": "CAN1", "protocol": "udp", "local_ip": "127.0.0.1", "local_port": 8234, "device_ip": "127.0.0.1", "device_port": 12341, "source_allowlist": [{"ip": "127.0.0.1", "port": 12341}], "enabled": True, "control_enabled": False},
                 {"channel": "CAN2", "protocol": "udp", "local_ip": "127.0.0.1", "local_port": 8235, "device_ip": "127.0.0.1", "device_port": 12342, "source_allowlist": [{"ip": "127.0.0.1", "port": 12342}], "enabled": True, "control_enabled": True},
@@ -78,9 +78,9 @@ def test_signed_production_package_loads_with_approved_identity(monkeypatch, tmp
 
 def test_production_profile_requires_approved_dbc_identity_fields():
     with pytest.raises(ValueError, match="requires DBC"):
-        RuntimeConfig(profile="production")
+        RuntimeConfig(profile="production", channels=[ChannelConfig(channel="CAN2", local_receive_port=8235, control_enabled=True)])
     with pytest.raises(ValueError, match="full approved DBC SHA-256"):
-        RuntimeConfig(profile="production", require_dbc_for_control=True)
+        RuntimeConfig(profile="production", require_dbc_for_control=True, channels=[ChannelConfig(channel="CAN2", local_receive_port=8235, control_enabled=True)])
 
 
 def test_non_production_profile_rejects_production_destination():

@@ -22,6 +22,13 @@ CREATE TABLE IF NOT EXISTS test_sessions (
   failure_reason TEXT,
   safe_stop_json TEXT,
   report_id TEXT,
+  work_order_id TEXT,
+  duplicate_policy TEXT NOT NULL DEFAULT 'reject',
+  duplicate_of_session_id TEXT,
+  release_hash TEXT,
+  config_version TEXT,
+  test_plan_hash TEXT,
+  auth_session_id TEXT,
   created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -292,6 +299,30 @@ CREATE TABLE IF NOT EXISTS cleanup_jobs (
   updated_at TEXT NOT NULL
 );
 
+CREATE TABLE IF NOT EXISTS control_intents (
+  id TEXT PRIMARY KEY,
+  status TEXT NOT NULL CHECK(status IN ('PENDING','AUTHORIZED','SENT','CONFIRMED','FAILED','AUDIT_FAILED','CANCELLED')),
+  principal TEXT NOT NULL,
+  role TEXT NOT NULL,
+  auth_session_id TEXT,
+  vehicle_id TEXT,
+  eol_session_id TEXT,
+  operation TEXT NOT NULL,
+  target TEXT NOT NULL,
+  command_json TEXT NOT NULL,
+  command_hash TEXT NOT NULL,
+  safety_evaluation_json TEXT NOT NULL,
+  safety_evaluation_hash TEXT NOT NULL,
+  trace_id TEXT NOT NULL,
+  error_code TEXT,
+  error_detail TEXT,
+  created_at TEXT NOT NULL,
+  updated_at TEXT NOT NULL,
+  sent_at TEXT,
+  confirmed_at TEXT,
+  recovery_note TEXT
+);
+
 CREATE INDEX IF NOT EXISTS idx_raw_can_session_time ON raw_can_frames(session_id, timestamp_utc);
 CREATE INDEX IF NOT EXISTS idx_decoded_session_signal_time ON decoded_signals(session_id, signal_name, timestamp_utc);
 CREATE INDEX IF NOT EXISTS idx_steps_session ON test_steps(session_id, step_order);
@@ -305,3 +336,5 @@ CREATE INDEX IF NOT EXISTS idx_auth_sessions_account_expiry ON auth_sessions(acc
 CREATE INDEX IF NOT EXISTS idx_safety_overrides_status_expiry ON safety_overrides(status, expires_at);
 CREATE INDEX IF NOT EXISTS idx_cleanup_jobs_status ON cleanup_jobs(status, created_at);
 CREATE INDEX IF NOT EXISTS idx_reports_archived ON reports(archived_at, generated_at);
+CREATE INDEX IF NOT EXISTS idx_control_intents_status_time ON control_intents(status, created_at);
+CREATE INDEX IF NOT EXISTS idx_control_intents_session ON control_intents(eol_session_id, created_at);

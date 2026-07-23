@@ -4,13 +4,51 @@ import { wsClient } from '../api/websocket'
 import type { CurveConfig, CurveTimeseries, FaultEvent, ReplayMetadata, SignalDashboardSummary } from '../api/types'
 import { fallbackCurveConfig, fallbackCurveTimeseries, fallbackFaultEvents, fallbackReplayMetadata, fallbackSignalDashboard } from '../mocks/fallbackData'
 
-function explicitFallback<T extends { data_source?: string; mock?: boolean; quality?: 'good' | 'degraded' | 'unavailable' | 'mock'; trace_id?: string }>(value: T): T {
-  const result = structuredClone(value)
+type DashboardQuality = NonNullable<SignalDashboardSummary['quality']>
+
+function dashboardQuality(value: unknown, fallback: DashboardQuality): DashboardQuality {
+  return ['good', 'degraded', 'stale', 'invalid', 'unavailable', 'mock'].includes(String(value))
+    ? value as DashboardQuality
+    : fallback
+}
+
+export function normalizeDashboardPayload(
+  payload: Partial<SignalDashboardSummary>,
+  previous: SignalDashboardSummary,
+): SignalDashboardSummary {
+  const status = payload.status as (SignalDashboardSummary['status'] & { quality?: DashboardQuality }) | undefined
+  const quality = dashboardQuality(payload.quality ?? status?.quality, previous.quality ?? 'unavailable')
+  const updatedAt = payload.updated_at || status?.updated_at || previous.updated_at || previous.status.updated_at
+  return {
+    ...previous,
+    ...payload,
+    status: {
+      ...previous.status,
+      ...(status || {}),
+      quality,
+      updated_at: updatedAt,
+      mock: payload.mock ?? status?.mock ?? previous.status.mock,
+    },
+    quality,
+    updated_at: updatedAt,
+    mock: payload.mock ?? previous.mock,
+    data_source: payload.data_source || previous.data_source || 'websocket-runtime',
+    trace_id: payload.trace_id ?? previous.trace_id ?? '',
+  }
+}
+
+function explicitFallback<T>(value: T): T {
+  const result = structuredClone(value) as T & {
+    data_source?: string
+    mock?: boolean
+    quality?: DashboardQuality
+    trace_id?: string
+  }
   result.data_source = 'frontend-explicit-fallback'
   result.mock = true
   result.quality = 'mock'
   result.trace_id = ''
-  return result
+  return result as T
 }
 
 export const useSignalsStore = defineStore('signals', {
@@ -20,6 +58,7 @@ export const useSignalsStore = defineStore('signals', {
     curveTimeseries: explicitFallback(fallbackCurveTimeseries) as CurveTimeseries,
     replay: fallbackReplayMetadata as ReplayMetadata,
     faultEvents: fallbackFaultEvents as FaultEvent[],
+    replayError: '',
     backendOnline: true,
     offline: false,
     error: '',
@@ -82,39 +121,48 @@ export const useSignalsStore = defineStore('signals', {
         }
       } finally { this.pendingRequests = Math.max(0, this.pendingRequests - 1) }
     },
-    async loadReplay(sessionId = fallbackReplayMetadata.session_id) {
+    async loadReplay(sessionId: string) {
+      if (!sessionId.trim()) {
+        this.replayError = '历史模式缺少检测会话编号'
+        return false
+      }
       this.pendingRequests += 1
       try {
         this.replay = await apiGet<ReplayMetadata>(`/test-sessions/${encodeURIComponent(sessionId)}/replay`)
+        this.replayError = ''
+        return true
       } catch (error) {
-        this.error = formatApiError(error)
+        this.replayError = formatApiError(error)
         if (isNetworkError(error)) {
           this.replay = structuredClone(fallbackReplayMetadata)
           this.offline = true
         }
+        return false
       } finally { this.pendingRequests = Math.max(0, this.pendingRequests - 1) }
     },
-    async loadFaultEvents(sessionId = fallbackReplayMetadata.session_id) {
+    async loadFaultEvents(sessionId: string) {
+      if (!sessionId.trim()) {
+        this.replayError = '历史模式缺少检测会话编号'
+        return false
+      }
       this.pendingRequests += 1
       try {
         this.faultEvents = await apiGet<FaultEvent[]>(`/test-sessions/${encodeURIComponent(sessionId)}/fault-events`)
+        return true
       } catch (error) {
-        this.error = formatApiError(error)
+        this.replayError = formatApiError(error)
         if (isNetworkError(error)) {
           this.faultEvents = structuredClone(fallbackFaultEvents)
           this.offline = true
         }
+        return false
       } finally { this.pendingRequests = Math.max(0, this.pendingRequests - 1) }
     },
     bindWebSocket() {
       if (this.wsBound) return
       this.wsBound = true
       wsClient.on('signals.dashboard', (payload) => {
-        this.dashboard = {
-          ...(payload as SignalDashboardSummary),
-          data_source: (payload as SignalDashboardSummary).data_source || 'websocket-runtime',
-          mock: Boolean((payload as SignalDashboardSummary).mock),
-        }
+        this.dashboard = normalizeDashboardPayload(payload as Partial<SignalDashboardSummary>, this.dashboard)
         this.backendOnline = true
         this.offline = false
       })
@@ -139,6 +187,12 @@ export const useSignalsStore = defineStore('signals', {
         this.curveTimeseries = this.pendingCurveTimeseries
         this.pendingCurveTimeseries = undefined
       }
+    },
+    resetHistoryState() {
+      this.replay = structuredClone(fallbackReplayMetadata)
+      this.replay.session_id = ''
+      this.faultEvents = []
+      this.replayError = ''
     },
   },
 })

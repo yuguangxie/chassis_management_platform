@@ -242,7 +242,7 @@ export const useCanStore = defineStore('can', {
         message_name: payload.message_name || previous?.message_name || '-',
         period_ms: payload.period_ms ?? previous?.period_ms ?? '-',
         status: statusToUi(payload.status || payload.parse_status),
-        source_session: payload.source_session || previous?.source_session || 'S20260401-001',
+        source_session: payload.source_session || previous?.source_session || '-',
         frame_count: Number(payload.frame_count ?? (previous?.frame_count || 0) + 1),
         last_seen_ms: Number(payload.last_seen_ms ?? 0),
       }

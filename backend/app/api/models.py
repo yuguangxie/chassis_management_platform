@@ -164,6 +164,8 @@ class HistoryDashboardResponse(DashboardMetadata):
 
 
 class EolDashboardResponse(DashboardMetadata):
+    runtime_profile: Literal["dev", "mock", "test", "production"]
+    mock_session_allowed: bool
     session: dict[str, Any]
     steps: list[dict[str, Any]]
     current_step: dict[str, Any]
@@ -178,6 +180,8 @@ class EolDashboardResponse(DashboardMetadata):
 
 
 class SystemDashboardResponse(DashboardMetadata):
+    runtime_profile: Literal["dev", "mock", "test", "production"]
+    configuration_authority: Literal["direct-development", "signed-package"]
     save_state: dict[str, Any]
     auth: dict[str, Any]
     basic: dict[str, Any]
@@ -191,6 +195,7 @@ class SystemDashboardResponse(DashboardMetadata):
     storage_trend: list[dict[str, Any]]
     storage_summary: dict[str, Any]
     config_history: list[dict[str, Any]]
+    hardware_acceptance: dict[str, Any]
 
 
 class ReportChangeDirectoryRequest(ApiModel):
@@ -298,7 +303,9 @@ class CleanupPreviewResponse(ApiModel):
     file_bytes: int
     estimated_database_bytes: int
     total_bytes: int
-    protected: dict[str, int | str]
+    extra_files: list[str] = Field(default_factory=list)
+    file_categories: dict[str, dict[str, int]] = Field(default_factory=dict)
+    protected: dict[str, Any]
 
 
 class CleanupJobResponse(ApiModel):
@@ -404,7 +411,7 @@ class ChannelSettingsItem(ApiModel):
     local_port: int = Field(ge=1, le=65535)
     device_ip: str
     device_port: int = Field(ge=1, le=65535)
-    tx_enabled: bool = True
+    enabled: bool = True
     rx_status: str = "offline"
     period_ms: int = Field(default=20, ge=10, le=100)
     control_enabled: bool = False
@@ -425,3 +432,6 @@ class ChannelSettingsResponse(ApiModel):
     reconnected: bool | None = None
     message: str | None = None
     trace_id: str = ""
+    configuration_authority: Literal["direct-development", "signed-package"] = "direct-development"
+    read_only: bool = False
+    active_transmit_policy: dict[str, Any] = Field(default_factory=dict)

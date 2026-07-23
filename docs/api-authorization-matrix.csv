@@ -53,6 +53,7 @@ POST,/api/v1/control/121/start-periodic,motion-or-transport-privileged,engineer,
 POST,/api/v1/control/121/stop,motion-or-transport-privileged,engineer,stop
 POST,/api/v1/control/emergency-stop,motion-or-transport-privileged,operator,emergency_stop
 POST,/api/v1/control/emergency-stop/release,motion-or-transport-privileged,engineer,release
+GET,/api/v1/control/hardware-acceptance,operational-sensitive,viewer,hardware_acceptance
 GET,/api/v1/control/interlock-status,operational-sensitive,viewer,interlock_status
 GET,/api/v1/control/manual-curves,operational-sensitive,viewer,manual_curves
 GET,/api/v1/control/manual-feedback,operational-sensitive,viewer,manual_feedback

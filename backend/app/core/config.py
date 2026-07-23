@@ -4,11 +4,12 @@ import os
 from pathlib import Path
 from typing import Any, Literal
 import yaml
-from pydantic import AliasChoices, BaseModel, Field, field_validator, model_validator
+from pydantic import AliasChoices, BaseModel, ConfigDict, Field, field_validator, model_validator
 from .paths import CONFIG_DIR, DATA_DIR
 
 
 class SourceEndpointConfig(BaseModel):
+    model_config = ConfigDict(extra="forbid")
     ip: str
     port: int = Field(ge=1, le=65535)
 
@@ -18,6 +19,7 @@ class SourceEndpointConfig(BaseModel):
         return str(ipaddress.ip_address(value))
 
 class ChannelConfig(BaseModel):
+    model_config = ConfigDict(extra="forbid", populate_by_name=True)
     channel: str
     protocol: str = "udp"
     local_ip: str = "127.0.0.1"
@@ -99,6 +101,7 @@ def _default_feedback_dependencies() -> FeedbackDependencyMatrix:
     )
 
 class RuntimeConfig(BaseModel):
+    model_config = ConfigDict(extra="forbid")
     profile: Literal["dev", "mock", "test", "production"] = "dev"
     host: str = "127.0.0.1"
     port: int = Field(default=8800, ge=1, le=65535)
@@ -123,6 +126,8 @@ class RuntimeConfig(BaseModel):
     safe_stop_policy_hardware_validated: bool = False
     allowed_tx_can_ids: set[int] = Field(default_factory=lambda: {0x121})
     network_interface_name: str = "loopback-placeholder"
+    network_interface_index: int | None = Field(default=None, ge=1)
+    network_interface_mac: str | None = None
     test_plan_version: str = "eol-plan-1.0.2"
     data_root: str = str(DATA_DIR)
     printer_name: str | None = None
@@ -137,6 +142,8 @@ class RuntimeConfig(BaseModel):
 
     @model_validator(mode="after")
     def validate_runtime_boundary(self) -> "RuntimeConfig":
+        if self.allowed_tx_can_ids != {0x121}:
+            raise ValueError("active transmit policy is immutable and permits only CAN ID 0x121")
         control_channels = [item.channel for item in self.channels if item.control_enabled]
         if len(control_channels) > 1:
             raise ValueError("multiple control channels are forbidden")
@@ -149,6 +156,10 @@ class RuntimeConfig(BaseModel):
                 if not ipaddress.ip_address(channel.device_ip).is_loopback:
                     raise ValueError(f"{self.profile} profile forbids non-loopback device_ip: {channel.channel}")
         else:
+            if any(item.protocol.lower() != "udp" for item in self.channels):
+                raise ValueError("production profile currently permits UDP only")
+            if self.control_channel != "CAN2" or control_channels != ["CAN2"]:
+                raise ValueError("production requires CAN2 as the only control-enabled channel")
             if not self.require_dbc_for_control:
                 raise ValueError("production profile requires DBC for control")
             digest = (self.approved_dbc_sha256 or "").lower()
@@ -282,6 +293,8 @@ def load_config(dev: bool | None = None, profile: str | None = None) -> RuntimeC
                 "approved_dbc_sha256": imported.approved_dbc_sha256.lower(),
                 "require_dbc_for_control": imported.runtime_profile == "production",
                 "network_interface_name": imported.network_interface.adapter_name,
+                "network_interface_index": imported.network_interface.adapter_index,
+                "network_interface_mac": imported.network_interface.mac_address,
                 "test_plan_version": imported.test_plan_version,
                 "data_root": imported.data_root,
                 "printer_name": imported.printer.name,

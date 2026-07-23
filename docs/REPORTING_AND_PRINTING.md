@@ -1,5 +1,9 @@
 # 报告生成、PDF 与 Windows 打印
 
+## 2026-07-23 追溯元数据
+
+报告使用运行时真实 software release、clean commit、config version/hash、DBC hash、test-plan version/hash、车型、工位、operator/principal 与 EOL identity；DBC/release 不可用时显示未知/null，不使用固定 hash、数量或请求当前时间。打印审计继续绑定操作员、报告 hash、spooler job id 和状态。Windows 真实打印机、卡纸/脱机/驱动差异仍是外部现场验收项；本工作包只运行虚拟打印后端测试。
+
 ## 四种正式输出
 
 报告生成器回归覆盖 JSON、DOCX、PDF、CSV。JSON 是最小必需格式；任一格式失败会记录独立状态和错误，并删除该格式半成品。报告数据库记录保存文件大小和 SHA-256。

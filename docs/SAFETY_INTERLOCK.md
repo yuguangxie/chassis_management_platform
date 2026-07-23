@@ -1,5 +1,13 @@
 # 软件安全联锁（P0/P1 收口基线）
 
+## 2026-07-23 可靠动作与硬件验收门禁
+
+运动命令现在必须先在同一 SQLite 事务中写入 `control_intents` 与授权审计，记录 principal/role/auth session/vehicle/EOL session/operation、最小命令及 hash、安全评估摘要及 hash、trace 和 UTC 时间。状态为 `AUTHORIZED → SENT → CONFIRMED/FAILED`，另有 `PENDING/AUDIT_FAILED/CANCELLED`。前写失败零发送；发送后结果写失败不返回完整成功，立即锁存存储故障、停止普通周期发送并只执行受限的安全停车补偿。重启会把未决 intent 显式终结，不静默丢失。
+
+production 普通运动还必须通过独立 hardware acceptance artifact。artifact 绑定工位、车型、控制器/固件、release/config/DBC/plan hash、物理急停/PLC/继电器清单、watchdog/safe-stop 策略、证据 hash、申请人、两名不同批准人、UTC 有效期及撤销信息。其 HMAC 信任根与配置签名键分离，仓库只提供零值模板，UI 只读。override 不能绕过 artifact、急停、DB/审计不可写、关键反馈、DBC 或队列异常。
+
+上述为软件门禁，不代表真实车辆 READY；物理急停、独立安全 PLC、watchdog 和真实制动保持仍需受控台架签字。
+
 更新日期：2026-07-21。本文描述当前实现，不构成真实车辆或台架准入批准。所有自动化验证仅使用 Mock 与 `127.0.0.1` 回环。
 
 ## 总体原则

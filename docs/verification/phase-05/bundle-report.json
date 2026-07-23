@@ -5,16 +5,16 @@
     "total_js_gzip_bytes": 800000
   },
   "main": {
-    "name": "index-CZjLKp3M.js",
-    "bytes": 68766,
-    "gzip_bytes": 22309
+    "name": "index-DXNmXbT2.js",
+    "bytes": 71798,
+    "gzip_bytes": 23659
   },
   "echarts_vendor": {
     "name": "echarts-vendor-aCMsnSeq.js",
     "bytes": 1117948,
     "gzip_bytes": 367892
   },
-  "total_gzip_bytes": 511676,
+  "total_gzip_bytes": 520643,
   "chunks": [
     {
       "name": "echarts-vendor-aCMsnSeq.js",
@@ -22,114 +22,129 @@
       "gzip_bytes": 367892
     },
     {
-      "name": "icon-vendor-DaAs6b4D.js",
-      "bytes": 82901,
-      "gzip_bytes": 29854
+      "name": "icon-vendor-fYPuUUgm.js",
+      "bytes": 83412,
+      "gzip_bytes": 30067
     },
     {
-      "name": "index-CZjLKp3M.js",
-      "bytes": 68766,
-      "gzip_bytes": 22309
+      "name": "index-DXNmXbT2.js",
+      "bytes": 71798,
+      "gzip_bytes": 23659
     },
     {
-      "name": "SystemSettingsPage-C9f0_r6s.js",
-      "bytes": 40832,
-      "gzip_bytes": 13415
+      "name": "SystemSettingsPage-BpnToGyp.js",
+      "bytes": 42311,
+      "gzip_bytes": 13874
     },
     {
-      "name": "vue-vendor-Cp633Dmf.js",
+      "name": "vue-vendor-BINhtAvZ.js",
       "bytes": 31011,
-      "gzip_bytes": 12019
+      "gzip_bytes": 12007
     },
     {
-      "name": "ReportManagementPage-DX39dWLg.js",
-      "bytes": 23690,
-      "gzip_bytes": 7990
+      "name": "ReportManagementPage-yu0vE18i.js",
+      "bytes": 24258,
+      "gzip_bytes": 8278
     },
     {
-      "name": "CanMonitorPage-Dq0x1BHn.js",
-      "bytes": 21797,
-      "gzip_bytes": 7392
+      "name": "CanMonitorPage-mdjUQXnv.js",
+      "bytes": 22795,
+      "gzip_bytes": 7690
     },
     {
-      "name": "HistoryPage-BGEyF0Rp.js",
-      "bytes": 18364,
-      "gzip_bytes": 6539
+      "name": "HistoryPage-DbNTqg5_.js",
+      "bytes": 18732,
+      "gzip_bytes": 6735
     },
     {
-      "name": "ManualControlPage-oUJXbbpq.js",
-      "bytes": 18289,
-      "gzip_bytes": 6453
+      "name": "RealtimeCurvePage-CxPK2xXL.js",
+      "bytes": 18120,
+      "gzip_bytes": 6677
     },
     {
-      "name": "RealtimeCurvePage-D0Oo4vtt.js",
-      "bytes": 15214,
-      "gzip_bytes": 5697
+      "name": "ManualControlPage-DkGwGrwS.js",
+      "bytes": 18895,
+      "gzip_bytes": 6649
     },
     {
-      "name": "NetworkConfigPage-C87A4jtn.js",
-      "bytes": 14857,
-      "gzip_bytes": 5474
+      "name": "NetworkConfigPage-CFD7J61v.js",
+      "bytes": 17587,
+      "gzip_bytes": 6565
     },
     {
-      "name": "AlarmDiagnosisPage-idXdTWdA.js",
-      "bytes": 13047,
-      "gzip_bytes": 5125
+      "name": "AutoTestPage-CuvRY6eX.js",
+      "bytes": 17973,
+      "gzip_bytes": 6151
     },
     {
-      "name": "OverviewPage-QtFZCR2a.js",
-      "bytes": 12675,
-      "gzip_bytes": 4930
+      "name": "AlarmDiagnosisPage-dU81XqXN.js",
+      "bytes": 13709,
+      "gzip_bytes": 5402
     },
     {
-      "name": "AutoTestPage-BLX9yVvV.js",
-      "bytes": 13453,
-      "gzip_bytes": 4863
+      "name": "OverviewPage-DwIk-eEi.js",
+      "bytes": 12910,
+      "gzip_bytes": 5065
     },
     {
-      "name": "SignalDashboardPage-BVX6fTVN.js",
-      "bytes": 13255,
-      "gzip_bytes": 4387
+      "name": "SignalDashboardPage-DB5yFFX6.js",
+      "bytes": 14110,
+      "gzip_bytes": 4772
     },
     {
-      "name": "LoginPage-BXz7xnvx.js",
+      "name": "LoginPage-BTbi8QDh.js",
       "bytes": 2916,
       "gzip_bytes": 1553
     },
     {
-      "name": "http-BNz7dCrs.js",
-      "bytes": 3010,
-      "gzip_bytes": 1490
+      "name": "http-Dp1cvUTx.js",
+      "bytes": 3018,
+      "gzip_bytes": 1504
     },
     {
-      "name": "LockScreenPage-DD3naMCN.js",
+      "name": "signals-0KepHabi.js",
+      "bytes": 3524,
+      "gzip_bytes": 1166
+    },
+    {
+      "name": "LockScreenPage-D3edl3CB.js",
       "bytes": 1449,
-      "gzip_bytes": 932
+      "gzip_bytes": 931
     },
     {
-      "name": "signals-BGxInHXF.js",
-      "bytes": 2734,
-      "gzip_bytes": 866
+      "name": "PageDataState-B79ErXx8.js",
+      "bytes": 1446,
+      "gzip_bytes": 819
     },
     {
-      "name": "PageDataState-CLkh0Qyl.js",
-      "bytes": 1352,
-      "gzip_bytes": 777
-    },
-    {
-      "name": "RealtimeLineChart-JRMYSX_U.js",
+      "name": "RealtimeLineChart-ClfSXDMy.js",
       "bytes": 999,
       "gzip_bytes": 599
     },
     {
-      "name": "BarChart-CLaloSYm.js",
+      "name": "BarChart-CAxsAKlp.js",
       "bytes": 990,
       "gzip_bytes": 593
     },
     {
-      "name": "ForbiddenPage-DRJoiCGw.js",
+      "name": "IndustrialActionButton-2WelTF1Y.js",
+      "bytes": 979,
+      "gzip_bytes": 552
+    },
+    {
+      "name": "ForbiddenPage-D9jKo-7q.js",
       "bytes": 659,
-      "gzip_bytes": 527
+      "gzip_bytes": 529
+    },
+    {
+      "name": "IndustrialButton-D-g-fjZR.js",
+      "bytes": 802,
+      "gzip_bytes": 461
+    },
+    {
+      "name": "ToggleSwitch-CoO_DKha.js",
+      "bytes": 761,
+      "gzip_bytes": 453
     }
   ],
   "assertions": {

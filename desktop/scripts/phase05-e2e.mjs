@@ -210,8 +210,9 @@ async function main() {
     operatorToken = (await postJson(`${apiBase}/auth/login`, { username:'e2e-operator', password:passwords.operator })).token
     engineerToken = (await postJson(`${apiBase}/auth/login`, { username:'e2e-engineer', password:passwords.engineer })).token
     const mockSession = await postJson(`${apiBase}/eol/sessions`, {
-      chassis_no:'MOCK-E2E-001', vin:'LMOCKE2E00000001', serial_no:'MOCK-E2E-SN', station_id:'LOOPBACK-E2E',
-      plan_id:'default_chassis_eol_v1', remarks:'Electron loopback UI interaction evidence',
+      chassis_no:'MOCK-E2E-001', vin:'L1234567890123456', serial_no:'MOCK-E2E-SN',
+      vehicle_series:'JD', work_order_id:'MOCK-E2E-WO-001', plan_id:'default_chassis_eol_v1',
+      mock_session:true, remarks:'Electron loopback UI interaction evidence',
     }, operatorToken)
     const mockSessionId = mockSession.id || mockSession.session_id
     if (!mockSessionId) throw new Error('mock EOL session did not return an id')
@@ -251,6 +252,7 @@ async function main() {
     const inspections = captureMetrics.inspections
     result.authentication = captureMetrics.authentication
     result.permission = captureMetrics.permission
+    result.stability = captureMetrics.stability
     const interactionRows = inspections.filter((item) => item.width === 1920)
     result.interaction_assertions = {
       pages_exercised: interactionRows.length,
@@ -265,6 +267,14 @@ async function main() {
       no_failed_fetch_banner: inspections.every((item) => !item.failed_to_fetch_banner),
       no_renderer_console_errors: inspections.every((item) => item.renderer_console_errors.length === 0),
       no_renderer_page_errors: inspections.every((item) => item.renderer_page_errors.length === 0),
+      page_inside_content: inspections.every((item) => item.page_inside_content),
+      sections_inside_content: inspections.every((item) => item.sections_inside_content),
+      internal_scroll_reachable: inspections.every((item) => item.internal_scroll_reachable),
+      bottom_blank_within_16px: inspections.every((item) => item.bottom_blank_px !== null && item.bottom_blank_px <= 16),
+      segmented_controls_fit: inspections.every((item) => item.segmented_controls_fit),
+      charts_inside_containers: inspections.every((item) => item.charts_inside_containers),
+      action_texts_fit: inspections.every((item) => item.action_texts_fit),
+      screenshot_light_colors_match: inspections.every((item) => item.screenshot_light_colors_match),
     }
 
     await stop(simulator)
@@ -307,6 +317,18 @@ async function main() {
       && result.screenshot_assertions.no_page_scroll
       && result.screenshot_assertions.no_white_controls
       && result.screenshot_assertions.no_failed_fetch_banner
+      && result.screenshot_assertions.page_inside_content
+      && result.screenshot_assertions.sections_inside_content
+      && result.screenshot_assertions.internal_scroll_reachable
+      && result.screenshot_assertions.bottom_blank_within_16px
+      && result.screenshot_assertions.segmented_controls_fit
+      && result.screenshot_assertions.charts_inside_containers
+      && result.screenshot_assertions.action_texts_fit
+      && result.screenshot_assertions.screenshot_light_colors_match
+      && result.stability.duration_seconds >= 60
+      && result.stability.signal_quality_stable
+      && result.stability.auto_test_button_stable
+      && result.stability.alarm_button_stable
       && result.stale_online_assertion
   } catch (error) {
     result.error = `${error?.name || 'Error'}: ${error?.message || error}`

@@ -19,7 +19,7 @@ def test_storage_admin_matrix_backup_cleanup_and_real_stats(auth_headers):
         assert stats.status_code == 200
         payload = stats.json()
         root = Path(payload["data_root"]).resolve()
-        assert payload["schema_version"] == payload["latest_schema_version"] == 3
+        assert payload["schema_version"] == payload["latest_schema_version"] == 4
         assert payload["database_writable"] is True
         assert all(root == Path(path).resolve() or root in Path(path).resolve().parents for path in payload["paths"].values())
         assert client.get("/api/v1/storage/backups", headers=viewer).status_code == 403

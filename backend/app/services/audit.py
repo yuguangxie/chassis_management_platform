@@ -10,6 +10,23 @@ from app.security.auth import Principal, Role
 LOGGER = logging.getLogger(__name__)
 
 
+class AuditPersistenceError(RuntimeError):
+    """A required safety/security audit record could not be durably committed."""
+
+    code = "AUDIT_UNAVAILABLE"
+
+
+def _mark_unwritable(state: Any, message: str) -> None:
+    state.db_writable = False
+    if getattr(state, "alarms", None) and hasattr(state.alarms, "raise_system_alarm"):
+        state.alarms.raise_system_alarm(
+            "audit_storage_unhealthy",
+            4,
+            "Audit Storage Unhealthy",
+            message,
+        )
+
+
 def record_operator_action(
     state: Any,
     principal: Principal | None,
@@ -18,7 +35,9 @@ def record_operator_action(
     request: dict[str, Any] | None = None,
     result: str = "OK",
     trace_id: str = "",
-) -> None:
+    *,
+    required: bool = False,
+) -> bool:
     actor = principal or Principal("system", Role.ADMIN)
     payload = request or {}
     if state.database is None:
@@ -31,7 +50,10 @@ def record_operator_action(
             result,
             payload,
         )
-        return
+        if required:
+            _mark_unwritable(state, "required operation audit database is unavailable")
+            raise AuditPersistenceError("required operation audit database is unavailable")
+        return False
     try:
         state.database.execute(
             "INSERT INTO operator_actions(session_id, timestamp_utc, operator, role, action_type, target, request_json, result, trace_id) VALUES (?,?,?,?,?,?,?,?,?)",
@@ -47,5 +69,10 @@ def record_operator_action(
                 trace_id,
             ),
         )
-    except Exception:
+        return True
+    except Exception as exc:
         LOGGER.exception("failed to persist operator action %s", action)
+        if required:
+            _mark_unwritable(state, f"required operation audit failed: {type(exc).__name__}")
+            raise AuditPersistenceError("required operation audit could not be persisted") from exc
+        return False

@@ -4,6 +4,9 @@ import asyncio
 import os
 from pathlib import Path
 import socket
+import subprocess
+import json
+import platform
 import time
 from typing import Any
 
@@ -11,6 +14,71 @@ from app.can_gateway.models import CanFrame
 from app.can_gateway.usr_can115 import UsrCan115Codec
 from app.core.config import ChannelConfig
 from app.core.time import utc_now
+
+
+def _adapter_identities() -> list[dict[str, Any]]:
+    """Return local adapter identity without contacting any network endpoint.
+
+    Production provisioning pins all four fields.  The PowerShell query is fixed
+    (no package-controlled shell text) and is therefore safe to run during local
+    preflight on Windows.  Tests replace this function with deterministic data.
+    """
+    if platform.system() == "Windows":
+        command = (
+            "Get-NetIPConfiguration | ForEach-Object { "
+            "$a=$_.NetAdapter; $_.IPv4Address | ForEach-Object { "
+            "[pscustomobject]@{name=$a.Name;index=$a.ifIndex;mac=$a.MacAddress;ip=$_.IPAddress} } } "
+            "| ConvertTo-Json -Compress"
+        )
+        try:
+            result = subprocess.run(
+                ["powershell.exe", "-NoProfile", "-NonInteractive", "-Command", command],
+                check=True,
+                capture_output=True,
+                text=True,
+                timeout=5,
+            )
+            payload = json.loads(result.stdout or "[]")
+            rows = payload if isinstance(payload, list) else [payload]
+            return [
+                {
+                    "name": str(row.get("name") or ""),
+                    "index": int(row.get("index") or 0),
+                    "mac": str(row.get("mac") or "").replace("-", ":").upper(),
+                    "ip": str(row.get("ip") or ""),
+                }
+                for row in rows
+                if isinstance(row, dict)
+            ]
+        except (OSError, subprocess.SubprocessError, ValueError, json.JSONDecodeError):
+            return []
+    rows: list[dict[str, Any]] = []
+    for index, name in socket.if_nameindex():
+        mac_path = Path("/sys/class/net") / name / "address"
+        mac = mac_path.read_text(encoding="ascii").strip().upper() if mac_path.exists() else ""
+        rows.append({"name": name, "index": index, "mac": mac, "ip": ""})
+    return rows
+
+
+def adapter_identity_check(configuration: Any) -> dict[str, Any]:
+    expected = configuration.network_interface
+    rows = _adapter_identities()
+    matches = [
+        row
+        for row in rows
+        if row["name"] == expected.adapter_name
+        and row["index"] == expected.adapter_index
+        and row["mac"] == expected.mac_address
+        and row["ip"] == expected.bind_address
+    ]
+    return {
+        "rule": "windows_adapter_identity",
+        "label": "Windows 网卡身份",
+        "passed": bool(matches),
+        "blocking": configuration.runtime_profile == "production",
+        "current": rows,
+        "threshold": expected.model_dump(mode="json"),
+    }
 
 
 def _bind_probe(channel: ChannelConfig, owned_by_runtime: bool) -> tuple[str, bool, str]:
@@ -139,6 +207,22 @@ async def diagnose_network(state: Any, channels: list[ChannelConfig] | None = No
 
 def configuration_preflight(state: Any, configuration: Any) -> list[dict[str, Any]]:
     checks: list[dict[str, Any]] = []
+    if configuration.runtime_profile == "production":
+        checks.append(adapter_identity_check(configuration))
+    bind_consistent = all(
+        endpoint.local_ip == configuration.network_interface.bind_address
+        for endpoint in configuration.can_endpoints
+    )
+    checks.append(
+        {
+            "rule": "bind_address_consistency",
+            "label": "签名网卡绑定地址",
+            "passed": bind_consistent,
+            "blocking": True,
+            "current": [endpoint.local_ip for endpoint in configuration.can_endpoints],
+            "threshold": configuration.network_interface.bind_address,
+        }
+    )
     runtime_status = {row.get("channel"): row for row in (state.can.status() if state.can else [])}
     runtime_channels = {item.channel: item for item in state.config.channels}
     for endpoint in configuration.can_endpoints:
@@ -177,4 +261,40 @@ def configuration_preflight(state: Any, configuration: Any) -> list[dict[str, An
     active_session = bool(state.eol and state.eol.active_session_id)
     periodic = bool(state.tx_scheduler and state.tx_scheduler.task and not state.tx_scheduler.task.done())
     checks.append({"rule": "control_idle", "passed": not active_session and not periodic, "blocking": True, "current": {"active_eol_session": active_session, "periodic_control": periodic}, "threshold": {"active_eol_session": False, "periodic_control": False}})
+    return checks
+
+
+def configuration_post_apply_health(state: Any, configuration: Any) -> list[dict[str, Any]]:
+    """Blocking checks against the newly active objects, not the staged document."""
+    checks = configuration_preflight(state, configuration)
+    status = {row.get("channel"): row for row in (state.can.status() if state.can else [])}
+    for endpoint in configuration.can_endpoints:
+        row = status.get(endpoint.channel, {})
+        checks.extend(
+            [
+                {
+                    "rule": f"transport_{endpoint.channel.lower()}",
+                    "label": f"{endpoint.channel} 实际 transport",
+                    "passed": bool(row.get("transport_connected")),
+                    "blocking": True,
+                    "current": row.get("transport_connected", False),
+                    "threshold": True,
+                },
+                {
+                    "rule": f"approved_source_receive_{endpoint.channel.lower()}",
+                    "label": f"{endpoint.channel} 批准来源收帧",
+                    "passed": bool(row.get("online")),
+                    "blocking": configuration.runtime_profile == "production" and endpoint.enabled,
+                    "current": {
+                        "online": row.get("online", False),
+                        "last_frame_age_ms": row.get("receive_age_ms"),
+                        "unauthorized_datagrams": row.get("unauthorized_datagrams", 0),
+                    },
+                    "threshold": {
+                        "online": True,
+                        "max_age_ms": int(state.config.channel_online_timeout_seconds * 1000),
+                    },
+                },
+            ]
+        )
     return checks

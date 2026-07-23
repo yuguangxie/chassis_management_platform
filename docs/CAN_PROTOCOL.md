@@ -1,5 +1,13 @@
 # USR-CAN115 与 UDP 来源安全
 
+## 2026-07-23 release candidate 决策
+
+- CAN1 主动发送永久锁定；唯一主动发送通道/ID 为 CAN2/`0x121`。
+- `0x123`、`0x126`、`0x710`、`0x715` 和 CANopen NMT 均未启用。
+- UDP 非批准 source 只增加拒绝计数并触发安全事件，不更新 online、last frame、recent frame 或信号缓存；gateway 重建和回滚继续携带同一安全回调。
+- 标准帧 ID 仅 `0..0x7FF`，扩展帧 ID 仅 `0..0x1FFFFFFF`；保留位、DLC、RTR、固定 13 字节结构和数据长度继续严格校验。
+- production 暂时仅允许 UDP。真实 CAN 的下一阶段仅为监听验收，禁止在本工作包中做真实发送或运动测试。
+
 更新日期：2026-07-21。验证边界仅为 Mock 与 `127.0.0.1`。
 
 ## 13 字节标准转换帧

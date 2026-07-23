@@ -7,9 +7,9 @@
           <h1>信号仪表盘</h1>
           <p>关键反馈信号可视化与状态监控</p>
         </div>
-        <PageDataState :loading="signals.loading" :error="signals.error" :stale="signals.offline || Boolean(data.mock) || data.quality !== 'good'" :empty="!data.watchlist.length" />
+        <PageDataState :loading="signals.loading" :error="signals.error" :stale="displayQuality !== 'good'" :stale-label="qualityStateMessage" :empty="!data.watchlist.length" />
       </div>
-      <button v-if="auth.can('operator')" class="header-action" :disabled="signals.offline" @click="saveLayout"><Settings :size="16" />自定义布局</button>
+      <IndustrialButton v-if="auth.can('operator')" size="compact" variant="primary" :disabled="signals.offline" @click="saveLayout"><template #icon><Settings :size="16" /></template>自定义布局</IndustrialButton>
     </section>
 
     <section class="row row-one">
@@ -34,10 +34,10 @@
         <CardHead title="车辆状态" :status="freshStatus"><CarFront :size="18" /></CardHead>
         <div class="vehicle-list">
           <StatusLine label="当前档位" :value="data.vehicle.gear"><Cog :size="18" /></StatusLine>
-          <StatusLine label="当前驱动模式" :value="data.vehicle.drive_mode" accent><SatelliteDish :size="18" /></StatusLine>
-          <StatusLine label="点火状态" :value="data.vehicle.ignition" accent><KeyRound :size="18" /></StatusLine>
-          <StatusLine label="驻车状态" :value="data.vehicle.parking" accent><CircleParking :size="18" /></StatusLine>
-          <StatusLine label="车辆速度" :value="signals.offline ? '—（stale）' : `${data.vehicle.speed.toFixed(1)} km/h`" accent><Gauge :size="18" /></StatusLine>
+          <StatusLine label="当前驱动模式" :value="localizeStatus(data.vehicle.drive_mode)" accent><SatelliteDish :size="18" /></StatusLine>
+          <StatusLine label="点火状态" :value="localizeStatus(data.vehicle.ignition)" accent><KeyRound :size="18" /></StatusLine>
+          <StatusLine label="驻车状态" :value="localizeStatus(data.vehicle.parking)" accent><CircleParking :size="18" /></StatusLine>
+          <StatusLine label="车辆速度" :value="displayUnavailable ? '—（数据陈旧）' : `${data.vehicle.speed.toFixed(1)} km/h`" accent><Gauge :size="18" /></StatusLine>
         </div>
       </article>
 
@@ -87,11 +87,11 @@
       <article class="panel light-card">
         <CardHead title="灯光 & 制动" :status="freshStatus"><BadgeInfo :size="18" /></CardHead>
         <div class="light-grid">
-          <LightItem label="左转灯" :state="data.lights_brake.left_turn"><ArrowLeft :size="28" /></LightItem>
-          <LightItem label="右转灯" :state="data.lights_brake.right_turn"><ArrowRight :size="28" /></LightItem>
-          <LightItem label="位置灯" :state="data.lights_brake.position_light" active><Sun :size="30" /></LightItem>
-          <LightItem label="近光灯" :state="data.lights_brake.low_beam"><ListFilter :size="28" /></LightItem>
-          <LightItem label="制动请求" :state="data.lights_brake.brake_request" danger><CircleAlert :size="30" /></LightItem>
+          <SignalLightItem label="左转灯" :value="data.lights_brake.left_turn" :quality="displayQuality" tone="yellow"><ArrowLeft :size="28" /></SignalLightItem>
+          <SignalLightItem label="右转灯" :value="data.lights_brake.right_turn" :quality="displayQuality" tone="yellow"><ArrowRight :size="28" /></SignalLightItem>
+          <SignalLightItem label="位置灯" :value="data.lights_brake.position_light" :quality="displayQuality" tone="red"><Sun :size="30" /></SignalLightItem>
+          <SignalLightItem label="近光灯" :value="data.lights_brake.low_beam" :quality="displayQuality" tone="white"><ListFilter :size="28" /></SignalLightItem>
+          <SignalLightItem label="制动请求" :value="data.lights_brake.brake_request" :quality="displayQuality" tone="red"><CircleAlert :size="30" /></SignalLightItem>
         </div>
       </article>
     </section>
@@ -103,13 +103,13 @@
           <div class="alarm-level">
             <span>告警等级</span>
             <strong>{{ data.alarm.level }}</strong>
-            <em>{{ data.alarm.label }}</em>
+            <em>{{ localizeStatus(data.alarm.label) }}</em>
           </div>
           <div class="threshold-list">
             <h3>阈值状态</h3>
             <div v-for="item in data.alarm.thresholds" :key="item.name" class="threshold-row">
               <span>{{ item.name }}</span>
-              <b><i></i>{{ item.status }}</b>
+              <b><i></i>{{ localizeStatus(item.status) }}</b>
             </div>
           </div>
         </div>
@@ -122,9 +122,9 @@
             <span>最后更新：{{ data.status.updated_at }}</span>
           </div>
           <div class="watch-actions">
-            <button v-if="auth.can('operator')" :disabled="signals.offline" @click="saveWatchlist">保存配置</button>
-            <button v-if="auth.can('operator')" :disabled="signals.offline" @click="exportSnapshot">导出快照</button>
-            <button v-if="auth.can('operator')" :disabled="signals.offline" @click="resetLayout">重置布局</button>
+            <IndustrialButton v-if="auth.can('operator')" size="compact" :disabled="signals.offline" @click="saveWatchlist">保存配置</IndustrialButton>
+            <IndustrialButton v-if="auth.can('operator')" size="compact" :disabled="signals.offline" @click="exportSnapshot">导出快照</IndustrialButton>
+            <IndustrialButton v-if="auth.can('operator')" size="compact" :disabled="signals.offline" @click="resetLayout">重置布局</IndustrialButton>
           </div>
         </div>
         <div class="watch-table-wrap">
@@ -150,8 +150,8 @@
                 <td :class="['value-cell', Number(row.value) < 0 || row.unit === 'A' ? 'green' : 'blue']">{{ signals.offline ? '—' : row.value }}</td>
                 <td>{{ row.unit }}</td>
                 <td>{{ row.threshold }}</td>
-                <td><span class="quality">{{ row.quality }}</span></td>
-                <td>{{ signals.offline ? 'stale' : row.updated_at }}</td>
+                <td><span class="quality">{{ qualityLabel(row.quality) }}</span></td>
+                <td>{{ displayUnavailable ? '数据陈旧' : row.updated_at }}</td>
                 <td><Sparkline :values="signals.offline ? [] : row.trend" :color="Number(row.value) < 0 || row.unit === 'A' ? '#21C55D' : '#2F80FF'" /></td>
               </tr>
             </tbody>
@@ -192,11 +192,17 @@ import { wsClient } from '../api/websocket'
 import { useSignalsStore } from '../stores/signals'
 import { useAuthStore } from '../stores/auth'
 import PageDataState from '../components/PageDataState.vue'
+import IndustrialButton from '../components/common/IndustrialButton.vue'
+import SignalLightItem from '../components/signals/SignalLightItem.vue'
+import { localizeStatus, qualityIsUsable, qualityLabel } from '../ui/uiStatusLabels'
 
 const signals = useSignalsStore()
 const auth = useAuthStore()
 const data = computed(() => signals.dashboard)
-const freshStatus = computed(() => signals.offline ? 'STALE' : data.value.quality === 'good' ? '正常' : String(data.value.quality || 'unavailable'))
+const displayQuality = computed(() => signals.offline ? 'stale' : data.value.mock ? 'mock' : String(data.value.quality || data.value.status.quality || 'unavailable'))
+const displayUnavailable = computed(() => !qualityIsUsable(displayQuality.value))
+const freshStatus = computed(() => qualityLabel(displayQuality.value))
+const qualityStateMessage = computed(() => data.value.mock ? '当前为模拟数据，不参与真实车辆判定' : `${qualityLabel(displayQuality.value)}，实时值不参与安全判断`)
 const toast = ref('')
 let refreshTimer: number | undefined
 
@@ -236,8 +242,8 @@ const MetricTile = defineComponent({
   setup(props) {
     return () => h('div', { class: ['metric-tile', props.tone] }, [
       h('span', props.label),
-      h('strong', [signals.offline ? '—' : formatValue(props.value), !signals.offline && props.unit ? h('small', ` ${props.unit}`) : null]),
-      !signals.offline && props.trend.length ? h(Sparkline, { values: props.trend, color: props.tone === 'green' ? '#21C55D' : '#2F80FF', height: 28 }) : null,
+      h('strong', [displayUnavailable.value ? '—' : formatValue(props.value), !displayUnavailable.value && props.unit ? h('small', ` ${props.unit}`) : null]),
+      !displayUnavailable.value && props.trend.length ? h(Sparkline, { values: props.trend, color: props.tone === 'green' ? '#21C55D' : '#2F80FF', height: 28 }) : null,
     ])
   },
 })
@@ -247,7 +253,7 @@ const StatusLine = defineComponent({
   setup(props, { slots }) {
     return () => h('div', { class: 'vehicle-row' }, [
       h('span', { class: 'row-label' }, [slots.default?.(), props.label]),
-      h('strong', { class: props.accent ? 'accent' : '' }, signals.offline ? '—（stale）' : props.value),
+      h('strong', { class: props.accent ? 'accent' : '' }, displayUnavailable.value ? '—（数据陈旧）' : props.value),
     ])
   },
 })
@@ -255,7 +261,7 @@ const StatusLine = defineComponent({
 const WheelValue = defineComponent({
   props: { label: { type: String, required: true }, value: { type: Number, required: true } },
   setup(props) {
-    return () => h('div', { class: 'wheel-value' }, [h('span', props.label), h('strong', signals.offline ? '—' : props.value.toFixed(1))])
+    return () => h('div', { class: 'wheel-value' }, [h('span', props.label), h('strong', displayUnavailable.value ? '—' : props.value.toFixed(1))])
   },
 })
 
@@ -272,24 +278,13 @@ const TrendBlock = defineComponent({
   setup(props) {
     return () => h('div', { class: 'trend-block' }, [
       h('span', props.title),
-      h('strong', signals.offline ? '—（stale）' : [props.value.toFixed(1), h('small', ` ${props.unit}`)]),
-      h('p', signals.offline ? '指令 — | 反馈 —' : `指令 ${props.cmd.toFixed(1)}° | 反馈 ${props.feedback.toFixed(1)}°`),
+      h('strong', displayUnavailable.value ? '—（数据陈旧）' : [props.value.toFixed(1), h('small', ` ${props.unit}`)]),
+      h('p', displayUnavailable.value ? '指令 — | 反馈 —' : `指令 ${props.cmd.toFixed(1)}° | 反馈 ${props.feedback.toFixed(1)}°`),
       h('div', { class: 'mini-chart' }, [
         h('span', { class: 'axis top' }, '45°'),
-        h(Sparkline, { values: signals.offline ? [] : props.trend, color: props.color, height: 58, min: -45, max: 45 }),
+        h(Sparkline, { values: displayUnavailable.value ? [] : props.trend, color: props.color, height: 58, min: -45, max: 45 }),
         h('span', { class: 'axis bottom' }, '-45°'),
       ]),
-    ])
-  },
-})
-
-const LightItem = defineComponent({
-  props: { label: { type: String, required: true }, state: { type: String, required: true }, active: { type: Boolean, default: false }, danger: { type: Boolean, default: false } },
-  setup(props, { slots }) {
-    return () => h('div', { class: ['light-item', props.active ? 'active' : '', props.danger ? 'danger' : ''] }, [
-      h('span', props.label),
-      h('i', slots.default?.()),
-      h('strong', signals.offline ? '—（stale）' : props.state),
     ])
   },
 })
@@ -327,7 +322,7 @@ function formatValue(value: number | string | null | undefined): string {
   return value.toFixed(3).replace(/0+$/, '').replace(/\.$/, '')
 }
 
-function freshText(value: string) { return signals.offline ? '—（stale）' : value }
+function freshText(value: string) { return displayUnavailable.value ? '—（数据陈旧）' : localizeStatus(value) }
 
 async function saveLayout() {
   await runAction(() => apiPut('/signals/dashboard-layout', { layout: { preset: 'default' } }), '自定义布局')
@@ -449,8 +444,7 @@ button {
   cursor: pointer;
 }
 
-.header-action,
-.watch-actions button {
+.header-action {
   gap: 7px;
   height: 34px;
   padding: 0 12px;
@@ -463,11 +457,6 @@ button {
 
 .watch-actions {
   gap: 8px;
-}
-
-.watch-actions button {
-  height: 28px;
-  padding: 0 10px;
 }
 
 .row {

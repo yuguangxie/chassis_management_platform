@@ -5,6 +5,7 @@ import hashlib
 import hmac
 import ipaddress
 import json
+from pathlib import Path
 from typing import Literal
 from uuid import UUID
 
@@ -17,12 +18,22 @@ class ConfigurationModel(BaseModel):
 
 class NetworkInterfaceConfig(ConfigurationModel):
     adapter_name: str = Field(min_length=1, max_length=128)
+    adapter_index: int | None = Field(default=None, ge=1)
+    mac_address: str | None = Field(
+        default=None,
+        pattern=r"^(?:[0-9A-Fa-f]{2}[:-]){5}[0-9A-Fa-f]{2}$",
+    )
     bind_address: str
 
     @field_validator("bind_address")
     @classmethod
     def validate_bind_address(cls, value: str) -> str:
         return str(ipaddress.ip_address(value))
+
+    @field_validator("mac_address")
+    @classmethod
+    def normalize_mac_address(cls, value: str | None) -> str | None:
+        return value.replace("-", ":").upper() if value else None
 
 
 class SourceEndpoint(ConfigurationModel):
@@ -85,6 +96,23 @@ class ProductionConfiguration(ConfigurationModel):
             raise ValueError("CAN2 must be the only control-enabled channel")
         if self.runtime_profile == "production" and set(self.approved_dbc_sha256.lower()) == {"0"}:
             raise ValueError("production approved_dbc_sha256 must not use the template placeholder")
+        if self.runtime_profile == "production":
+            if self.network_interface.adapter_name.lower() in {
+                "loopback",
+                "loopback-placeholder",
+                "replace-with-windows-adapter-name",
+            }:
+                raise ValueError("production requires an approved Windows adapter name")
+            if self.network_interface.adapter_index is None:
+                raise ValueError("production requires an approved Windows adapter index")
+            if not self.network_interface.mac_address:
+                raise ValueError("production requires an approved Windows adapter MAC address")
+            if any(item.protocol != "udp" for item in self.can_endpoints):
+                raise ValueError(
+                    "production currently permits UDP only; TCP is a development preview"
+                )
+            if not Path(self.data_root).is_absolute():
+                raise ValueError("production data_root must be an absolute path")
         if self.runtime_profile != "production":
             addresses = [self.network_interface.bind_address]
             for item in self.can_endpoints:
@@ -96,7 +124,7 @@ class ProductionConfiguration(ConfigurationModel):
 
 
 class SignedConfigurationPackage(ConfigurationModel):
-    schema_version: Literal[1] = 1
+    schema_version: Literal[2] = 2
     package_id: UUID
     issued_at: datetime
     issuer: str = Field(min_length=1, max_length=128)

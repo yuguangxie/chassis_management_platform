@@ -36,7 +36,7 @@ def _resign(package: dict, **configuration_updates) -> dict:
 def test_signed_export_dry_run_and_admin_permission(auth_headers):
     with TestClient(app) as client:
         package = _export(client, auth_headers)
-        assert package["schema_version"] == 1
+        assert package["schema_version"] == 2
         assert package["signature_algorithm"] == "HMAC-SHA256"
         request = {"package": package, "dry_run": True}
         assert client.post("/api/v1/config/import", json=request, headers=auth_headers("engineer")).status_code == 403
@@ -96,6 +96,13 @@ def test_apply_persists_package_and_reports_restart_requirement(auth_headers, tm
         assert response.json()["requires_restart"] is True
         assert Path(os.environ["CHASSIS_ACTIVE_CONFIG_PATH"]).exists()
         assert state.config.config_version == "test-package-v2"
+        from app.services.lifecycle import on_can_security_event
+
+        assert all(
+            getattr(gateway, "on_security_event", None) is on_can_security_event
+            for gateway in state.can.gateways.values()
+            if hasattr(gateway, "on_security_event")
+        )
 
 
 def test_apply_failure_restores_runtime_and_previous_package(auth_headers, monkeypatch: pytest.MonkeyPatch):

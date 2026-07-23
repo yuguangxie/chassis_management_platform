@@ -11,6 +11,11 @@ on:
         required: false
         type: boolean
         default: false
+      signed_release:
+        description: Build and verify a formally signed installer using protected certificate secrets
+        required: false
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -32,7 +37,7 @@ jobs:
           cache-dependency-path: desktop/package-lock.json
       - name: Prepare quality evidence directory
         shell: pwsh
-        run: New-Item -ItemType Directory -Force docs/verification/phase-05/ci-runtime/quality | Out-Null
+        run: New-Item -ItemType Directory -Force docs/verification/software-p0-p1-closure-2026-07-23/ci-runtime/quality | Out-Null
       - uses: astral-sh/setup-uv@v5
         with:
           version: '0.10.7'
@@ -42,42 +47,42 @@ jobs:
       - name: Install desktop dependencies
         run: npm.cmd ci --prefix desktop
       - name: Run isolated Python quality suite with coverage
-        run: backend/.venv/Scripts/python.exe scripts/run_quality.py --suite all --coverage --artifact-dir docs/verification/phase-05/ci-runtime/quality/python
+        run: backend/.venv/Scripts/python.exe scripts/run_quality.py --suite all --coverage --artifact-dir docs/verification/software-p0-p1-closure-2026-07-23/ci-runtime/quality/python
       - name: Run desktop static and unit gates
         shell: pwsh
         run: |
-          npm.cmd --prefix desktop run lint *>&1 | Tee-Object docs/verification/phase-05/ci-runtime/quality/lint.txt
+          npm.cmd --prefix desktop run lint *>&1 | Tee-Object docs/verification/software-p0-p1-closure-2026-07-23/ci-runtime/quality/lint.txt
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-          npm.cmd --prefix desktop run test *>&1 | Tee-Object docs/verification/phase-05/ci-runtime/quality/vitest.txt
+          npm.cmd --prefix desktop run test *>&1 | Tee-Object docs/verification/software-p0-p1-closure-2026-07-23/ci-runtime/quality/vitest.txt
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-          npm.cmd --prefix desktop run typecheck *>&1 | Tee-Object docs/verification/phase-05/ci-runtime/quality/typecheck.txt
+          npm.cmd --prefix desktop run typecheck *>&1 | Tee-Object docs/verification/software-p0-p1-closure-2026-07-23/ci-runtime/quality/typecheck.txt
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-          npm.cmd --prefix desktop run build *>&1 | Tee-Object docs/verification/phase-05/ci-runtime/quality/build.txt
+          npm.cmd --prefix desktop run build *>&1 | Tee-Object docs/verification/software-p0-p1-closure-2026-07-23/ci-runtime/quality/build.txt
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-          npm.cmd --prefix desktop run test:bundle *>&1 | Tee-Object docs/verification/phase-05/ci-runtime/quality/bundle.txt
+          npm.cmd --prefix desktop run test:bundle *>&1 | Tee-Object docs/verification/software-p0-p1-closure-2026-07-23/ci-runtime/quality/bundle.txt
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
       - name: Run dependency audits
         shell: pwsh
         run: |
-          npm.cmd --prefix desktop audit --audit-level=high *>&1 | Tee-Object docs/verification/phase-05/ci-runtime/quality/npm-audit.txt
+          npm.cmd --prefix desktop audit --audit-level=high *>&1 | Tee-Object docs/verification/software-p0-p1-closure-2026-07-23/ci-runtime/quality/npm-audit.txt
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-          $auditOut = 'docs/verification/phase-05/ci-runtime/quality/pip-audit.stdout.txt'
-          $auditErr = 'docs/verification/phase-05/ci-runtime/quality/pip-audit.stderr.txt'
+          $auditOut = 'docs/verification/software-p0-p1-closure-2026-07-23/ci-runtime/quality/pip-audit.stdout.txt'
+          $auditErr = 'docs/verification/software-p0-p1-closure-2026-07-23/ci-runtime/quality/pip-audit.stderr.txt'
           $auditProcess = Start-Process -FilePath '.\backend\.venv\Scripts\python.exe' -ArgumentList @('-m', 'pip_audit', '--skip-editable') -Wait -PassThru -NoNewWindow -RedirectStandardOutput $auditOut -RedirectStandardError $auditErr
-          Get-Content $auditOut, $auditErr | Tee-Object docs/verification/phase-05/ci-runtime/quality/pip-audit.txt
+          Get-Content $auditOut, $auditErr | Tee-Object docs/verification/software-p0-p1-closure-2026-07-23/ci-runtime/quality/pip-audit.txt
           if ($auditProcess.ExitCode -ne 0) { exit $auditProcess.ExitCode }
       - name: Collect frontend coverage
         if: always()
         shell: pwsh
         run: |
           if (Test-Path desktop/coverage) {
-            Copy-Item -Recurse -Force desktop/coverage docs/verification/phase-05/ci-runtime/quality/frontend-coverage
+            Copy-Item -Recurse -Force desktop/coverage docs/verification/software-p0-p1-closure-2026-07-23/ci-runtime/quality/frontend-coverage
           }
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: phase-05-quality-${{ github.run_id }}
-          path: docs/verification/phase-05/ci-runtime/quality
+          path: docs/verification/software-p0-p1-closure-2026-07-23/ci-runtime/quality
           if-no-files-found: error
 
   renderer-e2e:
@@ -85,6 +90,8 @@ jobs:
     runs-on: windows-latest
     needs: quality
     timeout-minutes: 45
+    env:
+      CHASSIS_E2E_OUTPUT: docs/verification/software-p0-p1-closure-2026-07-23/e2e
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -113,10 +120,10 @@ jobs:
         shell: pwsh
         run: |
           $versionOutput = & '.\desktop\node_modules\.bin\electron.cmd' --version | Out-String
-          $versionOutput | Set-Content docs/verification/phase-05/e2e/electron-version-ci.raw.txt -Encoding utf8
+          $versionOutput | Set-Content docs/verification/software-p0-p1-closure-2026-07-23/e2e/electron-version-ci.raw.txt -Encoding utf8
           $matches = [regex]::Matches($versionOutput, '\bv\d+\.\d+\.\d+\b')
           $version = if ($matches.Count -gt 0) { $matches[$matches.Count - 1].Value } else { '' }
-          $version | Set-Content docs/verification/phase-05/e2e/electron-version-ci.txt -Encoding utf8
+          $version | Set-Content docs/verification/software-p0-p1-closure-2026-07-23/e2e/electron-version-ci.txt -Encoding utf8
           if ($version.Trim() -ne 'v43.1.0') {
             throw "Electron 43.1.0 is required, got $versionOutput"
           }
@@ -133,7 +140,7 @@ jobs:
         if: always()
         with:
           name: phase-05-e2e-${{ github.run_id }}
-          path: docs/verification/phase-05/e2e
+          path: docs/verification/software-p0-p1-closure-2026-07-23/e2e
           if-no-files-found: error
 
   windows-installer:
@@ -170,8 +177,59 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: phase-06-windows-installer-${{ github.run_id }}
+          name: software-p0-p1-unsigned-installer-${{ github.run_id }}
           path: |
             desktop/release/windows
-            docs/verification/phase-06
+            docs/verification/software-p0-p1-closure-2026-07-23
+          if-no-files-found: error
+
+  signed-windows-installer:
+    name: signed-production-candidate-windows-installer
+    if: github.event_name == 'workflow_dispatch' && inputs.signed_release
+    runs-on: windows-latest
+    needs: [quality, renderer-e2e]
+    timeout-minutes: 75
+    env:
+      CSC_LINK: ${{ secrets.WINDOWS_CSC_LINK }}
+      CSC_KEY_PASSWORD: ${{ secrets.WINDOWS_CSC_KEY_PASSWORD }}
+      CHASSIS_REQUIRE_SIGNING: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11.8'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.22.2'
+          cache: npm
+          cache-dependency-path: desktop/package-lock.json
+      - uses: astral-sh/setup-uv@v5
+        with:
+          version: '0.10.7'
+      - name: Require protected signing material
+        shell: pwsh
+        run: |
+          if ([string]::IsNullOrWhiteSpace($env:CSC_LINK) -or [string]::IsNullOrWhiteSpace($env:CSC_KEY_PASSWORD)) {
+            throw 'signed release requested but protected Authenticode secrets are unavailable'
+          }
+      - name: Install locked desktop build dependencies
+        run: npm.cmd ci --prefix desktop
+      - name: Build signed production candidate from clean commit
+        shell: pwsh
+        run: .\scripts\build_windows_release.ps1 -RequireSigning -SkipQuality
+      - name: Verify signed installer install/start/uninstall matrix
+        shell: pwsh
+        run: |
+          $installer = Get-ChildItem desktop/release/windows/Chassis-EOL-Setup-*-signed-production-candidate-x64.exe | Select-Object -First 1
+          if (-not $installer) { throw 'signed production candidate installer not found' }
+          $signature = Get-AuthenticodeSignature -LiteralPath $installer.FullName
+          if ($signature.Status -ne 'Valid') { throw "Authenticode validation failed: $($signature.Status)" }
+          .\scripts\verify_windows_installer.ps1 -InstallerPath $installer.FullName
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: software-p0-p1-signed-installer-${{ github.run_id }}
+          path: |
+            desktop/release/windows
+            docs/verification/software-p0-p1-closure-2026-07-23
           if-no-files-found: error

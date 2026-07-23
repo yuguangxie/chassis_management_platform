@@ -66,6 +66,8 @@ def runtime_configuration(config: RuntimeConfig) -> ProductionConfiguration:
         runtime_profile=config.profile,
         network_interface=NetworkInterfaceConfig(
             adapter_name=config.network_interface_name,
+            adapter_index=config.network_interface_index,
+            mac_address=config.network_interface_mac,
             bind_address=bind_address,
         ),
         can_endpoints=endpoints,
@@ -132,6 +134,8 @@ def runtime_from_package(current: RuntimeConfig, package: SignedConfigurationPac
             "approved_dbc_sha256": imported.approved_dbc_sha256.lower(),
             "require_dbc_for_control": imported.runtime_profile == "production",
             "network_interface_name": imported.network_interface.adapter_name,
+            "network_interface_index": imported.network_interface.adapter_index,
+            "network_interface_mac": imported.network_interface.mac_address,
             "test_plan_version": imported.test_plan_version,
             "data_root": imported.data_root,
             "printer_name": imported.printer.name,

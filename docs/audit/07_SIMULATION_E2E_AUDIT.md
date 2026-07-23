@@ -1,5 +1,7 @@
 # 仿真与端到端审计
 
+> **历史基线 / 已被后续审计取代。** 当前结论见 [`current_audit_2026-07-23`](../current_audit_2026-07-23/00_AUDIT_INDEX.md) 和本轮 [P0/P1 验证索引](../verification/software-p0-p1-closure-2026-07-23/README.md)。
+
 ## 运行链路
 
 实际启动 FastAPI、Python simulator、Vite renderer，并用 loopback 配置补做 0x121 双向控制。后端监听 127.0.0.1:8234/8235，仿真器设备端为 127.0.0.1:12341/12342。默认生产配置的发送端仍是 [REDACTED_CAN1_GATEWAY]/99:1234，因此标准开发命令并非完整双向闭环。

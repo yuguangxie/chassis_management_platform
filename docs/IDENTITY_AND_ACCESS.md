@@ -1,5 +1,11 @@
 # 生产身份、路由守卫与首次初始化
 
+## 2026-07-23 安全操作审计补充
+
+安全拒绝、控制 intent/result、safe-stop/emergency/release、override 申请/批准/撤销、EOL 创建和危险状态变更均采用必需审计。必需审计不可写会锁存存储故障并返回 503；普通只读偏好仍可采用降级审计。日志与证据不得保存 bootstrap secret、session token、配置签名键或 hardware acceptance 信任根。
+
+hardware acceptance 要求申请人与两名批准人共三人互异。此职责分离是生产运动门禁，不是普通 RBAC 或 override 可以替代的权限。
+
 更新日期：2026-07-22。
 
 ## 方案与边界

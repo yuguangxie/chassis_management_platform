@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 from datetime import datetime, timezone
+import gzip
+import logging
 from pathlib import Path
 import shutil
 import sqlite3
@@ -9,11 +11,13 @@ from types import SimpleNamespace
 import pytest
 
 from app.core.paths import DataPaths, DataRootError
+from app.core.logging import HybridRotatingFileHandler
 from app.reports.printing import PrintService, VirtualPrintBackend
 from app.reports.dependencies import report_dependency_status
 from app.reports.service import ReportService
 from app.security.auth import Principal, Role
 from app.storage.database import Database
+from app.storage.config import StorageConfig, load_storage_config
 from app.storage.lifecycle import BackupService, RetentionService
 from app.storage.migrations import MIGRATIONS, MigrationError
 from app.storage.repositories import Repositories
@@ -79,7 +83,7 @@ def test_data_root_permission_failure_is_actionable(tmp_path: Path, monkeypatch)
     assert raised.value.code == "DATA_ROOT_PERMISSION_DENIED"
 
 
-@pytest.mark.parametrize("old_version", [1, 2])
+@pytest.mark.parametrize("old_version", [1, 2, 3])
 def test_every_old_schema_version_upgrades_idempotently(tmp_path: Path, old_version: int):
     path = tmp_path / f"old-v{old_version}.sqlite3"
     database = Database(path)
@@ -88,11 +92,11 @@ def test_every_old_schema_version_upgrades_idempotently(tmp_path: Path, old_vers
     database.close()
 
     upgraded = Database(path)
-    assert upgraded.schema_version() == 3
+    assert upgraded.schema_version() == 4
     assert upgraded.integrity_check() == (True, "ok")
     upgraded.close()
     repeated = Database(path)
-    assert repeated.schema_version() == 3
+    assert repeated.schema_version() == 4
     repeated.close()
 
 
@@ -107,7 +111,7 @@ def test_failed_migration_restores_pre_migration_backup(tmp_path: Path):
         raise RuntimeError("injected migration failure")
 
     with pytest.raises(MigrationError) as raised:
-        Database(path, backup_dir=tmp_path / "backups", migrations={**MIGRATIONS, 4: ("injected_failure", fail)})
+        Database(path, backup_dir=tmp_path / "backups", migrations={**MIGRATIONS, 5: ("injected_failure", fail)})
     assert raised.value.backup_path and raised.value.backup_path.is_file()
     restored = Database(path)
     assert restored.query_one("SELECT value FROM marker")["value"] == "preserved"
@@ -247,7 +251,11 @@ def test_cleanup_database_failure_restores_quarantined_files(tmp_path: Path, mon
         ("R-FAIL", "FAIL-RESTORE", "C", "V", "FAIL", "pdf", str(report), "COMPLETED", old, old),
     )
 
-    monkeypatch.setattr(retention, "_delete_batch", lambda _ids: (_ for _ in ()).throw(sqlite3.OperationalError("disk full")))
+    monkeypatch.setattr(
+        retention,
+        "_delete_batch",
+        lambda _ids, **_kwargs: (_ for _ in ()).throw(sqlite3.OperationalError("disk full")),
+    )
     with pytest.raises(sqlite3.OperationalError):
         retention.execute_now(datetime(2026, 1, 1, tzinfo=timezone.utc), ADMIN)
     assert report.is_file()
@@ -255,6 +263,78 @@ def test_cleanup_database_failure_restores_quarantined_files(tmp_path: Path, mon
     failed = database.query_one("SELECT status,error_message FROM cleanup_jobs ORDER BY created_at DESC LIMIT 1")
     assert failed["status"] == "FAILED" and "disk full" in failed["error_message"]
     database.close()
+
+
+def test_cleanup_batch_audit_failure_rolls_back_rows_and_restores_files(tmp_path: Path, monkeypatch):
+    paths = DataPaths.from_root(tmp_path / "cleanup-audit-failure")
+    paths.ensure_ready(minimum_free_bytes=0)
+    database = Database(paths.database, backup_dir=paths.backups / "migration")
+    state = _state(paths, database)
+    retention = RetentionService(state, paths)
+    old = "2025-01-01T00:00:00+00:00"
+    _session(database, "AUDIT-RESTORE", "FAILED", old)
+    report = paths.reports / "audit-must-return.pdf"
+    report.write_bytes(b"%PDF audit must survive")
+    database.execute(
+        "INSERT INTO reports(id,session_id,chassis_no,vin,result,report_type,file_path,generation_status,generated_at,archived_at) VALUES (?,?,?,?,?,?,?,?,?,?)",
+        ("R-AUDIT", "AUDIT-RESTORE", "C", "V", "FAIL", "pdf", str(report), "COMPLETED", old, old),
+    )
+    original_audit = retention._audit
+
+    def fail_batch_audit(principal, action, target, payload, result="OK", **kwargs):
+        if action == "cleanup_batch_deleted":
+            raise sqlite3.OperationalError("audit disk full")
+        return original_audit(principal, action, target, payload, result, **kwargs)
+
+    monkeypatch.setattr(retention, "_audit", fail_batch_audit)
+    with pytest.raises(sqlite3.OperationalError, match="audit disk full"):
+        retention.execute_now(datetime(2026, 1, 1, tzinfo=timezone.utc), ADMIN)
+    assert report.is_file()
+    assert database.query_one("SELECT id FROM test_sessions WHERE id='AUDIT-RESTORE'")
+    assert database.query_one("SELECT status FROM cleanup_jobs ORDER BY created_at DESC LIMIT 1")["status"] == "FAILED"
+    database.close()
+
+
+def test_application_log_rotation_compresses_and_reports_write_failures(tmp_path: Path, monkeypatch):
+    failures: list[str] = []
+    (tmp_path / "logs").mkdir()
+    handler = HybridRotatingFileHandler(
+        tmp_path / "logs" / "app.log",
+        max_bytes=32,
+        interval_hours=24,
+        backup_count=2,
+        compress=True,
+        failure_callback=failures.append,
+    )
+    handler.setFormatter(logging.Formatter("%(message)s"))
+    handler.emit(logging.LogRecord("test", logging.INFO, __file__, 1, "first-message-that-rotates", (), None))
+    handler.emit(logging.LogRecord("test", logging.INFO, __file__, 2, "second-message-that-rotates", (), None))
+    handler.flush()
+    archives = list((tmp_path / "logs").glob("app.log.*.gz"))
+    assert archives
+    with gzip.open(archives[0], "rt", encoding="utf-8") as stream:
+        assert "first-message" in stream.read()
+
+    monkeypatch.setattr(handler, "shouldRollover", lambda _record: (_ for _ in ()).throw(OSError("read only")))
+    handler.emit(logging.LogRecord("test", logging.ERROR, __file__, 3, "write-failure", (), None))
+    assert failures and "read only" in failures[-1]
+    handler.close()
+
+
+def test_storage_schema_rejects_unknown_fields_and_production_parquet(tmp_path: Path):
+    payload = load_storage_config("test").model_dump()
+    payload["unknown_storage_key"] = True
+    with pytest.raises(ValueError):
+        StorageConfig.model_validate(payload)
+
+    config = tmp_path / "storage.yaml"
+    payload.pop("unknown_storage_key")
+    payload["decoded_signal_logging"]["format"] = "parquet"
+    import yaml
+
+    config.write_text(yaml.safe_dump(payload), encoding="utf-8")
+    with pytest.raises(ValueError, match="Parquet"):
+        load_storage_config("production", config)
 
 
 def test_virtual_print_backend_completed_failed_cancelled_and_retry(tmp_path: Path):

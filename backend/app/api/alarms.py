@@ -18,6 +18,7 @@ from app.control.override_service import (
     OverrideConflict,
     OverrideCreateRequest,
     OverrideListResponse,
+    OverridePersistenceError,
     OverrideRevokeRequest,
 )
 from app.core.time import utc_now
@@ -310,6 +311,10 @@ def _override_http_error(exc: OverrideConflict) -> HTTPException:
     return HTTPException(status, {"code": exc.code, "message": exc.message, "details": {}})
 
 
+def _override_persistence_http_error(exc: OverridePersistenceError) -> HTTPException:
+    return HTTPException(503, {"code": exc.code, "message": str(exc), "details": {"blocking": True}})
+
+
 @router.get("/alarms/overrides", response_model=OverrideListResponse)
 async def list_overrides(
     _principal: Principal = Depends(require_role(Role.VIEWER)),
@@ -325,11 +330,12 @@ async def approve_override(
     principal: Principal = Depends(require_role(Role.ADMIN)),
 ):
     try:
-        record = state.overrides.approve(override_id, payload, principal)
+        record = state.overrides.approve(override_id, payload, principal, trace_id=get_trace_id())
     except OverrideConflict as exc:
-        record_operator_action(state, principal, "alarm_override_approve", override_id, payload.model_dump(), exc.code, trace_id=get_trace_id())
+        record_operator_action(state, principal, "alarm_override_approve", override_id, payload.model_dump(), exc.code, trace_id=get_trace_id(), required=True)
         raise _override_http_error(exc)
-    record_operator_action(state, principal, "alarm_override_approve", override_id, payload.model_dump(), "APPROVED", trace_id=get_trace_id())
+    except OverridePersistenceError as exc:
+        raise _override_persistence_http_error(exc)
     return {"ok": True, "message": "人工放行申请已由独立管理员批准", "trace_id": get_trace_id(), "override": record}
 
 
@@ -340,11 +346,12 @@ async def revoke_override(
     principal: Principal = Depends(require_role(Role.ADMIN)),
 ):
     try:
-        record = state.overrides.revoke(override_id, payload, principal)
+        record = state.overrides.revoke(override_id, payload, principal, trace_id=get_trace_id())
     except OverrideConflict as exc:
-        record_operator_action(state, principal, "alarm_override_revoke", override_id, payload.model_dump(), exc.code, trace_id=get_trace_id())
+        record_operator_action(state, principal, "alarm_override_revoke", override_id, payload.model_dump(), exc.code, trace_id=get_trace_id(), required=True)
         raise _override_http_error(exc)
-    record_operator_action(state, principal, "alarm_override_revoke", override_id, payload.model_dump(), "REVOKED", trace_id=get_trace_id())
+    except OverridePersistenceError as exc:
+        raise _override_persistence_http_error(exc)
     return {"ok": True, "message": "人工放行授权已撤销", "trace_id": get_trace_id(), "override": record}
 
 
@@ -359,9 +366,10 @@ async def override(
     if state.overrides is None:
         raise HTTPException(503, {"code": "OVERRIDE_SERVICE_UNAVAILABLE", "message": "人工放行服务不可用", "details": {}})
     try:
-        record = state.overrides.create(alarm_id, payload, principal)
+        record = state.overrides.create(alarm_id, payload, principal, trace_id=get_trace_id())
     except OverrideConflict as exc:
-        record_operator_action(state, principal, "alarm_override_request", alarm_id, payload.model_dump(), exc.code, trace_id=get_trace_id())
+        record_operator_action(state, principal, "alarm_override_request", alarm_id, payload.model_dump(), exc.code, trace_id=get_trace_id(), required=True)
         raise _override_http_error(exc)
-    record_operator_action(state, principal, "alarm_override_request", alarm_id, payload.model_dump(), "PENDING_REVIEW", trace_id=get_trace_id())
+    except OverridePersistenceError as exc:
+        raise _override_persistence_http_error(exc)
     return {"ok": True, "message": "人工放行申请已提交，等待独立管理员审批", "trace_id": get_trace_id(), "override": record}

@@ -1,5 +1,7 @@
 # 前端架构审计
 
+> **历史基线 / 已被后续审计取代。** 当前结论见 [`current_audit_2026-07-23`](../current_audit_2026-07-23/00_AUDIT_INDEX.md) 和本轮 [P0/P1 验证索引](../verification/software-p0-p1-closure-2026-07-23/README.md)。
+
 ## 已验证优点
 
 - Vue 3 Composition API、Pinia、Vue Router、TypeScript 能通过 `vue-tsc --noEmit`。

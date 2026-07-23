@@ -9,7 +9,7 @@
         </div>
       </div>
       <div class="title-actions">
-        <PageDataState :loading="eol.loading" :error="eol.error" :stale="eol.offline" :empty="!dashboard.steps.length" />
+        <PageDataState :loading="eol.initialLoading" :error="eol.error" :stale="eol.offline" :empty="!dashboard.steps.length" />
         <button class="small-btn ghost" disabled title="尚未实现：检测页布局编辑器">
           <Settings :size="15" />自定义布局（尚未实现）
         </button>
@@ -18,17 +18,20 @@
 
     <section class="summary-row">
       <article class="panel info-card">
-        <h2>检测信息</h2>
+        <header class="session-form-title"><h2>检测身份</h2><span v-if="dashboard.mock_session_allowed" class="mock-label">Mock 模式</span><button v-if="dashboard.mock_session_allowed" type="button" class="mock-generate" :disabled="Boolean(dashboard.session.session_id)" @click="generateMockIdentity">生成模拟会话数据</button></header>
         <div class="info-grid">
-          <InfoField label="底盘编号" :value="dashboard.session.chassis_no" />
-          <InfoField label="VIN" :value="dashboard.session.vin" />
-          <InfoField label="序列号" :value="dashboard.session.serial_no" />
+          <label class="info-field"><span>底盘编号</span><input v-model.trim="eol.identityDraft.chassis_no" :disabled="Boolean(dashboard.session.session_id)" autocomplete="off" /></label>
+          <label class="info-field"><span>车辆识别码（VIN）</span><input v-model.trim="eol.identityDraft.vin" :disabled="Boolean(dashboard.session.session_id)" autocomplete="off" maxlength="17" /></label>
+          <label class="info-field"><span>序列号</span><input v-model.trim="eol.identityDraft.serial_no" :disabled="Boolean(dashboard.session.session_id)" autocomplete="off" /></label>
+          <label class="info-field"><span>车型</span><input v-model.trim="eol.identityDraft.vehicle_series" :disabled="Boolean(dashboard.session.session_id)" autocomplete="off" /></label>
+          <label class="info-field"><span>工单号</span><input v-model.trim="eol.identityDraft.work_order_id" :disabled="Boolean(dashboard.session.session_id)" autocomplete="off" /></label>
           <InfoField label="操作员" :value="dashboard.session.operator" />
           <InfoField label="工位号" :value="dashboard.session.station_id" />
           <InfoField label="检测方案" :value="dashboard.session.test_plan" />
+          <InfoField label="会话编号" :value="dashboard.session.session_id || '-'" />
           <label class="info-field remark-field">
             <span>备注</span>
-            <input v-model="dashboard.session.remark" placeholder="请输入备注信息（选填）" />
+            <input v-model="eol.identityDraft.remarks" :disabled="Boolean(dashboard.session.session_id)" placeholder="请输入备注信息（选填）" />
           </label>
         </div>
       </article>
@@ -37,7 +40,7 @@
         <h2>整体结果</h2>
         <div class="result-body">
           <div :class="['status-ring', statusClass(dashboard.session.overall_status)]">
-            <span>{{ dashboard.session.overall_status }}</span>
+            <span>{{ localizeStatus(dashboard.session.overall_status) }}</span>
           </div>
           <div class="result-metrics">
             <div class="metric big"><span>已用时间</span><strong>{{ dashboard.session.elapsed }}</strong></div>
@@ -60,7 +63,7 @@
             <span v-else>{{ step.index }}</span>
           </div>
           <strong>{{ step.name }}</strong>
-          <small>{{ step.status }}</small>
+          <small>{{ localizeStatus(step.status) }}</small>
         </div>
       </div>
       <footer>
@@ -94,7 +97,7 @@
         <div class="measure-list">
           <div v-for="item in dashboard.measurements" :key="item.name">
             <span>{{ item.name }}</span>
-              <strong>{{ eol.offline ? '—（stale）' : item.value }} <small v-if="!eol.offline">{{ item.unit }}</small></strong>
+              <strong>{{ eol.offline ? '—（数据陈旧）' : item.value }} <small v-if="!eol.offline">{{ item.unit }}</small></strong>
           </div>
         </div>
       </article>
@@ -183,13 +186,13 @@
     </section>
 
     <section class="action-row">
-      <ActionButton title="开始检测" :icon="PlayCircle" variant="primary" :disabled="writeDisabled" @click="startTest" />
-      <ActionButton title="暂停" :icon="PauseCircle" variant="warning" :disabled="writeDisabled" @click="runAction('暂停', 'pause')" />
-      <ActionButton title="继续" :icon="PlayCircle" variant="secondary" :disabled="writeDisabled" @click="runAction('继续', 'resume')" />
-      <ActionButton title="中止" :icon="Square" variant="danger" :disabled="writeDisabled" @click="abortTest" />
-      <ActionButton title="急停" :icon="OctagonAlert" variant="danger hot" :disabled="writeDisabled" @click="emergencyStop" />
-      <ActionButton title="生成报告" :icon="FileText" variant="outline" :disabled="writeDisabled" @click="runAction('生成报告', 'report')" />
-      <ActionButton title="查看关联日志" :icon="ScrollText" variant="outline" :disabled="writeDisabled" @click="viewLogs" />
+      <IndustrialActionButton title="开始检测" subtitle="校验身份并确认后创建会话" variant="primary" :loading="pendingAction === '开始检测'" :disabled="writeDisabled" @click="startTest"><template #icon><PlayCircle :size="24" /></template></IndustrialActionButton>
+      <IndustrialActionButton title="暂停" subtitle="安全暂停当前会话" variant="warning" :loading="pendingAction === '暂停'" :disabled="writeDisabled" @click="runAction('暂停', 'pause')"><template #icon><PauseCircle :size="24" /></template></IndustrialActionButton>
+      <IndustrialActionButton title="继续" subtitle="恢复已暂停会话" variant="neutral" :loading="pendingAction === '继续'" :disabled="writeDisabled" @click="runAction('继续', 'resume')"><template #icon><PlayCircle :size="24" /></template></IndustrialActionButton>
+      <IndustrialActionButton title="中止" subtitle="中止并进入安全终态" variant="danger" :loading="pendingAction === '中止'" :disabled="writeDisabled" @click="abortTest"><template #icon><Square :size="24" /></template></IndustrialActionButton>
+      <IndustrialActionButton title="急停" subtitle="立即请求安全停车" variant="danger" :loading="pendingAction === '急停'" :disabled="writeDisabled" @click="emergencyStop"><template #icon><OctagonAlert :size="25" /></template></IndustrialActionButton>
+      <IndustrialActionButton title="生成报告" subtitle="生成当前会话报告" variant="neutral" :loading="pendingAction === '生成报告'" :disabled="writeDisabled" @click="runAction('生成报告', 'report')"><template #icon><FileText :size="24" /></template></IndustrialActionButton>
+      <IndustrialActionButton title="查看关联日志" subtitle="读取当前会话日志" variant="neutral" :loading="pendingAction === '查看关联日志'" :disabled="writeDisabled" @click="viewLogs"><template #icon><ScrollText :size="24" /></template></IndustrialActionButton>
     </section>
 
     <div v-if="toast" class="toast">{{ toast }}</div>
@@ -209,7 +212,6 @@ import {
   Square,
   XCircle,
 } from 'lucide-vue-next'
-import type { Component } from 'vue'
 import { computed, defineComponent, h, onBeforeUnmount, onMounted, ref } from 'vue'
 import { apiGet } from '../api/http'
 import { wsClient } from '../api/websocket'
@@ -217,17 +219,21 @@ import type { AutoTestStepStatus } from '../api/types'
 import RealtimeLineChart from '../components/charts/RealtimeLineChart.vue'
 import { useEolStore } from '../stores/eol'
 import PageDataState from '../components/PageDataState.vue'
+import IndustrialActionButton from '../components/common/IndustrialActionButton.vue'
+import { localizeStatus } from '../ui/uiStatusLabels'
 
 type ActionName = 'start' | 'pause' | 'resume' | 'abort' | 'emergency-stop' | 'report'
 
 const eol = useEolStore()
 const dashboard = computed(() => eol.dashboard)
-const writeDisabled = computed(() => eol.offline || eol.loading)
+const writeDisabled = computed(() => eol.offline || eol.initialLoading || eol.actionPending)
 const toast = ref('')
+const pendingAction = ref('')
 let toastTimer: number | undefined
 let pollTimer: number | undefined
 let wsReady = false
 let wsDisposers: Array<() => void> = []
+let refreshTimer: number | undefined
 
 const InfoField = defineComponent({
   props: { label: { type: String, required: true }, value: { type: String, required: true } },
@@ -239,23 +245,7 @@ const InfoField = defineComponent({
 const StatusBadge = defineComponent({
   props: { status: { type: String, required: true } },
   setup(props) {
-    return () => h('span', { class: ['status-badge', statusClass(props.status)] }, props.status)
-  },
-})
-
-const ActionButton = defineComponent({
-  props: {
-    title: { type: String, required: true },
-    icon: { type: Function as unknown as () => Component, required: true },
-    variant: { type: String, required: true },
-    disabled: { type: Boolean, default: false },
-  },
-  emits: ['click'],
-  setup(props, { emit }) {
-    return () => h('button', { class: ['action-btn', ...props.variant.split(' ')], disabled: props.disabled, onClick: () => emit('click') }, [
-      h(props.icon, { size: props.variant.includes('hot') ? 26 : 22 }),
-      h('span', props.title),
-    ])
+    return () => h('span', { class: ['status-badge', statusClass(props.status)] }, localizeStatus(props.status))
   },
 })
 
@@ -265,14 +255,14 @@ const realtimeOption = computed(() => {
     backgroundColor: 'transparent',
     color: ['#2F80FF', '#21C55D', '#F6C343', '#EF4444'],
     tooltip: { trigger: 'axis', backgroundColor: '#10243D', borderColor: '#2B4D78', textStyle: { color: '#EAF2FF' } },
-    legend: { top: 0, left: 10, textStyle: { color: '#B9CBE2', fontSize: 11 }, itemWidth: 18, itemHeight: 8 },
+    legend: { type: 'scroll', top: 0, left: 10, right: 8, textStyle: { color: '#B9CBE2', fontSize: 10 }, itemWidth: 14, itemHeight: 7 },
     grid: { left: 40, right: 44, top: 42, bottom: 26, containLabel: true },
     xAxis: {
       type: 'category',
       data: eol.offline ? [] : realtime.x_axis,
       boundaryGap: false,
       axisLine: { lineStyle: { color: '#315A83' } },
-      axisLabel: { color: '#8CA6C5', fontSize: 10 },
+      axisLabel: { color: '#8CA6C5', fontSize: 9, hideOverlap: true, interval: 'auto' },
       splitLine: { show: true, lineStyle: { color: '#143050' } },
     },
     yAxis: [
@@ -280,14 +270,16 @@ const realtimeOption = computed(() => {
         type: 'value',
         min: -120,
         max: 120,
-        axisLabel: { color: '#8CA6C5', fontSize: 10 },
+        splitNumber: 4,
+        axisLabel: { color: '#8CA6C5', fontSize: 9, hideOverlap: true },
         splitLine: { lineStyle: { color: '#1A385C' } },
       },
       {
         type: 'value',
         min: 0,
         max: 400,
-        axisLabel: { color: '#F6C343', fontSize: 10 },
+        splitNumber: 4,
+        axisLabel: { color: '#F6C343', fontSize: 9, hideOverlap: true },
         splitLine: { show: false },
       },
       {
@@ -296,7 +288,7 @@ const realtimeOption = computed(() => {
         max: 3,
         position: 'right',
         offset: 34,
-        axisLabel: { color: '#EF4444', fontSize: 10 },
+        axisLabel: { color: '#EF4444', fontSize: 9, hideOverlap: true },
         splitLine: { show: false },
       },
     ],
@@ -317,7 +309,7 @@ onMounted(async () => {
   await eol.loadDashboard()
   setupWebSocketRefresh()
   pollTimer = window.setInterval(() => {
-    void eol.loadDashboard()
+    void eol.loadDashboard(true)
   }, 2500)
 })
 
@@ -326,6 +318,7 @@ onBeforeUnmount(() => {
   if (toastTimer) window.clearTimeout(toastTimer)
   wsDisposers.forEach((dispose) => dispose())
   wsDisposers = []
+  if (refreshTimer) window.clearTimeout(refreshTimer)
 })
 
 function statusClass(status: string) {
@@ -350,7 +343,7 @@ function setupWebSocketRefresh() {
     }
     refreshTopics.forEach((topic) => {
       wsDisposers.push(wsClient.on(topic, () => {
-        void eol.loadDashboard()
+        scheduleBackgroundRefresh()
       }))
     })
   } catch {
@@ -359,7 +352,33 @@ function setupWebSocketRefresh() {
 }
 
 async function startTest() {
+  const error = validateIdentity()
+  if (error) {
+    showToast(error)
+    return
+  }
+  const draft = eol.identityDraft
+  if (!window.confirm(`请确认检测对象：\n底盘号：${draft.chassis_no}\nVIN：${draft.vin}\n序列号：${draft.serial_no}\n工单号：${draft.work_order_id}`)) return
   await runAction('开始检测', 'start')
+}
+
+function generateMockIdentity() {
+  try {
+    eol.generateMockIdentity()
+    showToast('已生成显式 Mock 身份；开始检测前仍需人工确认')
+  } catch (error) {
+    showToast(formatActionError(error))
+  }
+}
+
+function validateIdentity() {
+  const draft = eol.identityDraft
+  if (!/^[A-Z0-9][A-Z0-9._-]{2,63}$/i.test(draft.chassis_no)) return '底盘编号格式无效'
+  if (!/^[A-HJ-NPR-Z0-9]{17}$/i.test(draft.vin)) return '车辆识别码（VIN）必须为 17 位且不能包含 I、O、Q'
+  if (!/^[A-Z0-9][A-Z0-9._-]{2,63}$/i.test(draft.serial_no)) return '序列号格式无效'
+  if (!/^[A-Z0-9_-]{1,32}$/i.test(draft.vehicle_series)) return '车型格式无效'
+  if (!/^[A-Z0-9][A-Z0-9._-]{2,63}$/i.test(draft.work_order_id)) return '工单号格式无效'
+  return ''
 }
 
 async function abortTest() {
@@ -371,22 +390,32 @@ async function emergencyStop() {
 }
 
 async function viewLogs() {
+  pendingAction.value = '查看关联日志'
   try {
     const sid = dashboard.value.session.session_id
     await apiGet(`/eol/sessions/${sid}/logs`)
     showToast('查看关联日志：日志接口已返回，当前保持在本页预览')
   } catch {
     showToast('查看关联日志：接口不可用，当前使用 Mock 日志')
-  }
+  } finally { pendingAction.value = '' }
 }
 
 async function runAction(label: string, action: ActionName) {
+  pendingAction.value = label
   try {
     const result = await eol.runSessionAction(action)
     showToast(`${label}：${result.message || (result.stub ? '接口已预留，当前为 Mock 模式' : '完成')}`)
   } catch (error) {
     showToast(`${label}：${formatActionError(error)}`)
-  }
+  } finally { pendingAction.value = '' }
+}
+
+function scheduleBackgroundRefresh() {
+  if (refreshTimer) return
+  refreshTimer = window.setTimeout(() => {
+    refreshTimer = undefined
+    void eol.loadDashboard(true)
+  }, 250)
 }
 
 function formatActionError(error: unknown) {
@@ -416,7 +445,7 @@ function showToast(message: string) {
   min-height: 0;
   overflow: hidden;
   display: grid;
-  grid-template-rows: 42px 150px 122px 230px 230px 70px;
+  grid-template-rows: 42px 150px 122px minmax(190px, 1.12fr) minmax(185px, 1fr) 70px;
   gap: 9px;
   color: #EAF2FF;
 }
@@ -519,9 +548,16 @@ function showToast(message: string) {
   grid-template-rows: 24px minmax(0, 1fr);
 }
 
+.session-form-title { display:flex; align-items:flex-start; gap:8px; min-width:0; }
+.session-form-title h2 { margin-right:auto; }
+.mock-label { padding:2px 6px; border:1px solid rgba(246,195,67,.5); border-radius:4px; color:#F6C343; background:rgba(246,195,67,.1); font-size:9px; }
+.mock-generate { height:20px; padding:0 7px; border:1px solid #2F80FF; border-radius:5px; color:#CFE2FF; background:#134E91; font-size:9px; cursor:pointer; }
+.mock-generate:hover:not(:disabled) { filter:brightness(1.18); box-shadow:0 0 10px rgba(47,128,255,.3); }
+.mock-generate:disabled { opacity:.42; cursor:not-allowed; }
+
 .info-grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   grid-template-rows: repeat(2, 42px);
   gap: 10px;
 }
@@ -543,6 +579,9 @@ function showToast(message: string) {
   font-size: 12px;
   font-weight: 700;
 }
+
+.info-field:has(input:focus) { border-color:#2F80FF; box-shadow:0 0 0 1px rgba(47,128,255,.2); }
+.info-field input:disabled { color:#8298B5; cursor:not-allowed; }
 
 .info-field strong,
 .info-field input {
@@ -1133,7 +1172,7 @@ function showToast(message: string) {
 
 @media (max-height: 800px) {
   .auto-test-page {
-    grid-template-rows: 42px 122px 112px minmax(140px, 1.15fr) minmax(140px, 1fr) 58px;
+    grid-template-rows: 42px 116px 104px minmax(132px, 1.15fr) minmax(132px, 1fr) 70px;
     gap: 7px;
   }
 

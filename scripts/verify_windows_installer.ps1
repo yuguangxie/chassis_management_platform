@@ -1,7 +1,7 @@
 [CmdletBinding()]
 param(
   [Parameter(Mandatory=$true)][string]$InstallerPath,
-  [string]$EvidenceDir = 'docs\verification\phase-06\clean-machine',
+  [string]$EvidenceDir = 'docs\verification\software-p0-p1-closure-2026-07-23\clean-machine',
   [string]$PreviousInstallerPath = ''
 )
 
@@ -14,11 +14,11 @@ $Sandbox = Join-Path $env:TEMP "chassis-eol-package-e2e-$RunId 中文 空格"
 $Install = Join-Path $Sandbox '安装 目录'
 $UserData = Join-Path $Sandbox "chassis-eol-package-e2e-$RunId 用户 数据"
 $Output = Join-Path $Evidence 'installed-e2e'
-$AllowedEvidenceRoot = [IO.Path]::GetFullPath((Join-Path $Root 'docs\verification\phase-06')).TrimEnd('\')
+$AllowedEvidenceRoot = [IO.Path]::GetFullPath((Join-Path $Root 'docs\verification\software-p0-p1-closure-2026-07-23')).TrimEnd('\')
 $ResolvedEvidence = [IO.Path]::GetFullPath($Evidence).TrimEnd('\')
 $ResolvedOutput = [IO.Path]::GetFullPath($Output)
 if (-not $ResolvedEvidence.StartsWith("$AllowedEvidenceRoot\", [StringComparison]::OrdinalIgnoreCase) -or [IO.Path]::GetFileName($ResolvedEvidence) -ne 'clean-machine') {
-  throw "Refusing to clean an installer evidence path outside phase-06/clean-machine: $ResolvedEvidence"
+  throw "Refusing to clean an installer evidence path outside this work package: $ResolvedEvidence"
 }
 if (-not $ResolvedOutput.StartsWith("$ResolvedEvidence\", [StringComparison]::OrdinalIgnoreCase)) {
   throw "Refusing to clean E2E output outside its evidence directory: $ResolvedOutput"

@@ -104,7 +104,7 @@ def _explicit_mock_frames() -> list[dict[str, Any]]:
             "message_name": name,
             "period_ms": 100,
             "status": "正常",
-            "source_session": "MOCK",
+            "source_session": "-",
             "frame_count": 1,
             "first_seen": now,
             "last_seen": now,

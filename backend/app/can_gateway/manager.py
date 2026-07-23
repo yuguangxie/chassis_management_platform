@@ -161,7 +161,7 @@ class CanGatewayManager:
                 self._pipeline_depths.get(channel, 0), self._pipeline_capacity
             )
 
-    def record_recent(self, frame: CanFrame) -> None:
+    def record_recent(self, frame: CanFrame, session_id: str | None = None) -> None:
         self.recent_frames.appendleft(frame)
         self.recent_by_channel.setdefault(frame.channel, deque(maxlen=10_000)).appendleft(frame)
         key = f"{frame.channel}:{frame.can_id:X}"
@@ -184,7 +184,7 @@ class CanGatewayManager:
             "message_name": frame.message_name or "Unknown",
             "period_ms": period_ms,
             "status": "正常" if frame.parse_status == "ok" else "错误",
-            "source_session": "S20260401-001",
+            "source_session": session_id or "-",
             "frame_count": frame_count,
             "first_seen": first_seen,
             "last_seen": now,

@@ -1,5 +1,11 @@
 # 生产部署与数据目录检查
 
+## 2026-07-23 Windows RC 供应链门禁
+
+RC 必须从 clean commit 构建，release manifest 记录 commit、dirty=false、构建时间、签名状态、数据库 schema、DBC/schema hash、安全边界及所有 artifact SHA-256，同时生成 CycloneDX SBOM、npm/pip audit。无 Authenticode 证书只能输出文件名明确包含 `unsigned-internal` 的内测包，不能标为 production candidate；受保护证书存在时才运行 workflow 的 `signed-production-candidate-windows-installer` job 并要求时间戳/Windows 验签有效。
+
+安装运行仍使用 localhost 动态端口、每次启动短期 sidecar credential、最小 preload、`nodeIntegration=false`、`contextIsolation/sandbox/webSecurity=true`、单实例、有界重启与优雅退出。首次启动默认 Mock/回环，不自动启动 simulator，不连接现场 endpoint，不发送 CAN。
+
 ## 干净机准备
 
 1. 使用受限 Windows 服务账户创建站点数据目录，例如由安装器选择的本地固定磁盘目录；不要把路径或账号提交到仓库。

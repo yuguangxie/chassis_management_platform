@@ -360,11 +360,17 @@ class ReportService:
         session = bundle["session"]
         metadata = {
             "software_version": session.get("software_version"),
+            "release_hash": session.get("release_hash"),
             "dbc_hash": session.get("dbc_hash"),
             "config_hash": session.get("config_hash"),
+            "config_version": session.get("config_version"),
             "test_plan_id": session.get("test_plan_id"),
             "test_plan_version": session.get("plan_version"),
+            "test_plan_hash": session.get("test_plan_hash"),
             "operator": session.get("operator"),
+            "station_id": session.get("station_id"),
+            "vehicle_series": session.get("vehicle_series"),
+            "work_order_id": session.get("work_order_id"),
         }
         generated = self.state.reports.generate(session, bundle["steps"], metadata=metadata)
         database_ids = self.state.eol_uow.persist_report(session, generated)

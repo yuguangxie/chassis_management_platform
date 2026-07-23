@@ -1,5 +1,7 @@
 # 性能与可靠性审计
 
+> **历史基线 / 已被后续审计取代。** 当前结论见 [`current_audit_2026-07-23`](../current_audit_2026-07-23/00_AUDIT_INDEX.md) 和本轮 [P0/P1 验证索引](../verification/software-p0-p1-closure-2026-07-23/README.md)。
+
 ## 启动与负载
 
 - FastAPI 首次审计启动约 1.3s；DBC 和两个 UDP socket 可初始化。

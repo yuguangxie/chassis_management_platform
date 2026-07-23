@@ -25,9 +25,12 @@ def test_eol_dashboard_tracks_created_actual_session(auth_headers):
             headers=auth_headers("operator"),
             json={
                 "chassis_no": "PH2-API",
-                "vin": "PH2APIVIN0000001",
-                "station_id": "EOL-STATION-01",
+                "vin": "L0000000000000002",
+                "serial_no": "PH2-API-SN",
+                "vehicle_series": "JD",
+                "work_order_id": "PH2-API-WO",
                 "plan_id": "default_chassis_eol_v1",
+                "mock_session": True,
             },
         )
         assert created.status_code == 200

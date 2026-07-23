@@ -10,7 +10,7 @@
       </div>
       <div class="title-actions">
         <PageDataState :loading="loading" :error="loadError" :stale="offline || summary.mock || summary.quality !== 'good'" :empty="!summary.recent_sessions.length" />
-        <button class="layout-btn" type="button" disabled title="尚未实现：总览布局编辑器"><SlidersHorizontal :size="16" />自定义布局（尚未实现）</button>
+        <IndustrialButton compact disabled title="尚未实现：总览布局编辑器"><SlidersHorizontal :size="16" />自定义布局（尚未实现）</IndustrialButton>
       </div>
     </section>
 
@@ -33,7 +33,7 @@
           <div v-for="name in canNames" :key="name" class="can-column">
             <div class="can-title">
               <strong>{{ name }}</strong>
-              <span class="status-dot"><i :class="summary.channels[name].online ? 'online' : 'offline'"></i>{{ summary.channels[name].online ? 'online' : 'offline' }}</span>
+              <span class="status-dot"><i :class="summary.channels[name].online ? 'online' : 'offline'"></i>{{ localizeStatus(summary.channels[name].online ? 'online' : 'offline') }}</span>
             </div>
             <dl>
               <div><dt>本地：</dt><dd>{{ summary.channels[name].local }}</dd></div>
@@ -70,7 +70,7 @@
         <div class="alarm-metrics">
           <div>
             <span>最高告警(0x77)</span>
-            <strong>{{ summary.alarm_summary.max_alarm_level }} {{ summary.alarm_summary.max_alarm_label }}</strong>
+            <strong>{{ summary.alarm_summary.max_alarm_level }} {{ localizeStatus(summary.alarm_summary.max_alarm_label) }}</strong>
           </div>
           <div>
             <span>BMS保护状态</span>
@@ -83,20 +83,21 @@
         </div>
         <div class="protect-grid">
           <span v-for="item in summary.alarm_summary.protection_items" :key="item.name" class="protect-chip">
-            {{ item.name }} <b>{{ item.status }}</b>
+            {{ item.name }} <b>{{ localizeStatus(item.status) }}</b>
           </span>
         </div>
       </article>
     </section>
 
     <section class="shortcut-row" aria-label="quick actions">
-      <button v-for="item in shortcuts" :key="item.title" :class="['shortcut-card', item.tone]" type="button" @click="item.action">
-        <span class="shortcut-icon"><component :is="item.icon" :size="22" /></span>
-        <span class="shortcut-text">
-          <strong>{{ item.title }}</strong>
-          <small>{{ item.desc }}</small>
-        </span>
-      </button>
+      <IndustrialActionButton
+        v-for="item in shortcuts"
+        :key="item.title"
+        :title="item.title"
+        :subtitle="item.desc"
+        :variant="item.tone"
+        @click="item.action"
+      ><template #icon><component :is="item.icon" :size="22" /></template></IndustrialActionButton>
     </section>
 
     <section class="chart-row">
@@ -109,7 +110,7 @@
           <div class="result-legend">
             <div v-for="item in resultItems" :key="item.name">
               <i :style="{ backgroundColor: resultColor(item.name) }"></i>
-              <span>{{ item.name }}</span>
+              <span>{{ localizeStatus(item.name) }}</span>
               <strong>{{ item.value }} ({{ item.percent.toFixed(1) }}%)</strong>
             </div>
           </div>
@@ -136,13 +137,13 @@
     <section class="panel table-panel">
       <header class="panel-head table-head">
         <h2>最近会话</h2>
-        <button type="button" @click="router.push('/history')">查看更多 &gt;</button>
+        <IndustrialButton compact variant="neutral" type="button" @click="router.push('/history')">查看更多 &gt;</IndustrialButton>
       </header>
       <div class="session-table-wrap">
         <table class="session-table">
           <thead>
             <tr>
-              <th>Session ID</th>
+              <th>会话编号</th>
               <th>底盘编号</th>
               <th>VIN</th>
               <th>开始时间</th>
@@ -159,7 +160,7 @@
               <td class="mono">{{ row.vin }}</td>
               <td>{{ row.started_at }}</td>
               <td>{{ row.ended_at }}</td>
-              <td><span :class="['result-pill', row.result.toLowerCase()]">{{ row.result }}</span></td>
+              <td><span :class="['result-pill', row.result.toLowerCase()]">{{ localizeStatus(row.result) }}</span></td>
               <td>{{ row.operator }}</td>
               <td>
                 <button v-if="row.report" class="report-btn" type="button" :title="row.report" @click="router.push({path:'/report-management',query:{report_id:row.report}})"><FileText :size="15" /></button>
@@ -200,6 +201,9 @@ import type { OverviewSummary } from '../api/types'
 import { fallbackOverviewSummary } from '../mocks/fallbackData'
 import { useAuthStore, type Role } from '../stores/auth'
 import PageDataState from '../components/PageDataState.vue'
+import IndustrialActionButton from '../components/common/IndustrialActionButton.vue'
+import IndustrialButton from '../components/common/IndustrialButton.vue'
+import { localizeStatus } from '../ui/uiStatusLabels'
 
 const router = useRouter()
 const auth = useAuthStore()
@@ -260,7 +264,7 @@ async function safeStop() {
   }
 }
 
-const shortcutDefinitions: Array<{title:string;desc:string;icon:typeof Play;tone:string;action:()=>unknown;role:Role}> = [
+const shortcutDefinitions: Array<{title:string;desc:string;icon:typeof Play;tone:'primary'|'warning';action:()=>unknown;role:Role}> = [
   { title: '新建检测', desc: '创建新的下线检测会话', icon: Play, tone: 'primary', action: () => router.push('/auto-test'), role:'operator' },
   { title: '继续上次会话', desc: '恢复当前车辆检测流程', icon: ClipboardList, tone: 'primary', action: () => router.push('/auto-test'), role:'operator' },
   { title: '打开报告目录', desc: '刷新并查看报告文件', icon: FolderOpen, tone: 'primary', action: scanReports, role:'operator' },
@@ -272,14 +276,14 @@ const shortcuts = computed(() => shortcutDefinitions.filter(item=>auth.can(item.
 
 function freshChannelMetric(name: typeof canNames[number], metric: 'fps'|'last') {
   const channel = summary.value.channels[name]
-  if (offline.value || !channel.online) return '—（stale）'
+  if (offline.value || !channel.online) return '—（数据陈旧）'
   return metric === 'fps' ? `${channel.fps} fps` : `${channel.last_frame_ms} ms`
 }
 
 const kpiCards = computed(() => [
   { title: '今日检测数', value: String(summary.value.kpi.today_total), icon: ClipboardList, tone: 'blue' },
-  { title: 'PASS率', value: `${summary.value.kpi.pass_rate.toFixed(1)}%`, icon: CircleCheck, tone: 'green' },
-  { title: 'FAIL数', value: String(summary.value.kpi.fail_count), icon: ShieldX, tone: 'red' },
+  { title: '通过率', value: `${summary.value.kpi.pass_rate.toFixed(1)}%`, icon: CircleCheck, tone: 'green' },
+  { title: '失败数', value: String(summary.value.kpi.fail_count), icon: ShieldX, tone: 'red' },
   { title: '平均检测时长', value: summary.value.kpi.avg_duration, icon: Clock, tone: 'blue' },
   { title: '当前软件版本', value: summary.value.kpi.software_version, icon: Box, tone: 'blue' },
 ])
@@ -310,26 +314,26 @@ const donutOption = computed(() => ({
     avoidLabelOverlap: false,
     label: { show: false },
     labelLine: { show: false },
-    data: resultItems.value.map((item) => ({ name: item.name, value: item.value })),
+    data: resultItems.value.map((item) => ({ name: localizeStatus(item.name), value: item.value })),
   }],
 }))
 
 const barOption = computed(() => ({
   backgroundColor: 'transparent',
-  grid: { left: 32, right: 12, top: 18, bottom: 28 },
+  grid: { left: 32, right: 12, top: 18, bottom: 28, containLabel: true },
   tooltip: { trigger: 'axis' },
   xAxis: {
     type: 'category',
     data: summary.value.charts.hourly_output.map((item) => item.hour),
     axisLine: { lineStyle: { color: gridLine } },
     axisTick: { show: false },
-    axisLabel: { color: chartText, fontSize: 11 },
+    axisLabel: { color: chartText, fontSize: 11, hideOverlap: true },
   },
   yAxis: {
     type: 'value',
     minInterval: 1,
     splitLine: { lineStyle: { color: gridLine, type: 'dashed' } },
-    axisLabel: { color: chartText, fontSize: 11 },
+    axisLabel: { color: chartText, fontSize: 11, hideOverlap: true },
   },
   series: [{
     type: 'bar',
@@ -342,8 +346,8 @@ const barOption = computed(() => ({
 
 const lineOption = computed(() => ({
   backgroundColor: 'transparent',
-  legend: { right: 6, top: 0, itemWidth: 14, itemHeight: 8, textStyle: { color: chartText, fontSize: 11 } },
-  grid: { left: 40, right: 16, top: 30, bottom: 28 },
+  legend: { type: 'scroll', right: 6, top: 0, itemWidth: 14, itemHeight: 8, textStyle: { color: chartText, fontSize: 11 } },
+  grid: { left: 40, right: 16, top: 30, bottom: 28, containLabel: true },
   tooltip: { trigger: 'axis' },
   xAxis: {
     type: 'category',
@@ -351,14 +355,14 @@ const lineOption = computed(() => ({
     boundaryGap: false,
     axisLine: { lineStyle: { color: gridLine } },
     axisTick: { show: false },
-    axisLabel: { color: chartText, fontSize: 11 },
+    axisLabel: { color: chartText, fontSize: 11, hideOverlap: true, interval: 'auto' },
   },
   yAxis: {
     type: 'value',
     min: 0,
     max: 1200,
     splitLine: { lineStyle: { color: gridLine, type: 'dashed' } },
-    axisLabel: { color: chartText, fontSize: 11 },
+    axisLabel: { color: chartText, fontSize: 11, hideOverlap: true },
   },
   series: [
     { name: 'CAN1', type: 'line', smooth: true, showSymbol: false, lineStyle: { width: 3, color: '#21C55D' }, areaStyle: { color: 'rgba(33, 197, 93, .08)' }, data: offline.value || !summary.value.channels.CAN1.online ? [] : summary.value.charts.fps_trend.map((item) => item.can1) },
@@ -382,8 +386,8 @@ onBeforeUnmount(() => {
   height: 100%;
   min-height: 0;
   display: grid;
-  grid-template-rows: 42px 92px 240px 88px 205px minmax(0, 1fr);
-  gap: 12px;
+  grid-template-rows: 42px 82px minmax(180px, 1.2fr) 70px minmax(145px, .9fr) minmax(106px, .7fr);
+  gap: 10px;
   overflow: hidden;
 }
 
@@ -1016,11 +1020,11 @@ dd {
 
 @media (max-width: 1500px), (max-height: 860px) {
   .overview-page {
-    height: auto;
-    min-height: 100%;
-    overflow: visible;
-    grid-template-rows: 42px 82px 218px 82px 190px 150px;
-    gap: 10px;
+    height: 100%;
+    min-height: 0;
+    overflow: hidden;
+    grid-template-rows: 42px 76px minmax(174px, 1.2fr) 70px minmax(136px, .9fr) minmax(100px, .7fr);
+    gap: 8px;
   }
 
   .kpi-copy strong { font-size: 26px; }

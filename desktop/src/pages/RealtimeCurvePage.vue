@@ -1,5 +1,5 @@
 <template>
-  <section class="curve-page">
+  <section class="curve-page" :class="{ 'history-mode': historyMode }" :data-chart-view="chartView">
     <header class="page-title">
       <div class="title-left">
         <div class="title-icon"><LineChart :size="22" /></div>
@@ -10,8 +10,8 @@
       </div>
       <div class="title-actions">
         <PageDataState :loading="signals.loading" :error="signals.error" :stale="signals.offline || Boolean(signals.curveTimeseries.mock) || signals.curveTimeseries.quality !== 'good'" :empty="!signals.curveTimeseries.charts.speed_vs_vehicle.x_axis.length" />
-        <button class="small-btn ghost" @click="loadHistory"><Database :size="15" />加载历史会话</button>
-        <button v-if="auth.can('operator')" class="small-btn primary" :disabled="signals.offline" @click="addSignal"><Plus :size="15" />添加信号</button>
+        <IndustrialButton v-if="historyMode" size="compact" :disabled="!sessionId" @click="loadHistory"><template #icon><Database :size="15" /></template>重新加载历史会话</IndustrialButton>
+        <IndustrialButton v-if="auth.can('operator')" size="compact" variant="primary" :disabled="signals.offline" @click="addSignal"><template #icon><Plus :size="15" /></template>添加信号</IndustrialButton>
       </div>
     </header>
 
@@ -26,6 +26,9 @@
           {{ group.label }}
         </button>
       </div>
+      <div class="chart-view-tabs" role="tablist" aria-label="紧凑视口图表分组">
+        <button v-for="item in chartViews" :key="item.value" type="button" role="tab" :aria-selected="chartView === item.value" :class="{ active: chartView === item.value }" @click="chartView = item.value">{{ item.label }}</button>
+      </div>
       <label class="select-field">
         <span>时间窗口</span>
         <select v-model="timeWindow">
@@ -33,7 +36,7 @@
           <option>1分钟</option>
           <option>5分钟</option>
           <option>10分钟</option>
-          <option>历史</option>
+          <option v-if="historyMode">历史</option>
         </select>
       </label>
       <label class="select-field">
@@ -66,11 +69,11 @@
         </select>
       </label>
       <div class="tool-actions">
-        <button class="small-btn ghost" @click="pauseCurve"><Pause :size="15" />暂停曲线</button>
-        <button class="small-btn success" @click="resumeCurve"><Play :size="15" />继续</button>
-        <button class="small-btn ghost" @click="resetZoom"><RotateCcw :size="15" />缩放复位</button>
-        <button v-if="auth.can('operator')" class="small-btn ghost" :disabled="signals.offline" @click="exportCsv"><Download :size="15" />导出CSV</button>
-        <button v-if="auth.can('operator')" class="small-btn primary" :disabled="signals.offline" @click="saveSnapshot"><Camera :size="15" />保存快照</button>
+        <IndustrialButton size="compact" @click="pauseCurve"><template #icon><Pause :size="15" /></template>暂停曲线</IndustrialButton>
+        <IndustrialButton size="compact" variant="success" @click="resumeCurve"><template #icon><Play :size="15" /></template>继续</IndustrialButton>
+        <IndustrialButton size="compact" @click="resetZoom"><template #icon><RotateCcw :size="15" /></template>缩放复位</IndustrialButton>
+        <IndustrialButton v-if="auth.can('operator')" size="compact" :disabled="signals.offline" @click="exportCsv"><template #icon><Download :size="15" /></template>导出 CSV</IndustrialButton>
+        <IndustrialButton v-if="auth.can('operator')" size="compact" variant="primary" :disabled="signals.offline" @click="saveSnapshot"><template #icon><Camera :size="15" /></template>保存快照</IndustrialButton>
       </div>
     </section>
 
@@ -108,7 +111,7 @@
                 <td class="mono">{{ signal.can_id }}</td>
                 <td><i class="color-swatch" :style="{ background: signal.color }"></i></td>
                 <td>{{ signal.unit }}</td>
-                <td class="value-cell">{{ signals.offline ? '—（stale）' : signal.current_value }}</td>
+                <td class="value-cell">{{ signals.offline ? '—（数据陈旧）' : signal.current_value }}</td>
               </tr>
             </tbody>
           </table>
@@ -117,39 +120,40 @@
       </aside>
 
       <section class="chart-grid">
-        <article class="chart-card">
+        <article v-show="chartVisible('motion')" class="chart-card group-motion">
           <ChartTitle index="1" title="目标速度 vs 车辆速度" />
           <RealtimeLineChart :key="chartKey" :option="speedVehicleOption" height="100%" />
         </article>
-        <article class="chart-card">
+        <article v-show="chartVisible('motion')" class="chart-card group-motion">
           <ChartTitle index="2" title="目标速度 vs 四轮轮速" />
           <RealtimeLineChart :key="chartKey + 1" :option="wheelSpeedOption" height="100%" />
         </article>
-        <article class="chart-card steering-card">
+        <article v-show="chartVisible('motion')" class="chart-card steering-card group-motion">
           <ChartTitle index="3" title="转向角命令 vs 反馈" />
           <div class="steering-split">
             <RealtimeLineChart :key="chartKey + 2" :option="frontSteeringOption" height="100%" />
             <RealtimeLineChart :key="chartKey + 3" :option="rearSteeringOption" height="100%" />
           </div>
         </article>
-        <article class="chart-card">
+        <article v-show="chartVisible('energy')" class="chart-card group-energy">
           <ChartTitle index="4" title="BMS 总压 / 电流 / SOC" />
           <RealtimeLineChart :key="chartKey + 4" :option="bmsOption" height="100%" />
         </article>
-        <article class="chart-card">
+        <article v-show="chartVisible('energy')" class="chart-card group-energy">
           <ChartTitle index="5" title="电机转速 / 相电流" />
           <RealtimeLineChart :key="chartKey + 5" :option="motorOption" height="100%" />
         </article>
-        <article class="chart-card">
+        <article v-show="chartVisible('alarm')" class="chart-card group-alarm">
           <ChartTitle index="6" title="告警等级时间线" />
           <RealtimeLineChart :key="chartKey + 6" :option="alarmOption" height="100%" />
         </article>
       </section>
     </main>
 
-    <footer class="replay-panel">
+    <footer v-if="historyMode" class="replay-panel">
       <section class="replay-card settings-card">
         <h2>历史回放设置</h2>
+        <PageDataState :error="signals.replayError" :empty="!sessionId" />
         <label><span>会话</span><input v-model="sessionId" /></label>
         <label><span>数据源</span><select v-model="dataSource" disabled title="当前仅支持本地 data_root"><option>本地存储</option></select></label>
         <label><span>时区</span><select v-model="timezone" disabled title="时间戳存储为 UTC，显示按当前工作站时区"><option>UTC+08:00</option></select></label>
@@ -220,6 +224,7 @@ import RealtimeLineChart from '../components/charts/RealtimeLineChart.vue'
 import { useSignalsStore } from '../stores/signals'
 import { useAuthStore } from '../stores/auth'
 import PageDataState from '../components/PageDataState.vue'
+import IndustrialButton from '../components/common/IndustrialButton.vue'
 
 type ActionResponse = { ok?: boolean; message?: string; details?: Record<string, unknown> }
 
@@ -237,8 +242,8 @@ const signals = useSignalsStore()
 const auth = useAuthStore()
 const route = useRoute()
 const activeGroup = ref('speed')
-const routeHistory = route.query.mode === 'history' && typeof route.query.session_id === 'string'
-const timeWindow = ref(routeHistory ? '历史' : '5分钟')
+const historyMode = computed(() => route.query.mode === 'history')
+const timeWindow = ref(historyMode.value ? '历史' : '5分钟')
 const sampleRate = ref('100 Hz')
 const downsample = ref('平均值')
 const playbackSpeed = ref('1.0x')
@@ -246,7 +251,8 @@ const searchKeyword = ref('')
 const selectedNames = ref<string[]>([])
 const paused = ref(false)
 const chartKey = ref(0)
-const sessionId = ref(typeof route.query.session_id === 'string' ? route.query.session_id : 'EOL-20260401-0001')
+const sessionId = ref(typeof route.query.session_id === 'string' ? route.query.session_id.trim() : '')
+const historySessionReady = ref(false)
 const dataSource = ref('本地存储')
 const timezone = ref('UTC+08:00')
 const selectedFault = ref('')
@@ -254,6 +260,12 @@ const toast = ref('')
 let toastTimer: number | undefined
 let pollTimer: number | undefined
 let replayTimer: number | undefined
+let viewportQuery: MediaQueryList | undefined
+type ChartView = 'all' | 'motion' | 'energy' | 'alarm'
+const chartView = ref<ChartView>('all')
+const chartViews: Array<{ value: ChartView; label: string }> = [
+  { value: 'motion', label: '运动与转向' }, { value: 'energy', label: '能源与电机' }, { value: 'alarm', label: '告警' },
+]
 
 const filteredSignals = computed(() => {
   const keyword = searchKeyword.value.trim().toLowerCase()
@@ -272,11 +284,18 @@ const motorOption = computed(() => makeDualAxisOption(signals.curveTimeseries.ch
 const alarmOption = computed(() => makeAlarmOption(signals.curveTimeseries.charts.alarm_timeline))
 
 onMounted(async () => {
-  await Promise.all([signals.loadCurveConfig(), signals.loadCurveTimeseries(makeQuery()), signals.loadReplay(sessionId.value), signals.loadFaultEvents(sessionId.value)])
+  signals.resetHistoryState()
+  viewportQuery = window.matchMedia('(max-width: 1500px), (max-height: 800px)')
+  applyViewportMode(viewportQuery)
+  viewportQuery.addEventListener('change', applyViewportMode)
+  await signals.loadCurveConfig()
+  if (historyMode.value && sessionId.value) await loadHistory(false)
+  else if (!historyMode.value) await signals.loadCurveTimeseries(makeQuery())
+  else signals.replayError = '历史模式缺少检测会话编号'
   selectedNames.value = signals.curveConfig.signals.filter((item) => item.selected).map((item) => item.name)
   signals.bindWebSocket()
   pollTimer = window.setInterval(() => {
-    if (!paused.value) void signals.loadCurveTimeseries(makeQuery())
+    if (!paused.value && !historyMode.value) void signals.loadCurveTimeseries(makeQuery())
   }, 2500)
 })
 
@@ -285,10 +304,30 @@ onBeforeUnmount(() => {
   if (replayTimer) window.clearInterval(replayTimer)
   if (toastTimer) window.clearTimeout(toastTimer)
   signals.setCurvePaused(false)
+  viewportQuery?.removeEventListener('change', applyViewportMode)
 })
 
 watch([activeGroup, timeWindow, sampleRate, downsample], () => {
-  if (!paused.value) void signals.loadCurveTimeseries(makeQuery())
+  if (!paused.value && (!historyMode.value || historySessionReady.value)) void signals.loadCurveTimeseries(makeQuery())
+})
+
+watch(() => [route.query.mode, route.query.session_id], async () => {
+  sessionId.value = typeof route.query.session_id === 'string' ? route.query.session_id.trim() : ''
+  timeWindow.value = historyMode.value ? '历史' : '5分钟'
+  selectedFault.value = ''
+  if (!historyMode.value) {
+    historySessionReady.value = false
+    if (replayTimer) window.clearInterval(replayTimer)
+    replayTimer = undefined
+    signals.resetHistoryState()
+    await signals.loadCurveTimeseries(makeQuery())
+  } else if (sessionId.value) {
+    await loadHistory(false)
+  } else {
+    historySessionReady.value = false
+    signals.resetHistoryState()
+    signals.replayError = '历史模式缺少检测会话编号'
+  }
 })
 
 watch(() => signals.curveConfig.signals, (items) => {
@@ -301,10 +340,10 @@ function makeQuery() {
     window: timeWindow.value,
     sample_rate: sampleRate.value,
     downsample: downsample.value,
-    mode: timeWindow.value === '历史' ? 'history' : 'live',
+    mode: historyMode.value ? 'history' : 'live',
   })
   params.set('signals', selectedNames.value.join(','))
-  if (timeWindow.value === '历史') params.set('session_id', sessionId.value)
+  if (historyMode.value && sessionId.value) params.set('session_id', sessionId.value)
   return `?${params.toString()}`
 }
 
@@ -323,7 +362,7 @@ function filterChart(chart: CurveChart, names: string[]): CurveChart {
 function makeLineOption(chart: CurveChart, yName: string, range: { min: number; max: number }, subtitle = '') {
   const series = selectedSeries(chart)
   return baseOption(chart.x_axis, series.map((item) => ({
-    name: item.name,
+    name: signalLabel(item.name),
     type: 'line',
     smooth: true,
     symbol: 'none',
@@ -336,7 +375,7 @@ function makeLineOption(chart: CurveChart, yName: string, range: { min: number; 
 function makeDualAxisOption(chart: CurveChart, axisNames: string[], ranges: Array<{ min: number; max: number }>) {
   const series = selectedSeries(chart)
   return baseOption(chart.x_axis, series.map((item) => ({
-    name: item.name,
+    name: signalLabel(item.name),
     type: 'line',
     smooth: true,
     symbol: 'none',
@@ -365,14 +404,16 @@ function baseOption(xAxis: string[], series: unknown[], yAxis: unknown[], subtit
     backgroundColor: 'transparent',
     color: (series as CurveSeries[]).map((item) => item.color).filter(Boolean),
     tooltip: { trigger: 'axis', backgroundColor: '#10243D', borderColor: '#2B4D78', textStyle: { color: '#EAF2FF' } },
-    legend: { top: subtitle ? 18 : 2, right: 8, itemWidth: 14, itemHeight: 8, textStyle: { color: '#AFC2DA', fontSize: 11 } },
-    grid: { left: 44, right: yAxis.length > 1 ? 46 : 18, top: subtitle ? 44 : 34, bottom: 24, containLabel: true },
-    xAxis: { type: 'category', data: xAxis, boundaryGap: false, axisLine: { lineStyle: { color: '#315A83' } }, axisLabel: { color: '#7F96B4', fontSize: 10 }, splitLine: { show: true, lineStyle: { color: '#143050' } } },
+    legend: { type: 'scroll', top: subtitle ? 18 : 2, left: subtitle ? 68 : 8, right: 8, itemWidth: 12, itemHeight: 7, textStyle: { color: '#AFC2DA', fontSize: 10 }, pageTextStyle: { color: '#AFC2DA' } },
+    grid: { left: 40, right: yAxis.length > 1 ? 58 : 18, top: subtitle ? 44 : 34, bottom: 22, containLabel: true },
+    xAxis: { type: 'category', data: xAxis, boundaryGap: false, axisLine: { lineStyle: { color: '#315A83' } }, axisLabel: { color: '#7F96B4', fontSize: 9, hideOverlap: true, interval: 'auto' }, splitLine: { show: true, lineStyle: { color: '#143050' } } },
     yAxis: (yAxis as Array<Record<string, unknown>>).map((axis, index) => ({
       ...axis,
       position: index === 1 ? 'right' : 'left',
       nameTextStyle: { color: '#7F96B4', fontSize: 10 },
-      axisLabel: { color: '#7F96B4', fontSize: 10, ...(axis.axisLabel as Record<string, unknown> || {}) },
+      splitNumber: 4,
+      offset: index > 1 ? 36 * (index - 1) : 0,
+      axisLabel: { color: '#7F96B4', fontSize: 9, hideOverlap: true, ...(axis.axisLabel as Record<string, unknown> || {}) },
       axisLine: { lineStyle: { color: '#315A83' } },
       splitLine: { show: index === 0, lineStyle: { color: '#143050' } },
     })),
@@ -399,7 +440,7 @@ function pauseCurve() {
 function resumeCurve() {
   paused.value = false
   signals.setCurvePaused(false)
-  void signals.loadCurveTimeseries(makeQuery())
+  if (!historyMode.value || historySessionReady.value) void signals.loadCurveTimeseries(makeQuery())
   showToast('继续：曲线刷新已恢复')
 }
 
@@ -408,9 +449,20 @@ function resetZoom() {
   showToast('缩放复位：图表视图已复位')
 }
 
-async function loadHistory() {
-  await Promise.all([signals.loadReplay(sessionId.value), signals.loadFaultEvents(sessionId.value)])
-  showToast('加载历史会话：已加载真实回放元数据')
+async function loadHistory(notify = true) {
+  historySessionReady.value = false
+  if (!historyMode.value || !sessionId.value.trim()) {
+    signals.replayError = '历史模式缺少检测会话编号'
+    if (notify) showToast('加载历史会话：请从历史记录选择有效会话')
+    return
+  }
+  const [replayOk, eventsOk] = await Promise.all([
+    signals.loadReplay(sessionId.value),
+    signals.loadFaultEvents(sessionId.value),
+  ])
+  historySessionReady.value = replayOk && eventsOk
+  if (historySessionReady.value) await signals.loadCurveTimeseries(makeQuery())
+  if (notify) showToast(historySessionReady.value ? '加载历史会话：已加载回放元数据' : `加载历史会话：${signals.replayError}`)
 }
 
 function addSignal() {
@@ -490,6 +542,23 @@ function showToast(message: string) {
     if (toast.value === message) toast.value = ''
   }, 2600)
 }
+
+function chartVisible(group: Exclude<ChartView, 'all'>): boolean {
+  return chartView.value === 'all' || chartView.value === group
+}
+
+function applyViewportMode(event: MediaQueryList | MediaQueryListEvent) {
+  chartView.value = event.matches ? (chartView.value === 'all' ? 'motion' : chartView.value) : 'all'
+}
+
+function signalLabel(name: string): string {
+  return ({
+    SCU_Target_Speed: '目标速度', Vehicle_Speed: '车辆速度', FL_Wheel_Speed: '左前轮速', FR_Wheel_Speed: '右前轮速',
+    RL_Wheel_Speed: '左后轮速', RR_Wheel_Speed: '右后轮速', Front_Steer_Cmd: '前转角指令', Front_Steer_Fdbk: '前转角反馈',
+    Rear_Steer_Cmd: '后转角指令', Rear_Steer_Fdbk: '后转角反馈', BMS_Total_Voltage: 'BMS 总压', BMS_Current: 'BMS 电流',
+    SOC: '荷电状态（SOC）', Motor_Speed: '电机转速', Motor_Current_A: '电机相电流', Alarm_Level: '告警等级',
+  } as Record<string, string>)[name] || name
+}
 </script>
 
 <style scoped>
@@ -499,10 +568,11 @@ function showToast(message: string) {
   min-height: 0;
   overflow: hidden;
   display: grid;
-  grid-template-rows: 42px 72px minmax(0, 1fr) 160px;
+  grid-template-rows: 42px 72px minmax(0, 1fr);
   gap: 10px;
   color: #EAF2FF;
 }
+.curve-page.history-mode{grid-template-rows:42px 72px minmax(0,1fr) 160px}
 
 .page-title,
 .curve-toolbar,
@@ -590,6 +660,7 @@ function showToast(message: string) {
   border-radius: 7px;
   background: #07172A;
 }
+.chart-view-tabs{display:none;height:32px;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px;padding:2px;border:1px solid #1E3A5F;border-radius:7px;background:#07172A}.chart-view-tabs button{min-width:0;border:0;border-radius:5px;color:#9DB3CF;background:transparent;font-size:10px;white-space:nowrap}.chart-view-tabs button.active{color:#FFF;background:#1764D8}
 
 .group-tabs button {
   flex: 1;
@@ -864,6 +935,7 @@ input:focus {
   overflow: hidden;
   border-radius: 8px;
   padding: 8px 8px 4px;
+  min-height:150px;
 }
 
 .chart-title {
@@ -917,6 +989,7 @@ input:focus {
   grid-template-rows: 24px repeat(3, 1fr);
   gap: 7px;
 }
+.settings-card{grid-template-rows:24px 28px repeat(3,1fr)}
 
 .settings-card label,
 .fault-card label {
@@ -1041,14 +1114,21 @@ input:focus {
 
 @media (max-width: 1500px) {
   .curve-page {
-    grid-template-rows: 42px 104px minmax(0, 1fr) 160px;
+    grid-template-rows: 42px 112px minmax(0, 1fr);
   }
+  .curve-page.history-mode{grid-template-rows:42px 112px minmax(0,1fr) 150px}
   .curve-toolbar {
-    grid-template-columns: minmax(360px, 1fr) repeat(4, minmax(110px, 0.3fr));
+    grid-template-columns: minmax(330px, 1fr) repeat(4, minmax(100px, .3fr));
+    grid-template-rows:48px 32px;
+    padding:6px 9px;
+    gap:5px 8px;
   }
+  .group-tabs{height:34px}.group-tabs button{height:26px;font-size:10px}.select-field{gap:2px}.select-field span{font-size:9px}.select-field select{height:28px;font-size:10px}.chart-view-tabs{display:grid;grid-column:1/2;grid-row:2}
   .tool-actions {
-    grid-column: 1 / -1;
-    justify-content: flex-start;
+    grid-column: 2 / -1;
+    grid-row:2;
+    justify-content: flex-end;
   }
+  .curve-main{grid-template-columns:280px minmax(0,1fr);gap:8px}.chart-grid{grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:repeat(2,minmax(0,1fr));gap:8px}.chart-card{min-height:0;padding:5px}.chart-card.steering-card{grid-column:1/-1}.chart-title strong{font-size:11px}.signal-panel{padding:7px;gap:5px}.replay-panel{grid-template-columns:280px minmax(0,1fr) 290px;gap:8px}.replay-card{padding:7px}.toast{bottom:162px}
 }
 </style>

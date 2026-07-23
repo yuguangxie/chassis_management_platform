@@ -9,11 +9,8 @@
         </div>
       </div>
       <div class="title-actions">
-        <PageDataState :loading="alarms.loading" :error="alarms.error" :empty="!alarms.loading && !dashboard.history.length" :stale="alarms.offline || dashboard.quality !== 'good'" />
-        <span v-if="alarms.offline || dashboard.mock || dashboard.quality !== 'good'" class="mock-badge">{{ alarms.offline ? '后端离线，当前使用 Mock 告警数据' : dashboard.mock ? '显式 Mock 告警数据' : `数据质量：${dashboard.quality || 'unavailable'}` }}</span>
-        <button v-if="auth.can('engineer')" class="layout-btn" type="button" :disabled="alarms.offline || alarms.loading" @click="saveLayout">
-          <Settings :size="15" />自定义布局
-        </button>
+        <PageDataState :loading="alarms.initialLoading" :error="alarms.error" :empty="!alarms.initialLoading && !dashboard.history.length" :stale="alarms.offline || dashboard.mock || dashboard.quality !== 'good'" :stale-label="alarms.offline ? '后端离线，告警数据不可用于判断' : dashboard.mock ? '当前为模拟告警数据' : `数据质量：${qualityLabel(dashboard.quality)}`" />
+        <IndustrialButton v-if="auth.can('engineer')" size="compact" :disabled="alarms.offline || alarms.actionPending" @click="saveLayout"><template #icon><Settings :size="15" /></template>自定义布局</IndustrialButton>
       </div>
     </header>
 
@@ -22,7 +19,7 @@
       <div class="summary-grid">
         <div class="summary-item">
           <div><span>最高等级</span><strong class="green">{{ dashboard.summary.max_level }}</strong></div>
-          <b class="green">{{ dashboard.summary.max_label }}</b>
+          <b class="green">{{ localizeStatus(dashboard.summary.max_label) }}</b>
         </div>
         <div class="summary-item">
           <div><span>当前告警数量</span><strong class="green">{{ dashboard.summary.current_count }}</strong></div>
@@ -46,14 +43,14 @@
           <div v-for="item in dashboard.warning_matrix_0x77" :key="item.key" :class="['alarm-cell', levelClass(item.status)]">
             <span>{{ item.label }}</span>
             <strong>{{ item.value }}</strong>
-            <b>{{ item.status }}</b>
+            <b>{{ localizeStatus(item.status) }}</b>
           </div>
         </div>
         <div class="level-legend">
-          <span><i class="normal"></i>0 Normal</span>
-          <span><i class="warning"></i>1 Warning</span>
-          <span><i class="fault"></i>2 Fault</span>
-          <span><i class="critical"></i>3 Critical</span>
+          <span><i class="normal"></i>0 正常</span>
+          <span><i class="warning"></i>1 警告</span>
+          <span><i class="fault"></i>2 故障</span>
+          <span><i class="critical"></i>3 严重</span>
         </div>
       </article>
 
@@ -100,8 +97,8 @@
           <tbody>
             <tr v-for="item in dashboard.history" :key="item.id || `${item.time}-${item.signal}`">
               <td>{{ item.time }}</td><td>{{ item.channel }}</td><td class="mono">{{ item.can_id }}</td><td>{{ item.signal }}</td>
-              <td><span :class="['level-text', historyLevelClass(item.level)]">{{ item.level }}</span></td>
-              <td>{{ item.status }}</td><td>{{ item.suggestion }}</td><td>{{ item.related_step }}</td>
+              <td><span :class="['level-text', historyLevelClass(item.level)]">{{ localizeStatus(item.level) }}</span></td>
+              <td>{{ localizeStatus(item.status) }}</td><td>{{ item.suggestion }}</td><td>{{ item.related_step }}</td>
               <td><span :class="['pill', item.released ? 'normal' : 'critical']">{{ item.released ? '是' : '否' }}</span></td>
             </tr>
           </tbody>
@@ -132,10 +129,7 @@
     </section>
 
     <section class="action-row">
-      <button v-for="item in visibleActionButtons" :key="item.action" :class="['action-card', item.variant]" type="button" :disabled="alarms.loading || alarms.offline" @click="handleAction(item.action, item.title)">
-        <span class="action-icon"><component :is="item.icon" :size="24" /></span>
-        <span class="action-copy"><strong>{{ item.title }}</strong><small>{{ item.subtitle }}</small></span>
-      </button>
+      <IndustrialActionButton v-for="item in visibleActionButtons" :key="item.action" :title="item.title" :subtitle="item.subtitle" :variant="item.variant" :loading="pendingAction === item.action" :disabled="alarms.initialLoading || alarms.actionPending || alarms.offline" @click="handleAction(item.action, item.title)"><template #icon><component :is="item.icon" :size="24" /></template></IndustrialActionButton>
     </section>
 
     <div v-if="toast" class="toast">{{ toast }}</div>
@@ -163,6 +157,9 @@ import PageDataState from '../components/PageDataState.vue'
 import RealtimeLineChart from '../components/charts/RealtimeLineChart.vue'
 import { useAlarmsStore } from '../stores/alarms'
 import { useAuthStore, type Role } from '../stores/auth'
+import IndustrialButton from '../components/common/IndustrialButton.vue'
+import IndustrialActionButton from '../components/common/IndustrialActionButton.vue'
+import { localizeStatus, qualityLabel } from '../ui/uiStatusLabels'
 
 type AlarmAction = 'ack' | 'override-request' | 'export-diagnosis' | 'jump-can-frame' | 'safe-stop'
 
@@ -171,12 +168,14 @@ const auth = useAuthStore()
 const router = useRouter()
 const dashboard = computed(() => alarms.dashboard)
 const toast = ref('')
+const pendingAction = ref<AlarmAction | ''>('')
 let toastTimer: number | undefined
 let pollTimer: number | undefined
 let wsReady = false
 let wsDisposers: Array<() => void> = []
+let refreshTimer: number | undefined
 
-const actionButtons: Array<{ title: string; subtitle: string; action: AlarmAction; icon: Component; variant: string; role: Role }> = [
+const actionButtons: Array<{ title: string; subtitle: string; action: AlarmAction; icon: Component; variant: 'primary' | 'danger'; role: Role }> = [
   { title: '确认告警', subtitle: '确认当前告警状态', action: 'ack', icon: ClipboardCheck, variant: 'primary', role: 'operator' },
   { title: '人工放行申请', subtitle: '提交人工放行申请', action: 'override-request', icon: UserCheck, variant: 'primary', role: 'engineer' },
   { title: '导出诊断', subtitle: '导出当前诊断报告', action: 'export-diagnosis', icon: FileDown, variant: 'primary', role: 'operator' },
@@ -193,9 +192,9 @@ const timelineOption = computed(() => {
     backgroundColor: 'transparent',
     color: ['#21C55D'],
     tooltip: { trigger: 'axis', backgroundColor: '#10243D', borderColor: '#2B4D78', textStyle: { color: '#EAF2FF' }, formatter: (params: Array<{ value: number; axisValue: string }>) => `${params[0]?.axisValue}<br/>等级：${params[0]?.value}` },
-    grid: { left: 34, right: 20, top: 20, bottom: 24, containLabel: true },
-    xAxis: { type: 'category', data: xAxis, boundaryGap: false, axisLine: { lineStyle: { color: '#315A83' } }, axisLabel: { color: '#8CA6C5', fontSize: 10 }, splitLine: { show: true, lineStyle: { color: '#143050' } } },
-    yAxis: { type: 'value', min: 0, max: 3, interval: 1, axisLabel: { color: '#8CA6C5', fontSize: 10 }, splitLine: { lineStyle: { color: '#1A385C', type: 'dashed' } } },
+    grid: { left: 30, right: 16, top: 18, bottom: 20, containLabel: true },
+    xAxis: { type: 'category', data: xAxis, boundaryGap: false, axisLine: { lineStyle: { color: '#315A83' } }, axisLabel: { color: '#8CA6C5', fontSize: 9, hideOverlap: true, interval: 'auto' }, splitLine: { show: true, lineStyle: { color: '#143050' } } },
+    yAxis: { type: 'value', min: 0, max: 3, interval: 1, axisLabel: { color: '#8CA6C5', fontSize: 9, hideOverlap: true }, splitLine: { lineStyle: { color: '#1A385C', type: 'dashed' } } },
     visualMap: { show: false, dimension: 1, pieces: [
       { value: 0, color: '#21C55D' }, { value: 1, color: '#F6C343' }, { value: 2, color: '#F97316' }, { value: 3, color: '#EF4444' },
     ] },
@@ -210,11 +209,11 @@ const distributionOption = computed(() => {
     backgroundColor: 'transparent',
     tooltip: { trigger: 'item', backgroundColor: '#10243D', borderColor: '#2B4D78', textStyle: { color: '#EAF2FF' } },
     legend: { orient: 'vertical', right: 2, top: 'middle', width: '50%', itemGap: 7, textStyle: { color: '#CFE2FF', fontSize: 10 }, itemWidth: 8, itemHeight: 8, formatter: (name: string) => {
-      const item = items.find((entry) => entry.name === name)
+      const item = items.find((entry) => localizeStatus(entry.name) === name)
       return `${name}  ${item?.value ?? 0} (${(item?.percent ?? 0).toFixed(1)}%)`
     } },
     graphic: [{ type: 'text', left: '28%', top: '38%', style: { text: `总计\n${items.reduce((sum, item) => sum + item.value, 0)}`, fill: '#EAF2FF', fontSize: 14, fontWeight: 700, textAlign: 'center', lineHeight: 18 } }],
-    series: [{ type: 'pie', radius: ['38%', '59%'], center: ['28%', '53%'], avoidLabelOverlap: true, label: { show: false }, data: items.map((item) => ({ name: item.name, value: item.value, itemStyle: { color: colors[item.name] } })) }],
+    series: [{ type: 'pie', radius: ['38%', '59%'], center: ['28%', '53%'], avoidLabelOverlap: true, label: { show: false }, data: items.map((item) => ({ name: localizeStatus(item.name), value: item.value, itemStyle: { color: colors[item.name] } })) }],
     media: [{
       query: { maxWidth: 360 },
       option: {
@@ -229,7 +228,7 @@ const distributionOption = computed(() => {
 onMounted(async () => {
   await alarms.loadDashboard()
   setupWebSocketRefresh()
-  pollTimer = window.setInterval(() => void alarms.loadDashboard(), 2500)
+  pollTimer = window.setInterval(() => void alarms.loadDashboard(true), 2500)
 })
 
 onBeforeUnmount(() => {
@@ -237,6 +236,7 @@ onBeforeUnmount(() => {
   if (toastTimer) window.clearTimeout(toastTimer)
   wsDisposers.forEach((dispose) => dispose())
   wsDisposers = []
+  if (refreshTimer) window.clearTimeout(refreshTimer)
 })
 
 function levelClass(level: string) {
@@ -261,7 +261,7 @@ function setupWebSocketRefresh() {
       wsReady = true
     }
     ;['alarms.current', 'alarms.timeline', 'signals.threshold_status'].forEach((topic) => {
-      wsDisposers.push(wsClient.on(topic, () => void alarms.loadDashboard()))
+      wsDisposers.push(wsClient.on(topic, scheduleBackgroundRefresh))
     })
   } catch {
     wsReady = false
@@ -269,6 +269,7 @@ function setupWebSocketRefresh() {
 }
 
 async function handleAction(action: AlarmAction, label: string) {
+  pendingAction.value = action
   try {
     const result = await alarms.runAction(action)
     showToast(`${label}：${result.message || '完成'}`)
@@ -277,7 +278,15 @@ async function handleAction(action: AlarmAction, label: string) {
     }
   } catch (error) {
     showToast(`${label}：${formatActionError(error)}`)
-  }
+  } finally { pendingAction.value = '' }
+}
+
+function scheduleBackgroundRefresh() {
+  if (refreshTimer) return
+  refreshTimer = window.setTimeout(() => {
+    refreshTimer = undefined
+    void alarms.loadDashboard(true)
+  }, 250)
 }
 
 async function saveLayout() {
@@ -764,7 +773,7 @@ function showToast(message: string) {
 
 @media (max-height: 800px) {
   .alarm-page {
-    grid-template-rows: 42px 82px minmax(190px, 1.8fr) minmax(120px, 1fr) minmax(110px, .9fr) 56px;
+    grid-template-rows: 42px 82px minmax(184px, 1.8fr) minmax(116px, 1fr) minmax(104px, .9fr) 70px;
     gap: 7px;
   }
 

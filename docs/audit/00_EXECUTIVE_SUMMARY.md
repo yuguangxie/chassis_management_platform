@@ -1,5 +1,7 @@
 # 执行摘要
 
+> **历史基线 / 已被后续审计取代。** 当前结论请从 [`docs/current_audit_2026-07-23/00_AUDIT_INDEX.md`](../current_audit_2026-07-23/00_AUDIT_INDEX.md) 与 [`docs/verification/software-p0-p1-closure-2026-07-23/README.md`](../verification/software-p0-p1-closure-2026-07-23/README.md) 进入；本文不得单独用于 release 或真实车辆放行。
+
 ## 总结
 
 项目可在 Windows 开发环境启动 FastAPI、Vite 和 Electron；DBC 可真实加载，UDP 仿真报文可进入后端，0x121 在专用 loopback 配置下可真实到达仿真器。然而 EOL、安全联锁、持久化、报告和生产打包存在阻断性缺陷，**不建议连接真实车辆，也不建议上真实台架**。在修复 P0 前仅允许静态审查或隔离 Mock 环境。

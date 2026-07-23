@@ -1,5 +1,7 @@
 # 工程审计索引
 
+> 当前完整审计入口：[`docs/current_audit_2026-07-23/00_AUDIT_INDEX.md`](../current_audit_2026-07-23/00_AUDIT_INDEX.md)。本目录 00～15 为历史基线，不能单独代表当前完成度。
+
 - 审计时间：2026-07-10 12:30:00 +08:00
 - 项目：低速无人车线控底盘生产下线管理平台 v1.0.2
 - 审计性质：证据优先的代码、运行、视觉、仿真、安全和部署审计
@@ -26,6 +28,8 @@
 17. [审计清单](AUDIT_MANIFEST.md)
 18. [机器可读结果](audit_results.json)
 19. [CSV 问题单](issue_register.csv)
+20. [2026-07-23 桌面端 UI 一致性与显示问题专项审计](16_DESKTOP_UI_CONSISTENCY_AUDIT_2026-07-23.md)
+21. [2026-07-23 当前项目完整审计](../current_audit_2026-07-23/00_AUDIT_INDEX.md)
 
 ## 判定口径
 

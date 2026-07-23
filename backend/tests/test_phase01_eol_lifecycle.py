@@ -30,6 +30,17 @@ class NullTxScheduler:
         return {"ok": True}
 
 
+class NullControlIntents:
+    def create_authorized(self, *_args, **_kwargs):
+        return "INT-TEST"
+
+    def mark(self, *_args, **_kwargs):
+        return None
+
+    async def compensate_after_send_failure(self, *_args, **_kwargs):
+        return None
+
+
 class PassEvaluator:
     async def evaluate(self, spec, _context):
         return AssertionOutcome(
@@ -73,6 +84,7 @@ def make_engine(step_delay: float = 0.05) -> EolEngine:
         signals=TestSignals(),
         reports=NullReports(),
         tx_scheduler=NullTxScheduler(),
+        control_intents=NullControlIntents(),
         safe_stop=None,
         telemetry=None,
         database=None,
@@ -82,10 +94,30 @@ def make_engine(step_delay: float = 0.05) -> EolEngine:
         config=SimpleNamespace(
             profile="test",
             software_version="test",
+            vehicle_series="JD",
             channel_online_timeout_seconds=2.0,
         ),
     )
     return EolEngine(state, step_delay_seconds=step_delay, evaluator=PassEvaluator())
+
+
+def create_session(engine: EolEngine, suffix: str = "01") -> dict:
+    request = CreateSessionRequest(
+        chassis_no=f"TEST-{suffix}",
+        vin=f"L{int(suffix):016d}",
+        serial_no=f"TEST-SN-{suffix}",
+        vehicle_series="JD",
+        work_order_id=f"TEST-WO-{suffix}",
+        plan_id="default_chassis_eol_v1",
+        mock_session=True,
+    )
+    return engine.create_session(
+        request,
+        operator="test-operator",
+        operator_role="operator",
+        auth_session_id="test-auth-session",
+        station_id="TEST-STATION",
+    )
 
 
 async def wait_for(predicate, timeout: float = 2.0) -> None:
@@ -99,7 +131,7 @@ async def wait_for(predicate, timeout: float = 2.0) -> None:
 @pytest.mark.asyncio
 async def test_pause_does_not_advance_and_resume_continues():
     engine = make_engine()
-    session = engine.create_session(CreateSessionRequest())
+    session = create_session(engine)
     await engine.start(session["id"])
     await wait_for(lambda: len(session["steps"]) == 1)
     await engine.pause(session["id"])
@@ -119,7 +151,7 @@ async def test_pause_does_not_advance_and_resume_continues():
 )
 async def test_terminal_request_stops_next_step_and_cannot_be_overwritten(method: str, terminal: str):
     engine = make_engine(step_delay=0.08)
-    session = engine.create_session(CreateSessionRequest())
+    session = create_session(engine)
     await engine.start(session["id"])
     await wait_for(lambda: len(session["steps"]) == 1)
     before = len(session["steps"])
@@ -141,10 +173,14 @@ async def test_eol_is_rejected_when_can_channels_are_offline():
     )
     state.dbc = SimpleNamespace(status=lambda: {"loaded": True})
     state.alarms = SimpleNamespace(max_level=lambda: 0, current=lambda: [])
+    state.database = SimpleNamespace(
+        execute=lambda *_args, **_kwargs: None,
+        query_one=lambda *_args, **_kwargs: None,
+    )
     state.safety = SafetyInterlockService(state)
     state.ws = NullWs()
     engine = EolEngine(state)
-    session = engine.create_session(CreateSessionRequest())
+    session = create_session(engine)
     with pytest.raises(InterlockBlocked):
         await engine.start(session["id"])
     assert session["status"] == "IDLE"

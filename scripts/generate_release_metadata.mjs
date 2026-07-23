@@ -75,7 +75,7 @@ const manifest = {
   release_label: releaseLabel,
   signing: { signed, provider: signed ? 'electron-builder CSC interface' : null, formal_release: signed && !sourceDirty },
   runtime: { electron: '43.1.0', python: 'embedded by PyInstaller', network_dependency_at_runtime: false },
-  compatibility: { database_schema: 3, downgrade_open_newer_schema: 'blocked', migration_backup: 'required' },
+  compatibility: { database_schema: 4, downgrade_open_newer_schema: 'blocked', migration_backup: 'required' },
   packaged_inputs: {
     dbc: dbcPath && existsSync(dbcPath) ? { file: dbcName, sha256: sha256(dbcPath) } : null,
     production_config_schema_sha256: sha256(configSchema),
@@ -90,7 +90,7 @@ const manifest = {
   artifacts,
 }
 writeJson(resolve(releaseDir, 'release-manifest.json'), manifest)
-const evidence = resolve(root, 'docs', 'verification', 'phase-06', 'release')
+const evidence = resolve(root, 'docs', 'verification', 'software-p0-p1-closure-2026-07-23', 'release')
 writeJson(resolve(evidence, 'release-manifest.json'), manifest)
 writeJson(resolve(evidence, 'sbom.cdx.json'), sbom)
 console.log(JSON.stringify({ releaseDir, artifactCount: artifacts.length, signed }, null, 2))

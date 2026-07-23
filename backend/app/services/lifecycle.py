@@ -3,14 +3,14 @@ import asyncio
 from collections import deque
 import logging
 import os
-from pathlib import Path
-import yaml
 from app.alarms.service import AlarmService
 from app.can_gateway.manager import CanGatewayManager
 from app.control.safety_interlock import SafetyInterlockService
 from app.control.safe_stop import SafeStopService
 from app.control.tx_scheduler import TxScheduler
 from app.control.override_service import OverrideService
+from app.control.intent_service import ControlIntentService
+from app.control.hardware_acceptance import HardwareAcceptanceService
 from app.dbc.service import DbcService
 from app.eol.engine import EolEngine
 from app.reports.generator import ReportGenerator
@@ -27,6 +27,7 @@ from app.storage.telemetry import TelemetryRecorder
 from app.storage.uow import EolUnitOfWork
 from app.storage.repositories import Repositories
 from app.storage.lifecycle import BackupService, RetentionService, StorageHealthMonitor
+from app.storage.config import load_storage_config
 from app.core.logging import configure_logging
 from app.core.paths import CONFIG_DIR, DataPaths
 from app.core.time import utc_now
@@ -111,7 +112,10 @@ class RealtimePublisher:
             if ws.has_subscribers("signals.current"):
                 await ws.broadcast("signals.current", state.signals.snapshot())
             if ws.has_subscribers("signals.dashboard"):
-                await ws.broadcast("signals.dashboard", state.signals.dashboard_summary())
+                # REST and WebSocket deliberately share one envelope so a missing
+                # top-level quality field can never downgrade a healthy UI snapshot.
+                from app.api.signals import live_dashboard_payload
+                await ws.broadcast("signals.dashboard", live_dashboard_payload())
             if ws.has_subscribers("signals.timeseries.batch"):
                 # The renderer consumes the same chart-shaped payload as REST, avoiding a
                 # follow-up GET for every WebSocket message.
@@ -139,7 +143,9 @@ class RealtimePublisher:
 
 async def on_frame(frame):
     decoded = await state.dbc.decode(frame)
-    state.can.record_recent(frame)
+    state.can.record_recent(
+        frame, state.eol.active_session_id if state.eol else None
+    )
     if state.telemetry:
         state.telemetry.enqueue(frame, decoded)
         if not state.telemetry.healthy:
@@ -191,7 +197,12 @@ async def startup() -> None:
     state.data_paths = DataPaths.from_root(state.config.data_root)
     minimum_free_bytes = int(os.getenv("CHASSIS_MIN_FREE_BYTES", str(100 * 1024 * 1024)))
     state.data_paths.ensure_ready(minimum_free_bytes=minimum_free_bytes)
-    configure_logging(state.data_paths.app_logs)
+    state.storage_config = load_storage_config(state.config.profile)
+    configure_logging(
+        state.data_paths.app_logs,
+        settings=state.storage_config.application_logging,
+        failure_callback=on_storage_failure,
+    )
     state.alarms = AlarmService(state.signals)
     state.database = Database(
         state.data_paths.database,
@@ -201,8 +212,13 @@ async def startup() -> None:
     state.db_writable = state.database.writable()
     state.auth.bootstrap_path = state.data_paths.auth / "bootstrap-admin.secret"
     state.auth.bind_database(state.database)
-    state.overrides = OverrideService(state.database)
+    state.overrides = OverrideService(state.database, state)
+    state.control_intents = ControlIntentService(state)
+    recovered_intents = state.control_intents.recover_unfinished()
+    if recovered_intents:
+        LOGGER.warning("recovered %s unfinished control intents", len(recovered_intents))
     state.dbc = DbcService(state.signals)
+    state.hardware_acceptance = HardwareAcceptanceService(state)
     test_fault = os.getenv("CHASSIS_TEST_FAULT", "").strip().lower()
     if state.config.profile != "production" and test_fault == "dbc_unloaded":
         state.dbc.result.loaded = False
@@ -235,22 +251,15 @@ async def startup() -> None:
     state.eol = EolEngine(state, uow=state.eol_uow)
     if state.config.profile != "production" and test_fault == "database_unwritable":
         state.db_writable = False
-    storage_path = CONFIG_DIR / "storage_config.yaml"
-    storage_config = (
-        yaml.safe_load(storage_path.read_text(encoding="utf-8")) or {}
-        if storage_path.exists()
-        else {}
-    )
-    signal_format = (
-        storage_config.get("decoded_signal_logging", {}).get("format", "csv")
-    )
-    raw_logging = storage_config.get("raw_can_logging", {})
-    retention = storage_config.get("retention", {})
+    signal_format = state.storage_config.decoded_signal_logging.format
+    raw_logging = state.storage_config.raw_can_logging
+    retention = state.storage_config.retention
     state.raw_writer = RawLogWriter(
         root=state.data_paths.raw_can,
         batch_size=200,
-        retention_days=int(retention.get("raw_can_days", 180)),
-        compress_rotated=bool(raw_logging.get("compress_after_days", 0)),
+        rotate_bytes=raw_logging.rotate_bytes,
+        retention_days=retention.raw_can_days,
+        compress_rotated=raw_logging.compress_rotated,
     )
     state.signal_writer = SignalLogWriter(root=state.data_paths.decoded_signals, format_name=signal_format)
     state.telemetry = TelemetryRecorder(

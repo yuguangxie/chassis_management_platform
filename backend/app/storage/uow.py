@@ -7,6 +7,9 @@ import sqlite3
 from typing import Any, Callable
 
 from app.core.time import utc_now
+from app.core.release_metadata import load_release_metadata
+from app.configuration.models import configuration_hash
+from app.configuration.service import runtime_configuration
 from app.eol.models import AssertionOutcome, TestPlanDocument
 from app.storage.database import Database
 
@@ -53,8 +56,10 @@ class EolUnitOfWork:
                 conn.execute(
                     "INSERT INTO test_sessions("
                     "id,chassis_no,vin,serial_no,operator,station_id,test_plan_id,plan_version,"
-                    "vehicle_series,status,overall_result,remarks,dbc_hash,config_hash,software_version,created_at"
-                    ") VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+                    "vehicle_series,status,overall_result,remarks,dbc_hash,config_hash,software_version,"
+                    "work_order_id,duplicate_policy,duplicate_of_session_id,release_hash,config_version,"
+                    "test_plan_hash,auth_session_id,created_at"
+                    ") VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
                     (
                         session["id"],
                         session["chassis_no"],
@@ -64,14 +69,46 @@ class EolUnitOfWork:
                         session["station_id"],
                         plan.plan.id,
                         plan.plan.version,
-                        plan.plan.default_vehicle_series,
+                        session["vehicle_series"],
                         session["status"],
                         session.get("overall_result"),
                         session.get("remarks", ""),
                         session.get("dbc_hash"),
                         session.get("config_hash"),
                         session.get("software_version"),
+                        session.get("work_order_id"),
+                        session.get("duplicate_policy", "reject"),
+                        session.get("duplicate_of_session_id"),
+                        session.get("release_hash"),
+                        session.get("config_version"),
+                        session.get("test_plan_hash"),
+                        session.get("auth_session_id"),
                         session["created_at"],
+                    ),
+                )
+                conn.execute(
+                    "INSERT INTO operator_actions(session_id,timestamp_utc,operator,role,action_type,target,request_json,result,trace_id) VALUES (?,?,?,?,?,?,?,?,?)",
+                    (
+                        session["id"],
+                        session["created_at"],
+                        session["operator"],
+                        session.get("operator_role", "operator"),
+                        "eol_create_session",
+                        session["id"],
+                        json.dumps(
+                            {
+                                "chassis_no": session["chassis_no"],
+                                "vin": session["vin"],
+                                "serial_no": session.get("serial_no"),
+                                "vehicle_series": session.get("vehicle_series"),
+                                "work_order_id": session.get("work_order_id"),
+                                "plan_id": session.get("plan_id"),
+                                "station_id": session["station_id"],
+                            },
+                            ensure_ascii=False,
+                        ),
+                        "CREATED",
+                        session.get("trace_id", ""),
                     ),
                 )
         except sqlite3.Error as exc:
@@ -315,11 +352,16 @@ class EolUnitOfWork:
 
     def ensure_software_version(self, state: Any) -> None:
         dbc = state.dbc.status() if state.dbc else {}
+        release = load_release_metadata()
+        try:
+            config_digest = configuration_hash(runtime_configuration(state.config))
+        except Exception:
+            config_digest = None
         latest = self.database.query_one(
             "SELECT version, dbc_hash, migration_version FROM software_versions ORDER BY id DESC LIMIT 1"
         )
         if latest and latest == {
-            "version": state.config.software_version,
+            "version": release.software_version or state.config.software_version,
             "dbc_hash": dbc.get("hash"),
             "migration_version": str(self.database.schema_version()),
         }:
@@ -328,12 +370,12 @@ class EolUnitOfWork:
             "INSERT INTO software_versions(version,build_time,git_commit,dbc_version,dbc_hash,"
             "config_hash,migration_version) VALUES (?,?,?,?,?,?,?)",
             (
-                state.config.software_version,
-                utc_now(),
-                "not-a-git-worktree",
+                release.software_version or state.config.software_version,
+                release.built_at_utc,
+                release.commit,
                 dbc.get("version"),
                 dbc.get("hash"),
-                "runtime-config",
+                config_digest,
                 str(self.database.schema_version()),
             ),
         )

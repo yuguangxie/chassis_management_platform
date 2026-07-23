@@ -1,5 +1,7 @@
 # 一键检测引擎审计
 
+> **历史基线 / 已被后续审计取代。** 当前结论见 [`current_audit_2026-07-23`](../current_audit_2026-07-23/00_AUDIT_INDEX.md) 和本轮 [P0/P1 验证索引](../verification/software-p0-p1-closure-2026-07-23/README.md)。
+
 ## 静态结构
 
 - `DEFAULT_STEPS` 含 12 个名称，但 engine 不读取 `configs/test_plan.yaml` 的 command/assertion/timeout。

@@ -1,5 +1,7 @@
 # CAN、DBC 与 USR-CAN115 协议审计
 
+> **历史基线 / 已被后续审计取代。** 当前结论见 [`current_audit_2026-07-23`](../current_audit_2026-07-23/00_AUDIT_INDEX.md) 和本轮 [P0/P1 验证索引](../verification/software-p0-p1-closure-2026-07-23/README.md)。
+
 ## DBC
 
 - `assets/*.dbc` 自动扫描：已验证。

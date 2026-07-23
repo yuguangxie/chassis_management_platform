@@ -138,7 +138,7 @@ export function isNetworkError(error: unknown): boolean {
 
 export function formatApiError(error: unknown): string {
   if (error instanceof ApiError) {
-    return error.traceId ? `${error.message}（trace: ${error.traceId}）` : error.message
+    return error.traceId ? `${error.message}（追踪编号：${error.traceId}）` : error.message
   }
   return error instanceof Error ? error.message : String(error)
 }

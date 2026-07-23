@@ -1,5 +1,7 @@
 # 安全与安全联锁审计
 
+> **历史基线 / 已被后续审计取代。** 当前结论见 [`current_audit_2026-07-23`](../current_audit_2026-07-23/00_AUDIT_INDEX.md) 和本轮 [P0/P1 验证索引](../verification/software-p0-p1-closure-2026-07-23/README.md)。
+
 | 检查 | 结果 | 依据 |
 | --- | --- | --- |
 | UI 直接发 CAN | 通过 | 未发现 renderer socket/Node API，均走后端 HTTP |

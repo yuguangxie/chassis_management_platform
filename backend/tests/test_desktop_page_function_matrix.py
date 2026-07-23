@@ -4,6 +4,7 @@ from fastapi.testclient import TestClient
 import pytest
 
 from app.main import app
+from app.api.control import _chart_time_label
 
 
 READ_CONTRACTS = [
@@ -51,7 +52,7 @@ def test_each_desktop_page_major_write_is_real_role_checked_and_auditable(auth_h
             ),
             "auto-test": client.post(
                 "/api/v1/eol/sessions",
-                json={"chassis_no": "MOCK-UI-MATRIX", "vin": "LMOCKUI000000001", "serial_no": "MOCK-SN", "station_id": "LOOPBACK", "plan_id": "default_chassis_eol_v1"},
+                json={"chassis_no": "MOCK-UI-MATRIX", "vin": "L0000000000000003", "serial_no": "MOCK-SN", "vehicle_series": "JD", "work_order_id": "MOCK-WO", "plan_id": "default_chassis_eol_v1", "mock_session": True},
                 headers=operator,
             ),
             "alarm-diagnosis": client.post("/api/v1/alarms/current-summary/ack", json={}, headers=operator),
@@ -87,3 +88,15 @@ def test_manual_feedback_exposes_presence_age_quality_channel_range_and_blocking
         required = {"rule", "label", "status", "present", "age_ms", "quality", "channel", "can_id", "value", "checks", "threshold", "blocking"}
         assert all(required <= item.keys() for item in payload["fields"])
         assert any(item["blocking"] and item["status"] in {"missing", "stale", "invalid", "out_of_range"} for item in payload["fields"])
+
+
+@pytest.mark.parametrize(
+    ("timestamp", "expected"),
+    [
+        ("2026-07-23T03:29:27.123456+00:00", "03:29:27"),
+        ("2026-07-23 03:29:27", "03:29:27"),
+        ("03:29:27", "03:29:27"),
+    ],
+)
+def test_manual_curve_uses_readable_utc_time_labels(timestamp, expected):
+    assert _chart_time_label(timestamp) == expected

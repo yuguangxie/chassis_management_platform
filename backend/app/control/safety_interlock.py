@@ -122,17 +122,28 @@ class SafetyInterlockService:
             )
 
             policy_validated = bool(getattr(config, "safe_stop_policy_hardware_validated", False))
-            policy_allowed = profile != "production" or policy_validated
+            acceptance = (
+                self.state.hardware_acceptance.evaluate()
+                if profile == "production"
+                and getattr(self.state, "hardware_acceptance", None)
+                else {
+                    "allowed": profile != "production",
+                    "status": "not_required_nonproduction",
+                    "reasons": [],
+                }
+            )
+            policy_allowed = profile != "production" or bool(acceptance.get("allowed"))
             self._rule(
                 rules,
-                "safe_stop_policy_approved",
-                "安全停车保持策略已获硬件确认",
+                "hardware_acceptance_artifact",
+                "硬件验收批准文件有效且范围完全匹配",
                 policy_allowed,
                 {
                     "policy": getattr(config, "safe_stop_post_confirm_policy", "stop_transmission"),
-                    "hardware_validated": policy_validated,
+                    "legacy_hardware_validated": policy_validated,
+                    "acceptance": acceptance,
                 },
-                {"hardware_validated": True},
+                {"signed_artifact": True, "scope_match": True, "not_revoked": True},
             )
 
             max_alarm = self.state.alarms.max_level() if self.state.alarms else 0
@@ -275,6 +286,7 @@ class SafetyInterlockService:
                     "reasons": evaluation["reasons"],
                 },
                 "BLOCKED",
+                required=True,
             )
             raise InterlockBlocked(evaluation)
         return evaluation

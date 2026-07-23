@@ -16,6 +16,12 @@ raw_can_logging:
   format: csv
   rotate_by: session_and_date
   flush_interval_ms: 1000
+  rotate_bytes: 33554432
+  compress_rotated: true
+application_logging:
+  max_bytes: 16777216
+  interval_hours: 24
+  backup_count: 30
   compress_rotated: true
 decoded_signal_logging:
   enabled: true
@@ -27,6 +33,9 @@ retention:
   decoded_signal_days: 180
   reports_days: 3650
   app_logs_days: 90
+  exports_days: 30
+  temp_days: 7
+  backup_days: 365
   unattended_cleanup: false
   require_admin_confirmation: true
 integrity:

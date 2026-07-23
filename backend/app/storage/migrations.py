@@ -9,7 +9,7 @@ from typing import Any
 from app.core.time import utc_now
 
 
-LATEST_SCHEMA_VERSION = 3
+LATEST_SCHEMA_VERSION = 4
 Migration = Callable[[sqlite3.Connection], None]
 
 
@@ -55,6 +55,55 @@ def migration_003(conn: sqlite3.Connection) -> None:
         conn,
         "reports",
         {"archived_at": "TEXT", "archive_manifest_hash": "TEXT"},
+    )
+
+
+def migration_004(conn: sqlite3.Connection) -> None:
+    _add_columns(
+        conn,
+        "test_sessions",
+        {
+            "work_order_id": "TEXT",
+            "duplicate_policy": "TEXT NOT NULL DEFAULT 'reject'",
+            "duplicate_of_session_id": "TEXT",
+            "release_hash": "TEXT",
+            "config_version": "TEXT",
+            "test_plan_hash": "TEXT",
+            "auth_session_id": "TEXT",
+        },
+    )
+    conn.executescript(
+        """
+        CREATE TABLE IF NOT EXISTS control_intents (
+          id TEXT PRIMARY KEY,
+          status TEXT NOT NULL CHECK(status IN ('PENDING','AUTHORIZED','SENT','CONFIRMED','FAILED','AUDIT_FAILED','CANCELLED')),
+          principal TEXT NOT NULL,
+          role TEXT NOT NULL,
+          auth_session_id TEXT,
+          vehicle_id TEXT,
+          eol_session_id TEXT,
+          operation TEXT NOT NULL,
+          target TEXT NOT NULL,
+          command_json TEXT NOT NULL,
+          command_hash TEXT NOT NULL,
+          safety_evaluation_json TEXT NOT NULL,
+          safety_evaluation_hash TEXT NOT NULL,
+          trace_id TEXT NOT NULL,
+          error_code TEXT,
+          error_detail TEXT,
+          created_at TEXT NOT NULL,
+          updated_at TEXT NOT NULL,
+          sent_at TEXT,
+          confirmed_at TEXT,
+          recovery_note TEXT
+        );
+        CREATE INDEX IF NOT EXISTS idx_control_intents_status_time
+          ON control_intents(status, created_at);
+        CREATE INDEX IF NOT EXISTS idx_control_intents_session
+          ON control_intents(eol_session_id, created_at);
+        CREATE INDEX IF NOT EXISTS idx_test_sessions_vehicle_identity
+          ON test_sessions(vin, chassis_no, serial_no, created_at);
+        """
     )
     _add_columns(
         conn,
@@ -110,6 +159,7 @@ MIGRATIONS: dict[int, tuple[str, Migration]] = {
     1: ("initial_schema", migration_001),
     2: ("persistence_and_safety_metadata", migration_002),
     3: ("data_lifecycle_and_printing", migration_003),
+    4: ("control_intents_and_eol_identity", migration_004),
 }
 
 

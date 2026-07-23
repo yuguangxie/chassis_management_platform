@@ -14,33 +14,52 @@ function cloneDashboard(): AlarmDiagnosisDashboard {
   return result
 }
 
+let dashboardRequest: Promise<void> | undefined
+
 export const useAlarmsStore = defineStore('alarms', {
   state: () => ({
     dashboard: cloneDashboard(),
     offline: false,
-    loading: false,
+    initialLoading: false,
+    refreshing: false,
+    actionPending: false,
+    initialized: false,
     error: '',
   }),
+  getters: {
+    loading: (state) => state.initialLoading,
+  },
   actions: {
-    async loadDashboard() {
-      this.loading = true
-      try {
-        this.dashboard = await apiGet<AlarmDiagnosisDashboard>('/alarms/dashboard')
-        this.offline = false
-        this.error = ''
-      } catch (error) {
-        this.error = formatApiError(error)
-        if (isNetworkError(error)) {
-          this.dashboard = cloneDashboard()
-          this.offline = true
-        } else {
+    async loadDashboard(background = false) {
+      if (dashboardRequest) return dashboardRequest
+      if (background || this.initialized) this.refreshing = true
+      else this.initialLoading = true
+      dashboardRequest = (async () => {
+        try {
+          this.dashboard = await apiGet<AlarmDiagnosisDashboard>('/alarms/dashboard')
           this.offline = false
+          this.error = ''
+          this.initialized = true
+        } catch (error) {
+          this.error = formatApiError(error)
+          if (isNetworkError(error)) {
+            if (!this.initialized) this.dashboard = cloneDashboard()
+            this.offline = true
+          } else {
+            this.offline = false
+          }
+        } finally {
+          this.initialLoading = false
+          this.refreshing = false
+          dashboardRequest = undefined
         }
-      } finally {
-        this.loading = false
-      }
+      })()
+      return dashboardRequest
     },
     async runAction(action: 'ack' | 'override-request' | 'export-diagnosis' | 'jump-can-frame' | 'safe-stop') {
+      if (this.actionPending) throw new ApiError({ code: 'ACTION_PENDING', message: '已有告警操作正在执行', details: {} }, 409)
+      this.actionPending = true
+      try {
       const currentId = this.dashboard.history[0]?.id
       if ((action === 'ack' || action === 'override-request') && !currentId) {
         throw new ApiError({ code: 'NO_ACTIVE_ALARM', message: '当前没有可操作的告警记录', details: {} }, 404)
@@ -61,8 +80,11 @@ export const useAlarmsStore = defineStore('alarms', {
       if (action === 'export-diagnosis' && downloadUrl) {
         await apiDownload(downloadUrl, typeof result.details.file_name === 'string' ? result.details.file_name : undefined)
       }
-      if (action === 'ack') await this.loadDashboard()
+      if (action === 'ack') await this.loadDashboard(true)
       return result
+      } finally {
+        this.actionPending = false
+      }
     },
   },
 })

@@ -47,7 +47,7 @@
           <div class="control-line">
             <span class="label">驱动模式</span>
             <div class="segmented">
-              <button v-for="mode in ['Manual', 'Remote', 'Auto']" :key="mode" :class="{ active: control.command.drive_mode === mode }" @click="control.command.drive_mode = mode as 'Manual' | 'Remote' | 'Auto'">{{ mode }}</button>
+              <button v-for="mode in ['Manual', 'Remote', 'Auto']" :key="mode" :class="{ active: control.command.drive_mode === mode }" @click="control.command.drive_mode = mode as 'Manual' | 'Remote' | 'Auto'">{{ localizeStatus(mode) }}</button>
             </div>
           </div>
           <div class="control-line">
@@ -145,13 +145,13 @@
     <section class="panel action-panel">
       <h2>8. 操作控制</h2>
       <div class="action-row">
-        <ActionButton title="发送一次" desc="立即发送 0x121" :icon="Send" variant="primary" :disabled="motionWriteDisabled" @click="sendOnce" />
-        <ActionButton title="开始周期发送" desc="按设定周期持续发送" :icon="PlayCircle" variant="primary" :disabled="motionWriteDisabled" @click="startPeriodic" />
-        <ActionButton title="停止周期发送" desc="停止发送 0x121" :icon="Square" variant="neutral" :disabled="control.offline" @click="stopPeriodic" />
-        <ActionButton title="安全停车" desc="下发停车指令并制动" :icon="ParkingCircle" variant="warning" :disabled="control.offline" @click="safeStop" />
-        <ActionButton title="急停" desc="立即下发急停指令" :icon="OctagonAlert" variant="danger" :disabled="control.offline" @click="emergencyStop" />
-        <ActionButton title="解除急停确认" desc="需二次确认解除急停" :icon="BadgeCheck" variant="dangerOutline" :disabled="control.offline" @click="releaseEmergency" />
-        <ActionButton title="恢复默认控制值" desc="清空输入并恢复默认" :icon="RefreshCw" variant="primary" :disabled="control.offline" @click="resetDefaults" />
+        <IndustrialActionButton title="发送一次" subtitle="立即请求发送 0x121" variant="primary" :loading="pendingAction === '发送一次'" :disabled="motionWriteDisabled" @click="sendOnce"><template #icon><Send :size="25" /></template></IndustrialActionButton>
+        <IndustrialActionButton title="开始周期发送" subtitle="按设定周期持续发送" variant="primary" :loading="pendingAction === '开始周期发送'" :disabled="motionWriteDisabled" @click="startPeriodic"><template #icon><PlayCircle :size="25" /></template></IndustrialActionButton>
+        <IndustrialActionButton title="停止周期发送" subtitle="停止发送 0x121" variant="neutral" :loading="pendingAction === '停止周期发送'" :disabled="control.offline || actionPending" @click="stopPeriodic"><template #icon><Square :size="25" /></template></IndustrialActionButton>
+        <IndustrialActionButton title="安全停车" subtitle="请求停车并保持制动" variant="warning" :loading="pendingAction === '安全停车'" :disabled="control.offline || actionPending" @click="safeStop"><template #icon><ParkingCircle :size="25" /></template></IndustrialActionButton>
+        <IndustrialActionButton title="急停" subtitle="立即请求急停锁存" variant="danger" :loading="pendingAction === '急停'" :disabled="control.offline || actionPending" @click="emergencyStop"><template #icon><OctagonAlert :size="27" /></template></IndustrialActionButton>
+        <IndustrialActionButton title="解除急停确认" subtitle="需二次确认且满足联锁" variant="danger" :loading="pendingAction === '解除急停确认'" :disabled="control.offline || actionPending" @click="releaseEmergency"><template #icon><BadgeCheck :size="25" /></template></IndustrialActionButton>
+        <IndustrialActionButton title="恢复默认控制值" subtitle="清空输入并恢复默认" variant="neutral" :loading="pendingAction === '恢复默认控制值'" :disabled="control.offline || actionPending" @click="resetDefaults"><template #icon><RefreshCw :size="25" /></template></IndustrialActionButton>
       </div>
     </section>
 
@@ -190,12 +190,16 @@ import type { ManualFeedbackField, ManualInterlockItem } from '../api/types'
 import RealtimeLineChart from '../components/charts/RealtimeLineChart.vue'
 import PageDataState from '../components/PageDataState.vue'
 import { useControlStore } from '../stores/control'
+import IndustrialActionButton from '../components/common/IndustrialActionButton.vue'
+import { localizeStatus, qualityLabel } from '../ui/uiStatusLabels'
 
 type ActionResponse = { ok?: boolean; stub?: boolean; message?: string; emergency_stop?: boolean }
 
 const control = useControlStore()
 const toast = ref('')
-const motionWriteDisabled = computed(() => control.offline || control.loading || control.stale || !control.status.can_send_allowed)
+const actionPending = ref(false)
+const pendingAction = ref('')
+const motionWriteDisabled = computed(() => actionPending.value || control.offline || control.loading || control.stale || !control.status.can_send_allowed)
 let toastTimer: number | undefined
 let pollTimer: number | undefined
 
@@ -255,30 +259,14 @@ const FeedbackRow = defineComponent({
   },
 })
 
-const ActionButton = defineComponent({
-  props: {
-    title: { type: String, required: true },
-    desc: { type: String, required: true },
-    icon: { type: Function as unknown as () => Component, required: true },
-    variant: { type: String, required: true },
-    disabled: { type: Boolean, default: false },
-  },
-  emits: ['click'],
-  setup(props, { emit }) {
-    return () => h('button', { class: ['action-btn', props.variant], disabled: props.disabled, onClick: () => emit('click') }, [
-      h('span', { class: 'action-icon' }, [h(props.icon, { size: props.variant === 'danger' ? 30 : 25 })]),
-      h('span', { class: 'action-text' }, [h('strong', props.title), h('small', props.desc)]),
-    ])
-  },
-})
-
 const speedOption = computed(() => ({
   backgroundColor: 'transparent',
   tooltip: { trigger: 'axis', backgroundColor: '#10243D', borderColor: '#2B4D78', textStyle: { color: '#EAF2FF' } },
-  legend: { top: 0, right: 20, textStyle: { color: '#B9CBE2', fontSize: 12 } },
+  legend: { type: 'scroll', top: 0, left: 8, right: 12, textStyle: { color: '#B9CBE2', fontSize: 10 } },
   grid: { left: 48, right: 24, top: 36, bottom: 28, containLabel: true },
   xAxis: axisX(control.offline || control.stale ? [] : control.curves.speed.x_axis),
   yAxis: axisY('km/h', 0, 10),
+  media: compactChartMedia(),
   series: [
     line('目标速度（km/h）', control.offline || control.stale ? [] : control.curves.speed.target_speed, '#2F80FF'),
     line('反馈速度（km/h）', control.offline || control.stale ? [] : control.curves.speed.feedback_speed, '#21C55D'),
@@ -288,10 +276,11 @@ const speedOption = computed(() => ({
 const steerOption = computed(() => ({
   backgroundColor: 'transparent',
   tooltip: { trigger: 'axis', backgroundColor: '#10243D', borderColor: '#2B4D78', textStyle: { color: '#EAF2FF' } },
-  legend: { top: 0, right: 20, textStyle: { color: '#B9CBE2', fontSize: 12 } },
+  legend: { type: 'scroll', top: 0, left: 8, right: 12, textStyle: { color: '#B9CBE2', fontSize: 10 } },
   grid: { left: 48, right: 24, top: 36, bottom: 28, containLabel: true },
   xAxis: axisX(control.offline || control.stale ? [] : control.curves.steering.x_axis),
   yAxis: axisY('°', -120, 120),
+  media: compactChartMedia(),
   series: [
     line('前转角命令（°）', control.offline || control.stale ? [] : control.curves.steering.front_cmd, '#2F80FF'),
     line('前转角反馈（°）', control.offline || control.stale ? [] : control.curves.steering.front_feedback, '#60A5FA'),
@@ -328,11 +317,23 @@ function subValue(item: ManualInterlockItem) {
 }
 
 function axisX(data: string[]) {
-  return { type: 'category', data, boundaryGap: false, axisLine: { lineStyle: { color: '#315A83' } }, axisLabel: { color: '#7F96B4', fontSize: 10 }, splitLine: { show: true, lineStyle: { color: '#143050' } } }
+  return { type: 'category', data, boundaryGap: false, axisLine: { lineStyle: { color: '#315A83' } }, axisLabel: { color: '#7F96B4', fontSize: 9, hideOverlap: true, interval: 'auto' }, splitLine: { show: true, lineStyle: { color: '#143050' } } }
 }
 
 function axisY(name: string, min: number, max: number) {
-  return { type: 'value', name, min, max, nameTextStyle: { color: '#AFC2DA' }, axisLabel: { color: '#7F96B4', fontSize: 10 }, splitLine: { lineStyle: { color: '#1A385C' } }, axisLine: { lineStyle: { color: '#315A83' } } }
+  return { type: 'value', name, min, max, splitNumber: 4, nameTextStyle: { color: '#AFC2DA' }, axisLabel: { color: '#7F96B4', fontSize: 9, hideOverlap: true }, splitLine: { lineStyle: { color: '#1A385C' } }, axisLine: { lineStyle: { color: '#315A83' } } }
+}
+
+function compactChartMedia() {
+  return [{
+    query: { maxHeight: 120 },
+    option: {
+      grid: { left: 12, right: 12, top: 28, bottom: 6, containLabel: false },
+      legend: { top: 0, textStyle: { fontSize: 9 } },
+      xAxis: { axisLabel: { show: false }, axisTick: { show: false } },
+      yAxis: { name: '', splitNumber: 2, axisLabel: { show: false }, axisTick: { show: false } },
+    },
+  }]
 }
 
 function line(name: string, data: number[], color: string, type = 'solid') {
@@ -344,13 +345,13 @@ function signed(value: number) {
 }
 
 function freshFeedback(value: string) {
-  return control.offline || control.stale ? '—（stale）' : value
+  return control.offline || control.stale ? '—（数据陈旧）' : localizeStatus(value)
 }
 
 function feedbackFieldMeta(field: ManualFeedbackField) {
-  const age = field.age_ms === null ? 'age missing' : `${Math.round(field.age_ms)} ms`
-  const source = field.channel && field.can_id ? `${field.channel}/${field.can_id}` : 'source missing'
-  return `${age} · ${field.quality} · ${source}`
+  const age = field.age_ms === null ? '年龄缺失' : `${Math.round(field.age_ms)} ms`
+  const source = field.channel && field.can_id ? `${field.channel}/${field.can_id}` : '来源缺失'
+  return `${age} · ${qualityLabel(field.quality)} · ${source}`
 }
 
 async function sendOnce() {
@@ -390,12 +391,15 @@ async function resetDefaults() {
 }
 
 async function runAction(label: string, fn: () => Promise<ActionResponse>) {
+  if (actionPending.value) return
+  actionPending.value = true
+  pendingAction.value = label
   try {
     const result = await fn()
     showToast(`${label}：${result.message || (result.stub ? '接口已预留，当前为 Mock 模式' : '完成')}`)
   } catch (error) {
     showToast(`${label}：${formatActionError(error)}`)
-  }
+  } finally { actionPending.value = false; pendingAction.value = '' }
 }
 
 function formatActionError(error: unknown) {
@@ -425,7 +429,7 @@ function showToast(message: string) {
   min-height: 0;
   overflow: hidden;
   display: grid;
-  grid-template-rows: 42px 115px 360px 185px 100px 32px;
+  grid-template-rows: 42px 115px minmax(320px, 1.55fr) minmax(165px, .82fr) 100px 32px;
   gap: 9px;
   color: #EAF2FF;
 }
@@ -1068,7 +1072,7 @@ input[type='range'] {
 
 @media (max-width: 1500px) {
   .manual-page {
-    grid-template-rows: 42px 132px 360px 185px 100px 32px;
+    grid-template-rows: 42px 132px minmax(320px,1.55fr) minmax(165px,.82fr) 100px 32px;
   }
   .interlock-grid {
     grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -1076,10 +1080,8 @@ input[type='range'] {
 }
 
 @media (max-height: 800px) {
-  /* Keep all safety decisions and the emergency-stop action in the first viewport.
-     Curves remain available at larger heights; the dense input card owns local scroll here. */
   .manual-page {
-    grid-template-rows: 42px 100px minmax(0, 1fr) 88px;
+    grid-template-rows: 42px 86px minmax(250px, 1fr) minmax(92px, .38fr) 92px 24px;
     gap: 7px;
   }
   .page-title h1 { font-size: 18px; }
@@ -1092,12 +1094,11 @@ input[type='range'] {
   .allow-card strong { font-size: 20px; }
   .allow-card svg { width: 34px; height: 34px; }
   .control-grid { overflow: auto; scrollbar-color: #2B5C90 #07172A; }
-  .chart-row,
-  .safety-tip { display: none; }
-  .action-panel { grid-row: 4; padding: 6px 8px; }
-  .action-panel h2 { display: none; }
-  .action-row { height: 100%; }
-  .action-row :deep(button) { min-height: 0; padding-block: 4px; }
+  .chart-row { min-height: 0; }
+  .action-panel { padding: 4px 8px; }
+  .action-panel h2 { line-height: 14px; }
+  .action-row { height: 70px; }
   .action-row :deep(small) { display: none; }
+  .safety-tip { padding-inline: 8px; font-size: 9px; line-height: 12px; }
 }
 </style>

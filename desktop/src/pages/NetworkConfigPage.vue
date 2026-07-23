@@ -9,6 +9,8 @@
         </div>
       </div>
       <div class="title-actions">
+        <span v-if="productionReadOnly" class="draft-pill">生产配置：签名包只读</span>
+        <span v-if="draftDirty" class="draft-pill">● 未应用变更</span>
         <PageDataState :loading="loading" :error="error" :stale="offline" :empty="!config.channels.length" />
         <button class="help-btn" type="button" disabled title="尚未实现：联机帮助文档入口"><CircleHelp :size="16" />使用说明（尚未实现）</button>
       </div>
@@ -28,13 +30,21 @@
             <span>选中网卡</span>
             <button class="select-like" type="button" disabled title="网卡只能通过经过校验的配置包修改">{{ config.local_network.nic_name }}<ChevronDown :size="14" /></button>
           </div>
+          <div v-if="productionReadOnly" class="field-row">
+            <span>签名网卡身份</span>
+            <b :title="adapterIdentityText">{{ adapterIdentityText }}</b>
+          </div>
+          <div v-if="productionReadOnly" class="field-row">
+            <span>网卡漂移</span>
+            <b :class="config.local_network.adapter_identity_status === 'matched' ? 'identity-ok' : 'identity-drift'">{{ config.local_network.adapter_identity_status === 'matched' ? '未检测到漂移' : '检测到身份漂移（阻断）' }}</b>
+          </div>
           <div class="field-row">
             <span>子网掩码</span>
-            <b>{{ config.local_network.subnet_mask }}</b>
+            <b>{{ diagnosticValueLabel(config.local_network.subnet_mask) }}</b>
           </div>
           <div class="field-row">
             <span>链路速率</span>
-            <b>{{ config.local_network.link_speed }}</b>
+            <b>{{ diagnosticValueLabel(config.local_network.link_speed) }}</b>
           </div>
         </div>
         <div class="port-box">
@@ -51,34 +61,47 @@
         </div>
       </article>
 
-      <article v-for="channel in config.channels" :key="channel.name" class="panel channel-panel">
+      <article v-if="selectedChannel" class="panel channel-panel">
         <header class="panel-head">
-          <div><Network :size="18" /><h2>{{ channel.name }} 配置（通道{{ channel.name === 'CAN1' ? '1' : '2' }}）</h2></div>
+          <div><Network :size="18" /><h2>{{ selectedChannel.name }} 配置（通道{{ selectedChannel.name === 'CAN1' ? '1' : '2' }}）</h2></div>
+          <div class="channel-tabs" role="tablist" aria-label="选择 CAN 通道配置">
+            <button v-for="channel in config.channels" :key="channel.name" type="button" role="tab" :aria-selected="activeChannel === channel.name" :class="{ active: activeChannel === channel.name }" @click="activeChannel = channel.name">{{ channel.name }}</button>
+          </div>
         </header>
         <div class="channel-form">
           <div class="seg-row">
             <span>协议选择</span>
             <div class="segmented">
-              <button :class="{ active: channel.protocol === 'UDP' }" type="button" :disabled="!auth.isAdmin" @click="channel.protocol = 'UDP'">UDP</button>
-              <button :class="{ active: channel.protocol === 'TCP' }" type="button" :disabled="!auth.isAdmin" @click="channel.protocol = 'TCP'">TCP</button>
+              <button :class="{ active: selectedChannel.protocol === 'UDP' }" type="button" :disabled="!canEdit" @click="selectedChannel.protocol = 'UDP'">UDP</button>
+              <button :class="{ active: selectedChannel.protocol === 'TCP' }" type="button" :disabled="!canEdit" title="TCP 仅用于开发预览，生产签名 schema 禁止应用" @click="selectedChannel.protocol = 'TCP'">TCP（开发预览）</button>
             </div>
           </div>
-          <ConfigInput label="本地IP" :value="channel.local_ip" :editable="auth.isAdmin" @update:value="channel.local_ip = $event" />
-          <ConfigInput label="本地端口" :value="String(channel.local_port)" :editable="auth.isAdmin" input-type="number" @update:value="channel.local_port = Number($event)" />
-          <ConfigInput label="设备IP" :value="channel.device_ip" :editable="auth.isAdmin" @update:value="channel.device_ip = $event" />
-          <ConfigInput label="设备端口" :value="String(channel.device_port)" :editable="auth.isAdmin" input-type="number" @update:value="channel.device_port = Number($event)" />
+          <ConfigInput label="本地 IP" :value="selectedChannel.local_ip" :editable="canEdit" @update:value="selectedChannel.local_ip = $event" />
+          <ConfigInput label="本地端口" :value="String(selectedChannel.local_port)" :editable="canEdit" input-type="number" @update:value="selectedChannel.local_port = Number($event)" />
+          <ConfigInput label="设备 IP" :value="selectedChannel.device_ip" :editable="canEdit" @update:value="selectedChannel.device_ip = $event" />
+          <ConfigInput label="设备端口" :value="String(selectedChannel.device_port)" :editable="canEdit" input-type="number" @update:value="selectedChannel.device_port = Number($event)" />
           <div class="switch-grid">
-            <span>发送允许</span><ToggleVisual :enabled="channel.tx_enabled" />
-            <span>接收状态</span><ActiveState :status="channel.rx_status" />
+            <span>通道启用</span><ToggleSwitch v-model="selectedChannel.enabled" :disabled="!canEdit" label="通道启用" :disabled-reason="productionReadOnly ? '生产配置只允许通过签名包变更' : '仅管理员可修改通道启用草稿'" />
+            <span>接收状态</span><ActiveState :status="selectedChannel.rx_status" />
           </div>
           <div class="period-row">
             <span>发送周期</span>
-            <div class="input-like"><b>{{ channel.period_ms }}</b><em>ms</em></div>
+            <div class="input-like"><b>{{ selectedChannel.period_ms }}</b><em>ms</em></div>
           </div>
-          <div class="switch-grid last">
-            <span>{{ channel.name === 'CAN2' ? '默认控制通道' : '控制权限' }}</span>
-            <ToggleVisual :enabled="channel.control_enabled" :disabled="!channel.control_enabled" />
-            <span class="switch-label" :class="{ enabled: channel.control_enabled }">{{ channel.control_enabled ? 'enabled' : 'disabled' }}</span>
+          <div class="policy-row">
+            <span>主动发送权限</span>
+            <b :class="selectedChannel.name === 'CAN1' ? 'locked' : 'approved'">{{ selectedChannel.name === 'CAN1' ? '安全策略锁定：CAN1 禁止主动发送' : '仅批准 CAN2 的 0x121' }}</b>
+          </div>
+          <div class="policy-row">
+            <span>批准来源</span>
+            <b :title="selectedChannel.approved_sources?.join('，') || '无'">{{ selectedChannel.approved_sources?.join('，') || '无（阻断收帧）' }}</b>
+          </div>
+          <div class="control-radio" role="radiogroup" aria-label="默认控制通道">
+            <span>默认控制通道</span>
+            <label :class="{ locked: selectedChannel.name === 'CAN1' }">
+              <input type="radio" name="control-channel" :checked="selectedChannel.name === 'CAN2'" disabled />
+              {{ selectedChannel.name === 'CAN2' ? 'CAN2（唯一批准）' : 'CAN1（安全锁定）' }}
+            </label>
           </div>
         </div>
       </article>
@@ -126,7 +149,7 @@
             </tbody>
           </table>
         </div>
-        <div class="info-note"><Info :size="16" />说明：系统默认使用 UDP 协议进行通信，界面保留 TCP 选项以兼容特殊场景需求。</div>
+        <div class="info-note"><Info :size="16" />说明：生产配置仅允许 UDP；TCP 仅为开发预览，尚未完成生产重连验收。</div>
       </article>
 
       <article class="panel chart-panel">
@@ -147,13 +170,9 @@
     </section>
 
     <section class="action-row">
-      <button v-for="action in visibleActions" :key="action.title" :class="['action-card', action.tone]" type="button" :disabled="loading || (offline && !action.allowOffline)" @click="action.run">
-        <span class="action-icon"><component :is="action.icon" :size="31" /></span>
-        <span>
-          <strong>{{ action.title }}</strong>
-          <small>{{ action.desc }}</small>
-        </span>
-      </button>
+      <IndustrialActionButton v-for="action in visibleActions" :key="action.title" :title="action.title" :subtitle="action.desc" :variant="action.tone" :loading="pendingAction === action.title" :disabled="loading || actionPending || (offline && !action.allowOffline)" @click="runNetworkAction(action)">
+        <template #icon><component :is="action.icon" :size="27" /></template>
+      </IndustrialActionButton>
     </section>
 
     <p v-if="toast" :class="['toast', toastTone]">{{ toast }}</p>
@@ -162,6 +181,7 @@
 
 <script setup lang="ts">
 import { computed, defineComponent, h, onBeforeUnmount, onMounted, ref } from 'vue'
+import { useRouter } from 'vue-router'
 import {
   Activity,
   BarChart3,
@@ -184,6 +204,9 @@ import type { CanMonitorStatistics, NetworkChannelConfig, NetworkConfigSummary, 
 import { fallbackCanMonitorStatistics, fallbackNetworkConfig, fallbackNetworkSelfTest } from '../mocks/fallbackData'
 import { useAuthStore, type Role } from '../stores/auth'
 import PageDataState from '../components/PageDataState.vue'
+import ToggleSwitch from '../components/forms/ToggleSwitch.vue'
+import IndustrialActionButton from '../components/common/IndustrialActionButton.vue'
+import { localizeStatus } from '../ui/uiStatusLabels'
 
 const ConfigInput = defineComponent({
   props: { label: { type: String, required: true }, value: { type: String, required: true }, editable: { type: Boolean, default: false }, inputType: { type: String, default: 'text' } },
@@ -198,35 +221,40 @@ const ConfigInput = defineComponent({
   },
 })
 
-const ToggleVisual = defineComponent({
-  props: { enabled: { type: Boolean, required: true }, disabled: { type: Boolean, default: false } },
-  setup(props) {
-    return () => h('span', { class: ['toggle-visual', props.enabled ? 'on' : 'off', props.disabled && !props.enabled ? 'disabled' : ''] }, [h('i')])
-  },
-})
-
 const ActiveState = defineComponent({
   props: { status: { type: String, required: true } },
   setup(props) {
     return () => h('span', { class: ['active-state', props.status === 'active' ? 'on' : 'off'] }, [
       h('i'),
-      props.status || 'unknown',
+      localizeStatus(props.status),
     ])
   },
 })
 
 const config = ref<NetworkConfigSummary>(structuredClone(fallbackNetworkConfig))
 const auth = useAuthStore()
+const router = useRouter()
 const selfTest = ref<NetworkSelfTestResult>(fallbackNetworkSelfTest)
 const statistics = ref<CanMonitorStatistics>(structuredClone(fallbackCanMonitorStatistics))
 const loading = ref(false)
 const offline = ref(false)
 const error = ref('')
 const appliedConfig = ref<NetworkConfigSummary>(structuredClone(fallbackNetworkConfig))
+const activeChannel = ref<'CAN1' | 'CAN2'>('CAN2')
+const actionPending = ref(false)
+const pendingAction = ref('')
 
 function cloneConfig(value: NetworkConfigSummary): NetworkConfigSummary {
   return JSON.parse(JSON.stringify(value)) as NetworkConfigSummary
 }
+const selectedChannel = computed(() => config.value.channels.find((channel) => channel.name === activeChannel.value) || config.value.channels[0])
+const draftDirty = computed(() => JSON.stringify(config.value) !== JSON.stringify(appliedConfig.value))
+const productionReadOnly = computed(() => config.value.runtime_profile === 'production' || config.value.read_only === true)
+const canEdit = computed(() => auth.isAdmin && !productionReadOnly.value)
+const adapterIdentityText = computed(() => {
+  const local = config.value.local_network
+  return `${local.nic_name} / #${local.adapter_index ?? '未知'} / ${local.mac_address || '未知'} / ${local.bind_address || local.host_ip}`
+})
 const toast = ref('')
 const toastTone = ref<'ok' | 'warn' | 'bad'>('ok')
 let toastTimer: number | undefined
@@ -239,11 +267,12 @@ const diagnosisRows = computed(() => [
   { label: '保留位校验', value: selfTest.value.reserved_bits_check === 'pass' ? '通过' : '失败', ok: selfTest.value.reserved_bits_check === 'pass' },
   { label: '粘包/半包统计（1分钟）', value: `${selfTest.value.sticky_half_packets.sticky} / ${selfTest.value.sticky_half_packets.half}`, ok: selfTest.value.sticky_half_packets.half === 0 },
   { label: '最近错误', value: selfTest.value.last_error || '无', ok: !selfTest.value.last_error },
-  ...(selfTest.value.channels||[]).map(item=>({label:`${item.channel} 端点/收帧/TCP`,value:`${item.bind_status} / ${item.endpoint_status} / ${formatFrameAge(item.last_frame_age_ms)} / ${item.tcp_state}`,ok:item.bind_status !== 'occupied_or_unbindable' && item.endpoint_status === 'receive_confirmed'})),
+  ...(selfTest.value.channels||[]).map(item=>({label:`${item.channel} 端点/收帧/TCP`,value:`${localizeStatus(item.bind_status)} / ${localizeStatus(item.endpoint_status)} / ${formatFrameAge(item.last_frame_age_ms)} / ${localizeStatus(item.tcp_state)}`,ok:item.bind_status !== 'occupied_or_unbindable' && item.endpoint_status === 'receive_confirmed'})),
 ])
 
 function portStatusLabel(status:string){return({owned_by_runtime:'当前进程使用',available:'可绑定',occupied_or_unbindable:'占用/不可绑定',not_diagnosed:'未检测','not-diagnosed':'未检测'} as Record<string,string>)[status]||status}
 function formatFrameAge(value:number|null|undefined){return value===null||value===undefined?'无批准来源帧':`${Math.round(value)} ms`}
+function diagnosticValueLabel(value:string){return localizeStatus(value, '未测量')}
 
 function mergeConfig(data: Partial<NetworkConfigSummary>): NetworkConfigSummary {
   const next = {
@@ -351,15 +380,32 @@ async function restoreDefaults() {
   }
 }
 
-const actions = [
-  { title: '保存并应用', desc: '原子应用，失败自动回滚', icon: Save, tone: 'primary', run: saveConfig, role: 'admin' as Role, allowOffline: false },
+const actions: Array<{
+  title: string
+  desc: string
+  icon: typeof Save
+  tone: 'primary' | 'danger'
+  run: () => Promise<unknown>
+  role: Role
+  allowOffline: boolean
+  productionOnly?: boolean
+  hideInProduction?: boolean
+}> = [
+  { title: '保存并应用', desc: '原子应用，失败自动回滚', icon: Save, tone: 'primary', run: saveConfig, role: 'admin' as Role, allowOffline: false, hideInProduction: true },
+  { title: '导入签名配置', desc: '进入预检、差异和管理员确认', icon: Save, tone: 'primary', run: async () => { await router.push('/system-settings?section=config') }, role: 'admin' as Role, allowOffline: false, productionOnly: true },
   { title: '测试连接', desc: '执行端口与设备诊断', icon: Network, tone: 'primary', run: () => runSelfTest(), role: 'engineer' as Role, allowOffline: true },
   { title: '启动CAN1', desc: '启动通道1通信', icon: PlayCircle, tone: 'primary', run: () => connectChannel('CAN1'), role: 'engineer' as Role, allowOffline: false },
   { title: '启动CAN2', desc: '启动通道2通信', icon: PlayCircle, tone: 'primary', run: () => connectChannel('CAN2'), role: 'engineer' as Role, allowOffline: false },
   { title: '停止全部', desc: '停止所有通道通信', icon: Square, tone: 'danger', run: stopAll, role: 'engineer' as Role, allowOffline: false },
-  { title: '恢复默认', desc: '恢复回环安全默认配置', icon: RefreshCw, tone: 'primary', run: restoreDefaults, role: 'admin' as Role, allowOffline: false },
+  { title: '恢复默认', desc: '恢复回环安全默认配置', icon: RefreshCw, tone: 'primary', run: restoreDefaults, role: 'admin' as Role, allowOffline: false, hideInProduction: true },
 ]
-const visibleActions = computed(() => actions.filter((action) => auth.can(action.role)))
+const visibleActions = computed(() => actions.filter((action) => auth.can(action.role) && (!action.productionOnly || productionReadOnly.value) && (!action.hideInProduction || !productionReadOnly.value)))
+async function runNetworkAction(action: typeof actions[number]) {
+  if (actionPending.value) return
+  actionPending.value = true
+  pendingAction.value = action.title
+  try { await action.run() } finally { actionPending.value = false; pendingAction.value = '' }
+}
 
 const chartText = '#AFC2DD'
 const gridLine = '#1E3A5F'
@@ -405,8 +451,8 @@ onBeforeUnmount(() => {
   height: 100%;
   min-height: 0;
   display: grid;
-  grid-template-rows: 42px 365px minmax(0, 1fr) 116px;
-  gap: 14px;
+  grid-template-rows: 42px minmax(270px, .95fr) minmax(190px, .85fr) 70px;
+  gap: 10px;
   overflow: hidden;
 }
 
@@ -497,15 +543,15 @@ p {
 
 .top-grid {
   display: grid;
-  grid-template-columns: 1.05fr 1.08fr 1.08fr 1.12fr;
-  gap: 14px;
+  grid-template-columns: .92fr 1.16fr 1fr;
+  gap: 10px;
   min-height: 0;
 }
 
 .middle-grid {
   display: grid;
   grid-template-columns: 1.78fr .94fr .94fr;
-  gap: 14px;
+  gap: 10px;
   min-height: 0;
 }
 
@@ -514,6 +560,20 @@ p {
   min-width: 0;
   min-height: 0;
   overflow: hidden;
+}
+
+.local-panel {
+  display: grid;
+  grid-template-rows: 52px minmax(0, 1fr) auto;
+}
+
+.local-panel .form-list {
+  min-height: 0;
+  overflow: auto;
+}
+
+.local-panel .port-box {
+  margin-bottom: 10px;
 }
 
 .panel-head {
@@ -544,10 +604,13 @@ p {
   white-space: nowrap;
 }
 
+.channel-tabs{display:grid!important;grid-template-columns:repeat(2,54px);gap:4px!important}.channel-tabs button{height:28px;border:1px solid #315A83;border-radius:5px;color:#9FB3D0;background:#081A2F;font-size:10px}.channel-tabs button.active{color:#FFF;border-color:#2F80FF;background:#176CD9;box-shadow:0 0 10px rgba(47,128,255,.22)}
+
 .form-list,
 .channel-form {
   padding: 12px 14px 0;
 }
+.channel-form{height:calc(100% - 52px);min-height:0;overflow:auto;padding-bottom:10px;scrollbar-color:#2B5C90 #07172A}
 
 .field-row,
 .seg-row,
@@ -702,10 +765,8 @@ input.text-input{width:100%;outline:none;font-family:inherit;font-weight:700}
   border-bottom: 1px solid rgba(30, 58, 95, .58);
 }
 
-.switch-grid.last {
-  grid-template-columns: 118px 62px minmax(0, 1fr);
-  border-bottom: 0;
-}
+.policy-row,.control-radio{min-height:38px;display:grid;grid-template-columns:118px minmax(0,1fr);align-items:center;border-bottom:1px solid rgba(30,58,95,.58);font-size:11px}.policy-row>span,.control-radio>span{color:#9BAECB}.policy-row b{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.policy-row .locked,.control-radio label.locked{color:#F6C343}.policy-row .approved{color:#21C55D}.control-radio{border-bottom:0}.control-radio label{display:flex;align-items:center;gap:7px;color:#21C55D;font-weight:700}.control-radio input{accent-color:#2F80FF}
+.identity-ok{color:#21C55D!important}.identity-drift{color:#EF4444!important}
 
 .toggle-visual {
   width: 42px;
@@ -778,6 +839,7 @@ input.text-input{width:100%;outline:none;font-family:inherit;font-weight:700}
   border-radius: 7px;
   overflow: hidden;
 }
+.diagnosis-panel{display:grid;grid-template-rows:52px minmax(0,1fr) 42px}.diagnosis-list{min-height:0;overflow:auto}.diagnosis-panel .retest-btn{justify-self:end;align-self:center;margin:0 14px 0 0}
 
 .diagnosis-row {
   height: 34px;
@@ -909,8 +971,9 @@ th:nth-child(9), td:nth-child(9) { width: 78px; }
 .action-row {
   display: grid;
   grid-template-columns: repeat(6, minmax(0, 1fr));
-  gap: 14px;
+  gap: 10px;
 }
+.draft-pill{height:28px;display:inline-flex;align-items:center;padding:0 9px;border:1px solid rgba(246,195,67,.55);border-radius:5px;color:#F6C343;background:rgba(246,195,67,.08);font-size:10px;white-space:nowrap}
 
 .action-card {
   height: 100%;
@@ -993,23 +1056,28 @@ th:nth-child(9), td:nth-child(9) { width: 78px; }
 
 @media (max-width: 1500px), (max-height: 860px) {
   .network-page {
-    height: auto;
-    min-height: 100%;
-    overflow: visible;
-    grid-template-rows: 42px 340px 300px 104px;
-    gap: 10px;
+    height: 100%;
+    min-height: 0;
+    overflow: hidden;
+    grid-template-rows: 42px minmax(260px, 1.08fr) minmax(170px, .78fr) 70px;
+    gap: 8px;
   }
 
   .top-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: minmax(250px,.86fr) minmax(350px,1.14fr) minmax(300px,1fr);
+    gap:8px;
   }
 
   .middle-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1.55fr .72fr .72fr;
+    gap:8px;
   }
 
   .action-row {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap:8px;
   }
+  .panel-head{height:42px;padding-inline:9px}.panel-head h2{font-size:13px}.channel-form{height:calc(100% - 42px);padding:5px 9px}.form-list{padding:5px 9px 0}.field-row,.seg-row,.period-row,.switch-grid,.policy-row,.control-radio{min-height:32px}.port-box{margin:5px 9px 0}.port-head{height:30px}.port-grid div{height:30px;padding-inline:8px}.diagnosis-panel{grid-template-rows:42px minmax(0,1fr) 34px}.diagnosis-list{margin:5px 9px 0}.diagnosis-row{height:27px;font-size:10px}.diagnosis-row span,.diagnosis-row b{font-size:10px}.diagnosis-panel .retest-btn{height:27px;margin-right:9px;min-width:112px}.table-panel{grid-template-rows:42px minmax(0,1fr) 28px}.table-wrap{overflow:auto;padding:6px 7px 0}.info-note{padding:0 8px 5px;font-size:9px}.chart-panel :deep(.chart){height:calc(100% - 42px);min-height:0}.toast{bottom:82px}.draft-pill{max-width:120px;overflow:hidden;text-overflow:ellipsis}
+  .local-panel{grid-template-rows:42px minmax(0,1fr) auto}.local-panel .port-box{margin-bottom:5px}
 }
 </style>

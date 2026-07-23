@@ -13,6 +13,7 @@ from app.control.control_121 import Control121Command, encode_control_121
 from app.core.config import ChannelConfig, RuntimeConfig
 from app.main import app
 from app.services.app_state import state
+from app.api.signals import live_dashboard_payload
 
 
 DASHBOARDS = [
@@ -63,6 +64,28 @@ def test_dashboard_provenance_is_never_silent(auth_headers):
             assert payload["quality"] in {"good", "degraded", "unavailable"}
             assert payload["updated_at"]
             assert payload["trace_id"] == response.headers["X-Trace-Id"]
+
+
+def test_signal_dashboard_rest_and_websocket_share_complete_envelope(auth_headers):
+    """The publisher calls this same helper; no partial WS payload may erase quality."""
+    with TestClient(app) as client:
+        response = client.get("/api/v1/signals/dashboard", headers=auth_headers("viewer"))
+        assert response.status_code == 200, response.text
+        rest = response.json()
+        published = live_dashboard_payload()
+
+    required = {
+        "data_source", "mock", "quality", "updated_at", "trace_id", "status",
+        "bms", "vehicle", "wheel_speed", "steering", "motor", "lights_brake",
+        "alarm", "watchlist",
+    }
+    assert required <= rest.keys()
+    assert required <= published.keys()
+    assert rest["quality"] == rest["status"]["quality"] or rest["quality"] == "mock"
+    assert published["quality"] == published["status"]["quality"] or published["quality"] == "mock"
+    comparable = required - {"trace_id", "updated_at", "status"}
+    assert {key: rest[key] for key in comparable} == {key: published[key] for key in comparable}
+    assert rest["status"] | {"updated_at": "normalized"} == published["status"] | {"updated_at": "normalized"}
 
 
 def test_can_frames_list_matches_declared_response_contract(auth_headers):

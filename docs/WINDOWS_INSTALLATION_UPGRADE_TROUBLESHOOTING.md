@@ -1,5 +1,9 @@
 # Windows 安装、升级与排障
 
+## 2026-07-23 RC 验证矩阵
+
+CI 安装验证使用中文和空格临时路径，并临时占用 8800 证明 sidecar 会选择动态 localhost 端口；运行时 PATH 移除 Node/Python/uv，且不依赖互联网。验证首次/二次启动、11 页、simulator 缺失时 offline 与控制 409、sidecar 一次崩溃后的有界恢复、sidecar 缺失诊断、卸载后业务数据保留。旧版本升级/失败回滚、普通用户与管理员独立 VM、特定防火墙/AV 厂商仍须在目标镜像上补证，不能由本地 Mock 结果替代。
+
 ## 安装
 
 1. 先核对 `release-manifest.json` 中 installer 文件名和 SHA-256。

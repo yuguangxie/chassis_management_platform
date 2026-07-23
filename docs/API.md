@@ -1,5 +1,14 @@
 # API：身份、授权、配置与安全联锁
 
+## 2026-07-23 软件 P0/P1 收口
+
+- production 的 `PUT /config`、`PUT /config/channels`、`POST /config/restore-safe-defaults`、`POST /config/channels/restore-defaults` 均拒绝普通直改，统一返回 HTTP 409 / `SIGNED_CONFIG_REQUIRED`，并先写拒绝审计。
+- 唯一生产变更流程为 `POST /config/import` → schema/版本/签名校验 → dry-run/diff → 管理员确认 → `POST /config/apply` → blocking health → 原子切换或完整回滚。
+- `GET /control/hardware-acceptance` 是只读接口；不存在普通写接口。production 普通运动在 artifact 缺失、签名错、过期、撤销、职责未分离或范围/hash 不匹配时返回 409，规则包含 `rule/label/current/threshold/blocking`。
+- `POST /eol/sessions` 不再接受 operator/station 覆盖，也没有演示默认值；operator 取当前 principal，station 取当前已应用配置。请求字段为底盘号、VIN、序列号、车型、工单、计划、重复策略和显式 Mock 标志。
+- 危险动作的审计或 control intent 持久化失败统一返回 503，且锁存数据库/审计故障；不能返回完整成功。
+- 当前 OpenAPI 由 `scripts/generate_api_docs.py` 从运行模型生成，共 151 个 operation；`docs/api-authorization-matrix.csv` 为对应 RBAC 清单。
+
 后端 REST 前缀为 `/api/v1`，WebSocket 为 `/ws`。控制 API 全部经过 `SafetyInterlockService`。本页记录 2026-07-22 P0/P1 收口涉及的契约。
 
 ## 当前契约快照
@@ -163,3 +172,13 @@ Override 只影响精确的单个严重告警规则，不能改变其他联锁�
 安装态由 Electron 生成每次启动随机凭据。除最小 `/api/v1/health` 外，HTTP 请求先要求 `X-Chassis-Sidecar`，随后仍执行用户 session 和角色鉴权；WebSocket 同时要求 `chassis-sidecar.<credential>` 与 `chassis-token.<session>` 子协议。凭据缺失返回 403/4403，不得写入日志或 OpenAPI 静态示例。
 
 `GET /internal/sidecar/readiness` 和 `POST /internal/sidecar/shutdown` 不进入 OpenAPI，且只供本机 Electron 主进程使用。readiness 是软件进程状态，不是车辆 ready，也不放宽任何控制联锁。
+
+## Signals dashboard HTTP/WS 同形约定（2026-07-23）
+
+`GET /signals/dashboard` 与 WebSocket topic `signals.dashboard` 现在都发布完整 dashboard response：业务字段之外包含顶层 `quality`、`status`、`mock`、`updated_at`、`data_source` 和 `trace_id`。`status.quality` 为兼容字段，其值必须与顶层 `quality` 一致。
+
+前端允许兼容旧 publisher 的 `payload.status.quality`，但缺失的增量字段不得覆盖当前完整快照。`stale`、`invalid`、`unavailable` 和 Mock 标记不能被提升为真实 fresh 数据，也不能用于控制安全判断。
+
+`GET /control/manual-curves` 的横轴从存储的 UTC ISO8601 生成 `HH:mm:ss` 显示标签；存储值仍保持完整 UTC ISO8601，不改变追溯精度。
+
+本轮未增加或删除 OpenAPI path，也未改变 pydantic API 字段，因此无需生成新的结构版本；响应同形契约由 `test_phase03_contract_data.py` 覆盖。

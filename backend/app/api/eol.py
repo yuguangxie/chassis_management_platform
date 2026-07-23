@@ -8,6 +8,7 @@ from typing import Any
 from fastapi import APIRouter, Body, Depends, HTTPException
 
 from app.api.data_source import dashboard_metadata
+from app.api.errors import get_trace_id
 from app.api.models import EolDashboardResponse
 
 from app.control.safety_interlock import InterlockBlocked
@@ -15,12 +16,37 @@ from app.eol.engine import SessionConflict
 from app.eol.models import CreateSessionRequest
 from app.security.auth import Principal, Role, require_role
 from app.services.app_state import state
-from app.services.audit import record_operator_action
+from app.services.audit import AuditPersistenceError, record_operator_action
 from app.storage.uow import PersistenceFailure
 
 
 router = APIRouter()
 logger = logging.getLogger(__name__)
+
+
+async def _required_eol_audit(
+    principal: Principal,
+    action: str,
+    sid: str,
+    payload: dict[str, Any] | None = None,
+    result: str = "OK",
+) -> None:
+    try:
+        record_operator_action(
+            state,
+            principal,
+            action,
+            sid,
+            payload or {},
+            result,
+            trace_id=get_trace_id(),
+            required=True,
+        )
+    except AuditPersistenceError:
+        state.safe_stop_latched = True
+        if state.tx_scheduler:
+            await state.tx_scheduler.stop()
+        raise
 
 
 def _latest_session() -> dict[str, Any] | None:
@@ -223,6 +249,8 @@ def _dashboard() -> dict[str, Any]:
         "serial_no": (runtime or {}).get("serial_no", ""),
         "operator": (runtime or {}).get("operator", state.config.operator),
         "station_id": (runtime or {}).get("station_id", state.config.station_id),
+        "vehicle_series": (runtime or {}).get("vehicle_series", state.config.vehicle_series),
+        "work_order_id": (runtime or {}).get("work_order_id", ""),
         "test_plan": plan.plan.name if plan else "未加载",
         "remark": (runtime or {}).get("remarks", ""),
         "overall_status": _status_for_ui((runtime or {}).get("status", "IDLE")),
@@ -270,6 +298,8 @@ def _dashboard() -> dict[str, Any]:
             quality=quality,
         ),
         "source": runtime.get("_source", "idle") if runtime else "idle",
+        "runtime_profile": state.config.profile,
+        "mock_session_allowed": state.config.profile in {"dev", "mock", "test"},
         "session": session,
         "steps": ui_steps,
         "current_step": {
@@ -302,14 +332,21 @@ async def create(
     if not state.eol:
         raise HTTPException(503, {"code": "EOL_UNAVAILABLE", "message": "EOL 引擎未初始化"})
     try:
-        session = state.eol.create_session(req.model_copy(update={"operator": principal.username}))
+        session = state.eol.create_session(
+            req,
+            operator=principal.username,
+            operator_role=principal.role.value,
+            auth_session_id=principal.session_id,
+            station_id=state.config.station_id,
+            trace_id=get_trace_id(),
+        )
     except ValueError as exc:
-        raise HTTPException(422, {"code": "EOL_SESSION_INVALID", "message": str(exc)}) from exc
+        code = "DUPLICATE_VEHICLE_IDENTITY" if "duplicate vehicle identity" in str(exc) else "EOL_SESSION_INVALID"
+        raise HTTPException(409 if code.startswith("DUPLICATE") else 422, {"code": code, "message": str(exc), "details": {"blocking": True}}) from exc
     except PersistenceFailure as exc:
         raise HTTPException(
             503, {"code": "DATABASE_UNWRITABLE", "message": str(exc)}
         ) from exc
-    record_operator_action(state, principal, "eol_create_session", session["id"], req.model_dump())
     return session
 
 
@@ -317,10 +354,11 @@ async def create(
 async def start(sid: str, principal: Principal = Depends(require_role(Role.OPERATOR))):
     if not state.eol or sid not in state.eol.sessions:
         raise HTTPException(404, {"code": "SESSION_NOT_FOUND", "message": "检测会话不存在"})
+    await _required_eol_audit(principal, "eol_start_request", sid, result="PENDING")
     try:
         result = await state.eol.start(sid)
     except InterlockBlocked as exc:
-        record_operator_action(state, principal, "eol_start", sid, {}, "BLOCKED")
+        await _required_eol_audit(principal, "eol_start", sid, result="BLOCKED")
         raise HTTPException(
             409,
             {"code": "INTERLOCK_BLOCKED", "message": "安全联锁阻止开始检测", "details": exc.evaluation},
@@ -329,7 +367,7 @@ async def start(sid: str, principal: Principal = Depends(require_role(Role.OPERA
         raise HTTPException(409, {"code": "STATION_BUSY", "message": str(exc)}) from exc
     except PersistenceFailure as exc:
         raise HTTPException(503, {"code": "DATABASE_UNWRITABLE", "message": str(exc)}) from exc
-    record_operator_action(state, principal, "eol_start", sid, {})
+    await _required_eol_audit(principal, "eol_start", sid)
     return result
 
 
@@ -337,8 +375,9 @@ async def start(sid: str, principal: Principal = Depends(require_role(Role.OPERA
 async def pause(sid: str, principal: Principal = Depends(require_role(Role.OPERATOR))):
     if not state.eol or sid not in state.eol.sessions:
         raise HTTPException(404, {"code": "SESSION_NOT_FOUND", "message": "检测会话不存在"})
+    await _required_eol_audit(principal, "eol_pause_request", sid, result="PENDING")
     result = await state.eol.pause(sid)
-    record_operator_action(state, principal, "eol_pause", sid, {})
+    await _required_eol_audit(principal, "eol_pause", sid)
     return result
 
 
@@ -346,15 +385,16 @@ async def pause(sid: str, principal: Principal = Depends(require_role(Role.OPERA
 async def resume(sid: str, principal: Principal = Depends(require_role(Role.OPERATOR))):
     if not state.eol or sid not in state.eol.sessions:
         raise HTTPException(404, {"code": "SESSION_NOT_FOUND", "message": "检测会话不存在"})
+    await _required_eol_audit(principal, "eol_resume_request", sid, result="PENDING")
     try:
         result = await state.eol.resume(sid)
     except InterlockBlocked as exc:
-        record_operator_action(state, principal, "eol_resume", sid, {}, "BLOCKED")
+        await _required_eol_audit(principal, "eol_resume", sid, result="BLOCKED")
         raise HTTPException(
             409,
             {"code": "INTERLOCK_BLOCKED", "message": "安全联锁阻止继续检测", "details": exc.evaluation},
         ) from exc
-    record_operator_action(state, principal, "eol_resume", sid, {})
+    await _required_eol_audit(principal, "eol_resume", sid)
     return result
 
 
@@ -366,6 +406,9 @@ async def manual_confirm(
 ):
     if not state.eol or sid not in state.eol.sessions:
         raise HTTPException(404, {"code": "SESSION_NOT_FOUND", "message": "检测会话不存在"})
+    await _required_eol_audit(
+        principal, "eol_manual_confirm_request", sid, payload, "PENDING"
+    )
     try:
         result = await state.eol.confirm_manual(
             sid,
@@ -375,7 +418,7 @@ async def manual_confirm(
         )
     except RuntimeError as exc:
         raise HTTPException(409, {"code": "MANUAL_STEP_NOT_WAITING", "message": str(exc)}) from exc
-    record_operator_action(state, principal, "eol_manual_confirm", sid, payload)
+    await _required_eol_audit(principal, "eol_manual_confirm", sid, payload)
     return result
 
 
@@ -388,8 +431,7 @@ async def abort(sid: str, principal: Principal = Depends(require_role(Role.OPERA
         emergency=False, principal=principal, reason=f"EOL abort {sid}"
     )
     session = state.eol.attach_safe_stop_result(sid, stop_result)
-    record_operator_action(
-        state,
+    await _required_eol_audit(
         principal,
         "eol_abort",
         sid,
@@ -415,8 +457,7 @@ async def emergency_stop(
         emergency=True, principal=principal, reason=f"EOL emergency {sid}"
     )
     session = state.eol.attach_safe_stop_result(sid, stop_result)
-    record_operator_action(
-        state,
+    await _required_eol_audit(
         principal,
         "eol_emergency_stop",
         sid,
@@ -435,11 +476,14 @@ async def emergency_stop(
 async def report(sid: str, principal: Principal = Depends(require_role(Role.OPERATOR))):
     if not state.eol or sid not in state.eol.sessions:
         raise HTTPException(404, {"code": "SESSION_NOT_FOUND", "message": "检测会话不存在"})
+    await _required_eol_audit(
+        principal, "eol_generate_report_request", sid, result="PENDING"
+    )
     try:
         generated = await state.eol.generate_report(sid)
     except Exception as exc:
         raise HTTPException(500, {"code": "REPORT_GENERATION_FAILED", "message": str(exc)}) from exc
-    record_operator_action(state, principal, "eol_generate_report", sid, {})
+    await _required_eol_audit(principal, "eol_generate_report", sid)
     return {"ok": True, "message": "报告已生成", "report": generated}
 
 

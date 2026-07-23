@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "package_id": "727c0320-7eaa-41f6-84c3-0400fe4553bf",
+  "issued_at": "2026-07-23T03:45:34.618412Z",
+  "issuer": "e2e-admin",
+  "configuration": {
+    "config_version": "repository-default",
+    "runtime_profile": "test",
+    "network_interface": {
+      "adapter_name": "loopback-placeholder",
+      "bind_address": "127.0.0.1"
+    },
+    "can_endpoints": [
+      {
+        "channel": "CAN1",
+        "protocol": "udp",
+        "local_ip": "127.0.0.1",
+        "local_port": 36326,
+        "device_ip": "127.0.0.1",
+        "device_port": 36426,
+        "source_allowlist": [
+          {
+            "ip": "127.0.0.1",
+            "port": 36426
+          }
+        ],
+        "enabled": true,
+        "control_enabled": false
+      },
+      {
+        "channel": "CAN2",
+        "protocol": "udp",
+        "local_ip": "127.0.0.1",
+        "local_port": 36327,
+        "device_ip": "127.0.0.1",
+        "device_port": 36427,
+        "source_allowlist": [
+          {
+            "ip": "127.0.0.1",
+            "port": 36427
+          }
+        ],
+        "enabled": true,
+        "control_enabled": true
+      }
+    ],
+    "vehicle_series": "JD",
+    "approved_dbc_sha256": "387ae48bd84852c8a6401653f96d1f7fca2a604c90fad018db800bf548ab468c",
+    "test_plan_version": "eol-plan-1.0.2",
+    "data_root": "D:\\workspace\\0-yunle\\7_codex\\chassis_eol_management_platform_codex_pack\\chassis_management_platform\\docs\\verification\\ui-consistency-closure-2026-07-23\\e2e\\runtime-data",
+    "station_id": "EOL-STATION-01",
+    "printer": {
+      "name": null,
+      "required": false
+    }
+  },
+  "signature_algorithm": "HMAC-SHA256",
+  "signature": "488abeb16e2b1417dfd114199abe845379b9e73fefc9d31ded82a29ecc652372"
+}

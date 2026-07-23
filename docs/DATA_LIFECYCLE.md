@@ -1,5 +1,13 @@
 # 生产数据生命周期
 
+## 2026-07-23 schema v4 与追溯闭环
+
+数据库 schema 版本提升为 4：`test_sessions` 增加 serial/车型/工单/重复策略、duplicate source、release/config/DBC/plan hash 与 auth session；新增 `control_intents` 及状态/会话索引。迁移继续具备预备份、幂等、失败恢复和禁止旧程序打开新 schema 的边界。
+
+session identity 贯穿 raw CAN、decoded signals、alarms、assertions、reports、print/history/export；无 active session 的 CAN 统一显示 `-`。retention preview/job 覆盖 raw、decoded、reports、exports、temp、backups 和 application logs，保护 active session、全部操作审计、未归档报告、已验证备份、restore rollback 与活动 quarantine。每批数据库删除和删除审计在同一事务；文件先隔离，事务/审计失败时恢复。默认仍只 dry-run/告警，实际删除要求管理员明确确认。
+
+production 暂禁用现有全文件重写式 Parquet；当前批准路径是 append-only CSV，直到分区 writer 和百万级稳态完成验收。
+
 更新日期：2026-07-22。本文件是 P1-06、P1-07、P1-08、P1-10、P1-11 的实现基线。
 
 ## 唯一数据根

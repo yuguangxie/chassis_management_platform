@@ -41,6 +41,17 @@ class NullTx:
         return {"ok": True}
 
 
+class NullControlIntents:
+    def create_authorized(self, *_args, **_kwargs):
+        return "INT-TEST"
+
+    def mark(self, *_args, **_kwargs):
+        return None
+
+    async def compensate_after_send_failure(self, *_args, **_kwargs):
+        return None
+
+
 class GoodSignals:
     current = {}
 
@@ -84,6 +95,7 @@ def state_fixture():
         signals=GoodSignals(),
         reports=NullReports(),
         tx_scheduler=NullTx(),
+        control_intents=NullControlIntents(),
         safe_stop=None,
         telemetry=None,
         database=None,
@@ -93,8 +105,28 @@ def state_fixture():
         config=SimpleNamespace(
             profile="test",
             software_version="test",
+            vehicle_series="JD",
             channel_online_timeout_seconds=2.0,
         ),
+    )
+
+
+def create_session(engine: EolEngine, suffix: int = 1) -> dict:
+    request = CreateSessionRequest(
+        chassis_no=f"GUARD-{suffix:03d}",
+        vin=f"L{suffix:016d}",
+        serial_no=f"GUARD-SN-{suffix:03d}",
+        vehicle_series="JD",
+        work_order_id=f"GUARD-WO-{suffix:03d}",
+        plan_id="default_chassis_eol_v1",
+        mock_session=True,
+    )
+    return engine.create_session(
+        request,
+        operator="test-operator",
+        operator_role="operator",
+        auth_session_id="test-auth-session",
+        station_id="TEST-STATION",
     )
 
 
@@ -111,8 +143,8 @@ async def test_same_station_rejects_second_active_session():
     engine = EolEngine(
         state_fixture(), evaluator=PassEvaluator(), step_delay_seconds=0.05
     )
-    first = engine.create_session(CreateSessionRequest())
-    second = engine.create_session(CreateSessionRequest())
+    first = create_session(engine, 1)
+    second = create_session(engine, 2)
     await engine.start(first["id"])
     with pytest.raises(SessionConflict):
         await engine.start(second["id"])
@@ -136,7 +168,7 @@ async def test_manual_step_waits_for_operator_confirmation_and_records_log():
         evaluator=PassEvaluator(),
         step_delay_seconds=0.01,
     )
-    session = engine.create_session(CreateSessionRequest())
+    session = create_session(engine)
     await engine.start(session["id"])
     await wait_for(lambda: session["status"] == "WAITING_OPERATOR")
     step_count = len(session["steps"])
@@ -157,7 +189,7 @@ async def test_manual_step_timeout_fails_instead_of_passing():
         evaluator=PassEvaluator(),
         step_delay_seconds=0.01,
     )
-    session = engine.create_session(CreateSessionRequest())
+    session = create_session(engine)
     await engine.start(session["id"])
     await wait_for(lambda: session["status"] == "FAILED", timeout=3)
     assert session["overall_result"] == "FAIL"
@@ -174,7 +206,7 @@ async def test_websocket_progress_uses_actual_session_snapshot():
         evaluator=PassEvaluator(),
         step_delay_seconds=0.001,
     )
-    session = engine.create_session(CreateSessionRequest())
+    session = create_session(engine)
 
     await engine.start(session["id"])
     await wait_for(lambda: session["status"] == "PASSED")

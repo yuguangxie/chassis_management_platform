@@ -47,6 +47,9 @@ class AppState:
         self.backups = None
         self.retention = None
         self.printing = None
+        self.control_intents = None
+        self.hardware_acceptance = None
+        self.storage_config = None
 
     def snapshot(self) -> dict:
         dbc_status = self.dbc.status() if self.dbc else {"loaded": False, "raw_only": True, "version": "raw-only"}

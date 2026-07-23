@@ -2,7 +2,7 @@ export interface ChannelStatus { channel: string; protocol?: string; local_ip?: 
 export interface DataSourceMetadata {
   data_source?: string
   mock?: boolean
-  quality?: 'good' | 'degraded' | 'unavailable' | 'mock'
+  quality?: 'good' | 'degraded' | 'stale' | 'invalid' | 'unavailable' | 'mock'
   updated_at?: string
   trace_id?: string
 }
@@ -86,7 +86,7 @@ export interface NetworkChannelConfig {
   local_port: number
   device_ip: string
   device_port: number
-  tx_enabled: boolean
+  enabled: boolean
   rx_status: string
   period_ms: number
   control_enabled: boolean
@@ -103,6 +103,18 @@ export interface NetworkConfigSummary {
     host_ip: string
     dev_ip: string
     nic_name: string
+    adapter_index?: number | null
+    mac_address?: string | null
+    bind_address?: string
+    adapter_identity_status?: 'matched' | 'drift' | 'not_applicable'
+    adapter_identity_rule?: {
+      rule: string
+      label: string
+      passed: boolean
+      blocking: boolean
+      current: unknown
+      threshold: unknown
+    } | null
     subnet_mask: string
     link_speed: string
     ports: NetworkLocalPort[]
@@ -110,6 +122,15 @@ export interface NetworkConfigSummary {
     diagnosed_at?: string
   }
   channels: NetworkChannelConfig[]
+  runtime_profile?: 'dev' | 'mock' | 'test' | 'production'
+  configuration_authority?: 'direct-development' | 'signed-package'
+  read_only?: boolean
+  active_transmit_policy?: {
+    control_channel: 'CAN2'
+    allowed_can_ids: ['0x121']
+    can1_transmit_locked: true
+    configurable: false
+  }
 }
 
 export interface NetworkSelfTestResult {
@@ -136,14 +157,14 @@ export interface NetworkSelfTestResult {
 }
 
 export interface SignedConfigurationPackage {
-  schema_version: 1
+  schema_version: 2
   package_id: string
   issued_at: string
   issuer: string
   configuration: {
     config_version: string
     runtime_profile: 'dev' | 'mock' | 'test' | 'production'
-    network_interface: { adapter_name: string; bind_address: string }
+    network_interface: { adapter_name: string; adapter_index: number | null; mac_address: string | null; bind_address: string }
     can_endpoints: Array<{
       channel: 'CAN1' | 'CAN2'
       protocol: 'udp' | 'tcp'
@@ -237,6 +258,7 @@ export interface SignalDashboardSummary extends DataSourceMetadata {
     overall: string
     updated_at: string
     mock: boolean
+    quality?: 'good' | 'degraded' | 'stale' | 'invalid' | 'unavailable' | 'mock'
   }
   bms: {
     status: string
@@ -551,6 +573,8 @@ export interface AutoTestSession {
   serial_no: string
   operator: string
   station_id: string
+  vehicle_series: string
+  work_order_id: string
   test_plan: string
   remark: string
   overall_status: 'RUNNING' | 'PASS' | 'FAIL' | 'WAIT' | 'PAUSED' | 'ABORTED'
@@ -605,6 +629,8 @@ export interface AutoTestStepLog {
 }
 
 export interface AutoTestDashboard extends DataSourceMetadata {
+  runtime_profile: 'dev' | 'mock' | 'test' | 'production'
+  mock_session_allowed: boolean
   session: AutoTestSession
   steps: AutoTestStep[]
   current_step: AutoTestCurrentStep
@@ -947,6 +973,8 @@ export interface SystemMaintenanceSettings {
 }
 
 export interface SystemSettingsDashboard extends DataSourceMetadata {
+  runtime_profile: 'dev' | 'mock' | 'test' | 'production'
+  configuration_authority: 'direct-development' | 'signed-package'
   save_state: {
     dirty: boolean
     last_saved_at: string
@@ -968,14 +996,14 @@ export interface SystemSettingsDashboard extends DataSourceMetadata {
     auto_save: boolean
   }
   dbc: {
-    filename: string
-    version: string
-    hash: string
+    filename: string | null
+    version: string | null
+    hash: string | null
     status: 'loaded' | 'raw-only' | 'failed'
     error?: string
     message_count: number
     signal_count: number
-    loaded_at: string
+    loaded_at: string | null
     overrides: Array<{ key: string; label: string; value: string; status: string }>
   }
   storage: {
@@ -1010,6 +1038,10 @@ export interface SystemSettingsDashboard extends DataSourceMetadata {
     electron: string
     platform: string
     build_time: string
+    commit?: string | null
+    release_hash?: string | null
+    signed?: boolean
+    dirty?: boolean | null
   }
   storage_trend: Array<{ date: string; used_gb: number; source?: string }>
   storage_summary: {
@@ -1031,6 +1063,22 @@ export interface SystemSettingsDashboard extends DataSourceMetadata {
     reason: string
     result: string
   }>
+  hardware_acceptance: {
+    allowed: boolean
+    applicable: boolean
+    status: string
+    artifact?: {
+      station_id: string
+      vehicle_series: string
+      controller: string
+      firmware: string
+      valid_from: string
+      valid_to: string
+      requester: string
+      approvers: string[]
+    } | null
+    reasons: Array<{ rule: string; label: string; current: unknown; threshold: unknown; blocking: boolean; status: string }>
+  }
   mock?: boolean
   updated_at?: string
 }

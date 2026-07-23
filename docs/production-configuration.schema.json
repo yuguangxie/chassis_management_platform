@@ -81,6 +81,32 @@
             "title": "Adapter Name",
             "type": "string"
           },
+          "adapter_index": {
+            "anyOf": [
+              {
+                "minimum": 1,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Adapter Index"
+          },
+          "mac_address": {
+            "anyOf": [
+              {
+                "pattern": "^(?:[0-9A-Fa-f]{2}[:-]){5}[0-9A-Fa-f]{2}$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Mac Address"
+          },
           "bind_address": {
             "title": "Bind Address",
             "type": "string"
@@ -299,6 +325,32 @@
             "title": "Adapter Name",
             "type": "string"
           },
+          "adapter_index": {
+            "anyOf": [
+              {
+                "minimum": 1,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Adapter Index"
+          },
+          "mac_address": {
+            "anyOf": [
+              {
+                "pattern": "^(?:[0-9A-Fa-f]{2}[:-]){5}[0-9A-Fa-f]{2}$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Mac Address"
+          },
           "bind_address": {
             "title": "Bind Address",
             "type": "string"
@@ -439,8 +491,8 @@
     "additionalProperties": false,
     "properties": {
       "schema_version": {
-        "const": 1,
-        "default": 1,
+        "const": 2,
+        "default": 2,
         "title": "Schema Version",
         "type": "integer"
       },

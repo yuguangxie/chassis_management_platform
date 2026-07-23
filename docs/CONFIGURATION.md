@@ -1,5 +1,13 @@
 # 安全与生产配置
 
+## 2026-07-23 权威配置路径
+
+production 只有签名配置包一条权威路径。包使用严格 pydantic schema（未知字段拒绝），schema version 为 2；必须包含 profile、车型、DBC hash、计划版本、绝对 `data_root`、工位、打印机，以及 Windows 网卡 name/index/MAC/bind IP。production 仅接受 UDP，CAN2 是唯一控制通道，服务端只读发送策略始终严格等于 `CAN2/{0x121}`，配置中不存在可扩大白名单的 `allow_tx` 字段。
+
+应用后检查实际 bind/transport、批准来源收帧与 frame age、DBC ready/hash/车型、data_root/DB 可写和控制 idle。任一 blocking 检查失败时恢复旧 `RuntimeConfig`、旧 gateway manager、旧 active package 与 `on_can_security_event` 回调。dev/mock/test 仍可在回环修改草稿并验证回滚，但界面明确标识开发权限，不能伪装为生产配置。
+
+TCP 目前是开发预览：production schema 明确拒绝。只有完成重连状态机、退避、超时、取消、stale/queue/safety 集成和长稳态后才可重新评估。
+
 更新日期：2026-07-22。
 
 ## 配置来源和信任级别
@@ -82,3 +90,11 @@ SHA-256 对应当前仓库的 `assets/Yunle_CAN_integrated_candb_jd.dbc`。任�
 根 `.env.example` 是唯一名称清单。后端启动脚本读取 `CHASSIS_BACKEND_HOST`、`CHASSIS_BACKEND_PORT`、`CHASSIS_RUNTIME_PROFILE`；默认 host 为 `127.0.0.1`。非 production 将非回环 host 视为配置错误。路径使用 `CHASSIS_DATA_DIR/CONFIG_DIR/ASSETS_DIR/ACTIVE_CONFIG_PATH`；身份使用 `CHASSIS_SESSION_TTL_SECONDS`、`CHASSIS_AUTH_MAX_FAILED_ATTEMPTS`、`CHASSIS_AUTH_LOCKOUT_SECONDS`。秘密变量只允许在本机运行时注入。
 
 安装包默认 `CHASSIS_DESKTOP_RUNTIME_PROFILE=mock`，缺省时仍为 mock。Electron 自行设置动态 `CHASSIS_BACKEND_PORT`、`CHASSIS_LOOPBACK_CAN_PORT_BASE`、资源路径、userData data_root 和每次启动的 `CHASSIS_SIDECAR_TOKEN`；现场不得手工固定 sidecar token。production 选择、active package 和验签 key 必须通过本机批准的外部启动环境注入，禁止进入 Vite 变量或安装资源。
+
+## Network UI 配置语义（2026-07-23）
+
+- `ChannelConfig.enabled`/当前兼容字段 `tx_enabled` 在桌面页只表达“通道启用草稿”，不能显示成“发送允许”。
+- 主动发送权限是独立的只读安全状态：CAN1 始终锁定；CAN2 仅允许既有 `0x121`，UI 开关不得扩展白名单。
+- 默认控制通道是互斥选择；当前批准配置只能有 CAN2。服务端继续拒绝 CAN1 或多个控制通道。
+- 页面修改先进入内存草稿并显示“未应用变更”。只有 admin 触发“保存并应用”后，才执行 schema/权限/端口/来源/DBC/数据库/控制空闲校验、应用后健康检查、审计和失败回滚。
+- `not-measured`、`receive_confirmed`、`not_applicable` 等后端诊断枚举只在 UI 转换为中文；API 原始枚举保持稳定，便于自动化判断。

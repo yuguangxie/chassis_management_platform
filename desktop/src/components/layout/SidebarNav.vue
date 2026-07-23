@@ -16,7 +16,7 @@
     </nav>
 
     <div class="session-panel">
-      <div><strong>{{ auth.principal?.username }}</strong><span>{{ auth.principal?.role }}</span></div>
+      <div><strong>{{ auth.principal?.username }}</strong><span>{{ localizeStatus(auth.principal?.role) }}</span></div>
       <button type="button" title="锁定工作站" aria-label="锁定工作站" @click="lockSession"><LockKeyhole :size="16" /></button>
       <button type="button" title="退出登录" aria-label="退出登录" @click="logout"><LogOut :size="16" /></button>
     </div>
@@ -56,6 +56,7 @@ import {
 } from 'lucide-vue-next'
 import { useLayoutStore } from '../../stores/layout'
 import { useAuthStore, type Role } from '../../stores/auth'
+import { localizeStatus } from '../../ui/uiStatusLabels'
 
 const layout = useLayoutStore()
 const auth = useAuthStore()

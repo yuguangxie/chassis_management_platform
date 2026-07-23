@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import asyncio
 from copy import deepcopy
-from datetime import datetime
+from datetime import datetime, timezone
 import hashlib
 import ipaddress
 import json
@@ -19,7 +19,12 @@ from pydantic import BaseModel, ConfigDict, Field, field_validator
 import yaml
 
 from app.core.config import ChannelConfig, RuntimeConfig
-from app.configuration.diagnostics import configuration_preflight, diagnose_network
+from app.configuration.diagnostics import (
+    adapter_identity_check,
+    configuration_post_apply_health,
+    configuration_preflight,
+    diagnose_network,
+)
 from app.configuration.models import SignedConfigurationPackage
 from app.configuration.service import (
     ConfigurationLifecycleError,
@@ -34,6 +39,7 @@ from app.configuration.service import (
 )
 from app.core.paths import ASSETS_DIR, CONFIG_DIR, PROJECT_ROOT, DataPaths
 from app.core.time import utc_now
+from app.core.release_metadata import load_release_metadata
 from app.api.data_source import dashboard_metadata
 from app.api.errors import get_trace_id
 from app.api.models import ChannelSettingsResponse, ChannelSettingsUpdateRequest, SystemDashboardResponse
@@ -162,8 +168,8 @@ DEFAULT_NETWORK_CONFIG = {
         ],
     },
     "channels": [
-        {"name": "CAN1", "protocol": "UDP", "local_ip": "127.0.0.1", "local_port": 8234, "device_ip": "127.0.0.1", "device_port": 12341, "tx_enabled": True, "rx_status": "active", "period_ms": 20, "control_enabled": False, "status": "active"},
-        {"name": "CAN2", "protocol": "UDP", "local_ip": "127.0.0.1", "local_port": 8235, "device_ip": "127.0.0.1", "device_port": 12342, "tx_enabled": True, "rx_status": "active", "period_ms": 20, "control_enabled": True, "status": "active"},
+        {"name": "CAN1", "protocol": "UDP", "local_ip": "127.0.0.1", "local_port": 8234, "device_ip": "127.0.0.1", "device_port": 12341, "enabled": True, "rx_status": "active", "period_ms": 20, "control_enabled": False, "status": "active"},
+        {"name": "CAN2", "protocol": "UDP", "local_ip": "127.0.0.1", "local_port": 8235, "device_ip": "127.0.0.1", "device_port": 12342, "enabled": True, "rx_status": "active", "period_ms": 20, "control_enabled": True, "status": "active"},
     ],
 }
 
@@ -307,20 +313,39 @@ def _config_history(limit: int = 8) -> list[dict[str, Any]]:
 def _audit_action(action: str, target: str, payload: dict[str, Any], result: str = "OK", changes: list[dict[str, Any]] | None = None, principal: Principal | None = None) -> None:
     actor = principal or Principal("system", Role.ADMIN)
     if state.database is None:
-        logger.info("config action=%s target=%s payload=%s result=%s", action, target, payload, result)
-        return
-    try:
-        state.database.execute(
-            "INSERT INTO operator_actions(timestamp_utc, operator, role, action_type, target, request_json, result, trace_id) VALUES (?,?,?,?,?,?,?,?)",
-            (utc_now(), actor.username, actor.role.value, action, target, json.dumps(payload, ensure_ascii=False, default=str), result, ""),
+        state.db_writable = False
+        raise HTTPException(
+            503,
+            {
+                "code": "AUDIT_UNAVAILABLE",
+                "message": "配置操作审计数据库不可用，操作已拒绝",
+                "details": {"action": action, "blocking": True},
+            },
         )
-        for item in changes or []:
-            state.database.execute(
-                "INSERT INTO config_history(timestamp_utc, operator, config_key, old_value, new_value, reason, config_hash) VALUES (?,?,?,?,?,?,?)",
-                (utc_now(), actor.username, item["key"], str(item.get("old_value", "")), str(item.get("new_value", "")), payload.get("reason", action), ""),
+    try:
+        with state.database.transaction() as conn:
+            conn.execute(
+                "INSERT INTO operator_actions(timestamp_utc, operator, role, action_type, target, request_json, result, trace_id) VALUES (?,?,?,?,?,?,?,?)",
+                (utc_now(), actor.username, actor.role.value, action, target, json.dumps(payload, ensure_ascii=False, default=str), result, get_trace_id()),
             )
-    except Exception:
+            for item in changes or []:
+                conn.execute(
+                    "INSERT INTO config_history(timestamp_utc, operator, config_key, old_value, new_value, reason, config_hash) VALUES (?,?,?,?,?,?,?)",
+                    (utc_now(), actor.username, item["key"], str(item.get("old_value", "")), str(item.get("new_value", "")), payload.get("reason", action), ""),
+                )
+    except HTTPException:
+        raise
+    except Exception as exc:
         logger.exception("failed to audit config action")
+        state.db_writable = False
+        raise HTTPException(
+            503,
+            {
+                "code": "AUDIT_UNAVAILABLE",
+                "message": "配置操作审计写入失败，操作已拒绝",
+                "details": {"action": action, "error_type": type(exc).__name__, "blocking": True},
+            },
+        ) from exc
 
 
 async def _broadcast(topic: str, payload: dict[str, Any]) -> None:
@@ -421,7 +446,7 @@ def _normalize_channels(payload: dict[str, Any]) -> list[dict[str, Any]]:
         _validate_ip(device_ip, f"{name}.device_ip")
         _validate_port(local_port, f"{name}.local_port")
         _validate_port(device_port, f"{name}.device_port")
-        normalized.append({"name": name, "protocol": protocol, "local_ip": local_ip, "local_port": local_port, "device_ip": device_ip, "device_port": device_port, "tx_enabled": bool(item.get("tx_enabled", True)), "rx_status": str(item.get("rx_status") or "active"), "period_ms": int(item.get("period_ms") or 20), "control_enabled": bool(item.get("control_enabled", False)), "status": str(item.get("status") or "active")})
+        normalized.append({"name": name, "protocol": protocol, "local_ip": local_ip, "local_port": local_port, "device_ip": device_ip, "device_port": device_port, "enabled": bool(item.get("enabled", True)), "rx_status": str(item.get("rx_status") or "active"), "period_ms": int(item.get("period_ms") or 20), "control_enabled": bool(item.get("control_enabled", False)), "status": str(item.get("status") or "active")})
     if sum(1 for item in normalized if item["control_enabled"]) > 1:
         raise HTTPException(409, {"code": "MULTIPLE_CONTROL_CHANNELS", "message": "不能同时启用多个控制通道", "details": {"channels": [item["name"] for item in normalized if item["control_enabled"]]}, "trace_id": ""})
     return normalized
@@ -430,18 +455,22 @@ def _normalize_channels(payload: dict[str, Any]) -> list[dict[str, Any]]:
 def _dbc_dashboard() -> dict[str, Any]:
     raw = state.dbc.status() if state.dbc else {"loaded": False, "raw_only": True, "file": "", "hash": "", "version": "raw-only", "error": "DBC 服务未初始化"}
     messages = state.dbc.messages() if state.dbc else []
-    dbc_files = sorted(ASSETS_DIR.glob("*.dbc"))
-    filename = Path(raw.get("file") or (dbc_files[0] if dbc_files else "Yunle_CAN_integrated_candb_jd.dbc")).name
+    dbc_path = Path(str(raw.get("file"))) if raw.get("file") else None
+    filename = dbc_path.name if dbc_path else None
     status = "loaded" if raw.get("loaded") else "raw-only" if raw.get("raw_only") else "failed"
     return {
         "filename": filename,
-        "version": raw.get("version") or "Release v1.0.2",
-        "hash": str(raw.get("hash") or "9f31c2b7")[:12],
+        "version": raw.get("version") if raw.get("loaded") else None,
+        "hash": str(raw.get("hash")) if raw.get("hash") else None,
         "status": status,
-        "error": raw.get("error") or "",
-        "message_count": len(messages) or 48,
-        "signal_count": sum(len(item.get("signals", [])) for item in messages) or 312,
-        "loaded_at": _display_time(utc_now()),
+        "error": raw.get("error") or (None if raw.get("loaded") else "DBC 未加载"),
+        "message_count": len(messages),
+        "signal_count": sum(len(item.get("signals", [])) for item in messages),
+        "loaded_at": (
+            datetime.fromtimestamp(dbc_path.stat().st_mtime, tz=timezone.utc).isoformat()
+            if dbc_path and dbc_path.is_file()
+            else None
+        ),
         "overrides": deepcopy(DBC_OVERRIDES),
     }
 
@@ -474,15 +503,25 @@ def _system_version() -> dict[str, Any]:
     package_path = PROJECT_ROOT / "desktop" / "package.json"
     package = json.loads(package_path.read_text(encoding="utf-8")) if package_path.exists() else {}
     electron = package.get("devDependencies", {}).get("electron", package.get("dependencies", {}).get("electron", "compatible"))
+    release = load_release_metadata()
     return {
-        "software": state.config.software_version,
-        "config": "cfg-20260401",
-        "test_plan": "eol-plan-1.0.2",
+        "software": release.software_version or state.config.software_version,
+        "config": state.config.config_version,
+        "test_plan": state.config.test_plan_version,
         "python": platform.python_version(),
-        "node": "20.x",
+        "node": f"构建依赖 {package.get('engines', {}).get('node')}" if package.get("engines", {}).get("node") else "不适用",
         "electron": electron,
         "platform": f"{platform.system()} {platform.release()} {platform.machine()}",
-        "build_time": _display_time(utc_now()),
+        "build_time": release.built_at_utc,
+        "commit": release.commit,
+        "dirty": release.dirty,
+        "release_commit": release.commit,
+        "release_hash": release.manifest_sha256,
+        "release_label": release.release_label,
+        "signed": release.signed,
+        "formal_release": release.formal_release,
+        "source_dirty": release.dirty,
+        "metadata_error": release.error,
     }
 
 
@@ -549,6 +588,8 @@ def _system_dashboard() -> dict[str, Any]:
             mock=state.mock_enabled,
         ),
         "save_state": {"dirty": False, "last_saved_at": _file_time(SYSTEM_SETTINGS_PATH), "status": "saved"},
+        "runtime_profile": state.config.profile,
+        "configuration_authority": "signed-package" if state.config.profile == "production" else "direct-development",
         "auth": {"current_user": state.config.operator, "current_role": state.current_role},
         "basic": basic,
         "dbc": _dbc_dashboard(),
@@ -561,6 +602,18 @@ def _system_dashboard() -> dict[str, Any]:
         "storage_trend": [{"date": utc_now()[:10], "used_gb": _disk_stats()["disk_used_gb"], "source": "current-measurement"}],
         "storage_summary": _storage_summary(),
         "config_history": _config_history(),
+        "hardware_acceptance": (
+            state.hardware_acceptance.evaluate()
+            if state.hardware_acceptance
+            else {
+                "allowed": False,
+                "applicable": state.config.profile == "production",
+                "status": "unavailable",
+                "artifact": None,
+                "rules": [],
+                "reasons": [],
+            }
+        ),
     }
     _merge_saved(dashboard)
     paths = _runtime_data_paths()
@@ -614,6 +667,22 @@ async def get_config(_principal: Principal = Depends(require_role(Role.VIEWER)))
 
 @router.put("/config")
 async def put_config(payload: SystemConfigUpdate, principal: Principal = Depends(require_role(Role.ENGINEER))):
+    if state.config.profile == "production":
+        _audit_action(
+            "save_system_config_rejected",
+            "config.system",
+            {"code": "SIGNED_CONFIG_REQUIRED"},
+            result="REJECTED",
+            principal=principal,
+        )
+        raise HTTPException(
+            409,
+            {
+                "code": "SIGNED_CONFIG_REQUIRED",
+                "message": "生产配置只能通过已签名配置包预检并应用",
+                "details": {"required_flow": ["import", "dry-run", "admin-confirm", "apply"], "blocking": True},
+            },
+        )
     current = _system_dashboard()
     data = payload.model_dump(exclude_none=True)
     data.pop("role", None)
@@ -761,6 +830,14 @@ async def apply_config(payload: ConfigApplyRequest, principal: Principal = Depen
         _audit_action("config_apply_rejected", "config.package", {"summary": summary, "blocking_rules": [item["rule"] for item in blocking], "reason": payload.reason}, result="REJECTED", principal=principal)
         raise HTTPException(409, {"code": "CONFIG_HEALTH_CHECK_FAILED", "message": "配置包健康预检失败，未执行应用", "details": {"checks": checks}})
 
+    _audit_action(
+        "config_apply_authorized",
+        "config.package",
+        {"summary": summary, "reason": payload.reason},
+        result="AUTHORIZED",
+        principal=principal,
+    )
+
     old_config = state.config
     old_manager = state.can
     active_path = active_package_path()
@@ -792,26 +869,57 @@ async def apply_config(payload: ConfigApplyRequest, principal: Principal = Depen
             unavailable = [item["channel"] for item in new_manager.status() if item.get("enabled", True) and not item.get("online")]
             if unavailable:
                 raise RuntimeError(f"approved-source receive health check failed: {unavailable}")
+        post_checks = configuration_post_apply_health(state, payload.package.configuration)
+        post_blocking = [
+            item for item in post_checks if item.get("blocking") and not item.get("passed")
+        ]
+        if post_blocking:
+            raise RuntimeError(
+                "post-apply blocking health failed: "
+                + ",".join(str(item.get("rule")) for item in post_blocking)
+            )
         persist_active_package(payload.package)
+        changed = package_diff(old_config, payload.package)
+        _audit_action(
+            "config_apply_succeeded",
+            "config.package",
+            {
+                "summary": summary,
+                "reason": payload.reason,
+                "requires_restart": old_config.data_root != new_config.data_root,
+            },
+            changes=[
+                {
+                    "key": item["path"],
+                    "old_value": item["current"],
+                    "new_value": item["proposed"],
+                }
+                for item in changed
+            ],
+            principal=principal,
+        )
     except Exception as exc:
         await new_manager.stop_all()
         await _restore_manager(old_config, old_manager)
         restore_active_package(previous_package)
-        _audit_action("config_apply_rolled_back", "config.package", {"summary": summary, "reason": payload.reason, "error_type": type(exc).__name__}, result="ROLLED_BACK", principal=principal)
+        try:
+            _audit_action("config_apply_rolled_back", "config.package", {"summary": summary, "reason": payload.reason, "error_type": type(exc).__name__}, result="ROLLED_BACK", principal=principal)
+        except HTTPException:
+            logger.exception("configuration rollback audit was unavailable")
+        if isinstance(exc, HTTPException) and isinstance(exc.detail, dict) and exc.detail.get("code") == "AUDIT_UNAVAILABLE":
+            raise exc
         raise HTTPException(503, {"code": "CONFIG_APPLY_ROLLED_BACK", "message": "配置应用或健康检查失败，已回滚运行配置和持久化配置包", "details": {"error_type": type(exc).__name__}}) from exc
 
-    changed = package_diff(old_config, payload.package)
     response = {
         "ok": True,
         "applied": True,
         "rolled_back": False,
         "summary": summary,
         "diff": changed,
-        "health_checks": checks,
+        "health_checks": post_checks,
         "requires_restart": old_config.data_root != new_config.data_root,
         "message": "签名配置包已应用并完成通道启动健康检查",
     }
-    _audit_action("config_apply_succeeded", "config.package", {"summary": summary, "reason": payload.reason, "requires_restart": response["requires_restart"]}, changes=[{"key": item["path"], "old_value": item["current"], "new_value": item["proposed"]} for item in changed], principal=principal)
     await _broadcast("system.config_changed", response)
     await _broadcast("can.channel_status", state.can.status())
     return response
@@ -824,6 +932,22 @@ async def config_history(_principal: Principal = Depends(require_role(Role.VIEWE
 
 @router.post("/config/restore-safe-defaults")
 async def restore_safe_defaults(payload: RestoreSafeDefaultsRequest, principal: Principal = Depends(require_role(Role.ADMIN))):
+    if state.config.profile == "production":
+        _audit_action(
+            "restore_safe_defaults_rejected",
+            "config.safety",
+            {"code": "SIGNED_CONFIG_REQUIRED"},
+            result="REJECTED",
+            principal=principal,
+        )
+        raise HTTPException(
+            409,
+            {
+                "code": "SIGNED_CONFIG_REQUIRED",
+                "message": "生产安全配置只能通过已签名配置包预检并应用",
+                "details": {"blocking": True},
+            },
+        )
     if payload.confirmation != "RESTORE":
         raise HTTPException(422, {"code": "CONFIRMATION_MISMATCH", "message": "请输入 RESTORE 确认恢复安全默认", "details": {}, "trace_id": ""})
     before = _system_dashboard()
@@ -852,6 +976,11 @@ async def restore_safe_defaults(payload: RestoreSafeDefaultsRequest, principal: 
 @router.get("/config/channels", response_model=ChannelSettingsResponse)
 async def channels_config(_principal: Principal = Depends(require_role(Role.VIEWER))):
     diagnostic = await diagnose_network(state)
+    adapter_check = (
+        adapter_identity_check(runtime_configuration(state.config))
+        if state.config.profile == "production"
+        else None
+    )
     diagnostic_by_channel = {item["channel"]: item for item in diagnostic["channels"]}
     channels = [
         {
@@ -861,7 +990,7 @@ async def channels_config(_principal: Principal = Depends(require_role(Role.VIEW
             "local_port": item.local_receive_port,
             "device_ip": item.device_ip,
             "device_port": item.simulated_device_port or item.device_port,
-            "tx_enabled": item.enabled,
+            "enabled": item.enabled,
             "rx_status": diagnostic_by_channel.get(item.channel, {}).get("endpoint_status", "unconfirmed"),
             "period_ms": 20,
             "control_enabled": item.control_enabled,
@@ -888,6 +1017,15 @@ async def channels_config(_principal: Principal = Depends(require_role(Role.VIEW
             "host_ip": local_ip,
             "dev_ip": "127.0.0.1" if ipaddress.ip_address(local_ip).is_loopback else "not-applicable",
             "nic_name": state.config.network_interface_name,
+            "adapter_index": state.config.network_interface_index,
+            "mac_address": state.config.network_interface_mac,
+            "bind_address": local_ip,
+            "adapter_identity_status": (
+                "matched" if adapter_check and adapter_check["passed"] else "drift"
+                if adapter_check
+                else "not_applicable"
+            ),
+            "adapter_identity_rule": adapter_check,
             "subnet_mask": "not-measured",
             "link_speed": "not-measured",
             "ports": ports,
@@ -896,12 +1034,36 @@ async def channels_config(_principal: Principal = Depends(require_role(Role.VIEW
         },
         "channels": channels,
         "runtime_profile": state.config.profile,
+        "configuration_authority": "signed-package" if state.config.profile == "production" else "direct-development",
+        "read_only": state.config.profile == "production",
+        "active_transmit_policy": {
+            "control_channel": "CAN2",
+            "allowed_can_ids": ["0x121"],
+            "can1_transmit_locked": True,
+            "configurable": False,
+        },
         "trace_id": get_trace_id(),
     }
 
 
 @router.put("/config/channels", response_model=ChannelSettingsResponse)
 async def update_channels(payload: ChannelSettingsUpdateRequest, principal: Principal = Depends(require_role(Role.ADMIN))):
+    if state.config.profile == "production":
+        _audit_action(
+            "update_channels_rejected",
+            "config.channels",
+            {"code": "SIGNED_CONFIG_REQUIRED"},
+            result="REJECTED",
+            principal=principal,
+        )
+        raise HTTPException(
+            409,
+            {
+                "code": "SIGNED_CONFIG_REQUIRED",
+                "message": "生产环境通道配置只能通过已签名配置包导入、预检并应用",
+                "details": {"required_flow": ["import", "dry-run", "admin-confirm", "apply"], "blocking": True},
+            },
+        )
     payload_data = payload.model_dump()
     channels = _normalize_channels(payload_data)
     if state.config.profile != "production" and any(not ipaddress.ip_address(item["local_ip"]).is_loopback or not ipaddress.ip_address(item["device_ip"]).is_loopback for item in channels):
@@ -919,7 +1081,7 @@ async def update_channels(payload: ChannelSettingsUpdateRequest, principal: Prin
                 device_ip=item["device_ip"],
                 device_port=item["device_port"],
                 simulated_device_port=item["device_port"] if state.config.profile != "production" else None,
-                enabled=item["tx_enabled"],
+                enabled=item["enabled"],
                 control_enabled=item["control_enabled"],
                 receive_queue_size=previous.receive_queue_size if previous else 512,
                 max_frame_age_ms=previous.max_frame_age_ms if previous else 500,
@@ -933,9 +1095,9 @@ async def update_channels(payload: ChannelSettingsUpdateRequest, principal: Prin
     old_config = state.config
     old_manager = state.can
     from app.can_gateway.manager import CanGatewayManager
-    from app.services.lifecycle import on_frame
+    from app.services.lifecycle import on_can_security_event, on_frame
 
-    new_manager = CanGatewayManager(new_config, on_frame)
+    new_manager = CanGatewayManager(new_config, on_frame, on_can_security_event)
     try:
         if state.tx_scheduler:
             await state.tx_scheduler.stop()
@@ -966,6 +1128,14 @@ async def update_channels(payload: ChannelSettingsUpdateRequest, principal: Prin
         "local_network": payload_data.get("local_network") or DEFAULT_NETWORK_CONFIG["local_network"],
         "channels": channels,
         "runtime_profile": new_config.profile,
+        "configuration_authority": "direct-development",
+        "read_only": False,
+        "active_transmit_policy": {
+            "control_channel": "CAN2",
+            "allowed_can_ids": ["0x121"],
+            "can1_transmit_locked": True,
+            "configurable": False,
+        },
         "trace_id": get_trace_id(),
     }
     _audit_action("update_channels", "config.channels", response, changes=[{"key": "channels", "old_value": "runtime", "new_value": channels}], principal=principal)
@@ -976,6 +1146,22 @@ async def update_channels(payload: ChannelSettingsUpdateRequest, principal: Prin
 
 @router.post("/config/channels/restore-defaults", response_model=ChannelSettingsResponse)
 async def restore_channels_defaults(principal: Principal = Depends(require_role(Role.ADMIN))):
+    if state.config.profile == "production":
+        _audit_action(
+            "restore_channels_defaults_rejected",
+            "config.channels",
+            {"code": "SIGNED_CONFIG_REQUIRED"},
+            result="REJECTED",
+            principal=principal,
+        )
+        raise HTTPException(
+            409,
+            {
+                "code": "SIGNED_CONFIG_REQUIRED",
+                "message": "生产环境不能通过普通接口恢复通道默认值，请应用已签名配置包",
+                "details": {"blocking": True},
+            },
+        )
     host_ip = "127.0.0.1"
     defaults = ChannelSettingsUpdateRequest(
         local_network=DEFAULT_NETWORK_CONFIG["local_network"] | {"host_ip": host_ip},
@@ -983,12 +1169,12 @@ async def restore_channels_defaults(principal: Principal = Depends(require_role(
             {
                 "name": "CAN1", "protocol": "UDP", "local_ip": host_ip, "local_port": 8234,
                 "device_ip": "127.0.0.1",
-                "device_port": 12341, "control_enabled": False,
+                "device_port": 12341, "enabled": True, "control_enabled": False,
             },
             {
                 "name": "CAN2", "protocol": "UDP", "local_ip": host_ip, "local_port": 8235,
                 "device_ip": "127.0.0.1",
-                "device_port": 12342, "control_enabled": True,
+                "device_port": 12342, "enabled": True, "control_enabled": True,
             },
         ],
     )

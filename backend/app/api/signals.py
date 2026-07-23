@@ -278,6 +278,35 @@ def live_timeseries_batch() -> dict[str, Any]:
     return _timeseries_payload(None, "live", "平均值", enforce_available=False)
 
 
+def live_dashboard_payload(
+    watchlist: list[str] | None = None,
+    *,
+    enforce_available: bool = False,
+) -> dict[str, Any]:
+    """Return the single REST/WebSocket dashboard envelope.
+
+    WebSocket subscribers must receive the same top-level quality/provenance fields
+    as ``GET /signals/dashboard``.  Keeping this function side-effect free lets the
+    realtime publisher use it without weakening production availability checks.
+    """
+    selected = watchlist
+    if selected is None:
+        selected = state.preferences.get("watchlist") if state.preferences else state.signals.watchlist
+    payload = state.signals.dashboard_summary(selected)
+    status = payload.get("status", {})
+    quality = str(status.get("quality") or "unavailable")
+    if enforce_available:
+        require_data_in_production(quality != "unavailable", "signal dashboard")
+    return {
+        **dashboard_metadata(
+            "runtime",
+            quality=quality,
+            updated_at=str(status.get("updated_at") or utc_now()),
+        ),
+        **payload,
+    }
+
+
 def _save_json_export(prefix: str, payload: Any) -> Path:
     root = state.data_paths.exports
     root.mkdir(parents=True, exist_ok=True)
@@ -308,11 +337,7 @@ async def current():
 
 @router.get("/signals/dashboard", response_model=SignalDashboardResponse)
 async def dashboard():
-    watchlist = state.preferences.get("watchlist") if state.preferences else state.signals.watchlist
-    payload = state.signals.dashboard_summary(watchlist)
-    quality = payload["status"]["quality"]
-    require_data_in_production(quality != "unavailable", "signal dashboard")
-    return {**dashboard_metadata("runtime", quality=quality, updated_at=payload["status"]["updated_at"]), **payload}
+    return live_dashboard_payload(enforce_available=True)
 
 
 @router.get("/signals/watchlist", response_model=ObjectResponse)

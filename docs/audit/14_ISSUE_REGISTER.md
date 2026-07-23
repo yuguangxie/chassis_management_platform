@@ -1,5 +1,7 @@
 # 问题登记
 
+> **历史基线 / 已被后续审计取代。** 当前问题状态见 [`current_audit_2026-07-23`](../current_audit_2026-07-23/00_AUDIT_INDEX.md) 和本轮 [P0/P1 验证索引](../verification/software-p0-p1-closure-2026-07-23/README.md)。
+
 共 42 项：P0=5、P1=12、P2=19、P3=6。
 
 | ID | 级别 | 分类 | 模块 | 标题 | 阻产 | 车辆安全 | 工作量 | 状态 |

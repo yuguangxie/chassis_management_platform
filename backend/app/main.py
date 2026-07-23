@@ -8,10 +8,12 @@ from fastapi.responses import JSONResponse
 from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
 from app.api.router import router as api_router
+from app.control.intent_service import ControlIntentPersistenceError
 from app.api.errors import (
     TRACE_ID,
     http_exception_handler,
     new_trace_id,
+    safety_persistence_exception_handler,
     unhandled_exception_handler,
     validation_exception_handler,
 )
@@ -19,6 +21,7 @@ from app.core.logging import configure_logging
 from app.services.lifecycle import shutdown, startup
 from app.websocket.endpoint import router as ws_router
 from app.services.app_state import state
+from app.services.audit import AuditPersistenceError
 from app.sidecar_runtime import request_shutdown
 
 configure_logging()
@@ -76,6 +79,8 @@ app.include_router(ws_router)
 
 app.add_exception_handler(HTTPException, http_exception_handler)
 app.add_exception_handler(RequestValidationError, validation_exception_handler)
+app.add_exception_handler(AuditPersistenceError, safety_persistence_exception_handler)
+app.add_exception_handler(ControlIntentPersistenceError, safety_persistence_exception_handler)
 app.add_exception_handler(Exception, unhandled_exception_handler)
 
 

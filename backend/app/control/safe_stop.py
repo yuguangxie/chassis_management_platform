@@ -60,7 +60,7 @@ class SafeStopService:
                     "latched": True,
                 }
                 result["alarm"] = await self._raise_failure_alarm(result["code"], result["message"])
-                record_operator_action(self.state, principal, operation, "control.0x121", {"reason": reason}, "BLOCKED")
+                record_operator_action(self.state, principal, operation, "control.0x121", {"reason": reason}, "BLOCKED", required=True)
                 self.state.safe_stop_active = False
                 return result
 
@@ -78,7 +78,7 @@ class SafeStopService:
                         "latched": True,
                     }
                     result["alarm"] = await self._raise_failure_alarm(result["code"], result["message"])
-                    record_operator_action(self.state, principal, operation, "control.0x121", {"reason": reason, "attempts": attempts}, "BLOCKED")
+                    record_operator_action(self.state, principal, operation, "control.0x121", {"reason": reason, "attempts": attempts}, "BLOCKED", required=True)
                     self.state.safe_stop_active = False
                     return result
 
@@ -120,7 +120,7 @@ class SafeStopService:
                                 )
                             ),
                         }
-                        record_operator_action(self.state, principal, operation, "control.0x121", {"reason": reason, "attempts": attempts, "feedback": feedback}, "CONFIRMED")
+                        record_operator_action(self.state, principal, operation, "control.0x121", {"reason": reason, "attempts": attempts, "feedback": feedback}, "CONFIRMED", required=True)
                         return result
                 await asyncio.sleep(self.state.config.safe_stop_retry_ms / 1000)
 
@@ -135,7 +135,7 @@ class SafeStopService:
                 "emergency_stop": self.state.emergency_stop,
             }
             result["alarm"] = await self._raise_failure_alarm(code, result["message"])
-            record_operator_action(self.state, principal, operation, "control.0x121", {"reason": reason, "attempts": attempts}, code)
+            record_operator_action(self.state, principal, operation, "control.0x121", {"reason": reason, "attempts": attempts}, code, required=True)
             return result
 
     async def release_emergency(
@@ -149,12 +149,12 @@ class SafeStopService:
             return {"ok": False, "code": "CONFIRMATION_REQUIRED", "message": "解除急停必须输入 RELEASE"}
         evaluation = self.state.safety.evaluate(operation="release_emergency")
         if not evaluation["allowed"]:
-            record_operator_action(self.state, principal, "release_emergency", "control.estop", {"reason": reason}, "BLOCKED")
+            record_operator_action(self.state, principal, "release_emergency", "control.estop", {"reason": reason}, "BLOCKED", required=True)
             return {"ok": False, "code": "INTERLOCK_BLOCKED", "message": "解除急停条件不满足", "details": evaluation}
         await self.state.tx_scheduler.stop()
         self.state.emergency_stop = False
         self.state.safe_stop_latched = False
-        record_operator_action(self.state, principal, "release_emergency", "control.estop", {"reason": reason}, "OK")
+        record_operator_action(self.state, principal, "release_emergency", "control.estop", {"reason": reason}, "OK", required=True)
         return {"ok": True, "emergency_stop": False, "message": "急停锁存已解除"}
 
     def _feedback_after(self, started_monotonic: float) -> dict | None:

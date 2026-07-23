@@ -3,7 +3,7 @@ from __future__ import annotations
 from enum import Enum
 from typing import Any, Literal
 
-from pydantic import BaseModel, Field, model_validator
+from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 
 
 AssertionOperator = Literal[
@@ -34,13 +34,22 @@ AssertionOperator = Literal[
 
 
 class CreateSessionRequest(BaseModel):
-    chassis_no: str = "YL-JD-001"
-    vin: str = "L000000000000001"
-    serial_no: str = "SN-20260401-001"
-    operator: str = "op01"
-    station_id: str = "EOL-STATION-01"
-    plan_id: str = "default_chassis_eol_v1"
+    model_config = ConfigDict(extra="forbid")
+
+    chassis_no: str = Field(pattern=r"^[A-Z0-9][A-Z0-9._-]{2,63}$")
+    vin: str = Field(pattern=r"^[A-HJ-NPR-Z0-9]{17}$")
+    serial_no: str = Field(pattern=r"^[A-Z0-9][A-Z0-9._-]{2,63}$")
+    vehicle_series: str = Field(pattern=r"^[A-Z0-9_-]{1,32}$")
+    work_order_id: str = Field(pattern=r"^[A-Z0-9][A-Z0-9._-]{2,63}$")
+    plan_id: str = Field(pattern=r"^[A-Za-z0-9_.-]{1,128}$")
+    duplicate_policy: Literal["reject", "retest"] = "reject"
+    mock_session: bool = False
     remarks: str = ""
+
+    @field_validator("chassis_no", "vin", "serial_no", "vehicle_series", "work_order_id")
+    @classmethod
+    def normalize_identity(cls, value: str) -> str:
+        return value.strip().upper()
 
 
 class FailurePolicy(str, Enum):

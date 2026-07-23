@@ -1,5 +1,9 @@
 # 日志、归档与保留策略
 
+## 2026-07-23 应用日志实现
+
+应用日志固定派生自 `data_root/logs/application`，采用大小与 UTC 时间双触发轮转、gzip 压缩和有界 archive 数量。`StorageConfig` 为严格 schema，统一使用 `compress_rotated`；未知键和 production Parquet 会被拒绝。写入/轮转/压缩失败经 callback 锁存数据不可写告警，并继续阻止新的运动动作。自动 cleanup 不执行无人值守删除。
+
 应用日志写入 `<data_root>/logs/application`，Raw CAN 写入 `<data_root>/logs/raw_can`，解码信号写入 `<data_root>/logs/decoded_signals`。数据库同时保存 Raw CAN、解码信号、步骤、断言、告警和操作审计。
 
 Raw CAN writer 只负责批量写入、按会话/日期/大小轮转和可选 gzip，不再自行删除历史文件。所有删除统一进入 retention service。

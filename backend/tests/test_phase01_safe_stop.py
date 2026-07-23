@@ -74,7 +74,7 @@ def make_state(
         signals=SignalStore(),
         alarms=SimpleNamespace(max_level=lambda: 0),
         dbc=SimpleNamespace(status=lambda: {"loaded": True}),
-        database=None,
+        database=SimpleNamespace(execute=lambda *_args, **_kwargs: None),
         db_writable=True,
         emergency_stop=False,
         safe_stop_active=False,

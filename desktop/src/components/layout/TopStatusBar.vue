@@ -1,7 +1,7 @@
 <template>
   <header class="topbar">
     <div class="cell station"><span>工位</span><strong>{{ store.status.station_id }}</strong></div>
-    <div class="cell"><span>用户</span><strong>{{ auth.principal?.username || '—' }} · {{ auth.principal?.role || '—' }}</strong></div>
+    <div class="cell"><span>用户</span><strong>{{ auth.principal?.username || '—' }} · {{ localizeStatus(auth.principal?.role, '—') }}</strong></div>
     <div class="cell"><span>软件版本</span><strong>{{ store.status.software_version }}</strong></div>
     <div class="cell dbc"><span>DBC版本</span><strong :title="dbcVersion">{{ dbcVersion }}</strong></div>
     <div class="cell database">
@@ -11,11 +11,11 @@
     <div class="cell"><span>控制通道</span><strong>{{ store.status.control_channel }}</strong></div>
     <div class="cell compact">
       <span>CAN1</span>
-      <strong><i :class="['dot', can1.online ? 'on' : 'off']"></i>{{ can1.online ? 'online' : 'offline' }}</strong>
+      <strong><i :class="['dot', can1.online ? 'on' : 'off']"></i>{{ can1.online ? '在线' : '离线' }}</strong>
     </div>
     <div class="cell compact">
       <span>CAN2</span>
-      <strong><i :class="['dot', can2.online ? 'on' : 'off']"></i>{{ can2.online ? 'online' : 'offline' }}</strong>
+      <strong><i :class="['dot', can2.online ? 'on' : 'off']"></i>{{ can2.online ? '在线' : '离线' }}</strong>
     </div>
     <div class="cell estop">
       <span>急停</span>
@@ -23,10 +23,10 @@
     </div>
     <div class="cell alarm">
       <span>最高告警</span>
-      <strong><b :class="store.status.max_alarm_level > 0 ? 'warn' : 'ok'">{{ store.status.max_alarm_level }}</b> {{ store.status.max_alarm_level > 0 ? 'Warning' : 'Normal' }}</strong>
+      <strong><b :class="store.status.max_alarm_level > 0 ? 'warn' : 'ok'">{{ store.status.max_alarm_level }}</b> {{ store.status.max_alarm_level > 0 ? '警告' : '正常' }}</strong>
     </div>
     <div class="cell time"><span>当前时间</span><strong>{{ time }}</strong></div>
-    <div class="cell mock"><span>Mock</span><strong :class="store.status.mock_enabled ? 'warn-text' : ''">{{ store.status.mock_enabled ? '开启' : '关闭' }}</strong></div>
+    <div class="cell mock"><span>模拟模式（Mock）</span><strong :class="store.status.mock_enabled ? 'warn-text' : ''">{{ store.status.mock_enabled ? '开启' : '关闭' }}</strong></div>
   </header>
 </template>
 
@@ -35,6 +35,7 @@ import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
 import { fallbackChannels } from '../../mocks/fallbackData'
 import { useAppStatusStore } from '../../stores/appStatus'
 import { useAuthStore } from '../../stores/auth'
+import { localizeStatus } from '../../ui/uiStatusLabels'
 
 const store = useAppStatusStore()
 const auth = useAuthStore()

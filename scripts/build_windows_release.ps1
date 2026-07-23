@@ -8,7 +8,7 @@ $ErrorActionPreference = 'Stop'
 $Root = (Resolve-Path (Join-Path $PSScriptRoot '..')).Path
 $Backend = Join-Path $Root 'backend'
 $Desktop = Join-Path $Root 'desktop'
-$Evidence = Join-Path $Root 'docs\verification\phase-06\release'
+$Evidence = Join-Path $Root 'docs\verification\software-p0-p1-closure-2026-07-23\release'
 $ReleaseDir = Join-Path $Desktop 'release\windows'
 $Python = Join-Path $Backend '.venv\Scripts\python.exe'
 

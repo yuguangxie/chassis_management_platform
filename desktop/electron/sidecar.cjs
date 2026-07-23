@@ -119,6 +119,7 @@ class SidecarSupervisor extends EventEmitter {
       CHASSIS_ALLOW_FILE_ORIGIN: '1',
       CHASSIS_SIDECAR_TOKEN: credential,
       CHASSIS_REPORT_FONT: this.options.reportFont,
+      CHASSIS_RELEASE_MANIFEST: this.options.releaseManifest || '',
       CHASSIS_PRINT_BACKEND: process.env.CHASSIS_PRINT_BACKEND || 'virtual',
       PYTHONUTF8: '1',
       PYTHONUNBUFFERED: '1',

@@ -7,10 +7,16 @@ import logging
 import time
 from typing import Any
 import uuid
+import hashlib
 
 from app.control.control_121 import Control121Command
-from app.control.safety_interlock import InterlockBlocked
+from app.control.intent_service import ControlIntentPersistenceError
+from app.control.safety_interlock import InterlockBlocked, SafetyEvaluationContext
 from app.core.time import utc_now
+from app.core.paths import CONFIG_DIR
+from app.core.release_metadata import load_release_metadata
+from app.configuration.models import configuration_hash
+from app.configuration.service import runtime_configuration
 from app.eol.assertions import AssertionContext, AssertionEvaluator
 from app.eol.models import (
     AssertionOutcome,
@@ -22,6 +28,7 @@ from app.eol.models import (
 )
 from app.eol.plan_loader import load_test_plan, load_thresholds
 from app.services.app_state import AppState
+from app.security.auth import Principal, Role
 from app.storage.uow import EolUnitOfWork, PersistenceFailure, StationBusyPersistence
 
 
@@ -85,15 +92,52 @@ class EolEngine:
                 return session_id
         return None
 
-    def create_session(self, request: CreateSessionRequest) -> dict[str, Any]:
+    def create_session(
+        self,
+        request: CreateSessionRequest,
+        *,
+        operator: str,
+        operator_role: str,
+        auth_session_id: str,
+        station_id: str,
+        trace_id: str = "",
+    ) -> dict[str, Any]:
         if request.plan_id != self.plan.plan.id:
             raise ValueError(
                 f"unknown test plan {request.plan_id!r}; loaded plan is {self.plan.plan.id!r}"
             )
+        if request.vehicle_series.upper() != self.state.config.vehicle_series.upper():
+            raise ValueError(
+                f"vehicle series {request.vehicle_series!r} does not match active configuration"
+            )
+        if self.state.config.profile == "production" and request.mock_session:
+            raise ValueError("production profile forbids mock EOL sessions")
+        duplicate = None
+        if self.state.database:
+            duplicate = self.state.database.query_one(
+                "SELECT id,status,created_at FROM test_sessions WHERE vin=? OR chassis_no=? OR serial_no=? "
+                "ORDER BY created_at DESC LIMIT 1",
+                (request.vin, request.chassis_no, request.serial_no),
+            )
+        if duplicate and request.duplicate_policy == "reject":
+            raise ValueError(
+                f"duplicate vehicle identity already exists in session {duplicate['id']}"
+            )
         session_id = f"EOL-{uuid.uuid4().hex[:12].upper()}"
         dbc = self.state.dbc.status() if getattr(self.state, "dbc", None) else {}
-        session = request.model_dump() | {
+        release = load_release_metadata()
+        plan_path = CONFIG_DIR / "test_plan.yaml"
+        plan_hash = hashlib.sha256(plan_path.read_bytes()).hexdigest() if plan_path.is_file() else None
+        try:
+            config_digest = configuration_hash(runtime_configuration(self.state.config))
+        except Exception:
+            config_digest = None
+        session = request.model_dump(exclude={"mock_session"}) | {
             "id": session_id,
+            "operator": operator,
+            "operator_role": operator_role,
+            "auth_session_id": auth_session_id,
+            "station_id": station_id,
             "status": "IDLE",
             "overall_result": None,
             "steps": [],
@@ -103,8 +147,13 @@ class EolEngine:
             "plan_name": self.plan.plan.name,
             "plan_version": self.plan.plan.version,
             "dbc_hash": dbc.get("hash"),
-            "config_hash": f"profile:{self.state.config.profile}",
-            "software_version": self.state.config.software_version,
+            "config_hash": config_digest,
+            "config_version": getattr(self.state.config, "config_version", None),
+            "software_version": release.software_version or self.state.config.software_version,
+            "release_hash": release.manifest_sha256,
+            "test_plan_hash": plan_hash,
+            "duplicate_of_session_id": duplicate.get("id") if duplicate else None,
+            "trace_id": trace_id,
         }
         if self.uow:
             self.uow.create_session(session, self.plan)
@@ -348,6 +397,21 @@ class EolEngine:
             await self.state.tx_scheduler.stop()
 
         failed = [item for item in outcomes if item.result == "FAIL"]
+        for observation in observations:
+            intent_id = observation.get("intent_id")
+            if not intent_id or not self.state.control_intents:
+                continue
+            try:
+                self.state.control_intents.mark(
+                    intent_id,
+                    "FAILED" if failed else "CONFIRMED",
+                    error_code="EOL_ASSERTION_FAILED" if failed else None,
+                )
+            except ControlIntentPersistenceError as exc:
+                await self.state.control_intents.compensate_after_send_failure(
+                    intent_id, exc
+                )
+                raise PersistenceFailure(str(exc)) from exc
         step["status"] = "DONE"
         step["result"] = "FAIL" if failed else "PASS"
         step["ended_at"] = utc_now()
@@ -383,11 +447,49 @@ class EolEngine:
         runtime.active_command = command
         runtime.active_period_ms = action.period_ms
         operation = "eol_motion"
-        self.state.safety.require_allowed(command, operation=operation)
-        action_started = time.monotonic()
-        await self.state.tx_scheduler.start(
-            command, action.period_ms, operation=operation
+        context = SafetyEvaluationContext(
+            actor=session["operator"],
+            session_id=session["id"],
+            vehicle_id=session["vin"],
         )
+        evaluation = self.state.safety.require_allowed(
+            command, operation=operation, context=context
+        )
+        principal = Principal(
+            session["operator"],
+            Role(session.get("operator_role", "operator")),
+            session.get("auth_session_id", ""),
+        )
+        try:
+            intent_id = self.state.control_intents.create_authorized(
+                principal,
+                operation="eol_control",
+                target="CAN2:0x121",
+                command=command.model_dump(),
+                safety_evaluation=evaluation,
+                trace_id="",
+                vehicle_id=session["vin"],
+                eol_session_id=session["id"],
+            )
+        except ControlIntentPersistenceError as exc:
+            raise PersistenceFailure(str(exc)) from exc
+        action_started = time.monotonic()
+        try:
+            await self.state.tx_scheduler.start(
+                command, action.period_ms, operation=operation, context=context
+            )
+            self.state.control_intents.mark(intent_id, "SENT")
+        except ControlIntentPersistenceError as exc:
+            await self.state.control_intents.compensate_after_send_failure(intent_id, exc)
+            raise PersistenceFailure(str(exc)) from exc
+        except Exception as exc:
+            try:
+                self.state.control_intents.mark(
+                    intent_id, "FAILED", error_code=type(exc).__name__
+                )
+            except ControlIntentPersistenceError:
+                pass
+            raise
         try:
             await self._sleep_active(
                 session,
@@ -401,6 +503,7 @@ class EolEngine:
             await self.state.tx_scheduler.stop()
             runtime.active_command = None
         observation = {
+            "intent_id": intent_id,
             "cleanup": cleanup,
             "timestamp": utc_now(),
             "command": command.model_dump(),
@@ -652,13 +755,19 @@ class EolEngine:
         prior = session.get("overall_result")
         session["overall_result"] = intended_result
         metadata = {
-            "software_version": self.state.config.software_version,
-            "dbc_hash": (self.state.dbc.status() if self.state.dbc else {}).get("hash"),
+            "software_version": session.get("software_version"),
+            "release_hash": session.get("release_hash"),
+            "dbc_hash": session.get("dbc_hash"),
             "config_hash": session.get("config_hash"),
+            "config_version": session.get("config_version"),
             "config_profile": self.state.config.profile,
             "test_plan_id": self.plan.plan.id,
             "test_plan_version": self.plan.plan.version,
+            "test_plan_hash": session.get("test_plan_hash"),
             "operator": session.get("operator"),
+            "station_id": session.get("station_id"),
+            "vehicle_series": session.get("vehicle_series"),
+            "work_order_id": session.get("work_order_id"),
         }
         report = self.state.reports.generate(
             session, session["steps"], metadata=metadata

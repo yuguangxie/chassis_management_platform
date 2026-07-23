@@ -10,10 +10,10 @@
         <PageDataState :loading="store.loading" :error="store.error" :stale="store.offline || store.quality !== 'good' || Boolean(store.statistics.mock)" :empty="!store.latestFrames.length" />
       </div>
       <div class="header-actions">
-        <button v-if="auth.can('operator')" class="action danger" :disabled="store.offline" @click="clearDisplay"><Trash2 />清空显示</button>
-        <button v-if="auth.can('operator')" class="action" :disabled="store.offline" @click="postAction('/logs/export/csv', '导出CSV')"><Download />导出CSV</button>
-        <button v-if="auth.can('operator')" class="action" :disabled="store.offline" @click="postAction('/logs/export/raw-can', '导出原始日志')"><FileDown />导出原始日志</button>
-        <button v-if="auth.can('operator')" class="action" :disabled="store.offline" @click="loadFirstHistory"><FolderOpen />加载历史文件</button>
+        <IndustrialButton v-if="auth.can('operator')" size="compact" variant="danger" :disabled="store.offline" @click="clearDisplay"><template #icon><Trash2 :size="16" /></template>清空显示</IndustrialButton>
+        <IndustrialButton v-if="auth.can('operator')" size="compact" :disabled="store.offline" @click="postAction('/logs/export/csv', '导出 CSV')"><template #icon><Download :size="16" /></template>导出 CSV</IndustrialButton>
+        <IndustrialButton v-if="auth.can('operator')" size="compact" :disabled="store.offline" @click="postAction('/logs/export/raw-can', '导出原始日志')"><template #icon><FileDown :size="16" /></template>导出原始日志</IndustrialButton>
+        <IndustrialButton v-if="auth.can('operator')" size="compact" :disabled="store.offline" @click="loadFirstHistory"><template #icon><FolderOpen :size="16" /></template>加载历史文件</IndustrialButton>
       </div>
     </section>
 
@@ -21,7 +21,7 @@
       <div class="filter-item compact">
         <span>通道</span>
         <div class="segmented">
-          <button v-for="item in ['ALL', 'CAN1', 'CAN2']" :key="item" :class="{ active: store.filters.channel === item }" @click="store.filters.channel = item as 'ALL' | 'CAN1' | 'CAN2'">{{ item }}</button>
+          <button v-for="item in channelOptions" :key="item.value" :class="{ active: store.filters.channel === item.value }" @click="store.filters.channel = item.value">{{ item.label }}</button>
         </div>
       </div>
       <label class="filter-item">
@@ -35,7 +35,7 @@
       <div class="filter-item compact">
         <span>方向</span>
         <div class="segmented">
-          <button v-for="item in ['RX', 'TX', 'ALL']" :key="item" :class="{ active: store.filters.direction === item }" @click="store.filters.direction = item as 'ALL' | 'RX' | 'TX'">{{ item }}</button>
+          <button v-for="item in directionOptions" :key="item.value" :title="item.hint" :class="{ active: store.filters.direction === item.value }" @click="store.filters.direction = item.value">{{ item.label }}</button>
         </div>
       </div>
       <label class="filter-item narrow">
@@ -57,10 +57,10 @@
         </select>
       </label>
       <div class="filter-item compact">
-        <span>Hex/Dec</span>
+        <span>显示进制</span>
         <div class="segmented">
-          <button :class="{ active: store.filters.radix === 'Hex' }" @click="store.filters.radix = 'Hex'">Hex</button>
-          <button :class="{ active: store.filters.radix === 'Dec' }" @click="store.filters.radix = 'Dec'">Dec</button>
+          <button title="十六进制（Hex）" :class="{ active: store.filters.radix === 'Hex' }" @click="store.filters.radix = 'Hex'">十六进制</button>
+          <button title="十进制（Dec）" :class="{ active: store.filters.radix === 'Dec' }" @click="store.filters.radix = 'Dec'">十进制</button>
         </div>
       </div>
       <label class="filter-item pause">
@@ -97,14 +97,14 @@
               <tr v-for="frame in store.latestFrames" :key="frame.can_id_hex" :class="{ selected: selectedFrame?.can_id_hex === frame.can_id_hex }" @click="store.selectFrame(frame)">
                 <td>{{ frame.timestamp }}</td>
                 <td><span class="channel-pill">{{ frame.channel }}</span></td>
-                <td>{{ frame.direction }}</td>
+                <td>{{ directionLabel(frame.direction) }}</td>
                 <td class="can-id">{{ canIdLabel(frame) }}</td>
                 <td>{{ frame.frame_type }}</td>
                 <td>{{ frame.dlc }}</td>
                 <td class="hex">{{ dataLabel(frame.data_hex) }}</td>
                 <td>{{ frame.message_name }}</td>
                 <td>{{ frame.period_ms }}</td>
-                <td><span class="status-pill" :class="statusClass(frame.status)">{{ frame.status }}</span></td>
+                <td><span class="status-pill" :class="statusClass(frame.status)">{{ localizeStatus(frame.status) }}</span></td>
                 <td>{{ frame.source_session }}</td>
                 <td>{{ frame.frame_count }}</td>
               </tr>
@@ -118,13 +118,13 @@
 
       <article class="panel detail-panel">
         <div class="panel-head detail-head">
-          <h2>帧详情 - {{ selectedFrame?.can_id_hex || '-' }} ({{ selectedFrame?.message_name || 'raw-only' }})</h2>
+          <h2>帧详情 - {{ selectedFrame?.can_id_hex || '-' }}（{{ selectedFrame?.message_name || '仅原始数据' }}）</h2>
           <div class="icon-actions"><button disabled title="尚未实现：帧详情独立全屏"><Maximize2 :size="16" /></button><button disabled title="尚未实现：关闭帧详情面板"><X :size="16" /></button></div>
         </div>
         <div v-if="selectedFrame" class="detail-content">
           <div class="frame-info">
             <div><span>通道</span><b>{{ selectedFrame.channel }}</b></div>
-            <div><span>方向</span><b>{{ selectedFrame.direction }}</b></div>
+            <div><span>方向</span><b>{{ directionLabel(selectedFrame.direction) }}</b></div>
             <div><span>帧类型</span><b>{{ selectedFrame.frame_type }}</b></div>
             <div><span>时间戳</span><b>{{ selectedFrame.timestamp }}</b></div>
             <div><span>DLC</span><b>{{ selectedFrame.dlc }}</b></div>
@@ -177,7 +177,7 @@
 
     <section class="stats-grid">
       <article class="panel chart-card distribution">
-        <div class="panel-head"><h2>CAN ID 分布（Top 10）</h2></div>
+        <div class="panel-head"><h2>CAN ID 分布（前 6 项）</h2></div>
         <div class="chart-body"><BarChart :option="distributionOption" height="100%" /></div>
       </article>
       <article class="panel chart-card">
@@ -225,8 +225,8 @@
         <span>缓冲使用：{{ store.statistics.footer_status.buffer_usage }}%</span>
       </div>
       <div>
-        <span>接收帧率：{{ store.offline ? '—（stale）' : `${store.statistics.footer_status.rx_fps.toLocaleString()} fps` }}</span>
-        <span>发送帧率：{{ store.offline ? '—（stale）' : `${store.statistics.footer_status.tx_fps.toLocaleString()} fps` }}</span>
+        <span>接收帧率：{{ store.offline ? '—（数据陈旧）' : `${store.statistics.footer_status.rx_fps.toLocaleString()} fps` }}</span>
+        <span>发送帧率：{{ store.offline ? '—（数据陈旧）' : `${store.statistics.footer_status.tx_fps.toLocaleString()} fps` }}</span>
       </div>
     </footer>
 
@@ -245,11 +245,19 @@ import BarChart from '../components/charts/BarChart.vue'
 import RealtimeLineChart from '../components/charts/RealtimeLineChart.vue'
 import PageDataState from '../components/PageDataState.vue'
 import { useAuthStore } from '../stores/auth'
+import IndustrialButton from '../components/common/IndustrialButton.vue'
+import { localizeStatus } from '../ui/uiStatusLabels'
 
 const store = useCanStore()
 const auth = useAuthStore()
 const toast = ref('')
 const showAllHistory = ref(false)
+const channelOptions: Array<{ value: 'ALL' | 'CAN1' | 'CAN2'; label: string }> = [
+  { value: 'ALL', label: '全部' }, { value: 'CAN1', label: 'CAN1' }, { value: 'CAN2', label: 'CAN2' },
+]
+const directionOptions: Array<{ value: 'ALL' | 'RX' | 'TX'; label: string; hint: string }> = [
+  { value: 'ALL', label: '全部', hint: '全部方向' }, { value: 'RX', label: '接收', hint: '接收（RX）' }, { value: 'TX', label: '发送', hint: '发送（TX）' },
+]
 
 const selectedFrame = computed(() => store.selectedFrame)
 const selectedSignals = computed<CanDecodedSignal[]>(() => store.selectedDecoded?.signals || rawSignals(selectedFrame.value))
@@ -262,20 +270,20 @@ const splitLine = { lineStyle: { color: 'rgba(72, 119, 170, .22)' } }
 
 const distributionOption = computed<Record<string, unknown>>(() => ({
   backgroundColor: 'transparent',
-  grid: { left: 52, right: 28, top: 16, bottom: 18 },
+  grid: { left: 48, right: 42, top: 10, bottom: 22, containLabel: true },
   tooltip: { trigger: 'axis' },
-  xAxis: { type: 'value', axisLabel: chartText, axisLine, splitLine },
+  xAxis: { type: 'value', splitNumber: 4, axisLabel: { ...chartText, hideOverlap: true, formatter: (value: number) => value >= 1000 ? `${Math.round(value / 1000)}k` : value }, axisLine, splitLine },
   yAxis: {
     type: 'category',
     inverse: true,
-    axisLabel: chartText,
+    axisLabel: { ...chartText, hideOverlap: true },
     axisLine,
-    data: store.statistics.can_id_distribution.map((item) => item.can_id_hex),
+    data: store.statistics.can_id_distribution.slice(0, 6).map((item) => item.can_id_hex),
   },
   series: [{
     type: 'bar',
     barWidth: 10,
-    data: store.statistics.can_id_distribution.map((item) => item.count),
+    data: store.statistics.can_id_distribution.slice(0, 6).map((item) => item.count),
     label: { show: true, position: 'right', color: '#BCD4F2', formatter: ({ dataIndex }: { dataIndex: number }) => `${store.statistics.can_id_distribution[dataIndex]?.percent}%` },
     itemStyle: { color: '#2F80FF', borderRadius: [0, 5, 5, 0] },
   }],
@@ -284,10 +292,10 @@ const distributionOption = computed<Record<string, unknown>>(() => ({
 const fpsOption = computed<Record<string, unknown>>(() => ({
   backgroundColor: 'transparent',
   color: ['#21C55D', '#2F80FF'],
-  grid: { left: 40, right: 18, top: 22, bottom: 24 },
-  legend: { top: 0, right: 6, textStyle: chartText },
-  xAxis: { type: 'category', data: store.statistics.fps_trend.map((item) => item.time.slice(0, 5)), axisLabel: chartText, axisLine },
-  yAxis: { type: 'value', min: 0, max: 1200, axisLabel: chartText, axisLine, splitLine },
+  grid: { left: 36, right: 12, top: 24, bottom: 20, containLabel: true },
+  legend: { type: 'scroll', top: 0, right: 6, textStyle: chartText },
+  xAxis: { type: 'category', data: store.statistics.fps_trend.map((item) => item.time.slice(0, 5)), axisLabel: { ...chartText, hideOverlap: true, interval: 'auto' }, axisLine },
+  yAxis: { type: 'value', min: 0, max: 1200, splitNumber: 4, axisLabel: { ...chartText, hideOverlap: true }, axisLine, splitLine },
   series: [
     { name: 'CAN1', type: 'line', smooth: true, showSymbol: false, data: store.statistics.fps_trend.map((item) => item.can1) },
     { name: 'CAN2', type: 'line', smooth: true, showSymbol: false, data: store.statistics.fps_trend.map((item) => item.can2) },
@@ -297,10 +305,10 @@ const fpsOption = computed<Record<string, unknown>>(() => ({
 const jitterOption = computed<Record<string, unknown>>(() => ({
   backgroundColor: 'transparent',
   color: ['#2F80FF', '#21C55D', '#F6C343'],
-  grid: { left: 38, right: 16, top: 22, bottom: 24 },
-  legend: { top: 0, right: 2, textStyle: chartText },
-  xAxis: { type: 'category', data: store.statistics.period_jitter.map((item) => item.time.slice(0, 5)), axisLabel: chartText, axisLine },
-  yAxis: { type: 'value', min: -10, max: 10, axisLabel: chartText, axisLine, splitLine },
+  grid: { left: 36, right: 12, top: 24, bottom: 20, containLabel: true },
+  legend: { type: 'scroll', top: 0, right: 2, textStyle: chartText },
+  xAxis: { type: 'category', data: store.statistics.period_jitter.map((item) => item.time.slice(0, 5)), axisLabel: { ...chartText, hideOverlap: true, interval: 'auto' }, axisLine },
+  yAxis: { type: 'value', min: -10, max: 10, splitNumber: 4, axisLabel: { ...chartText, hideOverlap: true }, axisLine, splitLine },
   series: [
     { name: '0x121', type: 'scatter', symbolSize: 7, data: store.statistics.period_jitter.map((item) => item.id_121) },
     { name: '0x51', type: 'scatter', symbolSize: 7, data: store.statistics.period_jitter.map((item) => item.id_51) },
@@ -322,6 +330,10 @@ function canIdLabel(frame: CanLatestFrame): string {
 function dataLabel(dataHex: string): string {
   if (store.filters.radix === 'Hex') return dataHex
   return dataHex.split(/\s+/).filter(Boolean).map((byte) => Number.parseInt(byte, 16)).join(' ')
+}
+
+function directionLabel(direction: string): string {
+  return direction === 'RX' ? '接收' : direction === 'TX' ? '发送' : localizeStatus(direction)
 }
 
 function statusClass(status: string): string {
@@ -514,7 +526,7 @@ button {
 
 .filter-panel {
   display: grid;
-  grid-template-columns: 172px 180px 190px 150px 128px 136px 118px 96px;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
   align-items: center;
   gap: 10px;
   padding: 10px 12px;
@@ -562,6 +574,10 @@ button {
 }
 
 .segmented button {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   border-radius: 5px;
   color: #8EA7C8;
   background: transparent;
@@ -983,13 +999,17 @@ thead th {
 
 @media (max-width: 1500px) {
   .can-monitor-page {
-    grid-template-rows: 42px 78px minmax(0, 1.4fr) minmax(0, .82fr) 34px;
+    grid-template-rows: 42px 108px minmax(0, 1.5fr) minmax(0, .86fr) 34px;
+    gap:8px;
   }
 
   .filter-panel {
-    grid-template-columns: 148px 150px 160px 130px 112px 118px 100px 86px;
-    gap: 7px;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-rows:repeat(2,minmax(0,1fr));
+    gap: 5px 8px;
+    padding:5px 9px;
   }
+  .filter-item{gap:3px}.filter-item span{font-size:9px}.filter-item input,.filter-item select,.segmented{height:27px}.segmented button{font-size:10px;padding-inline:3px}
 
   .main-grid {
     grid-template-columns: minmax(0, 1.48fr) minmax(380px, .75fr);
@@ -998,5 +1018,6 @@ thead th {
   .stats-grid {
     grid-template-columns: 1.1fr .9fr .9fr .68fr 1fr;
   }
+  .panel-head{height:32px}.panel-head h2{font-size:11px}.chart-body{padding:2px 3px 4px}.error-kpis{gap:4px;padding:5px}.kpi{padding-inline:6px}.kpi span{font-size:9px}.kpi strong{font-size:18px}.history-table th,.history-table td{height:23px;font-size:9px}
 }
 </style>

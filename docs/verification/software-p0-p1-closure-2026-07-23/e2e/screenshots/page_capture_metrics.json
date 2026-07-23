@@ -1,0 +1,4102 @@
+{
+  "baseUrl": "http://127.0.0.1:15173",
+  "authentication": {
+    "unauthenticated_redirects_to_login": true,
+    "refresh_preserves_session": true,
+    "electron_restart_requires_login": true
+  },
+  "permission": {
+    "viewer_network_redirects_403": true
+  },
+  "stability": {
+    "duration_seconds": 60,
+    "sample_count": 60,
+    "signal_quality_values": [
+      "good"
+    ],
+    "signal_quality_stable": true,
+    "auto_test_button_stable": true,
+    "alarm_button_stable": true
+  },
+  "inspections": [
+    {
+      "page": "overview",
+      "route": "/overview",
+      "width": 1920,
+      "height": 1080,
+      "filename": "overview_1920x1080.png",
+      "interaction": {
+        "name": "overview",
+        "clicked": [
+          "route-to-history"
+        ],
+        "assertions": {
+          "history_route": true
+        }
+      },
+      "renderer_console_errors": [],
+      "renderer_page_errors": [],
+      "location": "#/overview",
+      "viewport": {
+        "width": 1920,
+        "height": 1040
+      },
+      "page_scrollable": false,
+      "root_scroll_height": 1040,
+      "root_client_height": 1040,
+      "white_controls": 0,
+      "chart_canvas_count": 3,
+      "page_inside_content": true,
+      "section_bounds": [
+        {
+          "className": "page-title",
+          "inside": true,
+          "top": 100,
+          "bottom": 142
+        },
+        {
+          "className": "kpi-row",
+          "inside": true,
+          "top": 152,
+          "bottom": 234
+        },
+        {
+          "className": "status-row",
+          "inside": true,
+          "top": 244,
+          "bottom": 537.140625
+        },
+        {
+          "className": "shortcut-row",
+          "inside": true,
+          "top": 547.140625,
+          "bottom": 617.140625
+        },
+        {
+          "className": "chart-row",
+          "inside": true,
+          "top": 627.140625,
+          "bottom": 847
+        },
+        {
+          "className": "panel table-panel",
+          "inside": true,
+          "top": 857,
+          "bottom": 1028
+        }
+      ],
+      "sections_inside_content": true,
+      "internal_scroll_reachable": true,
+      "bottom_blank_px": 12,
+      "segmented_bounds": [],
+      "segmented_controls_fit": true,
+      "chart_bounds": [
+        {
+          "inside": true,
+          "width": 306,
+          "height": 164
+        },
+        {
+          "inside": true,
+          "width": 512,
+          "height": 220
+        },
+        {
+          "inside": true,
+          "width": 605,
+          "height": 220
+        }
+      ],
+      "charts_inside_containers": true,
+      "action_text_bounds": [
+        {
+          "text": "新建检测",
+          "fits": true
+        },
+        {
+          "text": "继续上次会话",
+          "fits": true
+        },
+        {
+          "text": "打开报告目录",
+          "fits": true
+        },
+        {
+          "text": "进入安全停车",
+          "fits": true
+        },
+        {
+          "text": "进入CAN监控",
+          "fits": true
+        },
+        {
+          "text": "进入手动控制",
+          "fits": true
+        }
+      ],
+      "action_texts_fit": true,
+      "signal_light_samples": [],
+      "screenshot_light_colors_match": true,
+      "failed_to_fetch_banner": false,
+      "sidebar_collapsed": false,
+      "layout_rects": {
+        "shell": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1040
+        },
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 280,
+          "height": 1040
+        },
+        "main": {
+          "x": 280,
+          "y": 0,
+          "width": 1640,
+          "height": 1040
+        },
+        "topbar": {
+          "x": 280,
+          "y": 32,
+          "width": 1640,
+          "height": 58
+        },
+        "content": {
+          "x": 280,
+          "y": 90,
+          "width": 1640,
+          "height": 950
+        },
+        "sidebar_expand": null
+      },
+      "topbar_cells": [
+        {
+          "text": "工位EOL-STATION-01",
+          "rect": {
+            "x": 280,
+            "y": 32,
+            "width": 146.296875,
+            "height": 57
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        },
+        {
+          "text": "用户e2e-admin · 管理员",
+          "rect": {
+            "x": 426.296875,
+            "y": 32,
+            "width": 97.53125,
+            "height": 57
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        },
+        {
+          "text": "软件版本v1.0.2",
+          "rect": {
+            "x": 523.828125,
+            "y": 32,
+            "width": 118.4375,
+            "height": 57
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        }
+      ]
+    },
+    {
+      "page": "overview",
+      "route": "/overview",
+      "width": 1366,
+      "height": 768,
+      "filename": "overview_1366x768.png",
+      "interaction": {
+        "name": "overview",
+        "skipped": "already exercised at 1920x1080"
+      },
+      "renderer_console_errors": [],
+      "renderer_page_errors": [],
+      "location": "#/overview",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "page_scrollable": false,
+      "root_scroll_height": 768,
+      "root_client_height": 768,
+      "white_controls": 0,
+      "chart_canvas_count": 3,
+      "page_inside_content": true,
+      "section_bounds": [
+        {
+          "className": "page-title",
+          "inside": true,
+          "top": 100,
+          "bottom": 142
+        },
+        {
+          "className": "kpi-row",
+          "inside": true,
+          "top": 150,
+          "bottom": 226
+        },
+        {
+          "className": "status-row",
+          "inside": true,
+          "top": 234,
+          "bottom": 417.421875
+        },
+        {
+          "className": "shortcut-row",
+          "inside": true,
+          "top": 425.421875,
+          "bottom": 495.421875
+        },
+        {
+          "className": "chart-row",
+          "inside": true,
+          "top": 503.421875,
+          "bottom": 641
+        },
+        {
+          "className": "panel table-panel",
+          "inside": true,
+          "top": 649,
+          "bottom": 756
+        }
+      ],
+      "sections_inside_content": true,
+      "internal_scroll_reachable": true,
+      "bottom_blank_px": 12,
+      "segmented_bounds": [],
+      "segmented_controls_fit": true,
+      "chart_bounds": [
+        {
+          "inside": true,
+          "width": 170,
+          "height": 150
+        },
+        {
+          "inside": true,
+          "width": 363,
+          "height": 220
+        },
+        {
+          "inside": true,
+          "width": 429,
+          "height": 220
+        }
+      ],
+      "charts_inside_containers": true,
+      "action_text_bounds": [
+        {
+          "text": "新建检测",
+          "fits": true
+        },
+        {
+          "text": "继续上次会话",
+          "fits": true
+        },
+        {
+          "text": "打开报告目录",
+          "fits": true
+        },
+        {
+          "text": "进入安全停车",
+          "fits": true
+        },
+        {
+          "text": "进入CAN监控",
+          "fits": true
+        },
+        {
+          "text": "进入手动控制",
+          "fits": true
+        }
+      ],
+      "action_texts_fit": true,
+      "signal_light_samples": [],
+      "screenshot_light_colors_match": true,
+      "failed_to_fetch_banner": false,
+      "sidebar_collapsed": false,
+      "layout_rects": {
+        "shell": {
+          "x": 0,
+          "y": 0,
+          "width": 1366,
+          "height": 768
+        },
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 188,
+          "height": 768
+        },
+        "main": {
+          "x": 188,
+          "y": 0,
+          "width": 1178,
+          "height": 768
+        },
+        "topbar": {
+          "x": 188,
+          "y": 32,
+          "width": 1178,
+          "height": 58
+        },
+        "content": {
+          "x": 188,
+          "y": 90,
+          "width": 1178,
+          "height": 678
+        },
+        "sidebar_expand": null
+      },
+      "topbar_cells": [
+        {
+          "text": "工位EOL-STATION-01",
+          "rect": {
+            "x": 188,
+            "y": 32,
+            "width": 104.375,
+            "height": 57
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        },
+        {
+          "text": "用户e2e-admin · 管理员",
+          "rect": {
+            "x": 292.375,
+            "y": 32,
+            "width": 69.59375,
+            "height": 57
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        },
+        {
+          "text": "软件版本v1.0.2",
+          "rect": {
+            "x": 361.96875,
+            "y": 32,
+            "width": 84.515625,
+            "height": 57
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        }
+      ]
+    },
+    {
+      "page": "network-config",
+      "route": "/network-config",
+      "width": 1920,
+      "height": 1080,
+      "filename": "network-config_1920x1080.png",
+      "interaction": {
+        "name": "network-config",
+        "clicked": [
+          "toggle-channel-draft-twice",
+          "save-validated-config",
+          "invalid-config-rollback",
+          "network-self-test"
+        ],
+        "assertions": {
+          "draft_toggle_marks_dirty": true,
+          "failed_apply_rolled_back": true,
+          "can1_send_locked": true,
+          "only_121_approved": true,
+          "diagnostics_rendered": true,
+          "no_fake_zero_ping": true,
+          "no_raw_diagnostic_enums": true
+        }
+      },
+      "renderer_console_errors": [],
+      "renderer_page_errors": [],
+      "location": "#/network-config",
+      "viewport": {
+        "width": 1920,
+        "height": 1040
+      },
+      "page_scrollable": false,
+      "root_scroll_height": 1040,
+      "root_client_height": 1040,
+      "white_controls": 0,
+      "chart_canvas_count": 2,
+      "page_inside_content": true,
+      "section_bounds": [
+        {
+          "className": "page-title",
+          "inside": true,
+          "top": 100,
+          "bottom": 142
+        },
+        {
+          "className": "top-grid",
+          "inside": true,
+          "top": 152,
+          "bottom": 566.828125
+        },
+        {
+          "className": "middle-grid",
+          "inside": true,
+          "top": 576.828125,
+          "bottom": 948
+        },
+        {
+          "className": "action-row",
+          "inside": true,
+          "top": 958,
+          "bottom": 1028
+        }
+      ],
+      "sections_inside_content": true,
+      "internal_scroll_reachable": true,
+      "bottom_blank_px": 12,
+      "segmented_bounds": [
+        {
+          "text": "UDP",
+          "inside": true,
+          "textFits": true
+        },
+        {
+          "text": "TCP（开发预览）",
+          "inside": true,
+          "textFits": true
+        }
+      ],
+      "segmented_controls_fit": true,
+      "chart_bounds": [
+        {
+          "inside": true,
+          "width": 408,
+          "height": 220
+        },
+        {
+          "inside": true,
+          "width": 408,
+          "height": 220
+        }
+      ],
+      "charts_inside_containers": true,
+      "action_text_bounds": [
+        {
+          "text": "保存并应用",
+          "fits": true
+        },
+        {
+          "text": "测试连接",
+          "fits": true
+        },
+        {
+          "text": "启动CAN1",
+          "fits": true
+        },
+        {
+          "text": "启动CAN2",
+          "fits": true
+        },
+        {
+          "text": "停止全部",
+          "fits": true
+        },
+        {
+          "text": "恢复默认",
+          "fits": true
+        }
+      ],
+      "action_texts_fit": true,
+      "signal_light_samples": [],
+      "screenshot_light_colors_match": true,
+      "failed_to_fetch_banner": false,
+      "sidebar_collapsed": false,
+      "layout_rects": {
+        "shell": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1040
+        },
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 280,
+          "height": 1040
+        },
+        "main": {
+          "x": 280,
+          "y": 0,
+          "width": 1640,
+          "height": 1040
+        },
+        "topbar": {
+          "x": 280,
+          "y": 32,
+          "width": 1640,
+          "height": 58
+        },
+        "content": {
+          "x": 280,
+          "y": 90,
+          "width": 1640,
+          "height": 950
+        },
+        "sidebar_expand": null
+      },
+      "topbar_cells": [
+        {
+          "text": "工位EOL-STATION-01",
+          "rect": {
+            "x": 280,
+            "y": 32,
+            "width": 146.296875,
+            "height": 57
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        },
+        {
+          "text": "用户e2e-admin · 管理员",
+          "rect": {
+            "x": 426.296875,
+            "y": 32,
+            "width": 97.53125,
+            "height": 57
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        },
+        {
+          "text": "软件版本v1.0.2",
+          "rect": {
+            "x": 523.828125,
+            "y": 32,
+            "width": 118.4375,
+            "height": 57
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        }
+      ]
+    },
+    {
+      "page": "network-config",
+      "route": "/network-config",
+      "width": 1366,
+      "height": 768,
+      "filename": "network-config_1366x768.png",
+      "interaction": {
+        "name": "network-config",
+        "skipped": "already exercised at 1920x1080"
+      },
+      "renderer_console_errors": [],
+      "renderer_page_errors": [],
+      "location": "#/network-config",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "page_scrollable": false,
+      "root_scroll_height": 768,
+      "root_client_height": 768,
+      "white_controls": 0,
+      "chart_canvas_count": 2,
+      "page_inside_content": true,
+      "section_bounds": [
+        {
+          "className": "page-title",
+          "inside": true,
+          "top": 100,
+          "bottom": 142
+        },
+        {
+          "className": "top-grid",
+          "inside": true,
+          "top": 150,
+          "bottom": 451.921875
+        },
+        {
+          "className": "middle-grid",
+          "inside": true,
+          "top": 459.921875,
+          "bottom": 677.984375
+        },
+        {
+          "className": "action-row",
+          "inside": true,
+          "top": 685.984375,
+          "bottom": 755.984375
+        }
+      ],
+      "sections_inside_content": true,
+      "internal_scroll_reachable": true,
+      "bottom_blank_px": 12,
+      "segmented_bounds": [
+        {
+          "text": "UDP",
+          "inside": true,
+          "textFits": true
+        },
+        {
+          "text": "TCP（开发预览）",
+          "inside": true,
+          "textFits": true
+        }
+      ],
+      "segmented_controls_fit": true,
+      "chart_bounds": [
+        {
+          "inside": true,
+          "width": 272,
+          "height": 220
+        },
+        {
+          "inside": true,
+          "width": 272,
+          "height": 220
+        }
+      ],
+      "charts_inside_containers": true,
+      "action_text_bounds": [
+        {
+          "text": "保存并应用",
+          "fits": true
+        },
+        {
+          "text": "测试连接",
+          "fits": true
+        },
+        {
+          "text": "启动CAN1",
+          "fits": true
+        },
+        {
+          "text": "启动CAN2",
+          "fits": true
+        },
+        {
+          "text": "停止全部",
+          "fits": true
+        },
+        {
+          "text": "恢复默认",
+          "fits": true
+        }
+      ],
+      "action_texts_fit": true,
+      "signal_light_samples": [],
+      "screenshot_light_colors_match": true,
+      "failed_to_fetch_banner": false,
+      "sidebar_collapsed": false,
+      "layout_rects": {
+        "shell": {
+          "x": 0,
+          "y": 0,
+          "width": 1366,
+          "height": 768
+        },
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 188,
+          "height": 768
+        },
+        "main": {
+          "x": 188,
+          "y": 0,
+          "width": 1178,
+          "height": 768
+        },
+        "topbar": {
+          "x": 188,
+          "y": 32,
+          "width": 1178,
+          "height": 58
+        },
+        "content": {
+          "x": 188,
+          "y": 90,
+          "width": 1178,
+          "height": 678
+        },
+        "sidebar_expand": null
+      },
+      "topbar_cells": [
+        {
+          "text": "工位EOL-STATION-01",
+          "rect": {
+            "x": 188,
+            "y": 32,
+            "width": 104.375,
+            "height": 57
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        },
+        {
+          "text": "用户e2e-admin · 管理员",
+          "rect": {
+            "x": 292.375,
+            "y": 32,
+            "width": 69.59375,
+            "height": 57
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        },
+        {
+          "text": "软件版本v1.0.2",
+          "rect": {
+            "x": 361.96875,
+            "y": 32,
+            "width": 84.515625,
+            "height": 57
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        }
+      ]
+    },
+    {
+      "page": "can-monitor",
+      "route": "/can-monitor",
+      "width": 1920,
+      "height": 1080,
+      "filename": "can-monitor_1920x1080.png",
+      "interaction": {
+        "name": "can-monitor",
+        "clicked": [
+          "pause-display",
+          "expand-history"
+        ],
+        "assertions": {
+          "paused": true
+        }
+      },
+      "renderer_console_errors": [],
+      "renderer_page_errors": [],
+      "location": "#/can-monitor",
+      "viewport": {
+        "width": 1920,
+        "height": 1040
+      },
+      "page_scrollable": false,
+      "root_scroll_height": 1040,
+      "root_client_height": 1040,
+      "white_controls": 0,
+      "chart_canvas_count": 3,
+      "page_inside_content": true,
+      "section_bounds": [
+        {
+          "className": "page-header",
+          "inside": true,
+          "top": 100,
+          "bottom": 142
+        },
+        {
+          "className": "filter-panel",
+          "inside": true,
+          "top": 152,
+          "bottom": 228
+        },
+        {
+          "className": "main-grid",
+          "inside": true,
+          "top": 238,
+          "bottom": 699.546875
+        },
+        {
+          "className": "stats-grid",
+          "inside": true,
+          "top": 709.546875,
+          "bottom": 983.984375
+        },
+        {
+          "className": "monitor-footer",
+          "inside": true,
+          "top": 993.984375,
+          "bottom": 1027.984375
+        }
+      ],
+      "sections_inside_content": true,
+      "internal_scroll_reachable": true,
+      "bottom_blank_px": 12,
+      "segmented_bounds": [
+        {
+          "text": "全部",
+          "inside": true,
+          "textFits": true
+        },
+        {
+          "text": "CAN1",
+          "inside": true,
+          "textFits": true
+        },
+        {
+          "text": "CAN2",
+          "inside": true,
+          "textFits": true
+        },
+        {
+          "text": "全部",
+          "inside": true,
+          "textFits": true
+        },
+        {
+          "text": "接收",
+          "inside": true,
+          "textFits": true
+        },
+        {
+          "text": "发送",
+          "inside": true,
+          "textFits": true
+        },
+        {
+          "text": "十六进制",
+          "inside": true,
+          "textFits": true
+        },
+        {
+          "text": "十进制",
+          "inside": true,
+          "textFits": true
+        }
+      ],
+      "segmented_controls_fit": true,
+      "chart_bounds": [
+        {
+          "inside": true,
+          "width": 376,
+          "height": 222
+        },
+        {
+          "inside": true,
+          "width": 296,
+          "height": 222
+        },
+        {
+          "inside": true,
+          "width": 296,
+          "height": 222
+        }
+      ],
+      "charts_inside_containers": true,
+      "action_text_bounds": [],
+      "action_texts_fit": true,
+      "signal_light_samples": [],
+      "screenshot_light_colors_match": true,
+      "failed_to_fetch_banner": false,
+      "sidebar_collapsed": false,
+      "layout_rects": {
+        "shell": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1040
+        },
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 280,
+          "height": 1040
+        },
+        "main": {
+          "x": 280,
+          "y": 0,
+          "width": 1640,
+          "height": 1040
+        },
+        "topbar": {
+          "x": 280,
+          "y": 32,
+          "width": 1640,
+          "height": 58
+        },
+        "content": {
+          "x": 280,
+          "y": 90,
+          "width": 1640,
+          "height": 950
+        },
+        "sidebar_expand": null
+      },
+      "topbar_cells": [
+        {
+          "text": "工位EOL-STATION-01",
+          "rect": {
+            "x": 280,
+            "y": 32,
+            "width": 146.296875,
+            "height": 57
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        },
+        {
+          "text": "用户e2e-admin · 管理员",
+          "rect": {
+            "x": 426.296875,
+            "y": 32,
+            "width": 97.53125,
+            "height": 57
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        },
+        {
+          "text": "软件版本v1.0.2",
+          "rect": {
+            "x": 523.828125,
+            "y": 32,
+            "width": 118.4375,
+            "height": 57
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        }
+      ]
+    },
+    {
+      "page": "can-monitor",
+      "route": "/can-monitor",
+      "width": 1366,
+      "height": 768,
+      "filename": "can-monitor_1366x768.png",
+      "interaction": {
+        "name": "can-monitor",
+        "skipped": "already exercised at 1920x1080"
+      },
+      "renderer_console_errors": [],
+      "renderer_page_errors": [],
+      "location": "#/can-monitor",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "page_scrollable": false,
+      "root_scroll_height": 768,
+      "root_client_height": 768,
+      "white_controls": 0,
+      "chart_canvas_count": 3,
+      "page_inside_content": true,
+      "section_bounds": [
+        {
+          "className": "page-header",
+          "inside": true,
+          "top": 100,
+          "bottom": 142
+        },
+        {
+          "className": "filter-panel",
+          "inside": true,
+          "top": 150,
+          "bottom": 258
+        },
+        {
+          "className": "main-grid",
+          "inside": true,
+          "top": 266,
+          "bottom": 545.65625
+        },
+        {
+          "className": "stats-grid",
+          "inside": true,
+          "top": 553.65625,
+          "bottom": 714
+        },
+        {
+          "className": "monitor-footer",
+          "inside": true,
+          "top": 722,
+          "bottom": 756
+        }
+      ],
+      "sections_inside_content": true,
+      "internal_scroll_reachable": true,
+      "bottom_blank_px": 12,
+      "segmented_bounds": [
+        {
+          "text": "全部",
+          "inside": true,
+          "textFits": true
+        },
+        {
+          "text": "CAN1",
+          "inside": true,
+          "textFits": true
+        },
+        {
+          "text": "CAN2",
+          "inside": true,
+          "textFits": true
+        },
+        {
+          "text": "全部",
+          "inside": true,
+          "textFits": true
+        },
+        {
+          "text": "接收",
+          "inside": true,
+          "textFits": true
+        },
+        {
+          "text": "发送",
+          "inside": true,
+          "textFits": true
+        },
+        {
+          "text": "十六进制",
+          "inside": true,
+          "textFits": true
+        },
+        {
+          "text": "十进制",
+          "inside": true,
+          "textFits": true
+        }
+      ],
+      "segmented_controls_fit": true,
+      "chart_bounds": [
+        {
+          "inside": true,
+          "width": 260,
+          "height": 120
+        },
+        {
+          "inside": true,
+          "width": 211,
+          "height": 120
+        },
+        {
+          "inside": true,
+          "width": 211,
+          "height": 120
+        }
+      ],
+      "charts_inside_containers": true,
+      "action_text_bounds": [],
+      "action_texts_fit": true,
+      "signal_light_samples": [],
+      "screenshot_light_colors_match": true,
+      "failed_to_fetch_banner": false,
+      "sidebar_collapsed": false,
+      "layout_rects": {
+        "shell": {
+          "x": 0,
+          "y": 0,
+          "width": 1366,
+          "height": 768
+        },
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 188,
+          "height": 768
+        },
+        "main": {
+          "x": 188,
+          "y": 0,
+          "width": 1178,
+          "height": 768
+        },
+        "topbar": {
+          "x": 188,
+          "y": 32,
+          "width": 1178,
+          "height": 58
+        },
+        "content": {
+          "x": 188,
+          "y": 90,
+          "width": 1178,
+          "height": 678
+        },
+        "sidebar_expand": null
+      },
+      "topbar_cells": [
+        {
+          "text": "工位EOL-STATION-01",
+          "rect": {
+            "x": 188,
+            "y": 32,
+            "width": 104.375,
+            "height": 57
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        },
+        {
+          "text": "用户e2e-admin · 管理员",
+          "rect": {
+            "x": 292.375,
+            "y": 32,
+            "width": 69.59375,
+            "height": 57
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        },
+        {
+          "text": "软件版本v1.0.2",
+          "rect": {
+            "x": 361.96875,
+            "y": 32,
+            "width": 84.515625,
+            "height": 57
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        }
+      ]
+    },
+    {
+      "page": "signal-dashboard",
+      "route": "/signal-dashboard",
+      "width": 1920,
+      "height": 1080,
+      "filename": "signal-dashboard_1920x1080.png",
+      "interaction": {
+        "name": "signal-dashboard",
+        "clicked": [
+          "save-watchlist"
+        ],
+        "assertions": {
+          "write_feedback": true,
+          "five_signal_lights": true,
+          "light_states_explicit": true,
+          "light_colors_match_state": true,
+          "no_blink_animation": true
+        },
+        "light_samples": [
+          {
+            "label": "左转灯",
+            "state": "off",
+            "quality": "good",
+            "tone": "tone-yellow",
+            "color": "rgb(148,163,184)",
+            "text": "关闭"
+          },
+          {
+            "label": "右转灯",
+            "state": "off",
+            "quality": "good",
+            "tone": "tone-yellow",
+            "color": "rgb(148,163,184)",
+            "text": "关闭"
+          },
+          {
+            "label": "位置灯",
+            "state": "off",
+            "quality": "good",
+            "tone": "tone-red",
+            "color": "rgb(148,163,184)",
+            "text": "关闭"
+          },
+          {
+            "label": "近光灯",
+            "state": "off",
+            "quality": "good",
+            "tone": "tone-white",
+            "color": "rgb(148,163,184)",
+            "text": "关闭"
+          },
+          {
+            "label": "制动请求",
+            "state": "off",
+            "quality": "good",
+            "tone": "tone-red",
+            "color": "rgb(148,163,184)",
+            "text": "关闭"
+          }
+        ]
+      },
+      "renderer_console_errors": [],
+      "renderer_page_errors": [],
+      "location": "#/signal-dashboard",
+      "viewport": {
+        "width": 1920,
+        "height": 1040
+      },
+      "page_scrollable": false,
+      "root_scroll_height": 1040,
+      "root_client_height": 1040,
+      "white_controls": 0,
+      "chart_canvas_count": 0,
+      "page_inside_content": true,
+      "section_bounds": [
+        {
+          "className": "page-header",
+          "inside": true,
+          "top": 100,
+          "bottom": 142
+        },
+        {
+          "className": "row row-one",
+          "inside": true,
+          "top": 154,
+          "bottom": 464
+        },
+        {
+          "className": "row row-two",
+          "inside": true,
+          "top": 476,
+          "bottom": 696
+        },
+        {
+          "className": "row row-three",
+          "inside": true,
+          "top": 708,
+          "bottom": 1028
+        }
+      ],
+      "sections_inside_content": true,
+      "internal_scroll_reachable": true,
+      "bottom_blank_px": 12,
+      "segmented_bounds": [],
+      "segmented_controls_fit": true,
+      "chart_bounds": [],
+      "charts_inside_containers": true,
+      "action_text_bounds": [],
+      "action_texts_fit": true,
+      "signal_light_samples": [
+        {
+          "label": "左转灯",
+          "state": "off",
+          "tone": "tone-yellow",
+          "color": "rgb(148,163,184)",
+          "text": "关闭"
+        },
+        {
+          "label": "右转灯",
+          "state": "off",
+          "tone": "tone-yellow",
+          "color": "rgb(148,163,184)",
+          "text": "关闭"
+        },
+        {
+          "label": "位置灯",
+          "state": "off",
+          "tone": "tone-red",
+          "color": "rgb(148,163,184)",
+          "text": "关闭"
+        },
+        {
+          "label": "近光灯",
+          "state": "off",
+          "tone": "tone-white",
+          "color": "rgb(148,163,184)",
+          "text": "关闭"
+        },
+        {
+          "label": "制动请求",
+          "state": "off",
+          "tone": "tone-red",
+          "color": "rgb(148,163,184)",
+          "text": "关闭"
+        }
+      ],
+      "screenshot_light_colors_match": true,
+      "failed_to_fetch_banner": false,
+      "sidebar_collapsed": false,
+      "layout_rects": {
+        "shell": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1040
+        },
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 280,
+          "height": 1040
+        },
+        "main": {
+          "x": 280,
+          "y": 0,
+          "width": 1640,
+          "height": 1040
+        },
+        "topbar": {
+          "x": 280,
+          "y": 32,
+          "width": 1640,
+          "height": 58
+        },
+        "content": {
+          "x": 280,
+          "y": 90,
+          "width": 1640,
+          "height": 950
+        },
+        "sidebar_expand": null
+      },
+      "topbar_cells": [
+        {
+          "text": "工位EOL-STATION-01",
+          "rect": {
+            "x": 280,
+            "y": 32,
+            "width": 146.296875,
+            "height": 57
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        },
+        {
+          "text": "用户e2e-admin · 管理员",
+          "rect": {
+            "x": 426.296875,
+            "y": 32,
+            "width": 97.53125,
+            "height": 57
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        },
+        {
+          "text": "软件版本v1.0.2",
+          "rect": {
+            "x": 523.828125,
+            "y": 32,
+            "width": 118.4375,
+            "height": 57
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        }
+      ]
+    },
+    {
+      "page": "signal-dashboard",
+      "route": "/signal-dashboard",
+      "width": 1366,
+      "height": 768,
+      "filename": "signal-dashboard_1366x768.png",
+      "interaction": {
+        "name": "signal-dashboard",
+        "skipped": "already exercised at 1920x1080"
+      },
+      "renderer_console_errors": [],
+      "renderer_page_errors": [],
+      "location": "#/signal-dashboard",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "page_scrollable": false,
+      "root_scroll_height": 768,
+      "root_client_height": 768,
+      "white_controls": 0,
+      "chart_canvas_count": 0,
+      "page_inside_content": true,
+      "section_bounds": [
+        {
+          "className": "page-header",
+          "inside": true,
+          "top": 100,
+          "bottom": 142
+        },
+        {
+          "className": "row row-one",
+          "inside": true,
+          "top": 152,
+          "bottom": 444
+        },
+        {
+          "className": "row row-two",
+          "inside": true,
+          "top": 454,
+          "bottom": 664
+        },
+        {
+          "className": "row row-three",
+          "inside": true,
+          "top": 674,
+          "bottom": 756
+        }
+      ],
+      "sections_inside_content": true,
+      "internal_scroll_reachable": true,
+      "bottom_blank_px": 12,
+      "segmented_bounds": [],
+      "segmented_controls_fit": true,
+      "chart_bounds": [],
+      "charts_inside_containers": true,
+      "action_text_bounds": [],
+      "action_texts_fit": true,
+      "signal_light_samples": [
+        {
+          "label": "左转灯",
+          "state": "off",
+          "tone": "tone-yellow",
+          "color": "rgb(148,163,184)",
+          "text": "关闭"
+        },
+        {
+          "label": "右转灯",
+          "state": "off",
+          "tone": "tone-yellow",
+          "color": "rgb(148,163,184)",
+          "text": "关闭"
+        },
+        {
+          "label": "位置灯",
+          "state": "off",
+          "tone": "tone-red",
+          "color": "rgb(148,163,184)",
+          "text": "关闭"
+        },
+        {
+          "label": "近光灯",
+          "state": "off",
+          "tone": "tone-white",
+          "color": "rgb(148,163,184)",
+          "text": "关闭"
+        },
+        {
+          "label": "制动请求",
+          "state": "off",
+          "tone": "tone-red",
+          "color": "rgb(148,163,184)",
+          "text": "关闭"
+        }
+      ],
+      "screenshot_light_colors_match": true,
+      "failed_to_fetch_banner": false,
+      "sidebar_collapsed": false,
+      "layout_rects": {
+        "shell": {
+          "x": 0,
+          "y": 0,
+          "width": 1366,
+          "height": 768
+        },
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 188,
+          "height": 768
+        },
+        "main": {
+          "x": 188,
+          "y": 0,
+          "width": 1178,
+          "height": 768
+        },
+        "topbar": {
+          "x": 188,
+          "y": 32,
+          "width": 1178,
+          "height": 58
+        },
+        "content": {
+          "x": 188,
+          "y": 90,
+          "width": 1178,
+          "height": 678
+        },
+        "sidebar_expand": null
+      },
+      "topbar_cells": [
+        {
+          "text": "工位EOL-STATION-01",
+          "rect": {
+            "x": 188,
+            "y": 32,
+            "width": 104.375,
+            "height": 57
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        },
+        {
+          "text": "用户e2e-admin · 管理员",
+          "rect": {
+            "x": 292.375,
+            "y": 32,
+            "width": 69.59375,
+            "height": 57
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        },
+        {
+          "text": "软件版本v1.0.2",
+          "rect": {
+            "x": 361.96875,
+            "y": 32,
+            "width": 84.515625,
+            "height": 57
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        }
+      ]
+    },
+    {
+      "page": "realtime-curve",
+      "route": "/realtime-curve",
+      "width": 1920,
+      "height": 1080,
+      "filename": "realtime-curve_1920x1080.png",
+      "interaction": {
+        "name": "realtime-curve",
+        "clicked": [
+          "pause-curve",
+          "resume-curve"
+        ],
+        "assertions": {
+          "pause_resume_feedback": true,
+          "live_mode_zero_history_requests": true
+        }
+      },
+      "renderer_console_errors": [],
+      "renderer_page_errors": [],
+      "location": "#/realtime-curve",
+      "viewport": {
+        "width": 1920,
+        "height": 1040
+      },
+      "page_scrollable": false,
+      "root_scroll_height": 1040,
+      "root_client_height": 1040,
+      "white_controls": 0,
+      "chart_canvas_count": 7,
+      "page_inside_content": true,
+      "section_bounds": [
+        {
+          "className": "page-title",
+          "inside": true,
+          "top": 100,
+          "bottom": 142
+        },
+        {
+          "className": "curve-toolbar",
+          "inside": true,
+          "top": 152,
+          "bottom": 224
+        },
+        {
+          "className": "curve-main",
+          "inside": true,
+          "top": 234,
+          "bottom": 1028
+        }
+      ],
+      "sections_inside_content": true,
+      "internal_scroll_reachable": true,
+      "bottom_blank_px": 12,
+      "segmented_bounds": [],
+      "segmented_controls_fit": true,
+      "chart_bounds": [
+        {
+          "inside": true,
+          "width": 620,
+          "height": 216
+        },
+        {
+          "inside": true,
+          "width": 620,
+          "height": 216
+        },
+        {
+          "inside": true,
+          "width": 307,
+          "height": 216
+        },
+        {
+          "inside": true,
+          "width": 307,
+          "height": 216
+        },
+        {
+          "inside": true,
+          "width": 620,
+          "height": 216
+        },
+        {
+          "inside": true,
+          "width": 620,
+          "height": 216
+        },
+        {
+          "inside": true,
+          "width": 620,
+          "height": 216
+        }
+      ],
+      "charts_inside_containers": true,
+      "action_text_bounds": [],
+      "action_texts_fit": true,
+      "signal_light_samples": [],
+      "screenshot_light_colors_match": true,
+      "failed_to_fetch_banner": false,
+      "sidebar_collapsed": false,
+      "layout_rects": {
+        "shell": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1040
+        },
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 280,
+          "height": 1040
+        },
+        "main": {
+          "x": 280,
+          "y": 0,
+          "width": 1640,
+          "height": 1040
+        },
+        "topbar": {
+          "x": 280,
+          "y": 32,
+          "width": 1640,
+          "height": 58
+        },
+        "content": {
+          "x": 280,
+          "y": 90,
+          "width": 1640,
+          "height": 950
+        },
+        "sidebar_expand": null
+      },
+      "topbar_cells": [
+        {
+          "text": "工位EOL-STATION-01",
+          "rect": {
+            "x": 280,
+            "y": 32,
+            "width": 146.296875,
+            "height": 57
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        },
+        {
+          "text": "用户e2e-admin · 管理员",
+          "rect": {
+            "x": 426.296875,
+            "y": 32,
+            "width": 97.53125,
+            "height": 57
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        },
+        {
+          "text": "软件版本v1.0.2",
+          "rect": {
+            "x": 523.828125,
+            "y": 32,
+            "width": 118.4375,
+            "height": 57
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        }
+      ]
+    },
+    {
+      "page": "realtime-curve",
+      "route": "/realtime-curve",
+      "width": 1366,
+      "height": 768,
+      "filename": "realtime-curve_1366x768.png",
+      "interaction": {
+        "name": "realtime-curve",
+        "skipped": "already exercised at 1920x1080"
+      },
+      "renderer_console_errors": [],
+      "renderer_page_errors": [],
+      "location": "#/realtime-curve",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "page_scrollable": false,
+      "root_scroll_height": 768,
+      "root_client_height": 768,
+      "white_controls": 0,
+      "chart_canvas_count": 4,
+      "page_inside_content": true,
+      "section_bounds": [
+        {
+          "className": "page-title",
+          "inside": true,
+          "top": 100,
+          "bottom": 142
+        },
+        {
+          "className": "curve-toolbar",
+          "inside": true,
+          "top": 152,
+          "bottom": 264
+        },
+        {
+          "className": "curve-main",
+          "inside": true,
+          "top": 274,
+          "bottom": 756
+        }
+      ],
+      "sections_inside_content": true,
+      "internal_scroll_reachable": true,
+      "bottom_blank_px": 12,
+      "segmented_bounds": [],
+      "segmented_controls_fit": true,
+      "chart_bounds": [
+        {
+          "inside": true,
+          "width": 417,
+          "height": 197
+        },
+        {
+          "inside": true,
+          "width": 417,
+          "height": 197
+        },
+        {
+          "inside": true,
+          "width": 424,
+          "height": 197
+        },
+        {
+          "inside": true,
+          "width": 424,
+          "height": 197
+        }
+      ],
+      "charts_inside_containers": true,
+      "action_text_bounds": [],
+      "action_texts_fit": true,
+      "signal_light_samples": [],
+      "screenshot_light_colors_match": true,
+      "failed_to_fetch_banner": false,
+      "sidebar_collapsed": false,
+      "layout_rects": {
+        "shell": {
+          "x": 0,
+          "y": 0,
+          "width": 1366,
+          "height": 768
+        },
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 188,
+          "height": 768
+        },
+        "main": {
+          "x": 188,
+          "y": 0,
+          "width": 1178,
+          "height": 768
+        },
+        "topbar": {
+          "x": 188,
+          "y": 32,
+          "width": 1178,
+          "height": 58
+        },
+        "content": {
+          "x": 188,
+          "y": 90,
+          "width": 1178,
+          "height": 678
+        },
+        "sidebar_expand": null
+      },
+      "topbar_cells": [
+        {
+          "text": "工位EOL-STATION-01",
+          "rect": {
+            "x": 188,
+            "y": 32,
+            "width": 104.375,
+            "height": 57
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        },
+        {
+          "text": "用户e2e-admin · 管理员",
+          "rect": {
+            "x": 292.375,
+            "y": 32,
+            "width": 69.59375,
+            "height": 57
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        },
+        {
+          "text": "软件版本v1.0.2",
+          "rect": {
+            "x": 361.96875,
+            "y": 32,
+            "width": 84.515625,
+            "height": 57
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        }
+      ]
+    },
+    {
+      "page": "manual-control",
+      "route": "/manual-control",
+      "width": 1920,
+      "height": 1080,
+      "filename": "manual-control_1920x1080.png",
+      "interaction": {
+        "name": "manual-control",
+        "clicked": [
+          "select-neutral-local-only"
+        ],
+        "assertions": {
+          "feedback_rules": true,
+          "motion_not_sent": true
+        }
+      },
+      "renderer_console_errors": [],
+      "renderer_page_errors": [],
+      "location": "#/manual-control",
+      "viewport": {
+        "width": 1920,
+        "height": 1040
+      },
+      "page_scrollable": false,
+      "root_scroll_height": 1040,
+      "root_client_height": 1040,
+      "white_controls": 0,
+      "chart_canvas_count": 2,
+      "page_inside_content": true,
+      "section_bounds": [
+        {
+          "className": "page-title",
+          "inside": true,
+          "top": 100,
+          "bottom": 142
+        },
+        {
+          "className": "interlock-row",
+          "inside": true,
+          "top": 151,
+          "bottom": 266
+        },
+        {
+          "className": "control-grid",
+          "inside": true,
+          "top": 275,
+          "bottom": 663.46875
+        },
+        {
+          "className": "chart-row",
+          "inside": true,
+          "top": 672.46875,
+          "bottom": 878
+        },
+        {
+          "className": "panel action-panel",
+          "inside": true,
+          "top": 887,
+          "bottom": 987
+        },
+        {
+          "className": "safety-tip",
+          "inside": true,
+          "top": 996,
+          "bottom": 1028
+        }
+      ],
+      "sections_inside_content": true,
+      "internal_scroll_reachable": true,
+      "bottom_blank_px": 12,
+      "segmented_bounds": [
+        {
+          "text": "D",
+          "inside": true,
+          "textFits": true
+        },
+        {
+          "text": "N",
+          "inside": true,
+          "textFits": true
+        },
+        {
+          "text": "R",
+          "inside": true,
+          "textFits": true
+        },
+        {
+          "text": "手动",
+          "inside": true,
+          "textFits": true
+        },
+        {
+          "text": "远程",
+          "inside": true,
+          "textFits": true
+        },
+        {
+          "text": "自动",
+          "inside": true,
+          "textFits": true
+        },
+        {
+          "text": "速度模式",
+          "inside": true,
+          "textFits": true
+        },
+        {
+          "text": "电流模式",
+          "inside": true,
+          "textFits": true
+        }
+      ],
+      "segmented_controls_fit": true,
+      "chart_bounds": [
+        {
+          "inside": true,
+          "width": 781,
+          "height": 165
+        },
+        {
+          "inside": true,
+          "width": 781,
+          "height": 165
+        }
+      ],
+      "charts_inside_containers": true,
+      "action_text_bounds": [
+        {
+          "text": "发送一次",
+          "fits": true
+        },
+        {
+          "text": "开始周期发送",
+          "fits": true
+        },
+        {
+          "text": "停止周期发送",
+          "fits": true
+        },
+        {
+          "text": "安全停车",
+          "fits": true
+        },
+        {
+          "text": "急停",
+          "fits": true
+        },
+        {
+          "text": "解除急停确认",
+          "fits": true
+        },
+        {
+          "text": "恢复默认控制值",
+          "fits": true
+        }
+      ],
+      "action_texts_fit": true,
+      "signal_light_samples": [],
+      "screenshot_light_colors_match": true,
+      "failed_to_fetch_banner": false,
+      "sidebar_collapsed": false,
+      "layout_rects": {
+        "shell": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1040
+        },
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 280,
+          "height": 1040
+        },
+        "main": {
+          "x": 280,
+          "y": 0,
+          "width": 1640,
+          "height": 1040
+        },
+        "topbar": {
+          "x": 280,
+          "y": 32,
+          "width": 1640,
+          "height": 58
+        },
+        "content": {
+          "x": 280,
+          "y": 90,
+          "width": 1640,
+          "height": 950
+        },
+        "sidebar_expand": null
+      },
+      "topbar_cells": [
+        {
+          "text": "工位EOL-STATION-01",
+          "rect": {
+            "x": 280,
+            "y": 32,
+            "width": 146.296875,
+            "height": 57
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        },
+        {
+          "text": "用户e2e-admin · 管理员",
+          "rect": {
+            "x": 426.296875,
+            "y": 32,
+            "width": 97.53125,
+            "height": 57
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        },
+        {
+          "text": "软件版本v1.0.2",
+          "rect": {
+            "x": 523.828125,
+            "y": 32,
+            "width": 118.4375,
+            "height": 57
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        }
+      ]
+    },
+    {
+      "page": "manual-control",
+      "route": "/manual-control",
+      "width": 1366,
+      "height": 768,
+      "filename": "manual-control_1366x768.png",
+      "interaction": {
+        "name": "manual-control",
+        "skipped": "already exercised at 1920x1080"
+      },
+      "renderer_console_errors": [],
+      "renderer_page_errors": [],
+      "location": "#/manual-control",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "page_scrollable": false,
+      "root_scroll_height": 768,
+      "root_client_height": 768,
+      "white_controls": 0,
+      "chart_canvas_count": 2,
+      "page_inside_content": true,
+      "section_bounds": [
+        {
+          "className": "page-title",
+          "inside": true,
+          "top": 100,
+          "bottom": 142
+        },
+        {
+          "className": "interlock-row",
+          "inside": true,
+          "top": 149,
+          "bottom": 235
+        },
+        {
+          "className": "control-grid",
+          "inside": true,
+          "top": 242,
+          "bottom": 515.1875
+        },
+        {
+          "className": "chart-row",
+          "inside": true,
+          "top": 522.1875,
+          "bottom": 626
+        },
+        {
+          "className": "panel action-panel",
+          "inside": true,
+          "top": 633,
+          "bottom": 725
+        },
+        {
+          "className": "safety-tip",
+          "inside": true,
+          "top": 732,
+          "bottom": 756
+        }
+      ],
+      "sections_inside_content": true,
+      "internal_scroll_reachable": true,
+      "bottom_blank_px": 12,
+      "segmented_bounds": [
+        {
+          "text": "D",
+          "inside": true,
+          "textFits": true
+        },
+        {
+          "text": "N",
+          "inside": true,
+          "textFits": true
+        },
+        {
+          "text": "R",
+          "inside": true,
+          "textFits": true
+        },
+        {
+          "text": "手动",
+          "inside": true,
+          "textFits": true
+        },
+        {
+          "text": "远程",
+          "inside": true,
+          "textFits": true
+        },
+        {
+          "text": "自动",
+          "inside": true,
+          "textFits": true
+        },
+        {
+          "text": "速度模式",
+          "inside": true,
+          "textFits": true
+        },
+        {
+          "text": "电流模式",
+          "inside": true,
+          "textFits": true
+        }
+      ],
+      "segmented_controls_fit": true,
+      "chart_bounds": [
+        {
+          "inside": true,
+          "width": 550,
+          "height": 63
+        },
+        {
+          "inside": true,
+          "width": 550,
+          "height": 63
+        }
+      ],
+      "charts_inside_containers": true,
+      "action_text_bounds": [
+        {
+          "text": "发送一次",
+          "fits": true
+        },
+        {
+          "text": "开始周期发送",
+          "fits": true
+        },
+        {
+          "text": "停止周期发送",
+          "fits": true
+        },
+        {
+          "text": "安全停车",
+          "fits": true
+        },
+        {
+          "text": "急停",
+          "fits": true
+        },
+        {
+          "text": "解除急停确认",
+          "fits": true
+        },
+        {
+          "text": "恢复默认控制值",
+          "fits": true
+        }
+      ],
+      "action_texts_fit": true,
+      "signal_light_samples": [],
+      "screenshot_light_colors_match": true,
+      "failed_to_fetch_banner": false,
+      "sidebar_collapsed": false,
+      "layout_rects": {
+        "shell": {
+          "x": 0,
+          "y": 0,
+          "width": 1366,
+          "height": 768
+        },
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 188,
+          "height": 768
+        },
+        "main": {
+          "x": 188,
+          "y": 0,
+          "width": 1178,
+          "height": 768
+        },
+        "topbar": {
+          "x": 188,
+          "y": 32,
+          "width": 1178,
+          "height": 58
+        },
+        "content": {
+          "x": 188,
+          "y": 90,
+          "width": 1178,
+          "height": 678
+        },
+        "sidebar_expand": null
+      },
+      "topbar_cells": [
+        {
+          "text": "工位EOL-STATION-01",
+          "rect": {
+            "x": 188,
+            "y": 32,
+            "width": 104.375,
+            "height": 57
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        },
+        {
+          "text": "用户e2e-admin · 管理员",
+          "rect": {
+            "x": 292.375,
+            "y": 32,
+            "width": 69.59375,
+            "height": 57
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        },
+        {
+          "text": "软件版本v1.0.2",
+          "rect": {
+            "x": 361.96875,
+            "y": 32,
+            "width": 84.515625,
+            "height": 57
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        }
+      ]
+    },
+    {
+      "page": "auto-test",
+      "route": "/auto-test",
+      "width": 1920,
+      "height": 1080,
+      "filename": "auto-test_1920x1080.png",
+      "interaction": {
+        "name": "auto-test",
+        "clicked": [
+          "view-mock-session-logs"
+        ],
+        "assertions": {
+          "session_visible": true
+        }
+      },
+      "renderer_console_errors": [],
+      "renderer_page_errors": [],
+      "location": "#/auto-test",
+      "viewport": {
+        "width": 1920,
+        "height": 1040
+      },
+      "page_scrollable": false,
+      "root_scroll_height": 1040,
+      "root_client_height": 1040,
+      "white_controls": 0,
+      "chart_canvas_count": 1,
+      "page_inside_content": true,
+      "section_bounds": [
+        {
+          "className": "page-title",
+          "inside": true,
+          "top": 100,
+          "bottom": 142
+        },
+        {
+          "className": "summary-row",
+          "inside": true,
+          "top": 151,
+          "bottom": 301
+        },
+        {
+          "className": "panel stepper-card",
+          "inside": true,
+          "top": 310,
+          "bottom": 432
+        },
+        {
+          "className": "step-detail-row",
+          "inside": true,
+          "top": 441,
+          "bottom": 704.609375
+        },
+        {
+          "className": "bottom-data-row",
+          "inside": true,
+          "top": 713.609375,
+          "bottom": 949
+        },
+        {
+          "className": "action-row",
+          "inside": true,
+          "top": 958,
+          "bottom": 1028
+        }
+      ],
+      "sections_inside_content": true,
+      "internal_scroll_reachable": true,
+      "bottom_blank_px": 12,
+      "segmented_bounds": [],
+      "segmented_controls_fit": true,
+      "chart_bounds": [
+        {
+          "inside": true,
+          "width": 478,
+          "height": 218
+        }
+      ],
+      "charts_inside_containers": true,
+      "action_text_bounds": [
+        {
+          "text": "开始检测",
+          "fits": true
+        },
+        {
+          "text": "暂停",
+          "fits": true
+        },
+        {
+          "text": "继续",
+          "fits": true
+        },
+        {
+          "text": "中止",
+          "fits": true
+        },
+        {
+          "text": "急停",
+          "fits": true
+        },
+        {
+          "text": "生成报告",
+          "fits": true
+        },
+        {
+          "text": "查看关联日志",
+          "fits": true
+        }
+      ],
+      "action_texts_fit": true,
+      "signal_light_samples": [],
+      "screenshot_light_colors_match": true,
+      "failed_to_fetch_banner": false,
+      "sidebar_collapsed": false,
+      "layout_rects": {
+        "shell": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1040
+        },
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 280,
+          "height": 1040
+        },
+        "main": {
+          "x": 280,
+          "y": 0,
+          "width": 1640,
+          "height": 1040
+        },
+        "topbar": {
+          "x": 280,
+          "y": 32,
+          "width": 1640,
+          "height": 58
+        },
+        "content": {
+          "x": 280,
+          "y": 90,
+          "width": 1640,
+          "height": 950
+        },
+        "sidebar_expand": null
+      },
+      "topbar_cells": [
+        {
+          "text": "工位EOL-STATION-01",
+          "rect": {
+            "x": 280,
+            "y": 32,
+            "width": 146.296875,
+            "height": 57
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        },
+        {
+          "text": "用户e2e-admin · 管理员",
+          "rect": {
+            "x": 426.296875,
+            "y": 32,
+            "width": 97.53125,
+            "height": 57
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        },
+        {
+          "text": "软件版本v1.0.2",
+          "rect": {
+            "x": 523.828125,
+            "y": 32,
+            "width": 118.4375,
+            "height": 57
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        }
+      ]
+    },
+    {
+      "page": "auto-test",
+      "route": "/auto-test",
+      "width": 1366,
+      "height": 768,
+      "filename": "auto-test_1366x768.png",
+      "interaction": {
+        "name": "auto-test",
+        "skipped": "already exercised at 1920x1080"
+      },
+      "renderer_console_errors": [],
+      "renderer_page_errors": [],
+      "location": "#/auto-test",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "page_scrollable": false,
+      "root_scroll_height": 768,
+      "root_client_height": 768,
+      "white_controls": 0,
+      "chart_canvas_count": 1,
+      "page_inside_content": true,
+      "section_bounds": [
+        {
+          "className": "page-title",
+          "inside": true,
+          "top": 100,
+          "bottom": 142
+        },
+        {
+          "className": "summary-row",
+          "inside": true,
+          "top": 149,
+          "bottom": 265
+        },
+        {
+          "className": "panel stepper-card",
+          "inside": true,
+          "top": 272,
+          "bottom": 376
+        },
+        {
+          "className": "step-detail-row",
+          "inside": true,
+          "top": 383,
+          "bottom": 537.578125
+        },
+        {
+          "className": "bottom-data-row",
+          "inside": true,
+          "top": 544.578125,
+          "bottom": 678.984375
+        },
+        {
+          "className": "action-row",
+          "inside": true,
+          "top": 685.984375,
+          "bottom": 755.984375
+        }
+      ],
+      "sections_inside_content": true,
+      "internal_scroll_reachable": true,
+      "bottom_blank_px": 12,
+      "segmented_bounds": [],
+      "segmented_controls_fit": true,
+      "chart_bounds": [
+        {
+          "inside": true,
+          "width": 331,
+          "height": 109
+        }
+      ],
+      "charts_inside_containers": true,
+      "action_text_bounds": [
+        {
+          "text": "开始检测",
+          "fits": true
+        },
+        {
+          "text": "暂停",
+          "fits": true
+        },
+        {
+          "text": "继续",
+          "fits": true
+        },
+        {
+          "text": "中止",
+          "fits": true
+        },
+        {
+          "text": "急停",
+          "fits": true
+        },
+        {
+          "text": "生成报告",
+          "fits": true
+        },
+        {
+          "text": "查看关联日志",
+          "fits": true
+        }
+      ],
+      "action_texts_fit": true,
+      "signal_light_samples": [],
+      "screenshot_light_colors_match": true,
+      "failed_to_fetch_banner": false,
+      "sidebar_collapsed": false,
+      "layout_rects": {
+        "shell": {
+          "x": 0,
+          "y": 0,
+          "width": 1366,
+          "height": 768
+        },
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 188,
+          "height": 768
+        },
+        "main": {
+          "x": 188,
+          "y": 0,
+          "width": 1178,
+          "height": 768
+        },
+        "topbar": {
+          "x": 188,
+          "y": 32,
+          "width": 1178,
+          "height": 58
+        },
+        "content": {
+          "x": 188,
+          "y": 90,
+          "width": 1178,
+          "height": 678
+        },
+        "sidebar_expand": null
+      },
+      "topbar_cells": [
+        {
+          "text": "工位EOL-STATION-01",
+          "rect": {
+            "x": 188,
+            "y": 32,
+            "width": 104.375,
+            "height": 57
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        },
+        {
+          "text": "用户e2e-admin · 管理员",
+          "rect": {
+            "x": 292.375,
+            "y": 32,
+            "width": 69.59375,
+            "height": 57
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        },
+        {
+          "text": "软件版本v1.0.2",
+          "rect": {
+            "x": 361.96875,
+            "y": 32,
+            "width": 84.515625,
+            "height": 57
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        }
+      ]
+    },
+    {
+      "page": "alarm-diagnosis",
+      "route": "/alarm-diagnosis",
+      "width": 1920,
+      "height": 1080,
+      "filename": "alarm-diagnosis_1920x1080.png",
+      "interaction": {
+        "name": "alarm-diagnosis",
+        "clicked": [
+          "save-diagnosis-layout"
+        ],
+        "assertions": {
+          "write_feedback": true
+        }
+      },
+      "renderer_console_errors": [],
+      "renderer_page_errors": [],
+      "location": "#/alarm-diagnosis",
+      "viewport": {
+        "width": 1920,
+        "height": 1040
+      },
+      "page_scrollable": false,
+      "root_scroll_height": 1040,
+      "root_client_height": 1040,
+      "white_controls": 0,
+      "chart_canvas_count": 2,
+      "page_inside_content": true,
+      "section_bounds": [
+        {
+          "className": "page-title-row",
+          "inside": true,
+          "top": 100,
+          "bottom": 142
+        },
+        {
+          "className": "panel summary-panel",
+          "inside": true,
+          "top": 152,
+          "bottom": 252
+        },
+        {
+          "className": "diagnosis-grid",
+          "inside": true,
+          "top": 262,
+          "bottom": 542
+        },
+        {
+          "className": "panel history-panel",
+          "inside": true,
+          "top": 552,
+          "bottom": 762
+        },
+        {
+          "className": "chart-grid",
+          "inside": true,
+          "top": 772,
+          "bottom": 948
+        },
+        {
+          "className": "action-row",
+          "inside": true,
+          "top": 958,
+          "bottom": 1028
+        }
+      ],
+      "sections_inside_content": true,
+      "internal_scroll_reachable": true,
+      "bottom_blank_px": 12,
+      "segmented_bounds": [],
+      "segmented_controls_fit": true,
+      "chart_bounds": [
+        {
+          "inside": true,
+          "width": 567,
+          "height": 134
+        },
+        {
+          "inside": true,
+          "width": 396,
+          "height": 134
+        }
+      ],
+      "charts_inside_containers": true,
+      "action_text_bounds": [
+        {
+          "text": "确认告警",
+          "fits": true
+        },
+        {
+          "text": "人工放行申请",
+          "fits": true
+        },
+        {
+          "text": "导出诊断",
+          "fits": true
+        },
+        {
+          "text": "跳转CAN帧",
+          "fits": true
+        },
+        {
+          "text": "触发安全停车",
+          "fits": true
+        }
+      ],
+      "action_texts_fit": true,
+      "signal_light_samples": [],
+      "screenshot_light_colors_match": true,
+      "failed_to_fetch_banner": false,
+      "sidebar_collapsed": false,
+      "layout_rects": {
+        "shell": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1040
+        },
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 280,
+          "height": 1040
+        },
+        "main": {
+          "x": 280,
+          "y": 0,
+          "width": 1640,
+          "height": 1040
+        },
+        "topbar": {
+          "x": 280,
+          "y": 32,
+          "width": 1640,
+          "height": 58
+        },
+        "content": {
+          "x": 280,
+          "y": 90,
+          "width": 1640,
+          "height": 950
+        },
+        "sidebar_expand": null
+      },
+      "topbar_cells": [
+        {
+          "text": "工位EOL-STATION-01",
+          "rect": {
+            "x": 280,
+            "y": 32,
+            "width": 146.296875,
+            "height": 57
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        },
+        {
+          "text": "用户e2e-admin · 管理员",
+          "rect": {
+            "x": 426.296875,
+            "y": 32,
+            "width": 97.53125,
+            "height": 57
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        },
+        {
+          "text": "软件版本v1.0.2",
+          "rect": {
+            "x": 523.828125,
+            "y": 32,
+            "width": 118.4375,
+            "height": 57
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        }
+      ]
+    },
+    {
+      "page": "alarm-diagnosis",
+      "route": "/alarm-diagnosis",
+      "width": 1366,
+      "height": 768,
+      "filename": "alarm-diagnosis_1366x768.png",
+      "interaction": {
+        "name": "alarm-diagnosis",
+        "skipped": "already exercised at 1920x1080"
+      },
+      "renderer_console_errors": [],
+      "renderer_page_errors": [],
+      "location": "#/alarm-diagnosis",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "page_scrollable": false,
+      "root_scroll_height": 768,
+      "root_client_height": 768,
+      "white_controls": 0,
+      "chart_canvas_count": 2,
+      "page_inside_content": true,
+      "section_bounds": [
+        {
+          "className": "page-title-row",
+          "inside": true,
+          "top": 100,
+          "bottom": 142
+        },
+        {
+          "className": "panel summary-panel",
+          "inside": true,
+          "top": 149,
+          "bottom": 231
+        },
+        {
+          "className": "diagnosis-grid",
+          "inside": true,
+          "top": 238,
+          "bottom": 445
+        },
+        {
+          "className": "panel history-panel",
+          "inside": true,
+          "top": 452,
+          "bottom": 568
+        },
+        {
+          "className": "chart-grid",
+          "inside": true,
+          "top": 575,
+          "bottom": 679
+        },
+        {
+          "className": "action-row",
+          "inside": true,
+          "top": 686,
+          "bottom": 756
+        }
+      ],
+      "sections_inside_content": true,
+      "internal_scroll_reachable": true,
+      "bottom_blank_px": 12,
+      "segmented_bounds": [],
+      "segmented_controls_fit": true,
+      "chart_bounds": [
+        {
+          "inside": true,
+          "width": 397,
+          "height": 62
+        },
+        {
+          "inside": true,
+          "width": 275,
+          "height": 62
+        }
+      ],
+      "charts_inside_containers": true,
+      "action_text_bounds": [
+        {
+          "text": "确认告警",
+          "fits": true
+        },
+        {
+          "text": "人工放行申请",
+          "fits": true
+        },
+        {
+          "text": "导出诊断",
+          "fits": true
+        },
+        {
+          "text": "跳转CAN帧",
+          "fits": true
+        },
+        {
+          "text": "触发安全停车",
+          "fits": true
+        }
+      ],
+      "action_texts_fit": true,
+      "signal_light_samples": [],
+      "screenshot_light_colors_match": true,
+      "failed_to_fetch_banner": false,
+      "sidebar_collapsed": false,
+      "layout_rects": {
+        "shell": {
+          "x": 0,
+          "y": 0,
+          "width": 1366,
+          "height": 768
+        },
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 188,
+          "height": 768
+        },
+        "main": {
+          "x": 188,
+          "y": 0,
+          "width": 1178,
+          "height": 768
+        },
+        "topbar": {
+          "x": 188,
+          "y": 32,
+          "width": 1178,
+          "height": 58
+        },
+        "content": {
+          "x": 188,
+          "y": 90,
+          "width": 1178,
+          "height": 678
+        },
+        "sidebar_expand": null
+      },
+      "topbar_cells": [
+        {
+          "text": "工位EOL-STATION-01",
+          "rect": {
+            "x": 188,
+            "y": 32,
+            "width": 104.375,
+            "height": 57
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        },
+        {
+          "text": "用户e2e-admin · 管理员",
+          "rect": {
+            "x": 292.375,
+            "y": 32,
+            "width": 69.59375,
+            "height": 57
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        },
+        {
+          "text": "软件版本v1.0.2",
+          "rect": {
+            "x": 361.96875,
+            "y": 32,
+            "width": 84.515625,
+            "height": 57
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        }
+      ]
+    },
+    {
+      "page": "report-management",
+      "route": "/report-management",
+      "width": 1920,
+      "height": 1080,
+      "filename": "report-management_1920x1080.png",
+      "interaction": {
+        "name": "report-management",
+        "clicked": [
+          "scan-reports",
+          "preview-json"
+        ],
+        "assertions": {
+          "report_selected": true
+        }
+      },
+      "renderer_console_errors": [],
+      "renderer_page_errors": [],
+      "location": "#/report-management",
+      "viewport": {
+        "width": 1920,
+        "height": 1040
+      },
+      "page_scrollable": false,
+      "root_scroll_height": 1040,
+      "root_client_height": 1040,
+      "white_controls": 0,
+      "chart_canvas_count": 3,
+      "page_inside_content": true,
+      "section_bounds": [
+        {
+          "className": "page-title-row",
+          "inside": true,
+          "top": 100,
+          "bottom": 142
+        },
+        {
+          "className": "top-row",
+          "inside": true,
+          "top": 152,
+          "bottom": 352
+        },
+        {
+          "className": "middle-row",
+          "inside": true,
+          "top": 362,
+          "bottom": 702
+        },
+        {
+          "className": "bottom-row",
+          "inside": true,
+          "top": 712,
+          "bottom": 1028
+        }
+      ],
+      "sections_inside_content": true,
+      "internal_scroll_reachable": true,
+      "bottom_blank_px": 12,
+      "segmented_bounds": [],
+      "segmented_controls_fit": true,
+      "chart_bounds": [
+        {
+          "inside": true,
+          "width": 88,
+          "height": 79
+        },
+        {
+          "inside": true,
+          "width": 337,
+          "height": 274
+        },
+        {
+          "inside": true,
+          "width": 290,
+          "height": 274
+        }
+      ],
+      "charts_inside_containers": true,
+      "action_text_bounds": [
+        {
+          "text": "导出 Word",
+          "fits": true
+        },
+        {
+          "text": "导出 PDF",
+          "fits": true
+        },
+        {
+          "text": "打印",
+          "fits": true
+        },
+        {
+          "text": "删除",
+          "fits": true
+        },
+        {
+          "text": "重新生成",
+          "fits": true
+        },
+        {
+          "text": "关联日志",
+          "fits": true
+        }
+      ],
+      "action_texts_fit": true,
+      "signal_light_samples": [],
+      "screenshot_light_colors_match": true,
+      "failed_to_fetch_banner": false,
+      "sidebar_collapsed": false,
+      "layout_rects": {
+        "shell": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1040
+        },
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 280,
+          "height": 1040
+        },
+        "main": {
+          "x": 280,
+          "y": 0,
+          "width": 1640,
+          "height": 1040
+        },
+        "topbar": {
+          "x": 280,
+          "y": 32,
+          "width": 1640,
+          "height": 58
+        },
+        "content": {
+          "x": 280,
+          "y": 90,
+          "width": 1640,
+          "height": 950
+        },
+        "sidebar_expand": null
+      },
+      "topbar_cells": [
+        {
+          "text": "工位EOL-STATION-01",
+          "rect": {
+            "x": 280,
+            "y": 32,
+            "width": 146.296875,
+            "height": 57
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        },
+        {
+          "text": "用户e2e-admin · 管理员",
+          "rect": {
+            "x": 426.296875,
+            "y": 32,
+            "width": 97.53125,
+            "height": 57
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        },
+        {
+          "text": "软件版本v1.0.2",
+          "rect": {
+            "x": 523.828125,
+            "y": 32,
+            "width": 118.4375,
+            "height": 57
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        }
+      ]
+    },
+    {
+      "page": "report-management",
+      "route": "/report-management",
+      "width": 1366,
+      "height": 768,
+      "filename": "report-management_1366x768.png",
+      "interaction": {
+        "name": "report-management",
+        "skipped": "already exercised at 1920x1080"
+      },
+      "renderer_console_errors": [],
+      "renderer_page_errors": [],
+      "location": "#/report-management",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "page_scrollable": false,
+      "root_scroll_height": 768,
+      "root_client_height": 768,
+      "white_controls": 0,
+      "chart_canvas_count": 3,
+      "page_inside_content": true,
+      "section_bounds": [
+        {
+          "className": "page-title-row",
+          "inside": true,
+          "top": 100,
+          "bottom": 142
+        },
+        {
+          "className": "top-row",
+          "inside": true,
+          "top": 149,
+          "bottom": 313
+        },
+        {
+          "className": "middle-row",
+          "inside": true,
+          "top": 320,
+          "bottom": 570.25
+        },
+        {
+          "className": "bottom-row",
+          "inside": true,
+          "top": 577.25,
+          "bottom": 756
+        }
+      ],
+      "sections_inside_content": true,
+      "internal_scroll_reachable": true,
+      "bottom_blank_px": 12,
+      "segmented_bounds": [],
+      "segmented_controls_fit": true,
+      "chart_bounds": [
+        {
+          "inside": true,
+          "width": 88,
+          "height": 79
+        },
+        {
+          "inside": true,
+          "width": 238,
+          "height": 137
+        },
+        {
+          "inside": true,
+          "width": 211,
+          "height": 137
+        }
+      ],
+      "charts_inside_containers": true,
+      "action_text_bounds": [
+        {
+          "text": "导出 Word",
+          "fits": true
+        },
+        {
+          "text": "导出 PDF",
+          "fits": true
+        },
+        {
+          "text": "打印",
+          "fits": true
+        },
+        {
+          "text": "删除",
+          "fits": true
+        },
+        {
+          "text": "重新生成",
+          "fits": true
+        },
+        {
+          "text": "关联日志",
+          "fits": true
+        }
+      ],
+      "action_texts_fit": true,
+      "signal_light_samples": [],
+      "screenshot_light_colors_match": true,
+      "failed_to_fetch_banner": false,
+      "sidebar_collapsed": false,
+      "layout_rects": {
+        "shell": {
+          "x": 0,
+          "y": 0,
+          "width": 1366,
+          "height": 768
+        },
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 188,
+          "height": 768
+        },
+        "main": {
+          "x": 188,
+          "y": 0,
+          "width": 1178,
+          "height": 768
+        },
+        "topbar": {
+          "x": 188,
+          "y": 32,
+          "width": 1178,
+          "height": 58
+        },
+        "content": {
+          "x": 188,
+          "y": 90,
+          "width": 1178,
+          "height": 678
+        },
+        "sidebar_expand": null
+      },
+      "topbar_cells": [
+        {
+          "text": "工位EOL-STATION-01",
+          "rect": {
+            "x": 188,
+            "y": 32,
+            "width": 104.375,
+            "height": 57
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        },
+        {
+          "text": "用户e2e-admin · 管理员",
+          "rect": {
+            "x": 292.375,
+            "y": 32,
+            "width": 69.59375,
+            "height": 57
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        },
+        {
+          "text": "软件版本v1.0.2",
+          "rect": {
+            "x": 361.96875,
+            "y": 32,
+            "width": 84.515625,
+            "height": 57
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        }
+      ]
+    },
+    {
+      "page": "history",
+      "route": "/history",
+      "width": 1920,
+      "height": 1080,
+      "filename": "history_1920x1080.png",
+      "interaction": {
+        "name": "history",
+        "clicked": [
+          "filter-history",
+          "query-history",
+          "paginate-history"
+        ],
+        "assertions": {
+          "pagination_present": true
+        }
+      },
+      "renderer_console_errors": [],
+      "renderer_page_errors": [],
+      "location": "#/history",
+      "viewport": {
+        "width": 1920,
+        "height": 1040
+      },
+      "page_scrollable": false,
+      "root_scroll_height": 1040,
+      "root_client_height": 1040,
+      "white_controls": 0,
+      "chart_canvas_count": 2,
+      "page_inside_content": true,
+      "section_bounds": [
+        {
+          "className": "page-title-row",
+          "inside": true,
+          "top": 100,
+          "bottom": 142
+        },
+        {
+          "className": "panel filter-panel",
+          "inside": true,
+          "top": 152,
+          "bottom": 252
+        },
+        {
+          "className": "history-main-row",
+          "inside": true,
+          "top": 262,
+          "bottom": 562
+        },
+        {
+          "className": "history-log-row",
+          "inside": true,
+          "top": 572,
+          "bottom": 752
+        },
+        {
+          "className": "history-chart-row",
+          "inside": true,
+          "top": 762,
+          "bottom": 956
+        },
+        {
+          "className": "history-footer",
+          "inside": true,
+          "top": 966,
+          "bottom": 1028
+        }
+      ],
+      "sections_inside_content": true,
+      "internal_scroll_reachable": true,
+      "bottom_blank_px": 12,
+      "segmented_bounds": [],
+      "segmented_controls_fit": true,
+      "chart_bounds": [
+        {
+          "inside": true,
+          "width": 532,
+          "height": 158
+        },
+        {
+          "inside": true,
+          "width": 532,
+          "height": 158
+        }
+      ],
+      "charts_inside_containers": true,
+      "action_text_bounds": [
+        {
+          "text": "打开会话详情",
+          "fits": true
+        },
+        {
+          "text": "回放曲线",
+          "fits": true
+        },
+        {
+          "text": "下载数据包",
+          "fits": true
+        }
+      ],
+      "action_texts_fit": true,
+      "signal_light_samples": [],
+      "screenshot_light_colors_match": true,
+      "failed_to_fetch_banner": false,
+      "sidebar_collapsed": false,
+      "layout_rects": {
+        "shell": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1040
+        },
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 280,
+          "height": 1040
+        },
+        "main": {
+          "x": 280,
+          "y": 0,
+          "width": 1640,
+          "height": 1040
+        },
+        "topbar": {
+          "x": 280,
+          "y": 32,
+          "width": 1640,
+          "height": 58
+        },
+        "content": {
+          "x": 280,
+          "y": 90,
+          "width": 1640,
+          "height": 950
+        },
+        "sidebar_expand": null
+      },
+      "topbar_cells": [
+        {
+          "text": "工位EOL-STATION-01",
+          "rect": {
+            "x": 280,
+            "y": 32,
+            "width": 146.296875,
+            "height": 57
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        },
+        {
+          "text": "用户e2e-admin · 管理员",
+          "rect": {
+            "x": 426.296875,
+            "y": 32,
+            "width": 97.53125,
+            "height": 57
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        },
+        {
+          "text": "软件版本v1.0.2",
+          "rect": {
+            "x": 523.828125,
+            "y": 32,
+            "width": 118.4375,
+            "height": 57
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        }
+      ]
+    },
+    {
+      "page": "history",
+      "route": "/history",
+      "width": 1366,
+      "height": 768,
+      "filename": "history_1366x768.png",
+      "interaction": {
+        "name": "history",
+        "skipped": "already exercised at 1920x1080"
+      },
+      "renderer_console_errors": [],
+      "renderer_page_errors": [],
+      "location": "#/history",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "page_scrollable": false,
+      "root_scroll_height": 768,
+      "root_client_height": 768,
+      "white_controls": 0,
+      "chart_canvas_count": 2,
+      "page_inside_content": true,
+      "section_bounds": [
+        {
+          "className": "page-title-row",
+          "inside": true,
+          "top": 100,
+          "bottom": 142
+        },
+        {
+          "className": "panel filter-panel",
+          "inside": true,
+          "top": 149,
+          "bottom": 231
+        },
+        {
+          "className": "history-main-row",
+          "inside": true,
+          "top": 238,
+          "bottom": 438.953125
+        },
+        {
+          "className": "history-log-row",
+          "inside": true,
+          "top": 445.953125,
+          "bottom": 567.96875
+        },
+        {
+          "className": "history-chart-row",
+          "inside": true,
+          "top": 574.96875,
+          "bottom": 697
+        },
+        {
+          "className": "history-footer",
+          "inside": true,
+          "top": 704,
+          "bottom": 756
+        }
+      ],
+      "sections_inside_content": true,
+      "internal_scroll_reachable": true,
+      "bottom_blank_px": 12,
+      "segmented_bounds": [],
+      "segmented_controls_fit": true,
+      "chart_bounds": [
+        {
+          "inside": true,
+          "width": 373,
+          "height": 86
+        },
+        {
+          "inside": true,
+          "width": 373,
+          "height": 86
+        }
+      ],
+      "charts_inside_containers": true,
+      "action_text_bounds": [
+        {
+          "text": "打开会话详情",
+          "fits": true
+        },
+        {
+          "text": "回放曲线",
+          "fits": true
+        },
+        {
+          "text": "下载数据包",
+          "fits": true
+        }
+      ],
+      "action_texts_fit": true,
+      "signal_light_samples": [],
+      "screenshot_light_colors_match": true,
+      "failed_to_fetch_banner": false,
+      "sidebar_collapsed": false,
+      "layout_rects": {
+        "shell": {
+          "x": 0,
+          "y": 0,
+          "width": 1366,
+          "height": 768
+        },
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 188,
+          "height": 768
+        },
+        "main": {
+          "x": 188,
+          "y": 0,
+          "width": 1178,
+          "height": 768
+        },
+        "topbar": {
+          "x": 188,
+          "y": 32,
+          "width": 1178,
+          "height": 58
+        },
+        "content": {
+          "x": 188,
+          "y": 90,
+          "width": 1178,
+          "height": 678
+        },
+        "sidebar_expand": null
+      },
+      "topbar_cells": [
+        {
+          "text": "工位EOL-STATION-01",
+          "rect": {
+            "x": 188,
+            "y": 32,
+            "width": 104.375,
+            "height": 57
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        },
+        {
+          "text": "用户e2e-admin · 管理员",
+          "rect": {
+            "x": 292.375,
+            "y": 32,
+            "width": 69.59375,
+            "height": 57
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        },
+        {
+          "text": "软件版本v1.0.2",
+          "rect": {
+            "x": 361.96875,
+            "y": 32,
+            "width": 84.515625,
+            "height": 57
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        }
+      ]
+    },
+    {
+      "page": "system-settings",
+      "route": "/system-settings",
+      "width": 1920,
+      "height": 1080,
+      "filename": "system-settings_1920x1080.png",
+      "interaction": {
+        "name": "system-settings",
+        "clicked": [
+          "config-import-dry-run"
+        ],
+        "assertions": {
+          "dry_run_preview": true,
+          "not_applied": true
+        }
+      },
+      "renderer_console_errors": [],
+      "renderer_page_errors": [],
+      "location": "#/system-settings",
+      "viewport": {
+        "width": 1920,
+        "height": 1040
+      },
+      "page_scrollable": false,
+      "root_scroll_height": 1040,
+      "root_client_height": 1040,
+      "white_controls": 0,
+      "chart_canvas_count": 1,
+      "page_inside_content": true,
+      "section_bounds": [
+        {
+          "className": "page-title-row",
+          "inside": true,
+          "top": 100,
+          "bottom": 142
+        },
+        {
+          "className": "settings-row-one",
+          "inside": true,
+          "top": 152,
+          "bottom": 392.96875
+        },
+        {
+          "className": "settings-row-two",
+          "inside": true,
+          "top": 402.96875,
+          "bottom": 632.484375
+        },
+        {
+          "className": "settings-row-three",
+          "inside": true,
+          "top": 642.484375,
+          "bottom": 871.984375
+        },
+        {
+          "className": "settings-action-bar",
+          "inside": true,
+          "top": 881.984375,
+          "bottom": 1027.984375
+        }
+      ],
+      "sections_inside_content": true,
+      "internal_scroll_reachable": true,
+      "bottom_blank_px": 12,
+      "segmented_bounds": [],
+      "segmented_controls_fit": true,
+      "chart_bounds": [
+        {
+          "inside": true,
+          "width": 527,
+          "height": 132
+        }
+      ],
+      "charts_inside_containers": true,
+      "action_text_bounds": [
+        {
+          "text": "保存设置",
+          "fits": true
+        },
+        {
+          "text": "导入配置",
+          "fits": true
+        },
+        {
+          "text": "导出配置",
+          "fits": true
+        },
+        {
+          "text": "一致性备份",
+          "fits": true
+        },
+        {
+          "text": "恢复数据库备份",
+          "fits": true
+        },
+        {
+          "text": "清理预检",
+          "fits": true
+        },
+        {
+          "text": "存储复检",
+          "fits": true
+        },
+        {
+          "text": "重载 DBC",
+          "fits": true
+        },
+        {
+          "text": "启用模拟网关",
+          "fits": true
+        },
+        {
+          "text": "进入维护模式",
+          "fits": true
+        },
+        {
+          "text": "恢复安全默认",
+          "fits": true
+        }
+      ],
+      "action_texts_fit": true,
+      "signal_light_samples": [],
+      "screenshot_light_colors_match": true,
+      "failed_to_fetch_banner": false,
+      "sidebar_collapsed": false,
+      "layout_rects": {
+        "shell": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1040
+        },
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 280,
+          "height": 1040
+        },
+        "main": {
+          "x": 280,
+          "y": 0,
+          "width": 1640,
+          "height": 1040
+        },
+        "topbar": {
+          "x": 280,
+          "y": 32,
+          "width": 1640,
+          "height": 58
+        },
+        "content": {
+          "x": 280,
+          "y": 90,
+          "width": 1640,
+          "height": 950
+        },
+        "sidebar_expand": null
+      },
+      "topbar_cells": [
+        {
+          "text": "工位EOL-STATION-01",
+          "rect": {
+            "x": 280,
+            "y": 32,
+            "width": 146.296875,
+            "height": 57
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        },
+        {
+          "text": "用户e2e-admin · 管理员",
+          "rect": {
+            "x": 426.296875,
+            "y": 32,
+            "width": 97.53125,
+            "height": 57
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        },
+        {
+          "text": "软件版本v1.0.2",
+          "rect": {
+            "x": 523.828125,
+            "y": 32,
+            "width": 118.4375,
+            "height": 57
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        }
+      ]
+    },
+    {
+      "page": "system-settings",
+      "route": "/system-settings",
+      "width": 1366,
+      "height": 768,
+      "filename": "system-settings_1366x768.png",
+      "interaction": {
+        "name": "system-settings",
+        "skipped": "already exercised at 1920x1080"
+      },
+      "renderer_console_errors": [],
+      "renderer_page_errors": [],
+      "location": "#/system-settings",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "page_scrollable": false,
+      "root_scroll_height": 768,
+      "root_client_height": 768,
+      "white_controls": 0,
+      "chart_canvas_count": 1,
+      "page_inside_content": true,
+      "section_bounds": [
+        {
+          "className": "page-title-row",
+          "inside": true,
+          "top": 100,
+          "bottom": 142
+        },
+        {
+          "className": "settings-row-one",
+          "inside": true,
+          "top": 149,
+          "bottom": 295.65625
+        },
+        {
+          "className": "settings-row-two",
+          "inside": true,
+          "top": 302.65625,
+          "bottom": 449.328125
+        },
+        {
+          "className": "settings-row-three",
+          "inside": true,
+          "top": 456.328125,
+          "bottom": 603
+        },
+        {
+          "className": "settings-action-bar",
+          "inside": true,
+          "top": 610,
+          "bottom": 756
+        }
+      ],
+      "sections_inside_content": true,
+      "internal_scroll_reachable": true,
+      "bottom_blank_px": 12,
+      "segmented_bounds": [],
+      "segmented_controls_fit": true,
+      "chart_bounds": [
+        {
+          "inside": true,
+          "width": 368,
+          "height": 132
+        }
+      ],
+      "charts_inside_containers": true,
+      "action_text_bounds": [
+        {
+          "text": "保存设置",
+          "fits": true
+        },
+        {
+          "text": "导入配置",
+          "fits": true
+        },
+        {
+          "text": "导出配置",
+          "fits": true
+        },
+        {
+          "text": "一致性备份",
+          "fits": true
+        },
+        {
+          "text": "恢复数据库备份",
+          "fits": true
+        },
+        {
+          "text": "清理预检",
+          "fits": true
+        },
+        {
+          "text": "存储复检",
+          "fits": true
+        },
+        {
+          "text": "重载 DBC",
+          "fits": true
+        },
+        {
+          "text": "启用模拟网关",
+          "fits": true
+        },
+        {
+          "text": "进入维护模式",
+          "fits": true
+        },
+        {
+          "text": "恢复安全默认",
+          "fits": true
+        }
+      ],
+      "action_texts_fit": true,
+      "signal_light_samples": [],
+      "screenshot_light_colors_match": true,
+      "failed_to_fetch_banner": false,
+      "sidebar_collapsed": false,
+      "layout_rects": {
+        "shell": {
+          "x": 0,
+          "y": 0,
+          "width": 1366,
+          "height": 768
+        },
+        "sidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 188,
+          "height": 768
+        },
+        "main": {
+          "x": 188,
+          "y": 0,
+          "width": 1178,
+          "height": 768
+        },
+        "topbar": {
+          "x": 188,
+          "y": 32,
+          "width": 1178,
+          "height": 58
+        },
+        "content": {
+          "x": 188,
+          "y": 90,
+          "width": 1178,
+          "height": 678
+        },
+        "sidebar_expand": null
+      },
+      "topbar_cells": [
+        {
+          "text": "工位EOL-STATION-01",
+          "rect": {
+            "x": 188,
+            "y": 32,
+            "width": 104.375,
+            "height": 57
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        },
+        {
+          "text": "用户e2e-admin · 管理员",
+          "rect": {
+            "x": 292.375,
+            "y": 32,
+            "width": 69.59375,
+            "height": 57
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        },
+        {
+          "text": "软件版本v1.0.2",
+          "rect": {
+            "x": 361.96875,
+            "y": 32,
+            "width": 84.515625,
+            "height": 57
+          },
+          "color": "rgb(234, 242, 255)",
+          "display": "flex"
+        }
+      ]
+    }
+  ]
+}

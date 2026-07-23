@@ -2771,6 +2771,27 @@
         ]
       }
     },
+    "/api/v1/control/hardware-acceptance": {
+      "get": {
+        "summary": "Hardware Acceptance",
+        "operationId": "hardware_acceptance_api_v1_control_hardware_acceptance_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
     "/api/v1/control/121/preview": {
       "post": {
         "summary": "Control Preview",
@@ -6808,9 +6829,9 @@
             "minimum": 1.0,
             "title": "Device Port"
           },
-          "tx_enabled": {
+          "enabled": {
             "type": "boolean",
-            "title": "Tx Enabled",
+            "title": "Enabled",
             "default": true
           },
           "rx_status": {
@@ -6922,6 +6943,25 @@
             "type": "string",
             "title": "Trace Id",
             "default": ""
+          },
+          "configuration_authority": {
+            "type": "string",
+            "enum": [
+              "direct-development",
+              "signed-package"
+            ],
+            "title": "Configuration Authority",
+            "default": "direct-development"
+          },
+          "read_only": {
+            "type": "boolean",
+            "title": "Read Only",
+            "default": false
+          },
+          "active_transmit_policy": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Active Transmit Policy"
           }
         },
         "additionalProperties": false,
@@ -7192,17 +7232,25 @@
             "type": "integer",
             "title": "Total Bytes"
           },
-          "protected": {
-            "additionalProperties": {
-              "anyOf": [
-                {
-                  "type": "integer"
-                },
-                {
-                  "type": "string"
-                }
-              ]
+          "extra_files": {
+            "items": {
+              "type": "string"
             },
+            "type": "array",
+            "title": "Extra Files"
+          },
+          "file_categories": {
+            "additionalProperties": {
+              "additionalProperties": {
+                "type": "integer"
+              },
+              "type": "object"
+            },
+            "type": "object",
+            "title": "File Categories"
+          },
+          "protected": {
+            "additionalProperties": true,
             "type": "object",
             "title": "Protected"
           }
@@ -7300,33 +7348,47 @@
         "properties": {
           "chassis_no": {
             "type": "string",
-            "title": "Chassis No",
-            "default": "YL-JD-001"
+            "pattern": "^[A-Z0-9][A-Z0-9._-]{2,63}$",
+            "title": "Chassis No"
           },
           "vin": {
             "type": "string",
-            "title": "Vin",
-            "default": "L000000000000001"
+            "pattern": "^[A-HJ-NPR-Z0-9]{17}$",
+            "title": "Vin"
           },
           "serial_no": {
             "type": "string",
-            "title": "Serial No",
-            "default": "SN-20260401-001"
+            "pattern": "^[A-Z0-9][A-Z0-9._-]{2,63}$",
+            "title": "Serial No"
           },
-          "operator": {
+          "vehicle_series": {
             "type": "string",
-            "title": "Operator",
-            "default": "op01"
+            "pattern": "^[A-Z0-9_-]{1,32}$",
+            "title": "Vehicle Series"
           },
-          "station_id": {
+          "work_order_id": {
             "type": "string",
-            "title": "Station Id",
-            "default": "EOL-STATION-01"
+            "pattern": "^[A-Z0-9][A-Z0-9._-]{2,63}$",
+            "title": "Work Order Id"
           },
           "plan_id": {
             "type": "string",
-            "title": "Plan Id",
-            "default": "default_chassis_eol_v1"
+            "pattern": "^[A-Za-z0-9_.-]{1,128}$",
+            "title": "Plan Id"
+          },
+          "duplicate_policy": {
+            "type": "string",
+            "enum": [
+              "reject",
+              "retest"
+            ],
+            "title": "Duplicate Policy",
+            "default": "reject"
+          },
+          "mock_session": {
+            "type": "boolean",
+            "title": "Mock Session",
+            "default": false
           },
           "remarks": {
             "type": "string",
@@ -7334,7 +7396,16 @@
             "default": ""
           }
         },
+        "additionalProperties": false,
         "type": "object",
+        "required": [
+          "chassis_no",
+          "vin",
+          "serial_no",
+          "vehicle_series",
+          "work_order_id",
+          "plan_id"
+        ],
         "title": "CreateSessionRequest"
       },
       "CredentialRequest": {
@@ -7556,6 +7627,20 @@
             "title": "Trace Id",
             "default": ""
           },
+          "runtime_profile": {
+            "type": "string",
+            "enum": [
+              "dev",
+              "mock",
+              "test",
+              "production"
+            ],
+            "title": "Runtime Profile"
+          },
+          "mock_session_allowed": {
+            "type": "boolean",
+            "title": "Mock Session Allowed"
+          },
           "session": {
             "additionalProperties": true,
             "type": "object",
@@ -7644,6 +7729,8 @@
           "mock",
           "quality",
           "updated_at",
+          "runtime_profile",
+          "mock_session_allowed",
           "session",
           "steps",
           "current_step",
@@ -7998,6 +8085,30 @@
             "maxLength": 128,
             "minLength": 1,
             "title": "Adapter Name"
+          },
+          "adapter_index": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 1.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Adapter Index"
+          },
+          "mac_address": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^(?:[0-9A-Fa-f]{2}[:-]){5}[0-9A-Fa-f]{2}$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Mac Address"
           },
           "bind_address": {
             "type": "string",
@@ -9432,9 +9543,9 @@
         "properties": {
           "schema_version": {
             "type": "integer",
-            "const": 1,
+            "const": 2,
             "title": "Schema Version",
-            "default": 1
+            "default": 2
           },
           "package_id": {
             "type": "string",
@@ -9849,6 +9960,24 @@
             "title": "Trace Id",
             "default": ""
           },
+          "runtime_profile": {
+            "type": "string",
+            "enum": [
+              "dev",
+              "mock",
+              "test",
+              "production"
+            ],
+            "title": "Runtime Profile"
+          },
+          "configuration_authority": {
+            "type": "string",
+            "enum": [
+              "direct-development",
+              "signed-package"
+            ],
+            "title": "Configuration Authority"
+          },
           "save_state": {
             "additionalProperties": true,
             "type": "object",
@@ -9928,6 +10057,11 @@
             },
             "type": "array",
             "title": "Config History"
+          },
+          "hardware_acceptance": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Hardware Acceptance"
           }
         },
         "additionalProperties": false,
@@ -9937,6 +10071,8 @@
           "mock",
           "quality",
           "updated_at",
+          "runtime_profile",
+          "configuration_authority",
           "save_state",
           "auth",
           "basic",
@@ -9949,7 +10085,8 @@
           "version",
           "storage_trend",
           "storage_summary",
-          "config_history"
+          "config_history",
+          "hardware_acceptance"
         ],
         "title": "SystemDashboardResponse"
       },

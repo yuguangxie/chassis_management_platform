@@ -27,10 +27,12 @@ export const fallbackSystemThresholds: SystemThresholdSetting[] = [
 ]
 
 export const fallbackSystemSettings: SystemSettingsDashboard = {
+  runtime_profile:'mock',
+  configuration_authority:'direct-development',
   save_state:{dirty:false,last_saved_at:'2026-04-01 10:26:35',status:'saved'},
   auth:{current_user:'offline',current_role:'operator'},
   basic:{station_id:'EOL-STATION-01',host_ip:'127.0.0.1',control_channel:'CAN2',report_directory:'<data_root>\\reports',database_path:'<data_root>\\database\\chassis_eol.sqlite3',log_directory:'<data_root>\\logs\\application',timezone:'UTC+08:00',language:'zh-CN',auto_save:true},
-  dbc:{filename:'Yunle_CAN_integrated_candb_jd.dbc',version:'Release v1.0.2',hash:'9f31c2b7',status:'loaded',message_count:48,signal_count:312,loaded_at:'2026-04-01 10:20:12',overrides:[
+  dbc:{filename:null,version:null,hash:null,status:'failed',error:'离线：未获取运行时 DBC 状态',message_count:0,signal_count:0,loaded_at:null,overrides:[
     {key:'0x121_steering',label:'0x121 前/后转角',value:'int8 有符号补码',status:'active'},
     {key:'0x102_bool',label:'0x102 保护状态',value:'unsigned bool',status:'active'},
     {key:'0x101_state',label:'0x101 充放电状态',value:'0 idle / 1 charging / 2 discharging / 3 reserved',status:'active'},
@@ -47,7 +49,7 @@ export const fallbackSystemSettings: SystemSettingsDashboard = {
   ],
   maintenance:{maintenance_mode:false,mock_can_gateway:false,enable_0x123:false,enable_0x126:false,allow_canopen_nmt:false,enable_pid_debug:false,dual_control_channel_allowed:false,requires_admin:true},
   safe_defaults:['UI 不直接发送 CAN','所有运动控制必须经过安全联锁','数据库不可写时禁止开始检测','CAN 控制通道默认仅 CAN2','0x123 默认禁用','0x126 默认禁用','CANopen NMT 默认禁用','Mock 不伪装真实硬件','异常时执行安全停车'].map(label=>({label,enabled:true})),
-  version:{software:'v1.0.2',config:'cfg-20260401',test_plan:'eol-plan-1.0.2',python:'3.11.8',node:'20.x',electron:'43.1.0',platform:'Windows 10 64-bit',build_time:'2026-04-01 10:30:00'},
+  version:{software:'未知',config:'未知',test_plan:'未知',python:'未知',node:'不适用',electron:'未知',platform:'未知',build_time:'未知',commit:null,release_hash:null,signed:false,dirty:null},
   storage_trend:[{date:'Mock',used_gb:0,source:'explicit-mock'}],
   storage_summary:{current_log_gb:0,database_gb:0,reports_gb:0,raw_can_gb:0,last_cleanup:'-',next_cleanup:'manual-confirmation-required',cleanup_status:'explicit-mock',disk_alarm:'unknown'},
   config_history:[
@@ -56,5 +58,6 @@ export const fallbackSystemSettings: SystemSettingsDashboard = {
     {time:'2026-03-31 17:20:05',user:'admin',key:'0x121 发送周期',old_value:'50 ms',new_value:'20 ms',reason:'方案版本升级',result:'成功'},
     {time:'2026-03-31 15:08:42',user:'admin',key:'MockCanGateway',old_value:'开启',new_value:'关闭',reason:'接入真实台架',result:'成功'},
   ],
+  hardware_acceptance:{allowed:false,applicable:false,status:'unavailable',artifact:null,reasons:[{rule:'runtime_unavailable',label:'运行时状态不可用',current:null,threshold:'有效后端响应',blocking:true,status:'FAIL'}]},
   mock:true,updated_at:'2026-04-01 10:26:35',
 }

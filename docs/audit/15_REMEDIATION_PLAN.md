@@ -1,5 +1,7 @@
 # 分阶段整改计划
 
+> **历史基线 / 已被后续审计取代。** 当前整改状态见 [`current_audit_2026-07-23`](../current_audit_2026-07-23/00_AUDIT_INDEX.md) 和本轮 [P0/P1 验证索引](../verification/software-p0-p1-closure-2026-07-23/README.md)。
+
 | 任务 | Issue | 目标 | 修改文件 | 前端 | 后端 | 测试 | 验收 | 依赖 | 工作量 | 风险 |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | A-01 | SAFE-001/002/005 | 重写 EOL 可取消状态机与急停停车闭环 | engine.py, api/eol.py, control/* | 状态与确认 UI | task cancel、safe stop、interlock | 故障注入+硬超时 | pause/abort/e-stop 不再执行下一步且车辆反馈为 0 | SafetyInterlock | L | 高 |

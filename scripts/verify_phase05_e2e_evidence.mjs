@@ -3,7 +3,9 @@ import { resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 const root = resolve(fileURLToPath(new URL('..', import.meta.url)))
-const evidence = resolve(root, 'docs/verification/phase-05/e2e')
+const evidence = process.env.CHASSIS_E2E_OUTPUT
+  ? resolve(root, process.env.CHASSIS_E2E_OUTPUT)
+  : resolve(root, 'docs/verification/phase-05/e2e')
 const summaryPath = resolve(evidence, 'e2e-summary.json')
 const electronVersionPath = resolve(evidence, 'electron-version.txt')
 const screenshotsPath = resolve(evidence, 'screenshots')

@@ -270,7 +270,9 @@ class RetentionService:
                     row = database.query_one(f"SELECT COUNT(*) AS count FROM {table} WHERE session_id IN ({placeholders})", ids)
                 counts[table] = int(row["count"] if row else 0)
         files = self._candidate_files(ids)
-        file_bytes = sum(path.stat().st_size for path in files if path.is_file())
+        extra_files, protected_files = self._category_files(cutoff, files)
+        all_files = [*files, *extra_files]
+        file_bytes = sum(path.stat().st_size for path in all_files if path.is_file())
         return {
             "cutoff_utc": cutoff.isoformat(),
             "session_ids": ids,
@@ -278,8 +280,10 @@ class RetentionService:
             "oldest_utc": rows[0]["timestamp_utc"] if rows else None,
             "newest_utc": rows[-1]["timestamp_utc"] if rows else None,
             "row_counts": counts,
-            "file_count": len(files),
+            "file_count": len(all_files),
             "file_bytes": file_bytes,
+            "extra_files": [str(path) for path in extra_files],
+            "file_categories": self._file_category_summary(all_files),
             "estimated_database_bytes": sum(counts.values()) * 256,
             "total_bytes": file_bytes + sum(counts.values()) * 256,
             "protected": {
@@ -287,6 +291,7 @@ class RetentionService:
                 "sessions_with_unarchived_reports": int(protected_unarchived["count"] if protected_unarchived else 0),
                 "auth_sessions": "all protected",
                 "operator_actions": "all protected",
+                "files": protected_files,
             },
         }
 
@@ -296,12 +301,13 @@ class RetentionService:
         preview = self.preview(cutoff_utc)
         job_id = "CLEANUP-" + uuid.uuid4().hex[:12].upper()
         now = utc_now()
-        self.state.database.execute(
-            "INSERT INTO cleanup_jobs(id,status,cutoff_utc,requested_by,dry_run,confirmation,candidate_json,progress_json,created_at,updated_at) "
-            "VALUES (?,?,?,?,?,?,?,?,?,?)",
-            (job_id, "QUEUED", preview["cutoff_utc"], principal.username, 0, confirmation, json.dumps(preview), json.dumps({"completed_sessions": 0, "total_sessions": preview["session_count"]}), now, now),
-        )
-        self._audit(principal, "cleanup_queued", job_id, preview)
+        with self.state.database.transaction() as conn:
+            conn.execute(
+                "INSERT INTO cleanup_jobs(id,status,cutoff_utc,requested_by,dry_run,confirmation,candidate_json,progress_json,created_at,updated_at) "
+                "VALUES (?,?,?,?,?,?,?,?,?,?)",
+                (job_id, "QUEUED", preview["cutoff_utc"], principal.username, 0, confirmation, json.dumps(preview), json.dumps({"completed_sessions": 0, "total_sessions": preview["session_count"]}), now, now),
+            )
+            self._audit(principal, "cleanup_queued", job_id, preview, connection=conn)
         task = asyncio.create_task(asyncio.to_thread(self._run, job_id, preview, principal, batch_size), name=f"retention-{job_id}")
         self.tasks[job_id] = task
         return self.job(job_id)
@@ -317,10 +323,12 @@ class RetentionService:
         preview = self.preview(cutoff_utc)
         job_id = "CLEANUP-" + uuid.uuid4().hex[:12].upper()
         now = utc_now()
-        self.state.database.execute(
-            "INSERT INTO cleanup_jobs(id,status,cutoff_utc,requested_by,dry_run,confirmation,candidate_json,progress_json,created_at,updated_at) VALUES (?,?,?,?,?,?,?,?,?,?)",
-            (job_id, "QUEUED", preview["cutoff_utc"], principal.username, 0, "CLEANUP", json.dumps(preview), json.dumps({"completed_sessions": 0, "total_sessions": preview["session_count"]}), now, now),
-        )
+        with self.state.database.transaction() as conn:
+            conn.execute(
+                "INSERT INTO cleanup_jobs(id,status,cutoff_utc,requested_by,dry_run,confirmation,candidate_json,progress_json,created_at,updated_at) VALUES (?,?,?,?,?,?,?,?,?,?)",
+                (job_id, "QUEUED", preview["cutoff_utc"], principal.username, 0, "CLEANUP", json.dumps(preview), json.dumps({"completed_sessions": 0, "total_sessions": preview["session_count"]}), now, now),
+            )
+            self._audit(principal, "cleanup_queued", job_id, preview, connection=conn)
         self._run(job_id, preview, principal, batch_size, should_cancel=should_cancel)
         return self.job(job_id)
 
@@ -343,16 +351,17 @@ class RetentionService:
                 cancelled = bool(should_cancel and should_cancel())
                 row = database.query_one("SELECT cancel_requested FROM cleanup_jobs WHERE id=?", (job_id,))
                 if cancelled or bool(row and row["cancel_requested"]):
-                    database.execute(
-                        "UPDATE cleanup_jobs SET status='CANCELLED',completed_at=?,updated_at=?,progress_json=? WHERE id=?",
-                        (utc_now(), utc_now(), json.dumps({"completed_sessions": completed, "total_sessions": len(ids), "deleted_rows": deleted_rows}), job_id),
-                    )
-                    self._audit(principal, "cleanup_cancelled", job_id, {"completed_sessions": completed, "deleted_rows": deleted_rows})
+                    with database.transaction() as conn:
+                        conn.execute(
+                            "UPDATE cleanup_jobs SET status='CANCELLED',completed_at=?,updated_at=?,progress_json=? WHERE id=?",
+                            (utc_now(), utc_now(), json.dumps({"completed_sessions": completed, "total_sessions": len(ids), "deleted_rows": deleted_rows}), job_id),
+                        )
+                        self._audit(principal, "cleanup_cancelled", job_id, {"completed_sessions": completed, "deleted_rows": deleted_rows}, connection=conn)
                     return
                 batch = ids[offset : offset + max(1, batch_size)]
                 quarantined = self._quarantine_files(job_id, batch)
                 try:
-                    batch_counts = self._delete_batch(batch)
+                    batch_counts = self._delete_batch(batch, principal=principal, job_id=job_id)
                 except Exception:
                     self._restore_quarantine(quarantined)
                     raise
@@ -365,17 +374,27 @@ class RetentionService:
                     "UPDATE cleanup_jobs SET progress_json=?,updated_at=? WHERE id=?",
                     (json.dumps({"completed_sessions": completed, "total_sessions": len(ids), "deleted_rows": deleted_rows}), utc_now(), job_id),
                 )
-            database.execute(
-                "UPDATE cleanup_jobs SET status='COMPLETED',completed_at=?,updated_at=?,progress_json=? WHERE id=?",
-                (utc_now(), utc_now(), json.dumps({"completed_sessions": completed, "total_sessions": len(ids), "deleted_rows": deleted_rows}), job_id),
-            )
-            self._audit(principal, "cleanup_completed", job_id, {"completed_sessions": completed, "deleted_rows": deleted_rows})
+            extra_paths = [Path(value).resolve(strict=False) for value in preview.get("extra_files", [])]
+            quarantined_extra = self._quarantine_extra_files(job_id, extra_paths)
+            try:
+                with database.transaction() as conn:
+                    conn.execute(
+                        "UPDATE cleanup_jobs SET status='COMPLETED',completed_at=?,updated_at=?,progress_json=? WHERE id=?",
+                        (utc_now(), utc_now(), json.dumps({"completed_sessions": completed, "total_sessions": len(ids), "deleted_rows": deleted_rows}), job_id),
+                    )
+                    self._audit(principal, "cleanup_completed", job_id, {"completed_sessions": completed, "deleted_rows": deleted_rows}, connection=conn)
+            except Exception:
+                self._restore_quarantine(quarantined_extra)
+                raise
+            for _original, quarantine in quarantined_extra:
+                quarantine.unlink(missing_ok=True)
         except Exception as exc:
-            database.execute(
-                "UPDATE cleanup_jobs SET status='FAILED',error_message=?,completed_at=?,updated_at=? WHERE id=?",
-                (str(exc), utc_now(), utc_now(), job_id),
-            )
-            self._audit(principal, "cleanup_failed", job_id, {"error": str(exc), "completed_sessions": completed}, result="FAILED")
+            with database.transaction() as conn:
+                conn.execute(
+                    "UPDATE cleanup_jobs SET status='FAILED',error_message=?,completed_at=?,updated_at=? WHERE id=?",
+                    (str(exc), utc_now(), utc_now(), job_id),
+                )
+                self._audit(principal, "cleanup_failed", job_id, {"error": str(exc), "completed_sessions": completed}, result="FAILED", connection=conn)
             raise
 
     def cancel(self, job_id: str, principal: Principal) -> dict[str, Any]:
@@ -384,8 +403,9 @@ class RetentionService:
         row = self.job(job_id)
         if row["status"] not in {"QUEUED", "RUNNING"}:
             raise RuntimeError("only queued or running cleanup jobs can be cancelled")
-        self.state.database.execute("UPDATE cleanup_jobs SET cancel_requested=1,updated_at=? WHERE id=?", (utc_now(), job_id))
-        self._audit(principal, "cleanup_cancel_requested", job_id, {})
+        with self.state.database.transaction() as conn:
+            conn.execute("UPDATE cleanup_jobs SET cancel_requested=1,updated_at=? WHERE id=?", (utc_now(), job_id))
+            self._audit(principal, "cleanup_cancel_requested", job_id, {}, connection=conn)
         return self.job(job_id)
 
     async def stop(self) -> None:
@@ -410,7 +430,13 @@ class RetentionService:
             "progress": json.loads(row["progress_json"]),
         }
 
-    def _delete_batch(self, ids: list[str]) -> dict[str, int]:
+    def _delete_batch(
+        self,
+        ids: list[str],
+        *,
+        principal: Principal | None = None,
+        job_id: str = "",
+    ) -> dict[str, int]:
         database = self.state.database
         placeholders = ",".join("?" for _ in ids)
         counts = {table: 0 for table in self.TABLES}
@@ -425,6 +451,14 @@ class RetentionService:
                 counts[table] = cursor.rowcount
             cursor = conn.execute(f"DELETE FROM test_sessions WHERE id IN ({placeholders})", ids)
             counts["test_sessions"] = cursor.rowcount
+            if principal is not None:
+                self._audit(
+                    principal,
+                    "cleanup_batch_deleted",
+                    job_id,
+                    {"session_ids": ids, "deleted_rows": counts},
+                    connection=conn,
+                )
         return counts
 
     def _candidate_files(self, ids: list[str]) -> list[Path]:
@@ -444,12 +478,106 @@ class RetentionService:
                         files[str(path.resolve(strict=False))] = path.resolve(strict=False)
         return list(files.values())
 
+    def _category_files(
+        self,
+        cutoff: datetime,
+        session_files: list[Path],
+    ) -> tuple[list[Path], dict[str, int]]:
+        already = {str(path.resolve(strict=False)) for path in session_files}
+        candidates: dict[str, Path] = {}
+        protected = {
+            "active_application_logs": 0,
+            "verified_backups": 0,
+            "restore_rollbacks": 0,
+            "active_cleanup_quarantine": 0,
+        }
+        roots = (
+            self.paths.raw_can,
+            self.paths.decoded_signals,
+            self.paths.exports,
+            self.paths.temp,
+            self.paths.app_logs,
+            self.paths.backups,
+        )
+        active_log = (self.paths.app_logs / "chassis-eol.log").resolve(strict=False)
+        verified_backup_files: set[str] = set()
+        if self.state.database:
+            for row in self.state.database.query(
+                "SELECT manifest_path,database_path FROM backup_records WHERE status!='DELETED'"
+            ):
+                verified_backup_files.update(
+                    str(Path(value).resolve(strict=False))
+                    for value in (row.get("manifest_path"), row.get("database_path"))
+                    if value
+                )
+        for root in roots:
+            for path in root.rglob("*"):
+                if not path.is_file():
+                    continue
+                resolved = path.resolve(strict=False)
+                if str(resolved) in already:
+                    continue
+                if resolved == active_log:
+                    protected["active_application_logs"] += 1
+                    continue
+                if str(resolved) in verified_backup_files:
+                    protected["verified_backups"] += 1
+                    continue
+                if "restore-rollbacks" in resolved.parts:
+                    protected["restore_rollbacks"] += 1
+                    continue
+                if (self.paths.temp / "cleanup") in resolved.parents:
+                    protected["active_cleanup_quarantine"] += 1
+                    continue
+                modified = datetime.fromtimestamp(path.stat().st_mtime, tz=timezone.utc)
+                if modified < cutoff:
+                    candidates[str(resolved)] = resolved
+        return list(candidates.values()), protected
+
+    def _file_category_summary(self, files: list[Path]) -> dict[str, dict[str, int]]:
+        roots = {
+            "raw_can": self.paths.raw_can,
+            "decoded_signals": self.paths.decoded_signals,
+            "reports": self.paths.reports,
+            "exports": self.paths.exports,
+            "temp": self.paths.temp,
+            "backups": self.paths.backups,
+            "app_logs": self.paths.app_logs,
+        }
+        summary = {name: {"count": 0, "bytes": 0} for name in roots}
+        for path in files:
+            resolved = path.resolve(strict=False)
+            for name, root in roots.items():
+                if resolved == root or root in resolved.parents:
+                    summary[name]["count"] += 1
+                    summary[name]["bytes"] += path.stat().st_size if path.is_file() else 0
+                    break
+        return summary
+
     def _quarantine_files(self, job_id: str, ids: list[str]) -> list[tuple[Path, Path]]:
         target = self.paths.temp / "cleanup" / job_id
         target.mkdir(parents=True, exist_ok=True)
         moved: list[tuple[Path, Path]] = []
         try:
             for index, original in enumerate(self._candidate_files(ids)):
+                quarantine = target / f"{index:06d}-{original.name}"
+                shutil.move(str(original), str(quarantine))
+                moved.append((original, quarantine))
+        except Exception:
+            self._restore_quarantine(moved)
+            raise
+        return moved
+
+    def _quarantine_extra_files(
+        self, job_id: str, paths: list[Path]
+    ) -> list[tuple[Path, Path]]:
+        target = self.paths.temp / "cleanup" / job_id / "extra"
+        target.mkdir(parents=True, exist_ok=True)
+        moved: list[tuple[Path, Path]] = []
+        try:
+            for index, original in enumerate(paths):
+                if not self.paths.contains(original) or not original.is_file():
+                    continue
                 quarantine = target / f"{index:06d}-{original.name}"
                 shutil.move(str(original), str(quarantine))
                 moved.append((original, quarantine))
@@ -465,8 +593,18 @@ class RetentionService:
                 original.parent.mkdir(parents=True, exist_ok=True)
                 shutil.move(str(quarantine), str(original))
 
-    def _audit(self, principal: Principal, action: str, target: str, payload: dict[str, Any], result: str = "OK") -> None:
-        self.state.database.execute(
+    def _audit(
+        self,
+        principal: Principal,
+        action: str,
+        target: str,
+        payload: dict[str, Any],
+        result: str = "OK",
+        *,
+        connection: Any | None = None,
+    ) -> None:
+        executor = connection or self.state.database
+        executor.execute(
             "INSERT INTO operator_actions(timestamp_utc,operator,role,action_type,target,request_json,result,trace_id) VALUES (?,?,?,?,?,?,?,?)",
             (utc_now(), principal.username, principal.role.value, action, target, json.dumps(payload, ensure_ascii=False, default=str), result, ""),
         )

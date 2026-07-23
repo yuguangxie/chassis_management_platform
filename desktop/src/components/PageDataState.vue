@@ -1,11 +1,13 @@
 <template>
-  <span v-if="visible" :class="['page-data-state', state]" role="status" :data-state="state">
-    <LoaderCircle v-if="state === 'loading'" :size="13" class="spin" />
-    <ShieldX v-else-if="state === 'permission-denied'" :size="13" />
-    <TriangleAlert v-else-if="state === 'error'" :size="13" />
-    <ClockAlert v-else-if="state === 'stale'" :size="13" />
-    <Inbox v-else :size="13" />
-    {{ label }}
+  <span :class="['page-data-state', state, { idle: !visible }]" role="status" :data-state="visible ? state : 'idle'" :aria-hidden="!visible">
+    <template v-if="visible">
+      <LoaderCircle v-if="state === 'loading'" :size="13" class="spin" />
+      <ShieldX v-else-if="state === 'permission-denied'" :size="13" />
+      <TriangleAlert v-else-if="state === 'error'" :size="13" />
+      <ClockAlert v-else-if="state === 'stale'" :size="13" />
+      <Inbox v-else :size="13" />
+      {{ label }}
+    </template>
   </span>
 </template>
 
@@ -46,5 +48,5 @@ const label = computed(() => {
 </script>
 
 <style scoped>
-.page-data-state{height:28px;max-width:460px;display:inline-flex;align-items:center;gap:5px;padding:0 9px;border:1px solid rgba(126,151,184,.5);border-radius:5px;color:#AFC2DA;background:rgba(15,36,61,.92);font-size:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.page-data-state.loading{color:#8FC2FF;border-color:rgba(47,128,255,.5)}.page-data-state.stale,.page-data-state.empty{color:#F6C343;border-color:rgba(246,195,67,.5);background:rgba(74,53,18,.92)}.page-data-state.error,.page-data-state.permission-denied{color:#FF9AA7;border-color:rgba(239,68,68,.6);background:rgba(70,19,29,.94)}.spin{animation:state-spin 1s linear infinite}@keyframes state-spin{to{transform:rotate(360deg)}}
+.page-data-state{width:min(360px,30vw);height:28px;max-width:460px;display:inline-flex;align-items:center;gap:5px;padding:0 9px;border:1px solid rgba(126,151,184,.5);border-radius:5px;color:#AFC2DA;background:rgba(15,36,61,.92);font-size:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.page-data-state.idle{visibility:hidden;pointer-events:none}.page-data-state.loading{color:#8FC2FF;border-color:rgba(47,128,255,.5)}.page-data-state.stale,.page-data-state.empty{color:#F6C343;border-color:rgba(246,195,67,.5);background:rgba(74,53,18,.92)}.page-data-state.error,.page-data-state.permission-denied{color:#FF9AA7;border-color:rgba(239,68,68,.6);background:rgba(70,19,29,.94)}.spin{animation:state-spin 1s linear infinite}@keyframes state-spin{to{transform:rotate(360deg)}}
 </style>
