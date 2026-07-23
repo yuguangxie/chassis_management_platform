@@ -14,8 +14,8 @@ $Python = Join-Path $Backend '.venv\Scripts\python.exe'
 
 if ($RequireSigning) { $env:CHASSIS_REQUIRE_SIGNING = '1' }
 New-Item -ItemType Directory -Force $Evidence | Out-Null
-if ($RequireSigning -and (git -C $Root status --porcelain)) {
-  throw 'formal signed release requires a clean source tree'
+if (git -C $Root status --porcelain) {
+  throw 'Windows release candidates must be built from a clean source tree'
 }
 
 Push-Location $Backend

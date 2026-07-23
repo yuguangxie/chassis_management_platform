@@ -405,3 +405,15 @@ def test_unloaded_dbc_and_release_metadata_do_not_use_fixed_fallbacks(auth_heade
             assert payload["version"]["build_time"] != datetime.now(timezone.utc).isoformat()
         finally:
             global_state.dbc = original
+
+
+def test_windows_release_manifest_freezes_clean_source_state_before_build():
+    repository_root = Path(__file__).resolve().parents[2]
+    generator = (repository_root / "scripts" / "generate_release_metadata.mjs").read_text(encoding="utf-8")
+    build_script = (repository_root / "scripts" / "build_windows_release.ps1").read_text(encoding="utf-8")
+
+    assert "source_dirty_file_count: currentSourceStatus" in generator
+    assert "const prepared = JSON.parse(readFileSync(buildStatePath" in generator
+    assert "if (prepared.commit !== commit)" in generator
+    assert "dirty: sourceDirty, dirty_file_count: sourceDirtyFileCount" in generator
+    assert "Windows release candidates must be built from a clean source tree" in build_script

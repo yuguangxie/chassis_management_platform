@@ -9,10 +9,9 @@ const mode = process.argv[2]
 const signed = Boolean(process.env.CSC_LINK)
 const version = JSON.parse(readFileSync(resolve(desktop, 'package.json'), 'utf8')).version
 const commit = (() => { try { return execFileSync('git', ['rev-parse', 'HEAD'], { cwd: root, encoding: 'utf8' }).trim() } catch { return 'unavailable' } })()
-const sourceStatus = (() => { try { return execFileSync('git', ['status', '--porcelain'], { cwd: root, encoding: 'utf8' }).trim() } catch { return 'unavailable' } })()
-const sourceDirty = Boolean(sourceStatus)
-const builtAt = new Date().toISOString()
-const releaseLabel = signed ? (sourceDirty ? 'signed-nonreleasable' : 'signed-production-candidate') : 'unsigned-internal'
+const currentSourceStatus = (() => { try { return execFileSync('git', ['status', '--porcelain'], { cwd: root, encoding: 'utf8' }).trim() } catch { return 'unavailable' } })()
+const currentSourceDirty = Boolean(currentSourceStatus)
+const buildStatePath = resolve(desktop, 'release-build.json')
 
 function sha256(file) {
   return createHash('sha256').update(readFileSync(file)).digest('hex')
@@ -24,20 +23,30 @@ function writeJson(file, value) {
 }
 
 if (mode === 'prepare') {
-  writeJson(resolve(desktop, 'release-build.json'), {
+  const builtAt = new Date().toISOString()
+  writeJson(buildStatePath, {
     product: '低速无人车线控底盘生产下线管理平台',
     version,
     commit,
     built_at_utc: builtAt,
     signed,
-    source_dirty: sourceDirty,
-    release_label: releaseLabel,
+    source_dirty: currentSourceDirty,
+    source_dirty_file_count: currentSourceStatus ? currentSourceStatus.split(/\r?\n/).length : 0,
+    release_label: signed ? (currentSourceDirty ? 'signed-nonreleasable' : 'signed-production-candidate') : 'unsigned-internal',
     safety_default: 'mock-loopback-control-transmission-stopped',
   })
   process.exit(0)
 }
 
 if (mode !== 'finalize') throw new Error('usage: generate_release_metadata.mjs prepare|finalize')
+if (!existsSync(buildStatePath)) throw new Error('release prepare state is missing')
+const prepared = JSON.parse(readFileSync(buildStatePath, 'utf8'))
+if (prepared.commit !== commit) throw new Error(`release commit changed after prepare: ${prepared.commit} -> ${commit}`)
+if (Boolean(prepared.signed) !== signed) throw new Error('release signing mode changed after prepare')
+const sourceDirty = Boolean(prepared.source_dirty)
+const sourceDirtyFileCount = Number(prepared.source_dirty_file_count || 0)
+const builtAt = String(prepared.built_at_utc)
+const releaseLabel = String(prepared.release_label)
 
 const lock = JSON.parse(readFileSync(resolve(desktop, 'package-lock.json'), 'utf8'))
 const npmComponents = Object.entries(lock.packages || {})
@@ -71,7 +80,7 @@ const manifest = {
   software_version: version,
   commit,
   built_at_utc: builtAt,
-  source: { commit, dirty: sourceDirty, dirty_file_count: sourceStatus ? sourceStatus.split(/\r?\n/).length : 0 },
+  source: { commit, dirty: sourceDirty, dirty_file_count: sourceDirtyFileCount },
   release_label: releaseLabel,
   signing: { signed, provider: signed ? 'electron-builder CSC interface' : null, formal_release: signed && !sourceDirty },
   runtime: { electron: '43.1.0', python: 'embedded by PyInstaller', network_dependency_at_runtime: false },
