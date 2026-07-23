@@ -193,8 +193,15 @@ async function createPackagedCaptureWindow(route, token, width, height) {
   const renderer = path.join(__dirname, '..', 'dist', 'index.html')
   await window.loadFile(renderer, { hash: '/login' })
   await window.webContents.executeJavaScript(`sessionStorage.setItem('chassis_api_token', ${JSON.stringify(token)})`)
-  await window.loadFile(renderer, { hash: route })
-  await waitForPackagedRoute(window, route)
+  await new Promise((resolve) => {
+    window.webContents.once('did-finish-load', resolve)
+    window.webContents.reload()
+  })
+  await waitForPackagedRoute(window, '/overview')
+  if (route !== '/overview') {
+    await window.webContents.executeJavaScript(`location.hash = ${JSON.stringify(`#${route}`)}`)
+    await waitForPackagedRoute(window, route)
+  }
   return window
 }
 
