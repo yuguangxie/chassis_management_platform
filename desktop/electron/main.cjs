@@ -143,18 +143,18 @@ async function requestJson(url, options = {}) {
   return body
 }
 
-async function waitForPackagedRoute(route, timeoutMs = 10000) {
+async function waitForPackagedRoute(window, route, timeoutMs = 10000) {
   const expectedHash = `#${route}`
   const deadline = Date.now() + timeoutMs
   let state = {}
   while (Date.now() < deadline) {
-    state = await mainWindow.webContents.executeJavaScript(`({
+    state = await window.webContents.executeJavaScript(`({
       hash: location.hash,
       currentRoute: document.documentElement.dataset.currentRoute || '',
       readyState: document.readyState
     })`)
     if (state.hash === expectedHash && state.currentRoute === route && state.readyState === 'complete') {
-      await mainWindow.webContents.executeJavaScript(`new Promise((resolve) => {
+      await window.webContents.executeJavaScript(`new Promise((resolve) => {
         requestAnimationFrame(() => requestAnimationFrame(resolve))
       })`)
       return state
@@ -162,6 +162,40 @@ async function waitForPackagedRoute(route, timeoutMs = 10000) {
     await new Promise((resolve) => setTimeout(resolve, 50))
   }
   throw new Error(`renderer route did not settle: expected ${expectedHash}, got ${JSON.stringify(state)}`)
+}
+
+async function createPackagedCaptureWindow(route, token, width, height) {
+  const window = new BrowserWindow({
+    width,
+    height,
+    minWidth: width,
+    minHeight: height,
+    useContentSize: true,
+    resizable: false,
+    show: false,
+    frame: false,
+    backgroundColor: '#07111F',
+    webPreferences: {
+      preload: path.join(__dirname, 'preload.cjs'),
+      contextIsolation: true,
+      nodeIntegration: false,
+      sandbox: true,
+      webSecurity: true,
+      allowRunningInsecureContent: false,
+      backgroundThrottling: false,
+    },
+  })
+  window.webContents.setWindowOpenHandler(() => ({ action: 'deny' }))
+  window.webContents.on('will-navigate', (event, url) => {
+    if (url !== window.webContents.getURL()) event.preventDefault()
+  })
+  window.setContentSize(width, height, false)
+  const renderer = path.join(__dirname, '..', 'dist', 'index.html')
+  await window.loadFile(renderer, { hash: '/login' })
+  await window.webContents.executeJavaScript(`sessionStorage.setItem('chassis_api_token', ${JSON.stringify(token)})`)
+  await window.loadFile(renderer, { hash: route })
+  await waitForPackagedRoute(window, route)
+  return window
 }
 
 async function runPackagedVerification() {
@@ -207,33 +241,32 @@ async function runPackagedVerification() {
   ]
   const inspections = []
   for (const [width, height] of [[1366, 768], [1920, 1080]]) {
-    mainWindow.setResizable(true)
-    mainWindow.setMinimumSize(width, height)
-    mainWindow.setContentSize(width, height, false)
-    mainWindow.setResizable(false)
     for (const [name, route] of pages) {
-      await mainWindow.webContents.executeJavaScript(`location.hash = ${JSON.stringify(`#${route}`)}`)
-      await waitForPackagedRoute(route)
-      const inspection = await mainWindow.webContents.executeJavaScript(`({
-        route: location.hash,
-        current_route: document.documentElement.dataset.currentRoute || '',
-        viewport: { width: window.innerWidth, height: window.innerHeight },
-        page_scrollable: document.documentElement.scrollHeight > document.documentElement.clientHeight + 2,
-        failed_fetch: document.body.innerText.includes('Failed to fetch'),
-        text_length: document.body.innerText.length
-      })`)
-      const image = await mainWindow.webContents.capturePage()
-      const png = image.toPNG()
-      const imageSize = image.getSize()
-      fs.writeFileSync(path.join(output, `${name}_${width}x${height}.png`), png)
-      inspections.push({
-        name,
-        width,
-        height,
-        ...inspection,
-        image_size: imageSize,
-        image_sha256: crypto.createHash('sha256').update(png).digest('hex'),
-      })
+      const captureWindow = await createPackagedCaptureWindow(route, token, width, height)
+      try {
+        const inspection = await captureWindow.webContents.executeJavaScript(`({
+          route: location.hash,
+          current_route: document.documentElement.dataset.currentRoute || '',
+          viewport: { width: window.innerWidth, height: window.innerHeight },
+          page_scrollable: document.documentElement.scrollHeight > document.documentElement.clientHeight + 2,
+          failed_fetch: document.body.innerText.includes('Failed to fetch'),
+          text_length: document.body.innerText.length
+        })`)
+        const image = await captureWindow.webContents.capturePage()
+        const png = image.toPNG()
+        const imageSize = image.getSize()
+        fs.writeFileSync(path.join(output, `${name}_${width}x${height}.png`), png)
+        inspections.push({
+          name,
+          width,
+          height,
+          ...inspection,
+          image_size: imageSize,
+          image_sha256: crypto.createHash('sha256').update(png).digest('hex'),
+        })
+      } finally {
+        captureWindow.destroy()
+      }
     }
   }
   const channels = await requestJson(`${runtime.apiBase}/can/channels/status`, {

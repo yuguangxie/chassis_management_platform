@@ -47,9 +47,9 @@ try {
   Remove-Item Env:CHASSIS_DESKTOP_RUNTIME_PROFILE -ErrorAction SilentlyContinue
   try {
     $AppProcess = Start-Process -FilePath $Application.FullName -PassThru -WindowStyle Hidden
-    if (-not $AppProcess.WaitForExit(120000)) {
+    if (-not $AppProcess.WaitForExit(240000)) {
       Stop-Process -Id $AppProcess.Id -Force
-      throw 'installed 11-page E2E timed out'
+      throw 'installed 11-page E2E timed out after 240 seconds'
     }
     if ($AppProcess.ExitCode -ne 0) { throw "installed application exited with $($AppProcess.ExitCode)" }
   } finally {

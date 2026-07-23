@@ -6,9 +6,10 @@ const installerVerification = readFileSync('../scripts/verify_windows_installer.
 
 describe('packaged Electron E2E evidence contract', () => {
   it('waits for the Vue route and captures the current renderer frame', () => {
-    expect(electronMain).toContain('waitForPackagedRoute(route)')
+    expect(electronMain).toContain('createPackagedCaptureWindow(route, token, width, height)')
+    expect(electronMain).toContain('waitForPackagedRoute(window, route)')
     expect(electronMain).toContain("document.documentElement.dataset.currentRoute")
-    expect(electronMain).toContain('mainWindow.webContents.capturePage()')
+    expect(electronMain).toContain('captureWindow.webContents.capturePage()')
     expect(electronMain).not.toContain('const image = await mainWindow.capturePage()')
   })
 
