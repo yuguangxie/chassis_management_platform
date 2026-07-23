@@ -1,8 +1,14 @@
 import { mount } from '@vue/test-utils'
+import { readFileSync } from 'node:fs'
 import { describe, expect, it } from 'vitest'
 import SignalLightItem from './SignalLightItem.vue'
 
 describe('灯光与制动信号灯效', () => {
+  it('状态切换时灯色立即归一化，避免旧的点亮色残留', () => {
+    const source = readFileSync('src/components/signals/SignalLightItem.vue', 'utf8')
+    expect(source).not.toContain('transition:color')
+  })
+
   const signals = [
     ['左转灯', 'yellow'], ['右转灯', 'yellow'], ['位置灯', 'red'],
     ['近光灯', 'white'], ['制动请求', 'red'],

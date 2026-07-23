@@ -37,7 +37,7 @@ async function resetOutputDirectory() {
 }
 
 function removeSensitiveRuntimeArtifacts() {
-  for (const name of ['runtime-data', 'backend.log', 'frontend.log', 'renderer-capture.log', 'simulator.log']) {
+  for (const name of ['runtime-data', 'backend.log', 'frontend.log', 'renderer-capture.log', 'simulator.log', 'runtime.log', 'stress-10m.log']) {
     rmSync(resolve(output, name), { recursive: true, force: true })
   }
 }

@@ -28,4 +28,12 @@ describe('packaged Electron E2E evidence contract', () => {
     expect(rendererCapture).toContain("preload:path.join(__dirname,'preload.cjs')")
     expect(rendererCapture).not.toContain("const refreshedRoute = await firstWindow.webContents.executeJavaScript('location.hash')")
   })
+
+  it('waits for lazy page content and removes process logs before evidence upload', () => {
+    const e2eRunner = readFileSync('scripts/phase05-e2e.mjs', 'utf8')
+    expect(rendererCapture).toContain('waitForPageReady(window, route)')
+    expect(rendererCapture).toContain("document.querySelectorAll('[data-feedback-rule]').length")
+    expect(e2eRunner).toContain("'runtime.log'")
+    expect(e2eRunner).toContain("'stress-10m.log'")
+  })
 })

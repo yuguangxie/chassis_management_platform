@@ -50,6 +50,35 @@ async function waitForRendererRoute(window, expectedRoute, timeoutMs = 15000) {
   throw new Error(`Timed out waiting for renderer route ${expectedRoute}: ${JSON.stringify(state)}`)
 }
 
+async function waitForPageReady(window, expectedRoute, timeoutMs = 20000) {
+  const deadline = Date.now() + timeoutMs
+  let state = {}
+  while (Date.now() < deadline) {
+    state = await window.webContents.executeJavaScript(`(() => {
+      const shell = document.querySelector('.shell')
+      const content = document.querySelector('.content')
+      const page = content?.firstElementChild
+      const pageRect = page?.getBoundingClientRect()
+      return {
+        hash: location.hash,
+        currentRoute: document.documentElement.dataset.currentRoute || '',
+        shellReady: Boolean(shell && content && page),
+        pageWidth: pageRect?.width || 0,
+        pageHeight: pageRect?.height || 0,
+      }
+    })()`)
+    if (state.currentRoute === expectedRoute
+      && state.hash === `#${expectedRoute}`
+      && state.shellReady
+      && state.pageWidth > 0
+      && state.pageHeight > 0) {
+      return state
+    }
+    await sleep(100)
+  }
+  throw new Error(`Timed out waiting for rendered page ${expectedRoute}: ${JSON.stringify(state)}`)
+}
+
 // The capture runner intentionally creates and destroys one isolated window per
 // page. Keep the Electron process alive between windows; main() owns final quit.
 app.on('window-all-closed', () => {})
@@ -193,6 +222,9 @@ async function performSafeInteraction(window, name) {
         const resources = performance.getEntriesByType('resource').map((entry) => entry.name)
         evidence.assertions.live_mode_zero_history_requests = resources.every((url) => !url.includes('/test-sessions/') && !url.includes('mode=history'))
       } else if (name === 'manual-control') {
+        for (let attempt = 0; attempt < 100 && document.querySelectorAll('[data-feedback-rule]').length === 0; attempt += 1) {
+          await wait(100)
+        }
         const neutral = [...document.querySelectorAll('button')].find((item) => (item.textContent || '').trim() === 'N')
         neutral?.click(); if (neutral) evidence.clicked.push('select-neutral-local-only')
         evidence.assertions.feedback_rules = document.querySelectorAll('[data-feedback-rule]').length > 0
@@ -277,11 +309,14 @@ async function capturePage(name, route, width, height) {
   await window.loadURL(`${baseUrl}/#/login`)
   await window.webContents.executeJavaScript(`sessionStorage.setItem('chassis_api_token', ${JSON.stringify(apiToken)})`)
   await window.loadURL(`${baseUrl}/?capture=${encodeURIComponent(`${name}-${width}-${height}`)}#${route}`)
+  await waitForPageReady(window, route)
   await sleep(captureDelayMs)
   await applySidebarState(window)
+  await waitForPageReady(window, route)
   const interaction = width === 1920 ? await performSafeInteraction(window, name) : { name, skipped: 'already exercised at 1920x1080' }
   if ((await window.webContents.executeJavaScript('location.hash')) !== `#${route}`) {
     await window.loadURL(`${baseUrl}/?capture=restore-${encodeURIComponent(name)}#${route}`)
+    await waitForPageReady(window, route)
     await sleep(captureDelayMs)
   }
   const inspection = await window.webContents.executeJavaScript(`
