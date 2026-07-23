@@ -1,10 +1,10 @@
 {
   "bomFormat": "CycloneDX",
   "specVersion": "1.5",
-  "serialNumber": "urn:uuid:4083b499-4f17-46c3-bd83-0e591424c284",
+  "serialNumber": "urn:uuid:adf70d9a-9e5f-43bb-a023-f912be4631c7",
   "version": 1,
   "metadata": {
-    "timestamp": "2026-07-23T07:52:09.421Z",
+    "timestamp": "2026-07-23T09:58:54.570Z",
     "component": {
       "type": "application",
       "name": "chassis-eol-desktop",

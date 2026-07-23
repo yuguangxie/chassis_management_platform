@@ -32,13 +32,13 @@
 
 ## 4. 本地验证结果
 
-以下结果来自最终源码提交及其 Windows release 构建；全部动态验证仅使用 Mock、临时数据目录和回环地址。远程 CI 结果在工作流完成后补录。
+以下结果来自最终源码提交及其 Windows release 构建；全部动态验证仅使用 Mock、临时数据目录和回环地址。
 
 | 命令 | 结果 |
 |---|---|
 | `backend\.venv\Scripts\python.exe scripts\run_quality.py --suite all --coverage` | PASS：219 backend + 3 simulator；backend 78.52%，simulator 42.98% |
 | `npm.cmd run lint` | PASS |
-| `npm.cmd run test` | PASS：20 files / 139 tests；statements 56.50%、branches 58.36%、functions 67.05%、lines 58.54% |
+| `npm.cmd run test` | PASS：21 files / 144 tests；statements 56.50%、branches 58.36%、functions 67.05%、lines 58.54% |
 | `npm.cmd run typecheck` | PASS |
 | `npm.cmd run build` | PASS：2271 modules |
 | `npm.cmd run test:bundle` | PASS：main gzip 23,659 B；ECharts gzip 367,892 B；total JS gzip 520,643 B |
@@ -48,19 +48,21 @@
 | `npm.cmd audit --audit-level=high` | PASS：596 个依赖，0 个已知漏洞 |
 | `python -m pip_audit --skip-editable` | PASS：0 个已知漏洞；本地 editable 项目自身不属于第三方漏洞库扫描对象 |
 | `scripts/check_report_dependencies.py` | PASS：ReportLab 原生 PDF、python-docx、PDF 预览可用；DOCX 与 PDF 独立渲染，未启用外部 DOCX→PDF 转换器 |
-| Windows NSIS / installed-package | PASS：clean commit 构建、中文与空格路径、8800 端口占用、11 页、二次启动、有界崩溃恢复、启动失败诊断、卸载保留数据 |
+| Windows NSIS / installed-package | PASS：clean commit 构建、中文与空格路径、8800 端口占用、11 页 × 2 分辨率；22 张截图路由/尺寸匹配且哈希全部唯一；二次启动、有界崩溃恢复、启动失败诊断、卸载保留数据 |
+| GitHub Actions `29997457365` | PASS：`quality`、两轮 `renderer-e2e`、`unsigned-internal-windows-installer`；[运行记录](https://github.com/yuguangxie/chassis_management_platform/actions/runs/29997457365) |
 
 ## 5. Windows release candidate
 
 | 项目 | 证据 |
 |---|---|
-| 源码 commit | `6f5bef16b93585b6cdcfd1f57a7038b1bfc74539` |
+| 源码 commit | `40dc553ea4155507df9f9d3b69718b2b816fd687` |
 | 源码状态 | `dirty=false`，`dirty_file_count=0`；构建前冻结，finalize 校验 commit 未变化 |
-| 安装包 | `Chassis-EOL-Setup-1.0.2-unsigned-internal-x64.exe`，165,173,203 bytes |
-| 安装包 SHA-256 | `d101bdfc7d7bd74c0952671f375e456ab89cb60b0bc717cc1c3e0df0992bf5e8` |
+| 安装包 | `Chassis-EOL-Setup-1.0.2-unsigned-internal-x64.exe`，165,173,758 bytes |
+| 安装包 SHA-256 | `9ae15624cd9cbff122b2c4d37ec7b559c87e3123b4f822dccac570a74201fdb6` |
 | 签名状态 | `signed=false`、`formal_release=false`、`release_label=unsigned-internal`；不得作为正式生产签名包 |
 | 供应链证据 | `release/sbom.cdx.json`、`npm-audit.json`、`pip-audit.json`、`signing-status.json`、`release-manifest.json` |
-| 安装后证据 | `clean-machine/clean-machine-matrix.json` 与 22 张 installed-package 页面截图；`passed=true` |
+| 安装后证据 | `clean-machine/clean-machine-matrix.json` 与 22 张 installed-package 页面截图；`passed=true`、`route_capture_matches=true`、`viewport_matches_request=true`、`unique_page_captures=true` |
+| CI 证据 | `ci-final.json`；source commit 与 release manifest 一致；正式签名 job 因无证书输入按设计跳过 |
 | 未执行矩阵项 | 无历史安装包，故升级/回滚未执行；独立普通用户/管理员 VM 和厂商 AV/防火墙仍属外部验收 |
 
 安装包本体位于本机构建目录 `desktop/release/windows/`，因体积与发布介质策略不提交 Git；校验时必须以本节 SHA-256 和 `release/release-manifest.json` 为准。
@@ -77,3 +79,5 @@
 - 普通用户/管理员独立 Windows 镜像、旧版本升级/失败回滚、厂商防火墙/AV。
 
 真实 CAN 下一步只能做受控“只监听”：执行器断能、车轮离地、物理急停可达、禁止任何主动发送。只有现场签名 artifact 完成后，才可另行审批静态/封闭低速运动验证。
+
+本次标准 CI 未请求可选的 `1000 fps / 10 min` 长稳态 job；该项以及目标 IPC 的 8～24 小时软件 soak 仍需在后续 nightly/目标机验证中完成。

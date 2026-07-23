@@ -8,6 +8,16 @@
   "permission": {
     "viewer_network_redirects_403": true
   },
+  "stability": {
+    "duration_seconds": 60,
+    "sample_count": 60,
+    "signal_quality_values": [
+      "good"
+    ],
+    "signal_quality_stable": true,
+    "auto_test_button_stable": true,
+    "alarm_button_stable": true
+  },
   "inspections": [
     {
       "page": "overview",
@@ -29,13 +39,104 @@
       "location": "#/overview",
       "viewport": {
         "width": 1920,
-        "height": 1040
+        "height": 1080
       },
       "page_scrollable": false,
-      "root_scroll_height": 1040,
-      "root_client_height": 1040,
+      "root_scroll_height": 1080,
+      "root_client_height": 1080,
       "white_controls": 0,
       "chart_canvas_count": 3,
+      "page_inside_content": true,
+      "section_bounds": [
+        {
+          "className": "page-title",
+          "inside": true,
+          "top": 100,
+          "bottom": 142
+        },
+        {
+          "className": "kpi-row",
+          "inside": true,
+          "top": 152,
+          "bottom": 234
+        },
+        {
+          "className": "status-row",
+          "inside": true,
+          "top": 244,
+          "bottom": 554.28125
+        },
+        {
+          "className": "shortcut-row",
+          "inside": true,
+          "top": 564.28125,
+          "bottom": 634.28125
+        },
+        {
+          "className": "chart-row",
+          "inside": true,
+          "top": 644.28125,
+          "bottom": 877
+        },
+        {
+          "className": "panel table-panel",
+          "inside": true,
+          "top": 887,
+          "bottom": 1068
+        }
+      ],
+      "sections_inside_content": true,
+      "internal_scroll_reachable": true,
+      "bottom_blank_px": 12,
+      "segmented_bounds": [],
+      "segmented_controls_fit": true,
+      "chart_bounds": [
+        {
+          "inside": true,
+          "width": 306,
+          "height": 164
+        },
+        {
+          "inside": true,
+          "width": 512,
+          "height": 220
+        },
+        {
+          "inside": true,
+          "width": 605,
+          "height": 220
+        }
+      ],
+      "charts_inside_containers": true,
+      "action_text_bounds": [
+        {
+          "text": "新建检测",
+          "fits": true
+        },
+        {
+          "text": "继续上次会话",
+          "fits": true
+        },
+        {
+          "text": "打开报告目录",
+          "fits": true
+        },
+        {
+          "text": "进入安全停车",
+          "fits": true
+        },
+        {
+          "text": "进入CAN监控",
+          "fits": true
+        },
+        {
+          "text": "进入手动控制",
+          "fits": true
+        }
+      ],
+      "action_texts_fit": true,
+      "signal_light_samples": [],
+      "screenshot_light_colors_match": true,
       "failed_to_fetch_banner": false,
       "sidebar_collapsed": false,
       "layout_rects": {
@@ -43,19 +144,19 @@
           "x": 0,
           "y": 0,
           "width": 1920,
-          "height": 1040
+          "height": 1080
         },
         "sidebar": {
           "x": 0,
           "y": 0,
           "width": 280,
-          "height": 1040
+          "height": 1080
         },
         "main": {
           "x": 280,
           "y": 0,
           "width": 1640,
-          "height": 1040
+          "height": 1080
         },
         "topbar": {
           "x": 280,
@@ -67,7 +168,7 @@
           "x": 280,
           "y": 90,
           "width": 1640,
-          "height": 950
+          "height": 990
         },
         "sidebar_expand": null
       },
@@ -84,7 +185,7 @@
           "display": "flex"
         },
         {
-          "text": "用户e2e-admin · admin",
+          "text": "用户e2e-admin · 管理员",
           "rect": {
             "x": 426.296875,
             "y": 32,
@@ -129,6 +230,97 @@
       "root_client_height": 768,
       "white_controls": 0,
       "chart_canvas_count": 3,
+      "page_inside_content": true,
+      "section_bounds": [
+        {
+          "className": "page-title",
+          "inside": true,
+          "top": 100,
+          "bottom": 142
+        },
+        {
+          "className": "kpi-row",
+          "inside": true,
+          "top": 150,
+          "bottom": 226
+        },
+        {
+          "className": "status-row",
+          "inside": true,
+          "top": 234,
+          "bottom": 417.421875
+        },
+        {
+          "className": "shortcut-row",
+          "inside": true,
+          "top": 425.421875,
+          "bottom": 495.421875
+        },
+        {
+          "className": "chart-row",
+          "inside": true,
+          "top": 503.421875,
+          "bottom": 641
+        },
+        {
+          "className": "panel table-panel",
+          "inside": true,
+          "top": 649,
+          "bottom": 756
+        }
+      ],
+      "sections_inside_content": true,
+      "internal_scroll_reachable": true,
+      "bottom_blank_px": 12,
+      "segmented_bounds": [],
+      "segmented_controls_fit": true,
+      "chart_bounds": [
+        {
+          "inside": true,
+          "width": 170,
+          "height": 150
+        },
+        {
+          "inside": true,
+          "width": 363,
+          "height": 220
+        },
+        {
+          "inside": true,
+          "width": 429,
+          "height": 220
+        }
+      ],
+      "charts_inside_containers": true,
+      "action_text_bounds": [
+        {
+          "text": "新建检测",
+          "fits": true
+        },
+        {
+          "text": "继续上次会话",
+          "fits": true
+        },
+        {
+          "text": "打开报告目录",
+          "fits": true
+        },
+        {
+          "text": "进入安全停车",
+          "fits": true
+        },
+        {
+          "text": "进入CAN监控",
+          "fits": true
+        },
+        {
+          "text": "进入手动控制",
+          "fits": true
+        }
+      ],
+      "action_texts_fit": true,
+      "signal_light_samples": [],
+      "screenshot_light_colors_match": true,
       "failed_to_fetch_banner": false,
       "sidebar_collapsed": false,
       "layout_rects": {
@@ -177,7 +369,7 @@
           "display": "flex"
         },
         {
-          "text": "用户e2e-admin · admin",
+          "text": "用户e2e-admin · 管理员",
           "rect": {
             "x": 292.375,
             "y": 32,
@@ -209,11 +401,19 @@
       "interaction": {
         "name": "network-config",
         "clicked": [
+          "toggle-channel-draft-twice",
+          "save-validated-config",
+          "invalid-config-rollback",
           "network-self-test"
         ],
         "assertions": {
+          "draft_toggle_marks_dirty": true,
+          "failed_apply_rolled_back": true,
+          "can1_send_locked": true,
+          "only_121_approved": true,
           "diagnostics_rendered": true,
-          "no_fake_zero_ping": true
+          "no_fake_zero_ping": true,
+          "no_raw_diagnostic_enums": true
         }
       },
       "renderer_console_errors": [],
@@ -221,13 +421,98 @@
       "location": "#/network-config",
       "viewport": {
         "width": 1920,
-        "height": 1040
+        "height": 1080
       },
       "page_scrollable": false,
-      "root_scroll_height": 1040,
-      "root_client_height": 1040,
+      "root_scroll_height": 1080,
+      "root_client_height": 1080,
       "white_controls": 0,
       "chart_canvas_count": 2,
+      "page_inside_content": true,
+      "section_bounds": [
+        {
+          "className": "page-title",
+          "inside": true,
+          "top": 100,
+          "bottom": 142
+        },
+        {
+          "className": "top-grid",
+          "inside": true,
+          "top": 152,
+          "bottom": 587.9375
+        },
+        {
+          "className": "middle-grid",
+          "inside": true,
+          "top": 597.9375,
+          "bottom": 988
+        },
+        {
+          "className": "action-row",
+          "inside": true,
+          "top": 998,
+          "bottom": 1068
+        }
+      ],
+      "sections_inside_content": true,
+      "internal_scroll_reachable": true,
+      "bottom_blank_px": 12,
+      "segmented_bounds": [
+        {
+          "text": "UDP",
+          "inside": true,
+          "textFits": true
+        },
+        {
+          "text": "TCP（开发预览）",
+          "inside": true,
+          "textFits": true
+        }
+      ],
+      "segmented_controls_fit": true,
+      "chart_bounds": [
+        {
+          "inside": true,
+          "width": 408,
+          "height": 220
+        },
+        {
+          "inside": true,
+          "width": 408,
+          "height": 220
+        }
+      ],
+      "charts_inside_containers": true,
+      "action_text_bounds": [
+        {
+          "text": "保存并应用",
+          "fits": true
+        },
+        {
+          "text": "测试连接",
+          "fits": true
+        },
+        {
+          "text": "启动CAN1",
+          "fits": true
+        },
+        {
+          "text": "启动CAN2",
+          "fits": true
+        },
+        {
+          "text": "停止全部",
+          "fits": true
+        },
+        {
+          "text": "恢复默认",
+          "fits": true
+        }
+      ],
+      "action_texts_fit": true,
+      "signal_light_samples": [],
+      "screenshot_light_colors_match": true,
       "failed_to_fetch_banner": false,
       "sidebar_collapsed": false,
       "layout_rects": {
@@ -235,19 +520,19 @@
           "x": 0,
           "y": 0,
           "width": 1920,
-          "height": 1040
+          "height": 1080
         },
         "sidebar": {
           "x": 0,
           "y": 0,
           "width": 280,
-          "height": 1040
+          "height": 1080
         },
         "main": {
           "x": 280,
           "y": 0,
           "width": 1640,
-          "height": 1040
+          "height": 1080
         },
         "topbar": {
           "x": 280,
@@ -259,7 +544,7 @@
           "x": 280,
           "y": 90,
           "width": 1640,
-          "height": 950
+          "height": 990
         },
         "sidebar_expand": null
       },
@@ -276,7 +561,7 @@
           "display": "flex"
         },
         {
-          "text": "用户e2e-admin · admin",
+          "text": "用户e2e-admin · 管理员",
           "rect": {
             "x": 426.296875,
             "y": 32,
@@ -321,6 +606,91 @@
       "root_client_height": 768,
       "white_controls": 0,
       "chart_canvas_count": 2,
+      "page_inside_content": true,
+      "section_bounds": [
+        {
+          "className": "page-title",
+          "inside": true,
+          "top": 100,
+          "bottom": 142
+        },
+        {
+          "className": "top-grid",
+          "inside": true,
+          "top": 150,
+          "bottom": 451.921875
+        },
+        {
+          "className": "middle-grid",
+          "inside": true,
+          "top": 459.921875,
+          "bottom": 677.984375
+        },
+        {
+          "className": "action-row",
+          "inside": true,
+          "top": 685.984375,
+          "bottom": 755.984375
+        }
+      ],
+      "sections_inside_content": true,
+      "internal_scroll_reachable": true,
+      "bottom_blank_px": 12,
+      "segmented_bounds": [
+        {
+          "text": "UDP",
+          "inside": true,
+          "textFits": true
+        },
+        {
+          "text": "TCP（开发预览）",
+          "inside": true,
+          "textFits": true
+        }
+      ],
+      "segmented_controls_fit": true,
+      "chart_bounds": [
+        {
+          "inside": true,
+          "width": 272,
+          "height": 220
+        },
+        {
+          "inside": true,
+          "width": 272,
+          "height": 220
+        }
+      ],
+      "charts_inside_containers": true,
+      "action_text_bounds": [
+        {
+          "text": "保存并应用",
+          "fits": true
+        },
+        {
+          "text": "测试连接",
+          "fits": true
+        },
+        {
+          "text": "启动CAN1",
+          "fits": true
+        },
+        {
+          "text": "启动CAN2",
+          "fits": true
+        },
+        {
+          "text": "停止全部",
+          "fits": true
+        },
+        {
+          "text": "恢复默认",
+          "fits": true
+        }
+      ],
+      "action_texts_fit": true,
+      "signal_light_samples": [],
+      "screenshot_light_colors_match": true,
       "failed_to_fetch_banner": false,
       "sidebar_collapsed": false,
       "layout_rects": {
@@ -369,7 +739,7 @@
           "display": "flex"
         },
         {
-          "text": "用户e2e-admin · admin",
+          "text": "用户e2e-admin · 管理员",
           "rect": {
             "x": 292.375,
             "y": 32,
@@ -413,13 +783,114 @@
       "location": "#/can-monitor",
       "viewport": {
         "width": 1920,
-        "height": 1040
+        "height": 1080
       },
       "page_scrollable": false,
-      "root_scroll_height": 1040,
-      "root_client_height": 1040,
+      "root_scroll_height": 1080,
+      "root_client_height": 1080,
       "white_controls": 0,
       "chart_canvas_count": 3,
+      "page_inside_content": true,
+      "section_bounds": [
+        {
+          "className": "page-header",
+          "inside": true,
+          "top": 100,
+          "bottom": 142
+        },
+        {
+          "className": "filter-panel",
+          "inside": true,
+          "top": 152,
+          "bottom": 228
+        },
+        {
+          "className": "main-grid",
+          "inside": true,
+          "top": 238,
+          "bottom": 724.640625
+        },
+        {
+          "className": "stats-grid",
+          "inside": true,
+          "top": 734.640625,
+          "bottom": 1023.984375
+        },
+        {
+          "className": "monitor-footer",
+          "inside": true,
+          "top": 1033.984375,
+          "bottom": 1067.984375
+        }
+      ],
+      "sections_inside_content": true,
+      "internal_scroll_reachable": true,
+      "bottom_blank_px": 12,
+      "segmented_bounds": [
+        {
+          "text": "全部",
+          "inside": true,
+          "textFits": true
+        },
+        {
+          "text": "CAN1",
+          "inside": true,
+          "textFits": true
+        },
+        {
+          "text": "CAN2",
+          "inside": true,
+          "textFits": true
+        },
+        {
+          "text": "全部",
+          "inside": true,
+          "textFits": true
+        },
+        {
+          "text": "接收",
+          "inside": true,
+          "textFits": true
+        },
+        {
+          "text": "发送",
+          "inside": true,
+          "textFits": true
+        },
+        {
+          "text": "十六进制",
+          "inside": true,
+          "textFits": true
+        },
+        {
+          "text": "十进制",
+          "inside": true,
+          "textFits": true
+        }
+      ],
+      "segmented_controls_fit": true,
+      "chart_bounds": [
+        {
+          "inside": true,
+          "width": 376,
+          "height": 237
+        },
+        {
+          "inside": true,
+          "width": 296,
+          "height": 237
+        },
+        {
+          "inside": true,
+          "width": 296,
+          "height": 237
+        }
+      ],
+      "charts_inside_containers": true,
+      "action_text_bounds": [],
+      "action_texts_fit": true,
+      "signal_light_samples": [],
+      "screenshot_light_colors_match": true,
       "failed_to_fetch_banner": false,
       "sidebar_collapsed": false,
       "layout_rects": {
@@ -427,19 +898,19 @@
           "x": 0,
           "y": 0,
           "width": 1920,
-          "height": 1040
+          "height": 1080
         },
         "sidebar": {
           "x": 0,
           "y": 0,
           "width": 280,
-          "height": 1040
+          "height": 1080
         },
         "main": {
           "x": 280,
           "y": 0,
           "width": 1640,
-          "height": 1040
+          "height": 1080
         },
         "topbar": {
           "x": 280,
@@ -451,7 +922,7 @@
           "x": 280,
           "y": 90,
           "width": 1640,
-          "height": 950
+          "height": 990
         },
         "sidebar_expand": null
       },
@@ -468,7 +939,7 @@
           "display": "flex"
         },
         {
-          "text": "用户e2e-admin · admin",
+          "text": "用户e2e-admin · 管理员",
           "rect": {
             "x": 426.296875,
             "y": 32,
@@ -513,6 +984,107 @@
       "root_client_height": 768,
       "white_controls": 0,
       "chart_canvas_count": 3,
+      "page_inside_content": true,
+      "section_bounds": [
+        {
+          "className": "page-header",
+          "inside": true,
+          "top": 100,
+          "bottom": 142
+        },
+        {
+          "className": "filter-panel",
+          "inside": true,
+          "top": 150,
+          "bottom": 258
+        },
+        {
+          "className": "main-grid",
+          "inside": true,
+          "top": 266,
+          "bottom": 545.65625
+        },
+        {
+          "className": "stats-grid",
+          "inside": true,
+          "top": 553.65625,
+          "bottom": 714
+        },
+        {
+          "className": "monitor-footer",
+          "inside": true,
+          "top": 722,
+          "bottom": 756
+        }
+      ],
+      "sections_inside_content": true,
+      "internal_scroll_reachable": true,
+      "bottom_blank_px": 12,
+      "segmented_bounds": [
+        {
+          "text": "全部",
+          "inside": true,
+          "textFits": true
+        },
+        {
+          "text": "CAN1",
+          "inside": true,
+          "textFits": true
+        },
+        {
+          "text": "CAN2",
+          "inside": true,
+          "textFits": true
+        },
+        {
+          "text": "全部",
+          "inside": true,
+          "textFits": true
+        },
+        {
+          "text": "接收",
+          "inside": true,
+          "textFits": true
+        },
+        {
+          "text": "发送",
+          "inside": true,
+          "textFits": true
+        },
+        {
+          "text": "十六进制",
+          "inside": true,
+          "textFits": true
+        },
+        {
+          "text": "十进制",
+          "inside": true,
+          "textFits": true
+        }
+      ],
+      "segmented_controls_fit": true,
+      "chart_bounds": [
+        {
+          "inside": true,
+          "width": 260,
+          "height": 120
+        },
+        {
+          "inside": true,
+          "width": 211,
+          "height": 120
+        },
+        {
+          "inside": true,
+          "width": 211,
+          "height": 120
+        }
+      ],
+      "charts_inside_containers": true,
+      "action_text_bounds": [],
+      "action_texts_fit": true,
+      "signal_light_samples": [],
+      "screenshot_light_colors_match": true,
       "failed_to_fetch_banner": false,
       "sidebar_collapsed": false,
       "layout_rects": {
@@ -561,7 +1133,7 @@
           "display": "flex"
         },
         {
-          "text": "用户e2e-admin · admin",
+          "text": "用户e2e-admin · 管理员",
           "rect": {
             "x": 292.375,
             "y": 32,
@@ -596,21 +1168,141 @@
           "save-watchlist"
         ],
         "assertions": {
-          "write_feedback": true
-        }
+          "write_feedback": true,
+          "five_signal_lights": true,
+          "light_states_explicit": true,
+          "light_colors_match_state": true,
+          "no_blink_animation": true
+        },
+        "light_samples": [
+          {
+            "label": "左转灯",
+            "state": "off",
+            "quality": "good",
+            "tone": "tone-yellow",
+            "color": "rgb(148,163,184)",
+            "text": "关闭"
+          },
+          {
+            "label": "右转灯",
+            "state": "off",
+            "quality": "good",
+            "tone": "tone-yellow",
+            "color": "rgb(148,163,184)",
+            "text": "关闭"
+          },
+          {
+            "label": "位置灯",
+            "state": "off",
+            "quality": "good",
+            "tone": "tone-red",
+            "color": "rgb(148,163,184)",
+            "text": "关闭"
+          },
+          {
+            "label": "近光灯",
+            "state": "off",
+            "quality": "good",
+            "tone": "tone-white",
+            "color": "rgb(148,163,184)",
+            "text": "关闭"
+          },
+          {
+            "label": "制动请求",
+            "state": "off",
+            "quality": "good",
+            "tone": "tone-red",
+            "color": "rgb(148,163,184)",
+            "text": "关闭"
+          }
+        ]
       },
       "renderer_console_errors": [],
       "renderer_page_errors": [],
       "location": "#/signal-dashboard",
       "viewport": {
         "width": 1920,
-        "height": 1040
+        "height": 1080
       },
       "page_scrollable": false,
-      "root_scroll_height": 1040,
-      "root_client_height": 1040,
+      "root_scroll_height": 1080,
+      "root_client_height": 1080,
       "white_controls": 0,
       "chart_canvas_count": 0,
+      "page_inside_content": true,
+      "section_bounds": [
+        {
+          "className": "page-header",
+          "inside": true,
+          "top": 100,
+          "bottom": 142
+        },
+        {
+          "className": "row row-one",
+          "inside": true,
+          "top": 154,
+          "bottom": 464
+        },
+        {
+          "className": "row row-two",
+          "inside": true,
+          "top": 476,
+          "bottom": 696
+        },
+        {
+          "className": "row row-three",
+          "inside": true,
+          "top": 708,
+          "bottom": 1068
+        }
+      ],
+      "sections_inside_content": true,
+      "internal_scroll_reachable": true,
+      "bottom_blank_px": 12,
+      "segmented_bounds": [],
+      "segmented_controls_fit": true,
+      "chart_bounds": [],
+      "charts_inside_containers": true,
+      "action_text_bounds": [],
+      "action_texts_fit": true,
+      "signal_light_samples": [
+        {
+          "label": "左转灯",
+          "state": "off",
+          "tone": "tone-yellow",
+          "color": "rgb(148,163,184)",
+          "text": "关闭"
+        },
+        {
+          "label": "右转灯",
+          "state": "off",
+          "tone": "tone-yellow",
+          "color": "rgb(148,163,184)",
+          "text": "关闭"
+        },
+        {
+          "label": "位置灯",
+          "state": "off",
+          "tone": "tone-red",
+          "color": "rgb(148,163,184)",
+          "text": "关闭"
+        },
+        {
+          "label": "近光灯",
+          "state": "off",
+          "tone": "tone-white",
+          "color": "rgb(148,163,184)",
+          "text": "关闭"
+        },
+        {
+          "label": "制动请求",
+          "state": "off",
+          "tone": "tone-red",
+          "color": "rgb(148,163,184)",
+          "text": "关闭"
+        }
+      ],
+      "screenshot_light_colors_match": true,
       "failed_to_fetch_banner": false,
       "sidebar_collapsed": false,
       "layout_rects": {
@@ -618,19 +1310,19 @@
           "x": 0,
           "y": 0,
           "width": 1920,
-          "height": 1040
+          "height": 1080
         },
         "sidebar": {
           "x": 0,
           "y": 0,
           "width": 280,
-          "height": 1040
+          "height": 1080
         },
         "main": {
           "x": 280,
           "y": 0,
           "width": 1640,
-          "height": 1040
+          "height": 1080
         },
         "topbar": {
           "x": 280,
@@ -642,7 +1334,7 @@
           "x": 280,
           "y": 90,
           "width": 1640,
-          "height": 950
+          "height": 990
         },
         "sidebar_expand": null
       },
@@ -659,7 +1351,7 @@
           "display": "flex"
         },
         {
-          "text": "用户e2e-admin · admin",
+          "text": "用户e2e-admin · 管理员",
           "rect": {
             "x": 426.296875,
             "y": 32,
@@ -704,6 +1396,80 @@
       "root_client_height": 768,
       "white_controls": 0,
       "chart_canvas_count": 0,
+      "page_inside_content": true,
+      "section_bounds": [
+        {
+          "className": "page-header",
+          "inside": true,
+          "top": 100,
+          "bottom": 142
+        },
+        {
+          "className": "row row-one",
+          "inside": true,
+          "top": 152,
+          "bottom": 444
+        },
+        {
+          "className": "row row-two",
+          "inside": true,
+          "top": 454,
+          "bottom": 664
+        },
+        {
+          "className": "row row-three",
+          "inside": true,
+          "top": 674,
+          "bottom": 756
+        }
+      ],
+      "sections_inside_content": true,
+      "internal_scroll_reachable": true,
+      "bottom_blank_px": 12,
+      "segmented_bounds": [],
+      "segmented_controls_fit": true,
+      "chart_bounds": [],
+      "charts_inside_containers": true,
+      "action_text_bounds": [],
+      "action_texts_fit": true,
+      "signal_light_samples": [
+        {
+          "label": "左转灯",
+          "state": "off",
+          "tone": "tone-yellow",
+          "color": "rgb(148,163,184)",
+          "text": "关闭"
+        },
+        {
+          "label": "右转灯",
+          "state": "off",
+          "tone": "tone-yellow",
+          "color": "rgb(148,163,184)",
+          "text": "关闭"
+        },
+        {
+          "label": "位置灯",
+          "state": "off",
+          "tone": "tone-red",
+          "color": "rgb(148,163,184)",
+          "text": "关闭"
+        },
+        {
+          "label": "近光灯",
+          "state": "off",
+          "tone": "tone-white",
+          "color": "rgb(148,163,184)",
+          "text": "关闭"
+        },
+        {
+          "label": "制动请求",
+          "state": "off",
+          "tone": "tone-red",
+          "color": "rgb(148,163,184)",
+          "text": "关闭"
+        }
+      ],
+      "screenshot_light_colors_match": true,
       "failed_to_fetch_banner": false,
       "sidebar_collapsed": false,
       "layout_rects": {
@@ -752,7 +1518,7 @@
           "display": "flex"
         },
         {
-          "text": "用户e2e-admin · admin",
+          "text": "用户e2e-admin · 管理员",
           "rect": {
             "x": 292.375,
             "y": 32,
@@ -788,7 +1554,8 @@
           "resume-curve"
         ],
         "assertions": {
-          "pause_resume_feedback": true
+          "pause_resume_feedback": true,
+          "live_mode_zero_history_requests": true
         }
       },
       "renderer_console_errors": [],
@@ -796,13 +1563,81 @@
       "location": "#/realtime-curve",
       "viewport": {
         "width": 1920,
-        "height": 1040
+        "height": 1080
       },
       "page_scrollable": false,
-      "root_scroll_height": 1040,
-      "root_client_height": 1040,
+      "root_scroll_height": 1080,
+      "root_client_height": 1080,
       "white_controls": 0,
       "chart_canvas_count": 7,
+      "page_inside_content": true,
+      "section_bounds": [
+        {
+          "className": "page-title",
+          "inside": true,
+          "top": 100,
+          "bottom": 142
+        },
+        {
+          "className": "curve-toolbar",
+          "inside": true,
+          "top": 152,
+          "bottom": 224
+        },
+        {
+          "className": "curve-main",
+          "inside": true,
+          "top": 234,
+          "bottom": 1068
+        }
+      ],
+      "sections_inside_content": true,
+      "internal_scroll_reachable": true,
+      "bottom_blank_px": 12,
+      "segmented_bounds": [],
+      "segmented_controls_fit": true,
+      "chart_bounds": [
+        {
+          "inside": true,
+          "width": 620,
+          "height": 229
+        },
+        {
+          "inside": true,
+          "width": 620,
+          "height": 229
+        },
+        {
+          "inside": true,
+          "width": 307,
+          "height": 229
+        },
+        {
+          "inside": true,
+          "width": 307,
+          "height": 229
+        },
+        {
+          "inside": true,
+          "width": 620,
+          "height": 229
+        },
+        {
+          "inside": true,
+          "width": 620,
+          "height": 229
+        },
+        {
+          "inside": true,
+          "width": 620,
+          "height": 229
+        }
+      ],
+      "charts_inside_containers": true,
+      "action_text_bounds": [],
+      "action_texts_fit": true,
+      "signal_light_samples": [],
+      "screenshot_light_colors_match": true,
       "failed_to_fetch_banner": false,
       "sidebar_collapsed": false,
       "layout_rects": {
@@ -810,19 +1645,19 @@
           "x": 0,
           "y": 0,
           "width": 1920,
-          "height": 1040
+          "height": 1080
         },
         "sidebar": {
           "x": 0,
           "y": 0,
           "width": 280,
-          "height": 1040
+          "height": 1080
         },
         "main": {
           "x": 280,
           "y": 0,
           "width": 1640,
-          "height": 1040
+          "height": 1080
         },
         "topbar": {
           "x": 280,
@@ -834,7 +1669,7 @@
           "x": 280,
           "y": 90,
           "width": 1640,
-          "height": 950
+          "height": 990
         },
         "sidebar_expand": null
       },
@@ -851,7 +1686,7 @@
           "display": "flex"
         },
         {
-          "text": "用户e2e-admin · admin",
+          "text": "用户e2e-admin · 管理员",
           "rect": {
             "x": 426.296875,
             "y": 32,
@@ -895,7 +1730,60 @@
       "root_scroll_height": 768,
       "root_client_height": 768,
       "white_controls": 0,
-      "chart_canvas_count": 7,
+      "chart_canvas_count": 4,
+      "page_inside_content": true,
+      "section_bounds": [
+        {
+          "className": "page-title",
+          "inside": true,
+          "top": 100,
+          "bottom": 142
+        },
+        {
+          "className": "curve-toolbar",
+          "inside": true,
+          "top": 152,
+          "bottom": 264
+        },
+        {
+          "className": "curve-main",
+          "inside": true,
+          "top": 274,
+          "bottom": 756
+        }
+      ],
+      "sections_inside_content": true,
+      "internal_scroll_reachable": true,
+      "bottom_blank_px": 12,
+      "segmented_bounds": [],
+      "segmented_controls_fit": true,
+      "chart_bounds": [
+        {
+          "inside": true,
+          "width": 417,
+          "height": 197
+        },
+        {
+          "inside": true,
+          "width": 417,
+          "height": 197
+        },
+        {
+          "inside": true,
+          "width": 424,
+          "height": 197
+        },
+        {
+          "inside": true,
+          "width": 424,
+          "height": 197
+        }
+      ],
+      "charts_inside_containers": true,
+      "action_text_bounds": [],
+      "action_texts_fit": true,
+      "signal_light_samples": [],
+      "screenshot_light_colors_match": true,
       "failed_to_fetch_banner": false,
       "sidebar_collapsed": false,
       "layout_rects": {
@@ -944,7 +1832,7 @@
           "display": "flex"
         },
         {
-          "text": "用户e2e-admin · admin",
+          "text": "用户e2e-admin · 管理员",
           "rect": {
             "x": 292.375,
             "y": 32,
@@ -988,13 +1876,144 @@
       "location": "#/manual-control",
       "viewport": {
         "width": 1920,
-        "height": 1040
+        "height": 1080
       },
       "page_scrollable": false,
-      "root_scroll_height": 1040,
-      "root_client_height": 1040,
+      "root_scroll_height": 1080,
+      "root_client_height": 1080,
       "white_controls": 0,
       "chart_canvas_count": 2,
+      "page_inside_content": true,
+      "section_bounds": [
+        {
+          "className": "page-title",
+          "inside": true,
+          "top": 100,
+          "bottom": 142
+        },
+        {
+          "className": "interlock-row",
+          "inside": true,
+          "top": 151,
+          "bottom": 266
+        },
+        {
+          "className": "control-grid",
+          "inside": true,
+          "top": 275,
+          "bottom": 689.640625
+        },
+        {
+          "className": "chart-row",
+          "inside": true,
+          "top": 698.640625,
+          "bottom": 918
+        },
+        {
+          "className": "panel action-panel",
+          "inside": true,
+          "top": 927,
+          "bottom": 1027
+        },
+        {
+          "className": "safety-tip",
+          "inside": true,
+          "top": 1036,
+          "bottom": 1068
+        }
+      ],
+      "sections_inside_content": true,
+      "internal_scroll_reachable": true,
+      "bottom_blank_px": 12,
+      "segmented_bounds": [
+        {
+          "text": "D",
+          "inside": true,
+          "textFits": true
+        },
+        {
+          "text": "N",
+          "inside": true,
+          "textFits": true
+        },
+        {
+          "text": "R",
+          "inside": true,
+          "textFits": true
+        },
+        {
+          "text": "手动",
+          "inside": true,
+          "textFits": true
+        },
+        {
+          "text": "远程",
+          "inside": true,
+          "textFits": true
+        },
+        {
+          "text": "自动",
+          "inside": true,
+          "textFits": true
+        },
+        {
+          "text": "速度模式",
+          "inside": true,
+          "textFits": true
+        },
+        {
+          "text": "电流模式",
+          "inside": true,
+          "textFits": true
+        }
+      ],
+      "segmented_controls_fit": true,
+      "chart_bounds": [
+        {
+          "inside": true,
+          "width": 781,
+          "height": 178
+        },
+        {
+          "inside": true,
+          "width": 781,
+          "height": 178
+        }
+      ],
+      "charts_inside_containers": true,
+      "action_text_bounds": [
+        {
+          "text": "发送一次",
+          "fits": true
+        },
+        {
+          "text": "开始周期发送",
+          "fits": true
+        },
+        {
+          "text": "停止周期发送",
+          "fits": true
+        },
+        {
+          "text": "安全停车",
+          "fits": true
+        },
+        {
+          "text": "急停",
+          "fits": true
+        },
+        {
+          "text": "解除急停确认",
+          "fits": true
+        },
+        {
+          "text": "恢复默认控制值",
+          "fits": true
+        }
+      ],
+      "action_texts_fit": true,
+      "signal_light_samples": [],
+      "screenshot_light_colors_match": true,
       "failed_to_fetch_banner": false,
       "sidebar_collapsed": false,
       "layout_rects": {
@@ -1002,19 +2021,19 @@
           "x": 0,
           "y": 0,
           "width": 1920,
-          "height": 1040
+          "height": 1080
         },
         "sidebar": {
           "x": 0,
           "y": 0,
           "width": 280,
-          "height": 1040
+          "height": 1080
         },
         "main": {
           "x": 280,
           "y": 0,
           "width": 1640,
-          "height": 1040
+          "height": 1080
         },
         "topbar": {
           "x": 280,
@@ -1026,7 +2045,7 @@
           "x": 280,
           "y": 90,
           "width": 1640,
-          "height": 950
+          "height": 990
         },
         "sidebar_expand": null
       },
@@ -1043,7 +2062,7 @@
           "display": "flex"
         },
         {
-          "text": "用户e2e-admin · admin",
+          "text": "用户e2e-admin · 管理员",
           "rect": {
             "x": 426.296875,
             "y": 32,
@@ -1087,7 +2106,138 @@
       "root_scroll_height": 768,
       "root_client_height": 768,
       "white_controls": 0,
-      "chart_canvas_count": 0,
+      "chart_canvas_count": 2,
+      "page_inside_content": true,
+      "section_bounds": [
+        {
+          "className": "page-title",
+          "inside": true,
+          "top": 100,
+          "bottom": 142
+        },
+        {
+          "className": "interlock-row",
+          "inside": true,
+          "top": 149,
+          "bottom": 235
+        },
+        {
+          "className": "control-grid",
+          "inside": true,
+          "top": 242,
+          "bottom": 515.1875
+        },
+        {
+          "className": "chart-row",
+          "inside": true,
+          "top": 522.1875,
+          "bottom": 626
+        },
+        {
+          "className": "panel action-panel",
+          "inside": true,
+          "top": 633,
+          "bottom": 725
+        },
+        {
+          "className": "safety-tip",
+          "inside": true,
+          "top": 732,
+          "bottom": 756
+        }
+      ],
+      "sections_inside_content": true,
+      "internal_scroll_reachable": true,
+      "bottom_blank_px": 12,
+      "segmented_bounds": [
+        {
+          "text": "D",
+          "inside": true,
+          "textFits": true
+        },
+        {
+          "text": "N",
+          "inside": true,
+          "textFits": true
+        },
+        {
+          "text": "R",
+          "inside": true,
+          "textFits": true
+        },
+        {
+          "text": "手动",
+          "inside": true,
+          "textFits": true
+        },
+        {
+          "text": "远程",
+          "inside": true,
+          "textFits": true
+        },
+        {
+          "text": "自动",
+          "inside": true,
+          "textFits": true
+        },
+        {
+          "text": "速度模式",
+          "inside": true,
+          "textFits": true
+        },
+        {
+          "text": "电流模式",
+          "inside": true,
+          "textFits": true
+        }
+      ],
+      "segmented_controls_fit": true,
+      "chart_bounds": [
+        {
+          "inside": true,
+          "width": 550,
+          "height": 63
+        },
+        {
+          "inside": true,
+          "width": 550,
+          "height": 63
+        }
+      ],
+      "charts_inside_containers": true,
+      "action_text_bounds": [
+        {
+          "text": "发送一次",
+          "fits": true
+        },
+        {
+          "text": "开始周期发送",
+          "fits": true
+        },
+        {
+          "text": "停止周期发送",
+          "fits": true
+        },
+        {
+          "text": "安全停车",
+          "fits": true
+        },
+        {
+          "text": "急停",
+          "fits": true
+        },
+        {
+          "text": "解除急停确认",
+          "fits": true
+        },
+        {
+          "text": "恢复默认控制值",
+          "fits": true
+        }
+      ],
+      "action_texts_fit": true,
+      "signal_light_samples": [],
+      "screenshot_light_colors_match": true,
       "failed_to_fetch_banner": false,
       "sidebar_collapsed": false,
       "layout_rects": {
@@ -1136,7 +2286,7 @@
           "display": "flex"
         },
         {
-          "text": "用户e2e-admin · admin",
+          "text": "用户e2e-admin · 管理员",
           "rect": {
             "x": 292.375,
             "y": 32,
@@ -1179,13 +2329,98 @@
       "location": "#/auto-test",
       "viewport": {
         "width": 1920,
-        "height": 1040
+        "height": 1080
       },
       "page_scrollable": false,
-      "root_scroll_height": 1040,
-      "root_client_height": 1040,
+      "root_scroll_height": 1080,
+      "root_client_height": 1080,
       "white_controls": 0,
       "chart_canvas_count": 1,
+      "page_inside_content": true,
+      "section_bounds": [
+        {
+          "className": "page-title",
+          "inside": true,
+          "top": 100,
+          "bottom": 142
+        },
+        {
+          "className": "summary-row",
+          "inside": true,
+          "top": 151,
+          "bottom": 301
+        },
+        {
+          "className": "panel stepper-card",
+          "inside": true,
+          "top": 310,
+          "bottom": 432
+        },
+        {
+          "className": "step-detail-row",
+          "inside": true,
+          "top": 441,
+          "bottom": 725.75
+        },
+        {
+          "className": "bottom-data-row",
+          "inside": true,
+          "top": 734.75,
+          "bottom": 989
+        },
+        {
+          "className": "action-row",
+          "inside": true,
+          "top": 998,
+          "bottom": 1068
+        }
+      ],
+      "sections_inside_content": true,
+      "internal_scroll_reachable": true,
+      "bottom_blank_px": 12,
+      "segmented_bounds": [],
+      "segmented_controls_fit": true,
+      "chart_bounds": [
+        {
+          "inside": true,
+          "width": 478,
+          "height": 239
+        }
+      ],
+      "charts_inside_containers": true,
+      "action_text_bounds": [
+        {
+          "text": "开始检测",
+          "fits": true
+        },
+        {
+          "text": "暂停",
+          "fits": true
+        },
+        {
+          "text": "继续",
+          "fits": true
+        },
+        {
+          "text": "中止",
+          "fits": true
+        },
+        {
+          "text": "急停",
+          "fits": true
+        },
+        {
+          "text": "生成报告",
+          "fits": true
+        },
+        {
+          "text": "查看关联日志",
+          "fits": true
+        }
+      ],
+      "action_texts_fit": true,
+      "signal_light_samples": [],
+      "screenshot_light_colors_match": true,
       "failed_to_fetch_banner": false,
       "sidebar_collapsed": false,
       "layout_rects": {
@@ -1193,19 +2428,19 @@
           "x": 0,
           "y": 0,
           "width": 1920,
-          "height": 1040
+          "height": 1080
         },
         "sidebar": {
           "x": 0,
           "y": 0,
           "width": 280,
-          "height": 1040
+          "height": 1080
         },
         "main": {
           "x": 280,
           "y": 0,
           "width": 1640,
-          "height": 1040
+          "height": 1080
         },
         "topbar": {
           "x": 280,
@@ -1217,7 +2452,7 @@
           "x": 280,
           "y": 90,
           "width": 1640,
-          "height": 950
+          "height": 990
         },
         "sidebar_expand": null
       },
@@ -1234,7 +2469,7 @@
           "display": "flex"
         },
         {
-          "text": "用户e2e-admin · admin",
+          "text": "用户e2e-admin · 管理员",
           "rect": {
             "x": 426.296875,
             "y": 32,
@@ -1279,6 +2514,91 @@
       "root_client_height": 768,
       "white_controls": 0,
       "chart_canvas_count": 1,
+      "page_inside_content": true,
+      "section_bounds": [
+        {
+          "className": "page-title",
+          "inside": true,
+          "top": 100,
+          "bottom": 142
+        },
+        {
+          "className": "summary-row",
+          "inside": true,
+          "top": 149,
+          "bottom": 265
+        },
+        {
+          "className": "panel stepper-card",
+          "inside": true,
+          "top": 272,
+          "bottom": 376
+        },
+        {
+          "className": "step-detail-row",
+          "inside": true,
+          "top": 383,
+          "bottom": 537.578125
+        },
+        {
+          "className": "bottom-data-row",
+          "inside": true,
+          "top": 544.578125,
+          "bottom": 678.984375
+        },
+        {
+          "className": "action-row",
+          "inside": true,
+          "top": 685.984375,
+          "bottom": 755.984375
+        }
+      ],
+      "sections_inside_content": true,
+      "internal_scroll_reachable": true,
+      "bottom_blank_px": 12,
+      "segmented_bounds": [],
+      "segmented_controls_fit": true,
+      "chart_bounds": [
+        {
+          "inside": true,
+          "width": 331,
+          "height": 109
+        }
+      ],
+      "charts_inside_containers": true,
+      "action_text_bounds": [
+        {
+          "text": "开始检测",
+          "fits": true
+        },
+        {
+          "text": "暂停",
+          "fits": true
+        },
+        {
+          "text": "继续",
+          "fits": true
+        },
+        {
+          "text": "中止",
+          "fits": true
+        },
+        {
+          "text": "急停",
+          "fits": true
+        },
+        {
+          "text": "生成报告",
+          "fits": true
+        },
+        {
+          "text": "查看关联日志",
+          "fits": true
+        }
+      ],
+      "action_texts_fit": true,
+      "signal_light_samples": [],
+      "screenshot_light_colors_match": true,
       "failed_to_fetch_banner": false,
       "sidebar_collapsed": false,
       "layout_rects": {
@@ -1327,7 +2647,7 @@
           "display": "flex"
         },
         {
-          "text": "用户e2e-admin · admin",
+          "text": "用户e2e-admin · 管理员",
           "rect": {
             "x": 292.375,
             "y": 32,
@@ -1370,13 +2690,95 @@
       "location": "#/alarm-diagnosis",
       "viewport": {
         "width": 1920,
-        "height": 1040
+        "height": 1080
       },
       "page_scrollable": false,
-      "root_scroll_height": 1040,
-      "root_client_height": 1040,
+      "root_scroll_height": 1080,
+      "root_client_height": 1080,
       "white_controls": 0,
       "chart_canvas_count": 2,
+      "page_inside_content": true,
+      "section_bounds": [
+        {
+          "className": "page-title-row",
+          "inside": true,
+          "top": 100,
+          "bottom": 142
+        },
+        {
+          "className": "panel summary-panel",
+          "inside": true,
+          "top": 152,
+          "bottom": 252
+        },
+        {
+          "className": "diagnosis-grid",
+          "inside": true,
+          "top": 262,
+          "bottom": 542
+        },
+        {
+          "className": "panel history-panel",
+          "inside": true,
+          "top": 552,
+          "bottom": 762
+        },
+        {
+          "className": "chart-grid",
+          "inside": true,
+          "top": 772,
+          "bottom": 988
+        },
+        {
+          "className": "action-row",
+          "inside": true,
+          "top": 998,
+          "bottom": 1068
+        }
+      ],
+      "sections_inside_content": true,
+      "internal_scroll_reachable": true,
+      "bottom_blank_px": 12,
+      "segmented_bounds": [],
+      "segmented_controls_fit": true,
+      "chart_bounds": [
+        {
+          "inside": true,
+          "width": 567,
+          "height": 174
+        },
+        {
+          "inside": true,
+          "width": 396,
+          "height": 174
+        }
+      ],
+      "charts_inside_containers": true,
+      "action_text_bounds": [
+        {
+          "text": "确认告警",
+          "fits": true
+        },
+        {
+          "text": "人工放行申请",
+          "fits": true
+        },
+        {
+          "text": "导出诊断",
+          "fits": true
+        },
+        {
+          "text": "跳转CAN帧",
+          "fits": true
+        },
+        {
+          "text": "触发安全停车",
+          "fits": true
+        }
+      ],
+      "action_texts_fit": true,
+      "signal_light_samples": [],
+      "screenshot_light_colors_match": true,
       "failed_to_fetch_banner": false,
       "sidebar_collapsed": false,
       "layout_rects": {
@@ -1384,19 +2786,19 @@
           "x": 0,
           "y": 0,
           "width": 1920,
-          "height": 1040
+          "height": 1080
         },
         "sidebar": {
           "x": 0,
           "y": 0,
           "width": 280,
-          "height": 1040
+          "height": 1080
         },
         "main": {
           "x": 280,
           "y": 0,
           "width": 1640,
-          "height": 1040
+          "height": 1080
         },
         "topbar": {
           "x": 280,
@@ -1408,7 +2810,7 @@
           "x": 280,
           "y": 90,
           "width": 1640,
-          "height": 950
+          "height": 990
         },
         "sidebar_expand": null
       },
@@ -1425,7 +2827,7 @@
           "display": "flex"
         },
         {
-          "text": "用户e2e-admin · admin",
+          "text": "用户e2e-admin · 管理员",
           "rect": {
             "x": 426.296875,
             "y": 32,
@@ -1470,6 +2872,88 @@
       "root_client_height": 768,
       "white_controls": 0,
       "chart_canvas_count": 2,
+      "page_inside_content": true,
+      "section_bounds": [
+        {
+          "className": "page-title-row",
+          "inside": true,
+          "top": 100,
+          "bottom": 142
+        },
+        {
+          "className": "panel summary-panel",
+          "inside": true,
+          "top": 149,
+          "bottom": 231
+        },
+        {
+          "className": "diagnosis-grid",
+          "inside": true,
+          "top": 238,
+          "bottom": 445
+        },
+        {
+          "className": "panel history-panel",
+          "inside": true,
+          "top": 452,
+          "bottom": 568
+        },
+        {
+          "className": "chart-grid",
+          "inside": true,
+          "top": 575,
+          "bottom": 679
+        },
+        {
+          "className": "action-row",
+          "inside": true,
+          "top": 686,
+          "bottom": 756
+        }
+      ],
+      "sections_inside_content": true,
+      "internal_scroll_reachable": true,
+      "bottom_blank_px": 12,
+      "segmented_bounds": [],
+      "segmented_controls_fit": true,
+      "chart_bounds": [
+        {
+          "inside": true,
+          "width": 397,
+          "height": 62
+        },
+        {
+          "inside": true,
+          "width": 275,
+          "height": 62
+        }
+      ],
+      "charts_inside_containers": true,
+      "action_text_bounds": [
+        {
+          "text": "确认告警",
+          "fits": true
+        },
+        {
+          "text": "人工放行申请",
+          "fits": true
+        },
+        {
+          "text": "导出诊断",
+          "fits": true
+        },
+        {
+          "text": "跳转CAN帧",
+          "fits": true
+        },
+        {
+          "text": "触发安全停车",
+          "fits": true
+        }
+      ],
+      "action_texts_fit": true,
+      "signal_light_samples": [],
+      "screenshot_light_colors_match": true,
       "failed_to_fetch_banner": false,
       "sidebar_collapsed": false,
       "layout_rects": {
@@ -1518,7 +3002,7 @@
           "display": "flex"
         },
         {
-          "text": "用户e2e-admin · admin",
+          "text": "用户e2e-admin · 管理员",
           "rect": {
             "x": 292.375,
             "y": 32,
@@ -1562,13 +3046,92 @@
       "location": "#/report-management",
       "viewport": {
         "width": 1920,
-        "height": 1040
+        "height": 1080
       },
       "page_scrollable": false,
-      "root_scroll_height": 1040,
-      "root_client_height": 1040,
+      "root_scroll_height": 1080,
+      "root_client_height": 1080,
       "white_controls": 0,
       "chart_canvas_count": 3,
+      "page_inside_content": true,
+      "section_bounds": [
+        {
+          "className": "page-title-row",
+          "inside": true,
+          "top": 100,
+          "bottom": 142
+        },
+        {
+          "className": "top-row",
+          "inside": true,
+          "top": 152,
+          "bottom": 352
+        },
+        {
+          "className": "middle-row",
+          "inside": true,
+          "top": 362,
+          "bottom": 702
+        },
+        {
+          "className": "bottom-row",
+          "inside": true,
+          "top": 712,
+          "bottom": 1068
+        }
+      ],
+      "sections_inside_content": true,
+      "internal_scroll_reachable": true,
+      "bottom_blank_px": 12,
+      "segmented_bounds": [],
+      "segmented_controls_fit": true,
+      "chart_bounds": [
+        {
+          "inside": true,
+          "width": 88,
+          "height": 79
+        },
+        {
+          "inside": true,
+          "width": 337,
+          "height": 314
+        },
+        {
+          "inside": true,
+          "width": 290,
+          "height": 314
+        }
+      ],
+      "charts_inside_containers": true,
+      "action_text_bounds": [
+        {
+          "text": "导出 Word",
+          "fits": true
+        },
+        {
+          "text": "导出 PDF",
+          "fits": true
+        },
+        {
+          "text": "打印",
+          "fits": true
+        },
+        {
+          "text": "删除",
+          "fits": true
+        },
+        {
+          "text": "重新生成",
+          "fits": true
+        },
+        {
+          "text": "关联日志",
+          "fits": true
+        }
+      ],
+      "action_texts_fit": true,
+      "signal_light_samples": [],
+      "screenshot_light_colors_match": true,
       "failed_to_fetch_banner": false,
       "sidebar_collapsed": false,
       "layout_rects": {
@@ -1576,19 +3139,19 @@
           "x": 0,
           "y": 0,
           "width": 1920,
-          "height": 1040
+          "height": 1080
         },
         "sidebar": {
           "x": 0,
           "y": 0,
           "width": 280,
-          "height": 1040
+          "height": 1080
         },
         "main": {
           "x": 280,
           "y": 0,
           "width": 1640,
-          "height": 1040
+          "height": 1080
         },
         "topbar": {
           "x": 280,
@@ -1600,7 +3163,7 @@
           "x": 280,
           "y": 90,
           "width": 1640,
-          "height": 950
+          "height": 990
         },
         "sidebar_expand": null
       },
@@ -1617,7 +3180,7 @@
           "display": "flex"
         },
         {
-          "text": "用户e2e-admin · admin",
+          "text": "用户e2e-admin · 管理员",
           "rect": {
             "x": 426.296875,
             "y": 32,
@@ -1662,6 +3225,85 @@
       "root_client_height": 768,
       "white_controls": 0,
       "chart_canvas_count": 3,
+      "page_inside_content": true,
+      "section_bounds": [
+        {
+          "className": "page-title-row",
+          "inside": true,
+          "top": 100,
+          "bottom": 142
+        },
+        {
+          "className": "top-row",
+          "inside": true,
+          "top": 149,
+          "bottom": 313
+        },
+        {
+          "className": "middle-row",
+          "inside": true,
+          "top": 320,
+          "bottom": 570.25
+        },
+        {
+          "className": "bottom-row",
+          "inside": true,
+          "top": 577.25,
+          "bottom": 756
+        }
+      ],
+      "sections_inside_content": true,
+      "internal_scroll_reachable": true,
+      "bottom_blank_px": 12,
+      "segmented_bounds": [],
+      "segmented_controls_fit": true,
+      "chart_bounds": [
+        {
+          "inside": true,
+          "width": 88,
+          "height": 79
+        },
+        {
+          "inside": true,
+          "width": 238,
+          "height": 137
+        },
+        {
+          "inside": true,
+          "width": 211,
+          "height": 137
+        }
+      ],
+      "charts_inside_containers": true,
+      "action_text_bounds": [
+        {
+          "text": "导出 Word",
+          "fits": true
+        },
+        {
+          "text": "导出 PDF",
+          "fits": true
+        },
+        {
+          "text": "打印",
+          "fits": true
+        },
+        {
+          "text": "删除",
+          "fits": true
+        },
+        {
+          "text": "重新生成",
+          "fits": true
+        },
+        {
+          "text": "关联日志",
+          "fits": true
+        }
+      ],
+      "action_texts_fit": true,
+      "signal_light_samples": [],
+      "screenshot_light_colors_match": true,
       "failed_to_fetch_banner": false,
       "sidebar_collapsed": false,
       "layout_rects": {
@@ -1710,7 +3352,7 @@
           "display": "flex"
         },
         {
-          "text": "用户e2e-admin · admin",
+          "text": "用户e2e-admin · 管理员",
           "rect": {
             "x": 292.375,
             "y": 32,
@@ -1755,13 +3397,87 @@
       "location": "#/history",
       "viewport": {
         "width": 1920,
-        "height": 1040
+        "height": 1080
       },
       "page_scrollable": false,
-      "root_scroll_height": 1040,
-      "root_client_height": 1040,
+      "root_scroll_height": 1080,
+      "root_client_height": 1080,
       "white_controls": 0,
       "chart_canvas_count": 2,
+      "page_inside_content": true,
+      "section_bounds": [
+        {
+          "className": "page-title-row",
+          "inside": true,
+          "top": 100,
+          "bottom": 142
+        },
+        {
+          "className": "panel filter-panel",
+          "inside": true,
+          "top": 152,
+          "bottom": 252
+        },
+        {
+          "className": "history-main-row",
+          "inside": true,
+          "top": 262,
+          "bottom": 562
+        },
+        {
+          "className": "history-log-row",
+          "inside": true,
+          "top": 572,
+          "bottom": 752
+        },
+        {
+          "className": "history-chart-row",
+          "inside": true,
+          "top": 762,
+          "bottom": 996
+        },
+        {
+          "className": "history-footer",
+          "inside": true,
+          "top": 1006,
+          "bottom": 1068
+        }
+      ],
+      "sections_inside_content": true,
+      "internal_scroll_reachable": true,
+      "bottom_blank_px": 12,
+      "segmented_bounds": [],
+      "segmented_controls_fit": true,
+      "chart_bounds": [
+        {
+          "inside": true,
+          "width": 532,
+          "height": 198
+        },
+        {
+          "inside": true,
+          "width": 532,
+          "height": 198
+        }
+      ],
+      "charts_inside_containers": true,
+      "action_text_bounds": [
+        {
+          "text": "打开会话详情",
+          "fits": true
+        },
+        {
+          "text": "回放曲线",
+          "fits": true
+        },
+        {
+          "text": "下载数据包",
+          "fits": true
+        }
+      ],
+      "action_texts_fit": true,
+      "signal_light_samples": [],
+      "screenshot_light_colors_match": true,
       "failed_to_fetch_banner": false,
       "sidebar_collapsed": false,
       "layout_rects": {
@@ -1769,19 +3485,19 @@
           "x": 0,
           "y": 0,
           "width": 1920,
-          "height": 1040
+          "height": 1080
         },
         "sidebar": {
           "x": 0,
           "y": 0,
           "width": 280,
-          "height": 1040
+          "height": 1080
         },
         "main": {
           "x": 280,
           "y": 0,
           "width": 1640,
-          "height": 1040
+          "height": 1080
         },
         "topbar": {
           "x": 280,
@@ -1793,7 +3509,7 @@
           "x": 280,
           "y": 90,
           "width": 1640,
-          "height": 950
+          "height": 990
         },
         "sidebar_expand": null
       },
@@ -1810,7 +3526,7 @@
           "display": "flex"
         },
         {
-          "text": "用户e2e-admin · admin",
+          "text": "用户e2e-admin · 管理员",
           "rect": {
             "x": 426.296875,
             "y": 32,
@@ -1855,6 +3571,80 @@
       "root_client_height": 768,
       "white_controls": 0,
       "chart_canvas_count": 2,
+      "page_inside_content": true,
+      "section_bounds": [
+        {
+          "className": "page-title-row",
+          "inside": true,
+          "top": 100,
+          "bottom": 142
+        },
+        {
+          "className": "panel filter-panel",
+          "inside": true,
+          "top": 149,
+          "bottom": 231
+        },
+        {
+          "className": "history-main-row",
+          "inside": true,
+          "top": 238,
+          "bottom": 438.953125
+        },
+        {
+          "className": "history-log-row",
+          "inside": true,
+          "top": 445.953125,
+          "bottom": 567.96875
+        },
+        {
+          "className": "history-chart-row",
+          "inside": true,
+          "top": 574.96875,
+          "bottom": 697
+        },
+        {
+          "className": "history-footer",
+          "inside": true,
+          "top": 704,
+          "bottom": 756
+        }
+      ],
+      "sections_inside_content": true,
+      "internal_scroll_reachable": true,
+      "bottom_blank_px": 12,
+      "segmented_bounds": [],
+      "segmented_controls_fit": true,
+      "chart_bounds": [
+        {
+          "inside": true,
+          "width": 373,
+          "height": 86
+        },
+        {
+          "inside": true,
+          "width": 373,
+          "height": 86
+        }
+      ],
+      "charts_inside_containers": true,
+      "action_text_bounds": [
+        {
+          "text": "打开会话详情",
+          "fits": true
+        },
+        {
+          "text": "回放曲线",
+          "fits": true
+        },
+        {
+          "text": "下载数据包",
+          "fits": true
+        }
+      ],
+      "action_texts_fit": true,
+      "signal_light_samples": [],
+      "screenshot_light_colors_match": true,
       "failed_to_fetch_banner": false,
       "sidebar_collapsed": false,
       "layout_rects": {
@@ -1903,7 +3693,7 @@
           "display": "flex"
         },
         {
-          "text": "用户e2e-admin · admin",
+          "text": "用户e2e-admin · 管理员",
           "rect": {
             "x": 292.375,
             "y": 32,
@@ -1947,13 +3737,108 @@
       "location": "#/system-settings",
       "viewport": {
         "width": 1920,
-        "height": 1040
+        "height": 1080
       },
       "page_scrollable": false,
-      "root_scroll_height": 1040,
-      "root_client_height": 1040,
+      "root_scroll_height": 1080,
+      "root_client_height": 1080,
       "white_controls": 0,
       "chart_canvas_count": 1,
+      "page_inside_content": true,
+      "section_bounds": [
+        {
+          "className": "page-title-row",
+          "inside": true,
+          "top": 100,
+          "bottom": 142
+        },
+        {
+          "className": "settings-row-one",
+          "inside": true,
+          "top": 152,
+          "bottom": 406.75
+        },
+        {
+          "className": "settings-row-two",
+          "inside": true,
+          "top": 416.75,
+          "bottom": 659.375
+        },
+        {
+          "className": "settings-row-three",
+          "inside": true,
+          "top": 669.375,
+          "bottom": 912
+        },
+        {
+          "className": "settings-action-bar",
+          "inside": true,
+          "top": 922,
+          "bottom": 1068
+        }
+      ],
+      "sections_inside_content": true,
+      "internal_scroll_reachable": true,
+      "bottom_blank_px": 12,
+      "segmented_bounds": [],
+      "segmented_controls_fit": true,
+      "chart_bounds": [
+        {
+          "inside": true,
+          "width": 527,
+          "height": 132
+        }
+      ],
+      "charts_inside_containers": true,
+      "action_text_bounds": [
+        {
+          "text": "保存设置",
+          "fits": true
+        },
+        {
+          "text": "导入配置",
+          "fits": true
+        },
+        {
+          "text": "导出配置",
+          "fits": true
+        },
+        {
+          "text": "一致性备份",
+          "fits": true
+        },
+        {
+          "text": "恢复数据库备份",
+          "fits": true
+        },
+        {
+          "text": "清理预检",
+          "fits": true
+        },
+        {
+          "text": "存储复检",
+          "fits": true
+        },
+        {
+          "text": "重载 DBC",
+          "fits": true
+        },
+        {
+          "text": "启用模拟网关",
+          "fits": true
+        },
+        {
+          "text": "进入维护模式",
+          "fits": true
+        },
+        {
+          "text": "恢复安全默认",
+          "fits": true
+        }
+      ],
+      "action_texts_fit": true,
+      "signal_light_samples": [],
+      "screenshot_light_colors_match": true,
       "failed_to_fetch_banner": false,
       "sidebar_collapsed": false,
       "layout_rects": {
@@ -1961,19 +3846,19 @@
           "x": 0,
           "y": 0,
           "width": 1920,
-          "height": 1040
+          "height": 1080
         },
         "sidebar": {
           "x": 0,
           "y": 0,
           "width": 280,
-          "height": 1040
+          "height": 1080
         },
         "main": {
           "x": 280,
           "y": 0,
           "width": 1640,
-          "height": 1040
+          "height": 1080
         },
         "topbar": {
           "x": 280,
@@ -1985,7 +3870,7 @@
           "x": 280,
           "y": 90,
           "width": 1640,
-          "height": 950
+          "height": 990
         },
         "sidebar_expand": null
       },
@@ -2002,7 +3887,7 @@
           "display": "flex"
         },
         {
-          "text": "用户e2e-admin · admin",
+          "text": "用户e2e-admin · 管理员",
           "rect": {
             "x": 426.296875,
             "y": 32,
@@ -2047,6 +3932,101 @@
       "root_client_height": 768,
       "white_controls": 0,
       "chart_canvas_count": 1,
+      "page_inside_content": true,
+      "section_bounds": [
+        {
+          "className": "page-title-row",
+          "inside": true,
+          "top": 100,
+          "bottom": 142
+        },
+        {
+          "className": "settings-row-one",
+          "inside": true,
+          "top": 149,
+          "bottom": 295.65625
+        },
+        {
+          "className": "settings-row-two",
+          "inside": true,
+          "top": 302.65625,
+          "bottom": 449.328125
+        },
+        {
+          "className": "settings-row-three",
+          "inside": true,
+          "top": 456.328125,
+          "bottom": 603
+        },
+        {
+          "className": "settings-action-bar",
+          "inside": true,
+          "top": 610,
+          "bottom": 756
+        }
+      ],
+      "sections_inside_content": true,
+      "internal_scroll_reachable": true,
+      "bottom_blank_px": 12,
+      "segmented_bounds": [],
+      "segmented_controls_fit": true,
+      "chart_bounds": [
+        {
+          "inside": true,
+          "width": 368,
+          "height": 132
+        }
+      ],
+      "charts_inside_containers": true,
+      "action_text_bounds": [
+        {
+          "text": "保存设置",
+          "fits": true
+        },
+        {
+          "text": "导入配置",
+          "fits": true
+        },
+        {
+          "text": "导出配置",
+          "fits": true
+        },
+        {
+          "text": "一致性备份",
+          "fits": true
+        },
+        {
+          "text": "恢复数据库备份",
+          "fits": true
+        },
+        {
+          "text": "清理预检",
+          "fits": true
+        },
+        {
+          "text": "存储复检",
+          "fits": true
+        },
+        {
+          "text": "重载 DBC",
+          "fits": true
+        },
+        {
+          "text": "启用模拟网关",
+          "fits": true
+        },
+        {
+          "text": "进入维护模式",
+          "fits": true
+        },
+        {
+          "text": "恢复安全默认",
+          "fits": true
+        }
+      ],
+      "action_texts_fit": true,
+      "signal_light_samples": [],
+      "screenshot_light_colors_match": true,
       "failed_to_fetch_banner": false,
       "sidebar_collapsed": false,
       "layout_rects": {
@@ -2095,7 +4075,7 @@
           "display": "flex"
         },
         {
-          "text": "用户e2e-admin · admin",
+          "text": "用户e2e-admin · 管理员",
           "rect": {
             "x": 292.375,
             "y": 32,

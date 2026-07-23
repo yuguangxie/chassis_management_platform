@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "recorded_at_utc": "2026-07-23T10:15:36.1313485Z",
+  "workflow": "quality-gates",
+  "run_id": 29997457365,
+  "url": "https://github.com/yuguangxie/chassis_management_platform/actions/runs/29997457365",
+  "event": "workflow_dispatch",
+  "source_commit": "40dc553ea4155507df9f9d3b69718b2b816fd687",
+  "status": "completed",
+  "conclusion": "success",
+  "jobs": {
+    "quality": "success",
+    "renderer-e2e": "success",
+    "unsigned-internal-windows-installer": "success",
+    "signed-production-candidate-windows-installer": "skipped_no_certificate_input"
+  },
+  "optional_1000fps_10min": "skipped_not_requested",
+  "validation_boundary": "temporary data_root, Mock and 127.0.0.1 only",
+  "non_loopback_requests": 0,
+  "real_hardware_or_motion_test": false
+}

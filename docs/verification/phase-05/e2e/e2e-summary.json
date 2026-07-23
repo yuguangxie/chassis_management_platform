@@ -5,10 +5,10 @@
   "boundary": "127.0.0.1 loopback only",
   "apiBase": "http://127.0.0.1:18800/api/v1",
   "webPort": 15173,
-  "udpBase": 29265,
+  "udpBase": 39278,
   "passed": true,
   "mockSession": {
-    "session_id": "EOL-1F61CEF664F7",
+    "session_id": "EOL-DA4DED068A04",
     "report_generated": true
   },
   "authentication": {
@@ -18,6 +18,16 @@
   },
   "permission": {
     "viewer_network_redirects_403": true
+  },
+  "stability": {
+    "duration_seconds": 60,
+    "sample_count": 60,
+    "signal_quality_values": [
+      "good"
+    ],
+    "signal_quality_stable": true,
+    "auto_test_button_stable": true,
+    "alarm_button_stable": true
   },
   "interaction_assertions": {
     "pages_exercised": 11,
@@ -38,11 +48,19 @@
         "page": "network-config",
         "name": "network-config",
         "clicked": [
+          "toggle-channel-draft-twice",
+          "save-validated-config",
+          "invalid-config-rollback",
           "network-self-test"
         ],
         "assertions": {
+          "draft_toggle_marks_dirty": true,
+          "failed_apply_rolled_back": true,
+          "can1_send_locked": true,
+          "only_121_approved": true,
           "diagnostics_rendered": true,
-          "no_fake_zero_ping": true
+          "no_fake_zero_ping": true,
+          "no_raw_diagnostic_enums": true
         }
       },
       {
@@ -63,8 +81,54 @@
           "save-watchlist"
         ],
         "assertions": {
-          "write_feedback": true
-        }
+          "write_feedback": true,
+          "five_signal_lights": true,
+          "light_states_explicit": true,
+          "light_colors_match_state": true,
+          "no_blink_animation": true
+        },
+        "light_samples": [
+          {
+            "label": "左转灯",
+            "state": "off",
+            "quality": "good",
+            "tone": "tone-yellow",
+            "color": "rgb(148,163,184)",
+            "text": "关闭"
+          },
+          {
+            "label": "右转灯",
+            "state": "off",
+            "quality": "good",
+            "tone": "tone-yellow",
+            "color": "rgb(148,163,184)",
+            "text": "关闭"
+          },
+          {
+            "label": "位置灯",
+            "state": "off",
+            "quality": "good",
+            "tone": "tone-red",
+            "color": "rgb(148,163,184)",
+            "text": "关闭"
+          },
+          {
+            "label": "近光灯",
+            "state": "off",
+            "quality": "good",
+            "tone": "tone-white",
+            "color": "rgb(148,163,184)",
+            "text": "关闭"
+          },
+          {
+            "label": "制动请求",
+            "state": "off",
+            "quality": "good",
+            "tone": "tone-red",
+            "color": "rgb(148,163,184)",
+            "text": "关闭"
+          }
+        ]
       },
       {
         "page": "realtime-curve",
@@ -74,7 +138,8 @@
           "resume-curve"
         ],
         "assertions": {
-          "pause_resume_feedback": true
+          "pause_resume_feedback": true,
+          "live_mode_zero_history_requests": true
         }
       },
       {
@@ -144,13 +209,23 @@
       }
     ]
   },
+  "layout_failures": [],
   "screenshot_assertions": {
     "captures": 22,
     "no_page_scroll": true,
     "no_white_controls": true,
     "no_failed_fetch_banner": true,
     "no_renderer_console_errors": true,
-    "no_renderer_page_errors": true
+    "no_renderer_page_errors": true,
+    "viewport_matches_request": true,
+    "page_inside_content": true,
+    "sections_inside_content": true,
+    "internal_scroll_reachable": true,
+    "bottom_blank_within_16px": true,
+    "segmented_controls_fit": true,
+    "charts_inside_containers": true,
+    "action_texts_fit": true,
+    "screenshot_light_colors_match": true
   },
   "stale_online": {
     "channels": [
@@ -158,7 +233,7 @@
         "channel": "CAN1",
         "online": false,
         "transport_connected": true,
-        "receive_age_ms": 7562,
+        "receive_age_ms": 7547,
         "queue_healthy": true,
         "queue_depth": 0,
         "queue_capacity": 512,
@@ -172,24 +247,24 @@
         "last_unauthorized_source": null,
         "processing_errors": 0,
         "fps": 198,
-        "rx_count": 9762,
+        "rx_count": 23034,
         "tx_count": 0,
         "error_count": 0,
-        "last_frame_at": 1784738093.307603,
+        "last_frame_at": 1784800606.133478,
         "last_frame_hex": "01 00 00 00 00 00 00 00",
         "protocol": "udp",
         "local_ip": "127.0.0.1",
-        "local_port": 29265,
+        "local_port": 39278,
         "device_ip": "127.0.0.1",
-        "device_port": 29365,
-        "recent_buffer_depth": 9762,
+        "device_port": 39378,
+        "recent_buffer_depth": 10000,
         "recent_buffer_capacity": 10000
       },
       {
         "channel": "CAN2",
         "online": false,
         "transport_connected": true,
-        "receive_age_ms": 7546,
+        "receive_age_ms": 7547,
         "queue_healthy": true,
         "queue_depth": 0,
         "queue_capacity": 512,
@@ -202,17 +277,17 @@
         "unauthorized_datagrams": 0,
         "last_unauthorized_source": null,
         "processing_errors": 0,
-        "fps": 417,
-        "rx_count": 21151,
+        "fps": 429,
+        "rx_count": 49907,
         "tx_count": 0,
         "error_count": 0,
-        "last_frame_at": 1784738093.3096023,
+        "last_frame_at": 1784800606.1354778,
         "last_frame_hex": "00 00 00 00 00 00 00 00",
         "protocol": "udp",
         "local_ip": "127.0.0.1",
-        "local_port": 29266,
+        "local_port": 39279,
         "device_ip": "127.0.0.1",
-        "device_port": 29366,
+        "device_port": 39379,
         "recent_buffer_depth": 10000,
         "recent_buffer_capacity": 10000
       }
@@ -236,7 +311,7 @@
             "rule": "can2_online",
             "label": "CAN2 原始接收在线",
             "status": "FAIL",
-            "current": 7546,
+            "current": 7547,
             "threshold": "< 2000 ms",
             "blocking": true
           },
@@ -279,15 +354,22 @@
             "blocking": true
           },
           {
-            "rule": "safe_stop_policy_approved",
-            "label": "安全停车保持策略已获硬件确认",
+            "rule": "hardware_acceptance_artifact",
+            "label": "硬件验收批准文件有效且范围完全匹配",
             "status": "PASS",
             "current": {
               "policy": "stop_transmission",
-              "hardware_validated": false
+              "legacy_hardware_validated": false,
+              "acceptance": {
+                "allowed": true,
+                "status": "not_required_nonproduction",
+                "reasons": []
+              }
             },
             "threshold": {
-              "hardware_validated": true
+              "signed_artifact": true,
+              "scope_match": true,
+              "not_revoked": true
             },
             "blocking": true
           },
@@ -341,8 +423,8 @@
               "selected_signal": "CCU_Vehicle_Speed",
               "value": 0,
               "quality": "good",
-              "age_ms": 7562,
-              "received_at_monotonic": 712339.734,
+              "age_ms": 7547,
+              "received_at_monotonic": 774852.562,
               "channel": "CAN1",
               "can_id": "0x51",
               "checks": {
@@ -380,8 +462,8 @@
               "selected_signal": "Heartbeat_0x704",
               "value": 1,
               "quality": "good",
-              "age_ms": 7562,
-              "received_at_monotonic": 712339.734,
+              "age_ms": 7547,
+              "received_at_monotonic": 774852.562,
               "channel": "CAN1",
               "can_id": "0x704",
               "checks": {
@@ -418,8 +500,8 @@
               "selected_signal": "Heartbeat_0x703",
               "value": 1,
               "quality": "good",
-              "age_ms": 7562,
-              "received_at_monotonic": 712339.734,
+              "age_ms": 7547,
+              "received_at_monotonic": 774852.562,
               "channel": "CAN1",
               "can_id": "0x703",
               "checks": {
@@ -456,8 +538,8 @@
               "selected_signal": "CCU_Shift_Level_Status",
               "value": 0,
               "quality": "good",
-              "age_ms": 7562,
-              "received_at_monotonic": 712339.734,
+              "age_ms": 7547,
+              "received_at_monotonic": 774852.562,
               "channel": "CAN1",
               "can_id": "0x51",
               "checks": {
@@ -498,8 +580,8 @@
               "selected_signal": "CCU_Drive_Mode",
               "value": 2,
               "quality": "good",
-              "age_ms": 7562,
-              "received_at_monotonic": 712339.734,
+              "age_ms": 7547,
+              "received_at_monotonic": 774852.562,
               "channel": "CAN1",
               "can_id": "0x51",
               "checks": {
@@ -558,7 +640,7 @@
             "rule": "can2_online",
             "label": "CAN2 原始接收在线",
             "status": "FAIL",
-            "current": 7546,
+            "current": 7547,
             "threshold": "< 2000 ms",
             "blocking": true
           },
@@ -574,8 +656,8 @@
               "selected_signal": "CCU_Vehicle_Speed",
               "value": 0,
               "quality": "good",
-              "age_ms": 7562,
-              "received_at_monotonic": 712339.734,
+              "age_ms": 7547,
+              "received_at_monotonic": 774852.562,
               "channel": "CAN1",
               "can_id": "0x51",
               "checks": {
@@ -613,8 +695,8 @@
               "selected_signal": "Heartbeat_0x704",
               "value": 1,
               "quality": "good",
-              "age_ms": 7562,
-              "received_at_monotonic": 712339.734,
+              "age_ms": 7547,
+              "received_at_monotonic": 774852.562,
               "channel": "CAN1",
               "can_id": "0x704",
               "checks": {
@@ -651,8 +733,8 @@
               "selected_signal": "Heartbeat_0x703",
               "value": 1,
               "quality": "good",
-              "age_ms": 7562,
-              "received_at_monotonic": 712339.734,
+              "age_ms": 7547,
+              "received_at_monotonic": 774852.562,
               "channel": "CAN1",
               "can_id": "0x703",
               "checks": {
@@ -689,8 +771,8 @@
               "selected_signal": "CCU_Shift_Level_Status",
               "value": 0,
               "quality": "good",
-              "age_ms": 7562,
-              "received_at_monotonic": 712339.734,
+              "age_ms": 7547,
+              "received_at_monotonic": 774852.562,
               "channel": "CAN1",
               "can_id": "0x51",
               "checks": {
@@ -731,8 +813,8 @@
               "selected_signal": "CCU_Drive_Mode",
               "value": 2,
               "quality": "good",
-              "age_ms": 7562,
-              "received_at_monotonic": 712339.734,
+              "age_ms": 7547,
+              "received_at_monotonic": 774852.562,
               "channel": "CAN1",
               "can_id": "0x51",
               "checks": {
@@ -765,7 +847,7 @@
           }
         ]
       },
-      "trace_id": "df343faa415e4a47857399db50f3ce02"
+      "trace_id": "dc7d6a7d0f1f4a28bece9277fcbdbb7f"
     }
   },
   "stale_online_assertion": true,
@@ -775,7 +857,7 @@
   "whiteControlFailures": 0,
   "rendererConsoleErrors": [],
   "rendererPageErrors": [],
-  "simulatorOfflineDelayMs": 2337,
+  "simulatorOfflineDelayMs": 2322,
   "offlineControlStatus": 409,
   "nonLoopbackRequests": 0
 }

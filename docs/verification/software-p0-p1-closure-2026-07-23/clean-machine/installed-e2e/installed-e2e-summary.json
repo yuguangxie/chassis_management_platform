@@ -1,5 +1,5 @@
 {
-  "timestamp_utc": "2026-07-23T07:53:43.874Z",
+  "timestamp_utc": "2026-07-23T10:02:35.637Z",
   "page_count": 11,
   "viewport_count": 2,
   "screenshot_count": 22,
@@ -25,199 +25,422 @@
       "width": 1366,
       "height": 768,
       "route": "#/overview",
+      "current_route": "/overview",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
       "page_scrollable": false,
       "failed_fetch": false,
-      "text_length": 976
+      "text_length": 976,
+      "image_size": {
+        "width": 1366,
+        "height": 768
+      },
+      "image_sha256": "2617e841a3f731dc6cc6153d5e54ece02e3bd29a7dc451f83a45bb9b9dcd9570"
     },
     {
       "name": "network-config",
       "width": 1366,
       "height": 768,
       "route": "#/network-config",
+      "current_route": "/network-config",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
       "page_scrollable": false,
       "failed_fetch": false,
-      "text_length": 1016
+      "text_length": 1016,
+      "image_size": {
+        "width": 1366,
+        "height": 768
+      },
+      "image_sha256": "41b961c362c6d69edfc37c9ae7dd31820ab720caa70ee9515254ce47fb28ec8e"
     },
     {
       "name": "can-monitor",
       "width": 1366,
       "height": 768,
       "route": "#/can-monitor",
+      "current_route": "/can-monitor",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
       "page_scrollable": false,
       "failed_fetch": false,
-      "text_length": 2243
+      "text_length": 2243,
+      "image_size": {
+        "width": 1366,
+        "height": 768
+      },
+      "image_sha256": "46ae055d268a1da0cf2c43c5a228b4b668a980957f468e63a381619ee69d1c51"
     },
     {
       "name": "signal-dashboard",
       "width": 1366,
       "height": 768,
       "route": "#/signal-dashboard",
+      "current_route": "/signal-dashboard",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
       "page_scrollable": false,
       "failed_fetch": false,
-      "text_length": 1169
+      "text_length": 1169,
+      "image_size": {
+        "width": 1366,
+        "height": 768
+      },
+      "image_sha256": "d80d74c93769142b0ab7af073a489bb0812db3c707317109f9c87f743c801780"
     },
     {
       "name": "realtime-curve",
       "width": 1366,
       "height": 768,
       "route": "#/realtime-curve",
+      "current_route": "/realtime-curve",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
       "page_scrollable": false,
       "failed_fetch": false,
-      "text_length": 1091
+      "text_length": 1091,
+      "image_size": {
+        "width": 1366,
+        "height": 768
+      },
+      "image_sha256": "db10e8368cb78396b64eaab3980b39df8b52c9146799153136307b271e294959"
     },
     {
       "name": "manual-control",
       "width": 1366,
       "height": 768,
       "route": "#/manual-control",
+      "current_route": "/manual-control",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
       "page_scrollable": false,
       "failed_fetch": false,
-      "text_length": 1718
+      "text_length": 1718,
+      "image_size": {
+        "width": 1366,
+        "height": 768
+      },
+      "image_sha256": "50025ee6ff2175a4c351a30a8ee00dfb143f85fda2020d43f14001b1a938ea19"
     },
     {
       "name": "auto-test",
       "width": 1366,
       "height": 768,
       "route": "#/auto-test",
+      "current_route": "/auto-test",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
       "page_scrollable": false,
       "failed_fetch": false,
-      "text_length": 984
+      "text_length": 984,
+      "image_size": {
+        "width": 1366,
+        "height": 768
+      },
+      "image_sha256": "f8db70de85bf651797ebef0bdfce2411e1dd3c3c5dfb24086c90df6d5345426d"
     },
     {
       "name": "alarm-diagnosis",
       "width": 1366,
       "height": 768,
       "route": "#/alarm-diagnosis",
+      "current_route": "/alarm-diagnosis",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
       "page_scrollable": false,
       "failed_fetch": false,
-      "text_length": 1291
+      "text_length": 1291,
+      "image_size": {
+        "width": 1366,
+        "height": 768
+      },
+      "image_sha256": "377349968370d5bbd572eae7526295d26d313cc146779ac4688268481578cad8"
     },
     {
       "name": "report-management",
       "width": 1366,
       "height": 768,
       "route": "#/report-management",
+      "current_route": "/report-management",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
       "page_scrollable": false,
       "failed_fetch": false,
-      "text_length": 1034
+      "text_length": 1032,
+      "image_size": {
+        "width": 1366,
+        "height": 768
+      },
+      "image_sha256": "a28f16ea7add0b897b2a13997a98380758cc222bf5d7aa88cc8a031e16362ec3"
     },
     {
       "name": "history",
       "width": 1366,
       "height": 768,
       "route": "#/history",
+      "current_route": "/history",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
       "page_scrollable": false,
       "failed_fetch": false,
-      "text_length": 742
+      "text_length": 742,
+      "image_size": {
+        "width": 1366,
+        "height": 768
+      },
+      "image_sha256": "e381ac03aa589866e63385f79a21a07d3326723f6f5cdeba539c2674d0297ffc"
     },
     {
       "name": "system-settings",
       "width": 1366,
       "height": 768,
       "route": "#/system-settings",
+      "current_route": "/system-settings",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
       "page_scrollable": false,
       "failed_fetch": false,
-      "text_length": 3106
+      "text_length": 3104,
+      "image_size": {
+        "width": 1366,
+        "height": 768
+      },
+      "image_sha256": "d6b59400adde9872c459c8a0e4fb94a60108bc43f42d54ef744405fede71f00b"
     },
     {
       "name": "overview",
       "width": 1920,
       "height": 1080,
       "route": "#/overview",
+      "current_route": "/overview",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
       "page_scrollable": false,
       "failed_fetch": false,
-      "text_length": 1042
+      "text_length": 1042,
+      "image_size": {
+        "width": 1920,
+        "height": 1080
+      },
+      "image_sha256": "14f29e03a11a90a8857b2dfaf17d00662b976b8be5f7f38059b97513c7e7f2c8"
     },
     {
       "name": "network-config",
       "width": 1920,
       "height": 1080,
       "route": "#/network-config",
+      "current_route": "/network-config",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
       "page_scrollable": false,
       "failed_fetch": false,
-      "text_length": 1074
+      "text_length": 1074,
+      "image_size": {
+        "width": 1920,
+        "height": 1080
+      },
+      "image_sha256": "bd3c5039fd133b6575999853603d691ba3033f30edcca705f50d60375ad70e70"
     },
     {
       "name": "can-monitor",
       "width": 1920,
       "height": 1080,
       "route": "#/can-monitor",
+      "current_route": "/can-monitor",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
       "page_scrollable": false,
       "failed_fetch": false,
-      "text_length": 2243
+      "text_length": 2243,
+      "image_size": {
+        "width": 1920,
+        "height": 1080
+      },
+      "image_sha256": "b8c862dd2a3e665d630d1963c8a4e13bb8317b0271d8345fb8e347eb7a986398"
     },
     {
       "name": "signal-dashboard",
       "width": 1920,
       "height": 1080,
       "route": "#/signal-dashboard",
+      "current_route": "/signal-dashboard",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
       "page_scrollable": false,
       "failed_fetch": false,
-      "text_length": 1169
+      "text_length": 1169,
+      "image_size": {
+        "width": 1920,
+        "height": 1080
+      },
+      "image_sha256": "0fce20abc2d5f408f4584816a4581a79743048d37d6e094faabeb237df8d85f2"
     },
     {
       "name": "realtime-curve",
       "width": 1920,
       "height": 1080,
       "route": "#/realtime-curve",
+      "current_route": "/realtime-curve",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
       "page_scrollable": false,
       "failed_fetch": false,
-      "text_length": 1119
+      "text_length": 1119,
+      "image_size": {
+        "width": 1920,
+        "height": 1080
+      },
+      "image_sha256": "272b34806e0cfa134afdb094e66737bdebccfb96033fe2b989a84ac8d796026b"
     },
     {
       "name": "manual-control",
       "width": 1920,
       "height": 1080,
       "route": "#/manual-control",
+      "current_route": "/manual-control",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
       "page_scrollable": false,
       "failed_fetch": false,
-      "text_length": 1824
+      "text_length": 1824,
+      "image_size": {
+        "width": 1920,
+        "height": 1080
+      },
+      "image_sha256": "ba5de0454adb34061c7d60eee3fdb580eb44d641441bf1b05e2d48a5b3db3a84"
     },
     {
       "name": "auto-test",
       "width": 1920,
       "height": 1080,
       "route": "#/auto-test",
+      "current_route": "/auto-test",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
       "page_scrollable": false,
       "failed_fetch": false,
-      "text_length": 1080
+      "text_length": 1080,
+      "image_size": {
+        "width": 1920,
+        "height": 1080
+      },
+      "image_sha256": "168fabde167a4120fa69a835d76289d935c4086bc1d17bc7b3e6528a0f10611f"
     },
     {
       "name": "alarm-diagnosis",
       "width": 1920,
       "height": 1080,
       "route": "#/alarm-diagnosis",
+      "current_route": "/alarm-diagnosis",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
       "page_scrollable": false,
       "failed_fetch": false,
-      "text_length": 1291
+      "text_length": 1291,
+      "image_size": {
+        "width": 1920,
+        "height": 1080
+      },
+      "image_sha256": "697bd44e31793bdd931c9d16d9414eb59e9b293a20793e9651c0d1b962b13022"
     },
     {
       "name": "report-management",
       "width": 1920,
       "height": 1080,
       "route": "#/report-management",
+      "current_route": "/report-management",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
       "page_scrollable": false,
       "failed_fetch": false,
-      "text_length": 1034
+      "text_length": 1032,
+      "image_size": {
+        "width": 1920,
+        "height": 1080
+      },
+      "image_sha256": "5a890cd11dbe29f17c4668897844b8e93430d1542a55d4b3633e3899a241d0ec"
     },
     {
       "name": "history",
       "width": 1920,
       "height": 1080,
       "route": "#/history",
+      "current_route": "/history",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
       "page_scrollable": false,
       "failed_fetch": false,
-      "text_length": 742
+      "text_length": 742,
+      "image_size": {
+        "width": 1920,
+        "height": 1080
+      },
+      "image_sha256": "3ce0b25d0439c2999c886db1136c47c97a04b1a3176920526cb3fe22eafe8eaf"
     },
     {
       "name": "system-settings",
       "width": 1920,
       "height": 1080,
       "route": "#/system-settings",
+      "current_route": "/system-settings",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
       "page_scrollable": false,
       "failed_fetch": false,
-      "text_length": 3225
+      "text_length": 3223,
+      "image_size": {
+        "width": 1920,
+        "height": 1080
+      },
+      "image_sha256": "b831c456f29b5c8eb428dda8b0c0ff84c6dcd7dbcd5029fa845e7c98f4b2536f"
     }
   ],
+  "route_capture_matches": true,
+  "viewport_matches_request": true,
+  "unique_page_captures": true,
   "passed": true
 }

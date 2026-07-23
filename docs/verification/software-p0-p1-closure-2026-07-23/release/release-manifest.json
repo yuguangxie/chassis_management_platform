@@ -2,10 +2,10 @@
   "schema_version": 1,
   "product": "低速无人车线控底盘生产下线管理平台",
   "software_version": "1.0.2",
-  "commit": "6f5bef16b93585b6cdcfd1f57a7038b1bfc74539",
-  "built_at_utc": "2026-07-23T07:52:09.421Z",
+  "commit": "40dc553ea4155507df9f9d3b69718b2b816fd687",
+  "built_at_utc": "2026-07-23T09:58:54.570Z",
   "source": {
-    "commit": "6f5bef16b93585b6cdcfd1f57a7038b1bfc74539",
+    "commit": "40dc553ea4155507df9f9d3b69718b2b816fd687",
     "dirty": false,
     "dirty_file_count": 0
   },
@@ -43,17 +43,17 @@
     {
       "file": "builder-debug.yml",
       "bytes": 8036,
-      "sha256": "f011da416848edaf5a39dc0879f800daf0f5e3f23737b90b5808ebddb79444e1"
+      "sha256": "18ced9d0b92dc425c255efb5f58617a46aff5c7d5171069cc3bbcc75e374a713"
     },
     {
       "file": "Chassis-EOL-Setup-1.0.2-unsigned-internal-x64.exe",
-      "bytes": 165173203,
-      "sha256": "d101bdfc7d7bd74c0952671f375e456ab89cb60b0bc717cc1c3e0df0992bf5e8"
+      "bytes": 165173758,
+      "sha256": "9ae15624cd9cbff122b2c4d37ec7b559c87e3123b4f822dccac570a74201fdb6"
     },
     {
       "file": "Chassis-EOL-Setup-1.0.2-unsigned-internal-x64.exe.blockmap",
-      "bytes": 174780,
-      "sha256": "20c1cb0f6f0f4dcb4f47d68177fd793ffe53f9e64b7814338ed9aa1e392716e1"
+      "bytes": 174682,
+      "sha256": "f063cb2647e5c6546b23b93146ee1701c9ac267e16b730e3efd08fb091b33c14"
     },
     {
       "file": "npm-audit.json",
@@ -68,12 +68,12 @@
     {
       "file": "sbom.cdx.json",
       "bytes": 91574,
-      "sha256": "54122d80163bd75cf7de6b2be15f6654997d0080bf4bbcbd361bf2a1d42ea151"
+      "sha256": "903ad712a9542386b49a008a977f84fbf894da8b0a199af55bc466437919be45"
     },
     {
       "file": "signing-status.json",
       "bytes": 289,
-      "sha256": "e07030831b1adfb8c4ead289443861c01f6e26edd5704f35bd2e19a7bb24a995"
+      "sha256": "3afa68e2ef7c2607c3e515edafff94a417c514c64f58273cbb7462e91958a1a5"
     }
   ]
 }
