@@ -32,6 +32,24 @@ const requestedPages = new Set((process.env.PHASE04_PAGES || "").split(",").filt
 const viewports = [[1920, 1080], [1366, 768]]
 
 const sleep = (milliseconds) => new Promise((resolve) => setTimeout(resolve, milliseconds))
+
+async function waitForRendererRoute(window, expectedRoute, timeoutMs = 15000) {
+  const deadline = Date.now() + timeoutMs
+  let state = {}
+  while (Date.now() < deadline) {
+    state = await window.webContents.executeJavaScript(`({
+      hash: location.hash,
+      currentRoute: document.documentElement.dataset.currentRoute || ''
+    })`)
+    const matched = expectedRoute === '/login'
+      ? state.currentRoute === '/login' && state.hash.startsWith('#/login')
+      : state.currentRoute === expectedRoute && state.hash === `#${expectedRoute}`
+    if (matched) return state
+    await sleep(100)
+  }
+  throw new Error(`Timed out waiting for renderer route ${expectedRoute}: ${JSON.stringify(state)}`)
+}
+
 // The capture runner intentionally creates and destroys one isolated window per
 // page. Keep the Electron process alive between windows; main() owns final quit.
 app.on('window-all-closed', () => {})
@@ -441,35 +459,34 @@ async function verifyRuntimeStability() {
 }
 
 async function verifySessionLifecycle() {
-  const firstWindow = new BrowserWindow({ show:false, webPreferences:{ contextIsolation:true, nodeIntegration:false } })
+  const firstWindow = new BrowserWindow({ show:false, webPreferences:{ preload:path.join(__dirname,'preload.cjs'), contextIsolation:true, nodeIntegration:false, backgroundThrottling:false } })
   await firstWindow.loadURL(`${baseUrl}/#/overview`)
-  await sleep(captureDelayMs)
-  const unauthenticatedRoute = await firstWindow.webContents.executeJavaScript('location.hash')
+  const unauthenticated = await waitForRendererRoute(firstWindow, '/login')
   await firstWindow.webContents.executeJavaScript(`sessionStorage.setItem('chassis_api_token', ${JSON.stringify(apiToken)})`)
-  await firstWindow.loadURL(`${baseUrl}/#/overview`)
-  await sleep(captureDelayMs)
+  const authenticatedReload = new Promise((resolve) => firstWindow.webContents.once('did-finish-load', resolve))
+  firstWindow.webContents.reload()
+  await authenticatedReload
+  await waitForRendererRoute(firstWindow, '/overview')
   const reloaded = new Promise((resolve) => firstWindow.webContents.once('did-finish-load', resolve))
   firstWindow.webContents.reload()
   await reloaded
-  await sleep(captureDelayMs)
-  const refreshedRoute = await firstWindow.webContents.executeJavaScript('location.hash')
+  const refreshed = await waitForRendererRoute(firstWindow, '/overview')
   firstWindow.destroy()
 
-  const restartedWindow = new BrowserWindow({ show:false, webPreferences:{ contextIsolation:true, nodeIntegration:false } })
+  const restartedWindow = new BrowserWindow({ show:false, webPreferences:{ preload:path.join(__dirname,'preload.cjs'), contextIsolation:true, nodeIntegration:false, backgroundThrottling:false } })
   await restartedWindow.loadURL(`${baseUrl}/#/overview`)
-  await sleep(captureDelayMs)
-  const restartedRoute = await restartedWindow.webContents.executeJavaScript('location.hash')
+  const restarted = await waitForRendererRoute(restartedWindow, '/login')
   restartedWindow.destroy()
   return {
-    unauthenticated_redirects_to_login: unauthenticatedRoute.startsWith('#/login'),
-    refresh_preserves_session: refreshedRoute === '#/overview',
-    electron_restart_requires_login: restartedRoute.startsWith('#/login'),
+    unauthenticated_redirects_to_login: unauthenticated.currentRoute === '/login',
+    refresh_preserves_session: refreshed.currentRoute === '/overview',
+    electron_restart_requires_login: restarted.currentRoute === '/login',
   }
 }
 
 async function verifyPermissionBoundary() {
   if (!viewerToken) return { viewer_network_redirects_403: false, reason: 'viewer token missing' }
-  const window = new BrowserWindow({ show:false, webPreferences:{ contextIsolation:true, nodeIntegration:false } })
+  const window = new BrowserWindow({ show:false, webPreferences:{ preload:path.join(__dirname,'preload.cjs'), contextIsolation:true, nodeIntegration:false, backgroundThrottling:false } })
   await window.loadURL(`${baseUrl}/#/login`)
   await window.webContents.executeJavaScript(`sessionStorage.setItem('chassis_api_token', ${JSON.stringify(viewerToken)})`)
   await window.loadURL(`${baseUrl}/?permission=viewer#/network-config`)
@@ -500,6 +517,12 @@ async function main() {
 }
 
 main().catch((error) => {
+  fs.mkdirSync(output, { recursive: true })
+  fs.writeFileSync(
+    path.join(output, 'capture-error.json'),
+    `${JSON.stringify({ name: error?.name || 'Error', message: error?.message || String(error) }, null, 2)}\n`,
+    'utf8',
+  )
   console.error(error)
   app.exit(1)
 })

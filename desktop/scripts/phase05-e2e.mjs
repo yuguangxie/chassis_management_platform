@@ -358,6 +358,10 @@ async function main() {
       && result.stale_online_assertion
   } catch (error) {
     result.error = `${error?.name || 'Error'}: ${error?.message || error}`
+    const captureErrorPath = resolve(output, 'screenshots/capture-error.json')
+    if (existsSync(captureErrorPath)) {
+      result.rendererCaptureError = JSON.parse(readFileSync(captureErrorPath, 'utf8'))
+    }
   } finally {
     await stop(simulator)
     await stop(frontend)

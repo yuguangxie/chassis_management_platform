@@ -2,6 +2,7 @@ import { readFileSync } from 'node:fs'
 import { describe, expect, it } from 'vitest'
 
 const electronMain = readFileSync('electron/main.cjs', 'utf8')
+const rendererCapture = readFileSync('electron/phase04_capture.cjs', 'utf8')
 const installerVerification = readFileSync('../scripts/verify_windows_installer.ps1', 'utf8')
 
 describe('packaged Electron E2E evidence contract', () => {
@@ -19,5 +20,12 @@ describe('packaged Electron E2E evidence contract', () => {
       expect(electronMain).toContain(rule)
       expect(installerVerification).toContain(rule)
     }
+  })
+
+  it('waits for principal-backed routes instead of using a fixed refresh delay', () => {
+    expect(rendererCapture).toContain("waitForRendererRoute(firstWindow, '/overview')")
+    expect(rendererCapture).toContain("waitForRendererRoute(restartedWindow, '/login')")
+    expect(rendererCapture).toContain("preload:path.join(__dirname,'preload.cjs')")
+    expect(rendererCapture).not.toContain("const refreshedRoute = await firstWindow.webContents.executeJavaScript('location.hash')")
   })
 })
