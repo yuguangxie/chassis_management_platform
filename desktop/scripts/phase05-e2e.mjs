@@ -270,11 +270,14 @@ async function main() {
       .filter((item) => !item.page_inside_content
         || !item.sections_inside_content
         || !item.segmented_controls_fit
-        || !item.action_texts_fit)
+        || !item.action_texts_fit
+        || item.viewport?.width !== item.width
+        || item.viewport?.height !== item.height)
       .map((item) => ({
         page: item.page,
         width: item.width,
         height: item.height,
+        actual_viewport: item.viewport,
         page_inside_content: item.page_inside_content,
         section_failures: item.section_bounds.filter((entry) => !entry.inside),
         segmented_failures: item.segmented_bounds.filter((entry) => !entry.inside || !entry.textFits),
@@ -288,6 +291,7 @@ async function main() {
       no_failed_fetch_banner: inspections.every((item) => !item.failed_to_fetch_banner),
       no_renderer_console_errors: inspections.every((item) => item.renderer_console_errors.length === 0),
       no_renderer_page_errors: inspections.every((item) => item.renderer_page_errors.length === 0),
+      viewport_matches_request: inspections.every((item) => item.viewport?.width === item.width && item.viewport?.height === item.height),
       page_inside_content: inspections.every((item) => item.page_inside_content),
       sections_inside_content: inspections.every((item) => item.sections_inside_content),
       internal_scroll_reachable: inspections.every((item) => item.internal_scroll_reachable),
@@ -338,6 +342,7 @@ async function main() {
       && result.screenshot_assertions.no_page_scroll
       && result.screenshot_assertions.no_white_controls
       && result.screenshot_assertions.no_failed_fetch_banner
+      && result.screenshot_assertions.viewport_matches_request
       && result.screenshot_assertions.page_inside_content
       && result.screenshot_assertions.sections_inside_content
       && result.screenshot_assertions.internal_scroll_reachable

@@ -227,6 +227,10 @@ async function capturePage(name, route, width, height) {
   const window = new BrowserWindow({
     width,
     height,
+    minWidth: width,
+    minHeight: height,
+    useContentSize: true,
+    resizable: false,
     show: false,
     frame: false,
     backgroundColor: "#07111F",
@@ -237,6 +241,7 @@ async function capturePage(name, route, width, height) {
       backgroundThrottling: false,
     },
   })
+  window.setContentSize(width, height, false)
   const rendererConsoleErrors = []
   const rendererPageErrors = []
   window.webContents.on('console-message', (event) => {
