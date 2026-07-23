@@ -1,0 +1,223 @@
+{
+  "timestamp_utc": "2026-07-23T07:53:43.874Z",
+  "page_count": 11,
+  "viewport_count": 2,
+  "screenshot_count": 22,
+  "loopback_only": true,
+  "simulator_running": false,
+  "channels_offline": true,
+  "offline_control_status": 409,
+  "offline_control": {
+    "code": "INTERLOCK_BLOCKED",
+    "blocking_rules": [
+      "can2_online",
+      "feedback_base_vehicle_speed",
+      "feedback_base_controller_heartbeat_front",
+      "feedback_base_controller_heartbeat_rear",
+      "feedback_drive_gear_status",
+      "feedback_drive_drive_mode"
+    ]
+  },
+  "crash_restart_credential_rotated": true,
+  "inspections": [
+    {
+      "name": "overview",
+      "width": 1366,
+      "height": 768,
+      "route": "#/overview",
+      "page_scrollable": false,
+      "failed_fetch": false,
+      "text_length": 976
+    },
+    {
+      "name": "network-config",
+      "width": 1366,
+      "height": 768,
+      "route": "#/network-config",
+      "page_scrollable": false,
+      "failed_fetch": false,
+      "text_length": 1016
+    },
+    {
+      "name": "can-monitor",
+      "width": 1366,
+      "height": 768,
+      "route": "#/can-monitor",
+      "page_scrollable": false,
+      "failed_fetch": false,
+      "text_length": 2243
+    },
+    {
+      "name": "signal-dashboard",
+      "width": 1366,
+      "height": 768,
+      "route": "#/signal-dashboard",
+      "page_scrollable": false,
+      "failed_fetch": false,
+      "text_length": 1169
+    },
+    {
+      "name": "realtime-curve",
+      "width": 1366,
+      "height": 768,
+      "route": "#/realtime-curve",
+      "page_scrollable": false,
+      "failed_fetch": false,
+      "text_length": 1091
+    },
+    {
+      "name": "manual-control",
+      "width": 1366,
+      "height": 768,
+      "route": "#/manual-control",
+      "page_scrollable": false,
+      "failed_fetch": false,
+      "text_length": 1718
+    },
+    {
+      "name": "auto-test",
+      "width": 1366,
+      "height": 768,
+      "route": "#/auto-test",
+      "page_scrollable": false,
+      "failed_fetch": false,
+      "text_length": 984
+    },
+    {
+      "name": "alarm-diagnosis",
+      "width": 1366,
+      "height": 768,
+      "route": "#/alarm-diagnosis",
+      "page_scrollable": false,
+      "failed_fetch": false,
+      "text_length": 1291
+    },
+    {
+      "name": "report-management",
+      "width": 1366,
+      "height": 768,
+      "route": "#/report-management",
+      "page_scrollable": false,
+      "failed_fetch": false,
+      "text_length": 1034
+    },
+    {
+      "name": "history",
+      "width": 1366,
+      "height": 768,
+      "route": "#/history",
+      "page_scrollable": false,
+      "failed_fetch": false,
+      "text_length": 742
+    },
+    {
+      "name": "system-settings",
+      "width": 1366,
+      "height": 768,
+      "route": "#/system-settings",
+      "page_scrollable": false,
+      "failed_fetch": false,
+      "text_length": 3106
+    },
+    {
+      "name": "overview",
+      "width": 1920,
+      "height": 1080,
+      "route": "#/overview",
+      "page_scrollable": false,
+      "failed_fetch": false,
+      "text_length": 1042
+    },
+    {
+      "name": "network-config",
+      "width": 1920,
+      "height": 1080,
+      "route": "#/network-config",
+      "page_scrollable": false,
+      "failed_fetch": false,
+      "text_length": 1074
+    },
+    {
+      "name": "can-monitor",
+      "width": 1920,
+      "height": 1080,
+      "route": "#/can-monitor",
+      "page_scrollable": false,
+      "failed_fetch": false,
+      "text_length": 2243
+    },
+    {
+      "name": "signal-dashboard",
+      "width": 1920,
+      "height": 1080,
+      "route": "#/signal-dashboard",
+      "page_scrollable": false,
+      "failed_fetch": false,
+      "text_length": 1169
+    },
+    {
+      "name": "realtime-curve",
+      "width": 1920,
+      "height": 1080,
+      "route": "#/realtime-curve",
+      "page_scrollable": false,
+      "failed_fetch": false,
+      "text_length": 1119
+    },
+    {
+      "name": "manual-control",
+      "width": 1920,
+      "height": 1080,
+      "route": "#/manual-control",
+      "page_scrollable": false,
+      "failed_fetch": false,
+      "text_length": 1824
+    },
+    {
+      "name": "auto-test",
+      "width": 1920,
+      "height": 1080,
+      "route": "#/auto-test",
+      "page_scrollable": false,
+      "failed_fetch": false,
+      "text_length": 1080
+    },
+    {
+      "name": "alarm-diagnosis",
+      "width": 1920,
+      "height": 1080,
+      "route": "#/alarm-diagnosis",
+      "page_scrollable": false,
+      "failed_fetch": false,
+      "text_length": 1291
+    },
+    {
+      "name": "report-management",
+      "width": 1920,
+      "height": 1080,
+      "route": "#/report-management",
+      "page_scrollable": false,
+      "failed_fetch": false,
+      "text_length": 1034
+    },
+    {
+      "name": "history",
+      "width": 1920,
+      "height": 1080,
+      "route": "#/history",
+      "page_scrollable": false,
+      "failed_fetch": false,
+      "text_length": 742
+    },
+    {
+      "name": "system-settings",
+      "width": 1920,
+      "height": 1080,
+      "route": "#/system-settings",
+      "page_scrollable": false,
+      "failed_fetch": false,
+      "text_length": 3225
+    }
+  ],
+  "passed": true
+}

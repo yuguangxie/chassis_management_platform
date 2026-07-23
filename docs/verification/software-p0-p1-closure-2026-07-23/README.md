@@ -32,11 +32,11 @@
 
 ## 4. 本地验证结果
 
-以下结果是在最终 release 构建前的开发工作树上获得；全部动态验证仅使用 Mock、临时数据目录和回环地址。clean commit、installer hash、签名状态与远程 CI run 在完成 release 步骤后补录。
+以下结果来自最终源码提交及其 Windows release 构建；全部动态验证仅使用 Mock、临时数据目录和回环地址。远程 CI 结果在工作流完成后补录。
 
 | 命令 | 结果 |
 |---|---|
-| `backend\.venv\Scripts\python.exe scripts\run_quality.py --suite all --coverage` | PASS：218 backend + 3 simulator；backend 78.46%，simulator 42.98% |
+| `backend\.venv\Scripts\python.exe scripts\run_quality.py --suite all --coverage` | PASS：219 backend + 3 simulator；backend 78.52%，simulator 42.98% |
 | `npm.cmd run lint` | PASS |
 | `npm.cmd run test` | PASS：20 files / 139 tests；statements 56.50%、branches 58.36%、functions 67.05%、lines 58.54% |
 | `npm.cmd run typecheck` | PASS |
@@ -47,9 +47,25 @@
 | `npm.cmd run test:e2e:verify` | PASS：Electron v43.1.0、22 张截图、11 页交互、offline control=409 |
 | `npm.cmd audit --audit-level=high` | PASS：596 个依赖，0 个已知漏洞 |
 | `python -m pip_audit --skip-editable` | PASS：0 个已知漏洞；本地 editable 项目自身不属于第三方漏洞库扫描对象 |
-| Windows NSIS / clean-machine | 待 clean commit 后执行；无证书时只能为 `unsigned-internal` |
+| `scripts/check_report_dependencies.py` | PASS：ReportLab 原生 PDF、python-docx、PDF 预览可用；DOCX 与 PDF 独立渲染，未启用外部 DOCX→PDF 转换器 |
+| Windows NSIS / installed-package | PASS：clean commit 构建、中文与空格路径、8800 端口占用、11 页、二次启动、有界崩溃恢复、启动失败诊断、卸载保留数据 |
 
-## 5. 现场仍需确认
+## 5. Windows release candidate
+
+| 项目 | 证据 |
+|---|---|
+| 源码 commit | `6f5bef16b93585b6cdcfd1f57a7038b1bfc74539` |
+| 源码状态 | `dirty=false`，`dirty_file_count=0`；构建前冻结，finalize 校验 commit 未变化 |
+| 安装包 | `Chassis-EOL-Setup-1.0.2-unsigned-internal-x64.exe`，165,173,203 bytes |
+| 安装包 SHA-256 | `d101bdfc7d7bd74c0952671f375e456ab89cb60b0bc717cc1c3e0df0992bf5e8` |
+| 签名状态 | `signed=false`、`formal_release=false`、`release_label=unsigned-internal`；不得作为正式生产签名包 |
+| 供应链证据 | `release/sbom.cdx.json`、`npm-audit.json`、`pip-audit.json`、`signing-status.json`、`release-manifest.json` |
+| 安装后证据 | `clean-machine/clean-machine-matrix.json` 与 22 张 installed-package 页面截图；`passed=true` |
+| 未执行矩阵项 | 无历史安装包，故升级/回滚未执行；独立普通用户/管理员 VM 和厂商 AV/防火墙仍属外部验收 |
+
+安装包本体位于本机构建目录 `desktop/release/windows/`，因体积与发布介质策略不提交 Git；校验时必须以本节 SHA-256 和 `release/release-manifest.json` 为准。
+
+## 6. 现场仍需确认
 
 - 物理急停、独立安全 PLC/继电器、动力隔离和故障树/FMEA；
 - 目标控制器 firmware、watchdog、20 ms 周期抖动、safe-stop 停发/保持/确认语义；
